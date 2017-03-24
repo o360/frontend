@@ -14,8 +14,10 @@ export class RestService<T> {
 
   public list(): Observable<T[]> {
     return this._http.get(this._getRequestParams())
-      .map((response: Response) => response.json())
+      .map((response: Response) => response.json()
+      // .map(((response: Response) ==='object') ? Object.values(response: Response) : response)
       .map((json: Object[]) => json.map(x => new this._entityConstructor(x)));
+      // .map(json ===);
   }
 
   public get(id: number): Observable<T> {
@@ -50,7 +52,8 @@ export class RestService<T> {
   protected _create(model: T) {
     return this._http.post(this._getRequestParams(), JSON.stringify(model), this._getRequestOptions())
       .map((res: Response) => res.json())
-      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'))
+      .subscribe();
   }
 
   protected _getRequestParams(id?: number) {

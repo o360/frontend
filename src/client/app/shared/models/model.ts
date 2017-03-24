@@ -4,5 +4,9 @@ export abstract class Model {
   constructor(json: Object) {
     Object.assign(this, json);
   }
-//  toJson()
+  // toJson(): Model {
+  //   return Object.assign({}, this, {
+  //     created: this.created.toString()
+  //   });
+  // }
 }
