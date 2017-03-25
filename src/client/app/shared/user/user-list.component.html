@@ -1,7 +1,11 @@
 <div class="user-list">
-  <user-item
-    *ngFor="let task of tasks | async"
-    [user]="user"
-    (delete)="remove.emit(user)"
-    (update)="update.emit({user: user, changes: $event})"></user-item>
+  <div class="user-item"
+     *ngFor="let user of _users | async">
+    <p>{{user.name}}</p>
+  </div>
+  <!--<div class="user-item"-->
+    <!--*ngFor="let user of _users | async"-->
+    <!--[user]="user"-->
+    <!--(delete)="remove.emit(user)"-->
+    <!--(update)="update.emit({user: user, changes: $event})"></div>-->
 </div>

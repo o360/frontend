@@ -1,9 +1,9 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
+import { UserListComponent } from './user-list.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
-import { UserListComponent} from './user-list.component';
 import { UserService } from '../services/user.service';
 
 /**
@@ -12,17 +12,30 @@ import { UserService } from '../services/user.service';
 
 @NgModule({
   imports: [CommonModule, RouterModule],
-  declarations: [],
+  declarations: [UserListComponent],
   providers: [UserService],
   exports: [UserListComponent,
     CommonModule, FormsModule, RouterModule]
 })
-export class SharedModule {
+export class UserModule {
   static forRoot(): ModuleWithProviders {
     return {
-      ngModule: SharedModule,
+      ngModule: UserModule,
       // providers: [NameListService]
     };
   }
 }
-
+//
+// import { NgModule } from '@angular/core';
+// import { HomeComponent } from './home.component';
+// import { HomeRoutingModule } from './home-routing.module';
+// import { SharedModule } from '../shared/shared.module';
+// import { NameListService } from '../shared/name-list/name-list.service';
+//
+// @NgModule({
+//   imports: [HomeRoutingModule, SharedModule],
+//   declarations: [HomeComponent],
+//   exports: [HomeComponent],
+//   providers: [NameListService]
+// })
+// export class HomeModule { }
