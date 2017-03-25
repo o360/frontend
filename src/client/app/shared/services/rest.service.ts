@@ -14,10 +14,9 @@ export class RestService<T> {
 
   public list(): Observable<T[]> {
     return this._http.get(this._getRequestParams())
-      .map((response: Response) => response.json()
+      .map((response: Response) => Object.assign(response.json()))
       // .map(((response: Response) ==='object') ? Object.values(response: Response) : response)
       .map((json: Object[]) => json.map(x => new this._entityConstructor(x)));
-      // .map(json ===);
   }
 
   public get(id: number): Observable<T> {
