@@ -1,12 +1,13 @@
 export abstract class Model {
-  public  id: number;
+  protected _defaults: Object;
 
-  constructor(json: Object) {
-    Object.assign(this, json);
+  public id: number;
+
+  constructor(json?: Object) {
+    Object.assign(this, this._defaults, json);
   }
-  // toJson(): Model {
-  //   return Object.assign({}, this, {
-  //     created: this.created.toString()
-  //   });
-  // }
+
+  public toJson(): Object {
+    return JSON.stringify(this);
+  }
 }
