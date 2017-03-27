@@ -1,11 +1,12 @@
-import { RestService } from './rest.service';
+import { Injectable } from '@angular/core';
 import { UserModel } from '../models/user-model';
-import { Observable } from 'rxjs/Rx';
-import { Http, Response, RequestOptions, Headers } from '@angular/http';
+import { RestServiceConfig } from '../decorators/rest-service-config.decorator';
+import { RestService } from './rest.service';
 
-
+@Injectable()
+@RestServiceConfig({
+  entityName: 'users',
+  entityConstructor: UserModel
+})
 export class UserService extends RestService<UserModel> {
-  protected _entityName = 'users';
-  protected _entityConstructor = UserModel;
-
 }

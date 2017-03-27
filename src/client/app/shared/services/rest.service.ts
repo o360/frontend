@@ -1,77 +1,97 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Rx';
 import { Http, Response, RequestOptions, Headers } from '@angular/http';
+import { Observable } from 'rxjs/Rx';
+import { Config } from '../config/env.config';
+import { Model } from '../models/model';
 
+export declare type ModelConstructor<T> = { new (json: Object): T };
 
 @Injectable()
-export class RestService<T> {
-  protected _serviceUrl = 'https://model-service-51554.firebaseio.com'; // add this one to User service
+export class RestService<T extends Model> {
+  protected _host: string = Config.API;
+  protected _endpoint: string;
   protected _entityName: string;
-  protected _entityConstructor: { new (json: Object): T };
-  protected _servicePath = 'assets/data.json'; // test path
+  protected _entityConstructor: ModelConstructor<T>;
 
-  constructor(protected _http: Http) { }
+  constructor(protected _http: Http) {
+  }
 
   public list(): Observable<T[]> {
     return this._http.get(this._getRequestParams())
-      .map((response: Response) => Object.assign(response.json()))
-      // .map(((response: Response) ==='object') ? Object.values(response: Response) : response)
-      .map((json: Object[]) => json.map(x => new this._entityConstructor(x)));
+      .map((response: Response) => Object.values(response.json()))
+      .map((json: Object[]) => json.map(x => new this._entityConstructor(x)))
+      .catch((error: any) => this._handleErrors(error));
   }
 
   public get(id: number): Observable<T> {
     return this._http.get(this._getRequestParams(id))
       .map((response: Response) => response.json())
       .map((json: Object) => new this._entityConstructor(json))
-      .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
-      // .catch(error: any=>  { alert(`Can't get users.`));
+      .catch((error: any) => this._handleErrors(error));
   }
 
   public save(model: T): Observable<T> {
     if (model.id !== undefined) {
-      this._update(model, model.id);
+      return this._update(model);
     } else {
-      this._create(model);
+      return this._create(model);
     }
   }
 
   public delete(id: number): Observable<void> {
-    return this._http.delete(this._getRequestParams(id),this._getRequestOptions())
-      .map((res:Response) => res.json())
-      .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+    let requestParams = this._getRequestParams(id);
+    let requestOptions = this._getRequestOptions();
+
+    return this._http.delete(requestParams, requestOptions)
+      .catch((error: any) => this._handleErrors(error));
   }
 
-  protected _update(model: T, id: number) {
-    return this._http.put(this._getRequestParams(id), JSON.stringify(model), this._getRequestOptions())
-      .map((res: Response) => res.json())
-      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+  protected _update(model: T): Observable<T> {
+    let requestParams = this._getRequestParams(model.id);
+    let json = model.toJson();
+    let requestOptions = this._getRequestOptions();
 
+    return this._http.put(requestParams, json, requestOptions)
+      .map((res: Response) => res.json())
+      .map((json: Object) => new this._entityConstructor(json))
+      .catch((error: any) => this._handleErrors(error));
   }
 
-  protected _create(model: T) {
-    return this._http.post(this._getRequestParams(), JSON.stringify(model), this._getRequestOptions())
+  protected _create(model: T): Observable<T> {
+    let requestParams = this._getRequestParams();
+    let json = model.toJson();
+    let requestOptions = this._getRequestOptions();
+
+    return this._http.post(requestParams, json, requestOptions)
       .map((res: Response) => res.json())
-      .catch((error: any) => Observable.throw(error.json().error || 'Server error'))
-      .subscribe();
+      .map((json: Object) => new this._entityConstructor(json))
+      .catch((error: any) => this._handleErrors(error));
   }
 
   protected _getRequestParams(id?: number) {
     let path: string[] = [];
 
-    path.push(this._serviceUrl);
+    path.push(this._host);
+    path.push(this._endpoint);
     path.push(this._entityName);
 
     if (id !== undefined) {
       path.push(id.toString());
     }
-    console.log(path.join('/')+'.json');
-    return path.join('/')+'.json';
+
+    path = path.filter(part => part && part !== '');
+
+    return path.join('/') + '.json';
   }
 
   protected _getRequestOptions() {
     return new RequestOptions({
       headers: new Headers({ 'Content-Type': 'application/json;charset=UTF-8' })
     });
+  }
+
+  protected _handleErrors(error: any) {
+    return Observable.throw(error.json().error || 'Server error');
   }
 }
 
