@@ -1,0 +1,12 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700');
+@import 'theme';
+
+/**
+ * Override of theme styles
+ */
+
+header.navbar .navbar-brand {
+  background-image: none;
+  text-align: center;
+  line-height: 38px;
+}
