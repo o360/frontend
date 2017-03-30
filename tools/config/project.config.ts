@@ -1,6 +1,7 @@
 import { join } from 'path';
 
 import { SeedConfig } from './seed.config';
+import { ExtendPackages } from './seed.config.interfaces';
 // import { ExtendPackages } from './seed.config.interfaces';
 
 /**
@@ -47,14 +48,15 @@ export class ProjectConfig extends SeedConfig {
       // {src: `${this.CSS_SRC}/path-to-lib/test-lib.css`, inject: true, vendor: false},
     ];
 
-    // Add packages (e.g. ng2-translate)
-    // let additionalPackages: ExtendPackages[] = [{
-    //   name: 'ng2-translate',
-    //   // Path to the package's bundle
-    //   path: 'node_modules/ng2-translate/bundles/ng2-translate.umd.js'
-    // }];
-    //
-    // this.addPackagesBundles(additionalPackages);
+    let additionalPackages: ExtendPackages[] = [{
+      name: '@ngx-translate/core',
+      path: 'node_modules/@ngx-translate/core/bundles/core.umd.js'
+    }, {
+      name: '@ngx-translate/http-loader',
+      path: 'node_modules/@ngx-translate/http-loader/bundles/http-loader.umd.js'
+    }];
+
+    this.addPackagesBundles(additionalPackages);
 
     /* Add proxy middleware */
     // this.PROXY_MIDDLEWARE = [
