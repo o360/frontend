@@ -1,86 +1,127 @@
-import { Component, EventEmitter, Input, OnInit, OnChanges, Output } from '@angular/core';
-import { UserService } from '../services/user.service';
-import { Observable } from 'rxjs/Rx';
-import { UserModel } from '../models/user-model';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { ListComponent } from '../shared/components/list.component';
+import { UserModel } from '../shared/models/user-model';
+import { UserService } from '../shared/services/user.service';
 
 @Component({
   moduleId: module.id,
   selector: 'user-list',
   templateUrl: 'user-list.component.html',
   styleUrls: ['user-list.component.css'],
-  providers: [ UserService ]
+  providers: [UserService]
 })
-export class UserListComponent /*implements OnInit, OnChanges*/ extends ListComponent<User> {
-  constructor(public service: UserService) {
+export class UserListComponent extends ListComponent<UserModel> {
+  public title: string = 'Here is a list of users. Also you can create a new one.';
+  public selectedUser: UserModel;
+
+  constructor(service: UserService, private router: Router,) {
     super(service);
   }
 
-  // public title: string = 'Here is a list of users. Also you can create a new one.';
-  // private _users: UserModel[];
-  //
-  // constructor(private _userService: UserService) { }
-
-  // @Input() users: Observable<UserModel[]>;
-  //
-  //   @Output() delete = new EventEmitter(false);
-  //   @Output() update = new EventEmitter(false);
-  //
-  //
-  // @Input() reset: string;
-  // @Input() userInfo: string;
-  // @Input() userList: string;
-
-  // private _users: UserModel[];
-  // private usersList: UserModel[]; // TODO
-  // private currentUser:UserModel;
-  //
-  // constructor(
-  //   private _http: UserService
-  // ) {}
-
-  // ngOnInit() {
-  //   this.getUsers();
-  //   // this._http.list().subscribe(
-  //   //   response => this.usersList = response,
-  //   //   error=>  { alert(`Can't get users.`); }
-  //   // );
-  // }
-
-  /**
-   * Handle the nameListService observable
-   */
-  // getUsers() {
-  //   this._userService.list()
-  //     .subscribe(
-  //       response => this._users= response,
-  //       error=>  {  console.log(`Can't get users.`); }
-  //     );
-  //   console.log(this._users);
-  // }
-
-  // public userSelected(user:any) {
-  //   this.currentUser = user;
-  // }
-  //
-  // public isSelected(user:any): boolean {
-  //   if(!this.currentUser) {
-  //     return false;
-  //   }
-  //   return this.currentUser.id ===  user.id ? true : false;
-  // }
-  // public deleteUser(userId:string){
-  //   this._http.deleteUser(userId).subscribe(
-  //     response => {
-  //       if(response.error) {
-  //         alert(`The user could not be deleted, server Error.`);
-  //       } else {
-  //         this.usersList = response.users;
-  //       }
-  //     },
-  //     error=> {
-  //       alert(`The user could not be deleted, server Error.`);
-  //     }
-  //   );
-  // }
+  public onSelect(user: UserModel): void {
+    this.selectedUser = user;
+    // this.isEditing = false;
+  }
 }
+
+
+// import { Component, OnInit, Input, EventEmitter } from '@angular/core';
+// import { UserService } from '../shared/services/user.service';
+// import { UserModel } from '../shared/models/user-model';
+// import { Utils } from '../utils';
+//
+// /**
+//  * This class represents the lazy loaded HomeComponent.
+//  */
+// @Component({
+//   moduleId: module.id,
+//   selector: 'user-list',
+//   templateUrl: 'user-list.component.html',
+//   styleUrls: ['user-list.component.css'],
+//   providers: [UserService]
+// })
+// export class UserListComponent implements OnInit {
+//   @Input() user: UserModel;
+//   public isEditing = false;
+//   public selectedUser: UserModel;
+//   public title: string = 'Here is a list of users. Also you can create a new one.';
+//   public newName: string = '';
+//   private _users: UserModel[];
+//
+//
+//   constructor(private _userService: UserService) {
+//   }
+//
+//   /**
+//    * Get users OnInit
+//    */
+//   ngOnInit(): void {
+//     this.getUsers();
+//   }
+//   /** Return list of users
+//    * @return
+//    */
+//   public getUsers(): void {
+//     this._userService.list()
+//       .subscribe(
+//         response => this._users = response,
+//         error => {
+//           console.log(`Can't get users.`);
+//         }
+//       );
+//   }
+//
+//   /** Delete user
+//    * @params {UserModel} - user
+//    * @return
+//    */
+//   public deleteUser(user: UserModel): void {
+//       this._userService
+//       .delete(user.id)
+//       .subscribe(response => {
+//         this._users = this._users.filter(h => h !== user);
+//         if (this.selectedUser === user) { this.selectedUser = null;}
+//       })
+//       this.getUsers();
+//   }
+//   /** Update user
+//    * @params {UserModel} - user
+//    * @return
+//    */
+//   public updateUser(user: UserModel) {
+//     // if(this.selectedUser === user) {
+//     //   this.isEditing = true;
+//     // }
+//     console.log(user);
+//     // this._userService.save(user)
+//     //   .subscribe(
+//     //     () => {console.log();}
+//     //   );
+//   }
+//
+//   public addUser(user: UserModel): void {
+//     this._userService.save(user)
+//       .subscribe(
+//         response => { user = response; }
+//         // err => console.log('error')
+//       )
+//     this.getUsers();
+//     // save(): void {
+//     //   this.heroService
+//     //   .save(this.hero)
+//     //   .then(hero => {
+//     //     this.hero = hero; // saved hero, w/ id if new
+//     //     this.goBack(hero);
+//     //   })
+//     //   .catch(error => this.error = error); // TODO: Display error message
+//   }
+//   public onSelect(user: UserModel): void {
+//     this.selectedUser = user;
+//     this.isEditing = false;
+//   }
+//   public editMode() {
+//     return this.isEditing = !this.isEditing;
+//   }
+// }
+//

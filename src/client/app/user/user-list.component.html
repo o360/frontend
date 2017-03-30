@@ -1,26 +1,26 @@
-<!--<p>{{title}}</p>-->
-<!--<form (submit)="addUser()">-->
-  <!--<input [(ngModel)]="newName" name="newName" placeholder="User Name">-->
-  <!--<button type="submit">Add user</button>-->
-<!--</form>-->
-<!--<table class="user-list">-->
-  <!--<tr>-->
-    <!--&lt;!&ndash;<th>Id</th>&ndash;&gt;-->
-    <!--<th>Name</th>-->
-  <!--</tr>-->
-  <!--<tr *ngFor="let user of _users">-->
-    <!--&lt;!&ndash;<td>{{user.id}}</td>&ndash;&gt;-->
-    <!--<td>{{user.name}}</td>-->
-    <!--<td><button class="delete" (click)="deleteUsers(user.id)">delete</button></td>-->
-    <!--<td><button class="update" (click)="update(user.id)">update</button></td>-->
-  <!--</tr>-->
-<!--</table>-->
-
-<!--&lt;!&ndash;<ul>&ndash;&gt;-->
-<!--&lt;!&ndash;<li *ngFor="let name of names"&ndash;&gt;-->
-<!--&lt;!&ndash;(click) = "userSelected(user)"&ndash;&gt;-->
-<!--&lt;!&ndash;[class.active]="isSelected(user) && isReset" >&ndash;&gt;-->
-<!--&lt;!&ndash;{{names}}&ndash;&gt;-->
-<!--&lt;!&ndash;<button (click)="deleteUsers(user.id)">X</button>&ndash;&gt;-->
-<!--&lt;!&ndash;</li>&ndash;&gt;-->
-<!--&lt;!&ndash;</ul>&ndash;&gt;-->
+<button [routerLink]="['/users/create']" routerLinkActive="active" [queryParams]=""> Add User</button>
+<p>{{title}}</p>
+<table class="user-list">
+  <tr>
+    <th>Name</th>
+  </tr>
+  <tr class="user-row" *ngFor="let user of list">
+    <td (click)="onSelect(user)" [class.selected]="user === selectedUser">{{user.name}}</td>
+    <td *ngIf="selectedUser === user">
+      <button class="delete" (click)="remove(user)">
+        delete
+      </button>
+    </td>
+    <td *ngIf="selectedUser === user">
+      <button class="update" [routerLink]="['/users/create', user.id]">
+        update
+      </button>
+    </td>
+    <td *ngIf="selectedUser === user">
+      <button class="view-detail" [routerLink]="['/users/detail', user.id]">
+        view details
+      </button>
+    </td>
+  </tr>
+</table>
+<router-outlet></router-outlet>

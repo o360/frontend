@@ -6,4 +6,8 @@ import { Defaults } from '../decorators/defaults.decorator';
 })
 export class UserModel extends Model {
   public name: string;
+
+  public get fullName() {
+    return this.name;
+  }
 }
