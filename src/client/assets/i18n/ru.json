@@ -2,5 +2,15 @@
   "T_STAFF_ASSESSMENT_SYSTEM": "Система оценки персонала",
   "T_HOME": "Главная",
   "T_USERS": "Пользователи",
-  "T_GROUPS": "Группы"
+  "T_GROUPS": "Группы",
+  "T_ACTION_CREATE": "Создать",
+  "T_ACTION_DELETE": "Удалить",
+  "T_ACTION_EDIT": "Редактировать",
+  "T_ACTION_UPDATE": "Сохранить изменения",
+  "T_ACTION_GO_BACK": "Вернуться назад",
+  "T_USER": "Пользователь",
+  "T_USER_NAME": "Имя",
+  "T_USER_DETAILS": "Подробнее о пользователе",
+  "T_FORM_ENTER_NAME": "Введите имя пользователя..."
+
 }

@@ -1,68 +1,58 @@
-import { OnInit, EventEmitter, Output } from '@angular/core';
-import { Params, ActivatedRoute } from '@angular/router';
-import { RestService } from '../services/rest.service';
-import { Model } from '../models/model';
+import { OnInit } from '@angular/core';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Model, ModelId } from '../../core/models/model';
+import { RestService } from '../../core/services/rest.service';
 
 export abstract class FormComponent<T extends Model> implements OnInit {
-  public navigated = false;
-  protected _element: T;
-  protected _id: number;
-  @Output() close = new EventEmitter();
+  protected _id: ModelId;
+  protected _model: T;
+  protected _editMode: boolean = false;
+  protected _returnPath: any[];
+
+  public get editMode(): boolean {
+    return this._editMode;
+  }
+
+  public get model(): T {
+    return this._model;
+  }
+
+  public set model(value: T) {
+    this._model = value;
+  }
 
   constructor(protected _service: RestService<T>,
+              protected _router: Router,
               protected _route: ActivatedRoute) {
   }
 
-  // public ngOnInit(): void {
-  //   this._route.params
-  //     .subscribe((params: Params) => {
-  //     this._id = parseInt(params['id']);
-  //     this._update();
-  //   });
-  // }
-  // ngOnInit(): void {
-  //   this._route.params.forEach((params: Params) => {
-  //     if (params['id'] !== undefined) {
-  //       let id = +params['id'];
-  //       // this.navigated = true;
-  //       this._service.get(id)
-  //         .subscribe(element => this._element = element);
-  //     } else {
-  //       this.navigated = false;
-  //       // this._element = new T();
-  //     }
-  //   });
-  // }
-  //
-  // protected _update() {
-  //   this._service.get(this._id)
-  //     .subscribe((element: T) => {
-  //       this._element = element;
-  //       this.goBack(element);
-  //       // this._load();
-  //     });
-  // }
-  //
-  // public save() {
-  //   this._service
-  //     .save(this._element)
-  //     .subscribe(element => {
-  //       this._element = element;
-  //       // this.goBack(element);
-  //     });
-  // }
-  //
-  // public goBack(savedElement: T = null) {
-  //   console.log('ну давай');
-  //   if (savedElement !== null) {
-  //     console.log(savedElement);
-  //     this.close.emit(savedElement);
-  //   }
-  //   window.history.back();
-  // }
+  public ngOnInit(): void {
+    this._route.params.forEach((params: Params) => {
+      if (params['id']) {
+        this._id = params['id'];
+      }
 
-  // public newUser() {
-  //   this._element = new T([this._id, '']);
-  // }
+      this._load();
+    });
+  }
+
+  public save() {
+    this._service.save(this._model).subscribe(() => {
+      if (this._returnPath) {
+        this._router.navigate(this._returnPath);
+      }
+    });
+  }
+
+  protected _load() {
+    if (this._id) {
+      this._editMode = true;
+      this._service.get(this._id).subscribe((model: T) => {
+        this._model = model;
+      });
+    } else {
+      this._model = this._service.createEntity();
+    }
+  }
 }
 

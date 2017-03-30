@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { UserListComponent } from './user-list.component';
-import { UserDetailsFormComponent } from './user-form.component';
+import { RouterModule } from '@angular/router';
 import { UserDetailsComponent } from './user-details.component';
+import { UserFormComponent } from './user-form.component';
+import { UserListComponent } from './user-list.component';
 
 @NgModule({
   imports: [
@@ -11,25 +11,19 @@ import { UserDetailsComponent } from './user-details.component';
       children: [{
         path: '',
         component: UserListComponent,
-      },
-      {
+      }, {
         path: 'create',
-        component: UserDetailsFormComponent
-      },
-      {
-        path: 'create/:id',
-        component: UserDetailsFormComponent
-      },
-      {
-        path: 'detail/:id',
+        component: UserFormComponent,
+      }, {
+        path: ':id',
         component: UserDetailsComponent
-      }
-      ]
+      }, {
+        path: ':id/edit',
+        component: UserFormComponent
+      }]
     }])
   ],
   exports: [RouterModule]
 })
 export class UserRoutingModule {
 }
-
-export const routedComponents = [UserListComponent, UserDetailsFormComponent, UserDetailsComponent];

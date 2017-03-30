@@ -1,25 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { DetailsComponent } from '../shared/components/details.component'
-import { UserModel } from '../shared/models/user-model';
-import { ActivatedRoute, Params } from '@angular/router';
-import { UserService } from '../shared/services/user.service';
+import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { UserModel } from '../core/models/user-model';
+import { UserService } from '../core/services/user.service';
+import { DetailsComponent } from '../shared/components/details.component';
 
 @Component({
+  moduleId: module.id,
   selector: 'user-details',
-  template: `
-    <div *ngIf="element" class="container">
-      <h2>{{element.name}} details</h2>
-      <!--<p>Id: {{user.id}}</p>-->
-      <div>
-        <label>name: </label>
-        <input [(ngModel)]="element.name" placeholder="name"/>
-      </div>
-      <button (click)="goBack()">Back</button>
-    </div>
-  `
+  templateUrl: `user-details.component.html`
 })
-export class UserDetailsComponent extends DetailsComponent<UserModel> implements OnInit {
-
+export class UserDetailsComponent extends DetailsComponent<UserModel> {
   constructor(service: UserService,
               route: ActivatedRoute) {
     super(service, route);

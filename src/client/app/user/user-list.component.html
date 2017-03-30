@@ -1,26 +1,33 @@
-<button [routerLink]="['/users/create']" routerLinkActive="active" [queryParams]=""> Add User</button>
-<p>{{title}}</p>
-<table class="user-list">
-  <tr>
-    <th>Name</th>
-  </tr>
-  <tr class="user-row" *ngFor="let user of list">
-    <td (click)="onSelect(user)" [class.selected]="user === selectedUser">{{user.name}}</td>
-    <td *ngIf="selectedUser === user">
-      <button class="delete" (click)="remove(user)">
-        delete
-      </button>
-    </td>
-    <td *ngIf="selectedUser === user">
-      <button class="update" [routerLink]="['/users/create', user.id]">
-        update
-      </button>
-    </td>
-    <td *ngIf="selectedUser === user">
-      <button class="view-detail" [routerLink]="['/users/detail', user.id]">
-        view details
-      </button>
-    </td>
-  </tr>
-</table>
-<router-outlet></router-outlet>
+<div class="card">
+  <div class="card-header">{{ 'T_USERS' | translate }}</div>
+  <div class="card-block">
+    <button type="button"
+            class="btn btn-primary"
+            [routerLink]="['/users/create']">{{ 'T_ACTION_CREATE' | translate }}
+    </button>
+
+    <table class="table mt-1">
+      <tr>
+        <th>{{ 'T_USER_NAME' | translate }}</th>
+        <th>{{ 'T_ACTION' | translate }}</th>
+      </tr>
+      <tr *ngFor="let model of list">
+        <td><a [routerLink]="['/users', model.id]">{{ model.name }}</a></td>
+        <td>
+          <button type="button"
+                  class="btn btn-sm btn-success"
+                  [routerLink]="['/users', model.id, 'edit']">{{ 'T_ACTION_EDIT' | translate }}
+          </button>
+
+
+          <button type="button"
+                  class="btn btn-sm btn-danger"
+                  (click)="delete(model.id)">{{ 'T_ACTION_DELETE' | translate }}
+          </button>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+

@@ -1,13 +1,9 @@
-import { Model } from './model';
 import { Defaults } from '../decorators/defaults.decorator';
+import { Model } from './model';
 
 @Defaults({
   name: ''
 })
 export class UserModel extends Model {
   public name: string;
-
-  public get fullName() {
-    return this.name;
-  }
 }

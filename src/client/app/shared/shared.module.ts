@@ -4,8 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { UserService } from './services/user.service';
-
 /**
  * Do not specify providers for modules that might be imported by a lazy loaded module.
  */
@@ -17,7 +15,6 @@ import { UserService } from './services/user.service';
     RouterModule,
     TranslateModule
   ],
-  providers: [UserService],
   declarations: [],
   exports: [
     CommonModule,

@@ -1,6 +1,6 @@
 import { OnInit } from '@angular/core';
-import { RestService } from '../services/rest.service';
-import { Model } from '../models/model';
+import { Model, ModelId } from '../../core/models/model';
+import { RestService } from '../../core/services/rest.service';
 
 export abstract class ListComponent<T extends Model> implements OnInit {
   protected _list: T[];
@@ -16,19 +16,13 @@ export abstract class ListComponent<T extends Model> implements OnInit {
     this._update();
   }
 
-  protected _update() {
-    this._service.list()
-      .subscribe((list: T[]) => {
-        this._list = list;
-      });
+  public delete(id: ModelId) {
+    this._service.delete(id).subscribe(() => this._update());
   }
 
-  public remove(element: T) {
-    let index = this._list.indexOf(element);
-    this._list.splice(index, 1);
-
-    this._service.delete(element.id)
-      .subscribe(response => this._list);
-    element = null;
+  protected _update() {
+    this._service.list().subscribe((list: T[]) => {
+      this._list = list;
+    });
   }
 }
