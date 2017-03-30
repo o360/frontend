@@ -5,8 +5,8 @@ import { Component } from '@angular/core';
  */
 @Component({
   moduleId: module.id,
-  selector: 'sd-navbar',
-  templateUrl: 'navbar.component.html',
-  styleUrls: ['navbar.component.css'],
+  selector: 'bs-sidebar-nav',
+  templateUrl: 'sidebar-nav.component.html'
 })
-export class NavbarComponent { }
+export class SidebarNavComponent {
+}
