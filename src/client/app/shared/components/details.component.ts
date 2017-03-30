@@ -1,14 +1,14 @@
 import { OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { RestService } from '../services/rest.service';
-import { Model } from '../models/model';
+import { Model, ModelId } from '../../core/models/model';
+import { RestService } from '../../core/services/rest.service';
 
 export abstract class DetailsComponent<T extends Model> implements OnInit {
-  protected _element: T;
-  protected _id: number;
+  protected _id: ModelId;
+  protected _model: T;
 
-  public get element(): T {
-    return this._element;
+  public get model(): T {
+    return this._model;
   }
 
   constructor(protected _service: RestService<T>,
@@ -22,13 +22,9 @@ export abstract class DetailsComponent<T extends Model> implements OnInit {
     });
   }
 
-  public goBack(): void {
-    window.history.back();
-  }
-
-  protected _update() {
-    this._service.get(this._id).subscribe((element: T) => {
-      this._element = element;
+  protected _update(): void {
+    this._service.get(this._id).subscribe((model: T) => {
+      this._model = model;
     });
   }
 }

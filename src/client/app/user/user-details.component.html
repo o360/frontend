@@ -1,0 +1,10 @@
+<div *ngIf="model" class="card">
+  <div class="card-header">
+    <h2> {{ 'T_USER_DETAILS' | translate }} {{model.name}}</h2>
+  </div>
+  <div class="card-block">
+      <h5 class="card-title">{{ 'T_USER_NAME' | translate }}</h5>
+      <p class="card-text">{{ model.name}}</p>
+    <a [routerLink]="['/users']" class="card-link">{{ 'T_ACTION_GO_BACK' | translate }}</a>
+  </div>
+</div>

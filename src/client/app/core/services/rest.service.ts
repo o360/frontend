@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, RequestOptions, Headers } from '@angular/http';
+import { Headers, Http, RequestOptions, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
-import { Config } from '../config/env.config';
-import { Model } from '../models/model';
+import { Config } from '../../shared/config/env.config';
+import { Model, ModelId } from '../models/model';
 
 export declare type ModelConstructor<T> = { new (json: Object): T };
 
@@ -16,6 +16,10 @@ export class RestService<T extends Model> {
   constructor(protected _http: Http) {
   }
 
+  public createEntity(json?: Object): T {
+    return new this._entityConstructor(json);
+  }
+
   /**
    * Get list of data from API
    * @return {Observable<T[]>}
@@ -26,7 +30,7 @@ export class RestService<T extends Model> {
         let values: T[] = [];
 
         for (let [key, value] of Object.entries(response.json())) {
-          let item = new this._entityConstructor(value);
+          let item = this.createEntity(value);
 
           item.id = key;
 
@@ -35,7 +39,6 @@ export class RestService<T extends Model> {
 
         return values;
       })
-      .map((json: Object[]) => json.map(x => new this._entityConstructor(x)))
       .catch((error: any) => this._handleErrors(error));
   }
 
@@ -44,10 +47,10 @@ export class RestService<T extends Model> {
    * @params {number} id of record
    * @return {Observable<T>}
    */
-  public get(id: number): Observable<T> {
+  public get(id: ModelId): Observable<T> {
     return this._http.get(this._getRequestParams(id))
       .map((response: Response) => response.json())
-      .map((json: Object) => new this._entityConstructor(json))
+      .map((json: Object) => this.createEntity(Object.assign(json, { id: id })))
       .catch((error: any) => this._handleErrors(error));
   }
 
@@ -69,7 +72,7 @@ export class RestService<T extends Model> {
    * @params {number} id of record
    * @return {Observable<void>}
    */
-  public delete(id: number): Observable<void> {
+  public delete(id: ModelId): Observable<void> {
     let requestParams = this._getRequestParams(id);
     let requestOptions = this._getRequestOptions();
 
@@ -89,7 +92,7 @@ export class RestService<T extends Model> {
 
     return this._http.put(requestParams, json, requestOptions)
       .map((res: Response) => res.json())
-      .map((json: Object) => new this._entityConstructor(json))
+      .map((json: Object) => this.createEntity(json))
       .catch((error: any) => this._handleErrors(error));
   }
 
@@ -105,7 +108,7 @@ export class RestService<T extends Model> {
 
     return this._http.post(requestParams, json, requestOptions)
       .map((res: Response) => res.json())
-      .map((json: Object) => new this._entityConstructor(json))
+      .map((json: Object) => this.createEntity(json))
       .catch((error: any) => this._handleErrors(error));
   }
 
@@ -114,7 +117,7 @@ export class RestService<T extends Model> {
    * @params {number} id
    * @return {Observable<T>}
    */
-  protected _getRequestParams(id?: number | string) {
+  protected _getRequestParams(id?: ModelId) {
     let path: string[] = [];
 
     path.push(this._host);
@@ -140,7 +143,7 @@ export class RestService<T extends Model> {
   }
 
   protected _handleErrors(error: any) {
-    return Observable.throw(error.json().error || 'Server error');
+    return Observable.throw(error || 'Server error');
   }
 }
 

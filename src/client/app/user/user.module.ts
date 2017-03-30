@@ -1,32 +1,30 @@
 import { NgModule } from '@angular/core';
-import { UserListComponent } from './user-list.component';
-// import { CommonModule } from '@angular/common';
+import { UserService } from '../core/services/user.service';
 import { SharedModule } from '../shared/shared.module';
-
-
-import { UserService } from '../shared/services/user.service';
-import { UserRoutingModule, routedComponents } from './user-routing.module';
-
-/**
- * Do not specify providers for modules that might be imported by a lazy loaded module.
- */
+import { UserListComponent } from './user-list.component';
+import { UserRoutingModule } from './user-routing.module';
+import { UserDetailsComponent } from './user-details.component';
+import { UserFormComponent } from './user-form.component';
 
 @NgModule({
   imports: [
     UserRoutingModule,
-    // CommonModule,
     SharedModule
   ],
   declarations: [
     UserListComponent,
-    routedComponents
+    UserDetailsComponent,
+    UserFormComponent
   ],
   providers: [
     UserService
   ],
   exports: [
-    UserListComponent
+    UserListComponent,
+    UserDetailsComponent,
+    UserFormComponent
   ]
 })
-export class UserModule { }
+export class UserModule {
+}
 

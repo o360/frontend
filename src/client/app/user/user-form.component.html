@@ -1,0 +1,39 @@
+<div class="card">
+  <div class="card-header">
+    <span [ngSwitch]="editMode">
+      <ng-template [ngSwitchCase]="true">{{ 'T_ACTION_EDIT' | translate }}</ng-template>
+      <ng-template ngSwitchDefault>{{ 'T_ACTION_CREATE' | translate }}</ng-template>
+      {{ 'T_USER' | translate }}
+    </span>
+  </div>
+
+  <div class="card-block" *ngIf="model">
+    <form class="form form-horizontal"
+          (ngSubmit)="save(); userForm.reset()" #userForm="ngForm">
+      <div class="form-group">
+        <div class="form-group row">
+          <label for="name"
+                 class="col-md-1
+                 form-control-label">{{ 'T_USER_NAME' | translate }}</label>
+          <div class="col-md-5">
+            <input type="text"
+                   class="form-control"
+                   id="name"
+                   required
+                   placeholder="{{ 'T_FORM_ENTER_NAME' | translate }}"
+                   [(ngModel)]="model.name" name="name">
+          </div>
+        </div>
+      </div>
+      <button type="button"
+              class="btn btn-primary"
+              [disabled]="!userForm.valid"
+              (click)="save()">
+      <span [ngSwitch]="editMode">
+        <ng-template [ngSwitchCase]="true">{{ 'T_ACTION_UPDATE' | translate }}</ng-template>
+        <ng-template ngSwitchDefault>{{ 'T_ACTION_CREATE' | translate }}</ng-template>
+      </span>
+      </button>
+    </form>
+  </div>
+</div>
