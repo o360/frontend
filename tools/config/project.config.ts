@@ -11,9 +11,20 @@ export class ProjectConfig extends SeedConfig {
 
   PROJECT_TASKS_DIR = join(process.cwd(), this.TOOLS_DIR, 'tasks', 'project');
 
+  FONTS_DEST = `${this.APP_DEST}/fonts`;
+
+  FONTS_SRC = [
+    'node_modules/font-awesome/fonts/**',
+    'node_modules/simple-line-icons/fonts/**'
+  ];
+
   constructor() {
     super();
-    // this.APP_TITLE = 'Put name of your app here';
+
+    this.APP_TITLE = 'BW Staff Assessment System';
+
+    this.ENABLE_SCSS = true;
+
     // this.GOOGLE_ANALYTICS_ID = 'Your site's ID';
 
     /* Enable typeless compiler runs (faster) between typed compiler runs. */
@@ -22,7 +33,11 @@ export class ProjectConfig extends SeedConfig {
     // Add `NPM` third-party libraries to be injected/bundled.
     this.NPM_DEPENDENCIES = [
       ...this.NPM_DEPENDENCIES,
-      // {src: 'jquery/dist/jquery.min.js', inject: 'libs'},
+      { src: 'font-awesome/css/font-awesome.min.css', inject: true },
+      { src: 'simple-line-icons/css/simple-line-icons.css', inject: true },
+      { src: 'animate.css/animate.css', inject: true },
+      { src: 'jquery/dist/jquery.min.js', inject: 'libs' },
+      { src: 'pace-progress/pace.min.js', inject: 'libs' }
       // {src: 'lodash/lodash.min.js', inject: 'libs'},
     ];
 

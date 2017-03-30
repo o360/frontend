@@ -24,7 +24,8 @@
     "types": [
       "node",
       "jasmine",
-      "systemjs"
+      "systemjs",
+      "jquery"
     ]
   },
   "exclude": [
