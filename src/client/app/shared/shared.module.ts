@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 /**
@@ -12,13 +13,15 @@ import { RouterModule } from '@angular/router';
   imports: [
     CommonModule,
     FormsModule,
-    RouterModule
+    RouterModule,
+    TranslateModule
   ],
   declarations: [],
   exports: [
     CommonModule,
     FormsModule,
-    RouterModule
+    RouterModule,
+    TranslateModule
   ]
 })
 export class SharedModule {
