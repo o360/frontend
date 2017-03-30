@@ -16,13 +16,34 @@ export class RestService<T extends Model> {
   constructor(protected _http: Http) {
   }
 
+  /**
+   * Get list of data from API
+   * @return {Observable<T[]>}
+   */
   public list(): Observable<T[]> {
     return this._http.get(this._getRequestParams())
-      .map((response: Response) => Object.values(response.json()))
+      .map((response: Response) => {
+        let values: T[] = [];
+
+        for (let [key, value] of Object.entries(response.json())) {
+          let item = new this._entityConstructor(value);
+
+          item.id = key;
+
+          values.push(item);
+        }
+
+        return values;
+      })
       .map((json: Object[]) => json.map(x => new this._entityConstructor(x)))
       .catch((error: any) => this._handleErrors(error));
   }
 
+  /**
+   * Get a record of data by ID from API
+   * @params {number} id of record
+   * @return {Observable<T>}
+   */
   public get(id: number): Observable<T> {
     return this._http.get(this._getRequestParams(id))
       .map((response: Response) => response.json())
@@ -30,6 +51,11 @@ export class RestService<T extends Model> {
       .catch((error: any) => this._handleErrors(error));
   }
 
+  /**
+   * Save record of data
+   * @params {T} model
+   * @return {Observable<T>}
+   */
   public save(model: T): Observable<T> {
     if (model.id !== undefined) {
       return this._update(model);
@@ -38,6 +64,11 @@ export class RestService<T extends Model> {
     }
   }
 
+  /**
+   * Delete record of data by ID
+   * @params {number} id of record
+   * @return {Observable<void>}
+   */
   public delete(id: number): Observable<void> {
     let requestParams = this._getRequestParams(id);
     let requestOptions = this._getRequestOptions();
@@ -46,6 +77,11 @@ export class RestService<T extends Model> {
       .catch((error: any) => this._handleErrors(error));
   }
 
+  /**
+   * Update record of data
+   * @params {T} model
+   * @return {Observable<T>}
+   */
   protected _update(model: T): Observable<T> {
     let requestParams = this._getRequestParams(model.id);
     let json = model.toJson();
@@ -57,6 +93,11 @@ export class RestService<T extends Model> {
       .catch((error: any) => this._handleErrors(error));
   }
 
+  /**
+   * Create a new one record of data
+   * @params {T} model
+   * @return {Observable<T>}
+   */
   protected _create(model: T): Observable<T> {
     let requestParams = this._getRequestParams();
     let json = model.toJson();
@@ -68,7 +109,12 @@ export class RestService<T extends Model> {
       .catch((error: any) => this._handleErrors(error));
   }
 
-  protected _getRequestParams(id?: number) {
+  /**
+   * Get full path with request params
+   * @params {number} id
+   * @return {Observable<T>}
+   */
+  protected _getRequestParams(id?: number | string) {
     let path: string[] = [];
 
     path.push(this._host);
@@ -86,7 +132,10 @@ export class RestService<T extends Model> {
 
   protected _getRequestOptions() {
     return new RequestOptions({
-      headers: new Headers({ 'Content-Type': 'application/json;charset=UTF-8' })
+      headers: new Headers({
+        'Content-Type': 'application/json;charset=UTF-8',
+        'Accept': 'application/json'
+      })
     });
   }
 
