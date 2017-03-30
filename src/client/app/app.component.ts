@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { Config } from './shared/config/env.config';
 import './operators';
+import { SupportedLanguages } from './shared/config/translate-loader.config';
 
 /**
  * This class represents the main application component.
@@ -10,4 +13,8 @@ import './operators';
   templateUrl: 'app.component.html'
 })
 export class AppComponent {
+  constructor(translate: TranslateService) {
+    translate.setDefaultLang(Config.DEFAULT_LANG);
+    translate.use(SupportedLanguages.EN);
+  }
 }
