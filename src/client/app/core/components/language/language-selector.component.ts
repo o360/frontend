@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { sequenceEqual } from 'rxjs/operator/sequenceEqual';
 
 @Component({
   moduleId: module.id,
@@ -7,19 +8,25 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: 'language-selector.component.html'
 })
 export class LanguageSelectorComponent {
-  constructor(private translate: TranslateService) {
-    translate.addLangs(['ru', 'en']);
-    let browserLang = translate.getBrowserLang();
+  public selectedLanguage: string;
+
+  constructor(protected _translate: TranslateService) {
+    _translate.addLangs(['ru', 'en']);
+    let browserLang = _translate.getBrowserLang();
 
     if (localStorage.language) {
-      translate.use(localStorage.language);
+      this.selectedLanguage = localStorage.language;
+      _translate.use(this.selectedLanguage);
     } else {
-      translate.use(browserLang.match(/ru|en/) ? browserLang : 'en');
+      this.selectedLanguage = browserLang.match(/ru|en/) ? browserLang : 'en';
+      _translate.use(this.selectedLanguage);
     }
   }
 
   public changeLang(language: string) {
-    this.translate.use(language);
-    localStorage.language = language;
+    this.selectedLanguage = language;
+    this._translate.use(this.selectedLanguage);
+    localStorage.language = this.selectedLanguage;
   }
+
 }
