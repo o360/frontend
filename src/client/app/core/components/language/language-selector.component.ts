@@ -1,32 +1,57 @@
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { sequenceEqual } from 'rxjs/operator/sequenceEqual';
+import { LANGUAGES } from './languages';
+import { SupportedLanguages } from '../../../shared/config/translate-loader.config';
 
 @Component({
   moduleId: module.id,
   selector: 'bs-language-selector',
-  templateUrl: 'language-selector.component.html'
+  templateUrl: 'language-selector.component.html',
+  styleUrls: ['language-selector.component.css']
 })
 export class LanguageSelectorComponent {
-  public selectedLanguage: string;
+  private _selectedLanguage: string;
+  private _supportedLanguages: any[];
+
+  public get selectedLanguage(): string {
+    return this._selectedLanguage;
+  }
+
+  public set selectedLanguage(value: string) {
+    this._selectedLanguage = value;
+  }
+
+  public get supportedLanguages(): any {
+    return this._supportedLanguages;
+  }
 
   constructor(protected _translate: TranslateService) {
-    _translate.addLangs(['ru', 'en']);
-    let browserLang = _translate.getBrowserLang();
+    this._supportedLanguages = Object.entries(LANGUAGES);
+
+    console.log(this._supportedLanguages);
+    this._translate.addLangs(this._supportedLanguages);
+    let browserLang = this._translate.getBrowserLang();
 
     if (localStorage.language) {
-      this.selectedLanguage = localStorage.language;
-      _translate.use(this.selectedLanguage);
+      this._selectedLanguage = localStorage.language;
+      this._translate.use(this._selectedLanguage);
     } else {
-      this.selectedLanguage = browserLang.match(/ru|en/) ? browserLang : 'en';
-      _translate.use(this.selectedLanguage);
+      let i;
+      for (i = 0; i < Object.values(SupportedLanguages).length; i++) {
+        if (browserLang === Object.values(SupportedLanguages)[i]) {
+          this._selectedLanguage = browserLang;
+        } else {
+          this._selectedLanguage = this._supportedLanguages[0];
+        }
+      }
+      this._translate.use(this._selectedLanguage);
     }
   }
 
-  public changeLang(language: string) {
-    this.selectedLanguage = language;
-    this._translate.use(this.selectedLanguage);
-    localStorage.language = this.selectedLanguage;
-  }
 
+  public changeLang(language: string) {
+    this._selectedLanguage = language;
+    this._translate.use(this._selectedLanguage);
+    localStorage.language = this._selectedLanguage;
+  }
 }
