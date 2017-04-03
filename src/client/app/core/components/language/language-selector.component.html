@@ -1,11 +1,5 @@
 <ul class="nav pull-right">
-  <li class="nav-item">
-    <div class="btn-group" data-toggle="buttons">
-      <label class="btn btn-outline-secondary"
-             [ngClass]="{'active': selectedLanguage === lang }"
-             *ngFor="let lang of _translate.getLangs()">
-        <input name="options" checked="" type="radio" (click)="changeLang(lang); ">{{lang}}
-      </label>
-    </div>
+  <li class="nav-item" *ngFor="let lang of supportedLanguages">
+    <a [ngClass]="{'disabled': selectedLanguage === lang[0] }" (click)="changeLang(lang[0]);"> {{lang[1] | translate}} </a>
   </li>
 </ul>
