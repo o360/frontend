@@ -1,4 +1,12 @@
 <ol class="breadcrumb">
   <li class="breadcrumb-item">{{ 'T_STAFF_ASSESSMENT_SYSTEM' | translate }}</li>
-  <li class="breadcrumb-item active">{{ 'T_HOME' | translate }}</li>
+  <li  class="breadcrumb-item" routerLink="">{{ 'T_HOME' | translate }}</li>
+  <ng-template [ngIf]="breadcrumbs">
+    <li
+      class="breadcrumb-item"
+      *ngFor="let breadcrumb of breadcrumbs; let last = last"
+      [ngClass]="{active:last}"
+      [routerLink]="[breadcrumb.url]">{{breadcrumb.label | translate}}
+    </li>
+  </ng-template>
 </ol>
