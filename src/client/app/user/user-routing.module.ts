@@ -8,18 +8,23 @@ import { UserListComponent } from './user-list.component';
   imports: [
     RouterModule.forChild([{
       path: 'users',
+      data: { breadcrumb: 'T_USERS' },
       children: [{
         path: '',
         component: UserListComponent,
+        data: { breadcrumbIgnore: true },
       }, {
         path: 'create',
         component: UserFormComponent,
+        data: { breadcrumb: 'T_ACTION_CREATE' },
       }, {
         path: ':id',
-        component: UserDetailsComponent
+        component: UserDetailsComponent,
+        data: { breadcrumb: 'T_USER_DETAILS' },
       }, {
         path: ':id/edit',
-        component: UserFormComponent
+        component: UserFormComponent,
+        data: { breadcrumb: 'T_ACTION_EDIT' },
       }]
     }])
   ],
