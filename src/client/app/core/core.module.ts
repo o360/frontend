@@ -4,6 +4,7 @@ import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.componen
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
 import { SidebarNavComponent } from './components/sidebar-nav/sidebar-nav.component';
+import { UserService } from './services/user.service';
 
 @NgModule({
   imports: [SharedModule],
@@ -13,7 +14,9 @@ import { SidebarNavComponent } from './components/sidebar-nav/sidebar-nav.compon
     BreadcrumbComponent,
     FooterComponent
   ],
-  providers: [],
+  providers: [
+    UserService
+  ],
   exports: [
     HeaderComponent,
     SidebarNavComponent,

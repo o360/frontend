@@ -2,5 +2,16 @@
   "T_STAFF_ASSESSMENT_SYSTEM": "Staff Assessment System",
   "T_HOME": "Home",
   "T_USERS": "Users",
-  "T_GROUPS": "Groups"
+  "T_GROUPS": "Groups",
+  "T_ACTION": "Action",
+  "T_ACTION_CREATE": "Create",
+  "T_ACTION_DELETE": "Delete",
+  "T_ACTION_EDIT": "Edit",
+  "T_ACTION_UPDATE": "Update",
+  "T_ACTION_GO_BACK": "Go back",
+  "T_USER": "User",
+  "T_USER_NAME": "Name",
+  "T_USER_DETAILS": "Details of user",
+  "T_FORM_ENTER_NAME": "Enter name...",
+  "T_FORM_FIELD_IS_REQUIRED": "Field is required"
 }
