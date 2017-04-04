@@ -5,7 +5,7 @@
     "declaration": false,
     "removeComments": true,
     "noLib": false,
-    "lib": ["es2016", "dom"],
+    "lib": ["es2016", "dom", "es2017.object"],
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "sourceMap": true,

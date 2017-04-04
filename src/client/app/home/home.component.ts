@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Config } from '../shared/config/env.config';
 
 /**
  * This class represents the lazy loaded HomeComponent.
@@ -10,7 +9,4 @@ import { Config } from '../shared/config/env.config';
   templateUrl: 'home.component.html'
 })
 export class HomeComponent {
-  constructor() {
-    console.log(Config);
-  }
 }

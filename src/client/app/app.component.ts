@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { Config } from './shared/config/env.config';
 import './operators';
+import { Config } from './shared/config/env.config';
 import { SupportedLanguages } from './shared/config/translate-loader.config';
 
 /**
