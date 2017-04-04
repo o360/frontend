@@ -3,6 +3,7 @@
   "T_HOME": "Главная",
   "T_USERS": "Пользователи",
   "T_GROUPS": "Группы",
+  "T_ACTION": "Действия",
   "T_ACTION_CREATE": "Создать",
   "T_ACTION_DELETE": "Удалить",
   "T_ACTION_EDIT": "Редактировать",
@@ -11,6 +12,6 @@
   "T_USER": "Пользователь",
   "T_USER_NAME": "Имя",
   "T_USER_DETAILS": "Подробнее о пользователе",
-  "T_FORM_ENTER_NAME": "Введите имя пользователя..."
-
+  "T_FORM_ENTER_NAME": "Введите имя пользователя...",
+  "T_FORM_FIELD_IS_REQUIRED": "Поле должно быть заполнено"
 }

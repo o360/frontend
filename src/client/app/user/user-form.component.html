@@ -8,32 +8,42 @@
   </div>
 
   <div class="card-block" *ngIf="model">
-    <form class="form form-horizontal"
+    <form class="form form-horizontal col-md-6"
           (ngSubmit)="save(); userForm.reset()" #userForm="ngForm">
-      <div class="form-group">
+      <div class="form-group"
+           [ngClass]="{'has-success': name.valid, 'has-danger': !name.valid && name.touched }">
         <div class="form-group row">
-          <label for="name"
-                 class="col-md-1
-                 form-control-label">{{ 'T_USER_NAME' | translate }}</label>
-          <div class="col-md-5">
+          <label for="name" class="col-form-label col-md-3 required">{{ 'T_USER_NAME' | translate }}</label>
+          <div class="col-md-9">
             <input type="text"
                    class="form-control"
                    id="name"
+                   name="name"
+                   #name="ngModel"
                    required
                    placeholder="{{ 'T_FORM_ENTER_NAME' | translate }}"
-                   [(ngModel)]="model.name" name="name">
+                   [(ngModel)]="model.name">
+            <div class="form-errors" *ngIf="name.errors && name.touched">
+              <div class="form-control-feedback" *ngIf="name.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}</div>
+            </div>
           </div>
         </div>
       </div>
-      <button type="button"
-              class="btn btn-primary"
-              [disabled]="!userForm.valid"
-              (click)="save()">
-      <span [ngSwitch]="editMode">
-        <ng-template [ngSwitchCase]="true">{{ 'T_ACTION_UPDATE' | translate }}</ng-template>
-        <ng-template ngSwitchDefault>{{ 'T_ACTION_CREATE' | translate }}</ng-template>
-      </span>
-      </button>
+
+      <hr/>
+
+      <div class="text-right">
+
+        <button type="button"
+                class="btn btn-primary mt-0"
+                [disabled]="!userForm.valid"
+                (click)="save()">
+          <span [ngSwitch]="editMode">
+            <ng-template [ngSwitchCase]="true">{{ 'T_ACTION_UPDATE' | translate }}</ng-template>
+            <ng-template ngSwitchDefault>{{ 'T_ACTION_CREATE' | translate }}</ng-template>
+          </span>
+        </button>
+      </div>
     </form>
   </div>
 </div>

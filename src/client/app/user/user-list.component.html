@@ -6,26 +6,32 @@
             [routerLink]="['/users/create']">{{ 'T_ACTION_CREATE' | translate }}
     </button>
 
-    <table class="table mt-1">
-      <tr>
-        <th>{{ 'T_USER_NAME' | translate }}</th>
-        <th>{{ 'T_ACTION' | translate }}</th>
-      </tr>
-      <tr *ngFor="let model of list">
-        <td><a [routerLink]="['/users', model.id]">{{ model.name }}</a></td>
-        <td>
-          <button type="button"
-                  class="btn btn-sm btn-success"
-                  [routerLink]="['/users', model.id, 'edit']">{{ 'T_ACTION_EDIT' | translate }}
-          </button>
+    <table class="table table-striped table-sm mt-1">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>{{ 'T_USER_NAME' | translate }}</th>
+          <th class="actions-column">{{ 'T_ACTION' | translate }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let model of list">
+          <td>{{ model.id }}</td>
+          <td><a [routerLink]="['/users', model.id]">{{ model.name }}</a></td>
+          <td class="actions-column">
+            <button type="button"
+                    class="btn btn-sm btn-success"
+                    [routerLink]="['/users', model.id, 'edit']">{{ 'T_ACTION_EDIT' | translate }}
+            </button>
 
 
-          <button type="button"
-                  class="btn btn-sm btn-danger"
-                  (click)="delete(model.id)">{{ 'T_ACTION_DELETE' | translate }}
-          </button>
-        </td>
-      </tr>
+            <button type="button"
+                    class="btn btn-sm btn-danger"
+                    (click)="delete(model.id)">{{ 'T_ACTION_DELETE' | translate }}
+            </button>
+          </td>
+        </tr>
+      </tbody>
     </table>
   </div>
 </div>

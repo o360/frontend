@@ -6,6 +6,30 @@ import { Model, ModelId } from '../models/model';
 
 export declare type ModelConstructor<T> = { new (json: Object): T };
 
+
+/**
+ * Base service class with CRUD methods
+ * @example
+ * For usage in a service add a RestServiceConfig decorator with properties
+ * entityName: 'someName' and entityConstructor: NewModel
+ * NewModel - it is a specific model that is extended by a Model
+ * also service should extends this RestService<NewModel>
+ *
+ * @Defaults({
+ *   name: ''
+ * })
+ * class UserModel extends Model {
+ *   public name: string;
+ * }
+ *
+ * @RestServiceConfig({
+ *   entityName: 'user',
+ *   entityConstructor: UserModel
+ * })
+ * class UserService extends RestService<UserModel> {
+ * }
+ *
+ * */
 @Injectable()
 export class RestService<T extends Model> {
   protected _host: string = Config.API;
@@ -16,6 +40,11 @@ export class RestService<T extends Model> {
   constructor(protected _http: Http) {
   }
 
+  /**
+   * Create a new instance of related Model
+   * @param json
+   * @returns {T}
+   */
   public createEntity(json?: Object): T {
     return new this._entityConstructor(json);
   }
@@ -133,6 +162,10 @@ export class RestService<T extends Model> {
     return path.join('/') + '.json';
   }
 
+  /**
+   * Common request params for requests
+   * @return {object}
+   */
   protected _getRequestOptions() {
     return new RequestOptions({
       headers: new Headers({
@@ -142,6 +175,9 @@ export class RestService<T extends Model> {
     });
   }
 
+  /**
+   * Handler of errors for the CRUD methods
+   */
   protected _handleErrors(error: any) {
     return Observable.throw(error || 'Server error');
   }
