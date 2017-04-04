@@ -6,7 +6,7 @@ import { DetailsComponent } from '../shared/components/details.component';
 
 @Component({
   moduleId: module.id,
-  selector: 'user-details',
+  selector: 'bs-user-details',
   templateUrl: `user-details.component.html`
 })
 export class UserDetailsComponent extends DetailsComponent<UserModel> {

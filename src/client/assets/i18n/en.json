@@ -12,5 +12,6 @@
   "T_USER": "User",
   "T_USER_NAME": "Name",
   "T_USER_DETAILS": "Details of user",
-  "T_FORM_ENTER_NAME": "Enter name..."
+  "T_FORM_ENTER_NAME": "Enter name...",
+  "T_FORM_FIELD_IS_REQUIRED": "Field is required"
 }
