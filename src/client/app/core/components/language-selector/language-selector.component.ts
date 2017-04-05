@@ -1,7 +1,11 @@
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { LANGUAGES } from './languages';
 import { SupportedLanguages } from '../../../shared/config/translate-loader.config';
+
+export const LanguagesTranslationMap = {
+  [SupportedLanguages.EN]: 'T_LANG_EN',
+  [SupportedLanguages.RU]: 'T_LANG_RU'
+};
 
 @Component({
   moduleId: module.id,
@@ -11,7 +15,7 @@ import { SupportedLanguages } from '../../../shared/config/translate-loader.conf
 })
 export class LanguageSelectorComponent {
   private _selectedLanguage: string;
-  private _supportedLanguages: any[];
+  private _supportedLanguages: [string, string][];
 
   public get selectedLanguage(): string {
     return this._selectedLanguage;
@@ -21,15 +25,13 @@ export class LanguageSelectorComponent {
     this._selectedLanguage = value;
   }
 
-  public get supportedLanguages(): any {
+  public get supportedLanguages(): [string, string][] {
     return this._supportedLanguages;
   }
 
   constructor(protected _translate: TranslateService) {
-    this._supportedLanguages = Object.entries(LANGUAGES);
-
-    console.log(this._supportedLanguages);
-    this._translate.addLangs(this._supportedLanguages);
+    this._supportedLanguages = Object.entries(LanguagesTranslationMap);
+    this._translate.addLangs(Object.keys(LanguagesTranslationMap));
     let browserLang = this._translate.getBrowserLang();
 
     if (localStorage.language) {
@@ -41,13 +43,12 @@ export class LanguageSelectorComponent {
         if (browserLang === Object.values(SupportedLanguages)[i]) {
           this._selectedLanguage = browserLang;
         } else {
-          this._selectedLanguage = this._supportedLanguages[0];
+          this._selectedLanguage = this._supportedLanguages[0][0];
         }
       }
       this._translate.use(this._selectedLanguage);
     }
   }
-
 
   public changeLang(language: string) {
     this._selectedLanguage = language;

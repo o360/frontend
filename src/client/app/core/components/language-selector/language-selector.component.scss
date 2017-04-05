@@ -1,0 +1,14 @@
+a.disabled,
+a.disabled:hover,
+a.disabled:focus {
+  color: #b0bec5;
+}
+a {
+  cursor: pointer;
+}
+@media screen and (min-width: 992px) {
+  .lang-selector {
+    position: relative;
+    left: -200px;
+  }
+}
