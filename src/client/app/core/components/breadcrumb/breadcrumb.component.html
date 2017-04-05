@@ -1,12 +1,18 @@
 <ol class="breadcrumb">
-  <li class="breadcrumb-item">{{ 'T_STAFF_ASSESSMENT_SYSTEM' | translate }}</li>
-  <li  class="breadcrumb-item" routerLink="">{{ 'T_HOME' | translate }}</li>
-  <ng-template [ngIf]="breadcrumbs">
-    <li
-      class="breadcrumb-item"
-      *ngFor="let breadcrumb of breadcrumbs; let last = last"
-      [ngClass]="{active:last}"
-      [routerLink]="[breadcrumb.url]">{{breadcrumb.label | translate}}
+  <li class="breadcrumb-item">
+    <a routerLink="">
+      {{ 'T_STAFF_ASSESSMENT_SYSTEM' | translate }}
+    </a>
+  </li>
+    <li class="breadcrumb-item"
+        *ngFor="let breadcrumb of breadcrumbs; let last = last"
+        [ngSwitch]="last">
+           <ng-template [ngSwitchCase]="true">{{breadcrumb.label | translate}}</ng-template>
+           <ng-template ngSwitchDefault>
+             <a [routerLink]="[breadcrumb.url]">
+              {{breadcrumb.label | translate}}
+             </a>
+           </ng-template>
+
     </li>
-  </ng-template>
 </ol>
