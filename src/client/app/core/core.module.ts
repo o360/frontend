@@ -5,7 +5,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
 import { SidebarNavComponent } from './components/sidebar-nav/sidebar-nav.component';
 import { UserService } from './services/user.service';
-import { LanguageSelectorComponent } from './components/language/language-selector.component';
+import { LanguageSelectorComponent } from './components/language-selector/language-selector.component';
 
 @NgModule({
   imports: [SharedModule],
