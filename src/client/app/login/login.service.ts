@@ -14,7 +14,7 @@ export class LoginService {
   protected _isAuthenticated: boolean = false;
   protected _code: string;
   protected _token: string;
-  protected _user: UserModel;
+  protected _user: UserModel = new UserModel();
 
   constructor(protected _http: Http) {
   }
@@ -61,9 +61,9 @@ export class LoginService {
     let options = new RequestOptions({ headers: headers });
 
     this._http.get(url, options)
-      .map(response => {
-        this._user.name = response.json().name;
-        console.log('Your users name: ', this._user);
+      .subscribe(response => {
+        //this._user.name = response.json().name;
+        console.log('Your users name: ', response.json().name);
       });
   }
 }
