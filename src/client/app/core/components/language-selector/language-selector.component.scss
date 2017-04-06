@@ -1,0 +1,14 @@
+a.disabled,
+a.disabled:hover,
+a.disabled:focus {
+  rgba(0, 0, 0, 0.8);
+}
+
+a {
+  cursor: pointer;
+}
+
+.lang-selector .nav-item {
+  padding: 0px 5px;
+}
+
