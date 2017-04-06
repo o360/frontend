@@ -21,6 +21,6 @@ export class OAuthComponent implements OnInit {
       this._code = params['code'];
       console.log('Your code: ', this._code);
     });
-    this._loginService.getToken('google', this._code);
+    this._loginService.auth('google', this._code);
   }
 }

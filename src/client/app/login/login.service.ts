@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Http, RequestMethod, RequestOptions } from '@angular/http';
+import { Headers, Http, RequestOptions } from '@angular/http';
+import { UserModel } from '../core/models/user-model';
 
 const apiUrl = 'http://sop-ci.z1.netpoint-dc.com:9000/api/v1.0';
 
@@ -13,6 +14,7 @@ export class LoginService {
   protected _isAuthenticated: boolean = false;
   protected _code: string;
   protected _token: string;
+  protected _user: UserModel;
 
   constructor(protected _http: Http) {
   }
@@ -29,20 +31,39 @@ export class LoginService {
       + '&redirect_uri=' + encodeURIComponent(this._redirectUri)
       + '&client_id=' + encodeURIComponent(this._clientId)
       + '&scope=' + encodeURIComponent(this._scope);
-    console.log(url);
+    console.log('Url to get code: ', url);
     let w = window.open(url, 'oauth', 'width=500,height=400');
   }
 
-  public getToken(provider: string, code: string) {
+  public auth(provider: string, code: string) {
     let url = apiUrl + '/auth/' + provider;
-    let headers = new Headers();
-    headers.append("Content-Type", 'application/json');
 
     let body = JSON.stringify({ 'code': code });
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
 
-    this._http.post(url, body, { headers: headers })
+    this._http.post(url, body, options)
       .subscribe(data => {
-        this._token = data.json().token;
+        let token = data.json().token
+        if (token) {
+          this._token = token;
+        }
+        console.log('Your token: ', this._token);
+        this.getUser(this._token);
+      });
+  }
+
+  public getUser(token: string) {
+    let url = apiUrl + '/auth';
+
+    let headers = new Headers({ 'Accept': 'application/json' });
+    headers.append('X-Auth-Token', token);
+    let options = new RequestOptions({ headers: headers });
+
+    this._http.get(url, options)
+      .map(response => {
+        this._user.name = response.json().name;
+        console.log('Your users name: ', this._user);
       });
   }
 }
