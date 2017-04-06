@@ -1,11 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { SupportedLanguages } from '../../../shared/config/translate-loader.config';
+
+interface ILanguage {
+  id: string;
+  name: string;
+  selected: boolean;
+}
 
 export const LanguagesTranslationMap = {
   [SupportedLanguages.EN]: 'T_LANG_EN',
   [SupportedLanguages.RU]: 'T_LANG_RU'
 };
+
 
 @Component({
   moduleId: module.id,
@@ -13,46 +20,61 @@ export const LanguagesTranslationMap = {
   templateUrl: 'language-selector.component.html',
   styleUrls: ['language-selector.component.css']
 })
-export class LanguageSelectorComponent {
-  private _selectedLanguage: string;
-  private _supportedLanguages: [string, string][];
+export class LanguageSelectorComponent implements OnInit {
+  protected _languages: ILanguage[] = [];
+  private _supportedLanguages: string[] = Object.values(SupportedLanguages);
 
-  public get selectedLanguage(): string {
-    return this._selectedLanguage;
+  public get languages(): ILanguage[] {
+    return this._languages;
   }
 
-  public set selectedLanguage(value: string) {
-    this._selectedLanguage = value;
-  }
-
-  public get supportedLanguages(): [string, string][] {
+  public get supportedLanguages() {
     return this._supportedLanguages;
   }
 
-  constructor(protected _translate: TranslateService) {
-    this._supportedLanguages = Object.entries(LanguagesTranslationMap);
-    this._translate.addLangs(Object.keys(LanguagesTranslationMap));
-    let browserLang = this._translate.getBrowserLang();
+  public get LanguagesTranslationMap() {
+    return LanguagesTranslationMap;
+  }
 
+  constructor(protected _translate: TranslateService) {
+  }
+
+  public ngOnInit() {
+    let selectedLangCode = this._getSelectedLangCode();
+
+    this._languages = Object.values(SupportedLanguages).map(lang => ({
+      id: lang,
+      name: LanguagesTranslationMap[lang],
+      selected: selectedLangCode === lang
+    }));
+    this._translate.use(selectedLangCode);
+  }
+
+  protected _getSelectedLangCode() {
+    let browserLang = this._translate.getBrowserLang();
     if (localStorage.language) {
-      this._selectedLanguage = localStorage.language;
-      this._translate.use(this._selectedLanguage);
+      return localStorage.language;
     } else {
       let i;
       for (i = 0; i < Object.values(SupportedLanguages).length; i++) {
         if (browserLang === Object.values(SupportedLanguages)[i]) {
-          this._selectedLanguage = browserLang;
+          return browserLang;
         } else {
-          this._selectedLanguage = this._supportedLanguages[0][0];
+          return SupportedLanguages.EN;
         }
       }
-      this._translate.use(this._selectedLanguage);
     }
   }
 
-  public changeLang(language: string) {
-    this._selectedLanguage = language;
-    this._translate.use(this._selectedLanguage);
-    localStorage.language = this._selectedLanguage;
+  public changeLanguage(language: string) {
+    this._languages.map(lang => {
+      if (lang.id === language) {
+        lang.selected = true;
+        localStorage.language = lang.id;
+        this._translate.use(lang.id);
+      } else {
+        lang.selected = false;
+      }
+    });
   }
 }

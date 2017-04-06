@@ -1,7 +1,9 @@
-<ul class="nav pull-right">
-  <li class="nav-item" *ngFor="let lang of supportedLanguages">
+<ul class="nav lang-selector pull-right">
+  <li class="nav-item" *ngFor="let lang of languages">
     <a class="nav-link"
-       [ngClass]="{'disabled': selectedLanguage === lang[0] }"
-       (click)="changeLang(lang[0]);"> {{lang[1] | translate}} </a>
+       [ngClass]="{'disabled': lang.selected}"
+       (click)="changeLanguage(lang.id)">
+      {{ LanguagesTranslationMap[lang.id] | translate }}
+    </a>
   </li>
 </ul>
