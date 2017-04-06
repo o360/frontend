@@ -6,9 +6,9 @@ a.disabled:focus {
 a {
   cursor: pointer;
 }
-@media screen and (min-width: 992px) {
-  .lang-selector {
-    position: relative;
-    left: -200px;
-  }
+.lang-selector .nav-item {
+  padding: 0px 5px;
+}
+.nav.pull-right {
+  float: right;
 }

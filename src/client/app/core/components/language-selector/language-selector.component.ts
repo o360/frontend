@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { SupportedLanguages } from '../../../shared/config/translate-loader.config';
+import { Config } from '../../../shared/config/env.config';
 
 interface ILanguage {
   id: string;
@@ -40,30 +41,11 @@ export class LanguageSelectorComponent implements OnInit {
   }
 
   public ngOnInit() {
-    let selectedLangCode = this._getSelectedLangCode();
-
     this._languages = Object.values(SupportedLanguages).map(lang => ({
       id: lang,
       name: LanguagesTranslationMap[lang],
-      selected: selectedLangCode === lang
+      selected: this._translate.currentLang === lang
     }));
-    this._translate.use(selectedLangCode);
-  }
-
-  protected _getSelectedLangCode() {
-    let browserLang = this._translate.getBrowserLang();
-    if (localStorage.language) {
-      return localStorage.language;
-    } else {
-      let i;
-      for (i = 0; i < Object.values(SupportedLanguages).length; i++) {
-        if (browserLang === Object.values(SupportedLanguages)[i]) {
-          return browserLang;
-        } else {
-          return SupportedLanguages.EN;
-        }
-      }
-    }
   }
 
   public changeLanguage(language: string) {
