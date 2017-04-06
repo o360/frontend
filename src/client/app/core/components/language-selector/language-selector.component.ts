@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { SupportedLanguages } from '../../../shared/config/translate-loader.config';
-import { Config } from '../../../shared/config/env.config';
 
 interface ILanguage {
   id: string;
@@ -22,19 +21,10 @@ export const LanguagesTranslationMap = {
   styleUrls: ['language-selector.component.css']
 })
 export class LanguageSelectorComponent implements OnInit {
-  protected _languages: ILanguage[] = [];
-  private _supportedLanguages: string[] = Object.values(SupportedLanguages);
+  private _languages: ILanguage[] = [];
 
   public get languages(): ILanguage[] {
     return this._languages;
-  }
-
-  public get supportedLanguages() {
-    return this._supportedLanguages;
-  }
-
-  public get LanguagesTranslationMap() {
-    return LanguagesTranslationMap;
   }
 
   constructor(protected _translate: TranslateService) {
@@ -48,14 +38,14 @@ export class LanguageSelectorComponent implements OnInit {
     }));
   }
 
-  public changeLanguage(language: string) {
-    this._languages.map(lang => {
-      if (lang.id === language) {
-        lang.selected = true;
-        localStorage.language = lang.id;
-        this._translate.use(lang.id);
+  public changeLanguage(id: string) {
+    this._languages.forEach(language => {
+      if (language.id === id) {
+        language.selected = true;
+        localStorage.language = id;
+        this._translate.use(id);
       } else {
-        lang.selected = false;
+        language.selected = false;
       }
     });
   }

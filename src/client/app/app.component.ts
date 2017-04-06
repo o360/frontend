@@ -14,8 +14,12 @@ import { SupportedLanguages } from './shared/config/translate-loader.config';
 })
 export class AppComponent {
   constructor(protected _translate: TranslateService) {
-    let selectedLangCode = this._getSelectedLangCode();
-    this._translate.use(selectedLangCode);
+    this._translateConfig();
+  }
+
+  protected _translateConfig() {
+    this._translate.addLangs(Object.values(SupportedLanguages));
+    this._translate.use(this._getSelectedLangCode());
   }
 
   protected _getSelectedLangCode() {
