@@ -15,6 +15,6 @@
   "T_FORM_ENTER_NAME": "Введите имя пользователя...",
   "T_FORM_FIELD_IS_REQUIRED": "Поле должно быть заполнено",
   "T_ACTION_SELECT_LANGUAGE": "Выбрать язык",
-  "T_LANG_EN": "Английский",
+  "T_LANG_EN": "English",
   "T_LANG_RU": "Русский"
 }

@@ -1,9 +1,8 @@
 <ul class="nav lang-selector">
-  <li class="nav-item" *ngFor="let lang of languages">
+  <li class="nav-item"
+      *ngFor="let language of languages">
     <a class="nav-link"
-       [ngClass]="{'disabled': lang.selected}"
-       (click)="changeLanguage(lang.id)">
-      {{ LanguagesTranslationMap[lang.id] | translate }}
-    </a>
+       [ngClass]="{ 'disabled': language.selected }"
+       (click)="changeLanguage(language.id); $event.preventDefault();">{{ language.name | translate }}</a>
   </li>
 </ul>
