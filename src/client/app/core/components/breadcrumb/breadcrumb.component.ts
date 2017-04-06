@@ -23,42 +23,40 @@ export class BreadcrumbComponent implements OnInit {
   }
 
 
-  ngOnInit() {
-    this._updateBreadcrumbs();
+  public ngOnInit() {
+    this._router.events
+      .filter(event => event instanceof NavigationEnd)
+      .subscribe(() => this._updateBreadcrumbs());
   }
 
   private _updateBreadcrumbs() {
-    this._router.events
-      .filter(event => event instanceof NavigationEnd)
-      .subscribe(() => {
-        let child = this._router.routerState.snapshot.root.firstChild;
-        let path: string[] = [];
+    let child = this._router.routerState.snapshot.root.firstChild;
+    let path: string[] = [];
 
-        let newState = [];
+    let newState = [];
 
-        while (child) {
-          let label = this._extractRouteName(child);
+    while (child) {
+      let label = this._extractRouteName(child);
+      let parts: string[] = child.url.map(x => x.path);
 
-          let parts: string[] = child.url.map(x => x.path);
-          path = path.concat(parts);
+      path = path.concat(parts);
 
-          if (!child.data.breadcrumbIgnore) {
-            newState.push({
-              label: label,
-              url: path.join('/')
-            });
-          }
+      if (!child.data.breadcrumbIgnore) {
+        newState.push({
+          label: label,
+          url: path.join('/')
+        });
+      }
 
-          child = child.firstChild;
-        }
+      child = child.firstChild;
+    }
 
-        this._breadcrumbs = newState;
-      });
+    this._breadcrumbs = newState;
   }
 
   private _extractRouteName(routeConfig: ActivatedRouteSnapshot) {
-    let route = routeConfig.data.breadcrumb;
-    return route || this._prepareRouteName(routeConfig.url.join('/'));
+    let name = routeConfig.data.breadcrumb;
+    return name || this._prepareRouteName(routeConfig.url.join('/'));
   }
 
   private _prepareRouteName(name: string) {
