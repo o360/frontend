@@ -1,0 +1,8 @@
+<ul class="nav lang-selector">
+  <li class="nav-item"
+      *ngFor="let language of languages">
+    <a class="nav-link"
+       [ngClass]="{ 'disabled': language.selected }"
+       (click)="changeLanguage(language.id); $event.preventDefault();">{{ language.name | translate }}</a>
+  </li>
+</ul>

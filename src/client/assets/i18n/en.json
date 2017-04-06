@@ -13,5 +13,7 @@
   "T_USER_NAME": "Name",
   "T_USER_DETAILS": "Details of user",
   "T_FORM_ENTER_NAME": "Enter name...",
-  "T_FORM_FIELD_IS_REQUIRED": "Field is required"
+  "T_FORM_FIELD_IS_REQUIRED": "Field is required",
+  "T_LANG_EN": "English",
+  "T_LANG_RU": "Русский"
 }

@@ -13,8 +13,23 @@ import { SupportedLanguages } from './shared/config/translate-loader.config';
   templateUrl: 'app.component.html'
 })
 export class AppComponent {
-  constructor(translate: TranslateService) {
-    translate.setDefaultLang(Config.DEFAULT_LANG);
-    translate.use(SupportedLanguages.EN);
+  constructor(protected _translate: TranslateService) {
+    this._translateConfig();
+  }
+
+  protected _translateConfig() {
+    this._translate.addLangs(Object.values(SupportedLanguages));
+    this._translate.use(this._getSelectedLangCode());
+  }
+
+  protected _getSelectedLangCode() {
+    if (localStorage.language) {
+      return localStorage.language;
+    } else {
+      let browserLang = this._translate.getBrowserLang();
+      let lang = Object.values(SupportedLanguages).find(x => x === browserLang);
+
+      return lang || Config.DEFAULT_LANG;
+    }
   }
 }
