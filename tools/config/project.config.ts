@@ -48,6 +48,9 @@ export class ProjectConfig extends SeedConfig {
       // {src: `${this.CSS_SRC}/path-to-lib/test-lib.css`, inject: true, vendor: false},
     ];
 
+    // For @ngx-translate package
+    this.SYSTEM_BUILDER_CONFIG.packageConfigPaths.push(join('node_modules', '@ngx-translate', '*', 'package.json'));
+
     let additionalPackages: ExtendPackages[] = [{
       name: '@ngx-translate/core',
       path: 'node_modules/@ngx-translate/core/bundles/core.umd.js'
