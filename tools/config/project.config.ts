@@ -39,10 +39,7 @@ export class ProjectConfig extends SeedConfig {
       { src: 'animate.css/animate.css', inject: true },
       { src: 'jquery/dist/jquery.min.js', inject: 'libs' },
       { src: 'pace-progress/pace.min.js', inject: 'libs' },
-      { src: 'bootstrap/dist/js/bootstrap.min.js', inject: 'libs' },
-      { src: 'bootstrap/dist/css/bootstrap.min.css', inject: true },
-      { src: 'bootstrap/dist/css/bootstrap-theme.min.css', inject: true },
-      { src: 'bootstrap/dist/css/bootstrap-theme.min.css.map', inject: true }
+      { src: 'bootstrap/dist/js/bootstrap.min.js', inject: 'libs' }
       // {src: 'lodash/lodash.min.js', inject: 'libs'},
     ];
 
