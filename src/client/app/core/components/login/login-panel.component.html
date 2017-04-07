@@ -1,0 +1,14 @@
+<button type="button"
+        (click)="login()"
+        *ngIf="!authenticationService.isLoggedIn"
+        class="btn btn-primary btn-lg btn-block">
+  {{ 'T_LOG_IN' |
+  translate }}
+</button>
+<div *ngIf="authenticationService.isLoggedIn">
+  <a class="nav-link"
+     routerLink="/users/"
+     routerLinkActive="active"
+     [routerLinkActiveOptions]="{ exact: true }"><i class="icon-user"></i> {{ user.name }}</a>
+  <button type="button" (click)="logout()" class="btn btn-primary btn-lg btn-block">{{ 'T_LOG_OUT' | translate }}</button>
+</div>

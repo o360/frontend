@@ -1,26 +1,15 @@
 import { NgModule } from '@angular/core';
-import { LoginRoutingModule } from './oauth-routing.module';
-import { SharedModule } from '../shared/shared.module';
-import { OAuthComponent } from './oauth.component';
-import { LoginComponent } from './login.component';
-import { LoginService } from './login.service';
 
+import { LoginComponent } from './login.component';
+import { OAuthComponent } from './oauth.component';
+import { SharedModule } from '../shared/shared.module';
+import { LoginRoutingModule } from './login-routing.module';
 
 @NgModule({
-  imports: [
-    LoginRoutingModule,
-    SharedModule
-  ],
-  exports: [
-    OAuthComponent,
-    LoginComponent
-  ],
-  declarations: [
-    OAuthComponent,
-    LoginComponent
-  ],
-  providers: [LoginService]
+  imports: [SharedModule, LoginRoutingModule],
+  exports: [LoginComponent, OAuthComponent],
+  declarations: [LoginComponent, OAuthComponent],
+  providers: [],
 })
 export class LoginModule {
 }
-
