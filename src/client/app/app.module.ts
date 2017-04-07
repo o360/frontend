@@ -27,9 +27,9 @@ import { LoginModule } from './login/login.module';
     CoreModule.forRoot(),
     // App related modules
     AppRoutingModule,
+    LoginModule,
     HomeModule,
-    UserModule,
-    LoginModule
+    UserModule
   ],
   declarations: [
     AppComponent

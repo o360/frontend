@@ -6,25 +6,34 @@ import { HeaderComponent } from './components/header/header.component';
 import { SidebarNavComponent } from './components/sidebar-nav/sidebar-nav.component';
 import { UserService } from './services/user.service';
 import { LanguageSelectorComponent } from './components/language-selector/language-selector.component';
+import { AuthenticationService } from './services/authentication.service';
+import { AuthGuard } from './guards/auth.guard';
+import { LoginPanelComponent } from './components/login/login-panel.component';
 
 @NgModule({
-  imports: [SharedModule],
+  imports: [
+    SharedModule
+  ],
   declarations: [
     HeaderComponent,
     LanguageSelectorComponent,
     SidebarNavComponent,
     BreadcrumbComponent,
-    FooterComponent
+    FooterComponent,
+    LoginPanelComponent
   ],
   providers: [
-    UserService
+    UserService,
+    AuthenticationService,
+    // AuthGuard
   ],
   exports: [
     HeaderComponent,
     LanguageSelectorComponent,
     SidebarNavComponent,
     BreadcrumbComponent,
-    FooterComponent
+    FooterComponent,
+    LoginPanelComponent
   ]
 })
 export class CoreModule {
