@@ -38,7 +38,11 @@ export class ProjectConfig extends SeedConfig {
       { src: 'simple-line-icons/css/simple-line-icons.css', inject: true },
       { src: 'animate.css/animate.css', inject: true },
       { src: 'jquery/dist/jquery.min.js', inject: 'libs' },
-      { src: 'pace-progress/pace.min.js', inject: 'libs' }
+      { src: 'pace-progress/pace.min.js', inject: 'libs' },
+      { src: 'bootstrap/dist/js/bootstrap.min.js', inject: 'libs' },
+      { src: 'bootstrap/dist/css/bootstrap.min.css', inject: true },
+      { src: 'bootstrap/dist/css/bootstrap-theme.min.css', inject: true },
+      { src: 'bootstrap/dist/css/bootstrap-theme.min.css.map', inject: true }
       // {src: 'lodash/lodash.min.js', inject: 'libs'},
     ];
 
@@ -57,6 +61,19 @@ export class ProjectConfig extends SeedConfig {
     }, {
       name: '@ngx-translate/http-loader',
       path: 'node_modules/@ngx-translate/http-loader/bundles/http-loader.umd.js'
+    }, {
+      name:'ngx-bootstrap',
+      path:'node_modules/ngx-bootstrap/bundles/ngx-bootstrap.umd.min.js'
+    }, {
+      name:'ngx-bootstrap/*',
+      path:'node_modules/ngx-bootstrap/bundles/ngx-bootstrap.umd.min.js'
+    }, {
+      name:'moment',
+      path:'node_modules/moment',
+      packageMeta:{
+        main: 'moment.js',
+        defaultExtension: 'js'
+      }
     }];
 
     this.addPackagesBundles(additionalPackages);
