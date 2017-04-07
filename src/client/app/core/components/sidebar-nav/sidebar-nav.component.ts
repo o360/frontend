@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-
 /**
  * This class represents the navigation bar component.
  */
