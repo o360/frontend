@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions } from '@angular/http';
-import { ActivatedRoute, Params, Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import 'rxjs/add/operator/map'
+import { Headers, Http, RequestOptions } from '@angular/http';
+import { UserModel } from '../models/user-model';
+import { Router } from '@angular/router';
 
 const apiUrl = 'http://sop-ci.z1.netpoint-dc.com:9000/api/v1.0';
 
@@ -13,20 +12,10 @@ export class AuthenticationService {
   protected _redirectUri: string;
   protected _scope: string;
 
-  protected _returnUrl: string;
-
-  protected _code: string;
   protected _token: string;
-  private _isLoggedIn: boolean = false;
+  protected _user: UserModel = new UserModel();
 
-
-  public get returnUrl(): string {
-    return this._returnUrl;
-  }
-
-  public set returnUrl(value: string) {
-    this._returnUrl = value;
-  }
+  protected _isLoggedIn: boolean = false;
 
   public get isLoggedIn(): boolean {
     return this._isLoggedIn;
@@ -36,11 +25,12 @@ export class AuthenticationService {
     this._isLoggedIn = value;
   }
 
+  public get user(): UserModel {
+    return this._user;
+  }
+
   constructor(protected _http: Http,
-              protected _router: Router,
-              protected _activatedRoute: ActivatedRoute) {
-    var currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    this._token = currentUser && currentUser.token;
+              protected _router: Router) {
   }
 
   public login(provider: string) {
@@ -55,53 +45,57 @@ export class AuthenticationService {
       + '&redirect_uri=' + encodeURIComponent(this._redirectUri)
       + '&client_id=' + encodeURIComponent(this._clientId)
       + '&scope=' + encodeURIComponent(this._scope);
-    window.open(url, 'oauth', 'width=500,height=400');
+    window.location.href = url;
   }
 
-  public getCode() {
-    this._activatedRoute.queryParams.subscribe((params: Params) => {
-      this._code = params['code'];
-    });
-    console.log('Code: ', this._code);
-    this.getToken('google', this._code);
-    this._router.navigate([this._returnUrl]);
-  }
-
-  public getToken(provider: string, code: string) {
+  public auth(provider: string, code: string) {
     let url = apiUrl + '/auth/' + provider;
+
     let body = JSON.stringify({ 'code': code });
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
+
     this._http.post(url, body, options)
-      .subscribe(response => {
-      let token = response.json() && response.json().token;
-      if (token) {
-        this._token = token;
+      .subscribe(data => {
+        let token = data.json().token;
+        if (token) {
+          this._token = token;
+          localStorage.token = token;
+        }
         this.getUser(this._token);
-      }
-    });
+      });
   }
 
   public getUser(token: string) {
     let url = apiUrl + '/auth';
+
     let headers = new Headers({ 'Accept': 'application/json' });
     headers.append('X-Auth-Token', token);
     let options = new RequestOptions({ headers: headers });
-    this._http.get(url, options).subscribe(response => {
-      let user = response.json();
-      if (user) {
-        this._isLoggedIn = true;
-        localStorage.setItem('currentUser', JSON.stringify(user));
-      } else {
-        this._isLoggedIn = false;
-      }
-      parent.close();
-    });
+
+    this._http.get(url, options)
+      .subscribe(response => {
+        let user = response.json();
+        if (user) {
+          this._isLoggedIn = true;
+          localStorage.setItem('currentUser', JSON.stringify(user));
+          this.getCurrentUser();
+          this._router.navigate(['']);
+        } else {
+          this._isLoggedIn = false;
+          this._router.navigate(['/login']);
+        }
+      });
+  }
+
+  public getCurrentUser() {
+    this._user = JSON.parse(localStorage.currentUser);
   }
 
   public logout() {
-    this._token = null;
+    localStorage.removeItem('token');
     localStorage.removeItem('currentUser');
+    this._isLoggedIn = false;
     this._router.navigate(['/login']);
   }
 }

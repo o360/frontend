@@ -25,7 +25,7 @@ import { LoginPanelComponent } from './components/login/login-panel.component';
   providers: [
     UserService,
     AuthenticationService,
-    // AuthGuard
+    AuthGuard
   ],
   exports: [
     HeaderComponent,
