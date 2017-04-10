@@ -1,4 +1,5 @@
 import { AfterViewInit, Component } from '@angular/core';
+import { AuthenticationService } from '../../services/authentication.service';
 
 @Component({
   moduleId: module.id,
@@ -6,8 +7,10 @@ import { AfterViewInit, Component } from '@angular/core';
   templateUrl: 'header.component.html'
 })
 export class HeaderComponent implements AfterViewInit {
+  constructor(public authenticationService: AuthenticationService) {
+  }
 
-  // @todo: Rewrite scripts from theme
+// @todo: Rewrite scripts from theme
   public ngAfterViewInit() {
     let self = this;
     $('.navbar-toggler').click(function (e) {

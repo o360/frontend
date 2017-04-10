@@ -17,5 +17,6 @@
   "T_LANG_EN": "English",
   "T_LANG_RU": "Русский",
   "T_LOG_IN": "Log in",
-  "T_LOG_OUT": "Log out"
+  "T_LOG_OUT": "Log out",
+  "T_LOGIN_TEXT": "Sign In to your account"
 }

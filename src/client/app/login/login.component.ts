@@ -8,10 +8,10 @@ import { AuthenticationService } from '../core/services/authentication.service';
 })
 export class LoginComponent {
   constructor(protected _authenticationService: AuthenticationService) {
+    this._authenticationService.logout();
   }
 
   public login(provider: string) {
     this._authenticationService.login(provider);
   }
-
 }

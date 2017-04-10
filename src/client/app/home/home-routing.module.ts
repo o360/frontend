@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { HomeComponent } from './home.component';
+import { AuthGuard } from '../core/guards/auth.guard';
 
 @NgModule({
   imports: [
@@ -9,6 +10,7 @@ import { HomeComponent } from './home.component';
         path: '',
         component: HomeComponent,
         data: { breadcrumb: 'T_HOME' },
+        canActivate: [AuthGuard],
       }
     ])
   ],

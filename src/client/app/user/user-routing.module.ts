@@ -3,11 +3,13 @@ import { RouterModule } from '@angular/router';
 import { UserDetailsComponent } from './user-details.component';
 import { UserFormComponent } from './user-form.component';
 import { UserListComponent } from './user-list.component';
+import { AuthGuard } from '../core/guards/auth.guard';
 
 @NgModule({
   imports: [
     RouterModule.forChild([{
       path: 'users',
+      canActivate: [AuthGuard],
       data: { breadcrumb: 'T_USERS' },
       children: [{
         path: '',
