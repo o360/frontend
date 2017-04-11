@@ -28,8 +28,7 @@ import { LoginModule } from './login/login.module';
     // App related modules
     AppRoutingModule,
     LoginModule,
-    HomeModule,
-    UserModule
+    HomeModule
   ],
   declarations: [
     AppComponent

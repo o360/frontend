@@ -9,6 +9,7 @@ import { LanguageSelectorComponent } from './components/language-selector/langua
 import { AuthenticationService } from './services/authentication.service';
 import { AuthGuard } from './guards/auth.guard';
 import { LoginPanelComponent } from './components/login/login-panel.component';
+import { LayoutComponent } from './components/layout/layout.component';
 
 @NgModule({
   imports: [
@@ -20,7 +21,8 @@ import { LoginPanelComponent } from './components/login/login-panel.component';
     SidebarNavComponent,
     BreadcrumbComponent,
     FooterComponent,
-    LoginPanelComponent
+    LoginPanelComponent,
+    LayoutComponent
   ],
   providers: [
     UserService,
@@ -33,7 +35,8 @@ import { LoginPanelComponent } from './components/login/login-panel.component';
     SidebarNavComponent,
     BreadcrumbComponent,
     FooterComponent,
-    LoginPanelComponent
+    LoginPanelComponent,
+    LayoutComponent
   ]
 })
 export class CoreModule {

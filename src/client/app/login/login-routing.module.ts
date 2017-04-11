@@ -5,8 +5,8 @@ import { LoginComponent } from './login.component';
 
 @NgModule({
   imports: [
-    RouterModule.forRoot([{
-      path: 'login',
+    RouterModule.forChild([{
+      path: '',
       component: LoginComponent
     }, {
       path: 'google',
