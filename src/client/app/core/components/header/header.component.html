@@ -8,7 +8,7 @@
       <a class="nav-link navbar-toggler sidebar-toggler" href="#">☰</a>
     </li>
   </ul>
-  <ul class="nav navbar-nav"><li *ngIf="authenticationService.isLoggedIn" class="nav-item dropdown">
+  <ul class="nav navbar-nav"><li *ngIf="authService.isLoggedIn()" class="nav-item dropdown">
     <a
       class="nav-link dropdown-toggle nav-link"
       data-toggle="dropdown"
@@ -16,11 +16,11 @@
       aria-haspopup="true"
       aria-expanded="true">
   <span class="">
-        {{ authenticationService.user.name }}
+        {{ authService.user.name }}
   </span>
     </a>
     <div class="dropdown-menu dropdown-menu-right">
-      <a class="dropdown-item" (click)="logout()"><i class="fa fa-lock"></i>{{ 'T_LOG_OUT' | translate }}</a>
+      <a class="dropdown-item" (click)="authService.logout()"><i class="fa fa-lock"></i>{{ 'T_LOG_OUT' | translate }}</a>
     </div>
   </li>
     <bs-language-selector></bs-language-selector>

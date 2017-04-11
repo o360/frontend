@@ -9,7 +9,7 @@ import { LoginComponent } from './login.component';
       path: '',
       component: LoginComponent
     }, {
-      path: 'google',
+      path: ':provider',
       component: OAuthComponent
     }])
   ],

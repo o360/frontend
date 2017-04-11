@@ -1,5 +1,5 @@
 import { AfterViewInit, Component } from '@angular/core';
-import { AuthenticationService } from '../../services/authentication.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   moduleId: module.id,
@@ -7,7 +7,7 @@ import { AuthenticationService } from '../../services/authentication.service';
   templateUrl: 'header.component.html'
 })
 export class HeaderComponent implements AfterViewInit {
-  constructor(public authenticationService: AuthenticationService) {
+  constructor(public authService: AuthService) {
   }
 
 // @todo: Rewrite scripts from theme

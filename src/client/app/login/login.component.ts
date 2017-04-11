@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AuthenticationService } from '../core/services/authentication.service';
+import { AuthService } from '../core/services/auth.service';
 
 @Component({
   moduleId: module.id,
@@ -7,11 +7,11 @@ import { AuthenticationService } from '../core/services/authentication.service';
   templateUrl: 'login.component.html'
 })
 export class LoginComponent {
-  constructor(protected _authenticationService: AuthenticationService) {
-    this._authenticationService.logout();
+  constructor(protected _authService: AuthService) {
+    this._authService.logout();
   }
 
   public login(provider: string) {
-    this._authenticationService.login(provider);
+    this._authService.login(provider);
   }
 }
