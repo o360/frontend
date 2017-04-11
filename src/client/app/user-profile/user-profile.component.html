@@ -1,0 +1,38 @@
+<div class="card w-75">
+  <div class="card-header d-flex flex-row justify-content-between">
+    <p class="text-center mb-0">Your profile</p>
+    <button type="button"
+            class="close"
+            aria-label="Close"
+            (click)="closeProfile()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="card-block">
+    <div class="row">
+      <div class="d-flex flex-column col-md-3">
+        <img class="rounded-circle mb-1 w-100"
+             src=""
+             alt="UserPic"
+             style="height:200px;">
+        <button class="btn btn-primary"
+                type="button"
+                [routerLink]="['edit']">{{'T_PROFILE_EDIT' | translate}}</button>
+      </div>
+      <div class="table col-md-9">
+          <tbody *ngIf="fakeUser">
+            <tr>
+              <td class="border-top-0">{{'T_USER_NAME' | translate}}:</td>
+              <td class="border-top-0">{{fakeUser.name}}</td>
+            </tr>
+            <tr>
+              <td>{{'T_USER_EMAIL' | translate}}:</td>
+              <td>{{fakeUser.email}}</td>
+            </tr>
+          </tbody>
+
+        </div>
+
+      </div>
+  </div>
+</div>
