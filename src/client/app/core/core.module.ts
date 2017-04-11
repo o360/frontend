@@ -6,7 +6,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { SidebarNavComponent } from './components/sidebar-nav/sidebar-nav.component';
 import { UserService } from './services/user.service';
 import { LanguageSelectorComponent } from './components/language-selector/language-selector.component';
-import { AuthenticationService } from './services/authentication.service';
+import { AuthService } from './services/auth.service';
 import { AuthGuard } from './guards/auth.guard';
 import { LoginPanelComponent } from './components/login/login-panel.component';
 import { LayoutComponent } from './components/layout/layout.component';
@@ -26,7 +26,7 @@ import { LayoutComponent } from './components/layout/layout.component';
   ],
   providers: [
     UserService,
-    AuthenticationService,
+    AuthService,
     AuthGuard
   ],
   exports: [

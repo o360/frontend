@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { AuthenticationService } from '../core/services/authentication.service';
+import { AuthService } from '../core/services/auth.service';
 
 @Component({
   moduleId: module.id,
@@ -8,15 +8,18 @@ import { AuthenticationService } from '../core/services/authentication.service';
   template: `<p>Logging</p>`
 })
 export class OAuthComponent implements OnInit {
-  protected _code: string;
-
-  constructor(protected _authenticationService: AuthenticationService, protected _activatedRoute: ActivatedRoute) {
+  constructor(protected _authService: AuthService,
+              protected _activatedRoute: ActivatedRoute) {
   }
 
   public ngOnInit(): void {
-    this._activatedRoute.queryParams.subscribe((params: Params) => {
-      this._code = params['code'];
+    this._activatedRoute.params.forEach((params: Params) => {
+      let provider = params['provider'];
+
+      this._activatedRoute.queryParams.forEach((params: Params) => {
+        let code = params['code'];
+        this._authService.authenticate(provider, code);
+      });
     });
-    this._authenticationService.auth('google', this._code);
   }
 }

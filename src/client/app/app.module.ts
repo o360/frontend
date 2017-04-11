@@ -26,9 +26,7 @@ import { LoginModule } from './login/login.module';
     SharedModule.forRoot(),
     CoreModule.forRoot(),
     // App related modules
-    AppRoutingModule,
-    LoginModule,
-    HomeModule
+    AppRoutingModule
   ],
   declarations: [
     AppComponent

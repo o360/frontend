@@ -5,7 +5,7 @@
       {{ 'T_LOG_IN' | translate }}
     </a>
   </li>
-  <li *ngIf="authenticationService.isLoggedIn" class="nav-item dropdown">
+  <li *ngIf="authService.isLoggedIn" class="nav-item dropdown">
     <a
       class="nav-link dropdown-toggle nav-link"
       data-toggle="dropdown"
@@ -13,7 +13,7 @@
       aria-haspopup="true"
       aria-expanded="true">
   <span class="">
-        {{ authenticationService.user.name }}
+        {{ authService.user.name }}
   </span>
     </a>
     <div class="dropdown-menu dropdown-menu-right">

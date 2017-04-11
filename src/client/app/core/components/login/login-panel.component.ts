@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AuthenticationService } from '../../services/authentication.service';
-import { UserModel } from '../../models/user-model';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   moduleId: module.id,
@@ -11,10 +9,10 @@ import { UserModel } from '../../models/user-model';
 })
 export class LoginPanelComponent {
 
-  constructor(public authenticationService: AuthenticationService) {
+  constructor(public authService: AuthService) {
   }
 
   public logout() {
-    this.authenticationService.logout();
+    this.authService.logout();
   }
 }

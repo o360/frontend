@@ -32,7 +32,7 @@ export declare type ModelConstructor<T> = { new (json: Object): T };
  * */
 @Injectable()
 export class RestService<T extends Model> {
-  protected _host: string = Config.API;
+  protected _host: string = Config.FIREBASE_URL;
   protected _endpoint: string;
   protected _entityName: string;
   protected _entityConstructor: ModelConstructor<T>;
