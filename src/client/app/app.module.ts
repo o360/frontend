@@ -10,6 +10,7 @@ import { HomeModule } from './home/home.module';
 import { createTranslateLoader } from './shared/config/translate-loader.config';
 import { SharedModule } from './shared/shared.module';
 import { UserModule } from './user/user.module';
+import { UserProfileModule } from "./user-profile/user-profile.module";
 import { LoginModule } from './login/login.module';
 
 @NgModule({
@@ -26,6 +27,10 @@ import { LoginModule } from './login/login.module';
     SharedModule.forRoot(),
     CoreModule.forRoot(),
     // App related modules
+    AppRoutingModule,
+    HomeModule,
+    UserModule,
+    UserProfileModule
     AppRoutingModule
   ],
   declarations: [
