@@ -1,14 +1,14 @@
-<header class="app-header navbar">
+<header class="app-header navbar justify-content-lg-between justify-content-around">
   <button class="navbar-toggler mobile-sidebar-toggler hidden-lg-up" type="button">☰</button>
-
-  <a class="navbar-brand" routerLink="/">BW Assessment</a>
-
-  <ul class="nav navbar-nav hidden-md-down">
-    <li class="nav-item">
-      <a class="nav-link navbar-toggler sidebar-toggler" href="#">☰</a>
-    </li>
-  </ul>
-  <ul class="nav navbar-nav justify-content-end">
+  <div class="nav">
+    <a class="navbar-brand" routerLink="/">BW Assessment</a>
+    <ul class="nav navbar-nav hidden-md-down">
+      <li class="nav-item">
+        <a class="nav-link navbar-toggler sidebar-toggler" href="#">☰</a>
+      </li>
+    </ul>
+  </div>
+  <ul class="nav navbar-nav">
     <li *ngIf="checkLogin()" class="nav-item dropdown">
       <a
         class="nav-link dropdown-toggle nav-link"
@@ -16,9 +16,7 @@
         role="button"
         aria-haspopup="true"
         aria-expanded="true">
-  <span class="">
         {{ user.name }}
-  </span>
       </a>
       <div class="dropdown-menu dropdown-menu-right">
         <a class="dropdown-item" (click)="logout()"><i class="fa fa-lock"></i>{{ 'T_LOG_OUT' | translate }}</a>
