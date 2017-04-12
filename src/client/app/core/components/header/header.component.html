@@ -8,21 +8,22 @@
       <a class="nav-link navbar-toggler sidebar-toggler" href="#">☰</a>
     </li>
   </ul>
-  <ul class="nav navbar-nav"><li *ngIf="checkLogin()" class="nav-item dropdown">
-    <a
-      class="nav-link dropdown-toggle nav-link"
-      data-toggle="dropdown"
-      role="button"
-      aria-haspopup="true"
-      aria-expanded="true">
+  <ul class="nav navbar-nav justify-content-end">
+    <li *ngIf="checkLogin()" class="nav-item dropdown">
+      <a
+        class="nav-link dropdown-toggle nav-link"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="true">
   <span class="">
         {{ user.name }}
   </span>
-    </a>
-    <div class="dropdown-menu dropdown-menu-right">
-      <a class="dropdown-item" (click)="logout()"><i class="fa fa-lock"></i>{{ 'T_LOG_OUT' | translate }}</a>
-    </div>
-  </li>
+      </a>
+      <div class="dropdown-menu dropdown-menu-right">
+        <a class="dropdown-item" (click)="logout()"><i class="fa fa-lock"></i>{{ 'T_LOG_OUT' | translate }}</a>
+      </div>
+    </li>
     <bs-language-selector></bs-language-selector>
 
   </ul>

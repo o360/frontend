@@ -10,6 +10,7 @@ import { AuthService } from './services/auth.service';
 import { AuthGuard } from './guards/auth.guard';
 import { LoginPanelComponent } from './components/login/login-panel.component';
 import { LayoutComponent } from './components/layout/layout.component';
+import { AccountService } from './services/account.service';
 
 @NgModule({
   imports: [
@@ -27,6 +28,7 @@ import { LayoutComponent } from './components/layout/layout.component';
   providers: [
     UserService,
     AuthService,
+    AccountService,
     AuthGuard
   ],
   exports: [

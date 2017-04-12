@@ -1,7 +1,7 @@
 import { AfterViewInit, Component } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-import { el } from '@angular/platform-browser/testing/src/browser_util';
 import { UserModel } from '../../models/user-model';
+import { AccountService } from '../../services/account.service';
 
 @Component({
   moduleId: module.id,
@@ -15,17 +15,19 @@ export class HeaderComponent implements AfterViewInit {
     return this._user;
   }
 
-  constructor(private _authService: AuthService) {
+  constructor(private _authService: AuthService,
+  private _accountService: AccountService) {
   }
 
   public checkLogin() {
     if (this._authService.isLoggedIn()) {
-      this._user = this._authService.getCurrentUser();
+      this._user = this._accountService.user;
       return true;
     } else {
       return false;
     }
   }
+
   public logout() {
     this._authService.logout();
   }
