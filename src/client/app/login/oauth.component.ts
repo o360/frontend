@@ -6,7 +6,7 @@ import { AccountService } from '../core/services/account.service';
 @Component({
   moduleId: module.id,
   selector: 'bs-oauth',
-  template: `<p>Logging</p>`
+  templateUrl: 'oauth.component.html'
 })
 export class OAuthComponent implements OnInit {
   constructor(protected _accountService: AccountService,
