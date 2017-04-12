@@ -8,6 +8,8 @@ import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { createTranslateLoader } from './shared/config/translate-loader.config';
 import { SharedModule } from './shared/shared.module';
+import { NewAccountComponent } from './new-account/new-account.component';
+
 
 @NgModule({
   imports: [
@@ -26,7 +28,8 @@ import { SharedModule } from './shared/shared.module';
     AppRoutingModule
   ],
   declarations: [
-    AppComponent
+    AppComponent,
+    NewAccountComponent
   ],
   providers: [{
     provide: APP_BASE_HREF,

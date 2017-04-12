@@ -1,29 +1,33 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Config } from '../../shared/config/env.config';
-import { UserModel } from '../models/user-model';
+import { AccountModel } from '../models/account-model';
 
 export const tokenLsKey = 'token';
 
 @Injectable()
 export class AuthService {
   private _token: string;
-  private _user: UserModel;
+  private _user: AccountModel;
 
   public get token(): string {
     return this._token;
   }
 
-  public get user(): UserModel {
+  public get user(): AccountModel {
     return this._user;
   }
 
-  public set user(value: UserModel) {
+  public set user(value: AccountModel) {
     this._user = value;
   }
 
   public get isLoggedIn() {
     return !!this._token;
+  }
+
+  public get isNewAccount() {
+    return !!(this._user.status === 'new');
   }
 
   constructor(protected _router: Router) {

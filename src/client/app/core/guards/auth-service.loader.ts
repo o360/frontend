@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import { UserModel } from '../models/user-model';
+import { AccountModel } from '../models/account-model';
 import { AccountService } from '../services/account.service';
 import { AuthService } from '../services/auth.service';
 
@@ -31,10 +31,14 @@ export class AuthServiceLoader implements CanActivate {
   private _load() {
     if (!this._isLoading) {
       this._isLoading = this._accountService.get(this._authService.token)
-        .map((user: UserModel) => {
+        .map((user: AccountModel) => {
           this._authService.user = user;
-          this._isLoading = null;
-
+          if (this._authService.isNewAccount) {
+            this._router.navigate(['/new']);
+            return false;
+          } else {
+            this._isLoading = null;
+          }
           return true;
         }).share();
     }
