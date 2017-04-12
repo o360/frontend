@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
-import { AuthService } from '../core/services/auth.service';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { AuthService, tokenLsKey } from '../core/services/auth.service';
 import { AccountService } from '../core/services/account.service';
 
 @Component({
@@ -10,7 +10,8 @@ import { AccountService } from '../core/services/account.service';
 })
 export class OAuthComponent implements OnInit {
   constructor(protected _accountService: AccountService,
-              protected _activatedRoute: ActivatedRoute) {
+              protected _activatedRoute: ActivatedRoute,
+              protected _router: Router) {
   }
 
   public ngOnInit(): void {
@@ -19,7 +20,15 @@ export class OAuthComponent implements OnInit {
 
       this._activatedRoute.queryParams.forEach((params: Params) => {
         let code = params['code'];
-        this._accountService.authenticate(provider, code);
+
+        this._accountService.authenticate(provider, code).subscribe(token => {
+          if (token) {
+            localStorage.setItem(tokenLsKey, token);
+            this._router.navigate(['/']);
+          } else {
+            this._router.navigate(['/login']);
+          }
+        });
       });
     });
   }

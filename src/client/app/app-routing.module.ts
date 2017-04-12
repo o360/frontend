@@ -5,12 +5,13 @@ import { AuthGuard } from './core/guards/auth.guard';
 import { LoginModule } from './login/login.module';
 import { UserModule } from './user/user.module';
 import { HomeModule } from './home/home.module';
+import { AuthServiceLoader } from './core/guards/auth-service.loader';
 
 @NgModule({
   imports: [
     RouterModule.forRoot([{
       path: '',
-      canActivate: [AuthGuard],
+      canActivate: [AuthServiceLoader],
       canActivateChild: [AuthGuard],
       component: LayoutComponent,
       data: { breadcrumbIgnore: true },

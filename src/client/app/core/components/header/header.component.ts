@@ -15,17 +15,8 @@ export class HeaderComponent implements AfterViewInit {
     return this._user;
   }
 
-  constructor(private _authService: AuthService,
-              private _accountService: AccountService) {
-  }
-
-  public checkLogin() {
-    if (this._authService.isLoggedIn()) {
-      this._user = this._accountService.user;
-      return true;
-    } else {
-      return false;
-    }
+  constructor(private _authService: AuthService) {
+    this._user = this._authService.user;
   }
 
   public logout() {
