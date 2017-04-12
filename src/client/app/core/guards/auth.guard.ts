@@ -14,7 +14,7 @@ export class AuthGuard implements CanActivate, CanActivateChild {
   constructor(protected _router: Router, protected _authService: AuthService) {
   }
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+  public canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     if (this._authService.isLoggedIn()) {
       return true;
     }
@@ -23,7 +23,7 @@ export class AuthGuard implements CanActivate, CanActivateChild {
   }
 
 
-  canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+  public canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     return this.canActivate(childRoute, state);
   }
 }
