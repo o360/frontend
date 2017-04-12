@@ -16,5 +16,8 @@
   "T_FORM_FIELD_IS_REQUIRED": "Поле должно быть заполнено",
   "T_ACTION_SELECT_LANGUAGE": "Выбрать язык",
   "T_LANG_EN": "English",
-  "T_LANG_RU": "Русский"
+  "T_LANG_RU": "Русский",
+  "T_LOG_IN": "Войти",
+  "T_LOG_OUT": "Выйти",
+  "T_LOGIN_TEXT": "Войдите в свой аккаунт"
 }
