@@ -1,5 +1,7 @@
 import { AfterViewInit, Component } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
+import { el } from '@angular/platform-browser/testing/src/browser_util';
+import { UserModel } from '../../models/user-model';
 
 @Component({
   moduleId: module.id,
@@ -7,7 +9,25 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: 'header.component.html'
 })
 export class HeaderComponent implements AfterViewInit {
-  constructor(public authService: AuthService) {
+  private _user: UserModel;
+
+  public get user(): UserModel {
+    return this._user;
+  }
+
+  constructor(private _authService: AuthService) {
+  }
+
+  public checkLogin() {
+    if (this._authService.isLoggedIn()) {
+      this._user = this._authService.getCurrentUser();
+      return true;
+    } else {
+      return false;
+    }
+  }
+  public logout() {
+    this._authService.logout();
   }
 
 // @todo: Rewrite scripts from theme

@@ -19,13 +19,14 @@ export class AuthService {
   constructor(protected _http: Http, protected _router: Router) {
   }
 
-  protected _getCurrentUser() {
+  public getCurrentUser() {
     this._user = JSON.parse(localStorage.getItem('currentUser'));
+    return this._user;
   }
 
   public isLoggedIn() {
     if (localStorage.getItem('currentUser')) {
-      this._getCurrentUser();
+      this.getCurrentUser();
       return true;
     } else {
       return false;
@@ -77,7 +78,7 @@ export class AuthService {
         let user = response.json();
         if (user) {
           localStorage.setItem('currentUser', JSON.stringify(user));
-          this._getCurrentUser();
+          this.getCurrentUser();
         }
       });
   }
