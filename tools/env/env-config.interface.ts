@@ -2,6 +2,8 @@
 // depending on your app specific config.
 export interface EnvConfig {
   API?: string;
+  PROVIDERS?: any;
+  FIREBASE_URL?: string;
   ENV?: string;
   DEFAULT_LANG?: string;
 }

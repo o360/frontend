@@ -1,4 +1,7 @@
 import { AfterViewInit, Component } from '@angular/core';
+import { UserModel } from '../../models/user-model';
+import { AccountService } from '../../services/account.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   moduleId: module.id,
@@ -6,8 +9,21 @@ import { AfterViewInit, Component } from '@angular/core';
   templateUrl: 'header.component.html'
 })
 export class HeaderComponent implements AfterViewInit {
+  private _user: UserModel;
 
-  // @todo: Rewrite scripts from theme
+  public get user(): UserModel {
+    return this._user;
+  }
+
+  constructor(private _authService: AuthService) {
+    this._user = this._authService.user;
+  }
+
+  public logout() {
+    this._authService.logout();
+  }
+
+// @todo: Rewrite scripts from theme
   public ngAfterViewInit() {
     let self = this;
     $('.navbar-toggler').click(function (e) {

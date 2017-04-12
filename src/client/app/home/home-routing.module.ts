@@ -1,16 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { AuthGuard } from '../core/guards/auth.guard';
 import { HomeComponent } from './home.component';
 
 @NgModule({
   imports: [
-    RouterModule.forChild([
-      {
-        path: '',
-        component: HomeComponent,
-        data: { breadcrumb: 'T_HOME' },
-      }
-    ])
+    RouterModule.forChild([{
+      path: '',
+      component: HomeComponent,
+      data: { breadcrumb: 'T_HOME' },
+    }])
   ],
   exports: [RouterModule]
 })
