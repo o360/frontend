@@ -7,6 +7,7 @@ import { UserModule } from './user/user.module';
 import { HomeModule } from './home/home.module';
 import { AuthServiceLoader } from './core/guards/auth-service.loader';
 import { UserProfileModule } from './user-profile/user-profile.module';
+import { NewAccountComponent } from './new-account/new-account.component';
 
 @NgModule({
   imports: [
@@ -25,6 +26,10 @@ import { UserProfileModule } from './user-profile/user-profile.module';
     }, {
       path: 'login',
       loadChildren: () => LoginModule
+    }, {
+      path: 'new',
+      canActivate: [AuthGuard],
+      component: NewAccountComponent
     }])
   ],
   exports: [RouterModule]

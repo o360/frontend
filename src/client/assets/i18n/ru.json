@@ -26,5 +26,11 @@
   "T_LANG_RU": "Русский",
   "T_LOG_IN": "Войти",
   "T_LOG_OUT": "Выйти",
-  "T_LOGIN_TEXT": "Войдите в свой аккаунт"
+  "T_LOGIN_TEXT": "Войдите в свой аккаунт",
+  "T_FORM_NEW_ACCOUNT": "Регистрация",
+  "T_FORM_NEW_ACCOUNT_TEXT": "Заполните форму и, пожалуйста, дождитесь подтверждения вашего профиля",
+  "T_FORM_NEW_ACCOUNT_NAME": "Имя",
+  "T_FORM_NEW_ACCOUNT_EMAIL": "E-mail",
+  "T_NEW_ACCOUNT_SUBMIT": "Подтвердить",
+
 }
