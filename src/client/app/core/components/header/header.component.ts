@@ -1,7 +1,7 @@
 import { AfterViewInit, Component } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
 import { UserModel } from '../../models/user-model';
 import { AccountService } from '../../services/account.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   moduleId: module.id,
@@ -16,7 +16,7 @@ export class HeaderComponent implements AfterViewInit {
   }
 
   constructor(private _authService: AuthService,
-  private _accountService: AccountService) {
+              private _accountService: AccountService) {
   }
 
   public checkLogin() {
