@@ -3,14 +3,14 @@ import { SharedModule } from '../shared/shared.module';
 import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
-import { SidebarNavComponent } from './components/sidebar-nav/sidebar-nav.component';
-import { UserService } from './services/user.service';
 import { LanguageSelectorComponent } from './components/language-selector/language-selector.component';
-import { AuthService } from './services/auth.service';
-import { AuthGuard } from './guards/auth.guard';
-import { LoginPanelComponent } from './components/login/login-panel.component';
 import { LayoutComponent } from './components/layout/layout.component';
+import { SidebarNavComponent } from './components/sidebar-nav/sidebar-nav.component';
+import { AuthGuard } from './guards/auth.guard';
 import { AccountService } from './services/account.service';
+import { AuthService } from './services/auth.service';
+import { UserService } from './services/user.service';
+import { AuthServiceLoader } from "./guards/auth-service.loader";
 
 @NgModule({
   imports: [
@@ -22,14 +22,14 @@ import { AccountService } from './services/account.service';
     SidebarNavComponent,
     BreadcrumbComponent,
     FooterComponent,
-    LoginPanelComponent,
     LayoutComponent
   ],
   providers: [
     UserService,
     AuthService,
     AccountService,
-    AuthGuard
+    AuthGuard,
+    AuthServiceLoader
   ],
   exports: [
     HeaderComponent,
@@ -37,7 +37,6 @@ import { AccountService } from './services/account.service';
     SidebarNavComponent,
     BreadcrumbComponent,
     FooterComponent,
-    LoginPanelComponent,
     LayoutComponent
   ]
 })

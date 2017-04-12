@@ -1,56 +1,55 @@
-import { Injectable } from '@angular/core';
-import { Headers, Http, RequestOptions } from '@angular/http';
-import { Config } from '../../shared/config/env.config';
-import { Router } from '@angular/router';
+import { Headers, Http, RequestOptions, Response } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
+import { RestServiceConfig } from '../decorators/rest-service-config.decorator';
 import { UserModel } from '../models/user-model';
+import { RestService } from './rest.service';
+import { Config } from '../../shared/config/env.config';
 
-@Injectable()
-export class AccountService {
-  protected _apiUrl: string = Config.API;
-  protected _user: UserModel = new UserModel();
+@RestServiceConfig({
+  entityName: 'auth',
+  entityConstructor: UserModel
+})
+export class AccountService extends RestService<UserModel> {
+  protected _host = Config.API;
 
-  public get user(): UserModel {
-    return this._user;
-  }
-  constructor(protected _http: Http, protected _router: Router) {
-    this.getCurrentUser();
-  }
-
-  public getCurrentUser() {
-    if (localStorage.getItem('token')) {
-      this.getUser(localStorage.getItem('token'));
-    }
+  constructor(http: Http) {
+    super(http);
   }
 
-  public authenticate(provider: string, code: string) {
-    let url = `${ this._apiUrl }/auth/${ provider }`;
+  public authenticate(provider: string, code: string): Observable<string> {
     let body = JSON.stringify({ 'code': code });
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
-    this._http.post(url, body, options)
-      .subscribe(data => {
-        let token = data.json().token;
-        if (token) {
-          localStorage.setItem('token', token);
-          this.getUser(token);
-        } else {
-          this._router.navigate(['/login']);
-        }
-      });
+    let url = [this._host, this._entityName, provider].join('/'); // @todo: rest service refactoring
+
+    return this._http.post(url, body, this._getRequestOptions())
+      .map((response: Response) => response.json())
+      .map((json: any) => <string>json['token'])
+      .catch((error: any) => this._handleErrors(error));
   }
 
-  public getUser(token: string) {
-    let url = `${ this._apiUrl }/auth`;
-    let headers = new Headers({ 'Accept': 'application/json' });
-    headers.append('X-Auth-Token', token);
-    let options = new RequestOptions({ headers: headers });
+  public get(token: string): Observable<UserModel> {
+    let url = [this._host, this._entityName].join('/'); // @todo: rest service refactoring
+    let options = new RequestOptions({
+      headers: new Headers({
+        'Content-Type': 'application/json;charset=UTF-8',
+        'Accept': 'application/json',
+        'X-Auth-Token': token // @todo: move to base service
+      })
+    });
+
     return this._http.get(url, options)
-      .subscribe((response) => {
-        let user = response.json();
-        if (user) {
-          this._user = user;
-          this._router.navigate(['']);
-        }
-      });
+      .map((response: Response) => response.json())
+      .map((json: Object) => this.createEntity(json));
+  }
+
+  public list() {
+    return Observable.throw('Method not allowed!');
+  }
+
+  public save() {
+    return Observable.throw('Method not allowed!');
+  }
+
+  public delete() {
+    return Observable.throw('Method not allowed!');
   }
 }
