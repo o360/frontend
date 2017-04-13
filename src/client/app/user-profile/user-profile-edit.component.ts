@@ -15,10 +15,6 @@ export class UserProfileEditComponent {
     return this._fakeUser;
   }
 
-  public uploadPicture() {
-    console.log('uploadPicture');
-  }
-
   public submitProfileChanges() {
     console.log('submitProfileChanges');
   }
