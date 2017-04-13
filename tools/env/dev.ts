@@ -13,7 +13,16 @@ const DevConfig: EnvConfig = {
       }
     }
   },
+  USERS_FILTERS: [{
+    name: 'status',
+    values: ['all', 'new', 'approved']
+  }, {
+    name: 'role',
+    values: ['all', 'user', 'admin']
+  }, {
+    name: 'sort',
+    values: ['id', 'name', 'email', 'role', 'status']
+  }]
 };
-
 export = DevConfig;
 

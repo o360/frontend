@@ -4,6 +4,7 @@ import { UserDetailsComponent } from './user-details.component';
 import { UserFormComponent } from './user-form.component';
 import { UserListComponent } from './user-list.component';
 import { UsersRoutingModule } from './users-routing.module';
+import { UsersFilterComponent } from '../../user/users-filter/users-filter.component';
 
 @NgModule({
   imports: [
@@ -13,12 +14,14 @@ import { UsersRoutingModule } from './users-routing.module';
   declarations: [
     UserListComponent,
     UserDetailsComponent,
-    UserFormComponent
+    UserFormComponent,
+    UsersFilterComponent
   ],
   exports: [
     UserListComponent,
     UserDetailsComponent,
-    UserFormComponent
+    UserFormComponent,
+    UsersFilterComponent
   ]
 })
 export class UsersModule {

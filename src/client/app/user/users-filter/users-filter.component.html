@@ -1,0 +1,23 @@
+<div class="card">
+  <div class="card-block">
+    <div class="col-xs-5">
+      <h4 class="card-title">{{ 'T_USER_FILTER_TITLE' | translate }}</h4>
+      <div class="small text-muted" style="margin-top:-10px;">{{ 'T_USER_FILTER_TEXT' | translate }}</div>
+    </div>
+
+    <div class="row">
+      <div *ngFor="let filter of filters.values()"
+           class="form-group col-sm-4">
+        <label for="{{filter.name}}">
+          {{ 'T_' + filter.name.toUpperCase() + '_NAME' | translate }}
+        </label>
+        <select [(ngModel)]="filter.name" class="form-control" id="{{filter.name}}">
+          <option *ngFor="let value of filter.values">{{ value }}</option>
+        </select>
+      </div>
+    </div>
+    <button type="submit" (click)="apply()" class="btn btn-sm btn-primary">
+      {{ 'T_USER_FILTER_APPLY' | translate }}
+    </button>
+  </div>
+</div>
