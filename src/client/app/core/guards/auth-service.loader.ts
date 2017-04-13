@@ -10,6 +10,11 @@ import { AuthService } from '../services/auth.service';
 export class AuthServiceLoader implements CanActivate {
   private _isLoading: Observable<boolean>;
 
+
+  public get isLoading(): Observable<boolean> {
+    return this._isLoading;
+  }
+
   constructor(private _accountService: AccountService,
               private _authService: AuthService,
               private _router: Router) {
