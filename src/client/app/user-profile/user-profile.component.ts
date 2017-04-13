@@ -1,15 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { Model, ModelId } from '../core/models/model';
-import { ActivatedRoute, Params, Router } from '@angular/router';
-import { RestService } from '../core/services/rest.service';
-import { UserService } from '../core/services/user.service';
+import { Component } from '@angular/core';
 
 @Component({
   moduleId: module.id,
   selector: 'bs-user-profile',
   templateUrl: 'user-profile.component.html'
 })
-export class UserProfileComponent<UserModel> implements OnInit {
+export class UserProfileComponent<UserModel> {
   protected _fakeUser = {
     name: 'Harry Potter',
     email: 'just-harry@gm.com'
@@ -17,10 +13,6 @@ export class UserProfileComponent<UserModel> implements OnInit {
 
   public get fakeUser(): Object {
     return this._fakeUser;
-  }
-
-  public ngOnInit() {
-
   }
 
   public closeProfile() {

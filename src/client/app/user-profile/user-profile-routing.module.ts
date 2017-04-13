@@ -6,9 +6,6 @@ import { UserProfileComponent } from './user-profile.component';
 @NgModule({
   imports: [
     RouterModule.forChild([{
-      path: 'profile',
-      data: { breadcrumb: 'T_PROFILE' },
-      children: [{
         path: '',
         component: UserProfileComponent,
         data: { breadcrumbIgnore: true },
@@ -16,8 +13,7 @@ import { UserProfileComponent } from './user-profile.component';
         path: 'edit',
         component: UserProfileEditComponent,
         data: { breadcrumb: 'T_PROFILE_EDIT' },
-      }]
-    }])
+      }])
   ],
   exports: [RouterModule]
 })
