@@ -14,6 +14,10 @@ export class AuthService {
     return this._token;
   }
 
+  public set token(value: string) {
+    this._token = value;
+  }
+
   public get user(): AccountModel {
     return this._user;
   }

@@ -33,6 +33,7 @@ export declare type ModelConstructor<T> = { new (json: Object): T };
 @Injectable()
 export class RestService<T extends Model> {
   protected _host: string = Config.API;
+  protected _endpoint: string;
   protected _entityName: string;
   protected _entityConstructor: ModelConstructor<T>;
 
@@ -140,6 +141,7 @@ export class RestService<T extends Model> {
     let path: string[] = [];
 
     path.push(this._host);
+    path.push(this._endpoint);
     path.push(this._entityName);
 
     if (id !== undefined) {
@@ -147,6 +149,7 @@ export class RestService<T extends Model> {
     }
 
     path = path.filter(part => part && part !== '');
+
     return path.join('/');
   }
 
