@@ -1,23 +1,11 @@
 <div class="card">
-  <div class="card-header d-flex flex-row justify-content-between">
-    <p class="text-center mb-0">Profile settings</p>
+  <div class="card-header">
+    <p class="text-center  col-md-3 mb-0">Profile settings</p>
   </div>
 
   <div class="card-block" *ngIf="fakeUser">
     <div class="row">
-      <div class="d-flex flex-column col-md-3">
-        <img class="rounded-circle mb-1 w-100"
-             src=""
-             alt="UserPic"
-             style="height:200px;">
-
-        <button class="btn btn-primary w-100"
-                type="button"
-                (click)="uploadPicture()">Upload new picture</button>
-      </div>
-
-
-      <form class="d-flex flex-column col-md-9"
+      <form class="col-md-9"
             (ngSubmit)="submitProfileChanges(); userForm.reset()" #userForm="ngForm">
         <div class="form-group"
              [ngClass]="{'has-success': name.valid, 'has-danger': !name.valid && name.touched }">
@@ -48,7 +36,7 @@
             <div class="form-control-feedback" *ngIf="email.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}</div>
           </div>
         </div>
-        <button class="btn btn-primary w-25"
+        <button class="btn btn-primary col-md-3"
                 type="button"
                 [disabled]="!userForm.valid"
                 (click)="submitProfileChanges()">Update</button>
