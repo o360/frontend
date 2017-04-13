@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   moduleId: module.id,
   selector: 'bs-user-profile-edit',
   templateUrl: 'user-profile-edit.component.html'
 })
-export class UserProfileEditComponent implements OnInit {
+export class UserProfileEditComponent {
   protected _fakeUser = {
     name: 'Harry Potter',
     email: 'just-harry@gm.com'
@@ -15,18 +15,8 @@ export class UserProfileEditComponent implements OnInit {
     return this._fakeUser;
   }
 
-  constructor() {
-  }
-
-  ngOnInit() {
-  }
-
   public uploadPicture() {
     console.log('uploadPicture');
-  }
-
-  public closeProfile() {
-    console.log('close');
   }
 
   public submitProfileChanges() {
