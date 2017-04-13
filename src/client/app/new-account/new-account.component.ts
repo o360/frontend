@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../core/services/auth.service';
 import { AccountModel } from '../core/models/account-model';
-import { AccountService } from '../core/services/account.service';
-import { UserService } from '../core/services/user.service';
+import { ProfileService } from '../core/services/profile.service';
 
 @Component({
   moduleId: module.id,
@@ -17,7 +16,7 @@ export class NewAccountComponent {
   }
 
   constructor(private _authService: AuthService,
-              private _userService: UserService) {
+              private _profileService: ProfileService) {
     this._user = this._authService.user;
   }
 
@@ -25,8 +24,8 @@ export class NewAccountComponent {
     this._authService.logout();
   }
 
-  public submit() {
-    this._userService.save(this._user);
+  public update() {
+    this._profileService.save(this._user).subscribe();
   }
 
 }
