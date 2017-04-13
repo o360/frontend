@@ -28,7 +28,7 @@ import { NewAccountComponent } from './new-account/new-account.component';
       loadChildren: () => LoginModule
     }, {
       path: 'new',
-      canActivate: [AuthGuard],
+      canActivate: [AuthServiceLoader],
       component: NewAccountComponent
     }])
   ],
