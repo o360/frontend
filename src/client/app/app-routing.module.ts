@@ -6,6 +6,7 @@ import { LoginModule } from './login/login.module';
 import { UserModule } from './user/user.module';
 import { HomeModule } from './home/home.module';
 import { AuthServiceLoader } from './core/guards/auth-service.loader';
+import { AdminModule } from './admin/admin.module';
 import { UserProfileModule } from './user-profile/user-profile.module';
 import { RegistrationModule } from './new-account/registration.module';
 
@@ -21,6 +22,7 @@ import { RegistrationModule } from './new-account/registration.module';
         // Children modules
         { path: '', loadChildren: () => HomeModule },
         { path: 'users', data: { breadcrumb: 'T_USERS' }, loadChildren: () => UserModule },
+        { path: 'admin', data: { breadcrumb: 'T_ADMIN' }, loadChildren: () => AdminModule }
         { path: 'profile', data: { breadcrumb: 'T_PROFILE' }, loadChildren: () => UserProfileModule }
       ]
     }, {
