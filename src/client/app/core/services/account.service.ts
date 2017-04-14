@@ -10,14 +10,12 @@ import { RestService } from './rest.service';
 })
 export class AccountService extends RestService<UserModel> {
 
-  constructor(http: Http) {
-    super(http);
-  }
-
   public authenticate(provider: string, code: string): Observable<string> {
     let body = JSON.stringify({ 'code': code });
+    let params = `${this._getRequestParams()}/${provider}`;
+    let options = this._getRequestOptions();
 
-    return this._http.post(this._getRequestParams(provider), body, this._getRequestOptions())
+    return this._http.post(params, body, options)
       .map((response: Response) => response.json())
       .map((json: any) => <string>json['token'])
       .catch((error: any) => this._handleErrors(error));
@@ -26,6 +24,7 @@ export class AccountService extends RestService<UserModel> {
   public get(token: string): Observable<UserModel> {
     let params = this._getRequestParams();
     let options = this._getRequestOptions();
+
     return this._http.get(params, options)
       .map((response: Response) => response.json())
       .map((json: Object) => this.createEntity(json));

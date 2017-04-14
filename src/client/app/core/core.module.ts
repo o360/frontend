@@ -6,11 +6,11 @@ import { HeaderComponent } from './components/header/header.component';
 import { LanguageSelectorComponent } from './components/language-selector/language-selector.component';
 import { LayoutComponent } from './components/layout/layout.component';
 import { SidebarNavComponent } from './components/sidebar-nav/sidebar-nav.component';
+import { AuthServiceLoader } from './guards/auth-service.loader';
 import { AuthGuard } from './guards/auth.guard';
 import { AccountService } from './services/account.service';
 import { AuthService } from './services/auth.service';
 import { UserService } from './services/user.service';
-import { AuthServiceLoader } from "./guards/auth-service.loader";
 
 @NgModule({
   imports: [
@@ -25,11 +25,11 @@ import { AuthServiceLoader } from "./guards/auth-service.loader";
     LayoutComponent
   ],
   providers: [
-    UserService,
     AuthService,
-    AccountService,
+    AuthServiceLoader,
     AuthGuard,
-    AuthServiceLoader
+    UserService,
+    AccountService
   ],
   exports: [
     HeaderComponent,

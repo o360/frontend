@@ -10,6 +10,7 @@ import { AccountService } from '../core/services/account.service';
 })
 export class OAuthComponent implements OnInit {
   constructor(protected _accountService: AccountService,
+              protected _authService: AuthService,
               protected _activatedRoute: ActivatedRoute,
               protected _router: Router) {
   }
@@ -23,7 +24,7 @@ export class OAuthComponent implements OnInit {
 
         this._accountService.authenticate(provider, code).subscribe(token => {
           if (token) {
-            localStorage.setItem(tokenLsKey, token);
+            this._authService.saveToken(token);
             this._router.navigate(['/']);
           } else {
             this._router.navigate(['/login']);

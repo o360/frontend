@@ -16,9 +16,6 @@ import { UserFormComponent } from './user-form.component';
     UserDetailsComponent,
     UserFormComponent
   ],
-  providers: [
-    UserService
-  ],
   exports: [
     UserListComponent,
     UserDetailsComponent,
