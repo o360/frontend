@@ -1,25 +1,24 @@
 <div class="card">
   <div class="card-header">
-    <p class="text-center col-md-3 mb-0">Your profile</p>
+    <p class="text-center col-md-3 mb-0">{{'T_YOUR_PROFILE' | translate}}</p>
   </div>
   <div class="card-block">
-    <div class="row">
-      <div class="table col-md-9">
-          <tbody *ngIf="fakeUser">
-            <tr>
-              <td >{{'T_USER_NAME' | translate}}:</td>
-              <td>{{fakeUser.name}}</td>
-            </tr>
-            <tr>
-              <td>{{'T_USER_EMAIL' | translate}}:</td>
-              <td>{{fakeUser.email}}</td>
-            </tr>
-          </tbody>
-        <button class="btn btn-primary"
-                type="button"
-                [routerLink]="['edit']">{{'T_PROFILE_EDIT' | translate}}</button>
-        </div>
+    <table class="table col-md-9">
+      <tbody *ngIf="user">
+        <tr>
+          <td>{{'T_USER_NAME' | translate}}:</td>
+          <td>{{user.name}}</td>
+        </tr>
+        <tr>
+          <td>{{'T_USER_EMAIL' | translate}}:</td>
+          <td>{{user.email}}</td>
+        </tr>
+      </tbody>
 
-      </div>
+    </table>
+    <button class="btn btn-primary"
+            type="button"
+            [routerLink]="['edit']">{{'T_PROFILE_EDIT' | translate}}
+    </button>
   </div>
 </div>

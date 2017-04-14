@@ -1,46 +1,44 @@
 <div class="card">
   <div class="card-header">
-    <p class="text-center  col-md-3 mb-0">Profile settings</p>
+    <p class="text-center  col-md-3 mb-0">{{'T_PROFILE_SETTINGS' | translate}}</p>
   </div>
 
-  <div class="card-block" *ngIf="fakeUser">
-    <div class="row">
-      <form class="col-md-9"
-            (ngSubmit)="submitProfileChanges(); userForm.reset()" #userForm="ngForm">
-        <div class="form-group"
-             [ngClass]="{'has-success': name.valid, 'has-danger': !name.valid && name.touched }">
-          <label class="col-form-label required" for="name">Name:</label>
-          <input class="form-control"
-                 type="text"
-                 id="name"
-                 #name="ngModel"
-                 required
-                 [(ngModel)]="fakeUser.name"
-                 [ngModelOptions]="{standalone:true}"/>
-          <div class="form-errors" *ngIf="name.errors && name.touched">
-            <div class="form-control-feedback" *ngIf="name.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}</div>
-          </div>
+  <div class="card-block" *ngIf="user">
+    <form class="col-md-9"
+          (ngSubmit)="submitProfileChanges(); userForm.reset()" #userForm="ngForm">
+      <div class="form-group">
+        <label class="col-form-label required" for="name">{{'T_USER_NAME' | translate}}:</label>
+        <input class="form-control"
+               type="text"
+               id="name"
+               #name="ngModel"
+               required
+               [(ngModel)]="user.name"
+               [ngModelOptions]="{standalone:true}"/>
+        <div class="form-errors" *ngIf="name.errors && name.touched">
+          <div class="form-control-feedback" *ngIf="name.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}</div>
         </div>
+      </div>
 
-        <div class="form-group"
-             [ngClass]="{'has-success': email.valid, 'has-danger': !email.valid && email.touched }">
-          <label class="col-form-label required" for="email">{{ 'T_USER_EMAIL' | translate }}:</label>
-          <input class="form-control"
-                 type="text"
-                 id="email"
-                 #email="ngModel"
-                 required
-                 [(ngModel)]="fakeUser.email"
-                 [ngModelOptions]="{standalone:true}"/>
-          <div class="form-errors" *ngIf="email.errors && email.touched">
-            <div class="form-control-feedback" *ngIf="email.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}</div>
-          </div>
+      <div class="form-group">
+        <label class="col-form-label required" for="email">{{ 'T_USER_EMAIL' | translate }}:</label>
+        <input class="form-control"
+               type="text"
+               id="email"
+               #email="ngModel"
+               required
+               [(ngModel)]="user.email"
+               [ngModelOptions]="{standalone:true}"/>
+        <div class="form-errors" *ngIf="name.errors && name.touched">
+          <div class="form-control-feedback" *ngIf="name.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}</div>
         </div>
-        <button class="btn btn-primary col-md-3"
-                type="button"
-                [disabled]="!userForm.valid"
-                (click)="submitProfileChanges()">Update</button>
-      </form>
-    </div>
+      </div>
+      <button class="btn btn-primary col-md-4"
+              type="button"
+              [disabled]="!userForm.valid"
+              (click)="submitProfileChanges()">
+        {{'T_ACTION_UPDATE' | translate}}
+      </button>
+    </form>
   </div>
 </div>
