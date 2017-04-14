@@ -3,12 +3,13 @@
     <span [ngSwitch]="editMode">
       <ng-template [ngSwitchCase]="true">{{ 'T_ACTION_EDIT' | translate }}</ng-template>
       <ng-template ngSwitchDefault>{{ 'T_ACTION_CREATE' | translate }}</ng-template>
-      {{ 'T_USER' | translate }}
+
+      <span *ngIf="model">{{ model.name }}</span>
     </span>
   </div>
 
   <div class="card-block" *ngIf="model">
-    <form class="form form-horizontal col-md-6"
+    <form class="form form-horizontal"
           (ngSubmit)="save(); userForm.reset()" #userForm="ngForm">
       <div class="form-group"
            [ngClass]="{'has-success': name.valid, 'has-danger': !name.valid && name.touched }">
@@ -26,6 +27,53 @@
             <div class="form-errors" *ngIf="name.errors && name.touched">
               <div class="form-control-feedback" *ngIf="name.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}</div>
             </div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="email" class="col-form-label col-md-3 required">
+            {{ 'T_USER_EMAIL' | translate }}
+          </label>
+          <div class="col-md-9">
+            <input type="text"
+                   class="form-control"
+                   id="email"
+                   name="email"
+                   #email="ngModel"
+                   required
+                   placeholder="{{ 'T_FORM_ENTER_EMAIL' | translate }}"
+                   [(ngModel)]="model.email">
+            <div class="form-errors" *ngIf="email.errors && email.touched">
+              <div class="form-control-feedback" *ngIf="email.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="status" class="col-form-label col-md-3">
+            {{ 'T_USER_STATUS' | translate }}
+          </label>
+          <div class="col-md-6">
+            <p class="form-control-static" id="status">
+              {{ 'T_USER_STATUS_' + model.status.toUpperCase() | translate }}
+            </p>
+          </div>
+          <div class="col-md-3" *ngIf="model.status === 'new'">
+            <button type="button"
+                    class="btn btn-success btn-block"
+                    (click)="approveUser()">
+              {{ 'T_ACTION_APPROVE' | translate }}
+            </button>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="role" class="col-form-label col-md-3 required">{{ 'T_USER_ROLE' | translate }}</label>
+          <div class="col-md-9">
+            <select id="role" class="form-control col-xs-6">
+              <option name="role" *ngFor="let role of roles" ngDefaultControl [(ngModel)]="model.role">{{ 'T_USER_ROLE_' + role.toUpperCase() | translate }}</option>
+            </select>
+
           </div>
         </div>
       </div>
