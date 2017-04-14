@@ -6,7 +6,6 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
-import { HomeModule } from './home/home.module';
 import { createTranslateLoader } from './shared/config/translate-loader.config';
 import { SharedModule } from './shared/shared.module';
 
@@ -24,8 +23,6 @@ import { SharedModule } from './shared/shared.module';
     SharedModule.forRoot(),
     CoreModule.forRoot(),
     // App related modules
-    AppRoutingModule,
-    HomeModule,
     AppRoutingModule
   ],
   declarations: [
