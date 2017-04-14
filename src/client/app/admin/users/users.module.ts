@@ -1,27 +1,25 @@
-import { NgModule } from '@angular/core';
 import { SharedModule } from '../../shared/shared.module';
-import { UserDetailsComponent } from './user-details.component';
-import { UserFormComponent } from './user-form.component';
-import { UserListComponent } from './user-list.component';
+import { CollapseModule } from 'ngx-bootstrap';
 import { UsersRoutingModule } from './users-routing.module';
-import { UsersFilterComponent } from '../../user/users-filter/users-filter.component';
-
+import { NgModule } from '@angular/core';
+import { UserDetailsComponent } from "./user-details.component";
+import { UserListComponent } from './user-list.component';
+import { UserFormComponent } from "./user-form.component";
 @NgModule({
   imports: [
     UsersRoutingModule,
+    CollapseModule.forRoot(),
     SharedModule
   ],
   declarations: [
     UserListComponent,
     UserDetailsComponent,
-    UserFormComponent,
-    UsersFilterComponent
+    UserFormComponent
   ],
   exports: [
     UserListComponent,
     UserDetailsComponent,
-    UserFormComponent,
-    UsersFilterComponent
+    UserFormComponent
   ]
 })
 export class UsersModule {

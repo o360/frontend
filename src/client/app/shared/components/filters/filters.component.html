@@ -1,0 +1,32 @@
+<div class="card card-default">
+  <div class="card-header">
+    {{ 'T_FILTER_TITLE' | translate }}
+    <div class="card-actions">
+      <button class="btn-minimize"
+              (click)="isCollapsed = !isCollapsed"><i class="icon-arrow-up"></i></button>
+    </div>
+  </div>
+  <div [collapse]="isCollapsed"
+       class="card-block card-header">
+    <form class="form-horizontal ">
+      <div class="form-group row" *ngFor="let filter of filters">
+        <label class="col-md-3 form-control-label" for="{{ filter.field }}">
+          {{ filter.name | translate }}
+        </label>
+        <div class="col-md-9" [ngSwitch]="filter.type">
+          <ng-container *ngSwitchCase="FilterType.String || FilterType.Number">
+            <input type="text" [(ngModel)]="filter.value" name="field" class="form-control col-xs-6" id="{{ filter.field }}">
+          </ng-container>
+          <ng-container *ngSwitchCase="FilterType.Select">
+            <select [(ngModel)]="filter.value" name="field" class="form-control col-xs-6" id="{{ filter.field }}">
+              <option *ngFor="let value of filter.values">{{ value }}</option>
+            </select>
+          </ng-container>
+        </div>
+      </div>
+      <button type="submit" (click)="apply()" class="btn btn-sm btn-primary">
+        {{ 'T_FILTER_APPLY' | translate }}
+      </button>
+    </form>
+  </div>
+</div>
