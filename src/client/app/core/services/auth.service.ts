@@ -27,6 +27,15 @@ export class AuthService {
   }
 
   constructor(protected _router: Router) {
+    this.updateToken();
+  }
+
+  public saveToken(token: string) {
+    localStorage.setItem(tokenLsKey, token);
+    this.updateToken();
+  }
+
+  public updateToken() {
     this._token = localStorage[tokenLsKey];
   }
 

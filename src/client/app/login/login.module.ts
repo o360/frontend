@@ -19,10 +19,6 @@ import { AuthService } from '../core/services/auth.service';
   declarations: [
     OAuthComponent,
     LoginComponent
-  ],
-  providers: [
-    AuthService,
-    AuthGuard
   ]
 })
 export class LoginModule {
