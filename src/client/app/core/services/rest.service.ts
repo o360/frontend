@@ -3,9 +3,9 @@ import { Headers, Http, RequestOptions, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import { Config } from '../../shared/config/env.config';
 import { Model, ModelId } from '../models/model';
+import { AuthService } from './auth.service';
 
 export declare type ModelConstructor<T> = { new (json: Object): T };
-
 
 /**
  * Base service class with CRUD methods
@@ -32,12 +32,12 @@ export declare type ModelConstructor<T> = { new (json: Object): T };
  * */
 @Injectable()
 export class RestService<T extends Model> {
-  protected _host: string = Config.FIREBASE_URL;
-  protected _endpoint: string;
+  protected _host: string = Config.API;
   protected _entityName: string;
   protected _entityConstructor: ModelConstructor<T>;
 
-  constructor(protected _http: Http) {
+  constructor(protected _http: Http,
+              protected _authService: AuthService) {
   }
 
   /**
@@ -54,20 +54,10 @@ export class RestService<T extends Model> {
    * @return {Observable<T[]>}
    */
   public list(): Observable<T[]> {
-    return this._http.get(this._getRequestParams())
-      .map((response: Response) => {
-        let values: T[] = [];
-
-        for (let [key, value] of Object.entries(response.json())) {
-          let item = this.createEntity(value);
-
-          item.id = key;
-
-          values.push(item);
-        }
-
-        return values;
-      })
+    return this._http.get(this._getRequestParams(), this._getRequestOptions())
+      .map((response: Response) => response.json())
+      .map((json: any) => json.data)
+      .map((data: any[]) => data.map(item => this.createEntity(item)))
       .catch((error: any) => this._handleErrors(error));
   }
 
@@ -77,9 +67,9 @@ export class RestService<T extends Model> {
    * @return {Observable<T>}
    */
   public get(id: ModelId): Observable<T> {
-    return this._http.get(this._getRequestParams(id))
+    return this._http.get(this._getRequestParams(id), this._getRequestOptions())
       .map((response: Response) => response.json())
-      .map((json: Object) => this.createEntity(Object.assign(json, { id: id })))
+      .map((json: any) => this.createEntity(json))
       .catch((error: any) => this._handleErrors(error));
   }
 
@@ -121,7 +111,7 @@ export class RestService<T extends Model> {
 
     return this._http.put(requestParams, json, requestOptions)
       .map((res: Response) => res.json())
-      .map((json: Object) => this.createEntity(json))
+      .map((json: any) => this.createEntity(json))
       .catch((error: any) => this._handleErrors(error));
   }
 
@@ -137,7 +127,7 @@ export class RestService<T extends Model> {
 
     return this._http.post(requestParams, json, requestOptions)
       .map((res: Response) => res.json())
-      .map((json: Object) => this.createEntity(json))
+      .map((json: any) => this.createEntity(json))
       .catch((error: any) => this._handleErrors(error));
   }
 
@@ -150,7 +140,6 @@ export class RestService<T extends Model> {
     let path: string[] = [];
 
     path.push(this._host);
-    path.push(this._endpoint);
     path.push(this._entityName);
 
     if (id !== undefined) {
@@ -158,8 +147,7 @@ export class RestService<T extends Model> {
     }
 
     path = path.filter(part => part && part !== '');
-
-    return path.join('/') + '.json';
+    return path.join('/');
   }
 
   /**
@@ -167,11 +155,16 @@ export class RestService<T extends Model> {
    * @return {object}
    */
   protected _getRequestOptions() {
+    let headers = new Headers({
+      'Content-Type': 'application/json;charset=UTF-8',
+      'Accept': 'application/json'
+    });
+
+    if (this._authService.isLoggedIn) {
+      headers.append('X-Auth-Token', this._authService.token);
+    }
     return new RequestOptions({
-      headers: new Headers({
-        'Content-Type': 'application/json;charset=UTF-8',
-        'Accept': 'application/json'
-      })
+      headers: headers
     });
   }
 
