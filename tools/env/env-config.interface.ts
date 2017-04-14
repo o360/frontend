@@ -6,5 +6,4 @@ export interface EnvConfig {
   FIREBASE_URL?: string;
   ENV?: string;
   DEFAULT_LANG?: string;
-  USERS_FILTERS?: any;
 }

@@ -12,17 +12,7 @@ const DevConfig: EnvConfig = {
         redirect_uri: 'http://localhost:5555/login/google'
       }
     }
-  },
-  USERS_FILTERS: [{
-    name: 'status',
-    values: ['all', 'new', 'approved']
-  }, {
-    name: 'role',
-    values: ['all', 'user', 'admin']
-  }, {
-    name: 'sort',
-    values: ['id', 'name', 'email', 'role', 'status']
-  }]
+  }
 };
 export = DevConfig;
 
