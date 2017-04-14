@@ -1,24 +1,23 @@
-<div class="card">
-  <div class="card-header">
-    <p class="text-center col-md-3 mb-0">{{'T_YOUR_PROFILE' | translate}}</p>
-  </div>
+<div class="card" *ngIf="user">
+  <div class="card-header">{{ 'T_YOUR_PROFILE' | translate }}</div>
   <div class="card-block">
-    <table class="table col-md-9">
-      <tbody *ngIf="user">
-        <tr>
-          <td>{{'T_USER_NAME' | translate}}:</td>
-          <td>{{user.name}}</td>
-        </tr>
-        <tr>
-          <td>{{'T_USER_EMAIL' | translate}}:</td>
-          <td>{{user.email}}</td>
-        </tr>
-      </tbody>
+    <div class="row">
+      <div class="col-md-3">
+        <small class="text-muted">{{ 'T_USER_NAME' | translate}}</small>
+        <div class="h6">{{ user.name }}</div>
+      </div>
 
-    </table>
-    <button class="btn btn-primary"
-            type="button"
-            [routerLink]="['edit']">{{'T_PROFILE_EDIT' | translate}}
-    </button>
+      <div class="col-md-3">
+        <small class="text-muted">{{ 'T_USER_EMAIL' | translate}}</small>
+        <div class="h6">{{ user.email }}</div>
+      </div>
+    </div>
+
+    <div class="mt-2">
+      <button type="button"
+              class="btn btn-primary"
+              [routerLink]="['edit']">{{'T_PROFILE_EDIT' | translate}}
+      </button>
+    </div>
   </div>
 </div>
