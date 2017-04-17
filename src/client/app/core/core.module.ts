@@ -11,11 +11,13 @@ import { AuthGuard } from './guards/auth.guard';
 import { AccountService } from './services/account.service';
 import { AuthService } from './services/auth.service';
 import { UserService } from './services/user.service';
+import { BsDropdownModule } from 'ngx-bootstrap';
 import { ProfileService } from './services/profile.service';
 
 @NgModule({
   imports: [
-    SharedModule
+    SharedModule,
+    BsDropdownModule.forRoot()
   ],
   declarations: [
     HeaderComponent,

@@ -3,7 +3,6 @@ import { RouterModule } from '@angular/router';
 import { UserDetailsComponent } from './user-details.component';
 import { UserFormComponent } from './user-form.component';
 import { UserListComponent } from './user-list.component';
-import { AuthGuard } from '../core/guards/auth.guard';
 
 @NgModule({
   imports: [
