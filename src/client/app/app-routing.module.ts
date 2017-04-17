@@ -8,7 +8,6 @@ import { AuthServiceLoader } from './core/guards/auth-service.loader';
 import { AdminModule } from './admin/admin.module';
 import { UserProfileModule } from './user-profile/user-profile.module';
 import { RegistrationModule } from './new-account/registration.module';
-import { AdminModule } from './admin/admin.module';
 
 @NgModule({
   imports: [

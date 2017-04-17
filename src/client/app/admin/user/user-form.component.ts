@@ -1,11 +1,9 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { UserModel } from '../core/models/user-model';
-import { UserService } from '../core/services/user.service';
-import { FormComponent } from '../shared/components/form.component';
 import { FormComponent } from '../../shared/components/form.component';
-import { ROLES, UserModel } from '../../core/models/user-model';
 import { UserService } from '../../core/services/user.service';
+import { UserModel, UserRole, UserStatus } from '../../core/models/user-model';
+
 
 @Component({
   moduleId: module.id,
@@ -14,9 +12,20 @@ import { UserService } from '../../core/services/user.service';
 })
 export class UserFormComponent extends FormComponent<UserModel> {
   protected _returnPath = ['/users'];
+  protected _roles: string[] = Object.values(UserRole);
 
-  constructor(service: UserService, router: Router, route: ActivatedRoute) {
+  public get roles(): string[] {
+    return this._roles;
+  }
+
+  constructor(service: UserService,
+              router: Router,
+              route: ActivatedRoute) {
     super(service, router, route);
+  }
+
+  public approveUser() {
+    this._model.status = UserStatus.Approved;
   }
 }
 
