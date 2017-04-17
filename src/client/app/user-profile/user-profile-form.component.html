@@ -1,0 +1,47 @@
+<div class="card">
+  <div class="card-header">{{'T_PROFILE_SETTINGS' | translate}}</div>
+
+  <div class="card-block" *ngIf="model">
+    <div class="row">
+      <div class="col-md-6">
+        <form (ngSubmit)="save(); userForm.reset()" #userForm="ngForm">
+          <div class="form-group"
+               [ngClass]="{'has-success': name.valid, 'has-danger': !name.valid && name.touched }">
+            <label class="col-form-label required" for="name">{{'T_USER_NAME' | translate}}</label>
+            <input class="form-control"
+                   type="text"
+                   id="name"
+                   name="name"
+                   #name="ngModel"
+                   required
+                   [(ngModel)]="model.name"/>
+            <div class="form-errors" *ngIf="name.errors && name.touched">
+              <div class="form-control-feedback" *ngIf="name.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}</div>
+            </div>
+          </div>
+
+          <div class="form-group"
+               [ngClass]="{'has-success': email.valid, 'has-danger': !email.valid && email.touched }">
+            <label class="col-form-label required" for="email">{{ 'T_USER_EMAIL' | translate }}</label>
+            <input class="form-control"
+                   type="text"
+                   id="email"
+                   name="email"
+                   #email="ngModel"
+                   required
+                   [(ngModel)]="model.email"/>
+            <div class="form-errors" *ngIf="email.errors && email.touched">
+              <div class="form-control-feedback" *ngIf="email.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}</div>
+            </div>
+          </div>
+
+          <button class="btn btn-primary"
+                  type="submit"
+                  [disabled]="!userForm.valid">
+            {{'T_ACTION_UPDATE' | translate}}
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

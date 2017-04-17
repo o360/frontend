@@ -6,6 +6,7 @@ import { LoginModule } from './login/login.module';
 import { UserModule } from './user/user.module';
 import { HomeModule } from './home/home.module';
 import { AuthServiceLoader } from './core/guards/auth-service.loader';
+import { UserProfileModule } from './user-profile/user-profile.module';
 
 @NgModule({
   imports: [
@@ -18,7 +19,8 @@ import { AuthServiceLoader } from './core/guards/auth-service.loader';
       children: [
         // Children modules
         { path: '', loadChildren: () => HomeModule },
-        { path: 'users', data: { breadcrumb: 'T_USERS' }, loadChildren: () => UserModule }
+        { path: 'users', data: { breadcrumb: 'T_USERS' }, loadChildren: () => UserModule },
+        { path: 'profile', data: { breadcrumb: 'T_PROFILE' }, loadChildren: () => UserProfileModule }
       ]
     }, {
       path: 'login',

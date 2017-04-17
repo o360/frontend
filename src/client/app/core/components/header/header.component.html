@@ -20,6 +20,7 @@
          aria-expanded="true">{{ user.name }}</a>
 
       <div class="dropdown-menu dropdown-menu-right">
+        <a class="dropdown-item" routerLink="/profile"><i class="fa fa-user-o"></i>{{ 'T_PROFILE' | translate }}</a>
         <a class="dropdown-item" (click)="logout()"><i class="fa fa-lock"></i>{{ 'T_LOG_OUT' | translate }}</a>
       </div>
     </li>
