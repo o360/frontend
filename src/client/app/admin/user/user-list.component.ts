@@ -12,4 +12,9 @@ export class UserListComponent extends ListComponent<UserModel> {
   constructor(service: UserService) {
     super(service);
   }
+
+  public approveUser(user: UserModel) {
+    user.status = 'approved';
+    this._service.save(user).subscribe(() => this._update);
+  }
 }
