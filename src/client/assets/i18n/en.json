@@ -40,5 +40,7 @@
   "T_NEW_ACCOUNT_TEXT": "Fill the form and wait for approvement of your account please",
   "T_NEW_ACCOUNT_NAME": "Name",
   "T_NEW_ACCOUNT_EMAIL": "E-mail",
-  "T_NEW_ACCOUNT_SUBMIT": "Submit"
+  "T_NEW_ACCOUNT_SUBMIT": "Submit",
+  "T_DETAILS": "Details",
+  "T_ADMINISTRATION": "Administration"
 }
