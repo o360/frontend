@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ListComponent } from '../../shared/components/list.component';
 import { UserService } from '../../core/services/user.service';
-import { UserModel } from '../../core/models/user-model';
+import { UserModel, UserStatus } from '../../core/models/user-model';
 
 @Component({
   moduleId: module.id,
@@ -13,8 +13,12 @@ export class UserListComponent extends ListComponent<UserModel> {
     super(service);
   }
 
-  public approveUser(user: UserModel) {
+  public get UserStatus() {
+    return UserStatus;
+  }
+
+  public approve(user: UserModel) {
     user.status = 'approved';
-    this._service.save(user).subscribe(() => this._update);
+    this._service.save(user).subscribe(() => this._update());
   }
 }

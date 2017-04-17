@@ -32,10 +32,10 @@
               {{ 'T_USER_STATUS_' + model.status.toUpperCase() | translate }}</span>
           </td>
           <td class="actions-column">
-            <button *ngIf="(model.status === 'new')"
+            <button *ngIf="model.status === UserStatus.New"
                     type="button"
                     class="btn btn-sm btn-success"
-                    (click)="approveUser(model)">{{ 'T_USER_APPROVE' | translate }}
+                    (click)="approve(model)">{{ 'T_USER_APPROVE' | translate }}
             </button>
 
 
