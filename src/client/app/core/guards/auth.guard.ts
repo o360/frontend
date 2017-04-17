@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterStateSnapshot } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { AuthServiceLoader } from './auth-service.loader';
-import { AccountModel } from '../models/account-model';
+import { UserStatus } from '../models/user-model';
 
 @Injectable()
 export class AuthGuard implements CanActivate, CanActivateChild {
@@ -15,7 +15,7 @@ export class AuthGuard implements CanActivate, CanActivateChild {
   public canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     return this._authServiceLoader.canActivate().map(() => {
       if (this._authService.isLoggedIn) {
-        if (this._authService.user.status === 'new') {
+        if (this._authService.user.status === UserStatus.New) {
           this._router.navigate(['/new']);
           return false;
         } else {
