@@ -1,14 +1,14 @@
-import { Http, Response } from '@angular/http';
+import { Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { RestServiceConfig } from '../decorators/rest-service-config.decorator';
-import { UserModel } from '../models/user-model';
+import { AccountModel } from '../models/account-model';
 import { RestService } from './rest.service';
 
 @RestServiceConfig({
   entityName: 'auth',
-  entityConstructor: UserModel
+  entityConstructor: AccountModel
 })
-export class AccountService extends RestService<UserModel> {
+export class AccountService extends RestService<AccountModel> {
 
   public authenticate(provider: string, code: string): Observable<string> {
     let body = JSON.stringify({ 'code': code });
@@ -21,7 +21,7 @@ export class AccountService extends RestService<UserModel> {
       .catch((error: any) => this._handleErrors(error));
   }
 
-  public get(token: string): Observable<UserModel> {
+  public get(token: string): Observable<AccountModel> {
     let params = this._getRequestParams();
     let options = this._getRequestOptions();
 

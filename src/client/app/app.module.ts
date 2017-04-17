@@ -9,6 +9,7 @@ import { CoreModule } from './core/core.module';
 import { createTranslateLoader } from './shared/config/translate-loader.config';
 import { SharedModule } from './shared/shared.module';
 
+
 @NgModule({
   imports: [
     BrowserModule,

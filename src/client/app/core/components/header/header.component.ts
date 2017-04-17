@@ -1,7 +1,6 @@
 import { AfterViewInit, Component } from '@angular/core';
-import { UserModel } from '../../models/user-model';
-import { AccountService } from '../../services/account.service';
 import { AuthService } from '../../services/auth.service';
+import { AccountModel } from '../../models/account-model';
 
 @Component({
   moduleId: module.id,
@@ -9,9 +8,9 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: 'header.component.html'
 })
 export class HeaderComponent implements AfterViewInit {
-  private _user: UserModel;
+  private _user: AccountModel;
 
-  public get user(): UserModel {
+  public get user(): AccountModel {
     return this._user;
   }
 
