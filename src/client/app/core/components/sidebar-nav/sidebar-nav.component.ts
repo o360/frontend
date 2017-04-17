@@ -7,7 +7,7 @@ import { BsDropdownConfig } from 'ngx-bootstrap';
   moduleId: module.id,
   selector: 'bs-sidebar-nav',
   templateUrl: 'sidebar-nav.component.html',
-  providers: [{provide: BsDropdownConfig, useValue: {autoClose: false}}]
+  providers: [{ provide: BsDropdownConfig, useValue: { autoClose: false } }]
 })
 export class SidebarNavComponent {
 }

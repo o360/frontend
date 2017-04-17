@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { OAuthComponent } from './oauth.component';
 import { LoginComponent } from './login.component';
+import { OAuthComponent } from './oauth.component';
 
 @NgModule({
   imports: [

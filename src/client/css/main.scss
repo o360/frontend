@@ -16,4 +16,16 @@ header.navbar .navbar-brand {
   width: 1%;
   white-space: nowrap;
   text-align: right;
+  font-size: 0;
+}
+
+.required:after {
+  content: " *";
+  color: rgb(255, 0, 0) !important;
+}
+
+.badge.badge-md {
+  font-size: 100%;
+  line-height: 1;
+  font-weight: normal;
 }

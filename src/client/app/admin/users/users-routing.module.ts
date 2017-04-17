@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { UserDetailsComponent } from './user-details.component';
-import { UserFormComponent } from './user-form.component';
 import { UserListComponent } from './user-list.component';
+import { UserFormComponent } from './user-form.component';
 
 @NgModule({
   imports: [
@@ -10,10 +10,6 @@ import { UserListComponent } from './user-list.component';
       path: '',
       component: UserListComponent,
       data: { breadcrumbIgnore: true },
-    }, {
-      path: 'create',
-      component: UserFormComponent,
-      data: { breadcrumb: 'T_ACTION_CREATE' },
     }, {
       path: ':id',
       component: UserDetailsComponent,
@@ -26,5 +22,5 @@ import { UserListComponent } from './user-list.component';
   ],
   exports: [RouterModule]
 })
-export class UserRoutingModule {
+export class UsersRoutingModule {
 }

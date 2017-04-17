@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { UserModule } from './user/user.module';
+import { UsersModule } from './users/users.module';
 
 @NgModule({
   imports: [
     RouterModule.forChild([{
       path: 'users',
       data: { breadcrumb: 'T_USERS' },
-      loadChildren: () => UserModule
+      loadChildren: () => UsersModule
     }])
   ],
   exports: [RouterModule]
