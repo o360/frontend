@@ -55,7 +55,8 @@
           {{ 'T_USER_STATUS' | translate }}
         </label>
         <div class="col-md-6">
-          <p class="form-control-static" id="status">
+          <p class="form-control-static badge badge-pill" id="status"
+             [ngClass]="{'badge-primary': (model.status === 'new'),'badge-success': (model.status === 'approved')}">
             {{ 'T_USER_STATUS_' + model.status.toUpperCase() | translate }}
           </p>
         </div>

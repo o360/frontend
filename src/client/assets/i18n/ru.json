@@ -4,6 +4,7 @@
   "T_USERS": "Пользователи",
   "T_GROUPS": "Группы",
   "T_ACTION": "Действия",
+  "T_ADMIN": "Администратор",
   "T_ACTION_CREATE": "Создать",
   "T_ACTION_DELETE": "Удалить",
   "T_ACTION_EDIT": "Редактировать",
