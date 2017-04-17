@@ -1,13 +1,26 @@
-<div *ngIf="model" class="card">
+<div class="card" *ngIf="model">
+  <div class="card-header">{{ 'T_USER_DETAILS' | translate }}</div>
   <div class="card-block">
-    <div class="card-title">
-      <h2> {{ 'T_USER_DETAILS' | translate }} {{model.name}}</h2>
-    </div>
-    <dl class="row">
-      <dt class="col-sm-3">{{ 'T_USER_NAME' | translate }}</dt>
-      <dd class="col-sm-9">{{ model.name}}</dd>
-    </dl>
+    <div class="row">
+      <div class="col-md-3">
+        <small class="text-muted">{{ 'T_USER_NAME' | translate}}</small>
+        <div class="h6">{{ model.name }}</div>
+      </div>
 
-    <a [routerLink]="['/users']" class="card-link">{{ 'T_ACTION_GO_BACK' | translate }}</a>
+      <div class="col-md-3">
+        <small class="text-muted">{{ 'T_USER_EMAIL' | translate}}</small>
+        <div class="h6">{{ model.email }}</div>
+      </div>
+
+      <div class="col-md-3">
+        <small class="text-muted">{{ 'T_USER_ROLE' | translate}}</small>
+        <div class="h6">{{ 'T_USER_ROLE_' + model.role.toUpperCase() | translate }}</div>
+      </div>
+
+      <div class="col-md-3">
+        <small class="text-muted">{{ 'T_USER_STATUS' | translate}}</small>
+        <div class="h6">{{ 'T_USER_STATUS_' + model.status.toUpperCase() | translate }}</div>
+      </div>
+    </div>
   </div>
 </div>
