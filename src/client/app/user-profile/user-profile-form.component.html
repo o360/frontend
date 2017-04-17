@@ -4,7 +4,7 @@
   <div class="card-block" *ngIf="model">
     <div class="row">
       <div class="col-md-6">
-        <form (ngSubmit)="submitProfileChanges(); userForm.reset()" #userForm="ngForm">
+        <form (ngSubmit)="save(); userForm.reset()" #userForm="ngForm">
           <div class="form-group"
                [ngClass]="{'has-success': name.valid, 'has-danger': !name.valid && name.touched }">
             <label class="col-form-label required" for="name">{{'T_USER_NAME' | translate}}</label>

@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
-import { UserService } from '../core/services/user.service';
 import { SharedModule } from '../shared/shared.module';
+import { UserProfileFormComponent } from './user-profile-form.component';
 import { UserProfileRoutingModule } from './user-profile-routing.module';
 import { UserProfileComponent } from './user-profile.component';
-import { UserProfileEditComponent } from './user-profile-edit.component';
 
 @NgModule({
   imports: [
@@ -12,14 +11,11 @@ import { UserProfileEditComponent } from './user-profile-edit.component';
   ],
   declarations: [
     UserProfileComponent,
-    UserProfileEditComponent,
-  ],
-  providers: [
-    UserService
+    UserProfileFormComponent,
   ],
   exports: [
     UserProfileComponent,
-    UserProfileEditComponent
+    UserProfileFormComponent
   ]
 })
 export class UserProfileModule {
