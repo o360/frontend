@@ -10,11 +10,6 @@ import { AuthService } from '../services/auth.service';
 export class AuthServiceLoader implements CanActivate {
   private _isLoading: Observable<boolean>;
 
-
-  public get isLoading(): Observable<boolean> {
-    return this._isLoading;
-  }
-
   constructor(private _accountService: AccountService,
               private _authService: AuthService,
               private _router: Router) {
@@ -38,12 +33,7 @@ export class AuthServiceLoader implements CanActivate {
       this._isLoading = this._accountService.get(this._authService.token)
         .map((user: AccountModel) => {
           this._authService.user = user;
-          if (this._authService.isNewAccount) {
-            this._router.navigate(['/new']);
-            return false;
-          } else {
-            this._isLoading = null;
-          }
+          this._isLoading = null;
           return true;
         }).share();
     }

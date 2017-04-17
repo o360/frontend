@@ -30,10 +30,6 @@ export class AuthService {
     return !!this._token;
   }
 
-  public get isNewAccount() {
-    return !!(this._user.status === 'new');
-  }
-
   constructor(protected _router: Router) {
     this.updateToken();
   }
