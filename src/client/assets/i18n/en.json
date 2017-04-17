@@ -18,6 +18,7 @@
   "T_USER_STATUS": "Status",
   "T_USER_STATUS_NEW": "New",
   "T_USER_STATUS_APPROVED": "Approved",
+  "T_USER_APPROVE": "Approve",
   "T_USER_DETAILS": "Details of user",
   "T_FORM_ENTER_NAME": "Enter name...",
   "T_FORM_FIELD_IS_REQUIRED": "Field is required",

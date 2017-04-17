@@ -18,6 +18,7 @@
   "T_USER_STATUS": "Статус",
   "T_USER_STATUS_NEW": "Новый",
   "T_USER_STATUS_APPROVED": "Подтвержден",
+  "T_USER_APPROVE": "Подтвердить",
   "T_USER_DETAILS": "Подробнее о пользователе",
   "T_FORM_ENTER_NAME": "Введите имя пользователя...",
   "T_FORM_FIELD_IS_REQUIRED": "Поле должно быть заполнено",
