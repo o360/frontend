@@ -6,7 +6,7 @@
             [routerLink]="['/users/create']">{{ 'T_ACTION_CREATE' | translate }}
     </button>
     <table class="table table-striped table-sm mt-1">
-      
+
       <thead>
         <tr>
           <th>#</th>
@@ -32,6 +32,17 @@
               {{ 'T_USER_STATUS_' + model.status.toUpperCase() | translate }}</span>
           </td>
           <td class="actions-column">
+            <button *ngIf="model.status === UserStatus.New"
+                    type="button"
+                    class="btn btn-sm btn-success"
+                    (click)="approve(model)">{{ 'T_USER_APPROVE' | translate }}
+            </button>
+
+
+            <button type="button"
+                    class="btn btn-sm btn-danger"
+                    (click)="delete(model.id)">{{ 'T_ACTION_DELETE' | translate }}
+            </button>
           </td>
         </tr>
       </tbody>
