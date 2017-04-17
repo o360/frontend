@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { UserDetailsComponent } from './user-details.component';
-import { UserFormComponent } from './user-form.component';
 import { UserListComponent } from './user-list.component';
+import { UserFormComponent } from './user-form.component';
 
 @NgModule({
   imports: [
