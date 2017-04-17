@@ -1,5 +1,9 @@
 <div class="card" *ngIf="model">
-  <div class="card-header">{{ 'T_USER_DETAILS' | translate }}</div>
+  <div class="card-header">{{ 'T_USER_DETAILS' | translate }}
+    <div class="card-actions">
+      <a class="btn" [routerLink]="['/admin/users/' + model.id + '/edit']"><i class="icon-pencil"></i></a>
+    </div>
+  </div>
   <div class="card-block">
     <div class="row">
       <div class="col-md-3">
