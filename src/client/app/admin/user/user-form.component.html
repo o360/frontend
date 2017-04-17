@@ -50,24 +50,6 @@
           </div>
         </div>
       </div>
-      <div class="form-group row">
-        <label for="status" class="col-form-label col-md-3">
-          {{ 'T_USER_STATUS' | translate }}
-        </label>
-        <div class="col-md-6">
-          <p class="form-control-static badge badge-pill" id="status"
-             [ngClass]="{'badge-primary': (model.status === 'new'),'badge-success': (model.status === 'approved')}">
-            {{ 'T_USER_STATUS_' + model.status.toUpperCase() | translate }}
-          </p>
-        </div>
-        <div class="col-md-3" *ngIf="model.status === 'new'">
-          <button type="button"
-                  class="btn btn-success btn-block"
-                  (click)="approveUser()">
-            {{ 'T_ACTION_APPROVE' | translate }}
-          </button>
-        </div>
-      </div>
 
       <div class="form-group row">
         <label for="role" class="col-form-label col-md-3 required">{{ 'T_USER_ROLE' | translate }}</label>
