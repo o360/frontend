@@ -6,22 +6,66 @@
           <div class="card-block p-2">
             <h1>{{ 'T_NEW_ACCOUNT' | translate }}</h1>
             <p class="text-muted">{{ 'T_NEW_ACCOUNT_TEXT' | translate }}</p>
-            <div class="input-group mb-1">
-              <span class="input-group-addon"><i class="icon-user"></i></span>
-              <input type="text" [(ngModel)]="user.name" class="form-control" placeholder="{{ 'T_NEW_ACCOUNT_NAME' | translate }}">
-            </div>
+            <form #newUserForm="ngForm">
+              <div class="input-group mb-1"
+                   [ngClass]="{'has-success': name.valid, 'has-danger': !name.valid && name.touched }">
+              <span class="input-group-addon">
+              <i class="icon-user"></i></span>
+                <input type="text"
+                       name="name"
+                       [(ngModel)]="user.name"
+                       class="form-control"
+                       required
+                       #name="ngModel"
+                       placeholder="{{ 'T_NEW_ACCOUNT_NAME' | translate }}">
+              </div>
+              <div class="alert alert-danger" role="alert"
+                   *ngIf="name.errors && name.touched">
+                <div class="form-control-feedback"
+                     *ngIf="name.errors['required']">
+                  {{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}
+                </div>
+              </div>
+              <div class="input-group mb-1"
+                   [ngClass]="{'has-success': email.valid, 'has-danger': !email.valid && email.touched }">
+                <span class="input-group-addon">@</span>
+                <input type="email"
+                       name="email"
+                       [(ngModel)]="user.email"
+                       required
+                       #email="ngModel"
+                       class="form-control"
+                       placeholder="{{ 'T_NEW_ACCOUNT_EMAIL' | translate }}"
+                       pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+              </div>
 
-            <div class="input-group mb-1">
-              <span class="input-group-addon">@</span>
-              <input type="text" [(ngModel)]="user.email" class="form-control" placeholder="{{ 'T_NEW_ACCOUNT_EMAIL' | translate }}">
-            </div>
+              <div class="alert alert-danger" role="alert"
+                   *ngIf="email.errors && email.touched">
+                <div class="form-control-feedback"
+                     *ngIf="email.errors['required']">
+                  {{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}
+                </div>
+                <div class="form-control-feedback"
+                     *ngIf="email.errors['pattern']">
+                  {{ 'T_FORM_FIELD_IS_INVALID' | translate }}
+                </div>
+              </div>
 
-            <button type="button" (click)="update();" class="btn btn-block btn-success">{{ 'T_NEW_ACCOUNT_SUBMIT' | translate }}</button>
+
+              <button type="button"
+                      (click)="update();"
+                      [disabled]="!newUserForm.valid"
+                      class="btn btn-block btn-success">
+                {{ 'T_NEW_ACCOUNT_SUBMIT' | translate }}
+              </button>
+            </form>
           </div>
           <div class="card-footer p-2">
             <div class="row">
               <div class="col-6">
-                <button class="btn btn-block" (click)="logout();" type="button"><span>{{'T_LOG_OUT' | translate }}</span></button>
+                <button class="btn btn-block" (click)="logout();" type="button">
+                  <i class="icon-logout"></i><span>  {{'T_LOG_OUT' | translate }}</span>
+                </button>
               </div>
             </div>
           </div>
@@ -30,3 +74,4 @@
     </div>
   </div>
 </div>
+

@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../core/services/auth.service';
+import { Component } from '@angular/core';
 import { AccountModel } from '../core/models/account-model';
+import { AuthService } from '../core/services/auth.service';
 import { ProfileService } from '../core/services/profile.service';
+
 
 @Component({
   moduleId: module.id,
