@@ -6,11 +6,16 @@
          routerLinkActive="active"
          [routerLinkActiveOptions]="{ exact: true }"><i class="icon-home"></i> {{ 'T_HOME' | translate }}</a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link" routerLink="/users" routerLinkActive="active"><i class="icon-user"></i> {{ 'T_USERS' | translate }}</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" routerLink="/admin" routerLinkActive="active"><i class="icon-event"></i> {{ 'T_ADMIN' | translate }}</a>
+
+    <li class="nav-item nav-dropdown" dropdown>
+      <a dropdownToggle class="nav-link nav-dropdown-toggle" routerLink="/admin" routerLinkActive="active">
+        <i class="icon-grid"></i> {{ 'T_ADMIN' | translate }} <span class="caret"></span>
+      </a>
+      <ul *dropdownMenu class="nav-dropdown-item" role="menu">
+        <li role="menuitem" class="nav-item">
+          <a class="nav-link" routerLink="/admin/users" routerLinkActive="active">{{ 'T_USERS' | translate }}</a>
+        </li>
+      </ul>
     </li>
   </ul>
 </nav>

@@ -1,22 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-// import { UserDetailsComponent } from './user-details.component';
-import { UserListComponent } from './user-list.component';
 import { AuthGuard } from '../core/guards/auth.guard';
+import { UserModule } from './user/user.module';
 
 @NgModule({
   imports: [
-    RouterModule.forChild([{
-      path: '',
-      component: UserListComponent,
-      data: { breadcrumbIgnore: true },
-    }
-    // , {
-    //   path: ':id',
-    //   component: UserDetailsComponent,
-    //   data: { breadcrumb: 'T_USER_DETAILS' },
-    // }
-    ])
+    RouterModule.forChild(([{
+      path: 'users',
+      data: { breadcrumb: 'T_USERS' },
+      loadChildren: () => UserModule
+    }]))
   ],
   exports: [RouterModule]
 })
