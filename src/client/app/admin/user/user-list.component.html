@@ -3,7 +3,7 @@
   <div class="card-block">
     <button type="button"
             class="btn btn-primary"
-            [routerLink]="['/users/create']">{{ 'T_ACTION_CREATE' | translate }}
+            [routerLink]="['/admin/users/create']">{{ 'T_ACTION_CREATE' | translate }}
     </button>
     <table class="table table-striped table-sm mt-1">
 
@@ -43,6 +43,9 @@
                     class="btn btn-sm btn-danger"
                     (click)="delete(model.id)">{{ 'T_ACTION_DELETE' | translate }}
             </button>
+
+            <button class="btn btn-sm btn-primary"
+                    [routerLink]="['/admin/users/', model.id, 'edit']">{{ 'T_ACTION_EDIT' | translate }}</button>
           </td>
         </tr>
       </tbody>

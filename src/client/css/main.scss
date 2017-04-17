@@ -17,3 +17,8 @@ header.navbar .navbar-brand {
   white-space: nowrap;
   text-align: right;
 }
+
+.required:after {
+  content: " *";
+  color: rgb(255, 0, 0) !important;
+}
