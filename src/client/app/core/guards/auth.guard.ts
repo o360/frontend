@@ -13,7 +13,7 @@ export class AuthGuard implements CanActivate, CanActivateChild {
   }
 
   public canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    this._authServiceLoader.canActivate().subscribe(() => {
+    return this._authServiceLoader.canActivate().map(() => {
       if (this._authService.isLoggedIn) {
         if (this._authService.user.status === 'new') {
           this._router.navigate(['/new']);
@@ -26,7 +26,6 @@ export class AuthGuard implements CanActivate, CanActivateChild {
         return false;
       }
     });
-    return true;
   }
 
   public canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
