@@ -4,11 +4,11 @@ import { UserModule } from './user/user.module';
 
 @NgModule({
   imports: [
-    RouterModule.forChild(([{
+    RouterModule.forChild([{
       path: 'users',
       data: { breadcrumb: 'T_USERS' },
       loadChildren: () => UserModule
-    }]))
+    }])
   ],
   exports: [RouterModule]
 })
