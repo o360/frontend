@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Model, ModelId } from '../core/models/model';
-import { UserService } from '../core/services/user.service';
-import { AuthService } from '../core/services/auth.service';
-import { DetailsComponent } from '../shared/components/details.component';
-import { UserModel } from '../core/models/user-model';
 import { ActivatedRoute } from '@angular/router';
+import { UserModel } from '../core/models/user-model';
+import { AuthService } from '../core/services/auth.service';
+import { UserService } from '../core/services/user.service';
+import { DetailsComponent } from '../shared/components/details.component';
 
 @Component({
   moduleId: module.id,
