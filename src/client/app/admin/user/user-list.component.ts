@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { UserModel } from '../core/models/user-model';
-import { UserService } from '../core/services/user.service';
-import { ListComponent } from '../shared/components/list.component';
+import { ListComponent } from '../../shared/components/list.component';
+import { UserService } from '../../core/services/user.service';
+import { UserModel } from '../../core/models/user-model';
 
 @Component({
   moduleId: module.id,

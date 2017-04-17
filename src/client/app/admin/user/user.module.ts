@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
-import { UserService } from '../core/services/user.service';
-import { SharedModule } from '../shared/shared.module';
+import { SharedModule } from '../../shared/shared.module';
 import { UserListComponent } from './user-list.component';
 import { UserRoutingModule } from './user-routing.module';
 import { UserDetailsComponent } from './user-details.component';
