@@ -35,19 +35,13 @@
                        required
                        #email="ngModel"
                        class="form-control"
-                       placeholder="{{ 'T_NEW_ACCOUNT_EMAIL' | translate }}"
-                       pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
-              </div>
+                       placeholder="{{ 'T_NEW_ACCOUNT_EMAIL' | translate }}"></div>
 
               <div class="alert alert-danger" role="alert"
                    *ngIf="email.errors && email.touched">
                 <div class="form-control-feedback"
                      *ngIf="email.errors['required']">
                   {{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}
-                </div>
-                <div class="form-control-feedback"
-                     *ngIf="email.errors['pattern']">
-                  {{ 'T_FORM_FIELD_IS_INVALID' | translate }}
                 </div>
               </div>
 

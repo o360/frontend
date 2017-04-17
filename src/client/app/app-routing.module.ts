@@ -7,7 +7,7 @@ import { UserModule } from './user/user.module';
 import { HomeModule } from './home/home.module';
 import { AuthServiceLoader } from './core/guards/auth-service.loader';
 import { UserProfileModule } from './user-profile/user-profile.module';
-import { NewAccountComponent } from './new-account/new-account.component';
+import { RegistrationModule } from './new-account/registration.module';
 
 @NgModule({
   imports: [
@@ -28,8 +28,7 @@ import { NewAccountComponent } from './new-account/new-account.component';
       loadChildren: () => LoginModule
     }, {
       path: 'new',
-      canActivate: [AuthServiceLoader],
-      component: NewAccountComponent
+      loadChildren: () => RegistrationModule
     }])
   ],
   exports: [RouterModule]

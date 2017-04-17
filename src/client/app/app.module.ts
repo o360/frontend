@@ -28,8 +28,7 @@ import { NewAccountComponent } from './new-account/new-account.component';
     AppRoutingModule
   ],
   declarations: [
-    AppComponent,
-    NewAccountComponent
+    AppComponent
   ],
   providers: [{
     provide: APP_BASE_HREF,
