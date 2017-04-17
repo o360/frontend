@@ -1,8 +1,17 @@
 <div class="card">
-  <div class="card-header"><b>{{'T_PROFILE_SETTINGS' | translate}}</b></div>
+  <div class="card-header">
+    <b [ngSwitch]="editMode">
+      <ng-template [ngSwitchCase]="true">{{ 'T_ACTION_EDIT' | translate }}</ng-template>
+      <ng-template ngSwitchDefault>{{ 'T_ACTION_CREATE' | translate }}</ng-template>
+
+      <span *ngIf="model">{{ model.name }}</span>
+    </b>
+  </div>
 
   <div class="card-block" *ngIf="model">
-    <form (ngSubmit)="save(); userForm.reset()" #userForm="ngForm">
+    <form class="form form-horizontal"
+          (ngSubmit)="save(); userForm.reset()" #userForm="ngForm">
+
       <!-- Name -->
       <div class="form-group row"
            [ngClass]="{'has-success': name.valid, 'has-danger': !name.valid && name.touched }">
@@ -17,6 +26,7 @@
                  required
                  placeholder="{{ 'T_FORM_ENTER_NAME' | translate }}"
                  [(ngModel)]="model.name">
+
 
           <div class="form-errors"
                *ngIf="name.errors && name.touched">
@@ -48,13 +58,36 @@
         </div>
       </div>
 
+      <!-- Role -->
+      <div class="form-group row"
+           [ngClass]="{'has-success': role.valid, 'has-danger': !role.valid && role.touched }">
+
+        <label for="role" class="col-form-label col-md-3 required">{{ 'T_USER_ROLE' | translate }}</label>
+        <div class="col-md-9">
+          <select name="role"
+                  id="role"
+                  class="form-control col-xs-6"
+                  #role="ngModel"
+                  [(ngModel)]="model.role">
+            <option *ngFor="let role of roles"
+                    [ngValue]="role">
+              {{ 'T_USER_ROLE_' + role.toUpperCase() | translate }}
+            </option>
+          </select>
+        </div>
+      </div>
+
       <hr/>
 
       <div class="text-right">
+
         <button type="submit"
-                class="btn btn-primary"
+                class="btn btn-primary mt-0"
                 [disabled]="!userForm.valid">
-          {{'T_ACTION_UPDATE' | translate}}
+          <span [ngSwitch]="editMode">
+            <ng-template [ngSwitchCase]="true">{{ 'T_ACTION_UPDATE' | translate }}</ng-template>
+            <ng-template ngSwitchDefault>{{ 'T_ACTION_CREATE' | translate }}</ng-template>
+          </span>
         </button>
       </div>
     </form>

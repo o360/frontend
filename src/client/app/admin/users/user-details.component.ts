@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { DetailsComponent } from '../../shared/components/details.component';
-import { UserService } from '../../core/services/user.service';
 import { UserModel } from '../../core/models/user-model';
+import { UserService } from '../../core/services/user.service';
+import { DetailsComponent } from '../../shared/components/details.component';
 
 @Component({
   moduleId: module.id,

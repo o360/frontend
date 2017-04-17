@@ -3,8 +3,8 @@ import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Config } from '../../shared/config/env.config';
 import { Model, ModelId } from '../models/model';
-import { RestService } from './rest.service';
 import { AuthService } from './auth.service';
+import { RestService } from './rest.service';
 
 @Injectable()
 export class FirebaseRestService<T extends Model> extends RestService<T> {
