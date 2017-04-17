@@ -24,7 +24,8 @@
                  required
                  placeholder="{{ 'T_FORM_ENTER_NAME' | translate }}"
                  [(ngModel)]="model.name">
-          <div class="form-errors" *ngIf="name.errors && name.touched">
+          <div class="alert alert-danger" role="alert"
+               *ngIf="name.errors && name.touched">
             <div class="form-control-feedback" *ngIf="name.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}</div>
           </div>
         </div>
@@ -45,17 +46,21 @@
                  required
                  placeholder="{{ 'T_FORM_ENTER_EMAIL' | translate }}"
                  [(ngModel)]="model.email">
-          <div class="form-errors" *ngIf="email.errors && email.touched">
+          <div class="alert alert-danger" role="alert"
+               *ngIf="email.errors && email.touched">
             <div class="form-control-feedback" *ngIf="email.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}</div>
           </div>
         </div>
       </div>
 
-      <div class="form-group row">
+      <div class="form-group row"
+           [ngClass]="{'has-success': role.valid, 'has-danger': !role.valid && role.touched }">
+
         <label for="role" class="col-form-label col-md-3 required">{{ 'T_USER_ROLE' | translate }}</label>
         <div class="col-md-9">
           <select name="role" id="role"
                   class="form-control col-xs-6"
+                  #role="ngModel"
                   [(ngModel)]="model.role">
             <option *ngFor="let role of roles" ngDefaultControl
                     [ngValue]="role"
@@ -70,10 +75,9 @@
 
       <div class="text-right">
 
-        <button type="button"
+        <button type="submit"
                 class="btn btn-primary mt-0"
-                [disabled]="!userForm.valid"
-                (click)="save()">
+                [disabled]="!userForm.valid">
           <span [ngSwitch]="editMode">
             <ng-template [ngSwitchCase]="true">{{ 'T_ACTION_UPDATE' | translate }}</ng-template>
             <ng-template ngSwitchDefault>{{ 'T_ACTION_CREATE' | translate }}</ng-template>
