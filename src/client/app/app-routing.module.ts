@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { LayoutComponent } from './core/components/layout/layout.component';
-import { AuthGuard } from './core/guards/auth.guard';
-import { LoginModule } from './login/login.module';
-import { HomeModule } from './home/home.module';
-import { AuthServiceLoader } from './core/guards/auth-service.loader';
 import { AdminModule } from './admin/admin.module';
-import { UserProfileModule } from './user-profile/user-profile.module';
+import { LayoutComponent } from './core/components/layout/layout.component';
+import { AuthServiceLoader } from './core/guards/auth-service.loader';
+import { AuthGuard } from './core/guards/auth.guard';
+import { HomeModule } from './home/home.module';
+import { LoginModule } from './login/login.module';
 import { RegistrationModule } from './new-account/registration.module';
+import { UserProfileModule } from './user-profile/user-profile.module';
 
 @NgModule({
   imports: [
@@ -20,7 +20,7 @@ import { RegistrationModule } from './new-account/registration.module';
       children: [
         // Children modules
         { path: '', loadChildren: () => HomeModule },
-        { path: 'admin', data: {breadcrumb: 'T_ADMIN'}, loadChildren: () => AdminModule },
+        { path: 'admin', data: { breadcrumb: 'T_ADMINISTRATION' }, loadChildren: () => AdminModule },
         { path: 'profile', data: { breadcrumb: 'T_PROFILE' }, loadChildren: () => UserProfileModule }
       ]
     }, {

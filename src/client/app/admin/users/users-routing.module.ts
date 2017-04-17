@@ -11,10 +11,6 @@ import { UserFormComponent } from './user-form.component';
       component: UserListComponent,
       data: { breadcrumbIgnore: true },
     }, {
-      path: 'create',
-      component: UserFormComponent,
-      data: { breadcrumb: 'T_ACTION_CREATE' },
-    }, {
       path: ':id',
       component: UserDetailsComponent,
       data: { breadcrumb: 'T_USER_DETAILS' },
@@ -26,5 +22,5 @@ import { UserFormComponent } from './user-form.component';
   ],
   exports: [RouterModule]
 })
-export class UserRoutingModule {
+export class UsersRoutingModule {
 }

@@ -1,47 +1,62 @@
 <div class="card">
-  <div class="card-header">{{'T_PROFILE_SETTINGS' | translate}}</div>
+  <div class="card-header"><b>{{'T_PROFILE_SETTINGS' | translate}}</b></div>
 
   <div class="card-block" *ngIf="model">
-    <div class="row">
-      <div class="col-md-6">
-        <form (ngSubmit)="save(); userForm.reset()" #userForm="ngForm">
-          <div class="form-group"
-               [ngClass]="{'has-success': name.valid, 'has-danger': !name.valid && name.touched }">
-            <label class="col-form-label required" for="name">{{'T_USER_NAME' | translate}}</label>
-            <input class="form-control"
-                   type="text"
-                   id="name"
-                   name="name"
-                   #name="ngModel"
-                   required
-                   [(ngModel)]="model.name"/>
-            <div class="form-errors" *ngIf="name.errors && name.touched">
-              <div class="form-control-feedback" *ngIf="name.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}</div>
-            </div>
-          </div>
+    <form (ngSubmit)="save(); userForm.reset()" #userForm="ngForm">
+      <!-- Name -->
+      <div class="form-group row"
+           [ngClass]="{'has-success': name.valid, 'has-danger': !name.valid && name.touched }">
 
-          <div class="form-group"
-               [ngClass]="{'has-success': email.valid, 'has-danger': !email.valid && email.touched }">
-            <label class="col-form-label required" for="email">{{ 'T_USER_EMAIL' | translate }}</label>
-            <input class="form-control"
-                   type="text"
-                   id="email"
-                   name="email"
-                   #email="ngModel"
-                   required
-                   [(ngModel)]="model.email"/>
-            <div class="form-errors" *ngIf="email.errors && email.touched">
-              <div class="form-control-feedback" *ngIf="email.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}</div>
-            </div>
-          </div>
+        <label for="name" class="col-form-label col-md-3 required">{{ 'T_USER_NAME' | translate }}</label>
+        <div class="col-md-9">
+          <input type="text"
+                 class="form-control"
+                 id="name"
+                 name="name"
+                 #name="ngModel"
+                 required
+                 placeholder="{{ 'T_FORM_ENTER_NAME' | translate }}"
+                 [(ngModel)]="model.name">
 
-          <button class="btn btn-primary"
-                  type="submit"
-                  [disabled]="!userForm.valid">
-            {{'T_ACTION_UPDATE' | translate}}
-          </button>
-        </form>
+          <div class="form-errors"
+               *ngIf="name.errors && name.touched">
+            <div class="form-control-feedback" *ngIf="name.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}</div>
+          </div>
+        </div>
       </div>
-    </div>
+
+      <!-- Email -->
+      <div class="form-group row"
+           [ngClass]="{'has-success': email.valid, 'has-danger': !email.valid && email.touched }">
+
+        <label for="email" class="col-form-label col-md-3 required">
+          {{ 'T_USER_EMAIL' | translate }}
+        </label>
+        <div class="col-md-9">
+          <input type="email"
+                 class="form-control"
+                 id="email"
+                 name="email"
+                 #email="ngModel"
+                 required
+                 placeholder="{{ 'T_FORM_ENTER_EMAIL' | translate }}"
+                 [(ngModel)]="model.email">
+          <div class="form-errors"
+               *ngIf="email.errors && email.touched">
+            <div class="form-control-feedback" *ngIf="email.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}</div>
+          </div>
+        </div>
+      </div>
+
+      <hr/>
+
+      <div class="text-right">
+        <button type="submit"
+                class="btn btn-primary"
+                [disabled]="!userForm.valid">
+          {{'T_ACTION_UPDATE' | translate}}
+        </button>
+      </div>
+    </form>
   </div>
 </div>

@@ -1,11 +1,19 @@
 <div class="card" *ngIf="model">
-  <div class="card-header">{{ 'T_USER_DETAILS' | translate }}
-    <div class="card-actions">
-      <a class="btn" [routerLink]="['/admin/users/' + model.id + '/edit']"><i class="icon-pencil"></i></a>
-    </div>
-  </div>
+  <div class="card-header"><b>{{ 'T_DETAILS' | translate }}</b></div>
   <div class="card-block">
     <div class="row">
+      <div class="col-md-8">
+        <h2>{{ model.name }}</h2>
+      </div>
+      <div class="col-md-4 text-right">
+        <button type="button"
+                class="btn btn-md btn-primary"
+                [routerLink]="['/admin/users/', model.id, 'edit']">{{ 'T_ACTION_EDIT' | translate }}
+        </button>
+      </div>
+    </div>
+
+    <div class="row mt-1">
       <div class="col-md-3">
         <small class="text-muted">{{ 'T_USER_NAME' | translate}}</small>
         <div class="h6">{{ model.name }}</div>

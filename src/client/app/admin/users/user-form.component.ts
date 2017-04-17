@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormComponent } from '../../shared/components/form.component';
-import { UserService } from '../../core/services/user.service';
 import { UserModel, UserRole } from '../../core/models/user-model';
+import { UserService } from '../../core/services/user.service';
+import { FormComponent } from '../../shared/components/form.component';
 
 
 @Component({

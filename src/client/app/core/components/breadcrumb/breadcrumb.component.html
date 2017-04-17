@@ -3,9 +3,9 @@
   <li class="breadcrumb-item"
       *ngFor="let breadcrumb of breadcrumbs; let last = last"
       [ngSwitch]="last">
-    <ng-template [ngSwitchCase]="true">{{breadcrumb.label | translate}}</ng-template>
+    <ng-template [ngSwitchCase]="true">{{ breadcrumb.label | translate }}</ng-template>
     <ng-template ngSwitchDefault>
-      <a [routerLink]="[breadcrumb.url]">{{breadcrumb.label | translate}}</a>
+      <a [routerLink]="[breadcrumb.url]">{{ breadcrumb.label | translate }}</a>
     </ng-template>
   </li>
 </ol>
