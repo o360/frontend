@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Headers, Http, RequestOptions, Response } from '@angular/http';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
 import { Config } from '../../shared/config/env.config';
 import { Model, ModelId } from '../models/model';
 import { AuthService } from './auth.service';
-import { Router } from '@angular/router';
 
 export declare type ModelConstructor<T> = { new (json: Object): T };
 
@@ -166,7 +166,7 @@ export class RestService<T extends Model> {
     });
 
     if (this._authService.isLoggedIn) {
-      headers.append('X-Auth-Token', this._authService. token);
+      headers.append('X-Auth-Token', this._authService.token);
     }
     return new RequestOptions({
       headers: headers
