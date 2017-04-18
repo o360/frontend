@@ -18,7 +18,7 @@ export class AccountService extends RestService<AccountModel> {
     return this._http.post(params, body, options)
       .map((response: Response) => response.json())
       .map((json: any) => <string>json['token'])
-      .catch((error: any) => this._handleErrors(error));
+      .catch((error: Response ) => this._handleErrors(error));
   }
 
   public get(token: string): Observable<AccountModel> {
@@ -27,7 +27,8 @@ export class AccountService extends RestService<AccountModel> {
 
     return this._http.get(params, options)
       .map((response: Response) => response.json())
-      .map((json: Object) => this.createEntity(json));
+      .map((json: Object) => this.createEntity(json))
+      .catch((error: Response ) => this._handleErrors(error));
   }
 
   public list() {
