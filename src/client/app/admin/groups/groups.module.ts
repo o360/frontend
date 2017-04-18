@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { SharedModule } from '../../shared/shared.module';
 import { GroupListComponent } from './group-list.component';
 import { GroupsRoutingModule } from './groups-routing.module';
+import { GroupChildrenListComponent } from './group-user-list.component';
 
 @NgModule({
   imports: [
@@ -9,11 +10,13 @@ import { GroupsRoutingModule } from './groups-routing.module';
     SharedModule
   ],
   declarations: [
-    GroupListComponent
+    GroupListComponent,
+    GroupChildrenListComponent
   ],
   exports: [
-    GroupListComponent
-  ]
+    GroupListComponent,
+    GroupChildrenListComponent
+  ],
 })
 export class GroupsModule {
 }
