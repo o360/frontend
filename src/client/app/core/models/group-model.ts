@@ -1,9 +1,10 @@
 import { Defaults } from '../decorators/defaults.decorator';
-import { Model } from './model';
+import { Model, ModelId } from './model';
 
 @Defaults({
   name: '',
 })
 export class GroupModel extends Model {
   public name: string;
+  public parentId?: ModelId;
 }
