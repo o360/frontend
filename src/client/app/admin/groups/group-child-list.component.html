@@ -16,12 +16,6 @@
           <td><a [routerLink]="['/admin/groups', group.id]">{{ group.name }}</a></td>
           <td class="actions-column">
             <button type="button"
-                    class="btn btn-sm btn-primary ml-1"
-                    title="{{ 'T_ACTION_EDIT' | translate }}"
-                    [routerLink]="['/admin/users/', group.id, 'edit']"><i class="fa fa-pencil"></i>&nbsp;{{ 'T_ACTION_EDIT' | translate }}
-            </button>
-
-            <button type="button"
                     class="btn btn-sm btn-danger ml-1"
                     title="{{ 'T_ACTION_DELETE' | translate }}"
                     (click)="delete(group.id)"><i class="fa fa-trash"></i>&nbsp;{{ 'T_ACTION_DELETE' | translate }}

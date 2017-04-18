@@ -14,6 +14,13 @@
         <tr *ngFor="let group of list">
           <td>{{ group.id }}</td>
           <td><a [routerLink]="['/admin/groups', group.id]">{{ group.name }}</a></td>
+          <td class="actions-column">
+            <button type="button"
+                    class="btn btn-sm btn-danger ml-1"
+                    title="{{ 'T_ACTION_DELETE' | translate }}"
+                    (click)="delete(group.id)"><i class="fa fa-trash"></i>&nbsp;{{ 'T_ACTION_DELETE' | translate }}
+            </button>
+          </td>
         </tr>
       </tbody>
     </table>
