@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Headers, Http, RequestOptions, Response } from '@angular/http';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
 import { Config } from '../../shared/config/env.config';
 import { Model, ModelId } from '../models/model';
@@ -38,7 +39,8 @@ export class RestService<T extends Model> {
   protected _entityConstructor: ModelConstructor<T>;
 
   constructor(protected _http: Http,
-              protected _authService: AuthService) {
+              protected _authService: AuthService,
+              protected _router: Router) {
   }
 
   /**
@@ -71,7 +73,7 @@ export class RestService<T extends Model> {
     return this._http.get(this._getRequestParams(id), this._getRequestOptions())
       .map((response: Response) => response.json())
       .map((json: any) => this.createEntity(json))
-      .catch((error: any) => this._handleErrors(error));
+      .catch((error: Response) => this._handleErrors(error));
   }
 
   /**
@@ -97,7 +99,7 @@ export class RestService<T extends Model> {
     let requestOptions = this._getRequestOptions();
 
     return this._http.delete(requestParams, requestOptions)
-      .catch((error: any) => this._handleErrors(error));
+      .catch((error: Response) => this._handleErrors(error));
   }
 
   /**
@@ -113,7 +115,7 @@ export class RestService<T extends Model> {
     return this._http.put(requestParams, json, requestOptions)
       .map((res: Response) => res.json())
       .map((json: any) => this.createEntity(json))
-      .catch((error: any) => this._handleErrors(error));
+      .catch((error: Response) => this._handleErrors(error));
   }
 
   /**
@@ -129,7 +131,7 @@ export class RestService<T extends Model> {
     return this._http.post(requestParams, json, requestOptions)
       .map((res: Response) => res.json())
       .map((json: any) => this.createEntity(json))
-      .catch((error: any) => this._handleErrors(error));
+      .catch((error: Response) => this._handleErrors(error));
   }
 
   /**
@@ -174,8 +176,13 @@ export class RestService<T extends Model> {
   /**
    * Handler of errors for the CRUD methods
    */
-  protected _handleErrors(error: any) {
-    return Observable.throw(error || 'Server error');
+  protected _handleErrors(error: Response) {
+    if (error.status === 401) {
+      this._router.navigate(['/login']);
+      return Observable.throw(error);
+    } else {
+      return Observable.throw(error || 'Server error');
+    }
   }
 }
 
