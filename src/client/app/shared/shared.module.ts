@@ -3,6 +3,7 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { ConfirmationDirective } from './directives/confirmation.directive';
 
 /**
  * Do not specify providers for modules that might be imported by a lazy loaded module.
@@ -16,12 +17,14 @@ import { TranslateModule } from '@ngx-translate/core';
     TranslateModule
   ],
   declarations: [
+    ConfirmationDirective
   ],
   exports: [
     CommonModule,
     FormsModule,
     RouterModule,
-    TranslateModule
+    TranslateModule,
+    ConfirmationDirective
   ]
 })
 export class SharedModule {

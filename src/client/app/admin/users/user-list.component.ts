@@ -21,4 +21,8 @@ export class UserListComponent extends ListComponent<UserModel> {
     user.status = 'approved';
     this._service.save(user).subscribe(() => this._update());
   }
+
+  public test() {
+    console.log('test!');
+  }
 }
