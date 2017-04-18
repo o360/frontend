@@ -13,6 +13,7 @@ import { AuthService } from './services/auth.service';
 import { UserService } from './services/user.service';
 import { BsDropdownModule } from 'ngx-bootstrap';
 import { ProfileService } from './services/profile.service';
+import { GroupService } from './services/group.service';
 
 @NgModule({
   imports: [
@@ -33,7 +34,8 @@ import { ProfileService } from './services/profile.service';
     AccountService,
     ProfileService,
     AuthGuard,
-    UserService
+    UserService,
+    GroupService
   ],
   exports: [
     HeaderComponent,
