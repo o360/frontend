@@ -6,10 +6,10 @@ import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   moduleId: module.id,
-  selector: 'bs-group-user-list',
-  templateUrl: 'group-user-list.component.html'
+  selector: 'bs-group-child-list',
+  templateUrl: 'group-child-list.component.html'
 })
-export class GroupChildrenListComponent extends ListComponent<GroupModel> implements OnInit {
+export class GroupChildListComponent extends ListComponent<GroupModel> implements OnInit {
   constructor(protected _service: GroupService,
               protected _activatedRoute: ActivatedRoute) {
     super(_service);
