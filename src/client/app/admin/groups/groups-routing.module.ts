@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { GroupFormComponent } from './group-form.component';
 import { GroupListComponent } from './group-list.component';
 import { GroupDetailsComponent } from './group-details.component';
 
@@ -13,6 +14,10 @@ import { GroupDetailsComponent } from './group-details.component';
       path: ':id',
       component: GroupDetailsComponent,
       data: { breadcrumbIgnore: true },
+    }, {
+      path: 'create',
+      component: GroupFormComponent,
+      data: { breadcrumb: 'T_ACTION_CREATE' },
     }])
   ],
   exports: [RouterModule]
