@@ -1,1 +1,21 @@
+<div class="card" *ngIf="model">
+  <div class="card-header"><b>{{ 'T_DETAILS' | translate }}</b></div>
+  <div class="card-block">
+    <div class="row">
+      <div class="col-md-8">
+        <h2>{{ model.name }}</h2>
+      </div>
+    </div>
+
+    <div class="row mt-1">
+      <div class="col-md-3">
+        <small class="text-muted">{{ 'T_GROUP_NAME' | translate}}</small>
+        <div class="h6">{{ model.name }}</div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <bs-group-list [parentId]="model?.id"></bs-group-list>
+
+
