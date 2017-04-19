@@ -6,27 +6,32 @@
               (click)="isCollapsed = !isCollapsed"><i class="icon-arrow-up"></i></button>
     </div>
   </div>
-  <div [collapse]="isCollapsed"
-       class="card-block card-header">
-    <form class="form-horizontal ">
+  <div [collapse]="!isCollapsed"
+       class="card-block">
+    <form class="form-horizontal" (ngSubmit)="apply()">
       <div class="form-group row" *ngFor="let filter of filters">
         <label class="col-md-3 form-control-label" for="{{ filter.field }}">
           {{ filter.name | translate }}
         </label>
         <div class="col-md-9" [ngSwitch]="filter.type">
-          <ng-container *ngSwitchCase="FilterType.String || FilterType.Number">
+          <ng-container *ngSwitchCase="FilterType.String">
+            <input type="text" [(ngModel)]="filter.value" name="field" class="form-control col-xs-6" id="{{ filter.field }}">
+          </ng-container>
+          <ng-container *ngSwitchCase="FilterType.Number">
             <input type="text" [(ngModel)]="filter.value" name="field" class="form-control col-xs-6" id="{{ filter.field }}">
           </ng-container>
           <ng-container *ngSwitchCase="FilterType.Select">
             <select [(ngModel)]="filter.value" name="field" class="form-control col-xs-6" id="{{ filter.field }}">
-              <option *ngFor="let value of filter.values">{{ value }}</option>
+              <option *ngFor="let value of filter.values">{{ value.name | translate }}</option>
             </select>
           </ng-container>
         </div>
       </div>
-      <button type="submit" (click)="apply()" class="btn btn-sm btn-primary">
-        {{ 'T_FILTER_APPLY' | translate }}
-      </button>
+      <div class="text-right">
+        <button type="submit" class="btn btn-sm btn-primary">
+          {{ 'T_FILTER_APPLY' | translate }}
+        </button>
+      </div>
     </form>
   </div>
 </div>

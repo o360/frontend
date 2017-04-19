@@ -1,6 +1,6 @@
 import { OnInit } from '@angular/core';
 import { Model, ModelId } from '../../core/models/model';
-import { RestService } from '../../core/services/rest.service';
+import { IQueryParams, RestService } from '../../core/services/rest.service';
 import { Filter } from '../../core/models/filter';
 
 export abstract class ListComponent<T extends Model> implements OnInit {
@@ -26,8 +26,8 @@ export abstract class ListComponent<T extends Model> implements OnInit {
     this._service.delete(id).subscribe(() => this._update());
   }
 
-  protected _update() {
-    this._service.list().subscribe((list: T[]) => {
+  protected _update(queryParams?: IQueryParams) {
+    this._service.list(queryParams).subscribe((list: T[]) => {
       this._list = list;
     });
   }
