@@ -58,5 +58,11 @@
   "T_CONFIRM_MESSAGE": "Are you sure you want to do this?",
   "T_GROUP_NAME": "Group name",
   "T_ACTION_RESET": "Reset",
+  "T_SUCCESS_TITLE_SAVE": "Success!",
+  "T_SUCCESS_MESSAGE_SAVE": "You did it!",
+  "T_ERROR_TITLE_DEFAULT": "Error!",
+  "T_ERROR_MESSAGE_DEFAULT": "This is not good!",
+  "T_SUCCESS_TITLE_DEFAULT": "Success!",
+  "T_SUCCESS_MESSAGE_DEFAULT": "Some text!",
   "T_EMPTY": "No records found"
 }
