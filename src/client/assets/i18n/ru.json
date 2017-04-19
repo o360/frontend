@@ -44,6 +44,6 @@
   "T_NEW_ACCOUNT_SUBMIT": "Подтвердить",
   "T_DETAILS": "Подробности",
   "T_ADMINISTRATION": "Администрирование",
-  "T_CUSTOM_MESSAGE": "Вы уверены, что хотите это сделать?",
+  "T_CONFIRM_MESSAGE": "Вы уверены, что хотите это сделать?",
   "T_GROUP_NAME": "Название группы"
 }
