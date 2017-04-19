@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { UserModel, UserStatus } from '../../core/models/user-model';
+import { UserModel, UserRole, UserStatus } from '../../core/models/user-model';
 import { UserService } from '../../core/services/user.service';
 import { ListComponent } from '../../shared/components/list.component';
 import { Filter, FilterType } from '../../core/models/filter';
+import { IQueryParams } from '../../core/services/rest.service';
 
 @Component({
   moduleId: module.id,
@@ -11,25 +12,18 @@ import { Filter, FilterType } from '../../core/models/filter';
 })
 export class UserListComponent extends ListComponent<UserModel> {
   protected _filters: Filter[] = [{
-    name: 'T_USER_SEARCH',
-    field: 'search',
-    type: FilterType.String
-  }, {
     name: 'T_USER_STATUS',
     field: 'status',
     type: FilterType.Select,
-    values: ['new', 'approved']
+    values: Object.values(UserStatus).map(x => ({ name: 'T_USER_STATUS_' + x.toUpperCase(), value: x }))
   }, {
     name: 'T_USER_ROLE',
     field: 'role',
     type: FilterType.Select,
-    values: ['user', 'admin']
-  }, {
-    name: 'T_USER_SORT',
-    field: 'sort',
-    type: FilterType.Select,
-    values: ['id', 'name', 'email', 'role', 'status']
+    values: Object.values(UserRole).map(x => ({ name: 'T_USER_ROLE_' + x.toUpperCase(), value: x }))
   }];
+
+  protected _filterParams: IQueryParams;
 
   constructor(service: UserService) {
     super(service);
@@ -40,11 +34,11 @@ export class UserListComponent extends ListComponent<UserModel> {
   }
 
   public approve(user: UserModel) {
-    user.status = 'approved';
+    user.status = UserStatus.Approved;
     this._service.save(user).subscribe(() => this._update());
   }
 
-  public filterChange(value: any) {
-    console.log(value);
+  public filterChange(value: IQueryParams) {
+    this._update(value);
   }
 }
