@@ -5,28 +5,32 @@ import { TranslateService } from '@ngx-translate/core';
   selector: '[bsConfirm]'
 })
 export class ConfirmationDirective {
-  protected _message: string;
+  protected _message: string = 'T_CONFIRM_MESSAGE';
 
   @Input()
   public set message(value: any) {
     this._message = value;
   }
+  private _confirm: EventEmitter<void> = new EventEmitter<void>();
+  private _cancel: EventEmitter<void> = new EventEmitter<void>();
 
   @Output()
-  public _confirm: EventEmitter<void> = new EventEmitter<void>();
+  public get cancel(): EventEmitter<void> {
+    return this._cancel;
+  }
 
   @Output()
-  public _cancel: EventEmitter<void> = new EventEmitter<void>();
+  public get confirm(): EventEmitter<void> {
+    return this._confirm;
+  }
 
   constructor(protected _translateService: TranslateService) {
-    this._translateService.get('T_CONFIRM_MESSAGE').subscribe((res: string) => {
-      this._message = res;
-    });
   }
 
   @HostListener('click', ['$event'])
   public clickHandler() {
-    const confirmed = window.confirm(this._message);
+    let translatedMessage = this._translateService.instant(this._message);
+    const confirmed = window.confirm(translatedMessage);
 
     if (confirmed) {
       this._confirm.emit();
