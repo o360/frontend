@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { GroupListComponent } from './group-list.component';
-import { GroupChildListComponent } from './group-child-list.component';
 
 @NgModule({
   imports: [
@@ -11,7 +10,7 @@ import { GroupChildListComponent } from './group-child-list.component';
       data: { breadcrumbIgnore: true },
     }, {
         path: ':parentId',
-        component: GroupChildListComponent,
+        component: GroupListComponent,
         data: { breadcrumbIgnore: true },
       }])
   ],
