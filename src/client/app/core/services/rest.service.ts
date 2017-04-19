@@ -5,7 +5,10 @@ import { Observable } from 'rxjs/Rx';
 import { Config } from '../../shared/config/env.config';
 import { Model, ModelId } from '../models/model';
 import { AuthService } from './auth.service';
-import { IQueryParams } from '../../shared/interfaces/query-params.interface';
+
+export interface IQueryParams {
+  [key: string]: string;
+}
 
 export declare type ModelConstructor<T> = { new (json: Object): T };
 
