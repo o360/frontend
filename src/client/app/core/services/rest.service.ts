@@ -6,6 +6,10 @@ import { Config } from '../../shared/config/env.config';
 import { Model, ModelId } from '../models/model';
 import { AuthService } from './auth.service';
 
+export interface IQueryParams {
+  [key: string]: string;
+}
+
 export declare type ModelConstructor<T> = { new (json: Object): T };
 
 /**
@@ -56,8 +60,8 @@ export class RestService<T extends Model> {
    * Get list of data from API
    * @return {Observable<T[]>}
    */
-  public list(): Observable<T[]> {
-    return this._http.get(this._getRequestParams(), this._getRequestOptions())
+  public list(queryParams?: IQueryParams): Observable<T[]> {
+    return this._http.get(this._getRequestParams(undefined, queryParams), this._getRequestOptions())
       .map((response: Response) => response.json())
       .map((json: any) => json.data)
       .map((data: any[]) => data.map(item => this.createEntity(item)))
@@ -139,7 +143,7 @@ export class RestService<T extends Model> {
    * @params {number} id
    * @return {Observable<T>}
    */
-  protected _getRequestParams(id?: ModelId) {
+  protected _getRequestParams(id?: ModelId, params?: IQueryParams) {
     let path: string[] = [];
 
     path.push(this._host);
@@ -152,7 +156,13 @@ export class RestService<T extends Model> {
 
     path = path.filter(part => part && part !== '');
 
-    return path.join('/');
+    let paramsString = '';
+
+    if (params) {
+      let param = Object.entries(params).map(([key, value]) => key + '=' + value);
+      paramsString = '?' + param.join('&');
+    }
+    return path.join('/') + paramsString;
   }
 
   /**
@@ -168,6 +178,7 @@ export class RestService<T extends Model> {
     if (this._authService.isLoggedIn) {
       headers.append('X-Auth-Token', this._authService.token);
     }
+
     return new RequestOptions({
       headers: headers
     });
@@ -179,6 +190,9 @@ export class RestService<T extends Model> {
   protected _handleErrors(error: Response) {
     if (error.status === 401) {
       this._router.navigate(['/login']);
+      return Observable.throw(error);
+    } else if (error.status === 409) {
+      window.alert('Conflict error!');
       return Observable.throw(error);
     } else {
       return Observable.throw(error || 'Server error');

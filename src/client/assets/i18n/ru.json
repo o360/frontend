@@ -43,5 +43,6 @@
   "T_NEW_ACCOUNT_EMAIL": "E-mail",
   "T_NEW_ACCOUNT_SUBMIT": "Подтвердить",
   "T_DETAILS": "Подробности",
-  "T_ADMINISTRATION": "Администрирование"
+  "T_ADMINISTRATION": "Администрирование",
+  "T_GROUP_NAME": "Название группы"
 }
