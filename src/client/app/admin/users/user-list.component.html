@@ -47,8 +47,7 @@
             <button type="button"
                     class="btn btn-sm btn-danger ml-1"
                     bsConfirm
-                    (confirm)="delete(model.id)"
-                    [message]="'T_CUSTOM_MESSAGE' | translate">
+                    (confirm)="delete(model.id)">
 
               <i class="fa fa-trash"></i>&nbsp;
               {{ 'T_ACTION_DELETE' | translate }}
