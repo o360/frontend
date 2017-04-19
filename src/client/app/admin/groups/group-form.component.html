@@ -37,6 +37,7 @@
 
       <!-- Parent group -->
       <div class="form-group row"
+           *ngIf="!editMode"
            [ngClass]="{'has-success': parentId.valid, 'has-danger': !parentId.valid && parentId.touched }">
 
         <label for="parentId" class="col-form-label col-md-3">{{ 'T_GROUP_PARENT' | translate }}</label>
@@ -48,7 +49,7 @@
                   [(ngModel)]="model.parentId">
             <option *ngFor="let parent of parentsList"
                     [ngValue]="parent.id">
-                     {{parent.name}}
+              {{parent.name}}
             </option>
           </select>
         </div>

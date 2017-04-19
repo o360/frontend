@@ -18,6 +18,10 @@ import { GroupDetailsComponent } from './group-details.component';
       path: 'create',
       component: GroupFormComponent,
       data: { breadcrumb: 'T_ACTION_CREATE' },
+    }, {
+      path: ':id/edit',
+      component: GroupFormComponent,
+      data: { breadcrumb: 'T_ACTION_EDIT' },
     }])
   ],
   exports: [RouterModule]
