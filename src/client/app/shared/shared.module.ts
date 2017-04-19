@@ -3,7 +3,6 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { GroupParentIdDirective } from './directives/parent.directive';
 
 /**
  * Do not specify providers for modules that might be imported by a lazy loaded module.
@@ -17,14 +16,12 @@ import { GroupParentIdDirective } from './directives/parent.directive';
     TranslateModule
   ],
   declarations: [
-    GroupParentIdDirective
   ],
   exports: [
     CommonModule,
     FormsModule,
     RouterModule,
-    TranslateModule,
-    GroupParentIdDirective
+    TranslateModule
   ]
 })
 export class SharedModule {
