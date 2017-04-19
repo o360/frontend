@@ -4,8 +4,12 @@ import { Directive, EventEmitter, HostListener, Input, Output } from '@angular/c
   selector: '[bsConfirm]'
 })
 export class ConfirmationDirective {
+  protected _message: string = 'Are you sure?';
+
   @Input()
-  public message: string;
+  public set message(value: string) {
+    this._message = value;
+  }
 
   @Output()
   public confirm: EventEmitter<void> = new EventEmitter<void>();
@@ -13,8 +17,9 @@ export class ConfirmationDirective {
   @Output()
   public cancel: EventEmitter<void> = new EventEmitter<void>();
 
-  @HostListener('click', ['$event']) confirmFirst() {
-    const confirmed = window.confirm(this.message);
+  @HostListener('click', ['$event'])
+  public clickHandler() {
+    const confirmed = window.confirm(this._message);
 
     if (confirmed) {
       this.confirm.emit();
