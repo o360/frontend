@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Rx';
 import { Config } from '../../shared/config/env.config';
 import { Model, ModelId } from '../models/model';
 import { AuthService } from './auth.service';
+import { IQueryParams } from '../../shared/interfaces/query-params.interface';
 
 export declare type ModelConstructor<T> = { new (json: Object): T };
 
@@ -56,7 +57,7 @@ export class RestService<T extends Model> {
    * Get list of data from API
    * @return {Observable<T[]>}
    */
-  public list(queryParams?: any): Observable<T[]> {
+  public list(queryParams?: IQueryParams): Observable<T[]> {
     return this._http.get(this._getRequestParams(undefined, queryParams), this._getRequestOptions())
       .map((response: Response) => response.json())
       .map((json: any) => json.data)
@@ -139,7 +140,7 @@ export class RestService<T extends Model> {
    * @params {number} id
    * @return {Observable<T>}
    */
-  protected _getRequestParams(id?: ModelId, params?: any) {
+  protected _getRequestParams(id?: ModelId, params?: IQueryParams) {
     let path: string[] = [];
 
     path.push(this._host);
@@ -155,9 +156,7 @@ export class RestService<T extends Model> {
     let paramsString = '';
 
     if (params) {
-      let param = Object.entries(params).map(([key, value]) => {
-        return `${key}=` + value;
-      });
+      let param = Object.entries(params).map(([key, value]) => key + '=' + value);
       paramsString = '?' + param.join('&');
     }
     return path.join('/') + paramsString;

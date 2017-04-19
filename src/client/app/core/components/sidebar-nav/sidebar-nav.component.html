@@ -13,10 +13,14 @@
       </a>
       <ul *dropdownMenu class="nav-dropdown-item" role="menu">
         <li role="menuitem" class="nav-item">
-          <a class="nav-link" routerLink="/admin/users" routerLinkActive="active">{{ 'T_USERS' | translate }}</a>
+          <a class="nav-link" routerLink="/admin/users" routerLinkActive="active">
+            <i class="icon-user"></i>
+            {{ 'T_USERS' | translate }}</a>
         </li>
         <li role="menuitem" class="nav-item">
-          <a class="nav-link" routerLink="/admin/groups" routerLinkActive="active">{{ 'T_GROUPS' | translate }}</a>
+          <a class="nav-link" routerLink="/admin/groups" routerLinkActive="active">
+            <i class="icon-people"></i>
+            {{ 'T_GROUPS' | translate }}</a>
         </li>
       </ul>
     </li>
