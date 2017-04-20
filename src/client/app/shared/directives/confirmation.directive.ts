@@ -5,14 +5,14 @@ import { TranslateService } from '@ngx-translate/core';
   selector: '[bsConfirm]'
 })
 export class ConfirmationDirective {
-  protected _message: string = 'T_CONFIRM_MESSAGE';
+  private _message: string = 'T_CONFIRM_MESSAGE';
+  private _confirm: EventEmitter<void> = new EventEmitter<void>();
+  private _cancel: EventEmitter<void> = new EventEmitter<void>();
 
   @Input()
   public set message(value: any) {
     this._message = value;
   }
-  private _confirm: EventEmitter<void> = new EventEmitter<void>();
-  private _cancel: EventEmitter<void> = new EventEmitter<void>();
 
   @Output()
   public get cancel(): EventEmitter<void> {
