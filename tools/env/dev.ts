@@ -12,7 +12,7 @@ const DevConfig: EnvConfig = {
         redirect_uri: '<REDIRECT_URI>'
       }
     }
-  },
+  }
 };
 
 export = DevConfig;

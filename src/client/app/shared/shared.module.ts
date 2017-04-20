@@ -3,6 +3,8 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { CollapseModule } from 'ngx-bootstrap';
+import { FiltersComponent } from './components/filters/filters.component';
 import { ConfirmationDirective } from './directives/confirmation.directive';
 
 /**
@@ -14,17 +16,21 @@ import { ConfirmationDirective } from './directives/confirmation.directive';
     CommonModule,
     FormsModule,
     RouterModule,
-    TranslateModule
+    TranslateModule,
+    CollapseModule
   ],
   declarations: [
-    ConfirmationDirective
+    ConfirmationDirective,
+    FiltersComponent
   ],
   exports: [
     CommonModule,
     FormsModule,
     RouterModule,
     TranslateModule,
-    ConfirmationDirective
+    ConfirmationDirective,
+    CollapseModule,
+    FiltersComponent
   ]
 })
 export class SharedModule {
