@@ -6,6 +6,10 @@ import { GroupsModule } from './groups/groups.module';
 @NgModule({
   imports: [
     RouterModule.forChild([{
+      path: '',
+      redirectTo: '/admin/users',
+      pathMatch: 'full'
+    },{
       path: 'users',
       data: { breadcrumb: 'T_USERS' },
       loadChildren: () => UsersModule
