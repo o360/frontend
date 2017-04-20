@@ -43,5 +43,6 @@
   "T_NEW_ACCOUNT_SUBMIT": "Submit",
   "T_DETAILS": "Details",
   "T_ADMINISTRATION": "Administration",
+  "T_CONFIRM_MESSAGE": "Are you sure you want to do this?",
   "T_GROUP_NAME": "Group name"
 }
