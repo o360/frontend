@@ -23,8 +23,6 @@ export class UserListComponent extends ListComponent<UserModel> {
     values: Object.values(UserRole).map(x => ({ name: 'T_USER_ROLE_' + x.toUpperCase(), value: x }))
   }];
 
-  protected _filterParams: IQueryParams;
-
   constructor(service: UserService) {
     super(service);
   }
