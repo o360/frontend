@@ -37,7 +37,6 @@ import { GroupService } from './services/group.service';
     AuthGuard,
     UserService,
     GroupService,
-    UserService,
     NotificationService
   ],
   exports: [
