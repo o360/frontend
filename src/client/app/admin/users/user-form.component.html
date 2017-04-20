@@ -82,8 +82,7 @@
       <div class="text-right">
 
         <button type="submit"
-                class="btn btn-primary mt-0"
-                [disabled]="!userForm.valid">
+                class="btn btn-primary mt-0">
           <span [ngSwitch]="editMode">
             <ng-template [ngSwitchCase]="true">{{ 'T_ACTION_UPDATE' | translate }}</ng-template>
             <ng-template ngSwitchDefault>{{ 'T_ACTION_CREATE' | translate }}</ng-template>
