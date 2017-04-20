@@ -44,7 +44,7 @@ export class BreadcrumbComponent implements OnInit {
       if (!child.data.breadcrumbIgnore) {
         newState.push({
           label: label,
-          url: path.join('/')
+          url: '/' + path.join('/')
         });
       }
 
