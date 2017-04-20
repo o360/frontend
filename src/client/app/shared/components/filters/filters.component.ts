@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Filter, FilterType } from '../../../core/models/filter';
-import { TranslateService } from '@ngx-translate/core';
 import { IQueryParams } from '../../../core/services/rest.service';
 
 @Component({
@@ -10,7 +9,6 @@ import { IQueryParams } from '../../../core/services/rest.service';
 })
 export class FiltersComponent {
   private _filters: Filter[] = [];
-  private _result: IQueryParams;
   private _filterChange: EventEmitter<any> = new EventEmitter<any>();
   private _isCollapsed: boolean;
 
@@ -40,21 +38,11 @@ export class FiltersComponent {
     return FilterType;
   }
 
-  constructor(protected _translateService: TranslateService) {
-  }
-
   public apply() {
-    this._result = {};
-    this._filters.forEach(filter => {
-      if (filter.value !== undefined) {
-        Object.values(filter.values)
-          .map(x => {
-            if (filter.value === this._translateService.instant(x.name)) {
-              Object.assign(this._result, { [filter.field]: x.value });
-            }
-          });
-      }
-      this._filterChange.emit(this._result);
-    });
+    let params: IQueryParams = this._filters
+      .filter(x => x.value !== undefined && x.value !== null)
+      .reduce((acc, filter) => Object.assign(acc, { [filter.field]: filter.value }), {});
+
+    this._filterChange.emit(params);
   }
 }
