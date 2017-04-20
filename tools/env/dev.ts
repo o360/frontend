@@ -12,7 +12,7 @@ const DevConfig: EnvConfig = {
         redirect_uri: 'http://localhost:5555/login/google'
       }
     }
-  },
+  }
 };
 
 export = DevConfig;
