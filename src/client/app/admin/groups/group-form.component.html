@@ -1,16 +1,16 @@
 <div class="card">
   <div class="card-header">
     <b [ngSwitch]="editMode">
-      <ng-template [ngSwitchCase]="true">{{ 'T_ACTION_EDIT' | translate }}</ng-template>
+      <ng-template [ngSwitchCase]="true">{{ 'T_ACTION_EDIT' | translate }}
+        <span *ngIf="model">{{ model.name }}</span>
+      </ng-template>
       <ng-template ngSwitchDefault>{{ 'T_ACTION_CREATE' | translate }}</ng-template>
-
-      <span *ngIf="model">{{ model.name }}</span>
     </b>
   </div>
 
   <div class="card-block" *ngIf="model">
     <form class="form form-horizontal"
-          (ngSubmit)="save(); groupForm.reset()" #groupForm="ngForm">
+          (ngSubmit)="save(['/admin/groups']); groupForm.reset()" #groupForm="ngForm">
 
       <!-- Name -->
       <div class="form-group row"
@@ -35,19 +35,18 @@
         </div>
       </div>
 
-      <!-- Parent group -->
+      <!-- Parent -->
       <div class="form-group row"
-           *ngIf="!editMode"
-           [ngClass]="{'has-success': parentId.valid, 'has-danger': !parentId.valid && parentId.touched }">
-
-        <label for="parentId" class="col-form-label col-md-3">{{ 'T_GROUP_PARENT' | translate }}</label>
+           [ngClass]="{'has-success': parent.valid, 'has-danger': !parent.valid && parent.touched }">
+        <label for="parent" class="col-form-label col-md-3">{{ 'T_GROUP_PARENT' | translate }}</label>
         <div class="col-md-9">
-          <select name="parentId"
-                  id="parentId"
-                  class="form-control col-xs-6"
-                  #parentId="ngModel"
-                  [(ngModel)]="model.parentId">
-            <option *ngFor="let parent of parentsList"
+          <select name="parent"
+                  id="parent"
+                  class="form-control"
+                  #parent="ngModel"
+                  [(ngModel)]="model.parentId"
+                  [disabled]="parentId">
+            <option *ngFor="let parent of groups"
                     [ngValue]="parent.id">
               {{parent.name}}
             </option>
@@ -58,7 +57,6 @@
       <hr/>
 
       <div class="text-right">
-
         <button type="submit"
                 class="btn btn-primary mt-0"
                 [disabled]="!groupForm.valid">

@@ -7,7 +7,6 @@ export abstract class FormComponent<T extends Model> implements OnInit {
   protected _id: ModelId;
   protected _model: T;
   protected _editMode: boolean = false;
-  protected _returnPath: any[];
 
   public get editMode(): boolean {
     return this._editMode;
@@ -36,10 +35,10 @@ export abstract class FormComponent<T extends Model> implements OnInit {
     });
   }
 
-  public save() {
+  public save(returnPath: any[]) {
     this._service.save(this._model).subscribe(() => {
-      if (this._returnPath) {
-        this._router.navigate(this._returnPath);
+      if (returnPath) {
+        this._router.navigate(returnPath);
       }
     });
   }
