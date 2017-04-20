@@ -31,6 +31,11 @@ export class GroupListComponent extends ListComponent<GroupModel> implements OnI
     let queryParams: IQueryParams = { parentId: this._parentId };
     this._service.list(queryParams).subscribe((list: GroupModel[]) => {
       this._list = list;
+      if (!this._list.length) {
+        this._isEmpty = true;
+      } else {
+        this._isEmpty = false;
+      }
     });
   }
 }
