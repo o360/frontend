@@ -15,10 +15,10 @@ import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 })
 export class AppComponent {
   constructor(protected _translate: TranslateService,
-              public toast: ToastsManager,
+              protected _toastsManager: ToastsManager,
               protected _vcr: ViewContainerRef) {
     this._translateConfig();
-    this.toast.setRootViewContainerRef(_vcr);
+    this._toastsManager.setRootViewContainerRef(_vcr);
   }
 
   protected _translateConfig() {

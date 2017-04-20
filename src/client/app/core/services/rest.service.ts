@@ -6,8 +6,6 @@ import { Config } from '../../shared/config/env.config';
 import { Model, ModelId } from '../models/model';
 import { AuthService } from './auth.service';
 import { NotificationService } from './notification.service';
-import { ObservableInput } from 'rxjs/Observable';
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 
 export interface IQueryParams {
   [key: string]: string;
@@ -48,7 +46,7 @@ export class RestService<T extends Model> {
   constructor(protected _http: Http,
               protected _authService: AuthService,
               protected _router: Router,
-              protected _notify: NotificationService) {
+              protected _notificationService: NotificationService) {
   }
 
   /**
@@ -199,7 +197,7 @@ export class RestService<T extends Model> {
       window.alert('Conflict error!');
       return Observable.throw(error);
     } else {
-      this._notify.showError();
+      this._notificationService.error('default', 'default');
       return Observable.throw(error || 'Server error');
     }
   }

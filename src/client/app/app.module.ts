@@ -9,7 +9,7 @@ import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { createTranslateLoader } from './shared/config/translate-loader.config';
 import { SharedModule } from './shared/shared.module';
-import { ToastModule, ToastOptions } from 'ng2-toastr/ng2-toastr';
+import { ToastModule } from 'ng2-toastr/ng2-toastr';
 
 @NgModule({
   imports: [
@@ -33,10 +33,7 @@ import { ToastModule, ToastOptions } from 'ng2-toastr/ng2-toastr';
     AppComponent
   ],
   providers: [{
-    // provide: ToastOptions,
-    provide: {
-      APP_BASE_HREF,
-      ToastOptions },
+    provide: { APP_BASE_HREF},
     useValue: '<%= APP_BASE %>'
   }],
   bootstrap: [AppComponent]
