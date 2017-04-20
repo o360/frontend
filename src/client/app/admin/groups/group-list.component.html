@@ -18,7 +18,8 @@
             <button type="button"
                     class="btn btn-sm btn-danger ml-1"
                     title="{{ 'T_ACTION_DELETE' | translate }}"
-                    (click)="delete(group.id)"><i class="fa fa-trash"></i>&nbsp;{{ 'T_ACTION_DELETE' | translate }}
+                    bsConfirm
+                    (confirm)="delete(group.id)"><i class="fa fa-trash"></i>&nbsp;{{ 'T_ACTION_DELETE' | translate }}
             </button>
           </td>
         </tr>
