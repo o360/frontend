@@ -1,8 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Filter, FilterType } from '../../../core/models/filter';
 import { IQueryParams } from '../../../core/services/rest.service';
-import apply = Reflect.apply;
-import { reset } from 'chalk';
 
 @Component({
   moduleId: module.id,
@@ -43,13 +41,18 @@ export class FiltersComponent {
   public apply() {
     let params: IQueryParams = this._filters
       .filter(x => x.value !== undefined && x.value !== null)
-      .reduce((acc, filter) => Object.assign(acc, { [filter.field]: filter.value }), {});
+      .reduce((acc, filter) => Object.assign(acc, { [filter.field]: filter.value.toString() }), {});
 
     this._filterChange.emit(params);
   }
 
   public reset() {
     this._filters.map(x => x.value = null);
+    this.apply();
+  }
+
+  public resetFilter(f: Filter) {
+    f.value = null;
     this.apply();
   }
 }
