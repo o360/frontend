@@ -1,10 +1,10 @@
 <div class="card">
   <div class="card-header">
     <b [ngSwitch]="editMode">
-      <ng-template [ngSwitchCase]="true">{{ 'T_ACTION_EDIT' | translate }}</ng-template>
+      <ng-template [ngSwitchCase]="true">{{ 'T_ACTION_EDIT' | translate }}
+        <span *ngIf="model">{{ model.name }}</span>
+      </ng-template>
       <ng-template ngSwitchDefault>{{ 'T_ACTION_CREATE' | translate }}</ng-template>
-
-      <span *ngIf="model">{{ model.name }}</span>
     </b>
   </div>
 
