@@ -47,12 +47,12 @@ export class FiltersComponent {
   }
 
   public reset() {
-    this._filters.map(x => x.value = null);
+    this._filters.forEach(x => x.value = null);
     this.apply();
   }
 
-  public resetFilter(f: Filter) {
-    f.value = null;
+  public resetFilter(filter: Filter) {
+    filter.value = null;
     this.apply();
   }
 }
