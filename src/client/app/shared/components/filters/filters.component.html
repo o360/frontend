@@ -20,30 +20,57 @@
 
         <div class="col-md-9" [ngSwitch]="filter.type">
           <!-- String -->
-          <ng-container *ngSwitchCase="FilterType.String">
-            <input type="text" [(ngModel)]="filter.value" name="field" class="form-control col-xs-6" id="{{ filter.field }}">
-          </ng-container>
+          <ng-template [ngSwitchCase]="FilterType.String">
+            <div class="input-group">
+              <input type="text" [(ngModel)]="filter.value" name="{{ filter.field }}" class="form-control" id="{{ filter.field }}">
+              <button type="button"
+                      class="btn btn-sm"
+                      (click)="resetFilter(filter)">
+                <i class="icon-reload"></i>
+              </button>
+            </div>
+          </ng-template>
 
           <!-- Number -->
-          <ng-container *ngSwitchCase="FilterType.Number">
-            <input type="text" [(ngModel)]="filter.value" name="field" class="form-control col-xs-6" id="{{ filter.field }}">
-          </ng-container>
+          <ng-template [ngSwitchCase]="FilterType.Number">
+            <div class="input-group">
+              <input type="text" [(ngModel)]="filter.value" name="{{ filter.field }}" class="form-control" id="{{ filter.field }}">
+              <button type="button"
+                      class="btn btn-sm"
+                      (click)="resetFilter(filter)">
+                <i class="icon-reload"></i>
+              </button>
+            </div>
+          </ng-template>
 
           <!-- Select -->
-          <ng-container *ngSwitchCase="FilterType.Select">
-            <select [(ngModel)]="filter.value" name="field" class="form-control col-xs-6" id="{{ filter.field }}">
-              <option *ngFor="let valueItem of filter.values" [ngValue]="valueItem.value">{{ valueItem.name | translate }}</option>
-            </select>
-          </ng-container>
+          <ng-template [ngSwitchCase]="FilterType.Select">
+            <div class="input-group">
+              <select [(ngModel)]="filter.value"
+                      name="{{ filter.field }}"
+                      class="form-control"
+                      id="{{ filter.field }}">
+                <option *ngFor="let valueItem of filter.values" [ngValue]="valueItem.value">{{ valueItem.name | translate }}</option>
+              </select>
+              <button type="button"
+                      class="btn btn-sm"
+                      (click)="resetFilter(filter)">
+                <i class="icon-reload"></i>
+              </button>
+            </div>
+          </ng-template>
         </div>
       </div>
-
       <div class="text-right">
-        <button type="submit" class="btn btn-sm btn-primary">
+        <button type="button"
+                class="btn btn-sm btn-secondary"
+                (click)="reset();">
+          {{ 'T_ACTION_RESET' | translate }}
+        </button>
+        <button type="submit" class="btn btn-sm btn-primary ml-1">
           {{ 'T_FILTER_APPLY' | translate }}
         </button>
       </div>
-
     </form>
   </div>
 </div>
