@@ -6,6 +6,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { CollapseModule } from 'ngx-bootstrap';
 import { FiltersComponent } from './components/filters/filters.component';
 import { ConfirmationDirective } from './directives/confirmation.directive';
+import { ToastModule } from 'ng2-toastr/ng2-toastr';
 
 /**
  * Do not specify providers for modules that might be imported by a lazy loaded module.
@@ -17,7 +18,8 @@ import { ConfirmationDirective } from './directives/confirmation.directive';
     FormsModule,
     RouterModule,
     TranslateModule,
-    CollapseModule
+    CollapseModule,
+    ToastModule
   ],
   declarations: [
     ConfirmationDirective,
@@ -30,7 +32,8 @@ import { ConfirmationDirective } from './directives/confirmation.directive';
     TranslateModule,
     ConfirmationDirective,
     CollapseModule,
-    FiltersComponent
+    FiltersComponent,
+    ToastModule
   ]
 })
 export class SharedModule {
