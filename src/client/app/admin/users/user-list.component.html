@@ -14,12 +14,7 @@
           <th class="actions-column">{{ 'T_ACTION' | translate }}</th>
         </tr>
       </thead>
-      <tbody *ngIf="!list.length">
-        <tr>
-          <td colspan="25" class="text-center">{{ 'T_EMPTY' | translate }}</td>
-        </tr>
-      </tbody>
-      <tbody *ngIf="list.length">
+      <tbody>
         <tr *ngFor="let model of list">
           <td>{{ model.id }}</td>
           <td><a [routerLink]="['/admin/users', model.id]">{{ model.name }}</a></td>
@@ -60,6 +55,10 @@
               {{ 'T_ACTION_DELETE' | translate }}
             </button>
           </td>
+        </tr>
+
+        <tr *ngIf="!list.length">
+          <td colspan="25" class="text-center">{{ 'T_EMPTY' | translate }}</td>
         </tr>
       </tbody>
     </table>

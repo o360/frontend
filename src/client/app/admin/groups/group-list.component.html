@@ -9,12 +9,7 @@
           <th class="actions-column">{{ 'T_ACTION' | translate }}</th>
         </tr>
       </thead>
-      <tbody *ngIf="!list.length">
-        <tr>
-          <td colspan="25" class="text-center">{{ 'T_EMPTY' | translate }}</td>
-        </tr>
-      </tbody>
-      <tbody *ngIf="list.length">
+      <tbody>
         <tr *ngFor="let group of list">
           <td>{{ group.id }}</td>
           <td><a [routerLink]="['/admin/groups', group.id]">{{ group.name }}</a></td>
@@ -26,6 +21,10 @@
                     (confirm)="delete(group.id)"><i class="fa fa-trash"></i>&nbsp;{{ 'T_ACTION_DELETE' | translate }}
             </button>
           </td>
+        </tr>
+
+        <tr *ngIf="!list.length">
+          <td colspan="25" class="text-center">{{ 'T_EMPTY' | translate }}</td>
         </tr>
       </tbody>
     </table>
