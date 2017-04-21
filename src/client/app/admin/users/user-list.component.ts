@@ -36,12 +36,5 @@ export class UserListComponent extends ListComponent<UserModel> {
     this._service.save(user).subscribe(() => this._update());
   }
 
-  public filterChange(value: IQueryParams) {
-    this._update(value);
-  }
 
-  public pageChanged(value: IQueryParams) {
-    console.log(value);
-    this._update(value);
-  }
 }

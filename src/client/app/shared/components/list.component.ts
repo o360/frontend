@@ -6,9 +6,14 @@ import { Filter } from '../../core/models/filter';
 export abstract class ListComponent<T extends Model> implements OnInit {
   protected _list: T[];
   protected _filters: Filter[] = [];
-  protected _meta: Object = {};
   protected _total: number;
   protected _queryParams: IQueryParams = {};
+
+  protected _defaultPageParams: IQueryParams = {
+    'size': '10',
+    'number': '1'
+  };
+
 
   public get list(): T[] {
     return this._list;
@@ -30,7 +35,7 @@ export abstract class ListComponent<T extends Model> implements OnInit {
   }
 
   public ngOnInit() {
-    this._update();
+    this._update(this._defaultPageParams);
   }
 
   public delete(id: ModelId) {
@@ -38,11 +43,18 @@ export abstract class ListComponent<T extends Model> implements OnInit {
   }
 
   protected _update(queryParams?: IQueryParams) {
-    this._service.list(queryParams).subscribe((list: T[]) => {
+    this._service.list(queryParams).subscribe(([list, meta]) => {
       this._list = list;
-    });
-    this._service.meta(queryParams).subscribe((meta: any) => {
       this._total = meta.total;
     });
+  }
+
+  public filterChange(value: IQueryParams) {
+    this._update(value);
+  }
+
+  public pageChanged(value: IQueryParams) {
+    console.log(value);
+    this._update(value);
   }
 }

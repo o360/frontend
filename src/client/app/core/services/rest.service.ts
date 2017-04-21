@@ -60,13 +60,13 @@ export class RestService<T extends Model> {
 
   /**
    * Get list of data from API
-   * @return {Observable<T[]>}
+   * @return {Observable<[T[], any]>}
    */
-  public list(queryParams?: IQueryParams): Observable<T[]> {
+  public list(queryParams?: IQueryParams): Observable<[T[], any]> {
     return this._http.get(this._getRequestParams(undefined, queryParams), this._getRequestOptions())
       .map((response: Response) => response.json())
-      .map((json: any) => json.data)
-      .map((data: any[]) => data.map(item => this.createEntity(item)))
+      .map((json: any) => [json.data, json.meta])
+      .map(([data, meta]: any) => [data.map(item => this.createEntity(item)), meta])
       .catch((error: any) => this._handleErrors(error));
   }
 
@@ -107,18 +107,6 @@ export class RestService<T extends Model> {
     return this._http.delete(requestParams, requestOptions)
       .catch((error: Response) => this._handleErrors(error));
   }
-
-  /**
-   * Get metadata
-   * @return {Observable<Object>}
-   */
-  public meta(queryParams?: IQueryParams): Observable<Object> {
-    return this._http.get(this._getRequestParams(undefined, queryParams), this._getRequestOptions())
-      .map((response: Response) => response.json())
-      .map((json: any) => json.meta)
-      .catch((error: any) => this._handleErrors(error));
-  }
-
 
   /**
    * Update record of data
@@ -176,6 +164,7 @@ export class RestService<T extends Model> {
       let param = Object.entries(params).map(([key, value]) => key + '=' + value);
       paramsString = '?' + param.join('&');
     }
+    console.log(path.join('/') + paramsString);
     return path.join('/') + paramsString;
   }
 

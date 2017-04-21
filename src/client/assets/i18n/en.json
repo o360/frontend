@@ -66,5 +66,7 @@
   "T_SUCCESS_TITLE_DEFAULT": "Success!",
   "T_SUCCESS_MESSAGE_DEFAULT": "Some text!",
   "T_EMPTY": "No records found",
-  "T_CONFLICT_ERROR": "Conflict error"
+  "T_CONFLICT_ERROR": "Conflict error",
+  "T_PAGINATION_PREVIOUS_TEXT": "Previous",
+  "T_PAGINATION_NEXT_TEXT": "Next"
 }

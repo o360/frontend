@@ -67,5 +67,7 @@
   "T_EMPTY": "Записей не найдено",
   "T_CONFLICT_ERROR": "Конфликт",
   "T_GROUP_NAME": "Название группы",
-  "T_PAGINATION_ITEMS_PER_PAGE": "Элементов на странице"
+  "T_PAGINATION_ITEMS_PER_PAGE": "Элементов на странице",
+  "T_PAGINATION_PREVIOUS_TEXT": "Предыдущая",
+  "T_PAGINATION_NEXT_TEXT": "Следующая"
 }
