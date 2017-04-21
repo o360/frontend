@@ -1,4 +1,14 @@
-<pagination [totalItems]="totalItems"
-            [(ngModel)]="currentPage"
-            (pageChanged)="pageChanged($event)"
-            [itemsPerPage]="itemsPerPage"></pagination>
+<div class="row">
+  <pagination class="mr-2"
+              [totalItems]="totalItems"
+              [(ngModel)]="currentPage"
+              (pageChanged)="pageChanged($event)"
+              [itemsPerPage]="itemsPerPage"></pagination>
+
+  <div class="form-group row">
+    <label class="col-sm-4" for="itemsPerPage">{{ 'T_PAGINATION_ITEMS_PER_PAGE' | translate}}</label>
+    <select class="form-control form-control-sm col-sm-8" id="itemsPerPage" [(ngModel)]="itemsPerPage">
+      <option *ngFor="let item of variants" [ngValue]="item">{{ item }}</option>
+    </select>
+  </div>
+</div>

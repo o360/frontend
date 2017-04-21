@@ -23,6 +23,7 @@ import { ListPaginationComponent } from './components/pagination/pagination.comp
     ToastModule,
     CollapseModule,
     PaginationModule.forRoot()
+    PaginationModule
   ],
   declarations: [
     ConfirmationDirective,
