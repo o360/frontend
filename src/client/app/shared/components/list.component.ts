@@ -6,7 +6,7 @@ import { Filter } from '../../core/models/filter';
 export abstract class ListComponent<T extends Model> implements OnInit {
   protected _list: T[];
   protected _filters: Filter[] = [];
-  protected _isEmpty: boolean = false;
+  protected _queryParams: IQueryParams = {};
 
   public get list(): T[] {
     return this._list;
@@ -16,8 +16,8 @@ export abstract class ListComponent<T extends Model> implements OnInit {
     return this._filters;
   }
 
-  public get isEmpty(): boolean {
-    return this._isEmpty;
+  public get isLoaded() {
+    return !!this._list;
   }
 
   constructor(protected _service: RestService<T>) {
@@ -34,11 +34,6 @@ export abstract class ListComponent<T extends Model> implements OnInit {
   protected _update(queryParams?: IQueryParams) {
     this._service.list(queryParams).subscribe((list: T[]) => {
       this._list = list;
-      if (!this._list.length) {
-        this._isEmpty = true;
-      } else {
-        this._isEmpty = false;
-      }
     });
   }
 }
