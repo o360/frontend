@@ -1,7 +1,7 @@
 <div class="card">
   <div class="card-header"><b>{{ 'T_GROUPS' | translate }}</b></div>
   <div class="card-block">
-    <table class="table table-striped mt-1">
+    <table class="table table-striped mt-1" *ngIf="isLoaded">
       <thead>
         <tr>
           <th>#</th>
@@ -9,7 +9,6 @@
           <th class="actions-column">{{ 'T_ACTION' | translate }}</th>
         </tr>
       </thead>
-
       <tbody>
         <tr *ngFor="let group of list">
           <td>{{ group.id }}</td>
@@ -22,6 +21,10 @@
                     (confirm)="delete(group.id)"><i class="fa fa-trash"></i>&nbsp;{{ 'T_ACTION_DELETE' | translate }}
             </button>
           </td>
+        </tr>
+
+        <tr *ngIf="!list.length">
+          <td colspan="25" class="text-center">{{ 'T_EMPTY' | translate }}</td>
         </tr>
       </tbody>
     </table>

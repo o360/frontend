@@ -6,6 +6,7 @@ import { Filter } from '../../core/models/filter';
 export abstract class ListComponent<T extends Model> implements OnInit {
   protected _list: T[];
   protected _filters: Filter[] = [];
+  protected _queryParams: IQueryParams = {};
 
   public get list(): T[] {
     return this._list;
@@ -13,6 +14,10 @@ export abstract class ListComponent<T extends Model> implements OnInit {
 
   public get filters(): Filter[] {
     return this._filters;
+  }
+
+  public get isLoaded() {
+    return !!this._list;
   }
 
   constructor(protected _service: RestService<T>) {

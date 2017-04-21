@@ -9,7 +9,7 @@ import { IQueryParams } from '../../core/services/rest.service';
   selector: 'bs-group-list',
   templateUrl: 'group-list.component.html'
 })
-export class GroupListComponent extends ListComponent<GroupModel> implements OnInit, OnChanges {
+export class GroupListComponent extends ListComponent<GroupModel> implements OnChanges {
   protected _parentId: string = 'null';
 
   @Input()
@@ -23,6 +23,7 @@ export class GroupListComponent extends ListComponent<GroupModel> implements OnI
 
   public ngOnChanges(changes: SimpleChanges) {
     if (changes['parentId']) {
+      this._queryParams = { parentId: this._parentId };
       this._update();
     }
   }
