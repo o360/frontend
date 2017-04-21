@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card" *ngIf="isLoaded">
   <div class="card-header">
     <b [ngSwitch]="editMode">
       <ng-template [ngSwitchCase]="true">{{ 'T_ACTION_EDIT' | translate }}
@@ -8,7 +8,7 @@
     </b>
   </div>
 
-  <div class="card-block" *ngIf="model">
+  <div class="card-block">
     <form class="form form-horizontal"
           (ngSubmit)="save(); userForm.reset()" #userForm="ngForm">
 

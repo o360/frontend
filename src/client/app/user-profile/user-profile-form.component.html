@@ -1,7 +1,7 @@
-<div class="card">
+<div class="card" *ngIf="isLoaded">
   <div class="card-header"><b>{{'T_PROFILE_SETTINGS' | translate}}</b></div>
 
-  <div class="card-block" *ngIf="model">
+  <div class="card-block">
     <form (ngSubmit)="save(); userForm.reset()" #userForm="ngForm">
       <!-- Name -->
       <div class="form-group row"

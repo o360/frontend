@@ -22,6 +22,6 @@ export class UserProfileFormComponent extends FormComponent<UserModel> implement
 
   public ngOnInit() {
     this._id = this._auth.user.id;
-    this._load();
+    super.ngOnInit();
   }
 }
