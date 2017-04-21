@@ -9,7 +9,7 @@ import { IQueryParams } from '../../core/services/rest.service';
   selector: 'bs-group-list',
   templateUrl: 'group-list.component.html'
 })
-export class GroupListComponent extends ListComponent<GroupModel> implements OnChanges {
+export class GroupListComponent extends ListComponent<GroupModel> implements OnInit, OnChanges {
   protected _parentId: string = 'null';
 
   @Input()
@@ -25,15 +25,20 @@ export class GroupListComponent extends ListComponent<GroupModel> implements OnC
     super(service);
   }
 
+  public ngOnInit() {
+    this._queryParams = { parentId: this._parentId };
+    Object.assign(this._queryParams, this._defaultPageParams);
+    this._update(this._queryParams);
+  }
+
   public ngOnChanges(changes: SimpleChanges) {
     if (changes['parentId']) {
       this._queryParams = { parentId: this._parentId };
-      this._update();
+      this._update(this._queryParams);
     }
   }
 
-  protected _update() {
-    let queryParams: IQueryParams = { parentId: this._parentId };
+  protected _update(queryParams: IQueryParams) {
     if (this._parentId !== 'null') {
       this._parentId = queryParams.parentId;
       this._query(queryParams);
@@ -43,8 +48,15 @@ export class GroupListComponent extends ListComponent<GroupModel> implements OnC
   }
 
   protected _query(queryParams: IQueryParams) {
-    this._service.list(queryParams).subscribe((list: GroupModel[]) => {
+    this._service.list(queryParams).subscribe(([list, meta]) => {
       this._list = list;
+      this._total = meta.total;
     });
+  }
+
+  public pageChanged(value: IQueryParams) {
+    this._queryParams.size = value.itemsPerPage;
+    this._queryParams.number = value.page;
+    this._update(this._queryParams);
   }
 }

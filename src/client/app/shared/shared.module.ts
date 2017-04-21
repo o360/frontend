@@ -22,7 +22,6 @@ import { ListPaginationComponent } from './components/pagination/pagination.comp
     CollapseModule,
     ToastModule,
     CollapseModule,
-    PaginationModule.forRoot()
     PaginationModule
   ],
   declarations: [
