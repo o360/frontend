@@ -6,6 +6,8 @@ import { Filter } from '../../core/models/filter';
 export abstract class ListComponent<T extends Model> implements OnInit {
   protected _list: T[];
   protected _filters: Filter[] = [];
+  protected _meta: Object = {};
+  protected _total: number;
   protected _queryParams: IQueryParams = {};
 
   public get list(): T[] {
@@ -14,6 +16,10 @@ export abstract class ListComponent<T extends Model> implements OnInit {
 
   public get filters(): Filter[] {
     return this._filters;
+  }
+
+  public get total(): number {
+    return this._total;
   }
 
   public get isLoaded() {
@@ -34,6 +40,9 @@ export abstract class ListComponent<T extends Model> implements OnInit {
   protected _update(queryParams?: IQueryParams) {
     this._service.list(queryParams).subscribe((list: T[]) => {
       this._list = list;
+    });
+    this._service.meta(queryParams).subscribe((meta: any) => {
+      this._total = meta.total;
     });
   }
 }

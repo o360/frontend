@@ -10,6 +10,7 @@ import { CoreModule } from './core/core.module';
 import { createTranslateLoader } from './shared/config/translate-loader.config';
 import { SharedModule } from './shared/shared.module';
 import { ToastModule } from 'ng2-toastr/ng2-toastr';
+import { PaginationModule } from 'ngx-bootstrap';
 
 @NgModule({
   imports: [
@@ -23,6 +24,7 @@ import { ToastModule } from 'ng2-toastr/ng2-toastr';
         deps: [Http]
       }
     }),
+    PaginationModule.forRoot(),
     SharedModule.forRoot(),
     CoreModule.forRoot(),
     ToastModule.forRoot(),

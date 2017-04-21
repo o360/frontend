@@ -65,4 +65,4 @@
   </div>
 </div>
 
-<bs-pagination [itemsPerPage]="2"></bs-pagination>
+<bs-pagination [totalItems]="total" (pageNumberChanged)="pageChanged($event)"></bs-pagination>

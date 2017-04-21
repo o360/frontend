@@ -39,4 +39,9 @@ export class UserListComponent extends ListComponent<UserModel> {
   public filterChange(value: IQueryParams) {
     this._update(value);
   }
+
+  public pageChanged(value: IQueryParams) {
+    console.log(value);
+    this._update(value);
+  }
 }

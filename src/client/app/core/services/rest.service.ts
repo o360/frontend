@@ -109,6 +109,18 @@ export class RestService<T extends Model> {
   }
 
   /**
+   * Get metadata
+   * @return {Observable<Object>}
+   */
+  public meta(queryParams?: IQueryParams): Observable<Object> {
+    return this._http.get(this._getRequestParams(undefined, queryParams), this._getRequestOptions())
+      .map((response: Response) => response.json())
+      .map((json: any) => json.meta)
+      .catch((error: any) => this._handleErrors(error));
+  }
+
+
+  /**
    * Update record of data
    * @params {T} model
    * @return {Observable<T>}
