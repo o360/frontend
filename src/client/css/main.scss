@@ -28,7 +28,9 @@ header.navbar .navbar-brand {
   line-height: 1;
   font-weight: normal;
 }
-
-.nav-dropdown-item .nav-item {
-  padding-left: 15px !important;
+.nav-dropdown-toggle {
+  cursor: pointer;
+}
+.nav-dropdown-item .nav-link {
+  padding-left: 30px !important;
 }
