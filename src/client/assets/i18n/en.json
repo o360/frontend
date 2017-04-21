@@ -57,5 +57,6 @@
   "T_GROUP_PARENT": "Parent group",
   "T_CONFIRM_MESSAGE": "Are you sure you want to do this?",
   "T_GROUP_NAME": "Group name",
+  "T_ACTION_RESET": "Reset",
   "T_EMPTY": "No records found"
 }

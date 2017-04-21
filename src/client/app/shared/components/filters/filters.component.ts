@@ -41,8 +41,18 @@ export class FiltersComponent {
   public apply() {
     let params: IQueryParams = this._filters
       .filter(x => x.value !== undefined && x.value !== null)
-      .reduce((acc, filter) => Object.assign(acc, { [filter.field]: filter.value }), {});
+      .reduce((acc, filter) => Object.assign(acc, { [filter.field]: filter.value.toString() }), {});
 
     this._filterChange.emit(params);
+  }
+
+  public reset() {
+    this._filters.forEach(x => x.value = null);
+    this.apply();
+  }
+
+  public resetFilter(filter: Filter) {
+    filter.value = null;
+    this.apply();
   }
 }
