@@ -11,7 +11,6 @@ header.navbar .navbar-brand {
   line-height: 38px;
 }
 
-
 .actions-column {
   width: 1%;
   white-space: nowrap;
@@ -28,4 +27,15 @@ header.navbar .navbar-brand {
   font-size: 100%;
   line-height: 1;
   font-weight: normal;
+}
+
+.sidebar-nav {
+  .nav-dropdown-toggle {
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .nav-dropdown-item .nav-link {
+    padding-left: 30px !important;
+  }
 }
