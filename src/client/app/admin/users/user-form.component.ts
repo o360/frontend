@@ -7,7 +7,7 @@ import { FormComponent } from '../../shared/components/form.component';
 
 @Component({
   moduleId: module.id,
-  selector: 'bs-form-details',
+  selector: 'bs-user-form',
   templateUrl: 'user-form.component.html'
 })
 export class UserFormComponent extends FormComponent<UserModel> {

@@ -11,6 +11,7 @@
   "T_ACTION_UPDATE": "Сохранить изменения",
   "T_ACTION_GO_BACK": "Вернуться назад",
   "T_ACTION_APPROVE": "Подтвердить",
+  "T_ACTION_CREATE_CHILD_GROUP": "Создать дочернюю группу",
   "T_USER": "Пользователь",
   "T_USER_NAME": "Имя",
   "T_USER_EMAIL": "Email",
@@ -54,6 +55,7 @@
   "T_NEW_ACCOUNT_SUBMIT": "Подтвердить",
   "T_DETAILS": "Подробности",
   "T_ADMINISTRATION": "Администрирование",
+  "T_GROUP_PARENT": "Родительская группа",
   "T_CONFIRM_MESSAGE": "Вы уверены, что хотите это сделать?",
   "T_GROUP_NAME": "Название группы",
   "T_EMPTY": "Записей не найдено"
