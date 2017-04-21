@@ -64,5 +64,6 @@
   "T_ERROR_MESSAGE_DEFAULT": "This is not good!",
   "T_SUCCESS_TITLE_DEFAULT": "Success!",
   "T_SUCCESS_MESSAGE_DEFAULT": "Some text!",
-  "T_EMPTY": "No records found"
+  "T_EMPTY": "No records found",
+  "T_CONFLICT_ERROR": "Conflict error"
 }

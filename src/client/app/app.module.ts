@@ -33,7 +33,7 @@ import { ToastModule } from 'ng2-toastr/ng2-toastr';
     AppComponent
   ],
   providers: [{
-    provide: { APP_BASE_HREF},
+    provide: APP_BASE_HREF,
     useValue: '<%= APP_BASE %>'
   }],
   bootstrap: [AppComponent]

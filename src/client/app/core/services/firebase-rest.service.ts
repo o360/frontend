@@ -6,14 +6,15 @@ import { Config } from '../../shared/config/env.config';
 import { Model, ModelId } from '../models/model';
 import { AuthService } from './auth.service';
 import { RestService } from './rest.service';
+import { NotificationService } from './notification.service';
 
 @Injectable()
 export class FirebaseRestService<T extends Model> extends RestService<T> {
   protected _host: string = Config.FIREBASE_URL;
 
   /* @todo: Research: nested constructors works in angular 2.4.* */
-  constructor(http: Http, authService: AuthService, router: Router) {
-    super(http, authService, router);
+  constructor(http: Http, authService: AuthService, router: Router, notificationService: NotificationService) {
+    super(http, authService, router, notificationService);
   }
 
   public list(): Observable<T[]> {
