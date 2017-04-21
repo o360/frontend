@@ -1,19 +1,20 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { FormComponent } from '../../shared/components/form.component';
+import { Component } from '@angular/core';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { GroupModel } from '../../core/models/group-model';
-import { GroupService } from '../../core/services/group.service';
 import { ModelId } from '../../core/models/model';
+import { GroupService } from '../../core/services/group.service';
+import { FormComponent } from '../../shared/components/form.component';
 
 
 @Component({
   moduleId: module.id,
-  selector: 'bs-group-form-details',
+  selector: 'bs-group-form',
   templateUrl: 'group-form.component.html'
 })
-export class GroupFormComponent extends FormComponent<GroupModel> implements OnInit {
+export class GroupFormComponent extends FormComponent<GroupModel> {
   protected _groups: GroupModel[];
   protected _parentId: ModelId = null;
+  protected _returnPath = ['/admin/groups'];
 
   public get groups(): GroupModel[] {
     return this._groups;
@@ -29,30 +30,27 @@ export class GroupFormComponent extends FormComponent<GroupModel> implements OnI
     super(service, router, route);
   }
 
-  public ngOnInit(): void {
-    this._getGroups();
-    this._query();
-  }
-
-  protected _getGroups() {
+  protected _load() {
     this._service.list().subscribe((list: GroupModel[]) => {
       this._groups = list;
-      super.ngOnInit();
+      super._load();
     });
   }
 
-  protected _query() {
-    this._route.params.subscribe(params => {
+  protected _processRouteParams(params: Params) {
+    if (params['parentId']) {
       this._parentId = +params['parentId'];
-    });
+    }
+
+    super._processRouteParams(params);
   }
 
-  protected _load() {
-    super._load();
-
+  protected _processModel(model: GroupModel) {
     if (this._parentId) {
-      this._model.parentId = this._parentId;
+      model.parentId = this._parentId;
     }
+
+    super._processModel(model);
   }
 }
 

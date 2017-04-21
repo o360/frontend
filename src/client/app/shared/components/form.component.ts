@@ -2,15 +2,12 @@ import { OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Model, ModelId } from '../../core/models/model';
 import { RestService } from '../../core/services/rest.service';
+import { Observable } from 'rxjs/Observable';
 
 export abstract class FormComponent<T extends Model> implements OnInit {
   protected _id: ModelId;
   protected _model: T;
-  protected _editMode: boolean = false;
-
-  public get editMode(): boolean {
-    return this._editMode;
-  }
+  protected _returnPath: any;
 
   public get model(): T {
     return this._model;
@@ -20,38 +17,53 @@ export abstract class FormComponent<T extends Model> implements OnInit {
     this._model = value;
   }
 
+  public get isLoaded() {
+    return !!this._model;
+  }
+
+  public get editMode(): boolean {
+    return !!this._id;
+  }
+
   constructor(protected _service: RestService<T>,
               protected _router: Router,
               protected _route: ActivatedRoute) {
   }
 
   public ngOnInit(): void {
-    this._route.params.forEach((params: Params) => {
-      if (params['id']) {
-        this._id = params['id'];
-      }
+    this._route.params.forEach(this._processRouteParams.bind(this));
+  }
 
-      this._load();
+  public save() {
+    this._service.save(this._model).subscribe(() => {
+      if (this._returnPath) {
+        this._router.navigate(this._returnPath);
+      }
     });
   }
 
-  public save(returnPath: any[]) {
-    this._service.save(this._model).subscribe(() => {
-      if (returnPath) {
-        this._router.navigate(returnPath);
-      }
-    });
+  protected _processRouteParams(params: Params) {
+    if (params['id']) {
+      this._id = params['id'];
+    }
+
+    this._load();
   }
 
   protected _load() {
+    this._loadModel().subscribe(this._processModel.bind(this));
+  }
+
+  protected _loadModel() {
     if (this._id) {
-      this._editMode = true;
-      this._service.get(this._id).subscribe((model: T) => {
-        this._model = model;
-      });
+      return this._service.get(this._id);
     } else {
-      this._model = this._service.createEntity();
+      return Observable.of(this._service.createEntity());
     }
+  }
+
+  protected _processModel(model: T) {
+    this._model = model;
   }
 }
 
