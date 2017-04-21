@@ -11,6 +11,7 @@
   "T_ACTION_UPDATE": "Update",
   "T_ACTION_GO_BACK": "Go back",
   "T_ACTION_APPROVE": "Approve",
+  "T_ACTION_CREATE_CHILD_GROUP": "Create child group",
   "T_USER": "User",
   "T_USER_NAME": "Name",
   "T_USER_EMAIL": "Email",
@@ -53,6 +54,7 @@
   "T_NEW_ACCOUNT_SUBMIT": "Submit",
   "T_DETAILS": "Details",
   "T_ADMINISTRATION": "Administration",
+  "T_GROUP_PARENT": "Parent group",
   "T_CONFIRM_MESSAGE": "Are you sure you want to do this?",
   "T_GROUP_NAME": "Group name",
   "T_EMPTY": "No records found"
