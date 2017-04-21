@@ -1,0 +1,72 @@
+<!--<bs-filters [filters]="filters"-->
+            <!--(filterChange)="filterChange($event)"></bs-filters>-->
+<!--<div class="card">-->
+  <!--<div class="card-header"><b>{{ 'T_USERS' | translate }}</b></div>-->
+  <!--<div class="card-block">-->
+    <!--<button class="btn btn-primary"-->
+            <!--type="button"-->
+            <!--[routerLink]="['/admin/groups/:id/user-list/', { groupId: groupId }]"-->
+            <!--title="{{ 'T_ACTION_ADD_USER_TO_GROUP' | translate }}"><i class="fa fa-user"></i>-->
+      <!--{{ 'T_ACTION_ADD_USER_TO_GROUP' | translate }}-->
+    <!--</button>-->
+    <!--<table class="table table-striped mt-1" *ngIf="isLoaded">-->
+      <!--<thead>-->
+        <!--<tr>-->
+          <!--<th>#</th>-->
+          <!--<th>{{ 'T_USER_NAME' | translate }}</th>-->
+          <!--<th>{{ 'T_USER_EMAIL' | translate }}</th>-->
+          <!--<th>{{ 'T_USER_ROLE' | translate }}</th>-->
+          <!--<th>{{ 'T_USER_STATUS' | translate }}</th>-->
+          <!--<th class="actions-column">{{ 'T_ACTION' | translate }}</th>-->
+        <!--</tr>-->
+      <!--</thead>-->
+      <!--<tbody>-->
+        <!--<tr *ngFor="let model of list">-->
+          <!--<td>{{ model.id }}</td>-->
+          <!--<td><a [routerLink]="['/admin/users', model.id]">{{ model.name }}</a></td>-->
+          <!--<td>{{ model.email }}</td>-->
+          <!--<td>-->
+            <!--<span class="badge badge-md badge-pill"-->
+                  <!--[ngClass]="{ 'badge-danger': model.role === 'admin',-->
+                               <!--'badge-default': model.role === 'user' }">-->
+            <!--{{ 'T_USER_ROLE_' + model.role.toUpperCase() | translate }}</span>-->
+          <!--</td>-->
+          <!--<td>-->
+            <!--<span class="badge badge-md badge-pill"-->
+                  <!--[ngClass]="{ 'badge-primary': model.status === 'new',-->
+                               <!--'badge-success': model.status === 'approved' }">-->
+              <!--{{ 'T_USER_STATUS_' + model.status.toUpperCase() | translate }}</span>-->
+          <!--</td>-->
+          <!--<td class="actions-column">-->
+            <!--<button *ngIf="model.status === UserStatus.New"-->
+                    <!--type="button"-->
+                    <!--class="btn btn-sm btn-success ml-1"-->
+                    <!--title="{{ 'T_USER_APPROVE' | translate }}"-->
+                    <!--(click)="approve(model)"><i class="fa fa-thumbs-up"></i>&nbsp;{{ 'T_USER_APPROVE' | translate }}-->
+            <!--</button>-->
+
+            <!--<button type="button"-->
+                    <!--class="btn btn-sm btn-primary ml-1"-->
+                    <!--title="{{ 'T_ACTION_EDIT' | translate }}"-->
+                    <!--[routerLink]="['/admin/users/', model.id, 'edit']"><i class="fa fa-pencil"></i>&nbsp;{{ 'T_ACTION_EDIT' | translate-->
+              <!--}}-->
+            <!--</button>-->
+
+            <!--<button type="button"-->
+                    <!--class="btn btn-sm btn-danger ml-1"-->
+                    <!--bsConfirm-->
+                    <!--(confirm)="delete(model.id)">-->
+
+              <!--<i class="fa fa-trash"></i>&nbsp;-->
+              <!--{{ 'T_ACTION_DELETE' | translate }}-->
+            <!--</button>-->
+          <!--</td>-->
+        <!--</tr>-->
+
+        <!--<tr *ngIf="!list.length">-->
+          <!--<td colspan="25" class="text-center">{{ 'T_EMPTY' | translate }}</td>-->
+        <!--</tr>-->
+      <!--</tbody>-->
+    <!--</table>-->
+  <!--</div>-->
+<!--</div>-->

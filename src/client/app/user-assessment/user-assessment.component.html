@@ -1,0 +1,221 @@
+<!-- @todo translate -->
+<!-- @todo fix size of tab-content -->
+<!-- @todo after assessment - USERS from list with checklabel -->
+<!-- @todo ngFor for datepiker -->
+<!-- @todo after assessment - select the next user on a list -->
+<div class="container d-flex flex-row">
+
+  <!--Left panel-->
+  <div class="pr-1 w-25">
+    <div [ngSwitch]="tab" class="mb-1">
+      <ng-template ngSwitchDefault><p class="text-center">In-command assessment</p></ng-template>
+      <ng-template [ngSwitchCase]="2">
+        <p class="text-center">Overall assessment</p>
+        <input class="form-control"
+               type="text"
+               placeholder="Search"
+               [(ngModel)]="searchStr"
+               #search="ngModel">
+      </ng-template>
+      <ng-template [ngSwitchCase]="3"><p class="text-center">My activity</p></ng-template>
+    </div>
+
+    <ul class="list-group" *ngIf="!(tab===3)">
+      <li class="list-group-item"
+          *ngFor="let user of listUsers; let i = index"
+          (click)="isSelectedUser(user, i)"
+          [ngClass]="{'text-primary': selected === i}">
+        <i *ngIf="assessUser === user.name" class="icon-check pr-1"></i>
+        {{user.name}}
+        <i *ngIf="selected === i" class="icon-arrow-right-circle pl-1"></i>
+      </li>
+    </ul>
+  </div>
+
+  <!--Right panel with tabs-->
+  <div class="p-0 w-75">
+    <tabset>
+      <!--First tab-->
+      <tab (select)="isSelectedTab(1)" heading='Project1'>
+        <p *ngIf="!selectedUser" class="text-center"> Choose an employee </p>
+        <div *ngIf="selectedUser" class="card">
+          <div class="card-header card-primary text-white">Assessment of {{selectedUser}}</div>
+          <div class="card-block">
+
+            <tabset>
+
+              <tab heading="Teamlead">
+                <p>Assessment component would be here. Click on next tab :) </p>
+              </tab>
+
+              <tab heading="Programmer">
+                <form>
+                  <div>
+                    <div>
+                      <span>Question ?</span>
+                      <div class="form-check pl-1" *ngFor="let option of listOptions">
+                        <label class="form-check-label">
+                          <input class="form-check-input"
+                                 type="radio"
+                                 name="inlineRadioOptions"
+                                 id="inlineRadio1"
+                                 value="{{option.option}}">
+                          {{option.label}}
+                        </label>
+                      </div>
+                    </div>
+                    <div>
+                      <span>Another one question ?</span>
+                      <div class="form-check pl-1" *ngFor="let quality of listQualities">
+                        <label class="form-check-label">
+                          <input class="form-check-input"
+                                 type="checkbox"
+                                 id="inlineCheckbox1"
+                                 value="{{quality.option}}">
+                          {{quality.label}}
+                        </label>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="commentText">Comment</label>
+                      <textarea class="form-control"
+                                type="text"
+                                id="commentText"
+                                cols="10"
+                                rows="5"
+                                placeholder="Your comment..."></textarea>
+                    </div>
+                  </div>
+                  <button class="btn btn-primary col-3 offset-md-9"
+                          type="submit"
+                          (click)="saveResult()">OK</button>
+                  <div *ngIf="alertOn" class="alert alert-success mt-1" role="alert">
+                    Well done!
+                  </div>
+                </form>
+              </tab>
+            </tabset>
+
+          </div>
+        </div>
+      </tab>
+
+      <!--Second tab-->
+      <tab (select)="isSelectedTab(2) "heading='All'>
+        <div class="pl-2 pt-2">
+          <div class="form-group row pt-1 mb-0" *ngFor="let user of listUsers; let i = index">
+            <i  [ngClass]="{'text-primary': selected === i && like}" class="icon-heart col-md-1 mb-1" (click)="isSelectedAssessment(i, 'like')"></i>
+            <i  [ngClass]="{'text-primary': selected === i && dislike}" class="icon-dislike col-md-1 mb-1" (click)="isSelectedAssessment(i, 'dislike')"></i>
+            <input class="col-md-9 mb-0 ml-2"
+                   *ngIf="selected === i"
+                   type="text"
+                   placeholder="Give a reason of your assessment"/>
+          </div>
+        </div>
+        <div class="d-flex justify-content-end pr-2 mt-1">
+          <button class="btn btn-primary col-3"
+                  type="submit"
+                  (click)="saveResult()">OK</button>
+        </div>
+        <div *ngIf="alertOn" class="alert alert-success mt-1  mr-2 ml-2" role="alert">
+          Well done!
+        </div>
+      </tab>
+
+      <!--Third tab-->
+      <tab (select)="isSelectedTab(3)" heading='My activity'>
+        <div class="card-block">
+          <!--<div class="d-flex flex-row justify-content-between pl-2 pr-2" *ngFor="let activity of listActivity">-->
+          <!--<label class="form-check-label mb-1">-->
+          <!--<input class="form-check-input"-->
+          <!--type="checkbox"-->
+          <!--id="{{activity.option}}"-->
+          <!--[(ngModel)]="activity.showDate">-->
+          <!--{{activity.label}}-->
+          <!--</label>-->
+          <!--<div class="d-flex flex-row justify-content-between" *ngIf="activity.showDate">-->
+          <!--<div>-->
+          <!--<datepicker [(ngModel)]="startDate"-->
+          <!--[(ngModel)]="endDate"-->
+          <!--[minDate]="startDate"-->
+          <!--[maxDate]="endDate"-->
+          <!--[showWeeks]="true"-->
+          <!--[dateDisabled]="dateDisabled"></datepicker>-->
+          <!--&lt;!&ndash;<datepicker [(ngModel)]="endDate"&ndash;&gt;-->
+          <!--&lt;!&ndash;[maxDate]="endDate"&ndash;&gt;-->
+          <!--&lt;!&ndash;[showWeeks]="true"></datepicker>&ndash;&gt;-->
+          <!--</div>-->
+          <!--<div class="d-flex flex-row justify-content-between align-items-start h-50 ml-1">-->
+          <!--<div class="card">{{startDate | date:'EEEE MMMM d'}} - {{endDate | date:'EEEE MMMM d'}}</div>-->
+          <!--<i class="icon-trash" (click)="removeDate()"></i>-->
+          <!--</div>-->
+          <!--</div>-->
+          <!--</div>-->
+          <div class="d-flex flex-row justify-content-between pl-2 pr-2 mb-1" *ngFor="let activity of listActivity">
+            <label class="form-check-label mb-1">
+              <input class="form-check-input"
+                     type="checkbox"
+                     id="{{activity.option}}"
+                     [(ngModel)]="activity.option">
+              {{activity.label}}
+            </label>
+            <div *ngIf="activity.option" class="d-flex flex-row col-md-10 pr-0">
+              <div class="col-md-4">
+                <label>Date from:</label>
+                <div  class="input-group pl-0">
+                  <input type="text"
+                         class="datepicker form-control"
+                         placeholder="1994 02 22" (click)="showDatePicker"/>
+                  <div class="input-group-addon"><i class="icon-calendar"></i></div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <label>Date to:</label>
+                <div  class="input-group pl-0">
+                  <input type="text"
+                         class="datepicker form-control"
+                         placeholder="2016 08 22" (click)="showDatePicker()"/>
+                  <div class="input-group-addon"><i class="icon-calendar"></i></div>
+                </div>
+                <div *ngIf="datePickerVisible">jdjdjdjdj</div>
+              </div>
+              <div class="d-flex flex-row justify-content-between align-items-start h-50 ml-1 mt-1">
+                <div class="card">22 fduedfd 199 -fgjfgj jj</div>
+                <i class="icon-trash" (click)="removeDate()"></i>
+              </div>
+            </div>
+          </div>
+
+          <div class="d-flex flex-row justify-content-between pl-2 pr-2">
+            <label class="form-check-label mb-1">
+              <input class="form-check-input"
+                     type="checkbox"
+                     id="other"
+                     [(ngModel)]="showComment">
+              Other
+            </label>
+            <textarea class="form-control col-md-9"
+                      type="text"
+                      cols="10"
+                      rows="5"
+                      placeholder="..."
+                      *ngIf="showComment"></textarea>
+          </div>
+          <div class="d-flex justify-content-end pr-2 mt-1">
+            <button class="btn btn-primary col-3"
+                    type="submit"
+                    (click)="saveResult()">OK</button>
+          </div>
+          <div *ngIf="!alertOn" class="alert alert-success mt-1 mr-2 ml-2" role="alert">
+            Well done!
+          </div>
+        </div>
+      </tab>
+    </tabset>
+  </div>
+
+  <div class="absolute-container">
+    <button class="btn btn-primary">Send your assessment</button>
+  </div>
+
+</div>
