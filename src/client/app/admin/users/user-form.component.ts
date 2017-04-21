@@ -12,6 +12,7 @@ import { FormComponent } from '../../shared/components/form.component';
 })
 export class UserFormComponent extends FormComponent<UserModel> {
   protected _roles: string[] = Object.values(UserRole);
+  protected _returnPath = ['/admin/users'];
 
   public get roles(): string[] {
     return this._roles;
