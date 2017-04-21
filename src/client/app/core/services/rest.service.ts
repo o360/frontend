@@ -183,8 +183,8 @@ export class RestService<T extends Model> {
    */
   protected _getRequestOptions() {
     let headers = new Headers({
-      'Content-Type': 'application/json;charset=UTF-8',
-      'Accept': 'application/json'
+      'Content-Type': 'application/json;charset=UTF-8'
+      // 'Accept': 'application/json'
     });
 
     if (this._authService.isLoggedIn) {
