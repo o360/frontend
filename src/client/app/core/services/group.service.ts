@@ -12,7 +12,4 @@ import { Router } from '@angular/router';
   entityConstructor: GroupModel
 })
 export class GroupService extends RestService<GroupModel> {
-  constructor(http: Http, authService: AuthService, router: Router) {
-    super(http, authService, router);
-  }
 }

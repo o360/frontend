@@ -12,7 +12,9 @@ export class NotificationService {
     animate: 'fade',
     positionClass: 'toast-top-right',
     messageClass: null,
-    titleClass: 'font-bold'
+    titleClass: 'font-bold',
+    enableHTML: false,
+    dismiss: ''
   };
 
   constructor(protected _toastsManager: ToastsManager,
@@ -22,28 +24,28 @@ export class NotificationService {
   public success(message?: string, title?: string) {
     let messageText = message && message.length ? message : 'T_SUCCESS_MESSAGE_DEFAULT';
     let titleText = title && title.length ? title : 'T_SUCCESS_TITLE_DEFAULT';
-    this._toastsManager.success(this._prepareMessage(messageText), this._prepareMessage(titleText), this._customOptions);
+    this._toastsManager.success(this._translateText(messageText), this._translateText(titleText), this._customOptions);
   }
 
   public error(message?: string, title?: string) {
     let messageText = message && message.length ? message : 'T_ERROR_MESSAGE_DEFAULT';
     let titleText = title && title.length ? title : 'T_ERROR_TITLE_DEFAULT';
-    this._toastsManager.error(this._prepareMessage(messageText), this._prepareMessage(titleText), this._customOptions);
+    this._toastsManager.error(this._translateText(messageText), this._translateText(titleText), this._customOptions);
   }
 
   public warning(message?: string, title?: string) {
     let messageText = message && message.length ? message : 'T_WARNING_MESSAGE_DEFAULT';
     let titleText = title && title.length ? title : 'T_WARNING_TITLE_DEFAULT';
-    this._toastsManager.warning(this._prepareMessage(messageText), this._prepareMessage(titleText), this._customOptions);
+    this._toastsManager.warning(this._translateText(messageText), this._translateText(titleText), this._customOptions);
   }
 
   public info(message?: string, title?: string) {
     let messageText = message && message.length ? message : 'T_INFO_MESSAGE_DEFAULT';
     let titleText = title && title.length ? title : 'T_INFO_TITLE_DEFAULT';
-    this._toastsManager.info(this._prepareMessage(messageText), this._prepareMessage(titleText), this._customOptions);
+    this._toastsManager.info(this._translateText(messageText), this._translateText(titleText), this._customOptions);
   }
 
-  protected _prepareMessage(text: string) {
+  protected _translateText(text: string) {
     return this._translate.instant(text);
   }
 

@@ -194,11 +194,11 @@ export class RestService<T extends Model> {
       this._router.navigate(['/login']);
       return Observable.throw(error);
     } else if (error.status === 409) {
-      window.alert('Conflict error!');
+      this._notificationService.error(error.json().message, `${error.status} ${error.statusText}`);
       return Observable.throw(error);
     } else {
-      this._notificationService.error('default', 'default');
-      return Observable.throw(error || 'Server error');
+      this._notificationService.error(error.json().message, `${error.status} ${error.statusText}`);
+      return Observable.throw(error);
     }
   }
 }
