@@ -18,13 +18,13 @@
 
         <label class="col-md-3 form-control-label" for="{{ filter.field }}">{{ filter.name | translate }}</label>
 
-        <div class="col-md-8" [ngSwitch]="filter.type">
+        <div class="col-md-9" [ngSwitch]="filter.type">
           <!-- String -->
           <ng-template [ngSwitchCase]="FilterType.String">
             <div class="input-group">
               <input type="text" [(ngModel)]="filter.value" name="{{ filter.field }}" class="form-control" id="{{ filter.field }}">
               <button type="button"
-                      class="btn btn-sm btn-link"
+                      class="btn btn-sm"
                       (click)="resetFilter(filter)">
                 <i class="icon-reload"></i>
               </button>
@@ -36,7 +36,7 @@
             <div class="input-group">
               <input type="text" [(ngModel)]="filter.value" name="{{ filter.field }}" class="form-control" id="{{ filter.field }}">
               <button type="button"
-                      class="btn btn-sm btn-link"
+                      class="btn btn-sm"
                       (click)="resetFilter(filter)">
                 <i class="icon-reload"></i>
               </button>
@@ -53,7 +53,7 @@
                 <option *ngFor="let valueItem of filter.values" [ngValue]="valueItem.value">{{ valueItem.name | translate }}</option>
               </select>
               <button type="button"
-                      class="btn btn-sm btn-link"
+                      class="btn btn-sm"
                       (click)="resetFilter(filter)">
                 <i class="icon-reload"></i>
               </button>
@@ -67,7 +67,7 @@
                 (click)="reset();">
           {{ 'T_ACTION_RESET' | translate }}
         </button>
-        <button type="submit" class="btn btn-sm btn-primary">
+        <button type="submit" class="btn btn-sm btn-primary ml-1">
           {{ 'T_FILTER_APPLY' | translate }}
         </button>
       </div>
