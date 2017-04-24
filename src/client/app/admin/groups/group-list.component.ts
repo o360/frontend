@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { GroupModel } from '../../core/models/group-model';
 import { GroupService } from '../../core/services/group.service';
 import { ListComponent } from '../../shared/components/list.component';
