@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { IQueryParams } from '../../../core/services/rest.service';
 import apply = Reflect.apply;
 
@@ -10,11 +10,11 @@ import apply = Reflect.apply;
 export class ListPaginationComponent {
   protected _pageNumberChanged: EventEmitter<any> = new EventEmitter<any>();
 
-  protected _variants = [1, 5, 10, 20, 'all'];
+  protected _variants = [1, 10, 50, 100];
 
   protected _totalItems: number;
-  protected _currentPage: number; //.../groups?number=
-  private _itemsPerPage: number = 1; //...groups?size=
+  protected _currentPage: number = 1;
+  private _itemsPerPage: number = 10;
 
 
   public get variants(): (number | string)[] {
@@ -34,20 +34,30 @@ export class ListPaginationComponent {
     return this._itemsPerPage;
   }
 
+  public set itemsPerPage(value: number) {
+    this._itemsPerPage = value;
+  }
+
   @Output()
   public get pageNumberChanged(): EventEmitter<any> {
     return this._pageNumberChanged;
   }
 
-  public pageChanged(event: any): void {
+  public pageChanged(event: any) {
     this._currentPage = event.page;
-    this._itemsPerPage = event.itemsPerPage;
+    this._getParams();
+  }
 
+  public changeItemsPerPage(quantity: number) {
+    this._itemsPerPage = quantity;
+    this._getParams();
+  }
+
+  protected _getParams() {
     let params: IQueryParams = {
       'size': this._itemsPerPage.toString(),
       'number': this._currentPage.toString()
     };
-
     this._pageNumberChanged.emit(params);
   }
 }

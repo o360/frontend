@@ -9,11 +9,13 @@ export abstract class ListComponent<T extends Model> implements OnInit {
   protected _total: number;
   protected _queryParams: IQueryParams = {};
 
-  protected _defaultPageParams: IQueryParams = {
-    'size': '10',
-    'number': '1'
-  };
+  protected _size: number = 10;
+  protected _number: number = 1;
 
+  protected _defaultPageParams: IQueryParams = {
+    'size': this._size.toString(),
+    'number': this._number.toString()
+  };
 
   public get list(): T[] {
     return this._list;
@@ -54,7 +56,6 @@ export abstract class ListComponent<T extends Model> implements OnInit {
   }
 
   public pageChanged(value: IQueryParams) {
-    console.log(value);
     this._update(value);
   }
 }

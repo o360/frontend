@@ -48,15 +48,12 @@ export class GroupListComponent extends ListComponent<GroupModel> implements OnI
   }
 
   protected _query(queryParams: IQueryParams) {
-    this._service.list(queryParams).subscribe(([list, meta]) => {
-      this._list = list;
-      this._total = meta.total;
-    });
+    super._update(queryParams);
   }
 
   public pageChanged(value: IQueryParams) {
-    this._queryParams.size = value.itemsPerPage;
-    this._queryParams.number = value.page;
+    this._queryParams.size = value.size;
+    this._queryParams.number = value.number;
     this._update(this._queryParams);
   }
 }

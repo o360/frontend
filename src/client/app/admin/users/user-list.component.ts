@@ -3,7 +3,6 @@ import { UserModel, UserRole, UserStatus } from '../../core/models/user-model';
 import { UserService } from '../../core/services/user.service';
 import { ListComponent } from '../../shared/components/list.component';
 import { Filter, FilterType } from '../../core/models/filter';
-import { IQueryParams } from '../../core/services/rest.service';
 
 @Component({
   moduleId: module.id,
@@ -35,6 +34,4 @@ export class UserListComponent extends ListComponent<UserModel> {
     user.status = UserStatus.Approved;
     this._service.save(user).subscribe(() => this._update());
   }
-
-
 }
