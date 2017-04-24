@@ -2,6 +2,7 @@ import { EnvConfig } from './env-config.interface';
 
 const ProdConfig: EnvConfig = {
   ENV: 'PROD',
+  API: '<API_ENDPOINT>',
   PROVIDERS: {
     'google': {
       authorizationUrlBase: 'https://accounts.google.com/o/oauth2/auth',
