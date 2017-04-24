@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { UsersModule } from './users/users.module';
 import { GroupsModule } from './groups/groups.module';
+import { ProjectsModule } from './projects/projects.module';
 
 @NgModule({
   imports: [
@@ -9,7 +10,7 @@ import { GroupsModule } from './groups/groups.module';
       path: '',
       redirectTo: '/admin/users',
       pathMatch: 'full'
-    },{
+    }, {
       path: 'users',
       data: { breadcrumb: 'T_USERS' },
       loadChildren: () => UsersModule
@@ -17,6 +18,10 @@ import { GroupsModule } from './groups/groups.module';
       path: 'groups',
       data: { breadcrumb: 'T_GROUPS' },
       loadChildren: () => GroupsModule
+    }, {
+      path: 'projects',
+      data: { breadcrumb: 'T_PROJECTS' },
+      loadChildren: () => ProjectsModule
     }])
   ],
   exports: [RouterModule]

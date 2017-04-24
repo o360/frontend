@@ -15,6 +15,7 @@ import { BsDropdownModule } from 'ngx-bootstrap';
 import { ProfileService } from './services/profile.service';
 import { NotificationService } from './services/notification.service';
 import { GroupService } from './services/group.service';
+import { ProjectService } from './services/project.service';
 
 @NgModule({
   imports: [
@@ -37,6 +38,7 @@ import { GroupService } from './services/group.service';
     AuthGuard,
     UserService,
     GroupService,
+    ProjectService,
     NotificationService
   ],
   exports: [
