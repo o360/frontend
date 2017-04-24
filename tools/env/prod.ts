@@ -2,6 +2,7 @@ import { EnvConfig } from './env-config.interface';
 
 const ProdConfig: EnvConfig = {
   ENV: 'PROD',
+  API: 'http://sop-ci.z1.netpoint-dc.com:9000/api/v1.0',
   PROVIDERS: {
     'google': {
       authorizationUrlBase: 'https://accounts.google.com/o/oauth2/auth',
