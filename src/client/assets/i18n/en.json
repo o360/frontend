@@ -116,6 +116,7 @@
   "T_FORM_ADD_NEW_VALUE": "Add new value",
   "T_FORM_DEFAULT_VALUE": "Default value",
   "T_FORM_PREVIEW": "Form preview",
+  "T_FORM_CONFIRM_CLONE_MESSAGE": "Are you sure you want to clone this form?",
   "T_FORM_VALUES_ARE_REQUIRED": "For this type of element values are required",
   "T_USERS_ADDED_TO_GROUP": "Users successfully added to a group"
 }
