@@ -16,6 +16,7 @@
   "T_ACTION_ADD_USERS_TO_GROUP": "Add users to group",
   "T_ACTION_ADD_USER": "Add user",
   "T_ACTION_CANCEL": "Cancel",
+  "T_ACTION_CREATE_PROJECT_RELATION": "Create project relation",
   "T_USER": "User",
   "T_USER_NAME": "Name",
   "T_USER_EMAIL": "Email",
@@ -27,6 +28,7 @@
   "T_NOT_SPECIFIED": "Not specified",
   "T_FORM_ENTER_NAME": "Enter name...",
   "T_FORM_ENTER_EMAIL": "Enter email...",
+  "T_FORM_ENTER_DESCRIPTION": "Enter description...",
   "T_FORM_FIELD_IS_REQUIRED": "Field is required",
   "T_FORM_FIELD_IS_INVALID": "Field is invalid",
   "T_LANG_EN": "English",
@@ -82,6 +84,9 @@
   "T_PROJECTS": "Projects",
   "T_PROJECT_NAME": "Project name",
   "T_PROJECT_DESCRIPTION": "Description",
+  "T_PROJECT_AUDITOR": "Auditor",
   "T_PROJECT_RELATIONS": "Relations",
-  "T_PROJECT_AUDITOR": "Auditors"
+  "T_PROJECT_RELATION_RATING_GROUP": "Rating group",
+  "T_PROJECT_RELATION_ASSESSMENT_GROUP": "Assessment group",
+  "T_PROJECT_RELATION_EVALUATION_FORM": "Evaluation form"
 }
