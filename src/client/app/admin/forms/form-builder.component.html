@@ -1,0 +1,259 @@
+<div class="card" *ngIf="isLoaded">
+  <div class="card-header">
+    <b [ngSwitch]="editMode">
+      <ng-template [ngSwitchCase]="true">{{ 'T_ACTION_EDIT' | translate }}
+        <span *ngIf="model">{{ model.name }}</span>
+      </ng-template>
+      <ng-template ngSwitchDefault>{{ 'T_ACTION_CREATE' | translate }}</ng-template>
+    </b>
+  </div>
+  <div class="card-block">
+
+    <form class="form form-horizontal"
+          (ngSubmit)="save();" #formBuilder="ngForm">
+
+      <!-- Name -->
+      <div class="form-group row"
+           [ngClass]="{'has-success': name.valid, 'has-danger': !name.valid && name.touched }">
+
+        <label for="name" class="col-form-label col-md-3 required">{{ 'T_FORM_NAME' | translate }}</label>
+        <div class="col-md-9">
+          <input type="text"
+                 class="form-control"
+                 id="name"
+                 name="name"
+                 #name="ngModel"
+                 required
+                 placeholder="{{ 'T_FORM_BUILDER_ENTER_NAME' | translate }}"
+                 [(ngModel)]="model.name">
+
+
+          <div class="form-errors"
+               *ngIf="name.errors && name.touched">
+            <div class="form-control-feedback" *ngIf="name.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}</div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="card card-default">
+        <div class="card-header">
+          {{ 'T_FORM_BUILDER_TITLE' | translate }}
+        </div>
+
+        <div class="card-block">
+          <div class="row">
+            <div class="col-md-4">
+              <div *ngFor="let kind of elementTypes">
+                <button type="button"
+                        class="btn btn-primary btn-block"
+                        (click)="addElement(kind)">
+                  <i class="icon-plus"></i> {{ 'T_FORM_ELEMENT_TYPE_' + kind.toUpperCase() | translate }}
+                </button>
+              </div>
+            </div>
+            <div class="col-md-8">
+              <accordion [closeOthers]="true">
+                <accordion-group *ngFor="let item of model.elements"
+                                 heading="{{ 'T_FORM_ELEMENT_TYPE_' + item.kind.toUpperCase() | translate }} - {{ item.caption }}"
+                                 [ngSwitch]="item.kind">
+                  <div class="input-group mb-1"
+                       [ngClass]="{'has-success': caption.valid, 'has-danger': !caption.valid && caption.touched }">
+                    <label class="col-md-3 required" for="caption">{{ 'T_FORM_CAPTION' | translate}}</label>
+                    <input id="caption"
+                           name="caption"
+                           type="text"
+                           #caption="ngModel"
+                           class="form-control col-md-9"
+                           [(ngModel)]="item.caption"
+                           required>
+                    <div class="form-errors"
+                         *ngIf="caption.errors && caption.touched">
+                      <div class="form-control-feedback" *ngIf="caption.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="checkbox mb-1">
+                    <label class="col-md-3" for="required">{{ 'T_FORM_REQUIRED' | translate}}</label>
+                    <input id="required"
+                           name="required"
+                           type="checkbox"
+                           class=""
+                           [(ngModel)]="item.required">
+                  </div>
+                  <hr/>
+                  <!-- Radio -->
+                  <ng-template [ngSwitchCase]="FormElementType.Radio">
+                    <form #newValueForm="ngForm" (ngSubmit)="addValue(item, newCaption.value, newValue.value); newValueForm.reset();">
+                      <h6>{{ 'T_FORM_ADD_NEW_VALUE' | translate }}</h6>
+                      <div class="input-group mb-1">
+                        <label class="col-md-3" for="valueCaption">{{ 'T_FORM_CAPTION' | translate}}</label>
+                        <input #newCaption
+                               id="valueCaption"
+                               type="text"
+                               class="form-control col-md-9">
+                      </div>
+                      <div class="input-group mb-1">
+                        <label class="col-md-3" for="valueValue">{{ 'T_FORM_VALUE' | translate }}</label>
+                        <input #newValue
+                               id="valueValue"
+                               type="text"
+                               class="form-control col-md-9">
+                      </div>
+
+                      <button type="submit"
+                              class="btn btn-block btn-success">
+                        <i class="icon-plus"></i> {{ 'T_ACTION_ADD' | translate }}
+                      </button>
+                    </form>
+
+                    <table class="table table-striped mt-1">
+                      <th>{{ 'T_FORM_CAPTION' | translate}}</th>
+                      <th>{{ 'T_FORM_VALUE' | translate}}</th>
+                      <th>{{ 'T_ACTION' | translate }}</th>
+                      <tbody>
+                        <tr *ngFor="let value of item.values">
+                          <td>{{ value.caption }}</td>
+                          <td>{{ value.value }}</td>
+                          <td>
+                            <button class="btn-sm btn btn-danger"
+                                    (click)="deleteValue(item, value)">
+                              <i class="icon-ban"></i></button>
+                          </td>
+                        </tr>
+                        <tr *ngIf="!item.values.length">
+                          <td colspan="25" class="text-center">{{ 'T_EMPTY' | translate }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <div class="form-errors"
+                         *ngIf="!item.values.length">
+                      <div class="form-control-feedback alert alert-danger">{{ 'T_FORM_VALUES_ARE_REQUIRED' | translate }}</div>
+                    </div>
+                  </ng-template>
+
+                  <!-- Checkbox group -->
+                  <ng-template [ngSwitchCase]="FormElementType.Checkboxgroup">
+                    <h6>{{ 'T_FORM_ADD_NEW_VALUE' | translate }}</h6>
+                    <div class="input-group mb-1">
+                      <label class="col-md-3" for="valueCaption">{{ 'T_FORM_CAPTION' | translate}}</label>
+                      <input #newCaption
+                             id="valueCaption"
+                             type="text"
+                             class="form-control col-md-9">
+                    </div>
+                    <div class="input-group mb-1">
+                      <label class="col-md-3" for="valueValue">{{ 'T_FORM_VALUE' | translate }}</label>
+                      <input #newValue
+                             id="valueValue"
+                             type="text"
+                             class="form-control col-md-9">
+                    </div>
+
+                    <button class="btn btn-block btn-success"
+                            (click)="addValue(item, newCaption.value, newValue.value)">
+                      <i class="icon-plus"></i> {{ 'T_ACTION_ADD' | translate }}
+                    </button>
+
+                    <table class="table table-striped mt-1">
+                      <th>{{ 'T_FORM_CAPTION' | translate}}</th>
+                      <th>{{ 'T_FORM_VALUE' | translate}}</th>
+                      <th>{{ 'T_ACTION' | translate }}</th>
+                      <tbody>
+                        <tr *ngFor="let value of item.values">
+                          <td>{{ value.caption }}</td>
+                          <td>{{ value.value }}</td>
+                          <td>
+                            <button class="btn-sm btn btn-danger"
+                                    (click)="deleteValue(item, value)">
+                              <i class="icon-ban"></i></button>
+                          </td>
+                        </tr>
+                        <tr *ngIf="!item.values.length">
+                          <td colspan="25" class="text-center">{{ 'T_EMPTY' | translate }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <div class="form-errors"
+                         *ngIf="!item.values.length">
+                      <div class="form-control-feedback alert alert-danger">{{ 'T_FORM_VALUES_ARE_REQUIRED' | translate }}</div>
+                    </div>
+                  </ng-template>
+
+                  <!-- Select -->
+                  <ng-template [ngSwitchCase]="FormElementType.Select">
+                    <h6>{{ 'T_FORM_ADD_NEW_VALUE' | translate }}</h6>
+                    <div class="input-group mb-1">
+                      <label class="col-md-3" for="valueCaption">{{ 'T_FORM_CAPTION' | translate}}</label>
+                      <input #newCaption
+                             id="valueCaption"
+                             type="text"
+                             class="form-control col-md-9">
+                    </div>
+                    <div class="input-group mb-1">
+                      <label class="col-md-3" for="valueValue">{{ 'T_FORM_VALUE' | translate }}</label>
+                      <input #newValue
+                             id="valueValue"
+                             type="text"
+                             class="form-control col-md-9">
+                    </div>
+
+                    <button class="btn btn-block btn-success"
+                            (click)="addValue(item, newCaption.value, newValue.value)">
+                      <i class="icon-plus"></i> {{ 'T_ACTION_ADD' | translate }}
+                    </button>
+
+                    <table class="table table-striped mt-1">
+                      <th>{{ 'T_FORM_CAPTION' | translate}}</th>
+                      <th>{{ 'T_FORM_VALUE' | translate}}</th>
+                      <th>{{ 'T_ACTION' | translate }}</th>
+                      <tbody>
+                        <tr *ngFor="let value of item.values">
+                          <td>{{ value.caption }}</td>
+                          <td>{{ value.value }}</td>
+                          <td>
+                            <button class="btn-sm btn btn-danger"
+                                    (click)="deleteValue(item, value)">
+                              <i class="icon-ban"></i></button>
+                          </td>
+                        </tr>
+                        <tr *ngIf="!item.values.length">
+                          <td colspan="25" class="text-center">{{ 'T_EMPTY' | translate }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <div class="form-errors"
+                         *ngIf="!item.values.length">
+                      <div class="form-control-feedback alert alert-danger">{{ 'T_FORM_VALUES_ARE_REQUIRED' | translate }}</div>
+                    </div>
+                  </ng-template>
+
+                  <button class="btn btn-danger btn-sm"
+                          (click)="deleteElement(item);">
+                    <i class="icon-trash"></i>
+                    {{ 'T_ACTION_DELETE' | translate }}
+                  </button>
+                </accordion-group>
+              </accordion>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr/>
+
+      <div class="text-right">
+        <button type="submit"
+                class="btn btn-primary mt-0"
+                [disabled]="!formBuilder.valid">
+          <span [ngSwitch]="editMode">
+            <ng-template [ngSwitchCase]="true">{{ 'T_ACTION_UPDATE' | translate }}</ng-template>
+            <ng-template ngSwitchDefault>{{ 'T_ACTION_CREATE' | translate }}</ng-template>
+          </span>
+        </button>
+      </div>
+
+    </form>
+  </div>
+</div>
