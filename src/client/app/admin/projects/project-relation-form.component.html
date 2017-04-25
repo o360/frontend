@@ -1,0 +1,83 @@
+<div class="card" *ngIf="isLoaded">
+  <div class="card-block">
+    <form class="form form-horizontal"
+          (ngSubmit)="save(); groupForm.reset()" #groupForm="ngForm">
+
+      <!-- Group From -->
+      <div class="form-group row"
+           [ngClass]="{'has-success': groupFrom.valid, 'has-danger': !groupFrom.valid && groupFrom.touched }">
+
+        <label for="groupFrom" class="col-form-label col-md-3 required">
+          {{ 'T_PROJECT_RELATION_RATING_GROUP' | translate }}
+        </label>
+        <div class="col-md-9">
+          <select name="groupFrom"
+                  id="groupFrom"
+                  class="form-control"
+                  #groupFrom="ngModel"
+                  [(ngModel)]="model.groupFrom">
+            <option *ngFor="let group of groups"
+                    [ngValue]="group.id">
+              {{group.name}}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Group To -->
+      <div class="form-group row"
+           [ngClass]="{'has-success': groupTo.valid, 'has-danger': !groupTo.valid && groupTo.touched }">
+
+        <label for="groupTo" class="col-form-label col-md-3 required">
+          {{ 'T_PROJECT_RELATION_ASSESSMENT_GROUP' | translate }}
+        </label>
+        <div class="col-md-9">
+          <select name="groupTo"
+                  id="groupTo"
+                  class="form-control"
+                  #groupTo="ngModel"
+                  [(ngModel)]="model.groupTo">
+            <option *ngFor="let group of groups"
+                    [ngValue]="group.id">
+              {{group.name}}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Evaluation form  -->
+      <div class="form-group row"
+           [ngClass]="{'has-success': evalForm.valid, 'has-danger': !evalForm.valid && evalForm.touched }">
+
+        <label for="evalForm" class="col-form-label col-md-3 required">
+          {{ 'T_PROJECT_RELATION_EVALUATION_FORM' | translate }}
+        </label>
+        <div class="col-md-9">
+          <select name="evalForm"
+                  id="evalForm"
+                  class="form-control"
+                  #evalForm="ngModel"
+                  [(ngModel)]="model.form">
+            <option *ngFor="let form of evalForms"
+                    [ngValue]="form.id">
+              {{form.name}}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <hr/>
+
+      <div class="text-right">
+        <button type="submit"
+                class="btn btn-primary mt-0"
+                [disabled]="!groupForm.valid">
+          <span [ngSwitch]="editMode">
+            <ng-template [ngSwitchCase]="true">{{ 'T_ACTION_UPDATE' | translate }}</ng-template>
+            <ng-template ngSwitchDefault>{{ 'T_ACTION_CREATE' | translate }}</ng-template>
+          </span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
