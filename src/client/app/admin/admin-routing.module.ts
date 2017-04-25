@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { UsersModule } from './users/users.module';
 import { GroupsModule } from './groups/groups.module';
+import { FormsModule } from './forms/forms.module';
 import { ProjectsModule } from './projects/projects.module';
 
 @NgModule({
@@ -18,6 +19,10 @@ import { ProjectsModule } from './projects/projects.module';
       path: 'groups',
       data: { breadcrumb: 'T_GROUPS' },
       loadChildren: () => GroupsModule
+    }, {
+      path: 'forms',
+      data: { breadcrumb: 'T_FORMS' },
+      loadChildren: () => FormsModule
     }, {
       path: 'projects',
       data: { breadcrumb: 'T_PROJECTS' },
