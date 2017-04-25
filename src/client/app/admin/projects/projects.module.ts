@@ -4,6 +4,7 @@ import { ProjectListComponent } from './project-list.component';
 import { ProjectsRoutingModule } from './projects-routing.module';
 import { ProjectDetailsComponent } from './project-details.component';
 import { ProjectFormComponent } from './project-form.component';
+import { ProjectRelationFormComponent } from './project-relation-form.component';
 
 @NgModule({
   imports: [
@@ -13,12 +14,14 @@ import { ProjectFormComponent } from './project-form.component';
   declarations: [
     ProjectListComponent,
     ProjectFormComponent,
-    ProjectDetailsComponent
+    ProjectDetailsComponent,
+    ProjectRelationFormComponent
   ],
   exports: [
     ProjectListComponent,
     ProjectFormComponent,
-    ProjectDetailsComponent
+    ProjectDetailsComponent,
+    ProjectRelationFormComponent
   ],
 })
 export class ProjectsModule {
