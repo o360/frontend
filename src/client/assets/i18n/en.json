@@ -20,7 +20,7 @@
   "T_USER_GENDER_FEMALE": "Female",
   "T_USER_APPROVE": "Approve",
   "T_USER_DETAILS": "Details of user",
-  "T_NOT_DEFINED": "Not defined",
+  "T_NOT_SPECIFIED": "Not specified",
   "T_FORM_ENTER_NAME": "Enter name...",
   "T_FORM_ENTER_EMAIL": "Enter email...",
   "T_FORM_FIELD_IS_REQUIRED": "Field is required",
