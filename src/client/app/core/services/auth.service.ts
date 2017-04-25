@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Config } from '../../shared/config/env.config';
-import { AccountModel } from '../models/account-model';
+import { UserModel } from '../models/user-model';
 
 export const tokenLsKey = 'token';
 
 @Injectable()
 export class AuthService {
   private _token: string;
-  private _user: AccountModel;
+  private _user: UserModel;
 
   public get token(): string {
     return this._token;
@@ -18,11 +18,11 @@ export class AuthService {
     this._token = value;
   }
 
-  public get user(): AccountModel {
+  public get user(): UserModel {
     return this._user;
   }
 
-  public set user(value: AccountModel) {
+  public set user(value: UserModel) {
     this._user = value;
   }
 

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AccountModel } from '../core/models/account-model';
 import { AuthService } from '../core/services/auth.service';
 import { ProfileService } from '../core/services/profile.service';
+import { UserGender } from '../core/models/user-model';
 
 
 @Component({
@@ -10,7 +11,12 @@ import { ProfileService } from '../core/services/profile.service';
   templateUrl: 'new-account.component.html'
 })
 export class NewAccountComponent {
+  private _genders: string[] = Object.values(UserGender);
   private _user: AccountModel;
+
+  public get genders(): string[] {
+    return this._genders;
+  }
 
   public get user(): AccountModel {
     return this._user;

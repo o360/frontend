@@ -35,7 +35,8 @@
                        required
                        #email="ngModel"
                        class="form-control"
-                       placeholder="{{ 'T_NEW_ACCOUNT_EMAIL' | translate }}"></div>
+                       placeholder="{{ 'T_NEW_ACCOUNT_EMAIL' | translate }}">
+              </div>
 
               <div class="alert alert-danger" role="alert"
                    *ngIf="email.errors && email.touched">
@@ -43,6 +44,15 @@
                      *ngIf="email.errors['required']">
                   {{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}
                 </div>
+              </div>
+
+              <div class="input-group mb-1">
+                <span class="input-group-addon">{{ 'T_USER_GENDER' | translate }}</span>
+                <select class="form-control"
+                        name="gender"
+                        [(ngModel)]="user.gender">
+                  <option *ngFor="let gender of genders">{{ 'T_USER_GENDER_' + gender.toUpperCase() | translate }}</option>
+                </select>
               </div>
 
 
