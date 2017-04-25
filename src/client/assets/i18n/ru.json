@@ -16,6 +16,7 @@
   "T_ACTION_ADD_USERS_TO_GROUP": "Добавить пользователей в группу",
   "T_ACTION_ADD_USER": "Добавить",
   "T_ACTION_CANCEL": "Отмена",
+  "T_ACTION_CREATE_PROJECT_RELATION": "Создать отношение",
   "T_USER": "Пользователь",
   "T_USER_NAME": "Имя",
   "T_USER_EMAIL": "Email",
@@ -27,6 +28,7 @@
   "T_USER_DETAILS": "Подробнее о пользователе",
   "T_FORM_ENTER_NAME": "Введите имя пользователя...",
   "T_FORM_ENTER_EMAIL": "Введите email...",
+  "T_FORM_ENTER_DESCRIPTION": "Введите описание...",
   "T_FORM_FIELD_IS_REQUIRED": "Поле должно быть заполнено",
   "T_FORM_FIELD_IS_INVALID": "Поле заполнено неверно",
   "T_ACTION_SELECT_LANGUAGE": "Выбрать язык",
@@ -84,5 +86,8 @@
   "T_PAGINATION_ITEMS_PER_PAGE": "Элементов на странице",
   "T_PAGINATION_PREVIOUS_TEXT": "Предыдущая",
   "T_PAGINATION_NEXT_TEXT": "Следующая",
+  "T_PROJECT_RELATION_RATING_GROUP": "Оценивающая группа",
+  "T_PROJECT_RELATION_ASSESSMENT_GROUP": "Оцениваемая группа",
+  "T_PROJECT_RELATION_EVALUATION_FORM": "Форма оценки",
   "T_USERS_ADDED_TO_GROUP": "Пользователи успешно добавлены в группу"
 }

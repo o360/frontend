@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { SharedModule } from '../../shared/shared.module';
 import { ProjectListComponent } from './project-list.component';
-import { ProjectsRoutingModule } from './projects-touting.module';
+import { ProjectsRoutingModule } from './projects-routing.module';
 import { ProjectDetailsComponent } from './project-details.component';
 import { ProjectFormComponent } from './project-form.component';
 
