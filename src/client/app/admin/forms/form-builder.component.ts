@@ -30,7 +30,7 @@ export class FormBuilderComponent extends FormComponent<FormModel> {
     let element: FormElement = {
       kind: kind,
       caption: '',
-      required: true,
+      required: false,
       values: []
     };
     this._model.elements.push(element);

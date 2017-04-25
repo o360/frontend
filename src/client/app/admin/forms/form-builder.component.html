@@ -59,9 +59,9 @@
                                  [ngSwitch]="item.kind">
                   <div class="input-group mb-1"
                        [ngClass]="{'has-success': caption.valid, 'has-danger': !caption.valid && caption.touched }">
-                    <label class="col-md-3 required" for="caption">{{ 'T_FORM_CAPTION' | translate}}</label>
-                    <input id="caption"
-                           name="caption"
+                    <label class="col-md-3 required" for="caption{{ model.elements.indexOf(item) }}">{{ 'T_FORM_CAPTION' | translate}}</label>
+                    <input id="caption{{ model.elements.indexOf(item) }}"
+                           name="caption{{ model.elements.indexOf(item) }}"
                            type="text"
                            #caption="ngModel"
                            class="form-control col-md-9"
@@ -74,31 +74,45 @@
                     </div>
                   </div>
 
+                  <!--Textfield-->
+                  <ng-template [ngSwitchCase]="FormElementType.Textfield">
+                    <div class="checkbox mb-1">
+                      <label class="col-md-3" for="required{{ model.elements.indexOf(item) }}">{{ 'T_FORM_REQUIRED' | translate}}</label>
+                      <input id="required{{ model.elements.indexOf(item) }}"
+                             name="required{{ model.elements.indexOf(item) }}"
+                             type="checkbox"
+                             class=""
+                             [(ngModel)]="item.required">
+                    </div>
+                  </ng-template>
 
-                  <div class="checkbox mb-1">
-                    <label class="col-md-3" for="required">{{ 'T_FORM_REQUIRED' | translate}}</label>
-                    <input id="required"
-                           name="required"
-                           type="checkbox"
-                           class=""
-                           [(ngModel)]="item.required">
-                  </div>
-                  <hr/>
+                  <!--Textarea-->
+                  <ng-template [ngSwitchCase]="FormElementType.Textarea">
+                    <div class="checkbox mb-1">
+                      <label class="col-md-3" for="required{{ model.elements.indexOf(item) }}">{{ 'T_FORM_REQUIRED' | translate}}</label>
+                      <input id="required{{ model.elements.indexOf(item) }}"
+                             name="required{{ model.elements.indexOf(item) }}"
+                             type="checkbox"
+                             class=""
+                             [(ngModel)]="item.required">
+                    </div>
+                  </ng-template>
+
                   <!-- Radio -->
                   <ng-template [ngSwitchCase]="FormElementType.Radio">
-                    <form #newValueForm="ngForm" (ngSubmit)="addValue(item, newCaption.value, newValue.value); newValueForm.reset();">
+                    <form #newRadioValueForm="ngForm" (ngSubmit)="addValue(item, newCaption.value, newValue.value); newRadioValueForm.reset();">
                       <h6>{{ 'T_FORM_ADD_NEW_VALUE' | translate }}</h6>
                       <div class="input-group mb-1">
-                        <label class="col-md-3" for="valueCaption">{{ 'T_FORM_CAPTION' | translate}}</label>
+                        <label class="col-md-3" for="valueCaption{{ model.elements.indexOf(item) }}">{{ 'T_FORM_CAPTION' | translate}}</label>
                         <input #newCaption
-                               id="valueCaption"
+                               id="valueCaption{{ model.elements.indexOf(item) }}"
                                type="text"
                                class="form-control col-md-9">
                       </div>
                       <div class="input-group mb-1">
-                        <label class="col-md-3" for="valueValue">{{ 'T_FORM_VALUE' | translate }}</label>
+                        <label class="col-md-3" for="valueValue{{ model.elements.indexOf(item) }}">{{ 'T_FORM_VALUE' | translate }}</label>
                         <input #newValue
-                               id="valueValue"
+                               id="valueValue{{ model.elements.indexOf(item) }}"
                                type="text"
                                class="form-control col-md-9">
                       </div>
@@ -138,16 +152,16 @@
                   <ng-template [ngSwitchCase]="FormElementType.Checkboxgroup">
                     <h6>{{ 'T_FORM_ADD_NEW_VALUE' | translate }}</h6>
                     <div class="input-group mb-1">
-                      <label class="col-md-3" for="valueCaption">{{ 'T_FORM_CAPTION' | translate}}</label>
+                      <label class="col-md-3" for="valueCaption{{ model.elements.indexOf(item) }}">{{ 'T_FORM_CAPTION' | translate}}</label>
                       <input #newCaption
-                             id="valueCaption"
+                             id="valueCaption{{ model.elements.indexOf(item) }}"
                              type="text"
                              class="form-control col-md-9">
                     </div>
                     <div class="input-group mb-1">
-                      <label class="col-md-3" for="valueValue">{{ 'T_FORM_VALUE' | translate }}</label>
+                      <label class="col-md-3" for="valueValue{{ model.elements.indexOf(item) }}">{{ 'T_FORM_VALUE' | translate }}</label>
                       <input #newValue
-                             id="valueValue"
+                             id="valueValue{{ model.elements.indexOf(item) }}"
                              type="text"
                              class="form-control col-md-9">
                     </div>
@@ -186,16 +200,16 @@
                   <ng-template [ngSwitchCase]="FormElementType.Select">
                     <h6>{{ 'T_FORM_ADD_NEW_VALUE' | translate }}</h6>
                     <div class="input-group mb-1">
-                      <label class="col-md-3" for="valueCaption">{{ 'T_FORM_CAPTION' | translate}}</label>
+                      <label class="col-md-3" for="valueCaption{{ model.elements.indexOf(item) }}">{{ 'T_FORM_CAPTION' | translate}}</label>
                       <input #newCaption
-                             id="valueCaption"
+                             id="valueCaption{{ model.elements.indexOf(item) }}"
                              type="text"
                              class="form-control col-md-9">
                     </div>
                     <div class="input-group mb-1">
-                      <label class="col-md-3" for="valueValue">{{ 'T_FORM_VALUE' | translate }}</label>
+                      <label class="col-md-3" for="valueValue{{ model.elements.indexOf(item) }}">{{ 'T_FORM_VALUE' | translate }}</label>
                       <input #newValue
-                             id="valueValue"
+                             id="valueValue{{ model.elements.indexOf(item) }}"
                              type="text"
                              class="form-control col-md-9">
                     </div>
