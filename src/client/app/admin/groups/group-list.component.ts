@@ -3,6 +3,7 @@ import { GroupModel } from '../../core/models/group-model';
 import { GroupService } from '../../core/services/group.service';
 import { ListComponent } from '../../shared/components/list.component';
 import { IQueryParams } from '../../core/services/rest.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   moduleId: module.id,
@@ -21,13 +22,14 @@ export class GroupListComponent extends ListComponent<GroupModel> implements OnI
     return this._parentId;
   }
 
-  constructor(service: GroupService) {
-    super(service);
+
+  constructor(service: GroupService, activatedRoute: ActivatedRoute) {
+    super(service, activatedRoute);
   }
 
   public ngOnInit() {
     this._queryParams = { parentId: this._parentId };
-    Object.assign(this._queryParams, this._defaultPageParams);
+    Object.assign(this._queryParams, this._pageParams);
     this._update(this._queryParams);
   }
 

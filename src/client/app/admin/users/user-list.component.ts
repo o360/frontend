@@ -3,6 +3,7 @@ import { UserModel, UserRole, UserStatus } from '../../core/models/user-model';
 import { UserService } from '../../core/services/user.service';
 import { ListComponent } from '../../shared/components/list.component';
 import { Filter, FilterType } from '../../core/models/filter';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   moduleId: module.id,
@@ -22,10 +23,9 @@ export class UserListComponent extends ListComponent<UserModel> {
     values: Object.values(UserRole).map(x => ({ name: 'T_USER_ROLE_' + x.toUpperCase(), value: x }))
   }];
 
-  constructor(service: UserService) {
-    super(service);
+  constructor(service: UserService, activatedRoute: ActivatedRoute) {
+    super(service, activatedRoute);
   }
-
   public get UserStatus() {
     return UserStatus;
   }

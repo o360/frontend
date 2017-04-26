@@ -11,6 +11,17 @@ export interface IQueryParams {
   [key: string]: string;
 }
 
+export interface IResponseMeta {
+  number: number;
+  size: number;
+  total: number;
+}
+
+export interface IListResponse<T extends Model> {
+  meta: IResponseMeta;
+  data: T[];
+}
+
 export declare type ModelConstructor<T> = { new (json: Object): T };
 
 /**
@@ -62,11 +73,9 @@ export class RestService<T extends Model> {
    * Get list of data from API
    * @return {Observable<[T[], any]>}
    */
-  public list(queryParams?: IQueryParams): Observable<[T[], any]> {
+  public list(queryParams?: IQueryParams): Observable<IListResponse<T>> {
     return this._http.get(this._getRequestParams(undefined, queryParams), this._getRequestOptions())
       .map((response: Response) => response.json())
-      .map((json: any) => [json.data, json.meta])
-      .map(([data, meta]: any) => [data.map(item => this.createEntity(item)), meta])
       .catch((error: any) => this._handleErrors(error));
   }
 
@@ -164,7 +173,6 @@ export class RestService<T extends Model> {
       let param = Object.entries(params).map(([key, value]) => key + '=' + value);
       paramsString = '?' + param.join('&');
     }
-    console.log(path.join('/') + paramsString);
     return path.join('/') + paramsString;
   }
 

@@ -1,21 +1,22 @@
-<nav class="row">
-  <div class="ml-auto mr-auto">
-    <pagination [previousText]="'T_PAGINATION_PREVIOUS_TEXT' | translate "
-                [nextText]="'T_PAGINATION_NEXT_TEXT' | translate"
+<div class="row mt-2">
+  <div class="col-md-6 offset-md-3">
+    <pagination class="justify-content-center"
+                [previousText]="'&laquo;'"
+                [nextText]="'&raquo;'"
                 [totalItems]="totalItems"
                 [(ngModel)]="currentPage"
                 (pageChanged)="pageChanged($event)"
                 [itemsPerPage]="itemsPerPage"></pagination>
   </div>
 
-  <div class="text-right">
+  <div class="col-md-3 text-right">
     <div class="btn-group">
-      <label ngDefaultControl
-             class="btn btn-sm btn-secondary"
-             [ngClass]="{active: (itemsPerPage === item)}"
-             *ngFor="let item of variants"
-             (click)="changeItemsPerPage(item)"> {{ item }}
-      </label>
+      <button ngDefaultControl
+              class="btn btn-secondary"
+              *ngFor="let item of sizes"
+              [ngClass]="{'active' : item == itemsPerPage}"
+              (click)="changeItemsPerPage(item)"> {{ item }}
+      </button>
     </div>
   </div>
-</nav>
+</div>

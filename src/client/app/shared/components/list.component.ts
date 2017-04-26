@@ -1,7 +1,8 @@
 import { OnInit } from '@angular/core';
 import { Model, ModelId } from '../../core/models/model';
-import { IQueryParams, RestService } from '../../core/services/rest.service';
+import { IListResponse, IQueryParams, RestService } from '../../core/services/rest.service';
 import { Filter } from '../../core/models/filter';
+import { ActivatedRoute, Params } from '@angular/router';
 
 export abstract class ListComponent<T extends Model> implements OnInit {
   protected _list: T[];
@@ -9,13 +10,21 @@ export abstract class ListComponent<T extends Model> implements OnInit {
   protected _total: number;
   protected _queryParams: IQueryParams = {};
 
-  protected _size: number = 10;
-  protected _number: number = 1;
+  private _size: number = 10;
+  private _number: number = 1;
 
-  protected _defaultPageParams: IQueryParams = {
+  protected _pageParams: IQueryParams = {
     'size': this._size.toString(),
     'number': this._number.toString()
   };
+
+  public get number(): number {
+    return this._number;
+  }
+
+  public get size(): number {
+    return this._size;
+  }
 
   public get list(): T[] {
     return this._list;
@@ -33,11 +42,24 @@ export abstract class ListComponent<T extends Model> implements OnInit {
     return !!this._list;
   }
 
-  constructor(protected _service: RestService<T>) {
+  constructor(protected _service: RestService<T>,
+              protected _activatedRoute: ActivatedRoute) {
   }
 
   public ngOnInit() {
-    this._update(this._defaultPageParams);
+    this._activatedRoute.queryParams.forEach((params: Params) => {
+      if (params['size']) {
+        this._size = params['size'];
+      }
+      if (params['number']) {
+        this._number = params['number'];
+      }
+    });
+    this._pageParams = {
+      'size': this._size.toString(),
+      'number': this._number.toString()
+    };
+    this._update(this._pageParams);
   }
 
   public delete(id: ModelId) {
@@ -45,9 +67,9 @@ export abstract class ListComponent<T extends Model> implements OnInit {
   }
 
   protected _update(queryParams?: IQueryParams) {
-    this._service.list(queryParams).subscribe(([list, meta]) => {
-      this._list = list;
-      this._total = meta.total;
+    this._service.list(queryParams).subscribe((res: IListResponse<T>) => {
+      this._list = res.data;
+      this._total = res.meta.total;
     });
   }
 
