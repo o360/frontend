@@ -5,7 +5,7 @@
             type="button"
             title="{{ 'T_ACTION_CREATE' | translate }}"
             [routerLink]="['/admin/groups/create', parentId!='null' ? { parentId: parentId } : {}]"><i class="fa fa-group"></i>
-      {{ parentId!='null' ? ('T_ACTION_CREATE_CHILD_GROUP'| translate)  : ('T_ACTION_CREATE' | translate )}}
+      {{ parentId!='null' ? ('T_ACTION_CREATE_CHILD_GROUP'| translate) : ('T_ACTION_CREATE' | translate )}}
     </button>
     <table class="table table-striped mt-1" *ngIf="isLoaded">
       <thead>
@@ -40,6 +40,6 @@
         </tr>
       </tbody>
     </table>
+    <bs-pagination [totalItems]="total" (pageNumberChanged)="pageChanged($event)"></bs-pagination>
   </div>
 </div>
-<bs-pagination [totalItems]="total" (pageNumberChanged)="pageChanged($event)"></bs-pagination>

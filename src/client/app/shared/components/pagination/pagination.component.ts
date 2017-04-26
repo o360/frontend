@@ -1,24 +1,26 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { IQueryParams } from '../../../core/services/rest.service';
-import apply = Reflect.apply;
+
+const supportedSizes: number[] = [10, 50, 100];
+const defaultPage: number = 1;
 
 @Component({
   moduleId: module.id,
   selector: 'bs-pagination',
   templateUrl: 'pagination.component.html'
 })
-export class ListPaginationComponent {
+export class PaginationComponent {
+  protected readonly _sizes: number[] = supportedSizes;
+
   protected _pageNumberChanged: EventEmitter<any> = new EventEmitter<any>();
 
-  protected _variants = [1, 10, 50, 100];
-
   protected _totalItems: number;
-  protected _currentPage: number = 1;
-  private _itemsPerPage: number = 10;
+  private _currentPage: number;
+  private _itemsPerPage: number;
 
 
-  public get variants(): (number | string)[] {
-    return this._variants;
+  public get sizes(): number[] {
+    return this._sizes;
   }
 
   @Input()
@@ -30,10 +32,16 @@ export class ListPaginationComponent {
     return this._totalItems;
   }
 
+  @Input()
+  public set currentPage(value: number) {
+    this._currentPage = value;
+  }
+
   public get itemsPerPage(): number {
     return this._itemsPerPage;
   }
 
+  @Input()
   public set itemsPerPage(value: number) {
     this._itemsPerPage = value;
   }

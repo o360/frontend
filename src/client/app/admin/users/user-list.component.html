@@ -62,8 +62,8 @@
         </tr>
       </tbody>
     </table>
+    <bs-pagination [totalItems]="total" [currentPage]="number" [itemsPerPage]="size" (pageNumberChanged)="pageChanged($event)"></bs-pagination>
   </div>
 </div>
 
-<bs-pagination [totalItems]="total" (pageNumberChanged)="pageChanged($event)"></bs-pagination>
 
