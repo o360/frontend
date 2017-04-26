@@ -6,7 +6,7 @@ import { Model } from './model';
   email: '',
   status: '',
   role: '',
-  gender: 'male'
+  gender: ''
 })
 export class AccountModel extends Model {
   public name: string;

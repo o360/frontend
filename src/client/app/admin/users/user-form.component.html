@@ -60,8 +60,7 @@
 
       <!-- Role -->
       <div class="form-group row"
-           [ngClass]="{'has-success': role.valid, 'has-danger': !role.valid && role.touched }">
-
+           [ngClass]="{'has-success': gender.valid, 'has-danger': !gender.valid && gender.touched }">
         <label for="role" class="col-form-label col-md-3 required">{{ 'T_USER_ROLE' | translate }}</label>
         <div class="col-md-9">
           <select name="role"
@@ -78,11 +77,13 @@
       </div>
 
       <!--Gender-->
-      <div class="form-group row has-success">
+      <div class="form-group row"
+           [ngClass]="{'has-success': gender.valid, 'has-danger': !gender.value && gender.touched }">
         <label for="gender" class="col-form-label col-md-3">{{ 'T_USER_GENDER' | translate }}</label>
         <div class="col-md-9">
           <select id="gender"
                   name="gender"
+                  #gender="ngModel"
                   class="form-control col-xs-6"
                   [(ngModel)]="model.gender">
             <option *ngFor="let gender of genders" [ngValue]="gender">{{ 'T_USER_GENDER_' + gender.toUpperCase() | translate }}</option>

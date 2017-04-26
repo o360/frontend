@@ -46,14 +46,16 @@
                 </div>
               </div>
 
-              <div class="form-group mb-1 has-success">
+              <div class="form-group mb-1"
+                   [ngClass]="{'has-success': gender.valid, 'has-danger': !gender.value && gender.touched }">
                 <label for="gender">{{ 'T_USER_GENDER' | translate }}</label>
                 <select class="form-control"
                         id="gender"
                         name="gender"
                         #gender="ngModel"
                         [(ngModel)]="user.gender">
-                  <option *ngFor="let gender of genders" [ngValue]="gender">{{ 'T_USER_GENDER_' + gender.toUpperCase() | translate }}</option>
+                  <option *ngFor="let gender of genders" [ngValue]="gender">{{ 'T_USER_GENDER_' + gender.toUpperCase() | translate }}
+                  </option>
                 </select>
               </div>
 
