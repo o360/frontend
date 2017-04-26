@@ -29,13 +29,29 @@ header.navbar .navbar-brand {
   font-weight: normal;
 }
 
-.sidebar-nav {
-  .nav-dropdown-toggle {
-    cursor: pointer;
-    user-select: none;
+.sidebar {
+  .nav {
+    width: 220px;
   }
+  .sidebar-nav {
 
-  .nav-dropdown-item .nav-link {
-    padding-left: 30px !important;
+    .nav-dropdown-toggle {
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .nav-dropdown-item .nav-link {
+      padding-left: 30px !important;
+    }
+
+    width: 220px !important;
   }
+}
+
+.sidebar-hidden .sidebar {
+  margin-left: -220px;
+}
+
+.sidebar-fixed .main, .sidebar-fixed .app-footer {
+  margin-left: 220px;
 }
