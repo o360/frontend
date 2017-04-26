@@ -5,22 +5,28 @@ import { ProjectsRoutingModule } from './projects-routing.module';
 import { ProjectDetailsComponent } from './project-details.component';
 import { ProjectFormComponent } from './project-form.component';
 import { ProjectRelationFormComponent } from './project-relation-form.component';
+import { ProjectRelationListComponent } from './project-relation-list.component';
+import { ModalModule } from 'ngx-bootstrap';
+
 
 @NgModule({
   imports: [
     SharedModule,
-    ProjectsRoutingModule
+    ProjectsRoutingModule,
+    ModalModule.forRoot()
   ],
   declarations: [
     ProjectListComponent,
     ProjectFormComponent,
     ProjectDetailsComponent,
+    ProjectRelationListComponent,
     ProjectRelationFormComponent
   ],
   exports: [
     ProjectListComponent,
     ProjectFormComponent,
     ProjectDetailsComponent,
+    ProjectRelationListComponent,
     ProjectRelationFormComponent
   ],
 })
