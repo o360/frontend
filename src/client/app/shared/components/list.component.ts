@@ -1,30 +1,19 @@
-import { OnInit } from '@angular/core';
+import { Input, OnInit } from '@angular/core';
 import { Model, ModelId } from '../../core/models/model';
-import { IListResponse, IQueryParams, RestService } from '../../core/services/rest.service';
+import { IListResponse, IQueryParams, IResponseMeta, RestService } from '../../core/services/rest.service';
 import { Filter } from '../../core/models/filter';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { defaultPage, supportedSizes } from './pagination/pagination.component';
 
 export abstract class ListComponent<T extends Model> implements OnInit {
   protected _list: T[];
   protected _filters: Filter[] = [];
-  protected _total: number;
-  protected _queryParams: IQueryParams = {};
-
-  private _size: number = 10;
-  private _number: number = 1;
-
-  protected _pageParams: IQueryParams = {
-    'size': this._size.toString(),
-    'number': this._number.toString()
+  protected _meta: IResponseMeta;
+  protected _queryParams: IQueryParams = {
+    number: defaultPage.toString(),
+    size: supportedSizes[0].toString()
   };
-
-  public get number(): number {
-    return this._number;
-  }
-
-  public get size(): number {
-    return this._size;
-  }
+  protected _embedded: boolean = false;
 
   public get list(): T[] {
     return this._list;
@@ -34,50 +23,80 @@ export abstract class ListComponent<T extends Model> implements OnInit {
     return this._filters;
   }
 
-  public get total(): number {
-    return this._total;
+  public get meta(): IResponseMeta {
+    return this._meta;
+  }
+
+  public get queryParams(): IQueryParams {
+    return this._queryParams;
   }
 
   public get isLoaded() {
     return !!this._list;
   }
 
+  @Input()
+  public set embedded(value: boolean | string) {
+    if (value === '') {
+      this._embedded = true;
+    } else {
+      this._embedded = false;
+    }
+  }
+
   constructor(protected _service: RestService<T>,
-              protected _activatedRoute: ActivatedRoute) {
+              protected _activatedRoute: ActivatedRoute,
+              protected _router: Router) {
   }
 
   public ngOnInit() {
-    this._activatedRoute.queryParams.forEach((params: Params) => {
-      if (params['size']) {
-        this._size = params['size'];
-      }
-      if (params['number']) {
-        this._number = params['number'];
-      }
-    });
-    this._pageParams = {
-      'size': this._size.toString(),
-      'number': this._number.toString()
-    };
-    this._update(this._pageParams);
+    this._activatedRoute.queryParams.forEach(this._processRequestParams.bind(this));
   }
 
   public delete(id: ModelId) {
     this._service.delete(id).subscribe(() => this._update());
   }
 
-  protected _update(queryParams?: IQueryParams) {
-    this._service.list(queryParams).subscribe((res: IListResponse<T>) => {
+  protected _processRequestParams(params: Params) {
+    if (!this._embedded) {
+      if (params['size']) {
+        this._queryParams.size = params['size'];
+      }
+
+      if (params['number']) {
+        this._queryParams.number = params['number'];
+      }
+    }
+
+    this._update();
+  }
+
+  protected _update() {
+    this._service.list(this._queryParams).subscribe((res: IListResponse<T>) => {
+      this._meta = res.meta;
       this._list = res.data;
-      this._total = res.meta.total;
     });
   }
 
   public filterChange(value: IQueryParams) {
-    this._update(value);
+    let queryParams = Object.assign({}, value);
+
+    queryParams.size = this._queryParams.size;
+    queryParams.number = this._queryParams.number;
+
+    this._update();
   }
 
-  public pageChanged(value: IQueryParams) {
-    this._update(value);
+  public pageQueryParamsChanged(value: IQueryParams) {
+    Object.assign(this._queryParams, value);
+
+    if (this._embedded) {
+      this._update();
+    } else {
+      this._router.navigate([], {
+        queryParams: { number: this._queryParams.number, size: this._queryParams.size },
+        relativeTo: this._activatedRoute
+      });
+    }
   }
 }
