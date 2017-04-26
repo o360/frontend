@@ -1,7 +1,7 @@
 <div class="card" *ngIf="isLoaded">
   <div class="card-block">
     <form class="form form-horizontal"
-          (ngSubmit)="save(); groupForm.reset()" #groupForm="ngForm">
+          (ngSubmit)="addRelation(relation); groupForm.reset()" #groupForm="ngForm">
 
       <!-- Group From -->
       <div class="form-group row"
@@ -15,7 +15,8 @@
                   id="groupFrom"
                   class="form-control"
                   #groupFrom="ngModel"
-                  [(ngModel)]="model.groupFrom">
+                  required
+                  [(ngModel)]="relation.groupFrom">
             <option *ngFor="let group of groups"
                     [ngValue]="group.id">
               {{group.name}}
@@ -36,7 +37,8 @@
                   id="groupTo"
                   class="form-control"
                   #groupTo="ngModel"
-                  [(ngModel)]="model.groupTo">
+                  required
+                  [(ngModel)]="relation.groupTo">
             <option *ngFor="let group of groups"
                     [ngValue]="group.id">
               {{group.name}}
@@ -57,10 +59,33 @@
                   id="evalForm"
                   class="form-control"
                   #evalForm="ngModel"
-                  [(ngModel)]="model.form">
+                  required
+                  [(ngModel)]="relation.form">
             <option *ngFor="let form of evalForms"
                     [ngValue]="form.id">
               {{form.name}}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Kinds  -->
+      <div class="form-group row"
+           [ngClass]="{'has-success': kind.valid, 'has-danger': !kind.valid && kind.touched }">
+
+        <label for="kind" class="col-form-label col-md-3 required">
+          {{ 'T_PROJECT_RELATION_KIND' | translate }}
+        </label>
+        <div class="col-md-9">
+          <select name="kind"
+                  id="kind"
+                  class="form-control"
+                  #kind="ngModel"
+                  required
+                  [(ngModel)]="relation.kind">
+            <option *ngFor="let kind of kinds"
+                    [ngValue]="kind">
+              {{kind}}
             </option>
           </select>
         </div>

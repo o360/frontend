@@ -86,8 +86,12 @@
   "T_PAGINATION_ITEMS_PER_PAGE": "Элементов на странице",
   "T_PAGINATION_PREVIOUS_TEXT": "Предыдущая",
   "T_PAGINATION_NEXT_TEXT": "Следующая",
+  "T_PROJECT_RELATION": "Отношение",
   "T_PROJECT_RELATION_RATING_GROUP": "Оценивающая группа",
   "T_PROJECT_RELATION_ASSESSMENT_GROUP": "Оцениваемая группа",
   "T_PROJECT_RELATION_EVALUATION_FORM": "Форма оценки",
+  "T_PROJECT_RELATION_KIND": "Тип",
+  "T_PROJECT_RELATION_KIND_CLASSIC": "Обычный",
+  "T_PROJECT_RELATION_KIND_SURVEY": "Опрос",
   "T_USERS_ADDED_TO_GROUP": "Пользователи успешно добавлены в группу"
 }
