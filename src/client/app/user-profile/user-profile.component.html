@@ -24,10 +24,10 @@
         <small class="text-muted">{{ 'T_USER_EMAIL' | translate}}</small>
         <div class="h6">{{ model.email }}</div>
       </div>
-      <div class="col-md-3" >
+      <div class="col-md-3">
         <small class="text-muted">{{ 'T_USER_GENDER' | translate}}</small>
-        <div class="h6" *ngIf="!model.gender">{{ 'T_NOT_SPECIFIED' | translate }}</div>
-        <div class="h6" *ngIf="model.gender">{{ model.gender }}</div>
+        <div *ngIf="model.gender" class="h6">{{ 'T_USER_GENDER_' + model.gender.toUpperCase() | translate }}</div>
+        <div *ngIf="!model.gender" class="h6">{{ 'T_NOT_SPECIFIED' | translate }}</div>
       </div>
     </div>
   </div>

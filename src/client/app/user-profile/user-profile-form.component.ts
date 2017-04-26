@@ -17,6 +17,7 @@ export class UserProfileFormComponent extends FormComponent<UserModel> implement
   public get genders(): string[] {
     return this._genders;
   }
+
   constructor(service: UserService,
               router: Router,
               route: ActivatedRoute,
