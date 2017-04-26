@@ -71,11 +71,12 @@ export class RestService<T extends Model> {
 
   /**
    * Get list of data from API
-   * @return {Observable<[T[], any]>}
+   * @return {Observable<IListResponse<T>>}
    */
   public list(queryParams?: IQueryParams): Observable<IListResponse<T>> {
     return this._http.get(this._getRequestParams(undefined, queryParams), this._getRequestOptions())
       .map((response: Response) => response.json())
+      .map((json: any) => Object.assign(json, { data: json.data.map((x: any) => this.createEntity(x)) }))
       .catch((error: any) => this._handleErrors(error));
   }
 

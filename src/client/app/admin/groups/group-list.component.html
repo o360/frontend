@@ -1,13 +1,13 @@
 <div class="card">
   <div class="card-header"><b>{{ 'T_GROUPS' | translate }}</b></div>
-  <div class="card-block">
+  <div class="card-block" *ngIf="isLoaded">
     <button class="btn btn-primary"
             type="button"
             title="{{ 'T_ACTION_CREATE' | translate }}"
             [routerLink]="['/admin/groups/create', parentId!='null' ? { parentId: parentId } : {}]"><i class="fa fa-group"></i>
       {{ parentId!='null' ? ('T_ACTION_CREATE_CHILD_GROUP'| translate) : ('T_ACTION_CREATE' | translate )}}
     </button>
-    <table class="table table-striped mt-1" *ngIf="isLoaded">
+    <table class="table table-striped mt-1">
       <thead>
         <tr>
           <th>#</th>
@@ -40,6 +40,8 @@
         </tr>
       </tbody>
     </table>
-    <bs-pagination [totalItems]="total" (pageNumberChanged)="pageChanged($event)"></bs-pagination>
+
+    <bs-pagination [meta]="meta"
+                   (queryParamsChange)="pageQueryParamsChanged($event)"></bs-pagination>
   </div>
 </div>

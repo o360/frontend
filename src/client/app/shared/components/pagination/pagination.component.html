@@ -3,10 +3,10 @@
     <pagination class="justify-content-center"
                 [previousText]="'&laquo;'"
                 [nextText]="'&raquo;'"
-                [totalItems]="totalItems"
-                [(ngModel)]="currentPage"
-                (pageChanged)="pageChanged($event)"
-                [itemsPerPage]="itemsPerPage"></pagination>
+                [totalItems]="meta.total"
+                [ngModel]="meta.number"
+                [itemsPerPage]="meta.size"
+                (pageChanged)="pageChanged($event)"></pagination>
   </div>
 
   <div class="col-md-3 text-right">
@@ -14,8 +14,8 @@
       <button ngDefaultControl
               class="btn btn-secondary"
               *ngFor="let item of sizes"
-              [ngClass]="{'active' : item == itemsPerPage}"
-              (click)="changeItemsPerPage(item)"> {{ item }}
+              [ngClass]="{ 'active' : item === meta.size }"
+              (click)="sizeChanged(item)"> {{ item }}
       </button>
     </div>
   </div>

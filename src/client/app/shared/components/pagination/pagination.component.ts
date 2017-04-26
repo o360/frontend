@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { IQueryParams } from '../../../core/services/rest.service';
+import { IQueryParams, IResponseMeta } from '../../../core/services/rest.service';
 
-const supportedSizes: number[] = [10, 50, 100];
-const defaultPage: number = 1;
+export const supportedSizes: number[] = [10, 50, 100];
+export const defaultPage: number = 1;
 
 @Component({
   moduleId: module.id,
@@ -12,11 +12,9 @@ const defaultPage: number = 1;
 export class PaginationComponent {
   protected readonly _sizes: number[] = supportedSizes;
 
-  protected _pageNumberChanged: EventEmitter<any> = new EventEmitter<any>();
+  protected _meta: IResponseMeta;
 
-  protected _totalItems: number;
-  private _currentPage: number;
-  private _itemsPerPage: number;
+  protected _queryParamsChange: EventEmitter<IQueryParams> = new EventEmitter<IQueryParams>();
 
 
   public get sizes(): number[] {
@@ -24,49 +22,29 @@ export class PaginationComponent {
   }
 
   @Input()
-  public set totalItems(value: number) {
-    this._totalItems = value;
+  public set meta(value: IResponseMeta) {
+    this._meta = value;
   }
 
-  public get totalItems(): number {
-    return this._totalItems;
-  }
-
-  @Input()
-  public set currentPage(value: number) {
-    this._currentPage = value;
-  }
-
-  public get itemsPerPage(): number {
-    return this._itemsPerPage;
-  }
-
-  @Input()
-  public set itemsPerPage(value: number) {
-    this._itemsPerPage = value;
+  public get meta(): IResponseMeta {
+    return this._meta;
   }
 
   @Output()
-  public get pageNumberChanged(): EventEmitter<any> {
-    return this._pageNumberChanged;
+  public get queryParamsChange(): EventEmitter<IQueryParams> {
+    return this._queryParamsChange;
   }
 
-  public pageChanged(event: any) {
-    this._currentPage = event.page;
-    this._getParams();
+  public pageChanged({ page }: any) {
+    this._queryParamsChange.emit({
+      number: page.toString()
+    });
   }
 
-  public changeItemsPerPage(quantity: number) {
-    this._itemsPerPage = quantity;
-    this._getParams();
-  }
-
-  protected _getParams() {
-    let params: IQueryParams = {
-      'size': this._itemsPerPage.toString(),
-      'number': this._currentPage.toString()
-    };
-    this._pageNumberChanged.emit(params);
+  public sizeChanged(size: number) {
+    this._queryParamsChange.emit({
+      size: size.toString()
+    });
   }
 }
 
