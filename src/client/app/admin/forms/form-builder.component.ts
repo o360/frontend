@@ -11,8 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class FormBuilderComponent extends FormComponent<FormModel> {
   protected _returnPath = ['/admin/forms'];
-
-  private _elementTypes: string[] = Object.values(FormElementType);
+  protected _elementTypes: string[] = Object.values(FormElementType);
 
   public get elementTypes(): string[] {
     return this._elementTypes;

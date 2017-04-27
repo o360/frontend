@@ -1,17 +1,15 @@
-<div class="card" *ngIf="isLoaded">
-  <div class="card-header">
-    <b [ngSwitch]="editMode">
-      <ng-template [ngSwitchCase]="true">{{ 'T_ACTION_EDIT' | translate }}
-        <span *ngIf="model">{{ model.name }}</span>
-      </ng-template>
-      <ng-template ngSwitchDefault>{{ 'T_ACTION_CREATE' | translate }}</ng-template>
-    </b>
-  </div>
-  <div class="card-block">
-
-    <form class="form form-horizontal"
-          (ngSubmit)="save();" #formBuilder="ngForm">
-
+<form class="form form-horizontal" *ngIf="isLoaded"
+      (ngSubmit)="save();" #formBuilder="ngForm">
+  <div class="card mb-1">
+    <div class="card-header">
+      <b [ngSwitch]="editMode">
+        <ng-template [ngSwitchCase]="true">{{ 'T_ACTION_EDIT' | translate }}
+          <span *ngIf="model">{{ model.name }}</span>
+        </ng-template>
+        <ng-template ngSwitchDefault>{{ 'T_ACTION_CREATE' | translate }}</ng-template>
+      </b>
+    </div>
+    <div class="card-block">
       <!-- Name -->
       <div class="form-group row"
            [ngClass]="{'has-success': name.valid, 'has-danger': !name.valid && name.touched }">
@@ -34,34 +32,53 @@
           </div>
         </div>
       </div>
+    </div>
+  </div>
+  <div class="card card-default">
+    <div class="card-header">
+      {{ 'T_FORM_BUILDER_TITLE' | translate }}
+    </div>
 
-
-      <div class="card card-default">
-        <div class="card-header">
-          {{ 'T_FORM_BUILDER_TITLE' | translate }}
+    <div class="card-block">
+      <div class="row">
+        <div class="col-md-4 col-lg-2">
+          <div *ngFor="let kind of elementTypes;">
+            <button type="button"
+                    class="btn btn-primary btn-block mb-1 text-left"
+                    (click)="addElement(kind)">
+              <i class="fa fa-plus"></i> {{ 'T_FORM_ELEMENT_TYPE_' + kind.toUpperCase() | translate }}
+            </button>
+          </div>
         </div>
+        <div class="col-md-8 col-lg-10">
 
-        <div class="card-block">
-          <div class="row">
-            <div class="col-md-4">
-              <div *ngFor="let kind of elementTypes">
-                <button type="button"
-                        class="btn btn-primary btn-block"
-                        (click)="addElement(kind)">
-                  <i class="icon-plus"></i> {{ 'T_FORM_ELEMENT_TYPE_' + kind.toUpperCase() | translate }}
-                </button>
+          <accordion [closeOthers]="true">
+            <accordion-group *ngFor="let item of model.elements;  let i = index;"
+                             [ngClass]="{'card-danger': (item.caption === '') || ((item.kind === FormElementType.Select || item.kind === FormElementType.Checkboxgroup || item.kind === FormElementType.Radio) && !item.values.length) }">
+              <div class="accordion-heading row" accordion-heading>
+                <span class="col-6">{{ 'T_FORM_ELEMENT_TYPE_' + item.kind.toUpperCase() | translate }} <b>{{ item.caption }}</b></span>
+                <span class="ml-auto">
+                  <div class="btn-group" role="group" aria-label="Action buttons">
+                    <button type="button" class="btn btn-link btn-sm">
+                      <i class="icon-arrow-down"></i>
+                    </button>
+                    <button type="button" class="btn btn-link btn-sm" (click)="deleteElement(item);">
+                      <i class="icon-trash"></i>
+                    </button>
+                  </div>
+                </span>
               </div>
-            </div>
-            <div class="col-md-8">
-              <accordion [closeOthers]="true">
-                <accordion-group *ngFor="let item of model.elements"
-                                 heading="{{ 'T_FORM_ELEMENT_TYPE_' + item.kind.toUpperCase() | translate }} - {{ item.caption }}"
-                                 [ngSwitch]="item.kind">
+
+              <div class="panel-collapse collapse in show" role="tabpanel" style="display: block; overflow: visible; height: auto;"
+                   aria-expanded="true" aria-hidden="false">
+                <div class="panel-body card-block"
+                     [ngSwitch]="item.kind">
                   <div class="input-group mb-1"
                        [ngClass]="{'has-success': caption.valid, 'has-danger': !caption.valid && caption.touched }">
-                    <label class="col-md-3 required" for="caption{{ model.elements.indexOf(item) }}">{{ 'T_FORM_CAPTION' | translate}}</label>
-                    <input id="caption{{ model.elements.indexOf(item) }}"
-                           name="caption{{ model.elements.indexOf(item) }}"
+                    <label class="col-md-3 required" for="caption{{ i }}">{{ 'T_FORM_CAPTION' |
+                      translate}}</label>
+                    <input id="caption{{ i }}"
+                           name="caption{{ i }}"
                            type="text"
                            #caption="ngModel"
                            class="form-control col-md-9"
@@ -77,9 +94,9 @@
                   <!--Textfield-->
                   <ng-template [ngSwitchCase]="FormElementType.Textfield">
                     <div class="checkbox mb-1">
-                      <label class="col-md-3" for="required{{ model.elements.indexOf(item) }}">{{ 'T_FORM_REQUIRED' | translate}}</label>
-                      <input id="required{{ model.elements.indexOf(item) }}"
-                             name="required{{ model.elements.indexOf(item) }}"
+                      <label class="col-md-3" for="required{{ i }}">{{ 'T_FORM_REQUIRED' | translate}}</label>
+                      <input id="required{{ i }}"
+                             name="required{{ i }}"
                              type="checkbox"
                              class=""
                              [(ngModel)]="item.required">
@@ -89,9 +106,9 @@
                   <!--Textarea-->
                   <ng-template [ngSwitchCase]="FormElementType.Textarea">
                     <div class="checkbox mb-1">
-                      <label class="col-md-3" for="required{{ model.elements.indexOf(item) }}">{{ 'T_FORM_REQUIRED' | translate}}</label>
-                      <input id="required{{ model.elements.indexOf(item) }}"
-                             name="required{{ model.elements.indexOf(item) }}"
+                      <label class="col-md-3" for="required{{ i }}">{{ 'T_FORM_REQUIRED' | translate}}</label>
+                      <input id="required{{ i }}"
+                             name="required{{ i }}"
                              type="checkbox"
                              class=""
                              [(ngModel)]="item.required">
@@ -100,27 +117,30 @@
 
                   <!-- Radio -->
                   <ng-template [ngSwitchCase]="FormElementType.Radio">
-                    <form #newRadioValueForm="ngForm" (ngSubmit)="addValue(item, newCaption.value, newValue.value); newRadioValueForm.reset();">
-                      <h6>{{ 'T_FORM_ADD_NEW_VALUE' | translate }}</h6>
+                    <h6>{{ 'T_FORM_ADD_NEW_VALUE' | translate }}</h6>
+                    <form class="form form-horizontal"
+                          (ngSubmit)="addValue(item, newCaption.value, newValue.value);"
+                          #addElementValue="ngForm">
                       <div class="input-group mb-1">
-                        <label class="col-md-3" for="valueCaption{{ model.elements.indexOf(item) }}">{{ 'T_FORM_CAPTION' | translate}}</label>
+                        <label class="col-md-3" for="valueCaption{{ i }}">{{ 'T_FORM_CAPTION' | translate}}</label>
                         <input #newCaption
-                               id="valueCaption{{ model.elements.indexOf(item) }}"
+                               id="valueCaption{{ i }}"
                                type="text"
                                class="form-control col-md-9">
                       </div>
                       <div class="input-group mb-1">
-                        <label class="col-md-3" for="valueValue{{ model.elements.indexOf(item) }}">{{ 'T_FORM_VALUE' | translate }}</label>
+                        <label class="col-md-3" for="valueValue{{ i }}">{{ 'T_FORM_VALUE' | translate }}</label>
                         <input #newValue
-                               id="valueValue{{ model.elements.indexOf(item) }}"
+                               id="valueValue{{ i }}"
                                type="text"
                                class="form-control col-md-9">
                       </div>
-
-                      <button type="submit"
-                              class="btn btn-block btn-success">
-                        <i class="icon-plus"></i> {{ 'T_ACTION_ADD' | translate }}
-                      </button>
+                      <div class="text-right">
+                        <button #addElementButton type="submit" class="btn btn-sm btn-success"
+                                [disabled]="!(newValue.value !== '') || !(newCaption.value !== '')">
+                          <i class="icon-plus"></i> {{ 'T_ACTION_ADD' | translate }}
+                        </button>
+                      </div>
                     </form>
 
                     <table class="table table-striped mt-1">
@@ -132,9 +152,11 @@
                           <td>{{ value.caption }}</td>
                           <td>{{ value.value }}</td>
                           <td>
-                            <button class="btn-sm btn btn-danger"
+                            <button type="button"
+                                    class="btn btn-danger btn-sm"
                                     (click)="deleteValue(item, value)">
-                              <i class="icon-ban"></i></button>
+                              {{ 'T_ACTION_DELETE' | translate }}
+                            </button>
                           </td>
                         </tr>
                         <tr *ngIf="!item.values.length">
@@ -151,25 +173,32 @@
                   <!-- Checkbox group -->
                   <ng-template [ngSwitchCase]="FormElementType.Checkboxgroup">
                     <h6>{{ 'T_FORM_ADD_NEW_VALUE' | translate }}</h6>
-                    <div class="input-group mb-1">
-                      <label class="col-md-3" for="valueCaption{{ model.elements.indexOf(item) }}">{{ 'T_FORM_CAPTION' | translate}}</label>
-                      <input #newCaption
-                             id="valueCaption{{ model.elements.indexOf(item) }}"
-                             type="text"
-                             class="form-control col-md-9">
-                    </div>
-                    <div class="input-group mb-1">
-                      <label class="col-md-3" for="valueValue{{ model.elements.indexOf(item) }}">{{ 'T_FORM_VALUE' | translate }}</label>
-                      <input #newValue
-                             id="valueValue{{ model.elements.indexOf(item) }}"
-                             type="text"
-                             class="form-control col-md-9">
-                    </div>
-
-                    <button class="btn btn-block btn-success"
-                            (click)="addValue(item, newCaption.value, newValue.value)">
-                      <i class="icon-plus"></i> {{ 'T_ACTION_ADD' | translate }}
-                    </button>
+                    <form class="form form-horizontal"
+                          (ngSubmit)="addValue(item, newCaption.value, newValue.value);"
+                          #addElementValue="ngForm">
+                      <div class="input-group mb-1">
+                        <label class="col-md-3" for="valueCaption{{ i }}">{{ 'T_FORM_CAPTION' | translate}}</label>
+                        <input #newCaption
+                               required
+                               id="valueCaption{{ i }}"
+                               type="text"
+                               class="form-control col-md-9">
+                      </div>
+                      <div class="input-group mb-1">
+                        <label class="col-md-3" for="valueValue{{ i }}">{{ 'T_FORM_VALUE' | translate }}</label>
+                        <input #newValue
+                               required
+                               id="valueValue{{ i }}"
+                               type="text"
+                               class="form-control col-md-9">
+                      </div>
+                      <div class="text-right">
+                        <button #addElementButton type="submit" class="btn btn-sm btn-success"
+                                [disabled]="!(newValue.value !== '') || !(newCaption.value !== '')">
+                          <i class="icon-plus"></i> {{ 'T_ACTION_ADD' | translate }}
+                        </button>
+                      </div>
+                    </form>
 
                     <table class="table table-striped mt-1">
                       <th>{{ 'T_FORM_CAPTION' | translate}}</th>
@@ -180,9 +209,11 @@
                           <td>{{ value.caption }}</td>
                           <td>{{ value.value }}</td>
                           <td>
-                            <button class="btn-sm btn btn-danger"
+                            <button type="button"
+                                    class="btn btn-danger btn-sm"
                                     (click)="deleteValue(item, value)">
-                              <i class="icon-ban"></i></button>
+                              {{ 'T_ACTION_DELETE' | translate }}
+                            </button>
                           </td>
                         </tr>
                         <tr *ngIf="!item.values.length">
@@ -199,25 +230,30 @@
                   <!-- Select -->
                   <ng-template [ngSwitchCase]="FormElementType.Select">
                     <h6>{{ 'T_FORM_ADD_NEW_VALUE' | translate }}</h6>
-                    <div class="input-group mb-1">
-                      <label class="col-md-3" for="valueCaption{{ model.elements.indexOf(item) }}">{{ 'T_FORM_CAPTION' | translate}}</label>
-                      <input #newCaption
-                             id="valueCaption{{ model.elements.indexOf(item) }}"
-                             type="text"
-                             class="form-control col-md-9">
-                    </div>
-                    <div class="input-group mb-1">
-                      <label class="col-md-3" for="valueValue{{ model.elements.indexOf(item) }}">{{ 'T_FORM_VALUE' | translate }}</label>
-                      <input #newValue
-                             id="valueValue{{ model.elements.indexOf(item) }}"
-                             type="text"
-                             class="form-control col-md-9">
-                    </div>
-
-                    <button class="btn btn-block btn-success"
-                            (click)="addValue(item, newCaption.value, newValue.value)">
-                      <i class="icon-plus"></i> {{ 'T_ACTION_ADD' | translate }}
-                    </button>
+                    <form class="form form-horizontal"
+                          (ngSubmit)="addValue(item, newCaption.value, newValue.value);"
+                          #addElementValue="ngForm">
+                      <div class="input-group mb-1">
+                        <label class="col-md-3" for="valueCaption{{ i }}">{{ 'T_FORM_CAPTION' | translate}}</label>
+                        <input #newCaption
+                               id="valueCaption{{ i }}"
+                               type="text"
+                               class="form-control col-md-9">
+                      </div>
+                      <div class="input-group mb-1">
+                        <label class="col-md-3" for="valueValue{{ i }}">{{ 'T_FORM_VALUE' | translate }}</label>
+                        <input #newValue
+                               id="valueValue{{ i }}"
+                               type="text"
+                               class="form-control col-md-9">
+                      </div>
+                      <div class="text-right">
+                        <button #addElementButton type="submit" class="btn btn-sm btn-success"
+                                [disabled]="!(newValue.value !== '') || !(newCaption.value !== '')">
+                          <i class="icon-plus"></i> {{ 'T_ACTION_ADD' | translate }}
+                        </button>
+                      </div>
+                    </form>
 
                     <table class="table table-striped mt-1">
                       <th>{{ 'T_FORM_CAPTION' | translate}}</th>
@@ -228,9 +264,11 @@
                           <td>{{ value.caption }}</td>
                           <td>{{ value.value }}</td>
                           <td>
-                            <button class="btn-sm btn btn-danger"
+                            <button type="button"
+                                    class="btn btn-danger btn-sm"
                                     (click)="deleteValue(item, value)">
-                              <i class="icon-ban"></i></button>
+                              {{ 'T_ACTION_DELETE' | translate }}
+                            </button>
                           </td>
                         </tr>
                         <tr *ngIf="!item.values.length">
@@ -243,16 +281,18 @@
                       <div class="form-control-feedback alert alert-danger">{{ 'T_FORM_VALUES_ARE_REQUIRED' | translate }}</div>
                     </div>
                   </ng-template>
-
-                  <button class="btn btn-danger btn-sm"
-                          (click)="deleteElement(item);">
-                    <i class="icon-trash"></i>
-                    {{ 'T_ACTION_DELETE' | translate }}
-                  </button>
-                </accordion-group>
-              </accordion>
-            </div>
-          </div>
+                  <div class="text-right">
+                    <button type="button"
+                            class="btn btn-danger btn-sm"
+                            (click)="deleteElement(item);">
+                      <i class="icon-trash"></i>
+                      {{ 'T_ACTION_DELETE' | translate }} {{ ('T_FORM_ELEMENT_TYPE_' + item.kind.toUpperCase() | translate).toLowerCase() }}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </accordion-group>
+          </accordion>
         </div>
       </div>
       <hr/>
@@ -267,7 +307,8 @@
           </span>
         </button>
       </div>
-
-    </form>
+    </div>
   </div>
-</div>
+</form>
+
+
