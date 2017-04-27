@@ -11,9 +11,8 @@ import { Observable } from 'rxjs/Observable';
   entityConstructor: GroupModel
 })
 export class GroupService extends RestService<GroupModel> {
-  public userToGroup(groupId?: ModelId, userId?: ModelId): Observable<void> {
-    let requestGroup = 'users';
-    let requestParams = this._getRequestParams(groupId, {}, userId, requestGroup);
+  public addUser(groupId?: ModelId, userId?: ModelId): Observable<void> {
+    let requestParams = `${this._getRequestParams(groupId)}/users/${userId}`;
     let json = {
       "groupId": groupId,
       "userId": userId
@@ -26,9 +25,8 @@ export class GroupService extends RestService<GroupModel> {
       .catch((error: Response) => this._handleErrors(error));
   }
 
-  public userRemoveFromGroup(groupId?: ModelId, userId?: ModelId): Observable<void> {
-    let requestGroup = 'users';
-    let requestParams = this._getRequestParams(groupId, {}, userId, requestGroup);
+  public removeUser(groupId?: ModelId, userId?: ModelId): Observable<void> {
+    let requestParams = `${this._getRequestParams(groupId)}/users/${userId}`;
     let requestOptions = this._getRequestOptions();
 
     return this._http.delete(requestParams, requestOptions)

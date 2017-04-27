@@ -1,21 +1,76 @@
 <div class="card">
   <div class="card-header"><b>{{ 'T_USERS' | translate }}</b></div>
-  <div class="card-block">
-    <button *ngIf="concreteList"
-            class="btn btn-primary"
+  <div class="card-block" *ngIf="isLoaded">
+    <button class="btn btn-primary"
             type="button"
-            [routerLink]="['/admin/groups/user-list/', { groupId: groupId }]"
-            title="{{ 'T_ACTION_ADD_USERS_TO_GROUP' | translate }}"><i class="fa fa-user"></i>
+            (click)="addingModal.show(); changeState('addMode')"
+            title="{{ 'T_ACTION_ADD_USERS_TO_GROUP' | translate }}"><i class="fa fa-user mr-h"></i>
       {{ 'T_ACTION_ADD_USERS_TO_GROUP' | translate }}
     </button>
-    <button *ngIf="!concreteList"
-            class="btn btn-primary"
-            type="button"
-            [routerLink]="['/admin/groups/', { groupId: groupId }]"
-            title="{{ 'T_ACTION_GO_BACK' | translate }}"><i class="fa fa-arrow-left"></i>
-      {{ 'T_ACTION_GO_BACK' | translate }}
-    </button>
-    <table class="table table-striped mt-1" *ngIf="isLoaded">
+
+    <!-- Adding user to group modal-->
+    <div bsModal #addingModal="bs-modal" class="modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title pull-left">{{ 'T_USERS' | translate }}</h4>
+            <button type="button" class="close pull-right" aria-label="Close" (click)="addingModal.hide(); changeState()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <table class="table table-striped mt-1">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>{{ 'T_USER_NAME' | translate }}</th>
+                  <th>{{ 'T_USER_EMAIL' | translate }}</th>
+                  <th>{{ 'T_USER_ROLE' | translate }}</th>
+                  <th>{{ 'T_USER_STATUS' | translate }}</th>
+                  <th class="actions-column">{{ 'T_ACTION' | translate }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let model of list">
+                  <td>{{ model.id }}</td>
+                  <td><a [routerLink]="['/admin/users', model.id]">{{ model.name }}</a></td>
+                  <td>{{ model.email }}</td>
+                  <td>
+            <span class="badge badge-md badge-pill"
+                  [ngClass]="{ 'badge-danger': model.role === 'admin',
+                               'badge-default': model.role === 'user' }">
+            {{ 'T_USER_ROLE_' + model.role.toUpperCase() | translate }}</span>
+                  </td>
+                  <td>
+            <span class="badge badge-md badge-pill"
+                  [ngClass]="{ 'badge-primary': model.status === 'new',
+                               'badge-success': model.status === 'approved' }">
+              {{ 'T_USER_STATUS_' + model.status.toUpperCase() | translate }}</span>
+                  </td>
+                  <td class="actions-column">
+                    <button type="button"
+                            class="btn btn-sm btn-primary ml-1"
+                            (click)="addUser(model.id); addingModal.show()">
+                      <i class="fa fa-user mr-h"></i>{{ 'T_ACTION_ADD_USER' | translate }}
+                    </button>
+                  </td>
+                </tr>
+
+                <tr *ngIf="!list.length">
+                  <td colspan="25" class="text-center">{{ 'T_EMPTY' | translate }}</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <bs-pagination [meta]="meta"
+                           (queryParamsChange)="pageQueryParamsChanged($event)"></bs-pagination>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--Group user list-->
+    <table class="table table-striped mt-1">
       <thead>
         <tr>
           <th>#</th>
@@ -44,22 +99,12 @@
               {{ 'T_USER_STATUS_' + model.status.toUpperCase() | translate }}</span>
           </td>
           <td class="actions-column">
-            <button *ngIf="!concreteList"
-                    type="button"
-                    class="btn btn-sm btn-primary ml-1"
-                    (click)="addUser(model.id)">
-
-              <i class="fa fa-user"></i>&nbsp;
-              {{ 'T_ACTION_ADD_USER' | translate }}
-            </button>
-            <button *ngIf="concreteList"
-                    type="button"
+            <button type="button"
                     class="btn btn-sm btn-danger ml-1"
                     bsConfirm
                     (confirm)="delete(groupId, model.id)">
-
               <i class="fa fa-trash"></i>&nbsp;
-              {{ 'T_ACTION_DELETE' | translate }}
+              {{ 'T_ACTION_REMOVE' | translate }}
             </button>
           </td>
         </tr>
@@ -69,5 +114,8 @@
         </tr>
       </tbody>
     </table>
+
+    <bs-pagination [meta]="meta"
+                   (queryParamsChange)="pageQueryParamsChanged($event)"></bs-pagination>
   </div>
 </div>

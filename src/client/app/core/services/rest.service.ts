@@ -155,7 +155,7 @@ export class RestService<T extends Model> {
    * @params {number} id
    * @return {Observable<T>}
    */
-  protected _getRequestParams(id?: ModelId, params?: IQueryParams, anotherId?: ModelId, entity?: string) {
+  protected _getRequestParams(id?: ModelId, params?: IQueryParams) {
     let path: string[] = [];
 
     path.push(this._host);
@@ -164,11 +164,6 @@ export class RestService<T extends Model> {
 
     if (id !== undefined) {
       path.push(id.toString());
-    }
-
-    if (anotherId !== undefined && entity !== undefined) {
-      path.push(entity);
-      path.push(anotherId.toString());
     }
 
     path = path.filter(part => part && part !== '');

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { SharedModule } from '../../shared/shared.module';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { GroupListComponent } from './group-list.component';
 import { GroupsRoutingModule } from './groups-routing.module';
 import { GroupDetailsComponent } from './group-details.component';
@@ -9,7 +10,8 @@ import { GroupUserListComponent } from './group-user-list.component';
 @NgModule({
   imports: [
     SharedModule,
-    GroupsRoutingModule
+    GroupsRoutingModule,
+    ModalModule.forRoot()
   ],
   declarations: [
     GroupListComponent,
