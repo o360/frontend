@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { UserModel } from '../core/models/user-model';
+import { UserGender, UserModel } from '../core/models/user-model';
 import { AuthService } from '../core/services/auth.service';
 import { UserService } from '../core/services/user.service';
 import { FormComponent } from '../shared/components/form.component';
@@ -12,6 +12,11 @@ import { FormComponent } from '../shared/components/form.component';
 })
 export class UserProfileFormComponent extends FormComponent<UserModel> implements OnInit {
   protected _returnPath = ['/profile'];
+  protected _genders: string[] = Object.values(UserGender);
+
+  public get genders(): string[] {
+    return this._genders;
+  }
 
   constructor(service: UserService,
               router: Router,
