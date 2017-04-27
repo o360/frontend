@@ -1,0 +1,54 @@
+<div class="card" *ngIf="relation">
+  <div class="card-header"><b>{{ 'T_DETAILS' | translate }}</b></div>
+  <div class="card-block">
+    <div class="row">
+      <div class="col-md-1 text-right">
+        <button type="button"
+                class="btn btn-md btn-primary"
+                (click)="formModal.show()">{{ 'T_ACTION_EDIT' | translate }}
+        </button>
+      </div>
+    </div>
+
+    <div class="row mt-1">
+      <div class="col-md-3">
+        <small class="text-muted">{{ 'T_PROJECT_RELATION_RATING_GROUP' | translate}}</small>
+        <div class="h6">{{ relation.groupFrom }}</div>
+      </div>
+
+      <div class="col-md-3">
+        <small class="text-muted">{{ 'T_PROJECT_RELATION_ASSESSMENT_GROUP' | translate}}</small>
+        <div class="h6">{{ relation.groupTo }}</div>
+      </div>
+
+      <div class="col-md-3">
+        <small class="text-muted">{{ 'T_PROJECT_RELATION_EVALUATION_FORM' | translate}}</small>
+        <div class="h6">{{ relation.form }}</div>
+      </div>
+
+      <div class="col-md-3">
+        <small class="text-muted">{{ 'T_PROJECT_RELATION_KIND' | translate}}</small>
+        <div class="h6">{{ 'T_PROJECT_RELATION_KIND_' + relation.kind.toUpperCase() | translate }}</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Modal with relation form -->
+<div bsModal #formModal="bs-modal" class="modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+     aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">{{ 'T_PROJECT_RELATION' | translate }}</h4>
+        <button type="button" class="close pull-right" (click)="formModal.hide(); _update()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <bs-project-relation-form [index]="index"></bs-project-relation-form>
+      </div>
+    </div>
+  </div>
+</div>

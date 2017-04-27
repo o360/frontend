@@ -1,14 +1,13 @@
 <div class="card">
   <div class="card-header"><b>{{ 'T_PROJECTS' | translate }}</b></div>
-  <div class="card-block">
+  <div class="card-block" *ngIf="isLoaded">
     <button class="btn btn-primary"
             type="button"
             title="{{ 'T_ACTION_CREATE' | translate }}"
             [routerLink]="['/admin/projects/create']"><i class="fa fa-folder"></i>
       {{ 'T_ACTION_CREATE' | translate }}
     </button>
-    <table class="table table-striped mt-1" *ngIf="isLoaded">
-
+    <table class="table table-striped mt-1">
       <thead>
         <tr>
           <th>#</th>
@@ -40,10 +39,12 @@
                     (confirm)="delete(model.id)"><i class="fa fa-trash"></i>&nbsp;{{ 'T_ACTION_DELETE' | translate }}
             </button>
           </td>
-
         </tr>
 
       </tbody>
     </table>
+
+    <bs-pagination [meta]="meta"
+                   (queryParamsChange)="pageQueryParamsChanged($event)"></bs-pagination>
   </div>
 </div>

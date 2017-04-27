@@ -1,7 +1,7 @@
 <div class="card" *ngIf="isLoaded">
   <div class="card-block">
     <form class="form form-horizontal"
-          (ngSubmit)="addRelation(relation); groupForm.reset()" #groupForm="ngForm">
+          (ngSubmit)="addRelation(model); groupForm.reset()" #groupForm="ngForm">
 
       <!-- Group From -->
       <div class="form-group row"
@@ -16,7 +16,7 @@
                   class="form-control"
                   #groupFrom="ngModel"
                   required
-                  [(ngModel)]="relation.groupFrom">
+                  [(ngModel)]="model.groupFrom">
             <option *ngFor="let group of groups"
                     [ngValue]="group.id">
               {{group.name}}
@@ -38,7 +38,7 @@
                   class="form-control"
                   #groupTo="ngModel"
                   required
-                  [(ngModel)]="relation.groupTo">
+                  [(ngModel)]="model.groupTo">
             <option *ngFor="let group of groups"
                     [ngValue]="group.id">
               {{group.name}}
@@ -60,7 +60,7 @@
                   class="form-control"
                   #evalForm="ngModel"
                   required
-                  [(ngModel)]="relation.form">
+                  [(ngModel)]="model.form">
             <option *ngFor="let form of evalForms"
                     [ngValue]="form.id">
               {{form.name}}
@@ -82,7 +82,7 @@
                   class="form-control"
                   #kind="ngModel"
                   required
-                  [(ngModel)]="relation.kind">
+                  [(ngModel)]="model.kind">
             <option *ngFor="let kind of kinds"
                     [ngValue]="kind">
               {{kind}}
@@ -97,7 +97,7 @@
         <button type="submit"
                 class="btn btn-primary mt-0"
                 [disabled]="!groupForm.valid">
-          <span [ngSwitch]="editMode">
+          <span [ngSwitch]="index !== undefined">
             <ng-template [ngSwitchCase]="true">{{ 'T_ACTION_UPDATE' | translate }}</ng-template>
             <ng-template ngSwitchDefault>{{ 'T_ACTION_CREATE' | translate }}</ng-template>
           </span>

@@ -5,6 +5,7 @@ import { ProjectModel } from '../../core/models/project-model';
 import { ProjectService } from '../../core/services/project.service';
 import { GroupModel } from '../../core/models/group-model';
 import { GroupService } from '../../core/services/group.service';
+import { IListResponse } from '../../core/services/rest.service';
 
 
 @Component({
@@ -28,8 +29,8 @@ export class ProjectFormComponent extends FormComponent<ProjectModel> {
   }
 
   protected _load() {
-    this._groupService.list().subscribe((list: GroupModel[]) => {
-      this._auditors = list;
+    this._groupService.list().subscribe((list: IListResponse<GroupModel>) => {
+      this._auditors = list.data;
       super._load();
     });
   }

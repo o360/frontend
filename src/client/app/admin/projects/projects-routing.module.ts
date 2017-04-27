@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 import { ProjectListComponent } from './project-list.component';
 import { ProjectFormComponent } from './project-form.component';
 import { ProjectDetailsComponent } from './project-details.component';
+import { ProjectRelationDetailsComponent } from './project-relation-details.component';
 
 @NgModule({
   imports: [
@@ -17,7 +18,11 @@ import { ProjectDetailsComponent } from './project-details.component';
     }, {
       path: ':id',
       component: ProjectDetailsComponent,
-      data: { breadcrumbIgnore: true },
+      data: { breadcrumb: 'T_PROJECT_DETAILS' },
+    }, {
+      path: ':id/details',
+      component: ProjectRelationDetailsComponent,
+      data: {  breadcrumb: 'T_PROJECT_RELATION_DETAILS' },
     }, {
       path: ':id/edit',
       component: ProjectFormComponent,

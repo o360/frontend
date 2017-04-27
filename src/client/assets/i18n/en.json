@@ -10,6 +10,7 @@
   "T_ACTION_REMOVE": "Remove",
   "T_ACTION_EDIT": "Edit",
   "T_ACTION_UPDATE": "Update",
+  "T_ACTION_DETAILS": "Details",
   "T_ACTION_GO_BACK": "Go back",
   "T_ACTION_APPROVE": "Approve",
   "T_ACTION_CREATE_CHILD_GROUP": "Create child group",
@@ -85,6 +86,7 @@
   "T_PROJECT_NAME": "Project name",
   "T_PROJECT_DESCRIPTION": "Description",
   "T_PROJECT_AUDITOR": "Auditor",
+  "T_PROJECT_DETAILS": "Details of project",
   "T_PROJECT_RELATIONS": "Relations",
   "T_PROJECT_RELATION": "Relation",
   "T_PROJECT_RELATION_RATING_GROUP": "Rating group",
@@ -92,5 +94,6 @@
   "T_PROJECT_RELATION_EVALUATION_FORM": "Evaluation form",
   "T_PROJECT_RELATION_KIND": "Kind",
   "T_PROJECT_RELATION_KIND_CLASSIC": "Regular",
-  "T_PROJECT_RELATION_KIND_SURVEY": "Survey"
+  "T_PROJECT_RELATION_KIND_SURVEY": "Survey",
+  "T_PROJECT_RELATION_DETAILS": "Details of project relation"
 }

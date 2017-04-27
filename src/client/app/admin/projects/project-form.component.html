@@ -44,12 +44,12 @@
         </label>
         <div class="col-md-9">
           <textarea type="description"
-                 class="form-control"
-                 id="description"
-                 name="description"
-                 #description="ngModel"
-                 placeholder="{{ 'T_FORM_ENTER_DESCRIPTION' | translate }}"
-                    [(ngModel)]="model.description" > </textarea>
+                    class="form-control"
+                    id="description"
+                    name="description"
+                    #description="ngModel"
+                    placeholder="{{ 'T_FORM_ENTER_DESCRIPTION' | translate }}"
+                    [(ngModel)]="model.description"> </textarea>
           <div class="form-errors"
                *ngIf="description.errors && description.touched">
             <div class="form-control-feedback" *ngIf="description.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}</div>
