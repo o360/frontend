@@ -2,8 +2,8 @@
             (filterChange)="filterChange($event)"></bs-filters>
 <div class="card">
   <div class="card-header"><b>{{ 'T_USERS' | translate }}</b></div>
-  <div class="card-block">
-    <table class="table table-striped mt-1" *ngIf="isLoaded">
+  <div class="card-block" *ngIf="isLoaded">
+    <table class="table table-striped mt-1">
       <thead>
         <tr>
           <th>#</th>
@@ -62,5 +62,10 @@
         </tr>
       </tbody>
     </table>
+
+    <bs-pagination [meta]="meta"
+                   (queryParamsChange)="pageQueryParamsChanged($event)"></bs-pagination>
   </div>
 </div>
+
+

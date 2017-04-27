@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import { Config } from '../../shared/config/env.config';
 import { Model, ModelId } from '../models/model';
 import { AuthService } from './auth.service';
-import { RestService } from './rest.service';
+import { IListResponse, RestService } from './rest.service';
 import { NotificationService } from './notification.service';
 
 @Injectable()
@@ -17,7 +17,7 @@ export class FirebaseRestService<T extends Model> extends RestService<T> {
     super(http, authService, router, notificationService);
   }
 
-  public list(): Observable<T[]> {
+  public list(): Observable<IListResponse<T>> {
     return this._http.get(this._getRequestParams(), this._getRequestOptions())
       .map((response: Response) => {
         let values: T[] = [];
@@ -26,7 +26,7 @@ export class FirebaseRestService<T extends Model> extends RestService<T> {
           item.id = key;
           values.push(item);
         }
-        return values;
+        return { data: values, meta: { number: 1, size: values.length, total: values.length } };
       }).catch((error: any) => this._handleErrors(error));
   }
 

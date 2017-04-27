@@ -4003,6 +4003,10 @@ negotiator@0.6.1:
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/negotiator/-/negotiator-0.6.1.tgz#2b327184e8992101177b28563fb5e7102acd0ca9"
 
+ng2-toastr@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/ng2-toastr/-/ng2-toastr-4.0.1.tgz#87d5ea60e4fd0ff3626980a3c1bd9c76dc06bfdc"
+
 ngx-bootstrap@^1.6.5:
   version "1.6.5"
   resolved "https://registry.yarnpkg.com/ngx-bootstrap/-/ngx-bootstrap-1.6.5.tgz#cb5b2d1af5828a24fe049e0942a4899cdfea4e9c"
