@@ -16,10 +16,6 @@ import { GroupUserListComponent } from './group-user-list.component';
       component: GroupFormComponent,
       data: { breadcrumb: 'T_ACTION_CREATE' },
     }, {
-      path: 'user-list',
-      component: GroupUserListComponent,
-      data: { breadcrumb: 'T_USERS' },
-    }, {
       path: ':id',
       component: GroupDetailsComponent,
       data: { breadcrumbIgnore: true },
