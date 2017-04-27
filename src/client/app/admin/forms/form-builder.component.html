@@ -41,7 +41,7 @@
 
     <div class="card-block">
       <div class="row">
-        <div class="col-md-4 col-lg-2">
+        <div class="col-md-4 col-lg-3">
           <div *ngFor="let kind of elementTypes;">
             <button type="button"
                     class="btn btn-primary btn-block mb-1 text-left"
@@ -50,13 +50,15 @@
             </button>
           </div>
         </div>
-        <div class="col-md-8 col-lg-10">
+        <div class="col-md-8 col-lg-9">
 
           <accordion [closeOthers]="true">
-            <accordion-group *ngFor="let item of model.elements;  let i = index;"
-                             [ngClass]="{'card-danger': (item.caption === '') || ((item.kind === FormElementType.Select || item.kind === FormElementType.Checkboxgroup || item.kind === FormElementType.Radio) && !item.values.length) }">
+            <accordion-group *ngFor="let item of model.elements;  let i = index;">
               <div class="accordion-heading row" accordion-heading>
-                <span class="col-6">{{ 'T_FORM_ELEMENT_TYPE_' + item.kind.toUpperCase() | translate }} <b>{{ item.caption }}</b></span>
+                <span class="col-6">
+                  <i class="fa" [ngClass]="{'fa-check text-success': (item.caption !== '') || ((item.kind === FormElementType.Select || item.kind === FormElementType.Checkboxgroup || item.kind === FormElementType.Radio) && item.values.length),
+                      'fa-close text-danger': (item.caption === '') || ((item.kind === FormElementType.Select || item.kind === FormElementType.Checkboxgroup || item.kind === FormElementType.Radio) && !item.values.length) }"></i>
+                  {{ 'T_FORM_ELEMENT_TYPE_' + item.kind.toUpperCase() | translate }} <b>{{ item.caption }}</b></span>
                 <span class="ml-auto">
                   <div class="btn-group" role="group" aria-label="Action buttons">
                     <button type="button" class="btn btn-link btn-sm">
@@ -286,7 +288,8 @@
                             class="btn btn-danger btn-sm"
                             (click)="deleteElement(item);">
                       <i class="icon-trash"></i>
-                      {{ 'T_ACTION_DELETE' | translate }} {{ ('T_FORM_ELEMENT_TYPE_' + item.kind.toUpperCase() | translate).toLowerCase() }}
+                      {{ 'T_ACTION_DELETE' | translate }} {{ ('T_FORM_ELEMENT_TYPE_' + item.kind.toUpperCase() | translate).toLowerCase()
+                      }}
                     </button>
                   </div>
                 </div>
