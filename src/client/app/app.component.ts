@@ -16,9 +16,9 @@ import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 export class AppComponent {
   constructor(protected _translate: TranslateService,
               protected _toastsManager: ToastsManager,
-              protected _vcr: ViewContainerRef) {
+              public viewContainerRef: ViewContainerRef) {
     this._translateConfig();
-    this._toastsManager.setRootViewContainerRef(_vcr);
+    this._toastsManager.setRootViewContainerRef(viewContainerRef);
   }
 
   protected _translateConfig() {

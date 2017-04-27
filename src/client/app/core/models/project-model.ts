@@ -7,10 +7,10 @@ export class RelationKind {
 }
 
 export interface IProjectRelation {
-  (groupFrom: ModelId): ModelId;
-  (groupTo: ModelId): ModelId;
-  (form: ModelId): ModelId;
-  (groupFrom: string): string;
+  groupFrom: ModelId;
+  groupTo: ModelId;
+  form: ModelId;
+  kind: string;
 }
 
 @Defaults({

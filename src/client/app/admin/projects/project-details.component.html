@@ -34,77 +34,8 @@
       </div>
     </div>
   </div>
-
-  <!-- Relations -->
-  <div class="card">
-    <div class="card-header"><b>{{ 'T_PROJECT_RELATIONS' | translate }}</b></div>
-    <div class="card-block">
-      <button class="btn btn-primary"
-              type="button"
-              title="{{ 'T_ACTION_CREATE' | translate }}"
-              (click)="lgModal.show()">
-        <i class="fa fa-exchange"></i> {{ 'T_ACTION_CREATE_PROJECT_RELATION' | translate }}
-      </button>
-
-      <bs-project-relation-form *ngIf="formRelation"></bs-project-relation-form>
-
-      <table class="table table-striped mt-1" *ngIf="relations">
-        <thead>
-          <tr>
-            <th>{{ 'T_PROJECT_RELATION_RATING_GROUP' | translate }}</th>
-            <th>{{ 'T_PROJECT_RELATION_ASSESSMENT_GROUP' | translate }}</th>
-            <th>{{ 'T_PROJECT_RELATION_EVALUATION_FORM' | translate }}</th>
-            <th>{{ 'T_PROJECT_RELATION_KIND' | translate }}</th>
-            <th class="actions-column">{{ 'T_ACTION' | translate }}</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let relation of relations">
-            <td>{{ relation.groupFrom }}</td>
-            <td>{{ relation.groupTo }}</td>
-            <td>{{ relation.form }}</td>
-            <td>{{ 'T_PROJECT_RELATION_KIND_' + relation.kind.toUpperCase() | translate }}</td>
-            <td class="actions-column">
-
-              <button type="button"
-                      class="btn btn-sm btn-primary ml-1"
-                      title="{{ 'T_ACTION_EDIT' | translate }}"
-                      (click)="onFormRelation(relation)"><i class="fa fa-pencil"></i> {{ 'T_ACTION_EDIT' | translate}}
-              </button>
-
-              <button type="button"
-                      class="btn btn-sm btn-danger ml-1"
-                      bsConfirm
-                      (confirm)="removeRelation(relation)">
-                <i class="fa fa-trash"></i>
-                {{ 'T_ACTION_DELETE' | translate }}
-              </button>
-            </td>
-          </tr>
-
-        </tbody>
-      </table>
-    </div>
-  </div>
 </div>
 
-
-
-<!--<bs-project-relation-lists [projectId]="model?.id"></bs-project-relation-lists>-->
-<div bsModal #lgModal="bs-modal" class="modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title pull-left">{{ 'T_PROJECT_RELATION' | translate }}</h4>
-        <button type="button" class="close pull-right" (click)="lgModal.hide()" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <bs-project-relation-form></bs-project-relation-form>
-      </div>
-    </div>
-  </div>
-</div>
+<bs-project-relation-list [projectId]="model?.id"></bs-project-relation-list>
 
 

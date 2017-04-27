@@ -1,41 +1,32 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { DetailsComponent } from '../../shared/components/details.component';
-import { ActivatedRoute } from '@angular/router';
-import { ProjectModel } from '../../core/models/project-model';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { IProjectRelation, ProjectModel } from '../../core/models/project-model';
 import { ProjectService } from '../../core/services/project.service';
-import { GroupService } from '../../core/services/group.service';
-import { GroupModel } from '../../core/models/group-model';
-import { ModelId } from '../../core/models/model';
 import { ListComponent } from '../../shared/components/list.component';
-import { IQueryParams } from '../../core/services/rest.service';
+import { IListResponse } from '../../core/services/rest.service';
 
 @Component({
   moduleId: module.id,
-  selector: 'bs-project-relation-lists',
+  selector: 'bs-project-relation-list',
   templateUrl: 'project-relation-list.component.html'
 })
-export class ProjectRelationListComponent extends ListComponent<ProjectModel> implements OnInit {
+export class ProjectRelationListComponent extends ListComponent<ProjectModel> implements OnInit, OnChanges {
   protected _relations: any;
-
-  // protected _formRelation: boolean = false;
-  protected _groups: GroupModel[];
   protected _model: ProjectModel;
+  protected _index: number;
 
   public get relations(): any {
     return this._relations;
   }
 
-  public get model(): T {
+  public get index(): any {
+    return this._index;
+  }
+
+  public get model(): ProjectModel {
     return this._model;
   }
 
-  // public get formRelation(): any {
-  //   return this._formRelation;
-  // }
-  //
-  // public onFormRelation() {
-  //   return this._formRelation = !this._formRelation;
-  // }
   protected _projectId: string = 'null';
 
   @Input()
@@ -43,58 +34,66 @@ export class ProjectRelationListComponent extends ListComponent<ProjectModel> im
     this._projectId = value;
   }
 
-  // public get projectId() {
-  //   return this._projectId;
-  // }
+  public get projectId() {
+    return this._projectId;
+  }
+
   public ngOnInit() {
+    this._queryParams.projectId = this._projectId;
     super.ngOnInit();
-    this._load();
   }
 
-  constructor(service: ProjectService, protected _groupService: GroupService) {
-    super(service);
+  public ngOnChanges(changes: SimpleChanges) {
+    if (changes['projectId']) {
+      Object.assign(this._queryParams, { projectId: this._projectId });
+      this._update();
+    }
   }
 
-  protected _update(): void {
-    let queryParams: IQueryParams = { projectId: this._projectId };
-    // if (this._projectId !== 'null') {
-      this._projectId = queryParams.projectId;
-      // this._query(queryParams);
-      this._service.get(this._projectId).subscribe((model: ProjectModel) => {
-        this._relations = model.relations;
-      });
-    // } else {
-    //   // this._query(queryParams);
-    //   this._service.get(this._projectId).subscribe((model: ProjectModel) => {
-    //     this._relations = model.relations;
-    //   });
-    // }
-    // this._service.get(this._projectId).subscribe((model: ProjectModel) => {
-    //   this._relations = model.relations;
-    // });
-    super._update();
+  public getIndex(relation: Object) {
+    this._index = this._relations.indexOf(relation);
   }
 
-  protected _load() {
-    this._groupService.list().subscribe((list: GroupModel[]) => {
-      this._groups = list;
-    });
-  }
-
-  public removeRelation(relation: { groupFrom: ModelId, groupTo: ModelId, form: ModelId, kind: string }) {
-    console.log(relation);
-    let index: number = this._model.relations.indexOf(relation);
-    console.log(index);
-    if (index !== -1) {
-      this._model.relations.splice(index, 1);
+  public removeRelation(relation: IProjectRelation) {
+    this.getIndex(relation);
+    if (this._index !== -1) {
+      this._relations.splice(this._index, 1);
       this.save();
     }
   }
 
-  public save() {
-    this._service.save(this._model).subscribe(() => {
-      this._update();
+  public relationDetails(relation: Object) {
+    this.getIndex(relation);
+    if (this._index !== -1) {
+      this._router.navigate(['/admin/projects/', this._projectId, 'details', relation]);
+    }
+  }
 
+  public save() {
+    this._service.list(this._queryParams).subscribe((res: IListResponse<ProjectModel>) => {
+      let result: ProjectModel = res.data.filter(x => x.id === this._projectId)[0];
+      result.relations = this._relations;
+      this._querySave(result);
+    });
+  }
+
+  constructor(service: ProjectService,
+              activatedRoute: ActivatedRoute,
+              router: Router) {
+    super(service, activatedRoute, router);
+  }
+
+  protected _update(): void {
+    this._service.list(this._queryParams).subscribe((res: IListResponse<ProjectModel>) => {
+      let result = res.data.filter(x => x.id === this._projectId)[0];
+      this._relations = result.relations;
+    });
+    super._update();
+  }
+
+  protected _querySave(result: ProjectModel) {
+    this._service.save(result).subscribe(() => {
+      this._update();
     });
   }
 }
