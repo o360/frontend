@@ -4,6 +4,7 @@ import { GroupModel } from '../../core/models/group-model';
 import { ModelId } from '../../core/models/model';
 import { GroupService } from '../../core/services/group.service';
 import { FormComponent } from '../../shared/components/form.component';
+import { IListResponse } from '../../core/services/rest.service';
 
 
 @Component({
@@ -31,8 +32,8 @@ export class GroupFormComponent extends FormComponent<GroupModel> {
   }
 
   protected _load() {
-    this._service.list().subscribe((list: GroupModel[]) => {
-      this._groups = list;
+    this._service.list().subscribe((res: IListResponse<GroupModel>) => {
+      this._groups = res.data;
       super._load();
     });
   }

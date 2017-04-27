@@ -11,6 +11,17 @@ export interface IQueryParams {
   [key: string]: string;
 }
 
+export interface IResponseMeta {
+  number: number;
+  size: number;
+  total: number;
+}
+
+export interface IListResponse<T extends Model> {
+  meta: IResponseMeta;
+  data: T[];
+}
+
 export declare type ModelConstructor<T> = { new (json: Object): T };
 
 /**
@@ -60,13 +71,12 @@ export class RestService<T extends Model> {
 
   /**
    * Get list of data from API
-   * @return {Observable<T[]>}
+   * @return {Observable<IListResponse<T>>}
    */
-  public list(queryParams?: IQueryParams): Observable<T[]> {
+  public list(queryParams?: IQueryParams): Observable<IListResponse<T>> {
     return this._http.get(this._getRequestParams(undefined, queryParams), this._getRequestOptions())
       .map((response: Response) => response.json())
-      .map((json: any) => json.data)
-      .map((data: any[]) => data.map(item => this.createEntity(item)))
+      .map((json: any) => Object.assign(json, { data: json.data.map((x: any) => this.createEntity(x)) }))
       .catch((error: any) => this._handleErrors(error));
   }
 

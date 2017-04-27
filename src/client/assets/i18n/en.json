@@ -56,6 +56,7 @@
   "T_ADMINISTRATION": "Administration",
   "T_GROUP_PARENT": "Parent group",
   "T_CONFIRM_MESSAGE": "Are you sure you want to do this?",
+  "T_PAGINATION_ITEMS_PER_PAGE": "Items per page",
   "T_GROUP_NAME": "Group name",
   "T_ACTION_RESET": "Reset",
   "T_SUCCESS_TITLE_SAVE": "Success!",
@@ -65,5 +66,7 @@
   "T_SUCCESS_TITLE_DEFAULT": "Success!",
   "T_SUCCESS_MESSAGE_DEFAULT": "Some text!",
   "T_EMPTY": "No records found",
-  "T_CONFLICT_ERROR": "Conflict error"
+  "T_CONFLICT_ERROR": "Conflict error",
+  "T_PAGINATION_PREVIOUS_TEXT": "Previous",
+  "T_PAGINATION_NEXT_TEXT": "Next"
 }
