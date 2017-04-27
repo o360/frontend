@@ -4,12 +4,14 @@ import { Model } from './model';
 @Defaults({
   name: '',
   email: '',
+  status: '',
   role: '',
-  status: ''
+  gender: ''
 })
 export class AccountModel extends Model {
   public name: string;
   public email: string;
-  public role: string;
   public status: string;
+  public role: string;
+  public gender: string;
 }

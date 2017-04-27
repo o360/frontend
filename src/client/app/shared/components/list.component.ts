@@ -37,11 +37,7 @@ export abstract class ListComponent<T extends Model> implements OnInit {
 
   @Input()
   public set embedded(value: boolean | string) {
-    if (value === '') {
-      this._embedded = true;
-    } else {
-      this._embedded = false;
-    }
+    this._embedded = typeof value === 'boolean' ? value : true;
   }
 
   constructor(protected _service: RestService<T>,

@@ -45,11 +45,9 @@ export class AuthService {
 
   public login(oauthProvider: string) {
     let providerConfig = Config.PROVIDERS[oauthProvider];
-
     let urlParams = Object.entries(providerConfig.getParams).map(([key, value]) => {
       return `${key}=${encodeURIComponent(value)}`;
     });
-
     window.location.href = `${providerConfig.authorizationUrlBase}?${urlParams.join('&')}`;
   }
 
@@ -58,3 +56,4 @@ export class AuthService {
     this._router.navigate(['/login']);
   }
 }
+
