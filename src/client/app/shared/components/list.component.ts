@@ -84,6 +84,8 @@ export abstract class ListComponent<T extends Model> implements OnInit {
     queryParams.size = this._queryParams.size;
     queryParams.number = this._queryParams.number;
 
+    this._queryParams = queryParams;
+
     this._update();
   }
 
