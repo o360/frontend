@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card" *ngIf="isLoaded">
   <div class="card-header"><b>{{ 'T_USERS' | translate }}</b></div>
   <div class="card-block">
     <button class="btn btn-primary"
@@ -9,7 +9,7 @@
       {{ 'T_ACTION_CREATE' | translate }}
     </button>
 
-    <table class="table table-striped mt-1" *ngIf="isLoaded">
+    <table class="table table-striped mt-1">
       <thead>
         <tr>
           <th>#</th>
@@ -22,6 +22,14 @@
           <td>{{ model.id }}</td>
           <td><a [routerLink]="['/admin/forms/', model.id]">{{ model.name }}</a></td>
           <td class="actions-column">
+            <button type="button"
+                    class="btn btn-sm btn-warning ml-1"
+                    title="{{ 'T_ACTION_CLONE' | translate }}"
+                    bsConfirm
+                    [message]="'T_FORM_CONFIRM_CLONE_MESSAGE' | translate"
+                    (confirm)="clone(model);">
+              <i class="fa fa-copy"></i>&nbsp;{{ 'T_ACTION_CLONE' | translate }}
+            </button>
             <button type="button"
                     class="btn btn-sm btn-primary ml-1"
                     title="{{ 'T_ACTION_EDIT' | translate }}"
@@ -44,5 +52,9 @@
         </tr>
       </tbody>
     </table>
+
+    <bs-pagination [meta]="meta"
+                   (queryParamsChange)="pageQueryParamsChanged($event)"></bs-pagination>
+
   </div>
 </div>

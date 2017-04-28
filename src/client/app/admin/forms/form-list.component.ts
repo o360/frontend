@@ -16,4 +16,10 @@ export class FormListComponent extends ListComponent<FormModel> {
               router: Router) {
     super(service, activatedRoute, router);
   }
+
+  public clone(model: FormModel) {
+    this._service.clone(model).subscribe(() => {
+      this._update();
+    });
+  }
 }

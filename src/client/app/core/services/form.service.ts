@@ -11,4 +11,11 @@ import { Observable } from 'rxjs';
   entityConstructor: FormModel
 })
 export class FormService extends RestService<FormModel> {
+  public checkFormIsValid(value: boolean) {
+    if (value) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }

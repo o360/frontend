@@ -10,7 +10,7 @@ export class FormModel extends Model {
   public elements: FormElement[];
 }
 
-export class FormElement {
+export class FormElement extends Model {
   public kind: string;
   public caption: string;
   public value?: string;
