@@ -21,11 +21,7 @@ export class FormDetailsComponent extends DetailsComponent<FormModel> {
   }
 
   public clone(model: FormModel) {
-    let newModel = new FormModel({
-      name: model.name,
-      elements: model.elements
-    });
-    this._service.save(newModel).subscribe(() => {
+    this._service.clone(model).subscribe(() => {
       if (this._returnPath) {
         this._router.navigate(this._returnPath);
       }

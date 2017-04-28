@@ -150,6 +150,23 @@ export class RestService<T extends Model> {
       .catch((error: Response) => this._handleErrors(error));
   }
 
+
+  /**
+   * Clones a record of data
+   * @params {T} model
+   * @return {Observable<T>}
+   */
+  public clone(model: T): Observable<T> {
+    let requestParams = this._getRequestParams(model.id) + '/clone';
+    let json = model.toJson();
+    let requestOptions = this._getRequestOptions();
+
+    return this._http.post(requestParams, json, requestOptions)
+      .map((res: Response) => res.json())
+      .map((json: any) => this.createEntity(json))
+      .catch((error: Response) => this._handleErrors(error));
+  }
+
   /**
    * Get full path with request params
    * @params {number} id

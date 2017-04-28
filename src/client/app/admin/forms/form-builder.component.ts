@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormComponent } from '../../shared/components/form.component';
-import { FormElement, FormElementType, FormElementValue, FormModel } from '../../core/models/form-model';
+import { FormElement, FormElementType, FormModel } from '../../core/models/form-model';
 import { FormService } from '../../core/services/form.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -17,21 +17,34 @@ export class FormBuilderComponent extends FormComponent<FormModel> {
     return this._elementTypes;
   }
 
-  public get FormElementType() {
-    return FormElementType;
-  }
-
   constructor(service: FormService, router: Router, route: ActivatedRoute) {
     super(service, router, route);
   }
 
+  public valid(element: FormElement): boolean {
+    if (this._model) {
+      return (!!element.caption &&
+      ((!!this.requireValue(element.kind) && !!element.values.length) || (!!!this.requireValue(element.kind))));
+    } else {
+      return false;
+    }
+  }
+
+  public requireValue(type: string) {
+    if (type === FormElementType.Radio || type === FormElementType.Checkboxgroup || type === FormElementType.Select) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   public addElement(kind: string) {
-    let element: FormElement = {
+    let element: FormElement = new FormElement({
       kind: kind,
-      caption: '',
+      caption: null,
       required: false,
       values: []
-    };
+    });
     this._model.elements.push(element);
   }
 
@@ -39,21 +52,6 @@ export class FormBuilderComponent extends FormComponent<FormModel> {
     let index: number = this._model.elements.indexOf(element);
     if (index !== -1) {
       this._model.elements.splice(index, 1);
-    }
-  }
-
-  public addValue(element: FormElement, caption: string, value: string) {
-    let newValue: FormElementValue = {
-      caption: caption,
-      value: value
-    };
-    element.values.push(newValue);
-  }
-
-  public deleteValue(element: FormElement, value: FormElementValue) {
-    let index: number = element.values.indexOf(value);
-    if (index !== -1) {
-      element.values.splice(index, 1);
     }
   }
 }
