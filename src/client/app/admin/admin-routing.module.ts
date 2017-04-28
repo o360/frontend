@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { UsersModule } from './users/users.module';
 import { GroupsModule } from './groups/groups.module';
+import { EventsModule } from './events/events.module';
 import { FormsModule } from './forms/forms.module';
 import { ProjectsModule } from './projects/projects.module';
 import { EmailTemplatesModule } from './email-templates/email-templates.module';
@@ -33,6 +34,10 @@ import { AppRoutes } from '../core/models/app-routes.model';
       path: 'templates',
       breadcrumb: 'T_EMAIL_TEMPLATES',
       loadChildren: () => EmailTemplatesModule
+    }, {
+      path: 'events',
+      data: { breadcrumb: 'T_EVENTS' },
+      loadChildren: () => EventsModule
     }])
   ],
   exports: [RouterModule]
