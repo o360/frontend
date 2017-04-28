@@ -26,7 +26,6 @@ export class GroupUserListComponent extends ListComponent<UserModel> implements 
   public ngOnChanges(changes: SimpleChanges) {
     if (changes['groupId']) {
       this._queryParams = Object.assign(this._queryParams, { groupId: this._groupId });
-      console.log(this._queryParams);
       this._update();
     }
   }
