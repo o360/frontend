@@ -7,11 +7,15 @@
   "T_ADMIN": "Administrator",
   "T_ACTION_CREATE": "Create",
   "T_ACTION_DELETE": "Delete",
+  "T_ACTION_REMOVE": "Remove",
   "T_ACTION_EDIT": "Edit",
   "T_ACTION_UPDATE": "Update",
   "T_ACTION_GO_BACK": "Go back",
   "T_ACTION_APPROVE": "Approve",
   "T_ACTION_CREATE_CHILD_GROUP": "Create child group",
+  "T_ACTION_ADD_USERS_TO_GROUP": "Add users to group",
+  "T_ACTION_ADD_USER": "Add user",
+  "T_ACTION_CANCEL": "Cancel",
   "T_USER": "User",
   "T_USER_NAME": "Name",
   "T_USER_EMAIL": "Email",
@@ -62,6 +66,7 @@
   "T_CONFIRM_MESSAGE": "Are you sure you want to do this?",
   "T_PAGINATION_ITEMS_PER_PAGE": "Items per page",
   "T_GROUP_NAME": "Group name",
+  "T_GROUP_DETAILS": "Details of group",
   "T_ACTION_RESET": "Reset",
   "T_SUCCESS_TITLE_SAVE": "Success!",
   "T_SUCCESS_MESSAGE_SAVE": "You did it!",
@@ -72,5 +77,6 @@
   "T_EMPTY": "No records found",
   "T_CONFLICT_ERROR": "Conflict error",
   "T_PAGINATION_PREVIOUS_TEXT": "Previous",
-  "T_PAGINATION_NEXT_TEXT": "Next"
+  "T_PAGINATION_NEXT_TEXT": "Next",
+  "T_USERS_ADDED_TO_GROUP": "Users successfully added to a group"
 }

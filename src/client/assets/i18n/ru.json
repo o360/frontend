@@ -8,10 +8,14 @@
   "T_ACTION_CREATE": "Создать",
   "T_ACTION_DELETE": "Удалить",
   "T_ACTION_EDIT": "Редактировать",
+  "T_ACTION_REMOVE": "Удалить",
   "T_ACTION_UPDATE": "Сохранить изменения",
   "T_ACTION_GO_BACK": "Вернуться назад",
   "T_ACTION_APPROVE": "Подтвердить",
   "T_ACTION_CREATE_CHILD_GROUP": "Создать дочернюю группу",
+  "T_ACTION_ADD_USERS_TO_GROUP": "Добавить пользователей в группу",
+  "T_ACTION_ADD_USER": "Добавить",
+  "T_ACTION_CANCEL": "Отмена",
   "T_USER": "Пользователь",
   "T_USER_NAME": "Имя",
   "T_USER_EMAIL": "Email",
@@ -71,7 +75,9 @@
   "T_EMPTY": "Записей не найдено",
   "T_CONFLICT_ERROR": "Конфликт",
   "T_GROUP_NAME": "Название группы",
+  "T_GROUP_DETAILS": "Подробнее о группе",
   "T_PAGINATION_ITEMS_PER_PAGE": "Элементов на странице",
   "T_PAGINATION_PREVIOUS_TEXT": "Предыдущая",
-  "T_PAGINATION_NEXT_TEXT": "Следующая"
+  "T_PAGINATION_NEXT_TEXT": "Следующая",
+  "T_USERS_ADDED_TO_GROUP": "Пользователи успешно добавлены в группу"
 }

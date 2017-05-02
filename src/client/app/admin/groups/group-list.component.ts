@@ -1,9 +1,8 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { GroupModel } from '../../core/models/group-model';
 import { GroupService } from '../../core/services/group.service';
 import { ListComponent } from '../../shared/components/list.component';
-import { IQueryParams } from '../../core/services/rest.service';
-import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   moduleId: module.id,
@@ -16,13 +15,11 @@ export class GroupListComponent extends ListComponent<GroupModel> implements OnI
   @Input()
   public set parentId(value: string) {
     this._parentId = value;
-
   }
 
   public get parentId() {
     return this._parentId;
   }
-
 
   constructor(service: GroupService,
               activatedRoute: ActivatedRoute,
@@ -35,7 +32,6 @@ export class GroupListComponent extends ListComponent<GroupModel> implements OnI
 
     super.ngOnInit();
   }
-
 
   public ngOnChanges(changes: SimpleChanges) {
     if (changes['parentId']) {

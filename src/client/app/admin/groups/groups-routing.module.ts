@@ -17,7 +17,7 @@ import { GroupDetailsComponent } from './group-details.component';
     }, {
       path: ':id',
       component: GroupDetailsComponent,
-      data: { breadcrumbIgnore: true },
+      data: { breadcrumb: 'T_GROUP_DETAILS' },
     }, {
       path: ':id/edit',
       component: GroupFormComponent,
