@@ -3,7 +3,6 @@ import { RouterModule } from '@angular/router';
 import { GroupFormComponent } from './group-form.component';
 import { GroupListComponent } from './group-list.component';
 import { GroupDetailsComponent } from './group-details.component';
-import { GroupUserListComponent } from './group-user-list.component';
 
 @NgModule({
   imports: [
@@ -18,7 +17,7 @@ import { GroupUserListComponent } from './group-user-list.component';
     }, {
       path: ':id',
       component: GroupDetailsComponent,
-      data: { breadcrumbIgnore: true },
+      data: { breadcrumb: 'T_GROUP_DETAILS' },
     }, {
       path: ':id/edit',
       component: GroupFormComponent,

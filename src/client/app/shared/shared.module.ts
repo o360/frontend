@@ -8,6 +8,7 @@ import { FiltersComponent } from './components/filters/filters.component';
 import { ConfirmationDirective } from './directives/confirmation.directive';
 import { ToastModule } from 'ng2-toastr/ng2-toastr';
 import { PaginationComponent } from './components/pagination/pagination.component';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 /**
  * Do not specify providers for modules that might be imported by a lazy loaded module.
@@ -22,7 +23,8 @@ import { PaginationComponent } from './components/pagination/pagination.componen
     CollapseModule,
     ToastModule,
     CollapseModule,
-    PaginationModule
+    PaginationModule,
+    ModalModule
   ],
   declarations: [
     ConfirmationDirective,
@@ -40,7 +42,8 @@ import { PaginationComponent } from './components/pagination/pagination.componen
     ToastModule,
     PaginationModule,
     FiltersComponent,
-    PaginationComponent
+    PaginationComponent,
+    ModalModule
   ]
 })
 export class SharedModule {
