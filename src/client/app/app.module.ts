@@ -11,6 +11,7 @@ import { createTranslateLoader } from './shared/config/translate-loader.config';
 import { SharedModule } from './shared/shared.module';
 import { ToastModule } from 'ng2-toastr/ng2-toastr';
 import { PaginationModule } from 'ngx-bootstrap';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 @NgModule({
   imports: [
@@ -28,6 +29,7 @@ import { PaginationModule } from 'ngx-bootstrap';
     SharedModule.forRoot(),
     CoreModule.forRoot(),
     ToastModule.forRoot(),
+    ModalModule.forRoot(),
     // App related modules
     AppRoutingModule
   ],
