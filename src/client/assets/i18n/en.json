@@ -15,6 +15,7 @@
   "T_ACTION_CREATE_CHILD_GROUP": "Create child group",
   "T_ACTION_ADD_USERS_TO_GROUP": "Add users to group",
   "T_ACTION_ADD_USER": "Add user",
+  "T_ACTION_CANCEL": "Cancel",
   "T_USER": "User",
   "T_USER_NAME": "Name",
   "T_USER_EMAIL": "Email",
@@ -76,5 +77,6 @@
   "T_EMPTY": "No records found",
   "T_CONFLICT_ERROR": "Conflict error",
   "T_PAGINATION_PREVIOUS_TEXT": "Previous",
-  "T_PAGINATION_NEXT_TEXT": "Next"
+  "T_PAGINATION_NEXT_TEXT": "Next",
+  "T_USERS_ADDED_TO_GROUP": "Users successfully added to a group"
 }
