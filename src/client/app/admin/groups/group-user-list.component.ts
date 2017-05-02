@@ -1,10 +1,10 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ModelId } from '../../core/models/model';
 import { UserModel } from '../../core/models/user-model';
+import { GroupService } from '../../core/services/group.service';
 import { UserService } from '../../core/services/user.service';
 import { ListComponent } from '../../shared/components/list.component';
-import { ModelId } from '../../core/models/model';
-import { GroupService } from '../../core/services/group.service';
-import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   moduleId: module.id,
@@ -12,14 +12,14 @@ import { ActivatedRoute, Router } from '@angular/router';
   templateUrl: 'group-user-list.component.html'
 })
 export class GroupUserListComponent extends ListComponent<UserModel> implements OnInit, OnChanges {
-  protected _groupId: string = 'null';
+  private _groupId: string = 'null';
 
   @Input()
   public set groupId(value: string) {
     this._groupId = value;
   }
 
-  public get groupId() {
+  public get groupId(): string {
     return this._groupId;
   }
 
@@ -37,7 +37,11 @@ export class GroupUserListComponent extends ListComponent<UserModel> implements 
     }
   }
 
-  public delete(groupId?: ModelId, userId?: ModelId) {
-    this._groupService.removeUser(groupId, userId).subscribe(() => this._update());
+  public delete(userId?: ModelId) {
+    this._groupService.removeUser(this._groupId, userId).subscribe(() => this._update());
+  }
+
+  public usersAdded() {
+    this._update();
   }
 }

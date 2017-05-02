@@ -1,11 +1,11 @@
-<div class="card" >
+<div class="card">
   <div class="card-header"><b>{{ 'T_USERS' | translate }}</b></div>
   <div class="card-block" *ngIf="isLoaded">
     <button class="btn btn-primary"
             type="button"
-            (click)="addingModal.show()"
-            title="{{ 'T_ACTION_ADD_USERS_TO_GROUP' | translate }}"><i class="fa fa-user mr-h"></i>
-      {{ 'T_ACTION_ADD_USERS_TO_GROUP' | translate }}
+            title="{{ 'T_ACTION_ADD_USERS_TO_GROUP' | translate }}"
+            (click)="modalForm.show()">
+      <i class="fa fa-user mr-h"></i>{{ 'T_ACTION_ADD_USERS_TO_GROUP' | translate }}
     </button>
 
     <!--Group user list-->
@@ -41,7 +41,7 @@
             <button type="button"
                     class="btn btn-sm btn-danger ml-1"
                     bsConfirm
-                    (confirm)="delete(groupId, model.id)">
+                    (confirm)="delete(model.id)">
               <i class="fa fa-trash"></i>&nbsp;
               {{ 'T_ACTION_REMOVE' | translate }}
             </button>
@@ -61,18 +61,6 @@
 </div>
 
 <!-- Adding user to group modal-->
-<div bsModal #addingModal="bs-modal" class="modal" tabindex="-1" role="dialog">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title pull-left">{{ 'T_ACTION_ADD_USERS_TO_GROUP' | translate }}</h4>
-        <button type="button" class="close pull-right" aria-label="Close" (click)="addingModal.hide(); _update()">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <bs-group-user-form [groupId]="groupId"></bs-group-user-form>
-      </div>
-    </div>
-  </div>
-</div>
+<bs-users-add-modal #modalForm
+                    [groupId]="groupId"
+                    (usersAdded)="usersAdded()"></bs-users-add-modal>
