@@ -1,25 +1,25 @@
 <div class="card" *ngIf="isLoaded">
   <div class="card-block">
     <form class="form form-horizontal"
-          (ngSubmit)="addRelation(model); groupForm.reset()" #groupForm="ngForm">
+          (ngSubmit)="save(); groupForm.reset()" #groupForm="ngForm">
 
       <!-- Group From -->
       <div class="form-group row"
-           [ngClass]="{'has-success': groupFrom.valid, 'has-danger': !groupFrom.valid && groupFrom.touched }">
+           [ngClass]="{'has-success': groupFromId.valid, 'has-danger': !groupFromId.valid && groupFromId.touched }">
 
-        <label for="groupFrom" class="col-form-label col-md-3 required">
+        <label for="groupFromId" class="col-form-label col-md-3 required">
           {{ 'T_PROJECT_RELATION_RATING_GROUP' | translate }}
         </label>
         <div class="col-md-9">
-          <select name="groupFrom"
-                  id="groupFrom"
+          <select name="groupFromId"
+                  id="groupFromId"
                   class="form-control"
-                  #groupFrom="ngModel"
+                  #groupFromId="ngModel"
                   required
-                  [(ngModel)]="model.groupFrom">
+                  [(ngModel)]="model.groupFromId">
             <option *ngFor="let group of groups"
                     [ngValue]="group.id">
-              {{group.name}}
+              {{ group.name }}
             </option>
           </select>
         </div>
@@ -27,21 +27,21 @@
 
       <!-- Group To -->
       <div class="form-group row"
-           [ngClass]="{'has-success': groupTo.valid, 'has-danger': !groupTo.valid && groupTo.touched }">
+           [ngClass]="{'has-success': groupToId.valid, 'has-danger': !groupToId.valid && groupToId.touched }">
 
-        <label for="groupTo" class="col-form-label col-md-3 required">
+        <label for="groupToId" class="col-form-label col-md-3 required">
           {{ 'T_PROJECT_RELATION_ASSESSMENT_GROUP' | translate }}
         </label>
         <div class="col-md-9">
-          <select name="groupTo"
-                  id="groupTo"
+          <select name="groupToId"
+                  id="groupToId"
                   class="form-control"
-                  #groupTo="ngModel"
+                  #groupToId="ngModel"
                   required
-                  [(ngModel)]="model.groupTo">
+                  [(ngModel)]="model.groupToId">
             <option *ngFor="let group of groups"
                     [ngValue]="group.id">
-              {{group.name}}
+              {{ group.name }}
             </option>
           </select>
         </div>
@@ -60,10 +60,10 @@
                   class="form-control"
                   #evalForm="ngModel"
                   required
-                  [(ngModel)]="model.form">
+                  [(ngModel)]="model.formId">
             <option *ngFor="let form of evalForms"
                     [ngValue]="form.id">
-              {{form.name}}
+              {{ form.name }}
             </option>
           </select>
         </div>
@@ -85,7 +85,7 @@
                   [(ngModel)]="model.kind">
             <option *ngFor="let kind of kinds"
                     [ngValue]="kind">
-              {{kind}}
+              {{ 'T_PROJECT_RELATION_KIND_' + kind.toUpperCase() | translate }}
             </option>
           </select>
         </div>
@@ -97,7 +97,7 @@
         <button type="submit"
                 class="btn btn-primary mt-0"
                 [disabled]="!groupForm.valid">
-          <span [ngSwitch]="index !== undefined">
+          <span [ngSwitch]="editMode">
             <ng-template [ngSwitchCase]="true">{{ 'T_ACTION_UPDATE' | translate }}</ng-template>
             <ng-template ngSwitchDefault>{{ 'T_ACTION_CREATE' | translate }}</ng-template>
           </span>

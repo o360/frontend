@@ -22,7 +22,7 @@
 
         <div class="col-md-3">
           <small class="text-muted">{{ 'T_PROJECT_AUDITOR' | translate}}</small>
-          <div class="h6">{{ model.groupAuditor }}</div>
+          <div class="h6"><a [routerLink]="['/admin/groups/', model.groupAuditorId]">{{ model.groupAuditorId }}</a></div>
         </div>
       </div>
 
@@ -34,8 +34,8 @@
       </div>
     </div>
   </div>
+  <bs-project-relation-list embedded [projectId]="model.id"></bs-project-relation-list>
 </div>
 
-<bs-project-relation-list [projectId]="model?.id"></bs-project-relation-list>
 
 

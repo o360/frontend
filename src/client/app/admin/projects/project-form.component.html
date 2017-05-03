@@ -69,7 +69,8 @@
                   id="auditor"
                   class="form-control"
                   #auditor="ngModel"
-                  [(ngModel)]="model.groupAuditor">
+                  [(ngModel)]="model.groupAuditorId"
+                  required>
             <option *ngFor="let auditor of auditors"
                     [ngValue]="auditor.id">
               {{auditor.name}}

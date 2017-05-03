@@ -4,13 +4,11 @@
     <button class="btn btn-primary"
             type="button"
             title="{{ 'T_ACTION_CREATE' | translate }}"
-            (click)="formModal.show()">
-      <i class="fa fa-exchange"></i> {{ 'T_ACTION_CREATE_PROJECT_RELATION' | translate }}
+            [routerLink]="['/admin/projects/relations/create', { projectId: projectId }]">
+      <i class="fa fa-exchange mr-h"></i> {{ 'T_ACTION_CREATE_PROJECT_RELATION' | translate }}
     </button>
 
-    <bs-project-relation-form *ngIf="formRelation"></bs-project-relation-form>
-
-    <table class="table table-striped mt-1" *ngIf="relations">
+    <table class="table table-striped mt-1">
       <thead>
         <tr>
           <th>{{ 'T_PROJECT_RELATION_RATING_GROUP' | translate }}</th>
@@ -21,57 +19,43 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let relation of relations">
-          <td>{{ relation.groupFrom }}</td>
-          <td>{{ relation.groupTo }}</td>
-          <td>{{ relation.form }}</td>
-          <td>{{ 'T_PROJECT_RELATION_KIND_' + relation.kind.toUpperCase() | translate }}</td>
+        <tr *ngFor="let model of list">
+          <td><a [routerLink]="['/admin/groups', model.groupFromId]">{{ model.groupFromId }}</a></td>
+          <td><a [routerLink]="['/admin/groups', model.groupToId]">{{ model.groupToId }}</a></td>
+          <td>{{ model.formId }}</td>
+          <td>{{ 'T_PROJECT_RELATION_KIND_' + model.kind.toUpperCase() | translate }}</td>
           <td class="actions-column">
             <button type="button"
                     class="btn btn-sm btn-success ml-1"
-                    title="{{ 'T_ACTION_EDIT' | translate }}"
-                    (click)="relationDetails(relation)">
+                    title="{{ 'T_ACTION_DETAILS' | translate }}"
+                    [routerLink]="['relations/details/', model.id]">
               <i class="fa fa-hand-pointer-o"></i> {{ 'T_ACTION_DETAILS' | translate}}
             </button>
 
             <button type="button"
                     class="btn btn-sm btn-primary ml-1"
                     title="{{ 'T_ACTION_EDIT' | translate }}"
-                    (click)="formModal.show(); getIndex(relation)"><i class="fa fa-pencil"></i> {{ 'T_ACTION_EDIT' | translate}}
+                    [routerLink]="['relations/edit/', model.id]"><i class="fa fa-pencil"></i>
+              {{ 'T_ACTION_EDIT' | translate}}
             </button>
 
             <button type="button"
                     class="btn btn-sm btn-danger ml-1"
                     bsConfirm
-                    (confirm)="removeRelation(relation)">
+                    (confirm)="delete(model.id)">
               <i class="fa fa-trash"></i>
               {{ 'T_ACTION_DELETE' | translate }}
             </button>
           </td>
         </tr>
 
+        <tr *ngIf="!list.length">
+          <td colspan="25" class="text-center">{{ 'T_EMPTY' | translate }}</td>
+        </tr>
       </tbody>
     </table>
 
     <bs-pagination [meta]="meta"
                    (queryParamsChange)="pageQueryParamsChanged($event)"></bs-pagination>
-  </div>
-</div>
-
-<!-- Modal with relation form -->
-<div bsModal #formModal="bs-modal" class="modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
-     aria-labelledby="myLargeModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title pull-left">{{ 'T_PROJECT_RELATION' | translate }}</h4>
-        <button type="button" class="close pull-right" (click)="formModal.hide(); _update()" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <bs-project-relation-form [index]="index"></bs-project-relation-form>
-      </div>
-    </div>
   </div>
 </div>
