@@ -10,3 +10,4 @@ import { RestService } from './rest.service';
 })
 export class ProjectService extends RestService<ProjectModel> {
 }
+

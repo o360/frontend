@@ -2,7 +2,10 @@ import { Defaults } from '../decorators/defaults.decorator';
 import { Model } from './model';
 
 @Defaults({
-  description: '',
+  start: '',
+  end: '',
+  canRevote: false,
+  notifications: []
 })
 export class EventModel extends Model {
   public description?: string;
@@ -10,10 +13,10 @@ export class EventModel extends Model {
   public end: string;
   public canRevote: boolean;
   public status: string;
-  public notifications?: EventNotificationModel[];
+  public notifications: IEventNotification[];
 }
 
-export interface EventNotificationModel {
+export interface IEventNotification {
   time: string;
   kind: string;
   recipient: string;

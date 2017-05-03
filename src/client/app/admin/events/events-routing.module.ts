@@ -18,7 +18,7 @@ import { EventDetailsComponent } from './event-details.component';
     }, {
       path: ':id',
       component: EventDetailsComponent,
-      data: { breadcrumbIgnore: true },
+      data: {  breadcrumb: 'T_EVENT_DETAILS' },
     }, {
       path: ':id/edit',
       component: EventFormComponent,

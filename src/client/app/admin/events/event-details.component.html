@@ -1,0 +1,67 @@
+<div *ngIf="model">
+  <div class="card">
+    <div class="card-header"><b>{{ 'T_EVENT_DETAILS' | translate }}</b></div>
+    <div class="card-block">
+      <button type="button"
+              class="btn btn-md btn-primary"
+              [routerLink]="['/admin/events/', model.id, 'edit']">
+        <i class="mr-h fa fa-pencil"></i>
+        {{ 'T_ACTION_EDIT' | translate }}
+      </button>
+
+      <div class="row mt-1">
+        <div class="col-md-6">
+          <small class="text-muted">{{ 'T_EVENT_STATUS' | translate}}</small>
+          <div class="h6">
+          <span class="badge badge-md badge-pill"
+                [ngClass]="{'badge-primary': model.status == EventStatus.NotStarted,
+                           'badge-success': model.status == EventStatus.Completed,
+                           'badge-warning': model.status == EventStatus.InProgress
+                                                    }">
+            {{ 'T_EVENT_STATUS_' + model.status?.toUpperCase() | translate }}
+          </span>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <small class="text-muted">{{ 'T_EVENT_DESCRIPTION' | translate}}</small>
+          <div class="h6">{{ model.description }}</div>
+        </div>
+      </div>
+      <div class="row mt-1">
+        <div class="col-md-6">
+          <small class="text-muted">{{ 'T_EVENT_START' | translate}}</small>
+          <div class="h6">{{ model.start | date:'mediumDate' }}</div>
+        </div>
+        <div class="col-md-6">
+          <small class="text-muted">{{ 'T_EVENT_END' | translate}}</small>
+          <div class="h6">{{ model.end | date:'mediumDate' }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notifications -->
+  <div class="card">
+    <div class="card-header">
+      {{ 'T_EVENT_NOTIFICATIONS' | translate }}
+    </div>
+    <div class="card-block p-0">
+      <table class="table table-striped m-0">
+        <th>{{ 'T_EVENT_NOTIFICATION_TIME' | translate}}</th>
+        <th>{{ 'T_EVENT_RECIPIENT' | translate}}</th>
+        <th>{{ 'T_EVENT_NOTIFICATION_KIND' | translate}}</th>
+        <tbody>
+          <tr *ngFor="let item of model.notifications">
+            <td>{{ item.time | date:'medium' }}</td>
+            <td>{{ 'T_EVENT_RECIPIENT_' + item.recipient.toUpperCase() | translate }}</td>
+            <td>{{ 'T_EVENT_NOTIFICATION_' + item.kind.toUpperCase() | translate }}</td>
+          </tr>
+          <tr *ngIf="!model.notifications.length">
+            <td colspan="25" class="text-center">{{ 'T_EMPTY' | translate }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <bs-event-project-list embedded [eventId]="model.id"></bs-event-project-list>
+</div>
