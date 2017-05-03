@@ -13,12 +13,13 @@ export class FormListComponent extends ListComponent<FormModel> {
 
   constructor(service: FormService,
               activatedRoute: ActivatedRoute,
-              router: Router) {
+              router: Router,
+              protected _formService: FormService) {
     super(service, activatedRoute, router);
   }
 
   public clone(model: FormModel) {
-    this._service.clone(model).subscribe(() => {
+    this._formService.clone(model).subscribe(() => {
       this._update();
     });
   }

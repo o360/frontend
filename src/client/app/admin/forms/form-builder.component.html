@@ -33,16 +33,11 @@
       </div>
     </div>
   </div>
+
+  <!-- Form builder -->
   <div class="card card-default">
     <div class="card-header">
       {{ 'T_FORM_BUILDER_TITLE' | translate }}
-      <div class="card-actions">
-        <button class="btn-minimize"
-                type="button"
-                [routerLink]="['/admin/forms/', model.id]">
-          <i class="fa fa-eye"></i>
-        </button>
-      </div>
     </div>
 
     <div class="card-block">
@@ -52,7 +47,7 @@
             <button type="button"
                     class="btn btn-primary btn-block mb-1 text-left"
                     (click)="addElement(kind)">
-              <i class="fa fa-plus"></i> {{ 'T_FORM_ELEMENT_TYPE_' + kind.toUpperCase() | translate }}
+              <i class="mr-h fa fa-plus"></i> {{ 'T_FORM_ELEMENT_TYPE_' + kind.toUpperCase() | translate }}
             </button>
           </div>
         </div>
@@ -61,34 +56,31 @@
           <accordion [closeOthers]="true">
             <accordion-group *ngFor="let item of model.elements" #accordionGroup>
               <div class="accordion-heading row" accordion-heading>
-                <span class="col-8">
+                <div class="col-8">
                   <i class="mr-h fa"
-                     [ngClass]=" {
-                        'fa-check text-success': valid(item),
-                        'fa-close text-danger': !valid(item)
-                        }"></i>
-                  {{ 'T_FORM_ELEMENT_TYPE_' + item.kind.toUpperCase() | translate }} <b>{{ item.caption }}</b></span>
-                <span class="ml-auto">
-                  <div class="btn-group" role="group" aria-label="Action buttons">
+                     [ngClass]="{
+                       'fa-check text-success': builderElement.valid,
+                       'fa-close text-danger': !builderElement.valid
+                     }">
+                  </i>
+                  {{ 'T_FORM_ELEMENT_TYPE_' + item.kind.toUpperCase() | translate }} <b>{{ item.caption }}</b>
+                </div>
+                <div class="col-4 text-right">
+                  <div class="btn-group" role="group">
                     <button type="button" class="btn btn-link btn-sm">
                       <i class="fa"
-                      [ngClass]="{'fa-chevron-left': accordionGroup?.isOpen, 'fa-chevron-down': !accordionGroup?.isOpen }"></i>
+                         [ngClass]="{'fa-chevron-up': accordionGroup?.isOpen, 'fa-chevron-down': !accordionGroup?.isOpen }"></i>
                     </button>
                     <button type="button" class="btn btn-link btn-sm" (click)="deleteElement(item);">
                       <i class="fa fa-trash"></i>
                     </button>
                   </div>
-                </span>
-              </div>
-
-              <div class="panel-collapse collapse in show" role="tabpanel" style="display: block; overflow: visible; height: auto;"
-                   aria-expanded="true" aria-hidden="false">
-                <div class="panel-body card-block">
-                  {{currentItem | json}}
-                  <bs-form-builder-element #builderElement
-                                           [element]="item"></bs-form-builder-element>
                 </div>
               </div>
+
+              <bs-form-builder-element #builderElement
+                                       [element]="item"></bs-form-builder-element>
+
             </accordion-group>
           </accordion>
         </div>

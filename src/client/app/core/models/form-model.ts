@@ -7,20 +7,20 @@ import { Model } from './model';
 })
 export class FormModel extends Model {
   public name: string;
-  public elements: FormElement[];
+  public elements: IFormElement[];
 }
 
-export class FormElement extends Model {
-  public kind: string;
-  public caption: string;
-  public value?: string;
-  public required: boolean;
-  public values?: FormElementValue[];
+export interface IFormElement {
+  kind: string;
+  caption: string;
+  value?: string;
+  required: boolean;
+  values?: IFormElementValue[];
 }
 
-export class FormElementValue {
-  public value: string;
-  public caption: string;
+export interface IFormElementValue {
+  value: string;
+  caption: string;
 }
 
 export class FormElementType {
