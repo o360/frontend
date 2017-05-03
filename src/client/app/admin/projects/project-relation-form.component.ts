@@ -1,10 +1,10 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component } from '@angular/core';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FormComponent } from '../../shared/components/form.component';
-import { ProjectModel, RelationKind } from '../../core/models/project-model';
-import { ProjectService } from '../../core/services/project.service';
-import { GroupModel } from '../../core/models/group-model';
 import { GroupService } from '../../core/services/group.service';
+import { RelationKind, RelationModel } from '../../core/models/relation-model';
+import { RelationService } from '../../core/services/relation.service';
+import { GroupModel } from '../../core/models/group-model';
 import { ModelId } from '../../core/models/model';
 import { IListResponse } from '../../core/services/rest.service';
 
@@ -14,16 +14,12 @@ import { IListResponse } from '../../core/services/rest.service';
   selector: 'bs-project-relation-form',
   templateUrl: 'project-relation-form.component.html'
 })
-export class ProjectRelationFormComponent extends FormComponent<ProjectModel> implements OnInit, OnChanges {
-  protected _index: number;
-  protected _relation: {
-    groupFrom: ModelId,
-    groupTo: ModelId,
-    form: number,
-    kind: string
-  };
+export class ProjectRelationFormComponent extends FormComponent<RelationModel> {
   protected _kinds: string[] = Object.values(RelationKind);
   protected _groups: GroupModel[];
+  protected _projectId: ModelId = null;
+  protected _returnPath = ['/admin/projects'];
+
 
   public evalForms = [{
     id: 1,
@@ -41,39 +37,11 @@ export class ProjectRelationFormComponent extends FormComponent<ProjectModel> im
     return this._kinds;
   }
 
-  public get relation(): any {
-    return this._relation;
+  public get projectId() {
+    return this._projectId;
   }
 
-  public set relation(value: any) {
-    this._relation = value;
-  }
-
-  @Input()
-  public set index(value: number) {
-    this._index = value;
-  }
-
-  public get index() {
-    return this._index;
-  }
-
-  public addRelation() {
-    let relation = {
-      groupTo: this._model.groupTo,
-      groupFrom: this._model.groupFrom,
-      form: this._model.form,
-      kind: this._model.kind,
-    };
-    if (this._index !== undefined) {
-      this._model.relations[this._index] = relation;
-    } else {
-      this._model.relations.push(relation);
-    }
-    this.save();
-  }
-
-  constructor(service: ProjectService,
+  constructor(service: RelationService,
               router: Router,
               route: ActivatedRoute,
               protected _groupService: GroupService) {
@@ -87,15 +55,20 @@ export class ProjectRelationFormComponent extends FormComponent<ProjectModel> im
     super._load();
   }
 
-  public ngOnInit() {
-    super.ngOnInit();
+  protected _processRouteParams(params: Params) {
+    if (params['projectId']) {
+      this._projectId = +params['projectId'];
+    }
+
+    super._processRouteParams(params);
   }
 
-  public ngOnChanges(changes: SimpleChanges) {
-    if (changes['index']) {
-      this._index = changes['index'].currentValue;
+  protected _processModel(model: RelationModel) {
+    if (this._projectId) {
+      model.projectId = this._projectId;
     }
-    this.ngOnInit();
+
+    super._processModel(model);
   }
 }
 

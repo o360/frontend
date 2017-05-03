@@ -81,11 +81,11 @@
   "T_CONFLICT_ERROR": "Conflict error",
   "T_PAGINATION_PREVIOUS_TEXT": "Previous",
   "T_PAGINATION_NEXT_TEXT": "Next",
-  "T_USERS_ADDED_TO_GROUP": "Users successfully added to a group"
+  "T_USERS_ADDED_TO_GROUP": "Users successfully added to a group",
   "T_PROJECTS": "Projects",
   "T_PROJECT_NAME": "Project name",
   "T_PROJECT_DESCRIPTION": "Description",
-  "T_PROJECT_AUDITOR": "Auditor",
+  "T_PROJECT_AUDITOR": "Auditor group",
   "T_PROJECT_DETAILS": "Details of project",
   "T_PROJECT_RELATIONS": "Relations",
   "T_PROJECT_RELATION": "Relation",
@@ -95,5 +95,7 @@
   "T_PROJECT_RELATION_KIND": "Kind",
   "T_PROJECT_RELATION_KIND_CLASSIC": "Regular",
   "T_PROJECT_RELATION_KIND_SURVEY": "Survey",
-  "T_PROJECT_RELATION_DETAILS": "Details of project relation"
+  "T_PROJECT_RELATION_DETAILS": "Details of project relation",
+  "T_PROJECT_RELATION_CREATE": "Create project relation",
+  "T_PROJECT_RELATION_EDIT": "Edit project relation"
 }

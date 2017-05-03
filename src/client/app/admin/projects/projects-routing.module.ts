@@ -4,6 +4,7 @@ import { ProjectListComponent } from './project-list.component';
 import { ProjectFormComponent } from './project-form.component';
 import { ProjectDetailsComponent } from './project-details.component';
 import { ProjectRelationDetailsComponent } from './project-relation-details.component';
+import { ProjectRelationFormComponent } from './project-relation-form.component';
 
 @NgModule({
   imports: [
@@ -16,17 +17,25 @@ import { ProjectRelationDetailsComponent } from './project-relation-details.comp
       component: ProjectFormComponent,
       data: { breadcrumb: 'T_ACTION_CREATE' },
     }, {
+      path: 'relations/create',
+      component: ProjectRelationFormComponent,
+      data: {  breadcrumb: 'T_PROJECT_RELATION_CREATE' },
+    }, {
       path: ':id',
       component: ProjectDetailsComponent,
       data: { breadcrumb: 'T_PROJECT_DETAILS' },
     }, {
-      path: ':id/details',
-      component: ProjectRelationDetailsComponent,
-      data: {  breadcrumb: 'T_PROJECT_RELATION_DETAILS' },
-    }, {
       path: ':id/edit',
       component: ProjectFormComponent,
       data: { breadcrumb: 'T_ACTION_EDIT' },
+    },{
+      path: ':id/relations/details/:id',
+      component: ProjectRelationDetailsComponent,
+      data: {  breadcrumb: 'T_PROJECT_RELATION_DETAILS' },
+    },{
+      path: ':id/relations/edit/:id',
+      component: ProjectRelationFormComponent,
+      data: {  breadcrumb: 'T_PROJECT_RELATION_EDIT' },
     }])
   ],
   exports: [RouterModule]

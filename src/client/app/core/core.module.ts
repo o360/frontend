@@ -16,6 +16,7 @@ import { ProfileService } from './services/profile.service';
 import { NotificationService } from './services/notification.service';
 import { GroupService } from './services/group.service';
 import { ProjectService } from './services/project.service';
+import { RelationService } from './services/relation.service';
 
 @NgModule({
   imports: [
@@ -39,6 +40,7 @@ import { ProjectService } from './services/project.service';
     UserService,
     GroupService,
     ProjectService,
+    RelationService,
     NotificationService
   ],
   exports: [

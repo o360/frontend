@@ -81,7 +81,7 @@
   "T_PROJECT_NAME": "Название проекта",
   "T_PROJECT_DESCRIPTION": "Описание",
   "T_PROJECT_RELATIONS": "Связи",
-  "T_PROJECT_AUDITOR": "Аудиторы",
+  "T_PROJECT_AUDITOR": "Аудитор группы",
   "T_PROJECT_DETAILS": "Подробнее о проекте",
   "T_GROUP_NAME": "Название группы",
   "T_GROUP_DETAILS": "Подробнее о группе",
@@ -96,5 +96,7 @@
   "T_PROJECT_RELATION_KIND_CLASSIC": "Обычный",
   "T_USERS_ADDED_TO_GROUP": "Пользователи успешно добавлены в группу",
   "T_PROJECT_RELATION_KIND_SURVEY": "Опрос",
-  "T_PROJECT_RELATION_DETAILS": "Подробнее об отношении проекта"
+  "T_PROJECT_RELATION_DETAILS": "Подробнее об отношении проекта",
+  "T_PROJECT_RELATION_CREATE": "Создание отношения проекта",
+  "T_PROJECT_RELATION_EDIT": "Редактирование отношения проекта"
 }

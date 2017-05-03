@@ -36,7 +36,7 @@ export class ProjectConfig extends SeedConfig {
       ...this.NPM_DEPENDENCIES,
       { src: 'font-awesome/css/font-awesome.min.css', inject: true },
       { src: 'simple-line-icons/css/simple-line-icons.css', inject: true },
-      //{ src: 'animate.css/animate.css', inject: true },
+      { src: 'animate.css/animate.css', inject: true },
       { src: 'ng2-toastr/bundles/ng2-toastr.min.css', inject: true },
       { src: 'jquery/dist/jquery.min.js', inject: 'libs' },
       { src: 'pace-progress/pace.min.js', inject: 'libs' },
