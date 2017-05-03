@@ -1,0 +1,52 @@
+<div bsModal #modal="bs-modal" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title">{{ 'T_ACTION_ADD_PROJECTS_TO_EVENT' | translate }}</h5>
+        <button type="button" class="close" aria-label="Close" (click)="modal.hide(); eventProjectsForm.reset()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <form class="form form-horizontal"
+              (ngSubmit)="submit(); eventProjectsForm.reset()"
+              #eventProjectsForm="ngForm">
+          <div class="form-group row"
+               [ngClass]="{'has-success': projects.valid, 'has-danger': !projects.valid && projects.touched }">
+            <label for="projects" class="col-form-label col-md-3 required">{{ 'T_PROJECTS' | translate }}</label>
+            <div class="col-md-9">
+              <select name="project"
+                      id="projects"
+                      class="form-control"
+                      multiple
+                      #projects="ngModel"
+                      [(ngModel)]="selectedProjects"
+                      required>
+                <option *ngFor="let project of availableProjects"
+                        [ngValue]="project.id">
+                  {{ project.name }}
+                </option>
+              </select>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button"
+                class="btn btn-secondary"
+                (click)="modal.hide(); eventProjectsForm.reset()">{{ 'T_ACTION_CANCEL' | translate }}
+        </button>
+
+        <button type="submit"
+                class="btn btn-primary"
+                (click)="submit(); eventProjectsForm.reset()"
+                [disabled]="!eventProjectsForm.valid">
+          {{ 'T_ACTION_ADD_PROJECTS_TO_EVENT' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

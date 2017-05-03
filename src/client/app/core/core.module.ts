@@ -46,6 +46,8 @@ import { EmailTemplateService } from './services/email-template.service';
     EventService,
     FormService,
     ProjectService,
+    EventService,
+    ProjectService,
     RelationService,
     EmailTemplateService,
     NotificationService
