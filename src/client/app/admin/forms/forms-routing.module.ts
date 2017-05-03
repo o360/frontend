@@ -15,10 +15,10 @@ import { FormDetailsComponent } from './form-details.component';
       component: FormBuilderComponent,
       data: { breadcrumb: 'T_ACTION_CREATE' },
     }, {
-     path: ':id',
-     component: FormDetailsComponent,
-     data: { breadcrumbIgnore: true },
-     }, {
+      path: ':id',
+      component: FormDetailsComponent,
+      data: { breadcrumb: 'T_FORM_DETAILS' },
+    }, {
       path: ':id/edit',
       component: FormBuilderComponent,
       data: { breadcrumb: 'T_ACTION_EDIT' },

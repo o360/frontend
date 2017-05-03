@@ -1,11 +1,11 @@
 <div class="card" *ngIf="isLoaded">
-  <div class="card-header"><b>{{ 'T_USERS' | translate }}</b></div>
+  <div class="card-header"><b>{{ 'T_FORMS' | translate }}</b></div>
   <div class="card-block">
     <button class="btn btn-primary"
             type="button"
             title="{{ 'T_ACTION_CREATE' | translate }}"
             [routerLink]="['/admin/forms/create']">
-      <i class="fa fa-magic"></i>
+      <i class="mr-h fa fa-file-o"></i>
       {{ 'T_ACTION_CREATE' | translate }}
     </button>
 
@@ -13,7 +13,7 @@
       <thead>
         <tr>
           <th>#</th>
-          <th>{{ 'T_USER_NAME' | translate }}</th>
+          <th>{{ 'T_FORM_NAME' | translate }}</th>
           <th class="actions-column">{{ 'T_ACTION' | translate }}</th>
         </tr>
       </thead>

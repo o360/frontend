@@ -1,19 +1,26 @@
 <div class="card" *ngIf="model">
   <div class="card-header">
-    <b>{{ 'T_FORM_PREVIEW' | translate }} {{ model.name }}</b>
+    <b>{{ 'T_FORM_DETAILS' | translate }}</b>
   </div>
   <div class="card-block">
-    <button type="button" class="btn btn-warning mr-1"
-            bsConfirm
-            [message]="'T_FORM_CONFIRM_CLONE_MESSAGE' | translate"
-            (confirm)="clone(model);">
-      <i class="fa fa-copy"></i> {{ 'T_ACTION_CLONE' | translate }}
-    </button>
-    <button type="button"
-            class="btn btn-primary mr-1"
-            [routerLink]="['/admin/forms/', model.id, 'edit']">
-      <i class="icon-pencil"></i> {{ 'T_ACTION_EDIT' | translate }}
-    </button>
+    <div class="row">
+      <div class="col-md-6">
+        <h2>{{ model.name }}</h2>
+      </div>
+      <div class="col-md-6 text-right">
+        <button type="button" class="btn btn-warning mr-1"
+                bsConfirm
+                [message]="'T_FORM_CONFIRM_CLONE_MESSAGE' | translate"
+                (confirm)="clone(model);">
+          <i class="mr-h fa fa-copy"></i> {{ 'T_ACTION_CLONE' | translate }}
+        </button>
+        <button type="button"
+                class="btn btn-primary mr-1"
+                [routerLink]="['/admin/forms/', model.id, 'edit']">
+          <i class="mr-h fa fa-pencil"></i> {{ 'T_ACTION_EDIT' | translate }}
+        </button>
+      </div>
+    </div>
     <form class="mt-2">
       <div class="form-group row mb-1" *ngFor="let element of model.elements" [ngSwitch]="element.kind">
         <!--For checkbox groups-->

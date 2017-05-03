@@ -1,15 +1,12 @@
-<form #elementForm="ngForm"
-      [ngSwitch]="requireValue(element.kind)">
-
+<form #elementForm="ngForm">
   <div class="form-group row"
        [ngClass]="{'has-success': captionElement.valid, 'has-danger': !captionElement.valid && captionElement.touched }">
-
-    <label for="captionElement" class="col-form-label col-4  required">{{ 'T_FORM_CAPTION' | translate }}</label>
+    <label for="caption-{{ index }}" class="col-form-label col-4  required">{{ 'T_FORM_CAPTION' | translate }}</label>
     <div class="col-8">
       <input type="text"
              class="form-control"
-             id="captionElement"
-             name="captionElement"
+             id="caption-{{ index }}"
+             name="caption-{{ index }}"
              #captionElement="ngModel"
              required
              placeholder="{{ 'T_FORM_ENTER_CAPTION' | translate }}"
@@ -23,91 +20,91 @@
   </div>
 
 
-  <!-- Values are not required -->
-  <ng-template ngSwitchDefault>
-    <div class="row checkbox mb-1">
-      <label class="col-form-label col-4 " for="required{{ i }}">{{ 'T_FORM_REQUIRED' | translate}}</label>
-      <div class="col-8">
-        <label class="switch switch-icon switch-primary">
-          <input type="checkbox"
-                 id="required{{ i }}"
-                 name="required{{ i }}"
-                 class="switch-input" [(ngModel)]="element.required" checked="true">
-          <span class="switch-label" data-on="*"></span>
-          <span class="switch-handle"></span>
-        </label>
-      </div>
-    </div>
-  </ng-template>
-
-  <!-- Values are required -->
-  <ng-template [ngSwitchCase]="true">
-    <h6 class="mt-2">{{ 'T_FORM_ADD_NEW_VALUE' | translate }}</h6>
-    <hr/>
-    <form #addNewValueForm="ngForm">
-      <div class="form-group row mb-1">
-        <label class="col-form-label col-4 " for="valueCaption{{ i }}">{{ 'T_FORM_CAPTION' | translate}}</label>
+  <div [ngSwitch]="requireValue(element.kind)">
+    <!-- Values are not required -->
+    <ng-template ngSwitchDefault>
+      <div class="row checkbox mb-1">
+        <label class="col-form-label col-4 " for="required-{{ index }}">{{ 'T_FORM_REQUIRED' | translate}}</label>
         <div class="col-8">
-          <input #newCaption
-                 id="valueCaption{{ i }}"
-                 name="valueCaption{{ i }}"
-                 type="text"
-                 class="form-control"
-                 ngModel
-                 required>
+          <label class="switch switch-icon switch-primary">
+            <input type="checkbox"
+                   id="required-{{ index }}"
+                   name="required-{{ index }}"
+                   class="switch-input" [(ngModel)]="element.required" checked="true">
+            <span class="switch-label"></span>
+            <span class="switch-handle"></span>
+          </label>
         </div>
       </div>
-      <div class="form-group row mb-1">
-        <label class="col-form-label col-4 " for="valueValue{{ i }}">{{ 'T_FORM_VALUE' | translate }}</label>
-        <div class="col-8">
-          <input #newValue
-                 id="valueValue{{ i }}"
-                 name="valueValue{{ i }}"
-                 type="text"
-                 class="form-control"
-                 ngModel
-                 required>
+    </ng-template>
+
+    <!-- Values are required -->
+    <ng-template [ngSwitchCase]="true">
+      <h6 class="mt-2">{{ 'T_FORM_EDIT_VALUES' | translate }}</h6>
+      <hr/>
+      <form #addNewValueForm="ngForm">
+        <div class="form-group row mb-1">
+          <label class="col-form-label col-4 " for="value-caption-{{ index }}">{{ 'T_FORM_CAPTION' | translate}}</label>
+          <div class="col-8">
+            <input #newCaption
+                   id="value-caption-{{ index }}"
+                   name="value-caption-{{ index }}"
+                   type="text"
+                   class="form-control"
+                   ngModel
+                   required>
+          </div>
+        </div>
+        <div class="form-group row mb-1">
+          <label class="col-form-label col-4 " for="value-value-{{ index }}">{{ 'T_FORM_VALUE' | translate }}</label>
+          <div class="col-8">
+            <input #newValue
+                   id="value-value-{{ index }}"
+                   name="value-value-{{ index }}"
+                   type="text"
+                   class="form-control"
+                   ngModel
+                   required>
+          </div>
+        </div>
+        <div class="text-right">
+          <button type="button" class="btn btn-sm btn-success"
+                  [disabled]="!addNewValueForm.valid"
+                  (click)="addValue(newCaption.value, newValue.value); addNewValueForm.reset();">
+            <i class="mr-h fa fa-plus"></i> {{ 'T_ACTION_ADD' | translate }}
+          </button>
+        </div>
+      </form>
+
+        <table class="table table-striped mt-2">
+          <th>{{ 'T_FORM_CAPTION' | translate}}</th>
+          <th>{{ 'T_FORM_VALUE' | translate}}</th>
+          <th  class="actions-column">{{ 'T_ACTION' | translate }}</th>
+          <tbody>
+            <tr *ngFor="let value of element.values">
+              <td>{{ value.caption }}</td>
+              <td>{{ value.value }}</td>
+              <td  class="actions-column">
+                <button type="button"
+                        class="btn btn-danger btn-sm"
+                        (click)="deleteValue(value)">
+                  <i class="mr-h fa fa-remove"></i>
+                  {{ 'T_ACTION_DELETE' | translate }}
+                </button>
+              </td>
+            </tr>
+            <tr *ngIf="!element.values.length">
+              <td colspan="25" class="text-center">{{ 'T_EMPTY' | translate }}</td>
+            </tr>
+          </tbody>
+        </table>
+
+      <div *ngIf="!element.values.length">
+        <div class="alert alert-danger">
+          {{ 'T_FORM_VALUES_ARE_REQUIRED' | translate }}
         </div>
       </div>
-      <div class="text-right">
-        <button type="button" class="btn btn-sm btn-success"
-                [disabled]="!addNewValueForm.valid"
-                (click)="addValue(element, newCaption.value, newValue.value); addNewValueForm.reset();">
-          <i class="icon-plus"></i> {{ 'T_ACTION_ADD' | translate }}
-        </button>
-      </div>
-    </form>
 
-    <div class="row">
-      <table class="table table-striped mt-2">
-        <th>{{ 'T_FORM_CAPTION' | translate}}</th>
-        <th>{{ 'T_FORM_VALUE' | translate}}</th>
-        <th>{{ 'T_ACTION' | translate }}</th>
-        <tbody>
-          <tr *ngFor="let value of element.values">
-            <td>{{ value.caption }}</td>
-            <td>{{ value.value }}</td>
-            <td>
-              <button type="button"
-                      class="btn btn-danger btn-sm"
-                      (click)="deleteValue(element, value)">
-                {{ 'T_ACTION_DELETE' | translate }}
-              </button>
-            </td>
-          </tr>
-          <tr *ngIf="!element.values.length">
-            <td colspan="25" class="text-center">{{ 'T_EMPTY' | translate }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="row"
-         *ngIf="!element.values.length">
-      <div class="col-12 alert alert-danger">
-        {{ 'T_FORM_VALUES_ARE_REQUIRED' | translate }}
-      </div>
-    </div>
-
-  </ng-template>
+    </ng-template>
+  </div>
 </form>
