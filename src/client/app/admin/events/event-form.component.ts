@@ -12,12 +12,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class EventFormComponent extends FormComponent<EventModel> {
   protected _returnPath = ['/admin/events'];
 
-  public get EventStatus() {
-    return EventStatus;
-  }
-
-  private _startDate: Date;
-  private _endDate: Date;
+  protected _startDate: Date;
+  protected _endDate: Date;
 
   public get startDate(): Date {
     return this._startDate;
@@ -35,29 +31,11 @@ export class EventFormComponent extends FormComponent<EventModel> {
     this._endDate = value;
   }
 
+  public get EventStatus() {
+    return EventStatus;
+  }
+
   constructor(service: EventService, router: Router, route: ActivatedRoute) {
     super(service, router, route);
   }
-
-  protected _processModel(model: EventModel) {
-    if (model.start && model.end) {
-      this._startDate = new Date(model.start);
-      this._endDate = new Date(model.end);
-    } else {
-      this._startDate = new Date();
-      this._endDate = new Date();
-    }
-
-    super._processModel(model);
-  }
-
-  public save() {
-    let start = new Date(this._startDate);
-    let end = new Date(this._endDate);
-    this._model.start = start.toISOString().split('.')[0] + 'Z';
-    this._model.end = end.toISOString().split('.')[0] + 'Z';
-
-    super.save();
-  }
-
 }
