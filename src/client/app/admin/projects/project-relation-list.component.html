@@ -22,9 +22,9 @@
       <tbody>
         <tr *ngFor="let model of list">
           <td>{{ model.id }}</td>
-          <td><a [routerLink]="['/admin/groups', model.groupFromId]">{{ model.groupFromId }}</a></td>
-          <td><a [routerLink]="['/admin/groups', model.groupToId]">{{ model.groupToId }}</a></td>
-          <td>{{ model.formId }}</td>
+          <td><a [routerLink]="['/admin/groups', model.groupFrom.id]">{{ model.groupFrom.name }}</a></td>
+          <td><a *ngIf="!!model.groupTo" [routerLink]="['/admin/groups', model.groupTo.id]">{{ model.groupTo.name }}</a></td>
+          <td><a [routerLink]="['/admin/forms', model.form.id]">{{ model.form.name }}</a></td>
           <td>{{ 'T_PROJECT_RELATION_KIND_' + model.kind.toUpperCase() | translate }}</td>
           <td class="actions-column">
             <button type="button"
