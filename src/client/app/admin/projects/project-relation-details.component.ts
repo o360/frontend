@@ -9,7 +9,7 @@ import { RelationService } from '../../core/services/relation.service';
   selector: 'project-relation-details',
   templateUrl: `project-relation-details.component.html`
 })
-export class ProjectRelationDetailsComponent extends DetailsComponent<RelationModel>{
+export class ProjectRelationDetailsComponent extends DetailsComponent<RelationModel> {
   constructor(service: RelationService,
               route: ActivatedRoute) {
     super(service, route);
