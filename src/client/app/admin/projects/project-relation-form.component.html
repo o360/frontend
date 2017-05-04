@@ -1,4 +1,13 @@
 <div class="card" *ngIf="isLoaded">
+  <div class="card-header">
+    <b [ngSwitch]="editMode">
+      <ng-template [ngSwitchCase]="true">{{ 'T_ACTION_EDIT' | translate }}
+        <span *ngIf="model">{{ model.name }}</span>
+      </ng-template>
+      <ng-template ngSwitchDefault>{{ 'T_ACTION_CREATE' | translate }}</ng-template>
+    </b>
+  </div>
+
   <div class="card-block">
     <form class="form form-horizontal"
           (ngSubmit)="save(); groupForm.reset()" #groupForm="ngForm">
@@ -22,6 +31,11 @@
               {{ group.name }}
             </option>
           </select>
+
+          <div class="form-errors"
+               *ngIf="groupFromId.errors && groupFromId.touched">
+            <div class="form-control-feedback" *ngIf="groupFromId.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}</div>
+          </div>
         </div>
       </div>
 
@@ -44,6 +58,11 @@
               {{ group.name }}
             </option>
           </select>
+
+          <div class="form-errors"
+               *ngIf="groupToId.errors && groupToId.touched">
+            <div class="form-control-feedback" *ngIf="groupToId.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}</div>
+          </div>
         </div>
       </div>
 
@@ -66,6 +85,11 @@
               {{ form.name }}
             </option>
           </select>
+
+          <div class="form-errors"
+               *ngIf="evalForm.errors && evalForm.touched">
+            <div class="form-control-feedback" *ngIf="evalForm.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}</div>
+          </div>
         </div>
       </div>
 
@@ -88,6 +112,11 @@
               {{ 'T_PROJECT_RELATION_KIND_' + kind.toUpperCase() | translate }}
             </option>
           </select>
+
+          <div class="form-errors"
+               *ngIf="kind.errors && kind.touched">
+            <div class="form-control-feedback" *ngIf="kind.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}</div>
+          </div>
         </div>
       </div>
 

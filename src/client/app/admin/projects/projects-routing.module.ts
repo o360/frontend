@@ -17,10 +17,6 @@ import { ProjectRelationFormComponent } from './project-relation-form.component'
       component: ProjectFormComponent,
       data: { breadcrumb: 'T_ACTION_CREATE' },
     }, {
-      path: 'relations/create',
-      component: ProjectRelationFormComponent,
-      data: {  breadcrumb: 'T_PROJECT_RELATION_CREATE' },
-    }, {
       path: ':id',
       component: ProjectDetailsComponent,
       data: { breadcrumb: 'T_PROJECT_DETAILS' },
@@ -28,14 +24,22 @@ import { ProjectRelationFormComponent } from './project-relation-form.component'
       path: ':id/edit',
       component: ProjectFormComponent,
       data: { breadcrumb: 'T_ACTION_EDIT' },
-    },{
-      path: ':id/relations/details/:id',
-      component: ProjectRelationDetailsComponent,
-      data: {  breadcrumb: 'T_PROJECT_RELATION_DETAILS' },
-    },{
-      path: ':id/relations/edit/:id',
-      component: ProjectRelationFormComponent,
-      data: {  breadcrumb: 'T_PROJECT_RELATION_EDIT' },
+    }, {
+      path: ':projectId/relations',
+      data: { breadcrumbIgnore: true },
+      children: [{
+        path: 'create',
+        component: ProjectRelationFormComponent,
+        data: { breadcrumb: 'T_PROJECT_RELATION_CREATE', breadcrumbIgnore: false },
+      }, {
+        path: ':id',
+        component: ProjectRelationDetailsComponent,
+        data: { breadcrumb: 'T_PROJECT_RELATION_DETAILS', breadcrumbIgnore: false },
+      }, {
+        path: ':id/edit',
+        component: ProjectRelationFormComponent,
+        data: { breadcrumb: 'T_PROJECT_RELATION_EDIT', breadcrumbIgnore: false },
+      }]
     }])
   ],
   exports: [RouterModule]
