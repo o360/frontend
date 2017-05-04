@@ -8,14 +8,15 @@ import { FormElementType, IFormElement, IFormElementValue } from '../../core/mod
 })
 export class FormBuilderElementComponent {
   protected static _idSeq = 0;
-  protected static next() {
-    return FormBuilderElementComponent._idSeq++;
-  }
 
   protected _element: IFormElement;
   protected _newValue: IFormElementValue;
   protected _valid: boolean = null;
   protected _index: number = FormBuilderElementComponent.next();
+
+  protected static next() {
+    return FormBuilderElementComponent._idSeq++;
+  }
 
   @Input()
   public set element(value: IFormElement) {
@@ -30,6 +31,18 @@ export class FormBuilderElementComponent {
     return this._index;
   }
 
+  public get valid(): boolean {
+    /*    setTimeout(() => {
+     if (this._element) {
+     let valueValid = this.requireValue(this._element.kind) ? this._element.values.length > 0 : true;
+     let prevValue = this._valid;
+     this._valid = !!this._element.caption && valueValid;
+     }
+     });*/
+
+    return this._valid;
+  }
+
   public requireValue(kind: string) {
     return [
       FormElementType.Radio,
@@ -37,19 +50,6 @@ export class FormBuilderElementComponent {
       FormElementType.Select
     ].includes(kind);
   }
-
-  public get valid(): boolean {
-/*    setTimeout(() => {
-      if (this._element) {
-        let valueValid = this.requireValue(this._element.kind) ? this._element.values.length > 0 : true;
-        let prevValue = this._valid;
-        this._valid = !!this._element.caption && valueValid;
-      }
-    });*/
-
-    return this._valid;
-  }
-
 
   public addValue(caption: string, value: string) {
     this._newValue = {
