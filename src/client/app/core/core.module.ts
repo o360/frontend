@@ -18,6 +18,7 @@ import { GroupService } from './services/group.service';
 import { FormService } from './services/form.service';
 import { ProjectService } from './services/project.service';
 import { RelationService } from './services/relation.service';
+import { FormService } from './services/form.service';
 
 @NgModule({
   imports: [
@@ -43,7 +44,8 @@ import { RelationService } from './services/relation.service';
     FormService,
     ProjectService,
     RelationService,
-    NotificationService
+    NotificationService,
+    FormService
   ],
   exports: [
     HeaderComponent,
