@@ -4,6 +4,7 @@ import { UsersModule } from './users/users.module';
 import { GroupsModule } from './groups/groups.module';
 import { FormsModule } from './forms/forms.module';
 import { ProjectsModule } from './projects/projects.module';
+import { EmailTemplatesModule } from './email-templates/email-templates.module';
 
 @NgModule({
   imports: [
@@ -27,6 +28,10 @@ import { ProjectsModule } from './projects/projects.module';
       path: 'projects',
       data: { breadcrumb: 'T_PROJECTS' },
       loadChildren: () => ProjectsModule
+    }, {
+      path: 'templates',
+      data: { breadcrumb: 'T_EMAIL_TEMPLATES' },
+      loadChildren: () => EmailTemplatesModule
     }])
   ],
   exports: [RouterModule]
