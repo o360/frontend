@@ -1,0 +1,102 @@
+<div class="card" *ngIf="isLoaded">
+  <div class="card-header">
+    <b [ngSwitch]="editMode">
+      <ng-template [ngSwitchCase]="true">{{ 'T_ACTION_EDIT' | translate }}
+        <span *ngIf="model">{{ model.name }}</span>
+      </ng-template>
+      <ng-template ngSwitchDefault>{{ 'T_ACTION_CREATE' | translate }}</ng-template>
+    </b>
+  </div>
+
+  <div class="card-block">
+    <form class="form form-horizontal"
+          (ngSubmit)="save(); userForm.reset()" #userForm="ngForm">
+
+      <!-- Name -->
+      <div class="form-group row"
+           [ngClass]="{'has-success': name.valid, 'has-danger': !name.valid && name.touched }">
+
+        <label for="name" class="col-form-label col-md-3 required">{{ 'T_USER_NAME' | translate }}</label>
+        <div class="col-md-9">
+          <input type="text"
+                 class="form-control"
+                 id="name"
+                 name="name"
+                 #name="ngModel"
+                 required
+                 placeholder="{{ 'T_FORM_ENTER_NAME' | translate }}"
+                 [(ngModel)]="model.name">
+
+
+          <div class="form-errors"
+               *ngIf="name.errors && name.touched">
+            <div class="form-control-feedback" *ngIf="name.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Description -->
+      <div class="form-group row"
+           [ngClass]="{'has-success': description.valid, 'has-danger': !description.valid && description.touched }">
+
+        <label for="description" class="col-form-label col-md-3">
+          {{ 'T_PROJECT_DESCRIPTION' | translate }}
+        </label>
+        <div class="col-md-9">
+          <textarea type="description"
+                    class="form-control"
+                    id="description"
+                    name="description"
+                    #description="ngModel"
+                    placeholder="{{ 'T_FORM_ENTER_DESCRIPTION' | translate }}"
+                    [(ngModel)]="model.description"> </textarea>
+          <div class="form-errors"
+               *ngIf="description.errors && description.touched">
+            <div class="form-control-feedback" *ngIf="description.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Auditor -->
+      <div class="form-group row"
+           [ngClass]="{'has-success': auditor.valid, 'has-danger': !auditor.valid && auditor.touched }">
+
+        <label for="auditor" class="col-form-label col-md-3 required">
+          {{ 'T_PROJECT_AUDITOR' | translate }}
+        </label>
+        <div class="col-md-9">
+          <select name="auditor"
+                  id="auditor"
+                  class="form-control"
+                  #auditor="ngModel"
+                  [(ngModel)]="model.groupAuditorId"
+                  required>
+            <option *ngFor="let auditor of auditors"
+                    [ngValue]="auditor.id">
+              {{auditor.name}}
+            </option>
+          </select>
+
+          <div class="form-errors"
+               *ngIf="auditor.errors && auditor.touched">
+            <div class="form-control-feedback" *ngIf="auditor.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}</div>
+          </div>
+        </div>
+      </div>
+
+      <hr/>
+
+      <div class="text-right">
+
+        <button type="submit"
+                class="btn btn-primary mt-0"
+                [disabled]="!userForm.valid">
+          <span [ngSwitch]="editMode">
+            <ng-template [ngSwitchCase]="true">{{ 'T_ACTION_UPDATE' | translate }}</ng-template>
+            <ng-template ngSwitchDefault>{{ 'T_ACTION_CREATE' | translate }}</ng-template>
+          </span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

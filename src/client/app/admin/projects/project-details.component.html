@@ -1,0 +1,42 @@
+<div *ngIf="model">
+  <div class="card">
+    <div class="card-header"><b>{{ 'T_DETAILS' | translate }}</b></div>
+    <div class="card-block">
+      <div class="row">
+        <div class="col-md-8">
+          <h2>{{ model.name }}</h2>
+        </div>
+        <div class="col-md-4 text-right">
+          <button type="button"
+                  class="btn btn-md btn-primary"
+                  [routerLink]="['/admin/projects/', model.id, 'edit']">{{ 'T_ACTION_EDIT' | translate }}
+          </button>
+        </div>
+      </div>
+
+      <div class="row mt-1">
+        <div class="col-md-3">
+          <small class="text-muted">{{ 'T_PROJECT_NAME' | translate}}</small>
+          <div class="h6">{{ model.name }}</div>
+        </div>
+
+        <div class="col-md-3">
+          <small class="text-muted">{{ 'T_PROJECT_AUDITOR' | translate}}</small>
+          <div class="h6"><a [routerLink]="['/admin/groups/', model.groupAuditorId]">{{ model.groupAuditorId }}</a></div>
+        </div>
+      </div>
+
+      <div class="row mt-1">
+        <div class="col-md-6" *ngIf="model.description">
+          <small class="text-muted">{{ 'T_PROJECT_DESCRIPTION' | translate}}</small>
+          <div class="h6">{{ model.description }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <bs-project-relation-list embedded [projectId]="model.id"></bs-project-relation-list>
+</div>
+
+
+

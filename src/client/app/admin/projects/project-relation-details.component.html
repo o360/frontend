@@ -1,0 +1,36 @@
+<div class="card" *ngIf="model">
+  <div class="card-header"><b>{{ 'T_DETAILS' | translate }}</b></div>
+  <div class="card-block">
+    <div class="row">
+      <div class="col-md-1 text-right">
+        <button type="button"
+                class="btn btn-md btn-primary"
+                [routerLink]="['/admin/projects/', model.projectId, 'relations', model.id, 'edit']">{{ 'T_ACTION_EDIT' | translate }}
+        </button>
+      </div>
+    </div>
+
+    <div class="row mt-1">
+      <div class="col-md-3">
+        <small class="text-muted">{{ 'T_PROJECT_RELATION_RATING_GROUP' | translate}}</small>
+        <div class="h6"><a [routerLink]="['/admin/groups', model.groupFromId]">{{ model.groupFromId }}</a></div>
+      </div>
+
+      <div class="col-md-3">
+        <small class="text-muted">{{ 'T_PROJECT_RELATION_ASSESSMENT_GROUP' | translate}}</small>
+        <div class="h6"><a [routerLink]="['/admin/groups', model.groupToId]">{{ model.groupToId }}</a></div>
+      </div>
+
+      <div class="col-md-3">
+        <small class="text-muted">{{ 'T_PROJECT_RELATION_EVALUATION_FORM' | translate}}</small>
+        <div class="h6">{{ model.formId }}</div>
+      </div>
+
+      <div class="col-md-3">
+        <small class="text-muted">{{ 'T_PROJECT_RELATION_KIND' | translate}}</small>
+        <div class="h6">{{ 'T_PROJECT_RELATION_KIND_' + model.kind.toUpperCase() | translate }}</div>
+      </div>
+
+    </div>
+  </div>
+</div>
