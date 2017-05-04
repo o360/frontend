@@ -10,17 +10,6 @@ export interface IModelIdName {
   id: ModelId;
   name: string;
 }
-export interface IProjectRelation {
-  project?: IModelIdName;
-  projectId?: ModelId;
-  groupFrom?: IModelIdName;
-  groupFromId?: ModelId;
-  groupTo?: IModelIdName;
-  groupToId?: ModelId;
-  form?: IModelIdName;
-  formId?: ModelId;
-  kind: string;
-}
 
 @Defaults({
   projectId: '',
