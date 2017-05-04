@@ -4,13 +4,14 @@
     <button class="btn btn-primary"
             type="button"
             title="{{ 'T_ACTION_CREATE' | translate }}"
-            [routerLink]="['/admin/projects/relations/create', { projectId: projectId }]">
+            [routerLink]="['/admin/projects/', projectId, 'relations', 'create']">
       <i class="fa fa-exchange mr-h"></i> {{ 'T_ACTION_CREATE_PROJECT_RELATION' | translate }}
     </button>
 
     <table class="table table-striped mt-1">
       <thead>
         <tr>
+          <th>#</th>
           <th>{{ 'T_PROJECT_RELATION_RATING_GROUP' | translate }}</th>
           <th>{{ 'T_PROJECT_RELATION_ASSESSMENT_GROUP' | translate }}</th>
           <th>{{ 'T_PROJECT_RELATION_EVALUATION_FORM' | translate }}</th>
@@ -20,6 +21,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let model of list">
+          <td>{{ model.id }}</td>
           <td><a [routerLink]="['/admin/groups', model.groupFromId]">{{ model.groupFromId }}</a></td>
           <td><a [routerLink]="['/admin/groups', model.groupToId]">{{ model.groupToId }}</a></td>
           <td>{{ model.formId }}</td>
@@ -28,14 +30,14 @@
             <button type="button"
                     class="btn btn-sm btn-success ml-1"
                     title="{{ 'T_ACTION_DETAILS' | translate }}"
-                    [routerLink]="['relations/details/', model.id]">
+                    [routerLink]="['/admin/projects/', projectId, 'relations', model.id]">
               <i class="fa fa-hand-pointer-o"></i> {{ 'T_ACTION_DETAILS' | translate}}
             </button>
 
             <button type="button"
                     class="btn btn-sm btn-primary ml-1"
                     title="{{ 'T_ACTION_EDIT' | translate }}"
-                    [routerLink]="['relations/edit/', model.id]"><i class="fa fa-pencil"></i>
+                    [routerLink]="['/admin/projects/', projectId, 'relations', model.id, 'edit']"><i class="fa fa-pencil"></i>
               {{ 'T_ACTION_EDIT' | translate}}
             </button>
 

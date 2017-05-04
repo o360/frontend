@@ -19,7 +19,7 @@ export interface IProjectRelation {
   groupFromId: '',
   groupToId: '',
   formId: '',
-  kind: 'classic'
+  kind: RelationKind.Classic
 })
 export class RelationModel extends Model {
   public projectId: ModelId;

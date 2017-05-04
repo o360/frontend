@@ -27,11 +27,6 @@ export class ProjectRelationListComponent extends ListComponent<RelationModel> i
     super(service, activatedRoute, router);
   }
 
-  public ngOnInit() {
-    this._queryParams.projectId = this._projectId;
-    super.ngOnInit();
-  }
-
   public ngOnChanges(changes: SimpleChanges) {
     if (changes['projectId']) {
       Object.assign(this._queryParams, { projectId: this._projectId });

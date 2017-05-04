@@ -76,6 +76,11 @@
               {{auditor.name}}
             </option>
           </select>
+
+          <div class="form-errors"
+               *ngIf="auditor.errors && auditor.touched">
+            <div class="form-control-feedback" *ngIf="auditor.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}</div>
+          </div>
         </div>
       </div>
 
