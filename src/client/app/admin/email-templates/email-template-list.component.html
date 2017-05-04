@@ -1,0 +1,63 @@
+<div class="card" *ngIf="isLoaded">
+  <div class="card-header"><b>{{ 'T_EMAIL_TEMPLATES' | translate }}</b></div>
+  <div class="card-block">
+    <button class="btn btn-primary"
+            type="button"
+            title="{{ 'T_ACTION_CREATE' | translate }}"
+            [routerLink]="['/admin/templates/create']"><i class="fa fa-file-text-o mr-h"></i>
+      {{ 'T_EMAIL_TEMPLATE_CREATE' | translate }}
+    </button>
+    <table class="table table-striped mt-1">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>{{ 'T_USER_NAME' | translate }}</th>
+          <th>{{ 'T_EMAIL_TEMPLATE_KIND' | translate }}</th>
+          <th class="actions-column">{{ 'T_ACTION' | translate }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let model of list">
+          <td>{{ model.id }}</td>
+          <td><a [routerLink]="['/admin/templates', model.id]">{{ model.name }}</a></td>
+          <td>{{ model.kind }}</td>
+          <td class="actions-column">
+            <button type="button"
+                    class="btn btn-sm btn-warning ml-1"
+                    title="{{ 'T_ACTION_CLONE' | translate }}"
+                    bsConfirm
+                    [message]="'T_FORM_CONFIRM_CLONE_MESSAGE' | translate"
+                    (confirm)="clone(model);">
+              <i class="fa fa-copy"></i>&nbsp;{{ 'T_ACTION_CLONE' | translate }}
+            </button>
+
+            <button type="button"
+                    class="btn btn-sm btn-primary ml-1"
+                    title="{{ 'T_ACTION_EDIT' | translate }}"
+                    [routerLink]="['/admin/templates/', model.id, 'edit']"><i class="fa fa-pencil"></i>&nbsp;
+              {{ 'T_ACTION_EDIT' | translate }}
+            </button>
+
+            <button type="button"
+                    class="btn btn-sm btn-danger ml-1"
+                    bsConfirm
+                    (confirm)="delete(model.id)">
+
+              <i class="fa fa-trash"></i>&nbsp;
+              {{ 'T_ACTION_DELETE' | translate }}
+            </button>
+          </td>
+        </tr>
+
+        <tr *ngIf="!list.length">
+          <td colspan="25" class="text-center">{{ 'T_EMPTY' | translate }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <bs-pagination [meta]="meta"
+                   (queryParamsChange)="pageQueryParamsChanged($event)"></bs-pagination>
+  </div>
+</div>
+
+
