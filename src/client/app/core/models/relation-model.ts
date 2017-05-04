@@ -6,25 +6,25 @@ export class RelationKind {
   public static readonly Survey: string = 'survey';
 }
 
-export interface IProjectRelation {
-  projectId: ModelId;
-  groupFromId: ModelId;
-  groupToId: ModelId;
-  formId: ModelId;
-  kind: string;
+export interface IModelIdName {
+  id: ModelId;
+  name: string;
 }
 
 @Defaults({
   projectId: '',
   groupFromId: '',
-  groupToId: '',
   formId: '',
   kind: RelationKind.Classic
 })
 export class RelationModel extends Model {
-  public projectId: ModelId;
-  public groupFromId: ModelId;
-  public groupToId: ModelId;
-  public formId: ModelId;
+  public project?: IModelIdName;
+  public projectId?: ModelId;
+  public groupFrom?: IModelIdName;
+  public groupFromId?: ModelId;
+  public groupTo?: IModelIdName;
+  public groupToId?: ModelId;
+  public form?: IModelIdName;
+  public formId?: ModelId;
   public kind: string;
 }

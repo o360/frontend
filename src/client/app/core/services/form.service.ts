@@ -29,5 +29,4 @@ export class FormService extends RestService<FormModel> {
       .map((json: any) => this.createEntity(json))
       .catch((error: Response) => this._handleErrors(error));
   }
-
 }
