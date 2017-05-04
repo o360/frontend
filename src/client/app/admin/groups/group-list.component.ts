@@ -29,7 +29,6 @@ export class GroupListComponent extends ListComponent<GroupModel> implements OnI
 
   public ngOnInit() {
     this._queryParams.parentId = this._parentId;
-
     super.ngOnInit();
   }
 

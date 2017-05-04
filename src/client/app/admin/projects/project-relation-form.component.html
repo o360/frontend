@@ -1,0 +1,137 @@
+<div class="card" *ngIf="isLoaded">
+  <div class="card-header">
+    <b [ngSwitch]="editMode">
+      <ng-template [ngSwitchCase]="true">{{ 'T_ACTION_EDIT' | translate }}
+        <span *ngIf="model">{{ model.name }}</span>
+      </ng-template>
+      <ng-template ngSwitchDefault>{{ 'T_ACTION_CREATE' | translate }}</ng-template>
+    </b>
+  </div>
+
+  <div class="card-block">
+    <form class="form form-horizontal"
+          (ngSubmit)="save(); groupForm.reset()" #groupForm="ngForm">
+
+      <!-- Group From -->
+      <div class="form-group row"
+           [ngClass]="{'has-success': groupFromId.valid, 'has-danger': !groupFromId.valid && groupFromId.touched }">
+
+        <label for="groupFromId" class="col-form-label col-md-3 required">
+          {{ 'T_PROJECT_RELATION_RATING_GROUP' | translate }}
+        </label>
+        <div class="col-md-9">
+          <select name="groupFromId"
+                  id="groupFromId"
+                  class="form-control"
+                  #groupFromId="ngModel"
+                  required
+                  [(ngModel)]="model.groupFromId">
+            <option *ngFor="let group of groups"
+                    [ngValue]="group.id">
+              {{ group.name }}
+            </option>
+          </select>
+
+          <div class="form-errors"
+               *ngIf="groupFromId.errors && groupFromId.touched">
+            <div class="form-control-feedback" *ngIf="groupFromId.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Group To -->
+      <div class="form-group row"
+           [ngClass]="{'has-success': groupToId.valid, 'has-danger': !groupToId.valid && groupToId.touched }">
+
+        <label for="groupToId" class="col-form-label col-md-3 required">
+          {{ 'T_PROJECT_RELATION_ASSESSMENT_GROUP' | translate }}
+        </label>
+        <div class="col-md-9">
+          <select name="groupToId"
+                  id="groupToId"
+                  class="form-control"
+                  #groupToId="ngModel"
+                  required
+                  [(ngModel)]="model.groupToId">
+            <option *ngFor="let group of groups"
+                    [ngValue]="group.id">
+              {{ group.name }}
+            </option>
+          </select>
+
+          <div class="form-errors"
+               *ngIf="groupToId.errors && groupToId.touched">
+            <div class="form-control-feedback" *ngIf="groupToId.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Evaluation form  -->
+      <div class="form-group row"
+           [ngClass]="{'has-success': evalForm.valid, 'has-danger': !evalForm.valid && evalForm.touched }">
+
+        <label for="evalForm" class="col-form-label col-md-3 required">
+          {{ 'T_PROJECT_RELATION_EVALUATION_FORM' | translate }}
+        </label>
+        <div class="col-md-9">
+          <select name="evalForm"
+                  id="evalForm"
+                  class="form-control"
+                  #evalForm="ngModel"
+                  required
+                  [(ngModel)]="model.formId">
+            <option *ngFor="let form of evalForms"
+                    [ngValue]="form.id">
+              {{ form.name }}
+            </option>
+          </select>
+
+          <div class="form-errors"
+               *ngIf="evalForm.errors && evalForm.touched">
+            <div class="form-control-feedback" *ngIf="evalForm.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Kinds  -->
+      <div class="form-group row"
+           [ngClass]="{'has-success': kind.valid, 'has-danger': !kind.valid && kind.touched }">
+
+        <label for="kind" class="col-form-label col-md-3 required">
+          {{ 'T_PROJECT_RELATION_KIND' | translate }}
+        </label>
+        <div class="col-md-9">
+          <select name="kind"
+                  id="kind"
+                  class="form-control"
+                  #kind="ngModel"
+                  required
+                  [(ngModel)]="model.kind">
+            <option *ngFor="let kind of kinds"
+                    [ngValue]="kind">
+              {{ 'T_PROJECT_RELATION_KIND_' + kind.toUpperCase() | translate }}
+            </option>
+          </select>
+
+          <div class="form-errors"
+               *ngIf="kind.errors && kind.touched">
+            <div class="form-control-feedback" *ngIf="kind.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}</div>
+          </div>
+        </div>
+      </div>
+
+      <hr/>
+
+      <div class="text-right">
+        <button type="submit"
+                class="btn btn-primary mt-0"
+                [disabled]="!groupForm.valid">
+          <span [ngSwitch]="editMode">
+            <ng-template [ngSwitchCase]="true">{{ 'T_ACTION_UPDATE' | translate }}</ng-template>
+            <ng-template ngSwitchDefault>{{ 'T_ACTION_CREATE' | translate }}</ng-template>
+          </span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
