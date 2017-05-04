@@ -40,7 +40,8 @@
       </div>
 
       <!-- Group To -->
-      <div class="form-group row"
+      <div *ngIf="model.kind !== RelationKind.Survey"
+        class="form-group row"
            [ngClass]="{'has-success': groupToId.valid, 'has-danger': !groupToId.valid && groupToId.touched }">
 
         <label for="groupToId" class="col-form-label col-md-3 required">
@@ -80,7 +81,7 @@
                   #evalForm="ngModel"
                   required
                   [(ngModel)]="model.formId">
-            <option *ngFor="let form of evalForms"
+            <option *ngFor="let form of forms"
                     [ngValue]="form.id">
               {{ form.name }}
             </option>

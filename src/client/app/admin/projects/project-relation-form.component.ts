@@ -7,6 +7,8 @@ import { RelationService } from '../../core/services/relation.service';
 import { GroupModel } from '../../core/models/group-model';
 import { ModelId } from '../../core/models/model';
 import { IListResponse } from '../../core/services/rest.service';
+import { FormService } from '../../core/services/form.service';
+import { FormModel } from '../../core/models/form-model';
 
 
 @Component({
@@ -17,20 +19,16 @@ import { IListResponse } from '../../core/services/rest.service';
 export class ProjectRelationFormComponent extends FormComponent<RelationModel> {
   protected _kinds: string[] = Object.values(RelationKind);
   protected _groups: GroupModel[];
+  protected _forms: FormModel[];
   protected _projectId: ModelId = null;
   protected _returnPath = ['/admin/projects'];
 
-
-  public evalForms = [{
-    id: 1,
-    name: 'First'
-  }, {
-    id: 2,
-    name: 'Second'
-  }];
-
   public get groups(): GroupModel[] {
     return this._groups;
+  }
+
+  public get forms(): FormModel[] {
+    return this._forms;
   }
 
   public get kinds(): string[] {
@@ -41,10 +39,15 @@ export class ProjectRelationFormComponent extends FormComponent<RelationModel> {
     return this._projectId;
   }
 
+  public get RelationKind() {
+    return RelationKind;
+  }
+
   constructor(service: RelationService,
               router: Router,
               route: ActivatedRoute,
-              protected _groupService: GroupService) {
+              protected _groupService: GroupService,
+              protected _formService: FormService) {
     super(service, router, route);
   }
 
@@ -52,12 +55,17 @@ export class ProjectRelationFormComponent extends FormComponent<RelationModel> {
     this._groupService.list().subscribe((list: IListResponse<GroupModel>) => {
       this._groups = list.data;
     });
+    this._formService.list().subscribe((list: IListResponse<FormModel>) => {
+      this._forms = list.data;
+    });
+
     super._load();
   }
 
   protected _processRouteParams(params: Params) {
     if (params['projectId']) {
       this._projectId = +params['projectId'];
+      this._returnPath = ['/admin/projects', this._projectId.toString()];
     }
 
     super._processRouteParams(params);

@@ -22,7 +22,7 @@
 
         <div class="col-md-3">
           <small class="text-muted">{{ 'T_PROJECT_AUDITOR' | translate}}</small>
-          <div class="h6"><a [routerLink]="['/admin/groups/', model.groupAuditorId]">{{ model.groupAuditorId }}</a></div>
+          <div class="h6"><a [routerLink]="['/admin/groups/', model.groupAuditor.id]">{{ model.groupAuditor.name }}</a></div>
         </div>
       </div>
 
