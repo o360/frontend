@@ -83,9 +83,19 @@
         </div>
       </div>
 
+      <hr/>
+
+      <!--Notifications-->
+      <h3 class="mb-1 mt-2">{{ 'T_EVENT_NOTIFICATIONS' | translate }}</h3>
       <bs-assessment-event-notification [event]="model"></bs-assessment-event-notification>
 
-      <div class="text-right">
+      <hr/>
+
+      <!--Projects in Event-->
+      <h3 class="mb-1 mt-2">{{ 'T_PROJECTS' | translate }}</h3>
+      <bs-event-project-list embedded [event]="model"></bs-event-project-list>
+
+      <div class="text-right mt-1">
         <button type="submit"
                 class="btn btn-primary mt-0"
                 [disabled]="!eventForm.valid">

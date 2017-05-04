@@ -42,26 +42,17 @@
 
   <!-- Notifications -->
   <div class="card">
-    <div class="card-header">
-      {{ 'T_EVENT_NOTIFICATIONS' | translate }}
-    </div>
-    <div class="card-block p-0">
-      <table class="table table-striped m-0">
-        <th>{{ 'T_EVENT_NOTIFICATION_TIME' | translate}}</th>
-        <th>{{ 'T_EVENT_RECIPIENT' | translate}}</th>
-        <th>{{ 'T_EVENT_NOTIFICATION_KIND' | translate}}</th>
-        <tbody>
-          <tr *ngFor="let item of model.notifications">
-            <td>{{ item.time | date:'medium' }}</td>
-            <td>{{ 'T_EVENT_RECIPIENT_' + item.recipient.toUpperCase() | translate }}</td>
-            <td>{{ 'T_EVENT_NOTIFICATION_' + item.kind.toUpperCase() | translate }}</td>
-          </tr>
-          <tr *ngIf="!model.notifications.length">
-            <td colspan="25" class="text-center">{{ 'T_EMPTY' | translate }}</td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="card-header"><b>{{ 'T_EVENT_NOTIFICATIONS' | translate }}</b></div>
+    <div class="card-block">
+      <bs-assessment-event-notification embedded readonly [event]="model"></bs-assessment-event-notification>
     </div>
   </div>
-  <bs-event-project-list embedded [eventId]="model.id"></bs-event-project-list>
+
+  <!-- Projects in Event -->
+  <div class="card">
+    <div class="card-header"><b>{{ 'T_PROJECTS' | translate }}</b></div>
+    <div class="card-block">
+      <bs-event-project-list embedded readonly [event]="model"></bs-event-project-list>
+    </div>
+  </div>
 </div>

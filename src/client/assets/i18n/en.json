@@ -90,6 +90,7 @@
   "T_EVENT_DESCRIPTION": "Description",
   "T_EVENT_DETAILS": "Assessment event details",
   "T_EVENT_ENTER_DESCRIPTION": "Enter assessment event description...",
+  "T_EVENT_SORT": "Sort by",
   "T_EVENT_START": "Start",
   "T_EVENT_END": "End",
   "T_EVENT_CAN_REVOTE": "Can revote",
