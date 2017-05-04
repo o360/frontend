@@ -36,8 +36,11 @@ export class EventProjectListComponent extends ListComponent<ProjectModel> imple
   }
 
   public ngOnInit() {
-    this._queryParams.eventId = this._event.id.toString();
+    if (!!this._event.id) {
+      this._queryParams.eventId = this._event.id.toString();
+    }
     super.ngOnInit();
+
   }
 
   public ngOnChanges(changes: SimpleChanges) {
