@@ -1,15 +1,15 @@
 import { Defaults } from '../decorators/defaults.decorator';
 import { Model, ModelId } from './model';
-import { ModelIdName, RelationModel } from './relation-model';
+import { GroupModel } from './group-model';
 
 @Defaults({
   name: '',
-  groupAuditorId: '',
+  groupAuditorId: null,
   relations: []
 })
 export class ProjectModel extends Model {
   public name: string;
-  public description?: string;
-  public groupAuditor: ModelIdName;
-  public relations: RelationModel[];
+  public description: string;
+  public groupAuditorId?: ModelId;
+  public groupAuditor?: GroupModel;
 }

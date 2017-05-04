@@ -9,6 +9,7 @@ import { ModelId } from '../../core/models/model';
 import { IListResponse } from '../../core/services/rest.service';
 import { FormService } from '../../core/services/form.service';
 import { FormModel } from '../../core/models/form-model';
+import { Observable } from 'rxjs/Observable';
 
 
 @Component({
@@ -52,14 +53,15 @@ export class ProjectRelationFormComponent extends FormComponent<RelationModel> {
   }
 
   protected _load() {
-    this._groupService.list().subscribe((list: IListResponse<GroupModel>) => {
-      this._groups = list.data;
-    });
-    this._formService.list().subscribe((list: IListResponse<FormModel>) => {
-      this._forms = list.data;
-    });
+    Observable.forkJoin(
+      this._groupService.list(),
+      this._formService.list()
+    ).subscribe(([groups, forms]: [IListResponse<GroupModel>, IListResponse<FormModel>]) => {
+      this._groups = groups.data;
+      this._forms = forms.data;
 
-    super._load();
+      super._load();
+    });
   }
 
   protected _processRouteParams(params: Params) {
