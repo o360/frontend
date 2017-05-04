@@ -145,6 +145,7 @@
   "T_EVENT_DESCRIPTION": "Описание",
   "T_EVENT_DETAILS": "Детали события оценки",
   "T_EVENT_ENTER_DESCRIPTION": "Введите описание события оценки...",
+  "T_EVENT_SORT": "Сортировать по",
   "T_EVENT_START": "Начало",
   "T_EVENT_END": "Окончание",
   "T_EVENT_CAN_REVOTE": "Можно изменять ответы",

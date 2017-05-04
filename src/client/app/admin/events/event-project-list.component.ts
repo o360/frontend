@@ -5,6 +5,7 @@ import { ModelId } from '../../core/models/model';
 import { ProjectModel } from '../../core/models/project-model';
 import { ProjectService } from '../../core/services/project.service';
 import { EventService } from '../../core/services/event.service';
+import { EventModel, EventStatus } from '../../core/models/event-model';
 
 @Component({
   moduleId: module.id,
@@ -12,15 +13,19 @@ import { EventService } from '../../core/services/event.service';
   templateUrl: 'event-project-list.component.html'
 })
 export class EventProjectListComponent extends ListComponent<ProjectModel> implements OnChanges, OnInit {
-  private _eventId: ModelId;
-
-  @Input()
-  public set eventId(value: ModelId) {
-    this._eventId = value;
+  public get EventStatus() {
+    return EventStatus;
   }
 
-  public get eventId(): ModelId {
-    return this._eventId;
+  private _event: EventModel;
+
+  public get event(): EventModel {
+    return this._event;
+  }
+
+  @Input()
+  public set event(value: EventModel) {
+    this._event = value;
   }
 
   constructor(service: ProjectService,
@@ -31,19 +36,19 @@ export class EventProjectListComponent extends ListComponent<ProjectModel> imple
   }
 
   public ngOnInit() {
-    this._queryParams.eventId = this._eventId.toString();
+    this._queryParams.eventId = this._event.id.toString();
     super.ngOnInit();
   }
 
   public ngOnChanges(changes: SimpleChanges) {
     if (changes['eventId']) {
-      Object.assign(this._queryParams, { eventId: this._eventId.toString() });
+      Object.assign(this._queryParams, { eventId: this._event.id.toString() });
       this._update();
     }
   }
 
   public delete(projectId?: ModelId) {
-    this._eventService.removeProject(this._eventId, projectId).subscribe(() => this._update());
+    this._eventService.removeProject(this._event.id, projectId).subscribe(() => this._update());
   }
 
   public projectsAdded() {

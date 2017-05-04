@@ -39,3 +39,8 @@ export class EventStatus {
   public static readonly InProgress: string = 'inProgress';
   public static readonly Completed: string = 'completed';
 }
+
+export class EventSortField {
+  public static readonly Start: string = 'start';
+  public static readonly End: string = 'end';
+}

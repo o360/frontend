@@ -9,6 +9,16 @@ import { EventModel, EventNotificationKind, EventRecipient, IEventNotification }
 export class EventNotificationComponent {
   protected _kinds: string[] = Object.values(EventNotificationKind);
   protected _recipients: string[] = Object.values(EventRecipient);
+  protected _readonly: boolean = false;
+
+  @Input()
+  public set readonly(value: boolean | string) {
+    this._readonly = typeof value === 'boolean' ? value : true;
+  }
+
+  public get readonly(): boolean | string {
+    return this._readonly;
+  }
 
   protected _event: EventModel;
   protected _notification: IEventNotification = {

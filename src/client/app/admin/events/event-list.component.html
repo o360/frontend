@@ -22,7 +22,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let model of list" [routerLink]="['/admin/events', model.id]">
+        <tr *ngFor="let model of list" role="button" [routerLink]="['/admin/events', model.id]">
           <td>{{ model.id }}</td>
           <td>
             <span class="badge badge-md badge-pill"
