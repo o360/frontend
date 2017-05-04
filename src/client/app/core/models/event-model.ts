@@ -2,18 +2,34 @@ import { Defaults } from '../decorators/defaults.decorator';
 import { Model } from './model';
 
 @Defaults({
-  start: '',
-  end: '',
+  start: new Date(),
+  end: new Date(),
   canRevote: false,
   notifications: []
 })
 export class EventModel extends Model {
   public description?: string;
-  public start: string;
-  public end: string;
+  public start: any;
+  public end: any;
   public canRevote: boolean;
   public status: string;
   public notifications: IEventNotification[];
+
+
+  constructor(json: Object) {
+    super(json);
+    this.start = new Date(this.start);
+    this.end = new Date(this.end);
+  }
+
+  public toJson(): Object {
+    let start = new Date(this.start);
+    let end = new Date(this.end);
+    this.start = start.toISOString().split('.')[0] + 'Z';
+    this.end = end.toISOString().split('.')[0] + 'Z';
+
+    return JSON.stringify(this);
+  }
 }
 
 export interface IEventNotification {

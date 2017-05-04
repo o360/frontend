@@ -1,8 +1,7 @@
 <div *ngIf="isLoaded">
-  <button *ngIf="!readonly"
-          class="btn btn-primary mb-1"
+  <button class="btn btn-primary mb-1"
           type="button"
-          [disabled]="event.status === EventStatus.InProgress && !readonly"
+          [disabled]="event.status === EventStatus.InProgress"
           title="{{ 'T_ACTION_ADD_PROJECTS_TO_EVENT' | translate }}"
           (click)="modalForm.show()">
     <i class="fa fa-plus mr-h"></i>{{ 'T_ACTION_ADD_PROJECTS_TO_EVENT' | translate }}
@@ -15,7 +14,8 @@
         <th>#</th>
         <th>{{ 'T_PROJECT_NAME' | translate }}</th>
         <th class="actions-column"
-            *ngIf="event.status !== EventStatus.InProgress && !readonly">{{ 'T_ACTION' | translate }}
+            *ngIf="event.status !== EventStatus.InProgress">
+          {{ 'T_ACTION' | translate }}
         </th>
       </tr>
     </thead>
@@ -23,7 +23,7 @@
       <tr *ngFor="let project of list">
         <td>{{ project.id }}</td>
         <td><a [routerLink]="['/admin/projects', project.id]">{{ project.name }}</a></td>
-        <td class="actions-column" *ngIf="event.status !== EventStatus.InProgress && !readonly">
+        <td class="actions-column" *ngIf="event.status !== EventStatus.InProgress">
           <button type="button"
                   class="btn btn-sm btn-danger ml-1"
                   bsConfirm

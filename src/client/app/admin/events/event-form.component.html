@@ -13,7 +13,8 @@
           (ngSubmit)="save();" #eventForm="ngForm">
 
       <!-- Description -->
-      <div class="form-group row">
+      <div class="form-group row"
+           [ngClass]="{'has-success': description.valid, 'has-danger': !description.valid && description.touched }">
         <label for="description" class="col-form-label col-md-3">{{ 'T_EVENT_DESCRIPTION' | translate }}</label>
         <div class="col-md-9">
           <textarea type="text"
@@ -33,11 +34,9 @@
       <div class="form-group row" [ngClass]="{'has-success': start.valid, 'has-danger': !start.valid && start.touched }">
         <label for="start" class="col-form-label col-md-3 required">{{ 'T_EVENT_START' | translate }}</label>
         <div class="col-md-9">
-
-
           <input class="form-control"
-                 [ngModel]="startDate | date:'yyyy-MM-dd'"
-                 (ngModelChange)="startDate = $event"
+                 [ngModel]="model.start | date:'yyyy-MM-dd'"
+                 (ngModelChange)="model.start = $event"
                  type="date"
                  #start="ngModel"
                  id="start"
@@ -57,8 +56,8 @@
         <label for="end" class="col-form-label col-md-3 required">{{ 'T_EVENT_END' | translate }}</label>
         <div class="col-md-9">
           <input class="form-control"
-                 [ngModel]="endDate | date:'yyyy-MM-dd'"
-                 (ngModelChange)="endDate = $event"
+                 [ngModel]="model.end | date:'yyyy-MM-dd'"
+                 (ngModelChange)="model.end = $event"
                  type="date"
                  #end="ngModel"
                  id="end"
@@ -87,16 +86,8 @@
       <hr/>
 
       <!--Notifications-->
-      <h3 class="mb-1 mt-2">{{ 'T_EVENT_NOTIFICATIONS' | translate }}</h3>
+      <h5 class="mb-1 mt-2">{{ 'T_EVENT_NOTIFICATIONS' | translate }}</h5>
       <bs-assessment-event-notification [event]="model"></bs-assessment-event-notification>
-
-      <hr/>
-
-      <!--Projects in Event-->
-      <div *ngIf="editMode">
-        <h3 class="mb-1 mt-2">{{ 'T_PROJECTS' | translate }}</h3>
-        <bs-event-project-list embedded [event]="model"></bs-event-project-list>
-      </div>
 
       <div class="text-right mt-1">
         <button type="submit"

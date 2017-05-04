@@ -9,14 +9,10 @@ import { EventModel, EventStatus } from '../../core/models/event-model';
 
 @Component({
   moduleId: module.id,
-  selector: 'bs-event-project-list',
+  selector: 'bs-assessment-event-project-list',
   templateUrl: 'event-project-list.component.html'
 })
 export class EventProjectListComponent extends ListComponent<ProjectModel> implements OnChanges, OnInit {
-  public get EventStatus() {
-    return EventStatus;
-  }
-
   private _event: EventModel;
 
   public get event(): EventModel {
@@ -26,6 +22,10 @@ export class EventProjectListComponent extends ListComponent<ProjectModel> imple
   @Input()
   public set event(value: EventModel) {
     this._event = value;
+  }
+
+  public get EventStatus() {
+    return EventStatus;
   }
 
   constructor(service: ProjectService,
