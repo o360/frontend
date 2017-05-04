@@ -15,6 +15,7 @@ import { BsDropdownModule } from 'ngx-bootstrap';
 import { ProfileService } from './services/profile.service';
 import { NotificationService } from './services/notification.service';
 import { GroupService } from './services/group.service';
+import { FormService } from './services/form.service';
 import { ProjectService } from './services/project.service';
 import { RelationService } from './services/relation.service';
 
@@ -39,6 +40,7 @@ import { RelationService } from './services/relation.service';
     AuthGuard,
     UserService,
     GroupService,
+    FormService,
     ProjectService,
     RelationService,
     NotificationService
