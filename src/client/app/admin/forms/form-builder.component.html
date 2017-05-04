@@ -1,0 +1,102 @@
+<form class="form form-horizontal" *ngIf="isLoaded"
+      (ngSubmit)="save();" #formBuilder="ngForm">
+  <div class="card mb-1">
+    <div class="card-header">
+      <b [ngSwitch]="editMode">
+        <ng-template [ngSwitchCase]="true">{{ 'T_ACTION_EDIT' | translate }}
+          <span *ngIf="model">{{ model.name }}</span>
+        </ng-template>
+        <ng-template ngSwitchDefault>{{ 'T_ACTION_CREATE' | translate }}</ng-template>
+      </b>
+    </div>
+    <div class="card-block">
+      <!-- Name -->
+      <div class="form-group row"
+           [ngClass]="{'has-success': name.valid, 'has-danger': !name.valid && name.touched }">
+
+        <label for="name" class="col-form-label col-md-3 required">{{ 'T_FORM_NAME' | translate }}</label>
+        <div class="col-md-9">
+          <input type="text"
+                 class="form-control"
+                 id="name"
+                 name="name"
+                 #name="ngModel"
+                 required
+                 placeholder="{{ 'T_FORM_BUILDER_ENTER_NAME' | translate }}"
+                 [(ngModel)]="model.name">
+
+          <div class="form-errors"
+               *ngIf="name.errors && name.touched">
+            <div class="form-control-feedback" *ngIf="name.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Form builder -->
+  <div class="card card-default">
+    <div class="card-header">
+      {{ 'T_FORM_BUILDER_TITLE' | translate }}
+    </div>
+
+    <div class="card-block">
+      <div class="row">
+        <div class="col-md-4 col-lg-3">
+          <div *ngFor="let kind of elementTypes;">
+            <button type="button"
+                    class="btn btn-primary btn-block mb-1 text-left"
+                    (click)="addElement(kind)">
+              <i class="mr-h fa fa-plus"></i> {{ 'T_FORM_ELEMENT_TYPE_' + kind.toUpperCase() | translate }}
+            </button>
+          </div>
+        </div>
+        <div class="col-md-8 col-lg-9">
+
+          <accordion [closeOthers]="true">
+            <accordion-group *ngFor="let item of model.elements" #accordionGroup>
+              <div class="accordion-heading row" accordion-heading>
+                <div class="col-8">
+                  <i class="mr-h fa"
+                     [ngClass]="{
+                       'fa-check text-success': builderElement.valid,
+                       'fa-close text-danger': !builderElement.valid
+                     }">
+                  </i>
+                  {{ 'T_FORM_ELEMENT_TYPE_' + item.kind.toUpperCase() | translate }} <b>{{ item.caption }}</b>
+                </div>
+                <div class="col-4 text-right">
+                  <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-link btn-sm">
+                      <i class="fa"
+                         [ngClass]="{'fa-chevron-up': accordionGroup?.isOpen, 'fa-chevron-down': !accordionGroup?.isOpen }"></i>
+                    </button>
+                    <button type="button" class="btn btn-link btn-sm" (click)="deleteElement(item);">
+                      <i class="fa fa-trash"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <bs-form-builder-element #builderElement
+                                       [element]="item"></bs-form-builder-element>
+
+            </accordion-group>
+          </accordion>
+        </div>
+      </div>
+      <hr/>
+
+      <div class="text-right">
+        <button type="submit"
+                class="btn btn-primary mt-0"
+                [disabled]="!formBuilder.valid">
+          <span [ngSwitch]="editMode">
+            <ng-template [ngSwitchCase]="true">{{ 'T_ACTION_UPDATE' | translate }}</ng-template>
+            <ng-template ngSwitchDefault>{{ 'T_ACTION_CREATE' | translate }}</ng-template>
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+</form>

@@ -6,7 +6,7 @@ import { RelationService } from '../../core/services/relation.service';
 
 @Component({
   moduleId: module.id,
-  selector: 'project-relation-details',
+  selector: 'bs-project-relation-details',
   templateUrl: `project-relation-details.component.html`
 })
 export class ProjectRelationDetailsComponent extends DetailsComponent<RelationModel> {
