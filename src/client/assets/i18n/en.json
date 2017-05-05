@@ -25,6 +25,7 @@
   "T_ACTION_CANCEL": "Cancel",
   "T_ACTION_CLOSE": "Close",
   "T_ACTION_CREATE_PROJECT_RELATION": "Create project relation",
+  "T_ACTION_ADD_EMAIL_TEMPLATE": "Add email template",
   "T_ACTION_EDIT_EVENT_NOTIFICATIONS": "Edit assessment event notifications",
   "T_USER": "User",
   "T_USER_NAME": "Name",
