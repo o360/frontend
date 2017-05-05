@@ -18,6 +18,7 @@ import { GroupService } from './services/group.service';
 import { FormService } from './services/form.service';
 import { ProjectService } from './services/project.service';
 import { RelationService } from './services/relation.service';
+import { EmailTemplateService } from './services/email-template.service';
 
 @NgModule({
   imports: [
@@ -43,6 +44,7 @@ import { RelationService } from './services/relation.service';
     FormService,
     ProjectService,
     RelationService,
+    EmailTemplateService,
     NotificationService
   ],
   exports: [
