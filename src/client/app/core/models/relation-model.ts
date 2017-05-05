@@ -1,5 +1,6 @@
 import { Defaults } from '../decorators/defaults.decorator';
 import { Model, ModelId } from './model';
+import { IEmailTemplate } from "./project-model";
 
 export class RelationKind {
   public static readonly Classic: string = 'classic';
@@ -15,7 +16,8 @@ export interface IModelIdName {
   projectId: '',
   groupFromId: '',
   formId: '',
-  kind: RelationKind.Classic
+  kind: RelationKind.Classic,
+  // templates: []
 })
 export class RelationModel extends Model {
   public project?: IModelIdName;
@@ -27,4 +29,5 @@ export class RelationModel extends Model {
   public form?: IModelIdName;
   public formId?: ModelId;
   public kind: string;
+  // public templates: IEmailTemplate;
 }

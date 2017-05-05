@@ -1,36 +1,90 @@
-<div class="card" *ngIf="model">
-  <div class="card-header"><b>{{ 'T_DETAILS' | translate }}</b></div>
-  <div class="card-block">
-    <div class="row">
-      <div class="col-md-1 text-right">
-        <button type="button"
-                class="btn btn-md btn-primary"
-                [routerLink]="['/admin/projects/', model.projectId, 'relations', model.id, 'edit']">{{ 'T_ACTION_EDIT' | translate }}
-        </button>
+<div *ngIf="model">
+  <div class="card">
+    <div class="card-header"><b>{{ 'T_DETAILS' | translate }}</b></div>
+    <div class="card-block">
+      <div class="row">
+        <div class="col-md-1 text-right">
+          <button type="button"
+                  class="btn btn-md btn-primary"
+                  [routerLink]="['/admin/projects/', model.projectId, 'relations', model.id, 'edit']">{{ 'T_ACTION_EDIT' | translate }}
+          </button>
+        </div>
+      </div>
+
+      <div class="row mt-1">
+        <div class="col-md-3">
+          <small class="text-muted">{{ 'T_PROJECT_RELATION_RATING_GROUP' | translate}}</small>
+          <div class="h6"><a [routerLink]="['/admin/groups', model.groupFrom.id]">{{ model.groupFrom.name }}</a></div>
+        </div>
+
+        <div class="col-md-3" *ngIf="!!model.groupTo">
+          <small class="text-muted">{{ 'T_PROJECT_RELATION_ASSESSMENT_GROUP' | translate}}</small>
+          <div class="h6"><a [routerLink]="['/admin/groups', model.groupTo.id]">{{ model.groupTo.name }}</a></div>
+        </div>
+
+        <div class="col-md-3">
+          <small class="text-muted">{{ 'T_PROJECT_RELATION_EVALUATION_FORM' | translate}}</small>
+          <div class="h6"><a [routerLink]="['/admin/forms', model.form.id]">{{ model.form.name }}</a></div>
+        </div>
+
+        <div class="col-md-3">
+          <small class="text-muted">{{ 'T_PROJECT_RELATION_KIND' | translate}}</small>
+          <div class="h6">{{ 'T_PROJECT_RELATION_KIND_' + model.kind.toUpperCase() | translate }}</div>
+        </div>
+
       </div>
     </div>
+  </div>
 
-    <div class="row mt-1">
-      <div class="col-md-3">
-        <small class="text-muted">{{ 'T_PROJECT_RELATION_RATING_GROUP' | translate}}</small>
-        <div class="h6"><a [routerLink]="['/admin/groups', model.groupFrom.id]">{{ model.groupFrom.name }}</a></div>
-      </div>
+  <div class="card">
+    <div class="card-header"><b>{{ 'T_EMAIL_TEMPLATES' | translate }}</b></div>
+    <div class="card-block">
+      <button class="btn btn-primary"
+              type="button"
+              title="{{ 'T_ACTION_ADD_EMAIL_TEMPLATE' | translate }}"
+              (click)="showModal()"><i class="fa fa-folder mr-h"></i>
+        {{ 'T_ACTION_ADD_EMAIL_TEMPLATE' | translate }}
+      </button>
+      <table class="table table-striped mt-1">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>{{ 'T_EMAIL_TEMPLATE_NAME' | translate }}</th>
+            <th>{{ 'T_EMAIL_TEMPLATE_KIND' | translate }}</th>
+            <th class="actions-column">{{ 'T_ACTION' | translate }}</th>
+          </tr>
+        </thead>
 
-      <div class="col-md-3" *ngIf="!!model.groupTo">
-        <small class="text-muted">{{ 'T_PROJECT_RELATION_ASSESSMENT_GROUP' | translate}}</small>
-        <div class="h6"><a [routerLink]="['/admin/groups', model.groupTo.id]">{{ model.groupTo.name }}</a></div>
-      </div>
+        <tbody>
 
-      <div class="col-md-3">
-        <small class="text-muted">{{ 'T_PROJECT_RELATION_EVALUATION_FORM' | translate}}</small>
-        <div class="h6"><a [routerLink]="['/admin/forms', model.form.id]">{{ model.form.name }}</a></div>
-      </div>
+          <tr *ngFor="let model of fakeList">
+            <td>{{ model.id }}</td>
+            <td><a [routerLink]="['/admin/templates', model.id]">{{ model.name }}</a></td>
+            <td>{{ model.kind }}</td>
 
-      <div class="col-md-3">
-        <small class="text-muted">{{ 'T_PROJECT_RELATION_KIND' | translate}}</small>
-        <div class="h6">{{ 'T_PROJECT_RELATION_KIND_' + model.kind.toUpperCase() | translate }}</div>
-      </div>
+            <td class="actions-column">
+              <button type="button"
+                      class="btn btn-sm btn-primary ml-1"
+                      title="{{ 'T_ACTION_EDIT' | translate }}"
+                      [routerLink]="['/admin/templates/', model.id, 'edit']"><i class="fa fa-pencil"></i>&nbsp;
+                {{ 'T_ACTION_EDIT' | translate }}
+              </button>
 
+              <button type="button"
+                      class="btn btn-sm btn-danger ml-1"
+                      title="{{ 'T_ACTION_REMOVE' | translate }}"
+                      bsConfirm
+                      (confirm)="remove(model.id)"><i class="fa fa-trash"></i>&nbsp;{{ 'T_ACTION_REMOVE' | translate }}
+              </button>
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+
+      <!--<bs-pagination [meta]="meta"-->
+                     <!--(queryParamsChange)="pageQueryParamsChanged($event)"></bs-pagination>-->
     </div>
   </div>
 </div>
+

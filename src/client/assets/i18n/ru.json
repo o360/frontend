@@ -25,6 +25,7 @@
   "T_ACTION_CANCEL": "Отмена",
   "T_ACTION_CLOSE": "Закрыть",
   "T_ACTION_CREATE_PROJECT_RELATION": "Создать отношение",
+  "T_ACTION_ADD_EMAIL_TEMPLATE": "Добавить шаблон письма",
   "T_ACTION_EDIT_EVENT_NOTIFICATIONS": "Редактировать уведомления о событии оценки",
   "T_USER": "Пользователь",
   "T_USER_NAME": "Имя",
