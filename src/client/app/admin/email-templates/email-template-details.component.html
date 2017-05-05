@@ -35,10 +35,11 @@
       </div>
     </div>
 
-    <div class="row mt-1">
-      <div class="col-md-6">
-        <small class="text-muted">{{ 'T_EMAIL_TEMPLATE_MESSAGE' | translate}}</small>
-        <div class="h6">{{ model.body }}</div>
+    <div class="row mt-3">
+      <div class="col-12">
+        <span class="h6 pb-0">{{ 'T_EMAIL_TEMPLATE_MESSAGE' | translate}}</span>
+        <hr class="mt-h"/>
+        <div class="mt-1" [innerHtml]="model.body"></div>
       </div>
     </div>
   </div>

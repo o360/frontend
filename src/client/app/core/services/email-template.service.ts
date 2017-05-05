@@ -22,13 +22,11 @@ export class EmailTemplateService extends RestService<EmailTemplateModel> {
   }
 
   public clone(model: EmailTemplateModel): Observable<EmailTemplateModel> {
-    let requestParams = this._getRequestParams();
-    let json = model.toJson();
-    let requestOptions = this._getRequestOptions();
+    let clone = new EmailTemplateModel(JSON.parse(model.toJson()));
 
-    return this._http.post(requestParams, json, requestOptions)
-      .map((res: Response) => res.json())
-      .map((json: any) => this.createEntity(json))
-      .catch((error: Response) => this._handleErrors(error));
+    clone.id = undefined;
+    clone.name += ' (copy)';
+
+    return this.save(clone);
   }
 }
