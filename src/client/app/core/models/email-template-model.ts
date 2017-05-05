@@ -10,15 +10,15 @@ export class EmailKind {
 
 export class Recipient {
   public static readonly respondent: string = 'respondent';
-  public static readonly auditor  : string = 'auditor';
+  public static readonly auditor: string = 'auditor';
 }
 
 @Defaults({
   name: '',
   subject: '',
   body: '',
-  kind: 'preBegin',
-  recipient: 'respondent'
+  kind: EmailKind.preBegin,
+  recipient: Recipient.respondent
 })
 export class EmailTemplateModel extends Model {
   public name: string;

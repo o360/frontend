@@ -20,7 +20,7 @@ export abstract class Model {
    * @params {object} - model object
    * @return {string}
    */
-  public toJson(): Object {
+  public toJson(): string {
     return JSON.stringify(this);
   }
 }

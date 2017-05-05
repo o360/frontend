@@ -12,13 +12,12 @@ import { EmailTemplateService } from '../../core/services/email-template.service
 export class EmailTemplateListComponent extends ListComponent<EmailTemplateModel> {
   constructor(service: EmailTemplateService,
               activatedRoute: ActivatedRoute,
-              router: Router,
-              protected _emailTemplateService: EmailTemplateService) {
+              router: Router) {
     super(service, activatedRoute, router);
   }
 
   public clone(model: EmailTemplateModel) {
-    this._emailTemplateService.clone(model).subscribe(() => {
+    (<EmailTemplateService>this._service).clone(model).subscribe(() => {
       this._update();
     });
   }
