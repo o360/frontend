@@ -3,26 +3,27 @@ import { RouterModule } from '@angular/router';
 import { EventListComponent } from './event-list.component';
 import { EventFormComponent } from './event-form.component';
 import { EventDetailsComponent } from './event-details.component';
+import { AppRoutes } from '../../core/models/app-routes.model';
 
 
 @NgModule({
   imports: [
-    RouterModule.forChild([{
+    RouterModule.forChild(<AppRoutes>[{
       path: '',
       component: EventListComponent,
-      data: { breadcrumbIgnore: true },
+      breadcrumbIgnore: true,
     }, {
       path: 'create',
       component: EventFormComponent,
-      data: { breadcrumb: 'T_ACTION_CREATE' },
+      breadcrumb: 'T_ACTION_CREATE',
     }, {
       path: ':id',
       component: EventDetailsComponent,
-      data: {  breadcrumb: 'T_EVENT_DETAILS' },
+      breadcrumb: 'T_EVENT_DETAILS',
     }, {
       path: ':id/edit',
       component: EventFormComponent,
-      data: { breadcrumb: 'T_ACTION_EDIT' },
+      breadcrumb: 'T_ACTION_EDIT',
     }])
   ],
   exports: [RouterModule]

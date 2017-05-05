@@ -10,7 +10,6 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: 'event-details.component.html'
 })
 export class EventDetailsComponent extends DetailsComponent<EventModel> {
-
   public get EventStatus() {
     return EventStatus;
   }

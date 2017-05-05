@@ -15,7 +15,6 @@ import { Router } from '@angular/router';
   entityConstructor: EventModel
 })
 export class EventService extends RestService<EventModel> {
-
   constructor(http: Http, authService: AuthService, router: Router, notificationService: NotificationService) {
     super(http, authService, router, notificationService);
   }

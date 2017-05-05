@@ -16,28 +16,28 @@ import { AppRoutes } from '../core/models/app-routes.model';
       pathMatch: 'full'
     }, {
       path: 'users',
-      breadcrumb: 'T_USERS',
-      loadChildren: () => UsersModule
+      loadChildren: () => UsersModule,
+      breadcrumb: 'T_USERS'
     }, {
       path: 'groups',
-      breadcrumb: 'T_GROUPS',
-      loadChildren: () => GroupsModule
+      loadChildren: () => GroupsModule,
+      breadcrumb: 'T_GROUPS'
     }, {
       path: 'forms',
-      breadcrumb: 'T_FORMS',
-      loadChildren: () => FormsModule
+      loadChildren: () => FormsModule,
+      breadcrumb: 'T_FORMS'
     }, {
       path: 'projects',
-      breadcrumb: 'T_PROJECTS',
-      loadChildren: () => ProjectsModule
+      loadChildren: () => ProjectsModule,
+      breadcrumb: 'T_PROJECTS'
     }, {
       path: 'templates',
-      breadcrumb: 'T_EMAIL_TEMPLATES',
-      loadChildren: () => EmailTemplatesModule
+      loadChildren: () => EmailTemplatesModule,
+      breadcrumb: 'T_EMAIL_TEMPLATES'
     }, {
       path: 'events',
-      data: { breadcrumb: 'T_EVENTS' },
-      loadChildren: () => EventsModule
+      loadChildren: () => EventsModule,
+      breadcrumb: 'T_EVENTS'
     }])
   ],
   exports: [RouterModule]
