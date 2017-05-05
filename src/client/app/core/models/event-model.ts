@@ -22,7 +22,7 @@ export class EventModel extends Model {
     this.end = new Date(this.end);
   }
 
-  public toJson(): Object {
+  public toJson(): any {
     let start = new Date(this.start);
     let end = new Date(this.end);
     this.start = start.toISOString().split('.')[0] + 'Z';
