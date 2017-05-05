@@ -1,11 +1,4 @@
-import { ActivatedRouteSnapshot, Route } from '@angular/router';
-
-export class AppActivatedRouteSnapshot extends ActivatedRouteSnapshot {
-  breadcrumb?: string;
-  breadcrumbIgnore?: boolean = false;
-  routeConfig: AppRoute;
-  firstChild: AppActivatedRouteSnapshot;
-}
+import { Route } from '@angular/router';
 
 export interface AppRoute extends Route {
   breadcrumb?: string;
