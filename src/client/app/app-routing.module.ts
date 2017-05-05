@@ -20,9 +20,9 @@ import { AppRoutes } from './core/models/app-routes.model';
       breadcrumbIgnore: true,
       children: [
         // Children modules
-        { path: '', loadChildren: () => HomeModule },
-        { path: 'admin', breadcrumb: 'T_ADMINISTRATION', loadChildren: () => AdminModule },
-        { path: 'profile', breadcrumb: 'T_PROFILE', loadChildren: () => UserProfileModule }
+        { path: '', loadChildren: () => HomeModule, breadcrumbIgnore: true },
+        { path: 'admin', loadChildren: () => AdminModule, breadcrumb: 'T_ADMINISTRATION' },
+        { path: 'profile', loadChildren: () => UserProfileModule, breadcrumb: 'T_PROFILE' }
       ]
     }, {
       path: 'login',

@@ -5,7 +5,7 @@ import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
 
 @NgModule({
-  imports: [HomeRoutingModule, SharedModule, PopoverModule.forRoot()],
+  imports: [HomeRoutingModule, SharedModule],
   declarations: [HomeComponent],
   exports: [HomeComponent]
 })
