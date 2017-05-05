@@ -10,6 +10,7 @@ import { IListResponse } from '../../core/services/rest.service';
 import { FormService } from '../../core/services/form.service';
 import { FormModel } from '../../core/models/form-model';
 import { Observable } from 'rxjs/Observable';
+import { NotificationService } from '../../core/services/notification.service';
 
 
 @Component({
@@ -47,9 +48,10 @@ export class ProjectRelationFormComponent extends FormComponent<RelationModel> {
   constructor(service: RelationService,
               router: Router,
               route: ActivatedRoute,
+              notificationService: NotificationService,
               protected _groupService: GroupService,
               protected _formService: FormService) {
-    super(service, router, route);
+    super(service, router, route, notificationService);
   }
 
   protected _load() {

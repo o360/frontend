@@ -4,6 +4,8 @@ import { IListResponse, IQueryParams, IResponseMeta, RestService } from '../../c
 import { Filter } from '../../core/models/filter';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { defaultPage, supportedSizes } from './pagination/pagination.component';
+import { EventService } from '../../core/services/event.service';
+import { NotificationService } from '../../core/services/notification.service';
 
 export abstract class ListComponent<T extends Model> implements OnInit {
   protected _list: T[];
@@ -52,7 +54,8 @@ export abstract class ListComponent<T extends Model> implements OnInit {
 
   constructor(protected _service: RestService<T>,
               protected _activatedRoute: ActivatedRoute,
-              protected _router: Router) {
+              protected _router: Router,
+              protected _notificationService: NotificationService) {
   }
 
   public ngOnInit() {
@@ -60,7 +63,10 @@ export abstract class ListComponent<T extends Model> implements OnInit {
   }
 
   public delete(id: ModelId) {
-    this._service.delete(id).subscribe(() => this._update());
+    this._service.delete(id).subscribe(() => {
+      this._update();
+      this._notificationService.success('T_SUCCESS_DELETED');
+    });
   }
 
   protected _processRequestParams(params: Params) {

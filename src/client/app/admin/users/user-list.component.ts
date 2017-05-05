@@ -4,6 +4,7 @@ import { UserService } from '../../core/services/user.service';
 import { ListComponent } from '../../shared/components/list.component';
 import { Filter, FilterType } from '../../core/models/filter';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NotificationService } from '../../core/services/notification.service';
 
 @Component({
   moduleId: module.id,
@@ -25,8 +26,9 @@ export class UserListComponent extends ListComponent<UserModel> {
 
   constructor(service: UserService,
               activatedRoute: ActivatedRoute,
-              router: Router) {
-    super(service, activatedRoute, router);
+              router: Router,
+              notificationService: NotificationService) {
+    super(service, activatedRoute, router, notificationService);
   }
 
   public get UserStatus() {
@@ -37,6 +39,7 @@ export class UserListComponent extends ListComponent<UserModel> {
     user.status = UserStatus.Approved;
     this._service.save(user).subscribe(() => {
         this._update();
+        this._notificationService.success('T_SUCCESS_SAVED');
       },
       error => this._update()
     );

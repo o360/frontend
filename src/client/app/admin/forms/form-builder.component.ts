@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormElementType, FormModel, IFormElement } from '../../core/models/form-model';
 import { FormService } from '../../core/services/form.service';
+import { NotificationService } from '../../core/services/notification.service';
 import { FormComponent } from '../../shared/components/form.component';
 
 @Component({
@@ -17,8 +18,11 @@ export class FormBuilderComponent extends FormComponent<FormModel> {
     return this._elementTypes;
   }
 
-  constructor(service: FormService, router: Router, route: ActivatedRoute) {
-    super(service, router, route);
+  constructor(service: FormService,
+              router: Router,
+              route: ActivatedRoute,
+              notificationService: NotificationService) {
+    super(service, router, route, notificationService);
   }
 
   public addElement(kind: string) {

@@ -3,6 +3,7 @@ import { DetailsComponent } from '../../shared/components/details.component';
 import { FormElementType, FormModel } from '../../core/models/form-model';
 import { FormService } from '../../core/services/form.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NotificationService } from '../../core/services/notification.service';
 
 @Component({
   moduleId: module.id,
@@ -18,7 +19,8 @@ export class FormDetailsComponent extends DetailsComponent<FormModel> {
 
   constructor(service: FormService,
               route: ActivatedRoute,
-              protected _router: Router) {
+              protected _router: Router,
+              protected _notificationService: NotificationService) {
     super(service, route);
   }
 
@@ -27,6 +29,7 @@ export class FormDetailsComponent extends DetailsComponent<FormModel> {
       if (this._returnPath) {
         this._router.navigate(this._returnPath);
       }
+      this._notificationService.success('T_SUCCESS_CLONED');
     });
   }
 }

@@ -5,6 +5,7 @@ import { UserModel } from '../../core/models/user-model';
 import { GroupService } from '../../core/services/group.service';
 import { UserService } from '../../core/services/user.service';
 import { ListComponent } from '../../shared/components/list.component';
+import { NotificationService } from '../../core/services/notification.service';
 
 @Component({
   moduleId: module.id,
@@ -24,10 +25,11 @@ export class GroupUserListComponent extends ListComponent<UserModel> implements 
   }
 
   constructor(service: UserService,
+              protected _groupService: GroupService,
               activatedRoute: ActivatedRoute,
               router: Router,
-              protected _groupService: GroupService) {
-    super(service, activatedRoute, router);
+              notificationService: NotificationService) {
+    super(service, activatedRoute, router, notificationService);
   }
 
   public ngOnChanges(changes: SimpleChanges) {
@@ -37,8 +39,11 @@ export class GroupUserListComponent extends ListComponent<UserModel> implements 
     }
   }
 
-  public delete(userId?: ModelId) {
-    this._groupService.removeUser(this._groupId, userId).subscribe(() => this._update());
+  public delete(userId ?: ModelId) {
+    this._groupService.removeUser(this._groupId, userId).subscribe(() => {
+      this._update();
+      this._notificationService.success('T_SUCCESS_DELETED');
+    });
   }
 
   public usersAdded() {
