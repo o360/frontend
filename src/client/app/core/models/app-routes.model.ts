@@ -4,6 +4,7 @@ export class AppActivatedRouteSnapshot extends ActivatedRouteSnapshot {
   breadcrumb?: string;
   breadcrumbIgnore?: boolean = false;
   routeConfig: AppRoute;
+  firstChild: AppActivatedRouteSnapshot;
 }
 
 export interface AppRoute extends Route {
