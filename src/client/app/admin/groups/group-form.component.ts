@@ -5,6 +5,7 @@ import { ModelId } from '../../core/models/model';
 import { GroupService } from '../../core/services/group.service';
 import { IListResponse } from '../../core/services/rest.service';
 import { FormComponent } from '../../shared/components/form.component';
+import { NotificationService } from '../../core/services/notification.service';
 
 
 @Component({
@@ -27,8 +28,9 @@ export class GroupFormComponent extends FormComponent<GroupModel> {
 
   constructor(service: GroupService,
               router: Router,
-              route: ActivatedRoute) {
-    super(service, router, route);
+              route: ActivatedRoute,
+              notificationService: NotificationService) {
+    super(service, router, route, notificationService);
   }
 
   protected _load() {

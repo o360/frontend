@@ -6,6 +6,7 @@ import { ProjectService } from '../../core/services/project.service';
 import { GroupModel } from '../../core/models/group-model';
 import { GroupService } from '../../core/services/group.service';
 import { IListResponse } from '../../core/services/rest.service';
+import { NotificationService } from '../../core/services/notification.service';
 
 
 @Component({
@@ -24,8 +25,9 @@ export class ProjectFormComponent extends FormComponent<ProjectModel> {
   constructor(service: ProjectService,
               router: Router,
               route: ActivatedRoute,
+              notificationService: NotificationService,
               protected _groupService: GroupService) {
-    super(service, router, route);
+    super(service, router, route, notificationService);
   }
 
   protected _load() {

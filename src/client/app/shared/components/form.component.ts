@@ -3,6 +3,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Model, ModelId } from '../../core/models/model';
 import { RestService } from '../../core/services/rest.service';
 import { Observable } from 'rxjs/Observable';
+import { NotificationService } from '../../core/services/notification.service';
 
 export abstract class FormComponent<T extends Model> implements OnInit {
   protected _id: ModelId;
@@ -27,7 +28,8 @@ export abstract class FormComponent<T extends Model> implements OnInit {
 
   constructor(protected _service: RestService<T>,
               protected _router: Router,
-              protected _route: ActivatedRoute) {
+              protected _route: ActivatedRoute,
+              protected _notificationService: NotificationService) {
   }
 
   public ngOnInit(): void {
@@ -39,6 +41,7 @@ export abstract class FormComponent<T extends Model> implements OnInit {
       if (this._returnPath) {
         this._router.navigate(this._returnPath);
       }
+      this._notificationService.success('T_SUCCESS_SAVED');
     });
   }
 

@@ -4,6 +4,7 @@ import { UserGender, UserModel } from '../core/models/user-model';
 import { AuthService } from '../core/services/auth.service';
 import { UserService } from '../core/services/user.service';
 import { FormComponent } from '../shared/components/form.component';
+import { NotificationService } from '../core/services/notification.service';
 
 @Component({
   moduleId: module.id,
@@ -21,8 +22,9 @@ export class UserProfileFormComponent extends FormComponent<UserModel> implement
   constructor(service: UserService,
               router: Router,
               route: ActivatedRoute,
+              notificationService: NotificationService,
               protected _auth: AuthService) {
-    super(service, router, route);
+    super(service, router, route, notificationService);
   }
 
   public ngOnInit() {
