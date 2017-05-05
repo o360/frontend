@@ -1,13 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { HomeComponent } from './home.component';
+import { AppRoutes } from '../core/models/app-routes.model';
 
 @NgModule({
   imports: [
-    RouterModule.forChild([{
+    RouterModule.forChild(<AppRoutes>[{
       path: '',
       component: HomeComponent,
-      data: { breadcrumb: 'T_HOME' },
+      breadcrumb: 'T_HOME'
     }])
   ],
   exports: [RouterModule]

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRouteSnapshot, NavigationEnd, Router } from '@angular/router';
+import { AppRoute } from '../../models/app-routes.model';
 
 interface IBreadcrumb {
   label: string;
@@ -22,7 +23,6 @@ export class BreadcrumbComponent implements OnInit {
     this._breadcrumbs = [];
   }
 
-
   public ngOnInit() {
     this._router.events
       .filter(event => event instanceof NavigationEnd)
@@ -36,12 +36,13 @@ export class BreadcrumbComponent implements OnInit {
     let newState = [];
 
     while (child) {
+      let routeConfig = <AppRoute>child.routeConfig;
       let label = this._extractRouteName(child);
       let parts: string[] = child.url.map(x => x.path);
 
       path = path.concat(parts);
 
-      if (!child.data.breadcrumbIgnore) {
+      if (!routeConfig.breadcrumbIgnore) {
         newState.push({
           label: label,
           url: '/' + path.join('/')
@@ -54,9 +55,9 @@ export class BreadcrumbComponent implements OnInit {
     this._breadcrumbs = newState;
   }
 
-  private _extractRouteName(routeConfig: ActivatedRouteSnapshot) {
-    let name = routeConfig.data.breadcrumb;
-    return name || this._prepareRouteName(routeConfig.url.join('/'));
+  private _extractRouteName(route: ActivatedRouteSnapshot) {
+    let name = (<AppRoute>route.routeConfig).breadcrumb;
+    return name || this._prepareRouteName(route.url.join('/'));
   }
 
   private _prepareRouteName(name: string) {

@@ -3,25 +3,26 @@ import { RouterModule } from '@angular/router';
 import { EmailTemplateListComponent } from './email-template-list.component';
 import { EmailTemplateFormComponent } from './email-template-form.component';
 import { EmailTemplateDetailsComponent } from './email-template-details.component';
+import { AppRoutes } from '../../core/models/app-routes.model';
 
 @NgModule({
   imports: [
-    RouterModule.forChild([{
+    RouterModule.forChild(<AppRoutes>[{
       path: '',
       component: EmailTemplateListComponent,
-      data: { breadcrumbIgnore: true },
+      breadcrumbIgnore: true,
     }, {
       path: 'create',
       component: EmailTemplateFormComponent,
-      data: { breadcrumb: 'T_ACTION_CREATE' },
+      breadcrumb: 'T_ACTION_CREATE',
     }, {
       path: ':id',
       component: EmailTemplateDetailsComponent,
-      data: { breadcrumb: 'T_EMAIL_TEMPLATE_DETAILS' },
+      breadcrumb: 'T_EMAIL_TEMPLATE_DETAILS',
     }, {
       path: ':id/edit',
       component: EmailTemplateFormComponent,
-      data: { breadcrumb: 'T_ACTION_EDIT' },
+      breadcrumb: 'T_ACTION_EDIT',
     }])
   ],
   exports: [RouterModule]

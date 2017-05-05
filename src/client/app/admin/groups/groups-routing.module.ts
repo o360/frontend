@@ -3,25 +3,26 @@ import { RouterModule } from '@angular/router';
 import { GroupFormComponent } from './group-form.component';
 import { GroupListComponent } from './group-list.component';
 import { GroupDetailsComponent } from './group-details.component';
+import { AppRoutes } from '../../core/models/app-routes.model';
 
 @NgModule({
   imports: [
-    RouterModule.forChild([{
+    RouterModule.forChild(<AppRoutes>[{
       path: '',
       component: GroupListComponent,
-      data: { breadcrumbIgnore: true },
+      breadcrumbIgnore: true,
     }, {
       path: 'create',
       component: GroupFormComponent,
-      data: { breadcrumb: 'T_ACTION_CREATE' },
+      breadcrumb: 'T_ACTION_CREATE',
     }, {
       path: ':id',
       component: GroupDetailsComponent,
-      data: { breadcrumb: 'T_GROUP_DETAILS' },
+      breadcrumb: 'T_GROUP_DETAILS',
     }, {
       path: ':id/edit',
       component: GroupFormComponent,
-      data: { breadcrumb: 'T_ACTION_EDIT' },
+      breadcrumb: 'T_ACTION_EDIT',
     }])
   ],
   exports: [RouterModule]

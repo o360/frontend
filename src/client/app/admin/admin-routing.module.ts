@@ -5,32 +5,33 @@ import { GroupsModule } from './groups/groups.module';
 import { FormsModule } from './forms/forms.module';
 import { ProjectsModule } from './projects/projects.module';
 import { EmailTemplatesModule } from './email-templates/email-templates.module';
+import { AppRoutes } from '../core/models/app-routes.model';
 
 @NgModule({
   imports: [
-    RouterModule.forChild([{
+    RouterModule.forChild(<AppRoutes>[{
       path: '',
       redirectTo: '/admin/users',
       pathMatch: 'full'
     }, {
       path: 'users',
-      data: { breadcrumb: 'T_USERS' },
+      breadcrumb: 'T_USERS',
       loadChildren: () => UsersModule
     }, {
       path: 'groups',
-      data: { breadcrumb: 'T_GROUPS' },
+      breadcrumb: 'T_GROUPS',
       loadChildren: () => GroupsModule
     }, {
       path: 'forms',
-      data: { breadcrumb: 'T_FORMS' },
+      breadcrumb: 'T_FORMS',
       loadChildren: () => FormsModule
     }, {
       path: 'projects',
-      data: { breadcrumb: 'T_PROJECTS' },
+      breadcrumb: 'T_PROJECTS',
       loadChildren: () => ProjectsModule
     }, {
       path: 'templates',
-      data: { breadcrumb: 'T_EMAIL_TEMPLATES' },
+      breadcrumb: 'T_EMAIL_TEMPLATES',
       loadChildren: () => EmailTemplatesModule
     }])
   ],
