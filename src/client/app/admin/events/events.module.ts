@@ -5,7 +5,7 @@ import { EventListComponent } from './event-list.component';
 import { EventDetailsComponent } from './event-details.component';
 import { EventFormComponent } from './event-form.component';
 import { EventProjectListComponent } from './event-project-list.component';
-import { EventNotificationComponent } from './event-notification.component';
+import { EventNotificationComponent } from './event-notification-list.component';
 import { ProjectsAddModalComponent } from './projects-add-modal.component';
 import { EventNotificationsEditModalComponent } from './event-notifications-edit-modal.component';
 

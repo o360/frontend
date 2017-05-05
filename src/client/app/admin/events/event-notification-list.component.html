@@ -1,0 +1,34 @@
+<button class="btn btn-primary mb-1"
+        type="button"
+        title="{{ 'T_ACTION_ADD_NEW_ASSESSMENT_EVENT_NOTIFICATIONS' | translate }}"
+        (click)="notificationsEditModal.show()">
+  <i class="fa fa-plus mr-h"></i>{{ 'T_ACTION_ADD_NEW_ASSESSMENT_EVENT_NOTIFICATIONS' | translate }}
+</button>
+<table class="table table-striped">
+  <th>{{ 'T_EVENT_RECIPIENT' | translate}}</th>
+  <th>{{ 'T_EVENT_NOTIFICATION_KIND' | translate}}</th>
+  <th>{{ 'T_EVENT_NOTIFICATION_TIME' | translate}}</th>
+  <th class="actions-column">{{ 'T_ACTION' | translate }}</th>
+  <tbody>
+    <tr *ngFor="let item of event.notifications">
+      <td>{{ 'T_EVENT_RECIPIENT_' + item.recipient.toUpperCase() | translate }}</td>
+      <td>{{ 'T_EVENT_NOTIFICATION_' + item.kind.toUpperCase() | translate }}</td>
+      <td>{{ item.time | date:'medium' }}</td>
+      <td class="actions-column">
+        <button type="button"
+                class="btn btn-danger btn-sm"
+                (click)="deleteNotification(item)">
+          <i class="mr-h fa fa-remove"></i>
+          {{ 'T_ACTION_DELETE' | translate }}
+        </button>
+      </td>
+    </tr>
+    <tr *ngIf="!event.notifications.length">
+      <td colspan="25" class="text-center">{{ 'T_EMPTY' | translate }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<bs-assessment-event-notifications-edit-modal #notificationsEditModal
+                                              [model]="event"
+                                              (notificationAdded)="notificationAdded($event)"></bs-assessment-event-notifications-edit-modal>

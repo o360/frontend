@@ -21,7 +21,7 @@
   "T_ACTION_ADD_USERS_TO_GROUP": "Добавить пользователей в группу",
   "T_ACTION_ADD_PROJECTS_TO_EVENT": "Добавить проекты в событие оценки",
   "T_ACTION_ADD_USER": "Добавить",
-  "T_ACTION_ADD_NEW_ASSESSMENT_EVENT_NOTIFICATIONS": "Добавить новое уведомление о событии оценки",
+  "T_ACTION_ADD_NEW_ASSESSMENT_EVENT_NOTIFICATIONS": "Добавить новое уведомление",
   "T_ACTION_CANCEL": "Отмена",
   "T_ACTION_CLOSE": "Закрыть",
   "T_ACTION_CREATE_PROJECT_RELATION": "Создать отношение",
@@ -167,6 +167,7 @@
   "T_EVENT_RECIPIENT_RESPONDENT": "Оценивающий",
   "T_EVENT_RECIPIENT_AUDITOR": "Аудитор",
   "T_EVENT_ADD_PROJECT": "Добавить проект",
+  "T_NEW_EVENT_NOTIFICATION_ADDED": "Новое уведомление о событии оценки успешно добавлено",
   "T_PROJECTS_ADDED_TO_EVENT": "Проекты успешно добавлены в событие оценки"
 
 }

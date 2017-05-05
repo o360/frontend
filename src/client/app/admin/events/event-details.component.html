@@ -46,13 +46,7 @@
   <div class="card">
     <div class="card-header"><b>{{ 'T_EVENT_NOTIFICATIONS' | translate }}</b></div>
     <div class="card-block">
-      <button class="btn btn-primary mb-1"
-              type="button"
-              title="{{ 'T_ACTION_ADD_PROJECTS_TO_EVENT' | translate }}"
-              (click)="notificationsEditModal.show()">
-        <i class="fa fa-pencil mr-h"></i>{{ 'T_ACTION_EDIT_EVENT_NOTIFICATIONS' | translate }}
-      </button>
-      <bs-assessment-event-notification embedded readonly [event]="model"></bs-assessment-event-notification>
+      <bs-assessment-event-notification embedded [event]="model"></bs-assessment-event-notification>
     </div>
   </div>
 
@@ -64,8 +58,4 @@
       <bs-assessment-event-project-list embedded [event]="model"></bs-assessment-event-project-list>
     </div>
   </div>
-
-  <bs-assessment-event-notifications-edit-modal #notificationsEditModal
-                                                [model]="model"></bs-assessment-event-notifications-edit-modal>
-
 </div>

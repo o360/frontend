@@ -3,22 +3,68 @@
     <div class="modal-content">
 
       <div class="modal-header">
-        <h5 class="modal-title">{{ 'T_ACTION_EDIT_EVENT_NOTIFICATIONS' | translate }}</h5>
+        <h5 class="modal-title">{{ 'T_ACTION_ADD_NEW_ASSESSMENT_EVENT_NOTIFICATIONS' | translate }}</h5>
         <button type="button" class="close" aria-label="Close" (click)="modal.hide();">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
+      <form class="mb-1 mt-2"
+            #addNewNotificationForm="ngForm"
+            (submit)="addNotification(time.value, recipient.value, kind.value); addNewNotificationForm.reset(); modal.hide();">
 
-      <div class="modal-body">
-        <bs-assessment-event-notification embedded [event]="model"></bs-assessment-event-notification>
-      </div>
+        <div class="modal-body">
+          <div class="form-group row mb-1">
+            <label class="col-form-label col-4 " for="time">{{ 'T_EVENT_NOTIFICATION_TIME' | translate }}</label>
+            <div class="col-8">
+              <input #time
+                     id="time"
+                     name="time"
+                     type="date"
+                     class="form-control"
+                     required>
+            </div>
+          </div>
+          <div class="form-group row mb-1">
+            <label class="col-form-label col-4 " for="recipient">{{ 'T_EVENT_RECIPIENT' | translate }}</label>
+            <div class="col-8">
+              <select #recipient
+                      id="recipient"
+                      name="recipient"
+                      class="form-control"
+                      ngModel
+                      required>
+                <option *ngFor="let item of recipients" [value]="item">{{ 'T_EVENT_RECIPIENT_' + item.toUpperCase() | translate }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group row mb-1">
+            <label class="col-form-label col-4 " for="kind">{{ 'T_EVENT_NOTIFICATION_KIND' | translate }}</label>
+            <div class="col-8">
+              <select #kind
+                      id="kind"
+                      name="kind"
+                      class="form-control"
+                      ngModel
+                      required>
+                <option *ngFor="let item of kinds" [value]="item">{{ 'T_EVENT_NOTIFICATION_' + item.toUpperCase() | translate }}</option>
+              </select>
+            </div>
+          </div>
 
-      <div class="modal-footer">
-        <button type="button"
-                class="btn btn-secondary"
-                (click)="modal.hide()">{{ 'T_ACTION_CLOSE' | translate }}
-        </button>
-      </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="submit"
+                  class="btn btn-success"
+                  [disabled]="!time.value || !addNewNotificationForm.valid">
+            <i class="mr-h fa fa-plus"></i> {{ 'T_ACTION_ADD' | translate }}
+          </button>
+          <button type="button"
+                  class="btn btn-secondary"
+                  (click)="modal.hide()">{{ 'T_ACTION_CLOSE' | translate }}
+          </button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
