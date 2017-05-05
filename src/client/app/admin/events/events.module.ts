@@ -7,6 +7,7 @@ import { EventFormComponent } from './event-form.component';
 import { EventProjectListComponent } from './event-project-list.component';
 import { EventNotificationComponent } from './event-notification.component';
 import { ProjectsAddModalComponent } from './projects-add-modal.component';
+import { EventNotificationsEditModalComponent } from './event-notifications-edit-modal.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { ProjectsAddModalComponent } from './projects-add-modal.component';
     EventFormComponent,
     EventProjectListComponent,
     EventNotificationComponent,
-    ProjectsAddModalComponent
+    ProjectsAddModalComponent,
+    EventNotificationsEditModalComponent
   ],
   exports: [
     EventListComponent,
@@ -28,7 +30,8 @@ import { ProjectsAddModalComponent } from './projects-add-modal.component';
     EventFormComponent,
     EventProjectListComponent,
     EventNotificationComponent,
-    ProjectsAddModalComponent
+    ProjectsAddModalComponent,
+    EventNotificationsEditModalComponent
   ],
 })
 export class EventsModule {
