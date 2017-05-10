@@ -9,9 +9,6 @@ import { NotificationService } from '../../core/services/notification.service';
   templateUrl: 'event-notification-list.component.html'
 })
 export class EventNotificationComponent {
-  protected _kinds: string[] = Object.values(EventNotificationKind);
-  protected _recipients: string[] = Object.values(EventRecipient);
-
   protected _event: EventModel;
 
   @Input()
@@ -22,16 +19,6 @@ export class EventNotificationComponent {
   public get event(): EventModel {
     return this._event;
   }
-
-
-  public get kinds(): string[] {
-    return this._kinds;
-  }
-
-  public get recipients(): string[] {
-    return this._recipients;
-  }
-
 
   constructor(protected _eventService: EventService,
               protected _notificationService: NotificationService) {
@@ -54,7 +41,8 @@ export class EventNotificationComponent {
         this._update();
         this._notificationService.success('T_NEW_EVENT_NOTIFICATION_ADDED');
       },
-      (error => this._update()));
+      error => this._update()
+    );
   }
 
   protected _update() {

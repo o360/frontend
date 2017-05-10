@@ -1,8 +1,6 @@
 import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { EventModel, EventNotificationKind, EventRecipient, IEventNotification } from '../../core/models/event-model';
 import { ModalDirective } from 'ngx-bootstrap';
-import { EventService } from '../../core/services/event.service';
-import { NotificationService } from '../../core/services/notification.service';
 
 @Component({
   moduleId: module.id,
@@ -21,7 +19,7 @@ export class EventNotificationsEditModalComponent {
     kind: ''
   };
 
-  private _notificationAdded: EventEmitter<IEventNotification> = new EventEmitter<IEventNotification>()
+  private _notificationAdded: EventEmitter<IEventNotification> = new EventEmitter<IEventNotification>();
 
   public get model(): EventModel {
     return this._model;

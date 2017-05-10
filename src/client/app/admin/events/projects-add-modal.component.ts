@@ -14,7 +14,6 @@ import { EventService } from '../../core/services/event.service';
   templateUrl: 'projects-add-modal.component.html'
 })
 export class ProjectsAddModalComponent implements OnChanges {
-
   private _eventId: ModelId;
   private _availableProjects: ProjectModel[];
   private _selectedProjects: ModelId[] = [];

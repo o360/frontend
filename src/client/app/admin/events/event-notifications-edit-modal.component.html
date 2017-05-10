@@ -8,8 +8,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form class="mb-1 mt-2"
-            #addNewNotificationForm="ngForm"
+      <form #addNewNotificationForm="ngForm"
             (submit)="addNotification(time.value, recipient.value, kind.value); addNewNotificationForm.reset(); modal.hide();">
 
         <div class="modal-body">
@@ -54,14 +53,15 @@
         </div>
 
         <div class="modal-footer">
+          <button type="button"
+                  class="btn btn-secondary"
+                  (click)="modal.hide()">{{ 'T_ACTION_CLOSE' | translate }}
+          </button>
+
           <button type="submit"
                   class="btn btn-success"
                   [disabled]="!time.value || !addNewNotificationForm.valid">
             <i class="mr-h fa fa-plus"></i> {{ 'T_ACTION_ADD' | translate }}
-          </button>
-          <button type="button"
-                  class="btn btn-secondary"
-                  (click)="modal.hide()">{{ 'T_ACTION_CLOSE' | translate }}
           </button>
         </div>
       </form>
