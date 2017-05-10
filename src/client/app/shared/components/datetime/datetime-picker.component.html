@@ -1,0 +1,19 @@
+<div class="input-group">
+  <div class="input-group">
+    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+    <input type="text"
+           #input
+           id="datepicker-{{id}}"
+           name="datepicker-{{id}}"
+           class="form-control"
+           [ngModel]="date"
+           (ngModelChange)="date = $event; onChange()">
+  </div>
+</div>
+
+<div *ngIf="invalid | async">
+  <div class="form-errors"
+       *ngFor="let message of (failures | async)">
+    <div class="form-control-feedback">{{ message | translate }}</div>
+  </div>
+</div>
