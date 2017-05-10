@@ -4,6 +4,7 @@ import { FormComponent } from '../../shared/components/form.component';
 import { EmailKind, Recipient, EmailTemplateModel } from '../../core/models/email-template-model';
 import { EmailTemplateService } from '../../core/services/email-template.service';
 import { NotificationService } from '../../core/services/notification.service';
+import { CKEditorComponent } from 'ng2-ckeditor';
 
 
 @Component({
@@ -24,6 +25,17 @@ export class EmailTemplateFormComponent extends FormComponent<EmailTemplateModel
     return this._recipients;
   }
 
+  public ckEditorConfig: Object = {
+    toolbarGroups: [
+      { name: 'basicstyles' },
+      { name: 'paragraph', groups: ['list', 'indent', 'blocks', 'align', 'bidi'] },
+      { name: 'textConstants' },
+      { name: 'colors' },
+      '/',
+      { name: 'styles', groups: ['Styles', 'Format'] },
+    ]
+  };
+
   constructor(service: EmailTemplateService,
               router: Router,
               route: ActivatedRoute,
@@ -31,17 +43,7 @@ export class EmailTemplateFormComponent extends FormComponent<EmailTemplateModel
     super(service, router, route, notificationService);
   }
 
-  public addRecipient(textearea: HTMLTextAreaElement) {
-    if (textearea.selectionStart || textearea.selectionStart === 0) {
-      let newText = '%USERNAME%';
-      let startPos = textearea.selectionStart;
-      let endPos = textearea.selectionEnd;
-      let text = textearea.value;
-      let before = text.substring(0, startPos);
-      let after = text.substring(endPos, text.length);
-      textearea.value = (before + ' ' + newText + after);
-      textearea.selectionStart = textearea.selectionEnd = startPos + newText.length + 1;
-      textearea.focus();
-    }
+  public addText(editorArea: CKEditorComponent, text: string) {
+    editorArea.instance.insertText('{{ ' + text + ' }}');
   }
 }

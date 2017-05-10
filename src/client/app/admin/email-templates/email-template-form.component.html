@@ -104,28 +104,45 @@
         </div>
       </div>
 
-      <button type="button"
-              class="btn btn-primary mt-0"
-              (click)="addRecipient(message)">
-        {{ 'T_EMAIL_TEMPLATE_RECIPIENT' | translate }}
-      </button>
-
-      <!-- Textarea for editor -->
+      <!-- Editor -->
       <div class="form-group"
-           [ngClass]="{'has-success': message.valid, 'has-danger': !message.valid && message.touched }">
-
-          <textarea type="text"
-                    class="form-control"
-                    id="message"
-                    name="message"
-                    #message
-                    rows="20"
-                    placeholder="{{ 'T_EMAIL_TEMPLATE_ENTER_TEXT' | translate }}"
-                    [(ngModel)]="model.body"> </textarea>
-
+           [ngClass]="{'has-success': editor.valid, 'has-danger': !editor.valid && editor.touched }">
+        <ckeditor
+          id="editor"
+          name="editor"
+          #editor
+          [(ngModel)]="model.body"
+          [ngModelOptions]="{standalone: true}"
+          [config]="ckEditorConfig"
+          required>
+          <ckgroup
+            [name]="'textConstants'">
+            <ckbutton [name]="'addRecipientButton'"
+                      [command]="'insert_name'"
+                      (click)="addText(editor, 'user_name')"
+                      [label]="'Add recipient'"
+                      [icon]="'some.png'">
+            </ckbutton>
+            <ckbutton [name]="'addEventStartButton'"
+                      [command]="'insert_event_start'"
+                      (click)="addText(editor, 'event_start')"
+                      [label]="'Add event start'">
+            </ckbutton>
+            <ckbutton [name]="'addEventEndButton'"
+                      [command]="'insert_event_end'"
+                      (click)="addText(editor, 'event_end')"
+                      [label]="'Add event end'">
+            </ckbutton>
+            <ckbutton [name]="'addEventDescriptionButton'"
+                      [command]="'insert_event_description'"
+                      (click)="addText(editor, 'event_description')"
+                      [label]="'Add description'">
+            </ckbutton>
+          </ckgroup>
+        </ckeditor>
         <div class="form-errors"
-             *ngIf="message.errors && message.touched">
-          <div class="form-control-feedback" *ngIf="message.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}</div>
+             *ngIf="editor.errors && editor.touched">
+          <div class="form-control-feedback" *ngIf="editor.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}</div>
         </div>
       </div>
 
