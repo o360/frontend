@@ -40,7 +40,9 @@ export class ProjectConfig extends SeedConfig {
       { src: 'ng2-toastr/bundles/ng2-toastr.min.css', inject: true },
       { src: 'jquery/dist/jquery.min.js', inject: 'libs' },
       { src: 'pace-progress/pace.min.js', inject: 'libs' },
-      { src: 'bootstrap/dist/js/bootstrap.min.js', inject: 'libs' }
+      { src: 'bootstrap/dist/js/bootstrap.min.js', inject: 'libs' },
+      { src: 'bootstrap/dist/js/bootstrap.min.js', inject: 'libs' },
+      { src: 'ng2-ckeditor/lib/index.js', inject: 'libs' }
       // {src: 'lodash/lodash.min.js', inject: 'libs'},
     ];
 
@@ -60,15 +62,15 @@ export class ProjectConfig extends SeedConfig {
       name: '@ngx-translate/http-loader',
       path: 'node_modules/@ngx-translate/http-loader/bundles/http-loader.umd.js'
     }, {
-      name:'ngx-bootstrap',
-      path:'node_modules/ngx-bootstrap/bundles/ngx-bootstrap.umd.min.js'
+      name: 'ngx-bootstrap',
+      path: 'node_modules/ngx-bootstrap/bundles/ngx-bootstrap.umd.min.js'
     }, {
-      name:'ngx-bootstrap/*',
-      path:'node_modules/ngx-bootstrap/bundles/ngx-bootstrap.umd.min.js'
+      name: 'ngx-bootstrap/*',
+      path: 'node_modules/ngx-bootstrap/bundles/ngx-bootstrap.umd.min.js'
     }, {
-      name:'moment',
-      path:'node_modules/moment',
-      packageMeta:{
+      name: 'moment',
+      path: 'node_modules/moment',
+      packageMeta: {
         main: 'moment.js',
         defaultExtension: 'js'
       }
