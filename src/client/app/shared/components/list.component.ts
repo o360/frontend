@@ -14,6 +14,7 @@ export abstract class ListComponent<T extends Model> implements OnInit {
     size: supportedSizes[0].toString()
   };
   protected _embedded: boolean = false;
+  protected _readonly: boolean = false;
 
   public get list(): T[] {
     return this._list;
@@ -38,6 +39,15 @@ export abstract class ListComponent<T extends Model> implements OnInit {
   @Input()
   public set embedded(value: boolean | string) {
     this._embedded = typeof value === 'boolean' ? value : true;
+  }
+
+  @Input()
+  public set readonly(value: boolean | string) {
+    this._readonly = typeof value === 'boolean' ? value : true;
+  }
+
+  public get readonly(): boolean | string {
+    return this._readonly;
   }
 
   constructor(protected _service: RestService<T>,

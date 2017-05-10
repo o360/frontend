@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { UsersModule } from './users/users.module';
 import { GroupsModule } from './groups/groups.module';
+import { EventsModule } from './events/events.module';
 import { FormsModule } from './forms/forms.module';
 import { ProjectsModule } from './projects/projects.module';
 import { EmailTemplatesModule } from './email-templates/email-templates.module';
@@ -15,24 +16,28 @@ import { AppRoutes } from '../core/models/app-routes.model';
       pathMatch: 'full'
     }, {
       path: 'users',
-      breadcrumb: 'T_USERS',
-      loadChildren: () => UsersModule
+      loadChildren: () => UsersModule,
+      breadcrumb: 'T_USERS'
     }, {
       path: 'groups',
-      breadcrumb: 'T_GROUPS',
-      loadChildren: () => GroupsModule
+      loadChildren: () => GroupsModule,
+      breadcrumb: 'T_GROUPS'
     }, {
       path: 'forms',
-      breadcrumb: 'T_FORMS',
-      loadChildren: () => FormsModule
+      loadChildren: () => FormsModule,
+      breadcrumb: 'T_FORMS'
     }, {
       path: 'projects',
-      breadcrumb: 'T_PROJECTS',
-      loadChildren: () => ProjectsModule
+      loadChildren: () => ProjectsModule,
+      breadcrumb: 'T_PROJECTS'
     }, {
       path: 'templates',
-      breadcrumb: 'T_EMAIL_TEMPLATES',
-      loadChildren: () => EmailTemplatesModule
+      loadChildren: () => EmailTemplatesModule,
+      breadcrumb: 'T_EMAIL_TEMPLATES'
+    }, {
+      path: 'events',
+      loadChildren: () => EventsModule,
+      breadcrumb: 'T_EVENTS'
     }])
   ],
   exports: [RouterModule]

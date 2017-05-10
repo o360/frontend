@@ -1,0 +1,61 @@
+<div *ngIf="model">
+  <div class="card">
+    <div class="card-header"><b>{{ 'T_EVENT_DETAILS' | translate }}</b></div>
+    <div class="card-block">
+      <button type="button"
+              class="btn btn-md btn-primary"
+              [routerLink]="['/admin/events/', model.id, 'edit']">
+        <i class="mr-h fa fa-pencil"></i>
+        {{ 'T_ACTION_EDIT' | translate }}
+      </button>
+
+      <div class="row mt-1">
+        <div class="col-md-3">
+          <small class="text-muted">{{ 'T_EVENT_START' | translate}}</small>
+          <div class="h6">{{ model.start | date:'mediumDate' }}</div>
+        </div>
+        <div class="col-md-3">
+          <small class="text-muted">{{ 'T_EVENT_END' | translate}}</small>
+          <div class="h6">{{ model.end | date:'mediumDate' }}</div>
+        </div>
+        <div class="col-md-3">
+          <small class="text-muted">{{ 'T_EVENT_STATUS' | translate}}</small>
+          <div class="h6">
+          <span class="badge badge-pill"
+                [ngClass]="{'badge-primary': model.status === EventStatus.NotStarted,
+                           'badge-success': model.status === EventStatus.Completed,
+                           'badge-warning': model.status === EventStatus.InProgress
+                                                    }">
+            {{ 'T_EVENT_STATUS_' + model.status?.toUpperCase() | translate }}
+          </span>
+          </div>
+        </div>
+
+      </div>
+      <div class="row mt-1">
+        <div class="col-md-6">
+          <small class="text-muted">{{ 'T_EVENT_DESCRIPTION' | translate}}</small>
+          <div class="h6" *ngIf="!!model.description">{{ model.description }}</div>
+          <div class="h6" *ngIf="!model.description">{{ 'T_EVENT_NO_DESCRIPTION' | translate }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notifications -->
+  <div class="card">
+    <div class="card-header"><b>{{ 'T_EVENT_NOTIFICATIONS' | translate }}</b></div>
+    <div class="card-block">
+      <bs-assessment-event-notification embedded [event]="model"></bs-assessment-event-notification>
+    </div>
+  </div>
+
+
+  <!-- Projects in Event -->
+  <div class="card">
+    <div class="card-header"><b>{{ 'T_PROJECTS' | translate }}</b></div>
+    <div class="card-block">
+      <bs-assessment-event-project-list embedded [event]="model"></bs-assessment-event-project-list>
+    </div>
+  </div>
+</div>

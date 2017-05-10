@@ -10,9 +10,7 @@ import { CoreModule } from './core/core.module';
 import { createTranslateLoader } from './shared/config/translate-loader.config';
 import { SharedModule } from './shared/shared.module';
 import { ToastModule } from 'ng2-toastr/ng2-toastr';
-import { PaginationModule } from 'ngx-bootstrap';
-import { AccordionModule } from 'ngx-bootstrap';
-import { ModalModule } from 'ngx-bootstrap/modal';
+import { ModalModule, PaginationModule, AccordionModule } from 'ngx-bootstrap';
 
 @NgModule({
   imports: [
