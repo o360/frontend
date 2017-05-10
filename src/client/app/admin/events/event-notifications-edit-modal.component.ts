@@ -14,12 +14,12 @@ export class EventNotificationsEditModalComponent {
   protected _modal: ModalDirective;
 
   protected _notification: IEventNotification = {
-    time: '',
+    time: new Date().toString(),
     recipient: '',
     kind: ''
   };
 
-  private _notificationAdded: EventEmitter<IEventNotification> = new EventEmitter<IEventNotification>();
+  protected _notificationAdded: EventEmitter<IEventNotification> = new EventEmitter<IEventNotification>();
 
   public get model(): EventModel {
     return this._model;
@@ -48,10 +48,14 @@ export class EventNotificationsEditModalComponent {
     return this._recipients;
   }
 
+
+  public get notification(): IEventNotification {
+    return this._notification;
+  }
+
   public addNotification(time: string, recipient: string, kind: string) {
-    let timeDate = new Date(time);
     this._notification = {
-      time: timeDate.toISOString().split('.')[0] + 'Z',
+      time: new Date(time).toISOString().split('.')[0] + 'Z',
       recipient: recipient,
       kind: kind
     };

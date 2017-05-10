@@ -146,6 +146,7 @@
     "@angular/service-worker": "^1.0.0-beta.6",
     "@ngx-translate/core": "^6.0.1",
     "@ngx-translate/http-loader": "^0.0.3",
+    "air-datepicker": "^2.2.3",
     "animate.css": "^3.5.2",
     "bootstrap": "^3.3.7",
     "ckeditor": "^4.6.2",

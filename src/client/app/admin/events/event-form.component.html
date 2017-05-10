@@ -14,7 +14,7 @@
 
       <!-- Description -->
       <div class="form-group row"
-           [ngClass]="{'has-success': description.valid, 'has-danger': !description.valid && description.touched }">
+           [ngClass]="{'has-success': description.valid, 'has-danger': !description.valid && description._touched }">
         <label for="description" class="col-form-label col-md-3">{{ 'T_EVENT_DESCRIPTION' | translate }}</label>
         <div class="col-md-9">
           <textarea type="text"
@@ -31,43 +31,20 @@
       <!-- Period of event  -->
 
       <!-- Begin -->
-      <div class="form-group row" [ngClass]="{'has-success': start.valid, 'has-danger': !start.valid && start.touched }">
-        <label for="start" class="col-form-label col-md-3 required">{{ 'T_EVENT_START' | translate }}</label>
+      <div class="form-group row"
+           [ngClass]="{'has-success': start.valid, 'has-danger': !start.valid }">
+        <label class="col-form-label col-md-3 required">{{ 'T_EVENT_START' | translate }}</label>
         <div class="col-md-9">
-          <input class="form-control"
-                 [ngModel]="model.start | date:'yyyy-MM-dd'"
-                 (ngModelChange)="model.start = $event"
-                 type="date"
-                 #start="ngModel"
-                 id="start"
-                 [disabled]="model.status === EventStatus.InProgress"
-                 name="startDate"/>
-
-
-          <div class="form-errors"
-               *ngIf="start.errors && start.touched">
-            <div class="form-control-feedback" *ngIf="start.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}</div>
-          </div>
+          <bs-datetime #start name="start" [(ngModel)]="model.start"></bs-datetime>
         </div>
       </div>
 
       <!-- End -->
-      <div class="form-group row" [ngClass]="{'has-success': end.valid, 'has-danger': !end.valid && end.touched }">
-        <label for="end" class="col-form-label col-md-3 required">{{ 'T_EVENT_END' | translate }}</label>
+      <div class="form-group row"
+           [ngClass]="{'has-success': end.valid, 'has-danger': !end.valid }">
+        <label class="col-form-label col-md-3 required">{{ 'T_EVENT_END' | translate }}</label>
         <div class="col-md-9">
-          <input class="form-control"
-                 [ngModel]="model.end | date:'yyyy-MM-dd'"
-                 (ngModelChange)="model.end = $event"
-                 type="date"
-                 #end="ngModel"
-                 id="end"
-                 name="endDate"/>
-
-
-          <div class="form-errors"
-               *ngIf="end.errors && end.touched">
-            <div class="form-control-feedback" *ngIf="end.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}</div>
-          </div>
+          <bs-datetime #end name="end" [(ngModel)]="model.end"></bs-datetime>
         </div>
       </div>
 

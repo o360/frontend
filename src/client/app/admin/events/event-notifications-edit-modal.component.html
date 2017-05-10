@@ -13,14 +13,9 @@
 
         <div class="modal-body">
           <div class="form-group row mb-1">
-            <label class="col-form-label col-4 " for="time">{{ 'T_EVENT_NOTIFICATION_TIME' | translate }}</label>
+            <label class="col-form-label col-4">{{ 'T_EVENT_NOTIFICATION_TIME' | translate }}</label>
             <div class="col-8">
-              <input #time
-                     id="time"
-                     name="time"
-                     type="date"
-                     class="form-control"
-                     required>
+              <bs-datetime #time name="notification-time" [ngModel]="notification.time"></bs-datetime>
             </div>
           </div>
           <div class="form-group row mb-1">
@@ -60,7 +55,7 @@
 
           <button type="submit"
                   class="btn btn-success"
-                  [disabled]="!time.value || !addNewNotificationForm.valid">
+                  [disabled]="!time || !addNewNotificationForm.valid">
             <i class="mr-h fa fa-plus"></i> {{ 'T_ACTION_ADD' | translate }}
           </button>
         </div>
