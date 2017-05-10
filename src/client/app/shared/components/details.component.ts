@@ -11,10 +11,6 @@ export abstract class DetailsComponent<T extends Model> implements OnInit {
     return this._model;
   }
 
-  public set model(value: T) {
-    this._model = value;
-  }
-
   constructor(protected _service: RestService<T>,
               protected _route: ActivatedRoute) {
   }

@@ -14,7 +14,7 @@ export abstract class ListComponent<T extends Model> implements OnInit {
     size: supportedSizes[0].toString()
   };
   protected _embedded: boolean = false;
-  private _readonly: boolean = false;
+  protected _readonly: boolean = false;
 
   public get list(): T[] {
     return this._list;
