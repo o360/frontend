@@ -48,6 +48,7 @@
   "T_PROFILE_SETTINGS": "Настройки профиля",
   "T_PROFILE_EDIT": "Редактирование профиля",
   "T_PROFILE_SAVED_CHANGES": "Ваш профиль был успешно сохранен",
+  "T_ERROR_SAVED": "Изменения не сохранены...",
   "T_LOG_IN": "Войти",
   "T_LOG_OUT": "Выйти",
   "T_FILTER_TITLE": "Фильтрация",
