@@ -9,6 +9,7 @@ import { LoginModule } from './login/login.module';
 import { RegistrationModule } from './new-account/registration.module';
 import { UserProfileModule } from './user-profile/user-profile.module';
 import { AppRoutes } from './core/models/app-routes.model';
+import { AdminGuard } from './core/guards/admin.guard';
 
 @NgModule({
   imports: [
@@ -21,7 +22,7 @@ import { AppRoutes } from './core/models/app-routes.model';
       children: [
         // Children modules
         { path: '', loadChildren: () => HomeModule, breadcrumbIgnore: true },
-        { path: 'admin', loadChildren: () => AdminModule, breadcrumb: 'T_ADMINISTRATION' },
+        { path: 'admin', canActivate: [AdminGuard], loadChildren: () => AdminModule, breadcrumb: 'T_ADMINISTRATION' },
         { path: 'profile', loadChildren: () => UserProfileModule, breadcrumb: 'T_PROFILE' }
       ]
     }, {
