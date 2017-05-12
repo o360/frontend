@@ -7,7 +7,7 @@
          [routerLinkActiveOptions]="{ exact: true }"><i class="icon-home"></i> {{ 'T_HOME' | translate }}</a>
     </li>
 
-    <li class="nav-item nav-dropdown nav-dropdown-toggle" dropdown routerLinkActive="open">
+    <li class="nav-item nav-dropdown nav-dropdown-toggle" dropdown routerLinkActive="open" *ngIf="adminRights">
       <a dropdownToggle class="nav-link nav-dropdown-toggle">
         <i class="icon-grid"></i> {{ 'T_ADMINISTRATION' | translate }} <span class="caret"></span>
       </a>
