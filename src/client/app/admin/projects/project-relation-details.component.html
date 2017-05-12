@@ -35,56 +35,7 @@
       </div>
     </div>
   </div>
-
-  <div class="card">
-    <div class="card-header"><b>{{ 'T_EMAIL_TEMPLATES' | translate }}</b></div>
-    <div class="card-block">
-      <button class="btn btn-primary"
-              type="button"
-              title="{{ 'T_ACTION_ADD_EMAIL_TEMPLATE' | translate }}"
-              (click)="showModal()"><i class="fa fa-folder mr-h"></i>
-        {{ 'T_ACTION_ADD_EMAIL_TEMPLATE' | translate }}
-      </button>
-      <table class="table table-striped mt-1">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>{{ 'T_EMAIL_TEMPLATE_NAME' | translate }}</th>
-            <th>{{ 'T_EMAIL_TEMPLATE_KIND' | translate }}</th>
-            <th class="actions-column">{{ 'T_ACTION' | translate }}</th>
-          </tr>
-        </thead>
-
-        <tbody>
-
-          <tr *ngFor="let model of fakeList">
-            <td>{{ model.id }}</td>
-            <td><a [routerLink]="['/admin/templates', model.id]">{{ model.name }}</a></td>
-            <td>{{ model.kind }}</td>
-
-            <td class="actions-column">
-              <button type="button"
-                      class="btn btn-sm btn-primary ml-1"
-                      title="{{ 'T_ACTION_EDIT' | translate }}"
-                      [routerLink]="['/admin/templates/', model.id, 'edit']"><i class="fa fa-pencil"></i>&nbsp;
-                {{ 'T_ACTION_EDIT' | translate }}
-              </button>
-
-              <button type="button"
-                      class="btn btn-sm btn-danger ml-1"
-                      title="{{ 'T_ACTION_REMOVE' | translate }}"
-                      bsConfirm
-                      (confirm)="remove(model.id)"><i class="fa fa-trash"></i>&nbsp;{{ 'T_ACTION_REMOVE' | translate }}
-              </button>
-            </td>
-          </tr>
-
-        </tbody>
-      </table>
-
-      <!--<bs-pagination [meta]="meta"-->
-                     <!--(queryParamsChange)="pageQueryParamsChanged($event)"></bs-pagination>-->
-    </div>
-  </div>
 </div>
+
+<bs-project-email-template-list embedded [model]="model"></bs-project-email-template-list>
 

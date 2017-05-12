@@ -67,6 +67,7 @@ export abstract class FormComponent<T extends Model> implements OnInit {
 
   protected _processModel(model: T) {
     this._model = model;
+    console.log(this._model);
   }
 }
 
