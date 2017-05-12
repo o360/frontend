@@ -200,11 +200,58 @@ export class RestService<T extends Model> {
    * Handler of errors for the CRUD methods
    */
   protected _handleErrors(error: Response) {
-    if (error.status === 401) {
+    let err = error.json();
+
+    if (error.status === 400) {
+      if (err.code = 'BAD-REQUEST-EVENT-1') {
+        this._notificationService.error('T_ERROR_BAD_REQUEST_EVENT_1');
+      } else if (err.code = 'BAD-REQUEST-EVENT-2') {
+        this._notificationService.error('T_ERROR_BAD_REQUEST_EVENT_2');
+      }
+      return Observable.throw(error);
+    } else if (error.status === 401) {
       this._router.navigate(['/login']);
       return Observable.throw(error);
+    } else if (error.status === 403) {
+      if (err.code === 'AUTHORIZATION-EVENT') {
+        this._notificationService.error('T_ERROR_AUTHORIZATION_EVENT');
+      } else {
+        this._notificationService.error(error.json().message, `${error.status} ${error.statusText}`);
+      }
+      return Observable.throw(error);
+    } else if (error.status === 404) {
+      if (err.code === 'NOTFOUND-USER') {
+        this._notificationService.error('T_ERROR_NOTFOUND_USER');
+      } else if (err.code === 'NOTFOUND-GROUP') {
+        this._notificationService.error('T_ERROR_NOTFOUND_GROUP');
+      } else if (err.code === 'NOTFOUND-FORM') {
+        this._notificationService.error('T_ERROR_NOTFOUND_FORM');
+      } else if (err.code === 'NOTFOUND-PROJECT') {
+        this._notificationService.error('T_ERROR_NOTFOUND_PROJECT');
+      } else if (err.code === 'NOTFOUND-EVENT') {
+        this._notificationService.error('T_ERROR_NOTFOUND_EVENT');
+      }
+      return Observable.throw(error);
     } else if (error.status === 409) {
-      this._notificationService.error(error.json().message, `${error.status} ${error.statusText}`);
+      if (err.code === 'CONFLICT-GENERAL') {
+        this._notificationService.error('T_ERROR_CONFLICT_GENERAL');
+      } else if (err.code === 'CONFLICT-GROUP-1') {
+        this._notificationService.error('T_ERROR_CONFLICT_GROUP_1');
+      } else if (err.code === 'CONFLICT-GROUP-2') {
+        this._notificationService.error('T_ERROR_CONFLICT_GROUP_2');
+      } else if (err.code === 'CONFLICT-GROUP-3') {
+        this._notificationService.error('T_ERROR_CONFLICT_GROUP_3');
+      } else if (err.code === 'CONFLICT-GROUP-4') {
+        this._notificationService.error('T_ERROR_CONFLICT_GROUP_4');
+      } else if (err.code === 'CONFLICT-USER-1') {
+        this._notificationService.error('T_ERROR_CONFLICT_USER_1');
+      } else if (err.code === 'CONFLICT-FORM-1') {
+        this._notificationService.error('T_ERROR_CONFLICT_FORM_1');
+      } else if (err.code === 'CONFLICT-PROJECT-1') {
+        this._notificationService.error('T_ERROR_CONFLICT_PROJECT_1');
+      } else if (err.code === 'CONFLICT-PROJECT-2') {
+        this._notificationService.error('T_ERROR_CONFLICT_PROJECT_2');
+      }
       return Observable.throw(error);
     } else {
       this._notificationService.error(error.json().message, `${error.status} ${error.statusText}`);
