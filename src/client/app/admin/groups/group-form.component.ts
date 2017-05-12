@@ -41,6 +41,7 @@ export class GroupFormComponent extends FormComponent<GroupModel> {
   protected _processRouteParams(params: Params) {
     if (params['parentId']) {
       this._parentId = +params['parentId'];
+      this._returnPath = ['/admin/groups/' + this._parentId];
     }
 
     super._processRouteParams(params);
@@ -52,6 +53,17 @@ export class GroupFormComponent extends FormComponent<GroupModel> {
     }
 
     super._processModel(model);
+  }
+
+  public save() {
+    this._route.params.forEach((params: Params) => {
+      let parentId = params['id'];
+      if (!!parentId) {
+        this._returnPath = ['/admin/groups/' + parentId];
+      }
+    });
+
+    super.save();
   }
 }
 
