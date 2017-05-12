@@ -20,13 +20,11 @@ export class FormService extends RestService<FormModel> {
   }
 
   public clone(model: FormModel): Observable<FormModel> {
-    let requestParams = this._getRequestParams(model.id) + '/clone';
-    let json = model.toJson();
-    let requestOptions = this._getRequestOptions();
+    let clone = new FormModel(JSON.parse(model.toJson()));
 
-    return this._http.post(requestParams, json, requestOptions)
-      .map((res: Response) => res.json())
-      .map((json: any) => this.createEntity(json))
-      .catch((error: Response) => this._handleErrors(error));
+    clone.id = undefined;
+    clone.name += ' (copy)';
+
+    return this.save(clone);
   }
 }

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { FormComponent } from '../../shared/components/form.component';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormElementType, FormModel, IFormElement } from '../../core/models/form-model';
 import { FormService } from '../../core/services/form.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { FormComponent } from '../../shared/components/form.component';
 
 @Component({
   moduleId: module.id,
@@ -17,7 +17,7 @@ export class FormBuilderComponent extends FormComponent<FormModel> {
     return this._elementTypes;
   }
 
-  constructor(service: FormService, router: Router, route: ActivatedRoute,) {
+  constructor(service: FormService, router: Router, route: ActivatedRoute) {
     super(service, router, route);
   }
 
