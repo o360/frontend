@@ -1,0 +1,238 @@
+<div class="card">
+  <div class="card-header"><b>{{ 'T_EMAIL_TEMPLATES' | translate }}</b></div>
+  <div class="card-block">
+    <!--<button class="btn btn-primary"-->
+            <!--type="button"-->
+            <!--title="{{ 'T_ACTION_ADD_EMAIL_TEMPLATE' | translate }}"-->
+            <!--(click)="modalForm.show()"><i class="fa fa-file-text-o mr-h"></i>-->
+      <!--{{ 'T_ACTION_ADD_EMAIL_TEMPLATE' | translate }}-->
+    <!--</button>-->
+
+     <div class="form-group row">
+        <label for="preBegin" class="col-form-label col-md-3">
+          {{ 'T_PROJECT_EMAIL_TEMPLATE_KIND_PREBEGIN' | translate }}
+        </label>
+        <div class="col-md-9 row">
+          <select name="preBegin"
+                  id="preBegin"
+                  class="form-control col-md-6"
+                  #preBegin="ngModel"
+                  [(ngModel)]="selectedTemplate">
+            <option *ngFor="let template of availableTemplates"
+                    [ngValue]="template">
+              {{template.name}}
+            </option>
+          </select>
+
+        </div>
+
+      </div>
+                   <button type="submit"
+                class="btn btn-primary col-md-3"
+                (click)="submit()">
+          {{ 'T_ACTION_ADD_EMAIL_TEMPLATE' | translate }}
+        </button>
+
+     <!--<div class="form-group row">-->
+        <!--<label for="begin" class="col-form-label col-md-3">-->
+          <!--{{ 'T_PROJECT_EMAIL_TEMPLATE_KIND_BEGIN' | translate }}-->
+        <!--</label>-->
+        <!--<div class="col-md-9">-->
+          <!--<select name="begin"-->
+                  <!--id="begin"-->
+                  <!--class="form-control"-->
+                  <!--#begin="ngModel"-->
+                  <!--[(ngModel)]="selectedTemplate">-->
+            <!--<option *ngFor="let template of availableTemplates"-->
+                    <!--[ngValue]="template">-->
+              <!--{{template.name}}-->
+            <!--</option>-->
+          <!--</select>-->
+        <!--</div>-->
+      <!--</div>-->
+
+     <!--<div class="form-group row">-->
+        <!--<label for="preEnd" class="col-form-label col-md-3">-->
+          <!--{{ 'T_PROJECT_EMAIL_TEMPLATE_KIND_PREEND' | translate }}-->
+        <!--</label>-->
+        <!--<div class="col-md-9">-->
+          <!--<select name="preEnd"-->
+                  <!--id="preEnd"-->
+                  <!--class="form-control"-->
+                  <!--#preEnd="ngModel"-->
+                  <!--[(ngModel)]="selectedTemplate">-->
+            <!--<option *ngFor="let template of availableTemplates"-->
+                    <!--[ngValue]="template">-->
+              <!--{{template.name}}-->
+            <!--</option>-->
+          <!--</select>-->
+        <!--</div>-->
+     <!--</div>-->
+
+      <!--<div class="form-group row">-->
+        <!--<label for="end" class="col-form-label col-md-3">-->
+          <!--{{ 'T_PROJECT_EMAIL_TEMPLATE_KIND_END' | translate }}-->
+        <!--</label>-->
+        <!--<div class="col-md-9">-->
+          <!--<select name="end"-->
+                  <!--id="end"-->
+                  <!--class="form-control"-->
+                  <!--#end="ngModel"-->
+                  <!--[(ngModel)]="selectedTemplate">-->
+            <!--<option *ngFor="let template of availableTemplates"-->
+                    <!--[ngValue]="template">-->
+              <!--{{template.name}}-->
+            <!--</option>-->
+          <!--</select>-->
+        <!--</div>-->
+      <!--</div>-->
+
+
+    <!--<table class="table table-striped mt-1">-->
+      <!--<thead>-->
+        <!--<tr>-->
+          <!--<th>#</th>-->
+          <!--<th>{{ 'T_EMAIL_TEMPLATE_NAME' | translate }}</th>-->
+          <!--<th>{{ 'T_EMAIL_TEMPLATE_KIND' | translate }}</th>-->
+          <!--<th class="actions-column">{{ 'T_ACTION' | translate }}</th>-->
+        <!--</tr>-->
+      <!--</thead>-->
+
+      <!--<tbody>-->
+
+        <!--<tr *ngFor="let template of model.templates">-->
+          <!--<td>{{ template.template.id }}</td>-->
+          <!--<td><a [routerLink]="['/admin/templates', template.id]">{{ template.template.name }}</a></td>-->
+          <!--<td>{{ template.kind }}</td>-->
+
+          <!--<td class="actions-column">-->
+            <!--<button type="button"-->
+                    <!--class="btn btn-sm btn-danger ml-1"-->
+                    <!--title="{{ 'T_ACTION_REMOVE' | translate }}"-->
+                    <!--bsConfirm-->
+                    <!--(confirm)="remove(model, template.template.id)"><i class="fa fa-trash"></i>&nbsp;{{ 'T_ACTION_REMOVE' | translate }}-->
+            <!--</button>-->
+          <!--</td>-->
+        <!--</tr>-->
+        <!--<tr *ngFor="let template of templatesTypes">-->
+          <!--<td>{{ template.name | translate }}</td>-->
+          <!--<td *ngIf="model.templates.kind === 'preBegin'">Гори в аду</td>-->
+          <!--<td>{{ template.kind }}</td>-->
+
+          <!--<td class="actions-column">-->
+            <!--<button type="button"-->
+                      <!--class="btn btn-sm btn-danger ml-1"-->
+                    <!--title="{{ 'T_ACTION_REMOVE' | translate }}"-->
+                    <!--bsConfirm-->
+                    <!--(confirm)="remove(model, template.template.id)"><i class="fa fa-trash"></i>&nbsp;{{ 'T_ACTION_REMOVE' | translate }}-->
+            <!--</button>-->
+          <!--</td>-->
+        <!--</tr>-->
+
+
+      <!--</tbody>-->
+    <!--</table>-->
+
+    <!--&lt;!&ndash; Email template - preBegin kind&ndash;&gt;-->
+    <!--<div class="form-group row">-->
+
+      <!--<label class="col-form-label col-md-3">-->
+        <!--{{ 'T_PROJECT_EMAIL_TEMPLATE_KIND_PREBEGIN' | translate }}-->
+      <!--</label>-->
+      <!--<div class="col-md-9 row">-->
+        <!--<p class="col-md-3" *ngIf="model.templates.length > 0"><a [routerLink]="['/admin/templates/', model.templates[0].template.id]">{{-->
+          <!--model.templates[0].template.name }}</a></p>-->
+        <!--<button class="btn btn-primary"-->
+                <!--type="button"-->
+                <!--title="{{ 'T_ACTION_CHOOSE_EMAIL_TEMPLATE' | translate }}"-->
+                <!--(click)="modalForm.show()">-->
+          <!--<i class="fa fa-file-text-o mr-h"></i>-->
+          <!--<span [ngSwitch]="model.templates.length > 0">-->
+              <!--<ng-template [ngSwitchCase]="true">{{ 'T_ACTION_CHANGE_EMAIL_TEMPLATE' | translate }}-->
+              <!--</ng-template>-->
+              <!--<ng-template ngSwitchDefault>{{ 'T_ACTION_CHOOSE_EMAIL_TEMPLATE' | translate }}</ng-template>-->
+            <!--</span>-->
+        <!--</button>-->
+      <!--</div>-->
+    <!--</div>-->
+
+    <!--&lt;!&ndash; Email template - begin kind&ndash;&gt;-->
+    <!--<div class="form-group row">-->
+
+      <!--<label class="col-form-label col-md-3">-->
+        <!--{{ 'T_PROJECT_EMAIL_TEMPLATE_KIND_BEGIN' | translate }}-->
+      <!--</label>-->
+      <!--<div class="col-md-9 row">-->
+        <!--<p class="col-md-3" *ngIf="model.templates.length > 1"><a [routerLink]="['/admin/templates/', model.templates[1].template.id]">-->
+          <!--{{ model.templates[1].template.name }}</a></p>-->
+        <!--<button class="btn btn-primary"-->
+                <!--type="button"-->
+                <!--title="{{ 'T_ACTION_CHOOSE_EMAIL_TEMPLATE' | translate }}"-->
+                <!--(click)="changeKind('end'); modalForm.show()">-->
+          <!--<i class="fa fa-file-text-o mr-h"></i>-->
+          <!--<span [ngSwitch]="model.templates.length > 1">-->
+              <!--<ng-template [ngSwitchCase]="true">{{ 'T_ACTION_CHANGE_EMAIL_TEMPLATE' | translate }}-->
+              <!--</ng-template>-->
+              <!--<ng-template ngSwitchDefault>{{ 'T_ACTION_CHOOSE_EMAIL_TEMPLATE' | translate }}</ng-template>-->
+            <!--</span>-->
+        <!--</button>-->
+      <!--</div>-->
+    <!--</div>-->
+
+    <!--&lt;!&ndash; Email template - preEnd kind&ndash;&gt;-->
+    <!--<div class="form-group row">-->
+
+      <!--<label class="col-form-label col-md-3">-->
+        <!--{{ 'T_PROJECT_EMAIL_TEMPLATE_KIND_PREEND' | translate }}-->
+      <!--</label>-->
+      <!--<div class="col-md-9 row">-->
+        <!--<p class="col-md-3" *ngIf="model.templates.length > 1"><a [routerLink]="['/admin/templates/', model.templates[1].template.id]">-->
+          <!--{{ model.templates[1].template.name }}</a></p>-->
+        <!--<button class="btn btn-primary"-->
+                <!--type="button"-->
+                <!--title="{{ 'T_ACTION_CHOOSE_EMAIL_TEMPLATE' | translate }}"-->
+                <!--(click)="changeKind('end'); modalForm.show()">-->
+          <!--<i class="fa fa-file-text-o mr-h"></i>-->
+          <!--<span [ngSwitch]="model.templates.length > 1">-->
+              <!--<ng-template [ngSwitchCase]="true">{{ 'T_ACTION_CHANGE_EMAIL_TEMPLATE' | translate }}-->
+              <!--</ng-template>-->
+              <!--<ng-template ngSwitchDefault>{{ 'T_ACTION_CHOOSE_EMAIL_TEMPLATE' | translate }}</ng-template>-->
+            <!--</span>-->
+        <!--</button>-->
+      <!--</div>-->
+    <!--</div>-->
+
+    <!--&lt;!&ndash; Email template - end kind&ndash;&gt;-->
+    <!--<div class="form-group row">-->
+
+      <!--<label class="col-form-label col-md-3">-->
+        <!--{{ 'T_PROJECT_EMAIL_TEMPLATE_KIND_END' | translate }}-->
+      <!--</label>-->
+      <!--<div class="col-md-9 row">-->
+        <!--<p class="col-md-3" *ngIf="model.templates.length > 1"><a [routerLink]="['/admin/templates/', model.templates[1].template.id]">-->
+          <!--{{ model.templates[1].template.name }}</a></p>-->
+        <!--<button class="btn btn-primary"-->
+                <!--type="button"-->
+                <!--title="{{ 'T_ACTION_CHOOSE_EMAIL_TEMPLATE' | translate }}"-->
+                <!--(click)="changeKind('end'); modalForm.show()">-->
+          <!--<i class="fa fa-file-text-o mr-h"></i>-->
+          <!--<span [ngSwitch]="model.templates.length > 1">-->
+              <!--<ng-template [ngSwitchCase]="true">{{ 'T_ACTION_CHANGE_EMAIL_TEMPLATE' | translate }}-->
+              <!--</ng-template>-->
+              <!--<ng-template ngSwitchDefault>{{ 'T_ACTION_CHOOSE_EMAIL_TEMPLATE' | translate }}</ng-template>-->
+            <!--</span>-->
+        <!--</button>-->
+      <!--</div>-->
+    <!--</div>-->
+
+    <!--<bs-pagination [meta]="meta"-->
+    <!--(queryParamsChange)="pageQueryParamsChanged($event)"></bs-pagination>-->
+  </div>
+</div>
+
+
+<!-- Adding email template to group modal-->
+<!--<bs-email-templates-add-modal #modalForm-->
+                              <!--[parent]="model"-->
+                              <!--[recipient]="recipient"-->
+                              <!--(emailTemplatesAdded)="emailTemplatesAdded()"></bs-email-templates-add-modal>-->

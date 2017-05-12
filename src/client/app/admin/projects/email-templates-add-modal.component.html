@@ -3,74 +3,50 @@
     <div class="modal-content">
 
       <div class="modal-header">
-        <h5 class="modal-title">{{ 'T_ACTION_ADD_USERS_TO_GROUP' | translate }}</h5>
+        <h5 class="modal-title">{{ 'T_ACTION_ADD_EMAIL_TEMPLATE' | translate }}</h5>
         <button type="button" class="close" aria-label="Close" (click)="modal.hide(); groupUserForm.reset()">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
 
       <div class="modal-body">
-        <!--<div class="card" *ngIf="isLoaded">-->
-        <!--<div class="card-header"><b>{{ 'T_EMAIL_TEMPLATES' | translate }}</b></div>-->
-        <!--<div class="card-block">-->
-        <!--<button class="btn btn-primary"-->
-        <!--type="button"-->
-        <!--title="{{ 'T_ACTION_CREATE' | translate }}"-->
-        <!--[routerLink]="['/admin/templates/create']"><i class="fa fa-file-text-o mr-h"></i>-->
-        <!--{{ 'T_EMAIL_TEMPLATE_CREATE' | translate }}-->
-        <!--</button>-->
-        <table class="table table-striped mt-1">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>{{ 'T_USER_NAME' | translate }}</th>
-              <th>{{ 'T_EMAIL_TEMPLATE_KIND' | translate }}</th>
-              <th class="actions-column">{{ 'T_ACTION' | translate }}</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let model of emailTemplates">
-              <td>{{ model.id }}</td>
-              <td><a [routerLink]="['/admin/templates', model.id]">{{ model.name }}</a></td>
-              <td>{{ model.kind }}</td>
-              <td class="actions-column">
-                <button type="button"
-                        class="btn btn-sm btn-warning ml-1"
-                        title="{{ 'T_ACTION_CLONE' | translate }}"
-                        bsConfirm
-                        [message]="'T_FORM_CONFIRM_CLONE_MESSAGE' | translate"
-                        (confirm)="clone(model);">
-                  <i class="fa fa-copy"></i>&nbsp;{{ 'T_ACTION_CLONE' | translate }}
-                </button>
+        <form class="form form-horizontal"
+              (ngSubmit)="submit(); groupUserForm.reset()"
+              #groupUserForm="ngForm">
+          <div class="form-group row"
+               [ngClass]="{'has-success': users.valid, 'has-danger': !users.valid && users.touched }">
+            <label for="users" class="col-form-label col-md-3 required">{{ 'T_EMAIL_TEMPLATES' | translate }}</label>
+            <div class="col-md-9">
+              <select name="user"
+                      id="users"
+                      class="form-control"
+                      multiple
+                      #users="ngModel"
+                      [(ngModel)]="selectedTemplate"
+                      required>
+                <option *ngFor="let template of availableTemplates"
+                        [ngValue]="template">
+                  {{ template.name }} ({{ template.kind }})
+                </option>
+              </select>
+            </div>
+          </div>
+        </form>
+      </div>
 
-                <button type="button"
-                        class="btn btn-sm btn-primary ml-1"
-                        title="{{ 'T_ACTION_EDIT' | translate }}"
-                        [routerLink]="['/admin/templates/', model.id, 'edit']"><i class="fa fa-pencil"></i>&nbsp;
-                  {{ 'T_ACTION_EDIT' | translate }}
-                </button>
+      <div class="modal-footer">
+        <button type="button"
+                class="btn btn-secondary"
+                (click)="modal.hide(); groupUserForm.reset()">{{ 'T_ACTION_CANCEL' | translate }}
+        </button>
 
-                <button type="button"
-                        class="btn btn-sm btn-danger ml-1"
-                        bsConfirm
-                        (confirm)="delete(model.id)">
-
-                  <i class="fa fa-trash"></i>&nbsp;
-                  {{ 'T_ACTION_DELETE' | translate }}
-                </button>
-              </td>
-            </tr>
-
-            <tr *ngIf="!list.length">
-              <td colspan="25" class="text-center">{{ 'T_EMPTY' | translate }}</td>
-            </tr>
-          </tbody>
-        </table>
-
-        <bs-pagination [meta]="meta"
-                       (queryParamsChange)="pageQueryParamsChanged($event)"></bs-pagination>
+        <button type="submit"
+                class="btn btn-primary"
+                (click)="submit(); groupUserForm.reset(); update()"
+                [disabled]="!groupUserForm.valid">
+          {{ 'T_ACTION_ADD_EMAIL_TEMPLATE' | translate }}
+        </button>
       </div>
     </div>
-
   </div>
 </div>

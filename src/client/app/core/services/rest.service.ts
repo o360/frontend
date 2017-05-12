@@ -98,6 +98,7 @@ export class RestService<T extends Model> {
    * @return {Observable<T>}
    */
   public save(model: T): Observable<T> {
+    console.log(model);
     if (model.id !== undefined) {
       return this._update(model);
     } else {

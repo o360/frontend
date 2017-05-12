@@ -17,7 +17,7 @@ export interface IModelIdName {
   groupFromId: '',
   formId: '',
   kind: RelationKind.Classic,
-  // templates: []
+  templates: []
 })
 export class RelationModel extends Model {
   public project?: IModelIdName;
@@ -29,5 +29,5 @@ export class RelationModel extends Model {
   public form?: IModelIdName;
   public formId?: ModelId;
   public kind: string;
-  // public templates: IEmailTemplate;
+  public templates: IEmailTemplate;
 }
