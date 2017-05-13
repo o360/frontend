@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { ListComponent } from '../../shared/components/list.component';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormModel } from '../../core/models/form-model';
 import { FormService } from '../../core/services/form.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ListComponent } from '../../shared/components/list.component';
 
 @Component({
   moduleId: module.id,
@@ -13,13 +13,12 @@ export class FormListComponent extends ListComponent<FormModel> {
 
   constructor(service: FormService,
               activatedRoute: ActivatedRoute,
-              router: Router,
-              protected _formService: FormService) {
+              router: Router) {
     super(service, activatedRoute, router);
   }
 
   public clone(model: FormModel) {
-    this._formService.clone(model).subscribe(() => {
+    (<FormService>this._service).clone(model).subscribe(() => {
       this._update();
     });
   }
