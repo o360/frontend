@@ -3,6 +3,7 @@ import { ProjectModel } from '../../core/models/project-model';
 import { ProjectService } from '../../core/services/project.service';
 import { ListComponent } from '../../shared/components/list.component';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NotificationService } from '../../core/services/notification.service';
 
 @Component({
   moduleId: module.id,
@@ -12,7 +13,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class ProjectListComponent extends ListComponent<ProjectModel> {
   constructor(service: ProjectService,
               activatedRoute: ActivatedRoute,
-              router: Router) {
-    super(service, activatedRoute, router);
+              router: Router,
+              notificationService: NotificationService) {
+    super(service, activatedRoute, router, notificationService);
   }
 }

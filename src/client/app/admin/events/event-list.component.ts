@@ -4,6 +4,7 @@ import { EventModel, EventSortField, EventStatus } from '../../core/models/event
 import { EventService } from '../../core/services/event.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Filter, FilterType } from '../../core/models/filter';
+import { NotificationService } from '../../core/services/notification.service';
 
 @Component({
   moduleId: module.id,
@@ -27,7 +28,10 @@ export class EventListComponent extends ListComponent<EventModel> {
     return EventStatus;
   }
 
-  constructor(service: EventService, activatedRoute: ActivatedRoute, router: Router) {
-    super(service, activatedRoute, router);
+  constructor(service: EventService,
+              activatedRoute: ActivatedRoute,
+              router: Router,
+              notificationService: NotificationService) {
+    super(service, activatedRoute, router, notificationService);
   }
 }

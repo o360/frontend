@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UserGender, UserModel, UserRole } from '../../core/models/user-model';
 import { UserService } from '../../core/services/user.service';
 import { FormComponent } from '../../shared/components/form.component';
+import { NotificationService } from '../../core/services/notification.service';
 
 
 @Component({
@@ -26,8 +27,9 @@ export class UserFormComponent extends FormComponent<UserModel> {
 
   constructor(service: UserService,
               router: Router,
-              route: ActivatedRoute) {
-    super(service, router, route);
+              route: ActivatedRoute,
+              notificationService: NotificationService) {
+    super(service, router, route, notificationService);
   }
 }
 

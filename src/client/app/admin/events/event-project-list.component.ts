@@ -6,6 +6,7 @@ import { ProjectModel } from '../../core/models/project-model';
 import { ProjectService } from '../../core/services/project.service';
 import { EventService } from '../../core/services/event.service';
 import { EventModel, EventStatus } from '../../core/models/event-model';
+import { NotificationService } from '../../core/services/notification.service';
 
 @Component({
   moduleId: module.id,
@@ -31,8 +32,9 @@ export class EventProjectListComponent extends ListComponent<ProjectModel> imple
   constructor(service: ProjectService,
               activatedRoute: ActivatedRoute,
               router: Router,
+              notificationService: NotificationService,
               protected _eventService: EventService) {
-    super(service, activatedRoute, router);
+    super(service, activatedRoute, router, notificationService);
   }
 
   public ngOnInit() {

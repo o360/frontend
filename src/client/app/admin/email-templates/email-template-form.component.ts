@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormComponent } from '../../shared/components/form.component';
 import { EmailKind, Recipient, EmailTemplateModel } from '../../core/models/email-template-model';
 import { EmailTemplateService } from '../../core/services/email-template.service';
+import { NotificationService } from '../../core/services/notification.service';
 
 
 @Component({
@@ -25,8 +26,9 @@ export class EmailTemplateFormComponent extends FormComponent<EmailTemplateModel
 
   constructor(service: EmailTemplateService,
               router: Router,
-              route: ActivatedRoute) {
-    super(service, router, route);
+              route: ActivatedRoute,
+              notificationService: NotificationService) {
+    super(service, router, route, notificationService);
   }
 
   public addRecipient(textearea: HTMLTextAreaElement) {
@@ -43,4 +45,3 @@ export class EmailTemplateFormComponent extends FormComponent<EmailTemplateModel
     }
   }
 }
-
