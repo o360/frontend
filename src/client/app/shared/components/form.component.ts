@@ -7,7 +7,7 @@ import { Observable } from 'rxjs/Observable';
 export abstract class FormComponent<T extends Model> implements OnInit {
   protected _id: ModelId;
   protected _model: T;
-  protected _returnPath: any;
+  protected _returnPath: any[];
 
   public get model(): T {
     return this._model;
