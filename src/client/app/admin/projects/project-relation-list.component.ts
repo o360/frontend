@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ListComponent } from '../../shared/components/list.component';
 import { RelationModel } from '../../core/models/relation-model';
 import { RelationService } from '../../core/services/relation.service';
+import { NotificationService } from '../../core/services/notification.service';
 
 @Component({
   moduleId: module.id,
@@ -23,8 +24,9 @@ export class ProjectRelationListComponent extends ListComponent<RelationModel> i
 
   constructor(service: RelationService,
               activatedRoute: ActivatedRoute,
-              router: Router) {
-    super(service, activatedRoute, router);
+              router: Router,
+              notificationService: NotificationService) {
+    super(service, activatedRoute, router, notificationService);
   }
 
   public ngOnChanges(changes: SimpleChanges) {

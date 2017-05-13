@@ -3,6 +3,7 @@ import { ListComponent } from '../../shared/components/list.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EmailTemplateModel } from '../../core/models/email-template-model';
 import { EmailTemplateService } from '../../core/services/email-template.service';
+import { NotificationService } from '../../core/services/notification.service';
 
 @Component({
   moduleId: module.id,
@@ -12,13 +13,15 @@ import { EmailTemplateService } from '../../core/services/email-template.service
 export class EmailTemplateListComponent extends ListComponent<EmailTemplateModel> {
   constructor(service: EmailTemplateService,
               activatedRoute: ActivatedRoute,
-              router: Router) {
-    super(service, activatedRoute, router);
+              router: Router,
+              notificationService: NotificationService) {
+    super(service, activatedRoute, router, notificationService);
   }
 
   public clone(model: EmailTemplateModel) {
     (<EmailTemplateService>this._service).clone(model).subscribe(() => {
       this._update();
+      this._notificationService.success('T_SUCCESS_CLONED');
     });
   }
 }

@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { GroupModel } from '../../core/models/group-model';
 import { GroupService } from '../../core/services/group.service';
 import { ListComponent } from '../../shared/components/list.component';
+import { NotificationService } from '../../core/services/notification.service';
 
 @Component({
   moduleId: module.id,
@@ -23,8 +24,9 @@ export class GroupListComponent extends ListComponent<GroupModel> implements OnI
 
   constructor(service: GroupService,
               activatedRoute: ActivatedRoute,
-              router: Router) {
-    super(service, activatedRoute, router);
+              router: Router,
+              notificationService: NotificationService) {
+    super(service, activatedRoute, router, notificationService);
   }
 
   public ngOnInit() {

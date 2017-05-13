@@ -200,16 +200,35 @@ export class RestService<T extends Model> {
    * Handler of errors for the CRUD methods
    */
   protected _handleErrors(error: Response) {
-    if (error.status === 401) {
+    let err = error.json();
+
+    if (error.status === 400) {
+      this._notificationService.error(this._prepareErrorCodeTranslation(err.code));
+      return Observable.throw(error);
+    } else if (error.status === 401) {
       this._router.navigate(['/login']);
       return Observable.throw(error);
+    } else if (error.status === 403) {
+      if (err.code === 'AUTHORIZATION-EVENT') {
+        this._notificationService.error(this._prepareErrorCodeTranslation(err.code));
+      } else {
+        this._notificationService.error(err.message, `${error.status} ${error.statusText}`);
+      }
+      return Observable.throw(error);
+    } else if (error.status === 404) {
+      this._notificationService.error(this._prepareErrorCodeTranslation(err.code));
+      return Observable.throw(error);
     } else if (error.status === 409) {
-      this._notificationService.error(error.json().message, `${error.status} ${error.statusText}`);
+      this._notificationService.error(this._prepareErrorCodeTranslation(err.code));
       return Observable.throw(error);
     } else {
-      this._notificationService.error(error.json().message, `${error.status} ${error.statusText}`);
+      this._notificationService.error(err.message, `${error.status} ${error.statusText}`);
       return Observable.throw(error);
     }
+  }
+
+  protected _prepareErrorCodeTranslation(code: string) {
+    return 'T_ERROR_' + code.replace(/-/g, '_');
   }
 }
 
