@@ -18,13 +18,12 @@ export class FormDetailsComponent extends DetailsComponent<FormModel> {
 
   constructor(service: FormService,
               route: ActivatedRoute,
-              protected _router: Router,
-              protected _formService: FormService) {
+              protected _router: Router) {
     super(service, route);
   }
 
   public clone(model: FormModel) {
-    this._formService.clone(model).subscribe(() => {
+    (<FormService>this._service).clone(model).subscribe(() => {
       if (this._returnPath) {
         this._router.navigate(this._returnPath);
       }
