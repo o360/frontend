@@ -3,8 +3,8 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { GroupModel } from '../../core/models/group-model';
 import { ModelId } from '../../core/models/model';
 import { GroupService } from '../../core/services/group.service';
-import { FormComponent } from '../../shared/components/form.component';
 import { IListResponse } from '../../core/services/rest.service';
+import { FormComponent } from '../../shared/components/form.component';
 
 
 @Component({
@@ -15,7 +15,7 @@ import { IListResponse } from '../../core/services/rest.service';
 export class GroupFormComponent extends FormComponent<GroupModel> {
   protected _groups: GroupModel[];
   protected _parentId: ModelId = null;
-  protected _returnPath = ['/admin/groups'];
+  protected _returnPath: any[] = ['/admin/groups'];
 
   public get groups(): GroupModel[] {
     return this._groups;
@@ -41,6 +41,7 @@ export class GroupFormComponent extends FormComponent<GroupModel> {
   protected _processRouteParams(params: Params) {
     if (params['parentId']) {
       this._parentId = +params['parentId'];
+      this._returnPath = ['/admin/groups/', this._parentId];
     }
 
     super._processRouteParams(params);
