@@ -20,6 +20,7 @@ import { FormService } from './services/form.service';
 import { ProjectService } from './services/project.service';
 import { RelationService } from './services/relation.service';
 import { EmailTemplateService } from './services/email-template.service';
+import { AdminGuard } from './guards/admin.guard';
 
 @NgModule({
   imports: [
@@ -40,6 +41,7 @@ import { EmailTemplateService } from './services/email-template.service';
     AccountService,
     ProfileService,
     AuthGuard,
+    AdminGuard,
     UserService,
     GroupService,
     NotificationService,
