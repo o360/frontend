@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Config } from '../../shared/config/env.config';
 import { AccountModel } from '../models/account-model';
+import { UserRole } from '../models/user-model';
 
 export const tokenLsKey = 'token';
 
@@ -28,6 +29,10 @@ export class AuthService {
 
   public get isLoggedIn() {
     return !!this._token;
+  }
+
+  public get isAdmin() {
+    return this._user.role === UserRole.Admin;
   }
 
   constructor(protected _router: Router) {
