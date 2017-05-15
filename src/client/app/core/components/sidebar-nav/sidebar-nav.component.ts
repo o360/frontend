@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { BsDropdownConfig } from 'ngx-bootstrap';
-import { AdminGuard } from '../../guards/admin.guard';
-import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
+import { AuthGuard } from '../../guards/auth.guard';
+import { AuthService } from '../../services/auth.service';
 /**
  * This class represents the navigation bar component.
  */
@@ -12,13 +12,13 @@ import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
   providers: [{ provide: BsDropdownConfig, useValue: { autoClose: false } }]
 })
 export class SidebarNavComponent {
-  protected _adminRights: boolean;
+  protected _isAdmin: boolean;
 
-  public get adminRights(): boolean {
-    return this._adminRights;
+  public get isAdmin(): boolean {
+    return this._isAdmin;
   }
 
-  constructor(protected _adminGuard: AdminGuard) {
-    this._adminRights = this._adminGuard.adminRights;
+  constructor(protected _authService: AuthService) {
+    this._isAdmin = this._authService.isAdmin;
   }
 }

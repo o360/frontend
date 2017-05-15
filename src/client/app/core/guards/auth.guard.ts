@@ -6,7 +6,6 @@ import { AuthServiceLoader } from './auth-service.loader';
 
 @Injectable()
 export class AuthGuard implements CanActivate, CanActivateChild {
-
   constructor(protected _router: Router,
               protected _authService: AuthService,
               protected _authServiceLoader: AuthServiceLoader) {
