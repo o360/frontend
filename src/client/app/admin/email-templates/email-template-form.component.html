@@ -104,29 +104,30 @@
         </div>
       </div>
 
-      <button type="button"
-              class="btn btn-primary mt-0"
-              (click)="addRecipient(message)">
-        {{ 'T_EMAIL_TEMPLATE_RECIPIENT' | translate }}
-      </button>
-
-      <!-- Textarea for editor -->
+      <!-- Editor -->
       <div class="form-group"
-           [ngClass]="{'has-success': message.valid, 'has-danger': !message.valid && message.touched }">
-
-          <textarea type="text"
-                    class="form-control"
-                    id="message"
-                    name="message"
-                    #message
-                    rows="20"
-                    placeholder="{{ 'T_EMAIL_TEMPLATE_ENTER_TEXT' | translate }}"
-                    [(ngModel)]="model.body"> </textarea>
-
+           [ngClass]="{'has-success': editor.valid, 'has-danger': !editor.valid && editor.touched }">
+        <ckeditor id="editor"
+                  name="editor"
+                  #editor
+                  [(ngModel)]="model.body"
+                  [ngModelOptions]="{ standalone: true }"
+                  [config]="ckEditorConfig"
+                  required>
+          <ckgroup [name]="'textConstants'"
+                   *ngFor="let param of emailParameters">
+            <ckbutton [name]="param.name"
+                      (click)="addText(editor, param.click)"
+                      [label]="param.label | translate"
+                      [command]="param.command">
+            </ckbutton>
+          </ckgroup>
+        </ckeditor>
         <div class="form-errors"
-             *ngIf="message.errors && message.touched">
-          <div class="form-control-feedback" *ngIf="message.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}</div>
+             *ngIf="editor.errors && editor.touched">
+          <div class="form-control-feedback" *ngIf="editor.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}</div>
         </div>
+
       </div>
 
       <hr/>
