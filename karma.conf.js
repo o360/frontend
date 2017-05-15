@@ -55,6 +55,13 @@ module.exports = function (config) {
       // suppress annoying 404 warnings for resources, images, etc.
       { pattern: 'dist/dev/assets/**/*', watched: false, included: false, served: true },
 
+      // @ngx/translate
+      { pattern: 'node_modules/@ngx-translate/**/*.js', included: false, watched: false },
+
+      // ng2-toastr
+      { pattern: 'node_modules/**/*.js', included: false, watched: false },
+
+
       'test-config.js',
       'dist/dev/app/system-config.js',
       'test-main.js'
