@@ -9,6 +9,7 @@ import { ProjectService } from '../../core/services/project.service';
 import { NotificationService } from '../../core/services/notification.service';
 import { Observable } from 'rxjs/Observable';
 import { IListResponse } from '../../core/services/rest.service';
+import { template } from 'gulp-util';
 
 @Component({
   moduleId: module.id,
@@ -29,6 +30,7 @@ export class ProjectEmailTemplatesListComponent extends ListComponent<EmailTempl
   protected _begin: EmailTemplateModel[];
   protected _preEnd: EmailTemplateModel[];
   protected _end: EmailTemplateModel[];
+  public choosingMode: boolean = false;
 
   @Input()
   public set model(value: string) {
@@ -88,6 +90,9 @@ export class ProjectEmailTemplatesListComponent extends ListComponent<EmailTempl
     }
   }
 
+  public changeMode() {
+    return this.choosingMode = true;
+  }
 
   public remove(model: ProjectModel, templateId: ModelId) {
     let transaction = this._projectService.removeEmailTemplate(model, templateId);
@@ -119,24 +124,20 @@ export class ProjectEmailTemplatesListComponent extends ListComponent<EmailTempl
         // = this._availableTemplates.find(x =>  x.kind === EmailKind.preBegin);
       // return allUsers.data.filter(user => !groupUsers.data.find(x => x.id === user.id));
       // let b = this._availableTemplates.filter();
-      // console.log(this._availableTemplates.filter(template =>this._availableTemplates.find(x =>  x.kind === EmailKind.preBegin))z);
+      console.log(this._availableTemplates.filter(template =>this._availableTemplates.find(x =>  x.kind === EmailKind.preBegin)));
       // console.log(b);
       // // this._begin
     });
     super._update();
   }
+
   public submit() {
-    console.log(this._model);
-    console.log(this._selectedTemplate);
-    // if (this._selectedTemplate.length > 0) {
-    //   let transaction = this._selectedTemplate.map(res => this._projectService.addTemplate(this._model, this._selectedTemplate));
-    this._projectService.addTemplate(this._model, this._selectedTemplate).subscribe(() => {this._update();});
-    // let transaction =
-    //   Observable.forkJoin(transaction).subscribe(() => {
-    //     this._update();
-    //     this._notificationService.success('T_EMAIL_TEMPLATE_ADDED_TO_PROJECT');
-    //   });
-    // }
+    let transaction = this._projectService.addTemplate(this._model, this._selectedTemplate));
+      Observable.forkJoin(transaction).subscribe(() => {
+        this._update();
+        this._notificationService.success('T_EMAIL_TEMPLATE_ADDED_TO_PROJECT');
+      });
+    }
   }
 }
 // this._groupService.list().subscribe((list: IListResponse<GroupModel>) => {
