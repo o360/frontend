@@ -9,10 +9,10 @@
   </div>
 
   <div class="card-block">
+     <!--Name-->
     <form class="form form-horizontal"
           (ngSubmit)="save(); groupForm.reset()" #groupForm="ngForm">
 
-      <!-- Name -->
       <div class="form-group row"
            [ngClass]="{'has-success': name.valid, 'has-danger': !name.valid && name.touched }">
 
@@ -116,34 +116,20 @@
           [config]="ckEditorConfig"
           required>
           <ckgroup
-            [name]="'textConstants'">
-            <ckbutton [name]="'addRecipientButton'"
-                      [command]="'insert_name'"
-                      (click)="addText(editor, 'user_name')"
-                      [label]="'Add recipient'"
-                      [icon]="'some.png'">
-            </ckbutton>
-            <ckbutton [name]="'addEventStartButton'"
-                      [command]="'insert_event_start'"
-                      (click)="addText(editor, 'event_start')"
-                      [label]="'Add event start'">
-            </ckbutton>
-            <ckbutton [name]="'addEventEndButton'"
-                      [command]="'insert_event_end'"
-                      (click)="addText(editor, 'event_end')"
-                      [label]="'Add event end'">
-            </ckbutton>
-            <ckbutton [name]="'addEventDescriptionButton'"
-                      [command]="'insert_event_description'"
-                      (click)="addText(editor, 'event_description')"
-                      [label]="'Add description'">
-            </ckbutton>
+            [name]="'textConstants'"
+            *ngFor="let param of emailParameters">
+              <ckbutton [name]="param.name"
+                        (click)="addText(editor, param.click)"
+                        [label]="param.label"
+                        [command]="param.command">
+              </ckbutton>
           </ckgroup>
         </ckeditor>
         <div class="form-errors"
              *ngIf="editor.errors && editor.touched">
           <div class="form-control-feedback" *ngIf="editor.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}</div>
         </div>
+
       </div>
 
       <hr/>

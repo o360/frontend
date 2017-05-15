@@ -11,7 +11,7 @@ import { createTranslateLoader } from './shared/config/translate-loader.config';
 import { SharedModule } from './shared/shared.module';
 import { ToastModule } from 'ng2-toastr/ng2-toastr';
 import { ModalModule, PaginationModule, AccordionModule } from 'ngx-bootstrap';
-// import { CKEditorModule } from 'ng2-ckeditor';
+import { CKEditorModule } from 'ng2-ckeditor';
 
 @NgModule({
   imports: [
@@ -31,7 +31,7 @@ import { ModalModule, PaginationModule, AccordionModule } from 'ngx-bootstrap';
     ToastModule.forRoot(),
     AccordionModule.forRoot(),
     ModalModule.forRoot(),
-    // CKEditorModule,
+    CKEditorModule,
     // App related modules
     AppRoutingModule
   ],
