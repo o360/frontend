@@ -1,11 +1,20 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterStateSnapshot } from '@angular/router';
-import { UserStatus } from '../models/user-model';
+import { UserRole, UserStatus } from '../models/user-model';
 import { AuthService } from '../services/auth.service';
 import { AuthServiceLoader } from './auth-service.loader';
 
 @Injectable()
 export class AuthGuard implements CanActivate, CanActivateChild {
+  protected _adminRights: boolean;
+
+  public get adminRights(): boolean {
+    return this._adminRights;
+  }
+
+  public set adminRights(value: boolean) {
+    this._adminRights = value;
+  }
 
   constructor(protected _router: Router,
               protected _authService: AuthService,
@@ -19,6 +28,11 @@ export class AuthGuard implements CanActivate, CanActivateChild {
           this._router.navigate(['/new']);
           return false;
         } else {
+          if (this._authService.user.role === UserRole.Admin) {
+            this._adminRights = true;
+          } else {
+            this._adminRights = false;
+          }
           return true;
         }
       } else {

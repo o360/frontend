@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { BsDropdownConfig } from 'ngx-bootstrap';
-import { AdminGuard } from '../../guards/admin.guard';
-import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
+import { AuthGuard } from '../../guards/auth.guard';
 /**
  * This class represents the navigation bar component.
  */
@@ -18,7 +17,7 @@ export class SidebarNavComponent {
     return this._adminRights;
   }
 
-  constructor(protected _adminGuard: AdminGuard) {
-    this._adminRights = this._adminGuard.adminRights;
+  constructor(protected _authGuard: AuthGuard) {
+    this._adminRights = this._authGuard.adminRights;
   }
 }
