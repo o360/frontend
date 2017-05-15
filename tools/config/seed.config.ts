@@ -475,10 +475,6 @@ export class SeedConfig {
       'rxjs': {
         main: 'Rx.js',
         defaultExtension: 'js'
-      },
-      'ng2-ckeditor': {
-        main: 'lib/index.js',
-        defaultExtension: 'js'
       }
     }
   };

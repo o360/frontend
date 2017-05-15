@@ -63,3 +63,17 @@ header.navbar .navbar-brand {
 .card-title.panel-title {
   margin-bottom: 0px !important;
 }
+
+.cke_button__addrecipient_icon,
+.cke_button__addeventstart_icon,
+.cke_button__addeventend_icon,
+.cke_button__addeventdescription_icon {
+  display: none !important;
+}
+
+.cke_button__addrecipient_label,
+.cke_button__addeventstart_label,
+.cke_button__addeventend_label,
+.cke_button__addeventdescription_label {
+  display: block !important;
+}
