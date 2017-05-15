@@ -7,12 +7,6 @@ import { UserRole } from '../models/user-model';
 
 @Injectable()
 export class AdminGuard implements CanActivate {
-  protected _adminRights: boolean;
-
-  public get adminRights(): boolean {
-    return this._adminRights;
-  }
-
   constructor(protected _router: Router,
               protected _authService: AuthService,
               protected _authServiceLoader: AuthServiceLoader) {
@@ -22,18 +16,15 @@ export class AdminGuard implements CanActivate {
     return this._authServiceLoader.canActivate().map(() => {
       if (this._authService.isLoggedIn) {
         if (this._authService.user.role === UserRole.Admin) {
-          this._adminRights = true;
+          return true;
         } else {
           this._router.navigate(['/']);
-          this._adminRights = false;
+          return false;
         }
       } else {
         this._router.navigate(['/login']);
-        this._adminRights = false;
+        return false;
       }
-
-      return this._adminRights;
     });
   }
-
 }
