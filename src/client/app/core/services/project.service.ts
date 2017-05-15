@@ -12,6 +12,8 @@ import { ModelId } from '../models/model';
 export class ProjectService extends RestService<ProjectModel> {
   public addTemplate(model: any, template: any) {
     console.log('GOOOOOOOOOOOOOOO');
+    console.log(model);
+    console.log(template);
     let requestParams = this._getRequestParams(model.id);
     let json = {
       'id': model.id,
@@ -22,9 +24,9 @@ export class ProjectService extends RestService<ProjectModel> {
     };
 
     let temp = {
-      'templateId': template[0].id,
-      'kind': template[0].kind,
-      'recipient': template[0].recipient
+      'templateId': template.id,
+      'kind': template.kind,
+      'recipient': template.recipient
     };
     console.log(model);
     console.log(template);

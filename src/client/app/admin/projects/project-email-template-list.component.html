@@ -1,37 +1,119 @@
 <div class="card">
   <div class="card-header"><b>{{ 'T_EMAIL_TEMPLATES' | translate }}</b></div>
   <div class="card-block">
-    <!--<button class="btn btn-primary"-->
-            <!--type="button"-->
-            <!--title="{{ 'T_ACTION_ADD_EMAIL_TEMPLATE' | translate }}"-->
-            <!--(click)="modalForm.show()"><i class="fa fa-file-text-o mr-h"></i>-->
-      <!--{{ 'T_ACTION_ADD_EMAIL_TEMPLATE' | translate }}-->
-    <!--</button>-->
+    <button *ngIf="!choosingMode"
+            class="btn btn-primary"
+            type="button"
+            title="{{ 'T_ACTION_ADD_EMAIL_TEMPLATE' | translate }}"
+            (click)="changeMode()"><i class="fa fa-file-text-o mr-h"></i>
+      Выбрать шаблоны писем
+    </button>
 
-     <div class="form-group row">
+  <!--ВАРИАНТ ФОРМЫ ДЛЯ ТИПА РЕДАКТИРОВАНИЕ-->
+     <div *ngIf="choosingMode" class="form-group row">
         <label for="preBegin" class="col-form-label col-md-3">
           {{ 'T_PROJECT_EMAIL_TEMPLATE_KIND_PREBEGIN' | translate }}
         </label>
-        <div class="col-md-9 row">
-          <select name="preBegin"
-                  id="preBegin"
-                  class="form-control col-md-6"
-                  #preBegin="ngModel"
-                  [(ngModel)]="selectedTemplate">
-            <option *ngFor="let template of availableTemplates"
-                    [ngValue]="template">
-              {{template.name}}
-            </option>
-          </select>
-
-        </div>
-
+               <div class="col-md-9 row" [ngSwitch]="model.id">
+               <ng-template [ngSwitchCase]="true">{{ 'T_ACTION_CHANGE_EMAIL_TEMPLATE' | translate }}
+                </ng-template>
+                <ng-template ngSwitchDefault>
+                  <select name="preBegin"
+                        id="preBegin"
+                        class="form-control col-md-6"
+                        #preBegin="ngModel"
+                        [(ngModel)]="selectedTemplate">
+                  <option *ngFor="let template of availableTemplates"
+                          [ngValue]="template">
+                    {{template.name}}
+                  </option>
+                </select>
+                <div class="col-md-4 text-right">
+                   <button  type="submit"
+                            class="btn btn-primary"
+                            (click)="submit()">
+                      {{ 'T_ACTION_ADD_EMAIL_TEMPLATE' | translate }}
+                    </button>
+                 </div>
+                </ng-template>
+          </div>
       </div>
-                   <button type="submit"
-                class="btn btn-primary col-md-3"
-                (click)="submit()">
-          {{ 'T_ACTION_ADD_EMAIL_TEMPLATE' | translate }}
-        </button>
+
+        <!--ВАРИАНТ ФОРМЫ ДЛЯ ОТОБРАЖЕНИЯ-->
+     <div *ngIf="!choosingMode">
+         <table class="table table-striped mt-1">
+      <tbody>
+        <tr *ngFor="let template of model.templates">
+          <td>{{ 'T_PROJECT_EMAIL_TEMPLATE_KIND_' + template.kind.toUpperCase() | translate }}</td>
+          <td><a [routerLink]="['/admin/templates', template.template.id]">{{ template.template.name }}</a></td>
+          <td class="actions-column">
+            <button
+                    type="button"
+                    class="btn btn-sm btn-danger ml-1"
+                    bsConfirm
+                    title="{{ 'T_ACTION_DELETE' | translate }}"
+                    (confirm)="remove(model, template.template.id)"><i class="fa fa-trash"></i>&nbsp;{{ 'T_ACTION_DELETE' | translate }}
+            </button>
+
+            <!--<button type="button"-->
+                    <!--class="btn btn-sm btn-primary ml-1"-->
+                    <!--title="{{ 'T_ACTION_EDIT' | translate }}"-->
+                    <!--[routerLink]="['/admin/users/', model.id, 'edit']"><i class="fa fa-pencil"></i>&nbsp;{{ 'T_ACTION_EDIT' | translate-->
+              <!--}}-->
+            <!--</button>-->
+
+            <!--<button type="button"-->
+                    <!--class="btn btn-sm btn-danger ml-1"-->
+                    <!--bsConfirm-->
+                    <!--(confirm)="delete(model.id)">-->
+
+              <!--<i class="fa fa-trash"></i>&nbsp;-->
+              <!--{{ 'T_ACTION_DELETE' | translate }}-->
+            <!--</button>-->
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+        <!--<label for="preBegin" class="col-form-label col-md-3">-->
+          <!--{{ 'T_PROJECT_EMAIL_TEMPLATE_KIND_PREBEGIN' | translate }}-->
+        <!--</label>-->
+               <!--<div class="col-md-9 row" [ngSwitch]="model.id">-->
+               <!--<ng-template [ngSwitchCase]="true">{{ 'T_ACTION_CHANGE_EMAIL_TEMPLATE' | translate }}-->
+                <!--</ng-template>-->
+                <!--<ng-template ngSwitchDefault>-->
+                  <!--<select name="preBegin"-->
+                        <!--id="preBegin"-->
+                        <!--class="form-control col-md-6"-->
+                        <!--#preBegin="ngModel"-->
+                        <!--[(ngModel)]="selectedTemplate">-->
+                  <!--<option *ngFor="let template of availableTemplates"-->
+                          <!--[ngValue]="template">-->
+                    <!--{{template.name}}-->
+                  <!--</option>-->
+                <!--</select>-->
+                <!--<div class="col-md-4 text-right">-->
+                   <!--<button  type="submit"-->
+                            <!--class="btn btn-primary"-->
+                            <!--(click)="submit()">-->
+                      <!--{{ 'T_ACTION_ADD_EMAIL_TEMPLATE' | translate }}-->
+                    <!--</button>-->
+                 <!--</div>-->
+                <!--</ng-template>-->
+          <!--</div>-->
+
+<!--<div *ngFor="let templ of model.templates">-->
+<!--<p *ngIf="templ.kind === 'preBegin'">1</p>-->
+<!--</div>-->
+      </div>
+
+          <!--<span [ngSwitch]="model.templates.length > 1">-->
+              <!--<ng-template [ngSwitchCase]="true">{{ 'T_ACTION_CHANGE_EMAIL_TEMPLATE' | translate }}-->
+              <!--</ng-template>-->
+              <!--<ng-template ngSwitchDefault>{{ 'T_ACTION_CHOOSE_EMAIL_TEMPLATE' | translate }}</ng-template>-->
+            <!--</span>-->
+
+
 
      <!--<div class="form-group row">-->
         <!--<label for="begin" class="col-form-label col-md-3">-->
