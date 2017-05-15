@@ -41,6 +41,7 @@ export class ProjectConfig extends SeedConfig {
       { src: 'jquery/dist/jquery.min.js', inject: 'libs' },
       { src: 'pace-progress/pace.min.js', inject: 'libs' },
       { src: 'bootstrap/dist/js/bootstrap.min.js', inject: 'libs' },
+      { src: `ckeditor/ckeditor.js`, inject: 'libs' }
       // {src: 'lodash/lodash.min.js', inject: 'libs'},
     ];
 
@@ -48,7 +49,6 @@ export class ProjectConfig extends SeedConfig {
     this.APP_ASSETS = [
       // {src: `${this.APP_SRC}/your-path-to-lib/libs/jquery-ui.js`, inject: true, vendor: false}
       // {src: `${this.CSS_SRC}/path-to-lib/test-lib.css`, inject: true, vendor: false},
-      { src: `node_modules/ckeditor/ckeditor.js`, inject: true, vendor: false }
     ];
 
     // For @ngx-translate package

@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormComponent } from '../../shared/components/form.component';
-import { EmailKind, Recipient, EmailTemplateModel } from '../../core/models/email-template-model';
+import { TranslateService } from '@ngx-translate/core';
+import { CKEditorComponent } from 'ng2-ckeditor';
+import { EmailKind, EmailTemplateModel, Recipient } from '../../core/models/email-template-model';
 import { EmailTemplateService } from '../../core/services/email-template.service';
 import { NotificationService } from '../../core/services/notification.service';
-import { CKEditorComponent } from 'ng2-ckeditor';
-import { TranslateService } from '@ngx-translate/core';
+import { FormComponent } from '../../shared/components/form.component';
 
 
 @Component({
@@ -13,31 +13,42 @@ import { TranslateService } from '@ngx-translate/core';
   selector: 'bs-template-form',
   templateUrl: 'email-template-form.component.html'
 })
-export class EmailTemplateFormComponent extends FormComponent<EmailTemplateModel> {
+export class EmailTemplateFormComponent extends FormComponent<EmailTemplateModel> implements OnInit {
   protected _kinds: string[] = Object.values(EmailKind);
   protected _recipients: string[] = Object.values(Recipient);
   protected _returnPath = ['/admin/templates'];
   protected _emailParameters = [{
-    label: this._translate('T_EMAIL_TEMPLATE_ADD_RECIPIENT'),
+    label: 'T_EMAIL_TEMPLATE_ADD_RECIPIENT',
     name: 'addRecipient',
     click: 'user_name',
     command: 'insert_name'
   }, {
-    label: this._translate('T_EMAIL_TEMPLATE_ADD_EVENT_START'),
+    label: 'T_EMAIL_TEMPLATE_ADD_EVENT_START',
     name: 'addEventStart',
     click: 'event_start',
     command: 'addEventStart'
   }, {
-    label: this._translate('T_EMAIL_TEMPLATE_ADD_EVENT_END'),
+    label: 'T_EMAIL_TEMPLATE_ADD_EVENT_END',
     name: 'addEventEnd',
     click: 'event_end',
     command: 'addEventEnd'
   }, {
-    label: this._translate('T_EMAIL_TEMPLATE_ADD_EVENT_DESCRIPTION'),
+    label: 'T_EMAIL_TEMPLATE_ADD_EVENT_DESCRIPTION',
     name: 'addEventDescription',
     click: 'event_description',
     command: 'addEventDescription'
-  },];
+  }];
+
+  private _ckEditorConfig: any = {
+    toolbarGroups: [
+      { name: 'basicstyles' },
+      { name: 'paragraph', groups: ['list', 'indent', 'blocks', 'align', 'bidi'] },
+      { name: 'colors' },
+      { name: 'styles', groups: ['Styles', 'Format'] },
+      '/',
+      { name: 'textConstants' },
+    ],
+  };
 
   public get kinds(): string[] {
     return this._kinds;
@@ -51,16 +62,9 @@ export class EmailTemplateFormComponent extends FormComponent<EmailTemplateModel
     return this._emailParameters;
   }
 
-  public ckEditorConfig: Object = {
-    toolbarGroups: [
-      { name: 'basicstyles' },
-      { name: 'paragraph', groups: ['list', 'indent', 'blocks', 'align', 'bidi'] },
-      { name: 'textConstants' },
-      { name: 'colors' },
-      '/',
-      { name: 'styles', groups: ['Styles', 'Format'] },
-    ],
-  };
+  public get ckEditorConfig(): Object {
+    return this._ckEditorConfig;
+  }
 
   constructor(service: EmailTemplateService,
               router: Router,
@@ -70,13 +74,12 @@ export class EmailTemplateFormComponent extends FormComponent<EmailTemplateModel
     super(service, router, route, notificationService);
   }
 
-  protected _translate(constant: string) {
-    return this._translateService.instant(constant);
+  public ngOnInit() {
+    this._ckEditorConfig.language = this._translateService.currentLang;
+    super.ngOnInit();
   }
 
-  public addText(editorArea?: CKEditorComponent, text: string) {
+  public addText(editorArea: CKEditorComponent, text: string) {
     editorArea.instance.insertText('{{ ' + text + ' }}');
   }
 }
-
-
