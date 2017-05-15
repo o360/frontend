@@ -8,7 +8,7 @@ import { EmailTemplateDetailsComponent } from './email-template-details.componen
 @NgModule({
   imports: [
     EmailTemplatesRoutingModule,
-    SharedModule,
+    SharedModule
   ],
   declarations: [
     EmailTemplateListComponent,

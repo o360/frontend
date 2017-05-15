@@ -9,10 +9,10 @@
   </div>
 
   <div class="card-block">
-     <!--Name-->
     <form class="form form-horizontal"
           (ngSubmit)="save(); groupForm.reset()" #groupForm="ngForm">
 
+      <!-- Name -->
       <div class="form-group row"
            [ngClass]="{'has-success': name.valid, 'has-danger': !name.valid && name.touched }">
 
@@ -107,22 +107,20 @@
       <!-- Editor -->
       <div class="form-group"
            [ngClass]="{'has-success': editor.valid, 'has-danger': !editor.valid && editor.touched }">
-        <ckeditor
-          id="editor"
-          name="editor"
-          #editor
-          [(ngModel)]="model.body"
-          [ngModelOptions]="{standalone: true}"
-          [config]="ckEditorConfig"
-          required>
-          <ckgroup
-            [name]="'textConstants'"
-            *ngFor="let param of emailParameters">
-              <ckbutton [name]="param.name"
-                        (click)="addText(editor, param.click)"
-                        [label]="param.label"
-                        [command]="param.command">
-              </ckbutton>
+        <ckeditor id="editor"
+                  name="editor"
+                  #editor
+                  [(ngModel)]="model.body"
+                  [ngModelOptions]="{ standalone: true }"
+                  [config]="ckEditorConfig"
+                  required>
+          <ckgroup [name]="'textConstants'"
+                   *ngFor="let param of emailParameters">
+            <ckbutton [name]="param.name"
+                      (click)="addText(editor, param.click)"
+                      [label]="param.label | translate"
+                      [command]="param.command">
+            </ckbutton>
           </ckgroup>
         </ckeditor>
         <div class="form-errors"
