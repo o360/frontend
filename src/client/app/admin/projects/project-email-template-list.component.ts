@@ -19,6 +19,7 @@ import { template } from 'gulp-util';
 export class ProjectEmailTemplatesListComponent extends ListComponent<EmailTemplateModel> implements OnChanges {
   private _model: ProjectModel;
   private _availableTemplates: EmailTemplateModel[];
+  private _preBeginTemplates: EmailTemplateModel[];
   private _selectedTemplate: ModelId[] = [];
   protected _templates: EmailTemplateModel[];
   protected _recipient: string = Recipient.auditor;
@@ -41,22 +42,16 @@ export class ProjectEmailTemplatesListComponent extends ListComponent<EmailTempl
     return this._model;
   }
 
-  // private _groupId: string = 'null';
-  //
-  // @Input()
-  // public set groupId(value: string) {
-  //   this._groupId = value;
-  // }
-  //
-  // public get groupId(): string {
-  //   return this._groupId;
-  // }
   public get recipient(): string {
     return this._recipient;
   }
 
   public get availableTemplates(): EmailTemplateModel[] {
     return this._availableTemplates;
+  }
+
+  public get preBeginTemplates(): EmailTemplateModel[] {
+    return this._preBeginTemplates;
   }
 
   public get selectedTemplate(): ModelId[] {
@@ -78,9 +73,9 @@ export class ProjectEmailTemplatesListComponent extends ListComponent<EmailTempl
   constructor(service: EmailTemplateService,
               activatedRoute: ActivatedRoute,
               router: Router,
-              protected _projectService: ProjectService,
-              protected _notificationService: NotificationService) {
-    super(service, activatedRoute, router);
+              notificationService: NotificationService,
+              protected _projectService: ProjectService) {
+    super(service, activatedRoute, router, notificationService);
   }
 
   public ngOnChanges(changes: SimpleChanges) {
@@ -106,41 +101,21 @@ export class ProjectEmailTemplatesListComponent extends ListComponent<EmailTempl
     this._update();
   }
 
-  // public changeKind(value: string) {
-  //   if (value === 'preBegin') {
-  //     return this._kind = EmailKind.preBegin;
-  //   } else if (value === 'end') {
-  //     return this._kind = EmailKind.end;
-  //   }
-  //   return this._kind = EmailKind.end;
-  // }
   protected _update() {
-    // let allQueryParams = { recipient: this._recipient };
-
     this._service.list().subscribe((list: IListResponse<EmailTemplateModel>) => {
       this._availableTemplates = list.data;
-      // console.log(this._availableTemplates);
-      // let b = this._availableTemplates.filter(template =>this._availableTemplates.find(x =>  x.kind === EmailKind.preBegin));
-        // = this._availableTemplates.find(x =>  x.kind === EmailKind.preBegin);
-      // return allUsers.data.filter(user => !groupUsers.data.find(x => x.id === user.id));
-      // let b = this._availableTemplates.filter();
-      console.log(this._availableTemplates.filter(template =>this._availableTemplates.find(x =>  x.kind === EmailKind.preBegin)));
-      // console.log(b);
-      // // this._begin
+      this._preBeginTemplates = list.data.filter(function (item) {
+        return item.kind === 'preBegin';
+      });
     });
     super._update();
   }
 
   public submit() {
-    let transaction = this._projectService.addTemplate(this._model, this._selectedTemplate));
-      Observable.forkJoin(transaction).subscribe(() => {
-        this._update();
-        this._notificationService.success('T_EMAIL_TEMPLATE_ADDED_TO_PROJECT');
-      });
-    }
+    let transaction = this._projectService.addTemplate(this._model, this._selectedTemplate);
+    Observable.forkJoin(transaction).subscribe(() => {
+      this._update();
+      this._notificationService.success('T_EMAIL_TEMPLATE_ADDED_TO_PROJECT');
+    });
   }
 }
-// this._groupService.list().subscribe((list: IListResponse<GroupModel>) => {
-//   this._auditors = list.data;
-//   super._load();
-// });

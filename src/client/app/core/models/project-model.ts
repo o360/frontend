@@ -15,7 +15,6 @@ export interface IEmailTemplate {
 @Defaults({
   name: '',
   groupAuditorId: null,
-  // relations: [],
   templates: []
 })
 export class ProjectModel extends Model {
