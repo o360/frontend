@@ -10,7 +10,7 @@ import { CoreModule } from './core/core.module';
 import { createTranslateLoader } from './shared/config/translate-loader.config';
 import { SharedModule } from './shared/shared.module';
 import { ToastModule } from 'ng2-toastr/ng2-toastr';
-import { ModalModule, PaginationModule, AccordionModule } from 'ngx-bootstrap';
+import { ModalModule, PaginationModule, AccordionModule, TabsModule } from 'ngx-bootstrap';
 
 @NgModule({
   imports: [
@@ -29,6 +29,7 @@ import { ModalModule, PaginationModule, AccordionModule } from 'ngx-bootstrap';
     CoreModule.forRoot(),
     ToastModule.forRoot(),
     AccordionModule.forRoot(),
+    TabsModule.forRoot(),
     ModalModule.forRoot(),
     // App related modules
     AppRoutingModule
