@@ -4,7 +4,7 @@ import { ModelId } from '../../core/models/model';
 import { ListComponent } from '../../shared/components/list.component';
 import { EmailKind, EmailTemplateModel, Recipient } from '../../core/models/email-template-model';
 import { EmailTemplateService } from '../../core/services/email-template.service';
-import { ProjectModel } from '../../core/models/project-model';
+import { IEmailTemplate, ProjectModel } from '../../core/models/project-model';
 import { ProjectService } from '../../core/services/project.service';
 import { NotificationService } from '../../core/services/notification.service';
 import { Observable } from 'rxjs/Observable';
@@ -13,7 +13,7 @@ import { template } from 'gulp-util';
 
 @Component({
   moduleId: module.id,
-  selector: 'bs-project-email-template-list',
+    selector: 'bs-project-email-template-list',
   templateUrl: 'project-email-template-list.component.html'
 })
 export class ProjectEmailTemplatesListComponent extends ListComponent<EmailTemplateModel> implements OnChanges {
@@ -89,6 +89,12 @@ export class ProjectEmailTemplatesListComponent extends ListComponent<EmailTempl
     return this.choosingMode = true;
   }
 
+
+  public emailTemplateAdded(model: ProjectModel, template: IEmailTemplate) {
+    model.templates.push(template);
+    this._projectService.save(model);
+  }
+
   public remove(model: ProjectModel, templateId: ModelId) {
     let transaction = this._projectService.removeEmailTemplate(model, templateId);
 
@@ -117,5 +123,8 @@ export class ProjectEmailTemplatesListComponent extends ListComponent<EmailTempl
       this._update();
       this._notificationService.success('T_EMAIL_TEMPLATE_ADDED_TO_PROJECT');
     });
+  }
+  public emailTemplatesAdded() {
+    this._update();
   }
 }

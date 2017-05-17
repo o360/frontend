@@ -161,6 +161,8 @@
   "T_PROJECT_EMAIL_TEMPLATE_KIND_END": "Email template for end event",
   "T_PROJECT_EMAIL_TEMPLATE_KIND_BEGIN": "Email template for begin event",
   "T_PROJECT_EMAIL_TEMPLATE_KIND_PREEND": "Email template for preEnd event",
+  "T_ACTION_PROJECT_EMAIL_TEMPLATE_CHOSE_TEMPLATE": "Choose a template",
+  "T_ACTION_PROJECT_EMAIL_TEMPLATE_CHOSE_KIND": "Choose a kind of template",
   "T_FORM_BUILDER_TITLE": "Form Builder",
   "T_FORM_ELEMENT_TYPE_TEXTBOX": "Textbox",
   "T_FORM_ELEMENT_TYPE_RADIO": "Radio",
