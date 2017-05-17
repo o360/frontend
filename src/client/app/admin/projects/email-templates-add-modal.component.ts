@@ -19,16 +19,18 @@ import { ProjectModel } from '../../core/models/project-model';
 export class EmailTemplateAddModalComponent implements OnChanges {
   protected _emailTemplates: EmailTemplateModel[];
   private _availableTemplates: EmailTemplateModel[];
-  private _preBeginTemplates: EmailTemplateModel[];
-  private _beginTemplates: EmailTemplateModel[];
-  private _endTemplates: EmailTemplateModel[];
-  private _preEndTemplates: EmailTemplateModel[];
-  private _preBeginSelectedTemplate: ModelId[] = [];
-  private _endSelectedTemplate: ModelId[] = [];
+  private _selectedTemplate: ModelId[] = [];
+  private _availableKinds: string[] = Object.values(EmailKind);
+  private _selectedKind: string = '';
   private _kind: string = 'null';
   private _recipient: string = 'null';
   private _modal: ModalDirective;
   private _parent: ProjectModel;
+  private _emailTemplatesAdded: EventEmitter<ModelId[]> = new EventEmitter<ModelId[]>();
+
+  public get availableKinds(): string[] {
+    return this._availableKinds;
+  }
 
   public get emailTemplates(): EmailTemplateModel[] {
     return this._emailTemplates;
@@ -49,6 +51,11 @@ export class EmailTemplateAddModalComponent implements OnChanges {
     this._recipient = value;
   }
 
+  @Output()
+  public get emailTemplatesAdded(): EventEmitter<ModelId[]> {
+    return this._emailTemplatesAdded;
+  }
+
   @ViewChild('modal')
   public set modal(value: ModalDirective) {
     this._modal = value;
@@ -58,38 +65,21 @@ export class EmailTemplateAddModalComponent implements OnChanges {
     return this._availableTemplates;
   }
 
-  public get preBeginTemplates(): EmailTemplateModel[] {
-    return this._preBeginTemplates;
+  public get selectedTemplate(): ModelId[] {
+    return this._selectedTemplate;
   }
 
-  public get beginTemplates(): EmailTemplateModel[] {
-    return this._beginTemplates;
+  public set selectedTemplate(value: ModelId[]) {
+    this._selectedTemplate = value;
   }
 
-  public get endTemplates(): EmailTemplateModel[] {
-    return this._endTemplates;
+  public get selectedKind(): string {
+    return this._selectedKind;
   }
 
-  public get preEndTemplates(): EmailTemplateModel[] {
-    return this._preEndTemplates;
+  public set selectedKind(value: string) {
+    this._selectedKind = value;
   }
-
-  public get preBeginSelectedTemplate(): ModelId[] {
-    return this._preBeginSelectedTemplate;
-  }
-
-  public set preBeginSelectedTemplate(value: ModelId[]) {
-    this._preBeginSelectedTemplate = value;
-  }
-
-  public get endSelectedTemplate(): ModelId[] {
-    return this._endSelectedTemplate;
-  }
-
-  public set endSelectedTemplate(value: ModelId[]) {
-    this._endSelectedTemplate = value;
-  }
-
 
   constructor(protected _emailTemplateService: EmailTemplateService,
               protected _projectService: ProjectService,
@@ -100,6 +90,11 @@ export class EmailTemplateAddModalComponent implements OnChanges {
     if (changes['model']) {
       this._load();
     }
+
+    if (changes['kind']) {
+      this._load();
+      console.log('Я сделяль');
+    }
   }
 
   public show() {
@@ -107,32 +102,28 @@ export class EmailTemplateAddModalComponent implements OnChanges {
     this._modal.show();
   }
 
-  public submit(type: string) {
-    let template = (type === 'preBegin') ? this._preBeginSelectedTemplate : this._endSelectedTemplate;
-    let transaction = this._projectService.addTemplate(this._parent, template);
+  public submit() {
+    console.log(this._selectedKind);
+    console.log(this._selectedTemplate);
+    let transaction = this._projectService.addTemplate(this._parent, this._selectedTemplate);
     Observable.forkJoin(transaction).subscribe(() => {
       this._load();
+       this._emailTemplatesAdded.emit(this._selectedTemplate);
       this._notificationService.success('T_EMAIL_TEMPLATE_ADDED_TO_PROJECT');
     });
   }
 
   protected _load() {
+    console.log(this._selectedKind);
+    // let allQueryParams = { recipient: this._recipient, kind: this.selectedKind };
     let allQueryParams = { recipient: this._recipient };
+
 
     this._emailTemplateService.list(allQueryParams).subscribe((list: IListResponse<EmailTemplateModel>) => {
       this._availableTemplates = list.data;
-      this._preBeginTemplates = list.data.filter(function (item) {
-        return item.kind === EmailKind.preBegin;
-      });
-      this._beginTemplates = list.data.filter(function (item) {
-        return item.kind === EmailKind.begin;
-      });
-      this._preEndTemplates = list.data.filter(function (item) {
-        return item.kind === EmailKind.preEnd;
-      });
-      this._endTemplates = list.data.filter(function (item) {
-        return item.kind === EmailKind.end;
-      });
+      // this._preBeginTemplates = list.data.filter(function (item) {
+      //   return item.kind === EmailKind.preBegin;
+      // });
     });
   }
 }

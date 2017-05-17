@@ -176,6 +176,8 @@
   "T_PROJECT_EMAIL_TEMPLATE_KIND_END": "Шаблон письма о завершившемся событии",
   "T_PROJECT_EMAIL_TEMPLATE_KIND_BEGIN": "Шаблон письма о начавшемся событии",
   "T_PROJECT_EMAIL_TEMPLATE_KIND_PREEND": "Шаблон письма о предстоящем завершении события",
+  "T_ACTION_PROJECT_EMAIL_TEMPLATE_CHOSE_TEMPLATE": "Выберете шаблон",
+  "T_ACTION_PROJECT_EMAIL_TEMPLATE_CHOSE_KIND": "Выберите тип шаблона",
   "T_FORM_VALUES_ARE_REQUIRED": "Для этого типа элемента необходим набор значений",
   "T_FORM_CONFIRM_CLONE_MESSAGE": "Вы уверены, что хотите создать копию этой формы?",
   "T_EVENT_DESCRIPTION": "Описание",

@@ -1,119 +1,60 @@
 <div bsModal #modal="bs-modal" class="modal" tabindex="-1" role="dialog">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">{{ 'T_ACTION_ADD_EMAIL_TEMPLATE' | translate }}</h5>
-        <button type="button" class="close" aria-label="Close" (click)="modal.hide()">
+        <button type="button" class="close" aria-label="Close" (click)="modal.hide(); selectedKind = ''">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
 
       <div class="modal-body">
-        <div class="form-group row">
-          <label for="preBegin" class="col-form-label col-md-3">
-            {{ 'T_PROJECT_EMAIL_TEMPLATE_KIND_PREBEGIN' | translate }}
+        <form class="form-group" (ngSubmit)="submit(); modal.hide(); emailTemplatesForm.reset()"
+             #emailTemplatesForm="ngForm" >
+          <label for="kind" class="col-form-label col-md-4">
+            {{ 'T_ACTION_PROJECT_EMAIL_TEMPLATE_CHOSE_KIND' | translate }}
           </label>
-          <div class="col-md-9 row">
-            <select name="preBegin"
-                    id="preBegin"
-                    class="form-control col-md-6"
-                    #preBegin="ngModel"
-                    [(ngModel)]="preBeginSelectedTemplate">
-              <option *ngFor="let template of preBeginTemplates"
+          <label for="template" class="col-form-label col-md-4 ml-1">
+            {{ 'T_ACTION_PROJECT_EMAIL_TEMPLATE_CHOSE_TEMPLATE' | translate }}
+          </label>
+          <div class="ml-1 row">
+            <select name="kind"
+                    id="kind"
+                    class="form-control col-md-4 mr-1"
+                    #kind="ngModel"
+                    [(ngModel)]="selectedKind"
+                    required>
+              <option *ngFor="let kind of availableKinds"
+                      [ngValue]="kind">
+                {{kind}}
+              </option>
+            </select>
+            <select name="template"
+                    id="template"
+                    class="form-control col-md-4"
+                    #template="ngModel"
+                    [(ngModel)]="selectedTemplate"
+                    required
+                    [disabled]="selectedKind === ''">
+              <option *ngFor="let template of availableTemplates"
                       [ngValue]="template">
                 {{template.name}}
               </option>
             </select>
-            <div class="col-md-4 text-right">
+            <div class="col-md-2 text-right">
               <button type="submit"
-                      class="btn btn-primary"
-                      (click)="submit('preBegin')">
+                      class="btn btn-primary">
                 {{ 'T_ACTION_ADD_EMAIL_TEMPLATE' | translate }}
               </button>
             </div>
           </div>
-        </div>
-
-        <!--<div class="form-group row">-->
-          <!--<label for="begin" class="col-form-label col-md-3">-->
-            <!--{{ 'T_PROJECT_EMAIL_TEMPLATE_KIND_BEGIN' | translate }}-->
-          <!--</label>-->
-          <!--<div class="col-md-9 row">-->
-            <!--<select name="begin"-->
-                    <!--id="begin"-->
-                    <!--class="form-control col-md-6"-->
-                    <!--#begin="ngModel"-->
-                    <!--[(ngModel)]="beginSelectedTemplate">-->
-              <!--<option *ngFor="let template of beginTemplates"-->
-                      <!--[ngValue]="template">-->
-                <!--{{template.name}}-->
-              <!--</option>-->
-            <!--</select>-->
-            <!--<div class="col-md-4 text-right">-->
-              <!--<button type="submit"-->
-                      <!--class="btn btn-primary"-->
-                      <!--(click)="submit()">-->
-                <!--{{ 'T_ACTION_ADD_EMAIL_TEMPLATE' | translate }}-->
-              <!--</button>-->
-            <!--</div>-->
-          <!--</div>-->
-        <!--</div>-->
-
-        <!--<div class="form-group row">-->
-          <!--<label for="preEnd" class="col-form-label col-md-3">-->
-            <!--{{ 'T_PROJECT_EMAIL_TEMPLATE_KIND_BEGIN' | translate }}-->
-          <!--</label>-->
-          <!--<div class="col-md-9 row">-->
-            <!--<select name="preEnd"-->
-                    <!--id="preEnd"-->
-                    <!--class="form-control col-md-6"-->
-                    <!--#preEnd="ngModel"-->
-                    <!--[(ngModel)]="preEndSelectedTemplate">-->
-              <!--<option *ngFor="let template of preEndTemplates"-->
-                      <!--[ngValue]="template">-->
-                <!--{{template.name}}-->
-              <!--</option>-->
-            <!--</select>-->
-            <!--<div class="col-md-4 text-right">-->
-              <!--<button type="submit"-->
-                      <!--class="btn btn-primary"-->
-                      <!--(click)="submit()">-->
-                <!--{{ 'T_ACTION_ADD_EMAIL_TEMPLATE' | translate }}-->
-              <!--</button>-->
-            <!--</div>-->
-          <!--</div>-->
-        <!--</div>-->
-
-        <div class="form-group row">
-          <label for="end" class="col-form-label col-md-3">
-            {{ 'T_PROJECT_EMAIL_TEMPLATE_KIND_BEGIN' | translate }}
-          </label>
-          <div class="col-md-9 row">
-            <select name="end"
-                    id="end"
-                    class="form-control col-md-6"
-                    #end="ngModel"
-                    [(ngModel)]="endSelectedTemplate">
-              <option *ngFor="let template of endTemplates"
-                      [ngValue]="template">
-                {{template.name}}
-              </option>
-            </select>
-            <div class="col-md-4 text-right">
-              <button type="submit"
-                      class="btn btn-primary"
-                      (click)="submit('end')">
-                {{ 'T_ACTION_ADD_EMAIL_TEMPLATE' | translate }}
-              </button>
-            </div>
-          </div>
-        </div>
+        </form>
       </div>
 
       <div class="modal-footer">
         <button type="button"
                 class="btn btn-secondary"
-                (click)="modal.hide()">{{ 'T_ACTION_CANCEL' | translate }}
+                (click)="modal.hide(); selectedKind = ''">{{ 'T_ACTION_CANCEL' | translate }}
         </button>
       </div>
     </div>

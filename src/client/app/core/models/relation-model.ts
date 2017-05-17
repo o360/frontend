@@ -1,6 +1,6 @@
 import { Defaults } from '../decorators/defaults.decorator';
 import { Model, ModelId } from './model';
-import { IEmailTemplate } from "./project-model";
+import { IEmailTemplate } from './project-model';
 
 export class RelationKind {
   public static readonly Classic: string = 'classic';

@@ -33,4 +33,5 @@
   <bs-email-templates-add-modal #modalForm
                                 [parent]="model"
                                 [recipient]="recipient"
-                                (emailTemplatesAdded)="emailTemplatesAdded()"></bs-email-templates-add-modal>
+                                [kind]=""
+                                (emailTemplateAdded)="emailTemplateAdded($event)"></bs-email-templates-add-modal>

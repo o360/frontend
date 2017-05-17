@@ -11,7 +11,6 @@ import { ModelId } from '../models/model';
 })
 export class ProjectService extends RestService<ProjectModel> {
   public addTemplate(model: any, template: any) {
-    console.log('GOOOOOOOOOOOOOOO');
     console.log(model);
     console.log(template);
     let requestParams = this._getRequestParams(model.id);
@@ -28,8 +27,7 @@ export class ProjectService extends RestService<ProjectModel> {
       'kind': template.kind,
       'recipient': template.recipient
     };
-    console.log(model);
-    console.log(template);
+
     if (model.templates.length > 0) {
       let i: number = 0;
       while (i < model.templates.length) {
@@ -67,18 +65,7 @@ export class ProjectService extends RestService<ProjectModel> {
     let index = model.templates.findIndex(x => x.template.id === templateId);
     model.templates.splice(index, 1);
 
-    if (model.templates.length > 0) {
-      let i: number = 0;
-      while (i < model.templates.length) {
-        let currentTemplates = {
-          'templateId': model.templates[i].template.id,
-          'kind': model.templates[i].kind,
-          'recipient': model.templates[i].recipient
-        };
-        json.templates.push(currentTemplates);
-        i++;
-      }
-    }
+
     return this._http.put(requestParams, json, requestOptions)
       .map((res: Response) => res.json())
       .map((json: any) => this.createEntity(json))
