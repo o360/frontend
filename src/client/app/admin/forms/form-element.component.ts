@@ -51,10 +51,9 @@ export class FormBuilderElementComponent {
     ].includes(kind);
   }
 
-  public addValue(caption: string, value: string) {
+  public addValue(caption: string) {
     this._newValue = {
-      caption: caption,
-      value: value
+      caption: caption
     };
     this._element.values.push(this._newValue);
   }

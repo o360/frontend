@@ -1,5 +1,5 @@
 import { Defaults } from '../decorators/defaults.decorator';
-import { Model } from './model';
+import { Model, ModelId } from './model';
 
 @Defaults({
   name: '',
@@ -11,15 +11,15 @@ export class FormModel extends Model {
 }
 
 export interface IFormElement {
+  id?: ModelId;
   kind: string;
   caption: string;
-  value?: string;
   required: boolean;
   values?: IFormElementValue[];
 }
 
 export interface IFormElementValue {
-  value: string;
+  id?: ModelId;
   caption: string;
 }
 
