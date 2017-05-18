@@ -11,7 +11,7 @@ export class FormModel extends Model {
 }
 
 export interface IFormElement {
-  id: ModelId;
+  id?: ModelId;
   kind: string;
   caption: string;
   required: boolean;
@@ -19,7 +19,7 @@ export interface IFormElement {
 }
 
 export interface IFormElementValue {
-  id: ModelId;
+  id?: ModelId;
   caption: string;
 }
 
