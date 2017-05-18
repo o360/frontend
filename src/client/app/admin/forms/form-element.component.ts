@@ -53,7 +53,7 @@ export class FormBuilderElementComponent {
 
   public addValue(caption: string) {
     this._newValue = {
-      caption: caption,
+      caption: caption
     };
     this._element.values.push(this._newValue);
   }
