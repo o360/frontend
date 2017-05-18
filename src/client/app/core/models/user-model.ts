@@ -23,8 +23,8 @@ export class UserGender {
 })
 export class UserModel extends Model {
   public name: string;
-  public email: string;
-  public status: string;
-  public role: string;
+  public email?: string;
+  public status?: string;
+  public role?: string;
   public gender: string;
 }

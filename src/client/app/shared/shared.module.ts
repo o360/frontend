@@ -26,7 +26,8 @@ import { CKEditorModule } from 'ng2-ckeditor';
     CollapseModule,
     PaginationModule,
     ModalModule,
-    CKEditorModule
+    CKEditorModule,
+    TabsModule
   ],
   declarations: [
     ConfirmationDirective,
@@ -47,7 +48,8 @@ import { CKEditorModule } from 'ng2-ckeditor';
     PaginationModule,
     PaginationComponent,
     ModalModule,
-    CKEditorModule
+    CKEditorModule,
+    TabsModule
   ]
 })
 export class SharedModule {

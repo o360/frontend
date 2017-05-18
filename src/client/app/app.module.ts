@@ -31,6 +31,7 @@ import { ModalModule, PaginationModule, AccordionModule, TabsModule } from 'ngx-
     AccordionModule.forRoot(),
     TabsModule.forRoot(),
     ModalModule.forRoot(),
+    TabsModule.forRoot(),
     // App related modules
     AppRoutingModule
   ],

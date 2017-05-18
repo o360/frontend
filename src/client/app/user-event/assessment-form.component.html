@@ -1,0 +1,153 @@
+<div *ngIf="form">
+  <form #assessmentForm="ngForm"
+        class="mt-2"
+        (ngSubmit)="save()">
+
+    <div class="form-group row mb-1"
+         *ngFor="let element of form.elements;"
+         [ngSwitch]="element.kind">
+
+      <!--For checkbox groups-->
+      <ng-template [ngSwitchCase]="FormElementType.Checkboxgroup">
+        <label class="col-sm-3"
+               [ngClass]="{ 'required': element.required === true }">
+          {{ element.caption }}</label>
+
+        <div class="col-sm-9">
+          <div class="form-check" *ngFor="let item of element.values; let j = index;">
+            <label class="custom-control custom-checkbox">
+              <input name="{{ item.id }}"
+                     id="{{ item.id }}"
+                     type="checkbox"
+                     class="custom-control-input"
+                     [required]="element.required"
+                     [(ngModel)]="item.tempValue">
+              <span class="custom-control-indicator"></span>
+              <span class="custom-control-description"> {{ item.caption }}</span>
+            </label>
+          </div>
+        </div>
+      </ng-template>
+
+      <!--For checkbox-->
+      <ng-template [ngSwitchCase]="FormElementType.Checkbox">
+        <label class="col-sm-3"
+               [ngClass]="{ 'required': element.required === true }">
+          {{ element.caption }}
+        </label>
+        <div class="col-sm-9">
+          <label class="custom-control custom-checkbox">
+            <input name="{{ element.id }}"
+                   id="{{ element.id }}"
+                   class="custom-control-input"
+                   type="checkbox"
+                   value="true"
+                   [(ngModel)]="element.tempValue"
+                   [required]="element.required">
+            <span class="custom-control-indicator"></span>
+          </label>
+        </div>
+      </ng-template>
+
+      <!--For select-->
+      <ng-template [ngSwitchCase]="FormElementType.Select">
+        <label class="col-form-label col-sm-3" [ngClass]="{'required': element.required === true}">{{ element.caption }}</label>
+        <div class="col-sm-9"
+             [ngClass]="{ 'has-success': isValid(element),
+                                  'has-danger': !isValid(element)}">
+          <select name="{{ element.id }}"
+                  id="{{ element.id }}"
+                  class="form-control custom-select"
+                  [required]="element.required"
+                  [(ngModel)]="element.tempValue">
+            <option *ngFor="let item of element.values"
+                    [value]="item.id">
+              {{ item.caption }}
+            </option>
+          </select></div>
+      </ng-template>
+
+      <!--For radio-->
+      <ng-template [ngSwitchCase]="FormElementType.Radio">
+        <label class=" col-sm-3"
+               [ngClass]="{ 'required': element.required === true }">{{ element.caption }}</label>
+        <div class="col-sm-9">
+          <div class="form-check form-check-inline ml-0 mr-1" *ngFor="let item of element.values; let j = index;">
+            <label class="custom-control custom-radio">
+              <input id="{{ element.id }}"
+                     name="{{ element.id }}"
+                     type="radio"
+                     class="custom-control-input"
+                     [value]="item.id"
+                     [required]="element.required"
+                     [(ngModel)]="element.tempValue">
+              <span class="custom-control-indicator"></span>
+              <span class="custom-control-description"> {{ item.caption }} </span>
+            </label>
+          </div>
+        </div>
+      </ng-template>
+
+      <!--For textarea-->
+      <ng-template [ngSwitchCase]="FormElementType.Textarea">
+        <label class="col-form-label col-sm-3" for="{{ element.id }}" [ngClass]="{'required': element.required === true}">
+          {{ element.caption }}
+        </label>
+        <div class="col-sm-9"
+             [ngClass]="{ 'has-success': isValid(element),
+                                  'has-danger': !isValid(element)}">
+          <textarea name="{{ element.id }}"
+                    class="form-control"
+                    id="{{ element.id }}"
+                    rows="3"
+                    [required]="element.required"
+                    [(ngModel)]="element.tempValue">
+          </textarea>
+        </div>
+      </ng-template>
+
+      <!--For textfield-->
+      <ng-template [ngSwitchCase]="FormElementType.Textfield">
+        <label class="col-form-label col-sm-3" for="{{ element.id }}" [ngClass]="{'required': element.required === true}">{{
+          element.caption}}</label>
+        <div class="col-sm-9"
+             [ngClass]="{ 'has-success': isValid(element),
+                                  'has-danger': !isValid(element)}">
+          <input name="{{ element.id }}"
+                 type="text"
+                 class="form-control"
+                 id="{{ element.id }}"
+                 [required]="element.required"
+                 [(ngModel)]="element.tempValue">
+        </div>
+      </ng-template>
+
+      <!--For another types-->
+      <ng-template ngSwitchDefault>
+        <label for="{{ element.id }}" class="col-form-label col-sm-3" [ngClass]="{'required': element.required === true}">
+          {{ element.caption }}</label>
+        <div class="col-sm-9"
+             [ngClass]="{ 'has-success': isValid(element),
+                                  'has-danger': !isValid(element)}">
+          <input class="form-control"
+                 name="{{ element.id }}"
+                 type="{{ element.kind }}"
+                 placeholder="{{ element.value }}"
+                 value="{{ element.value }}"
+                 [required]="element.required"
+                 [(ngModel)]="element.tempValue"
+                 id="{{ element.id }}">
+        </div>
+      </ng-template>
+    </div>
+
+
+    <div class="text-right">
+      <button type="submit"
+              class="btn btn-primary mt-0"
+              [disabled]="!assessmentForm.valid">
+        {{ 'T_ACTION_SAVE' | translate }}
+      </button>
+    </div>
+  </form>
+</div>

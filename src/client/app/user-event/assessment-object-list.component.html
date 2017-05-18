@@ -1,0 +1,27 @@
+<ul class="list-group">
+  <!--Users-->
+  <li class="mb-h list-unstyled"><b>{{ 'T_USERS' | translate}}</b></li>
+  <li class="list-group-item"
+      *ngFor="let userObj of users"
+      (click)="selectUser(userObj)">
+    <i [ngClass]="{'fa-check-circle-o' : userObj.isAnswered,
+                   'fa-circle-o': !userObj.isAnswered}"
+       class="fa mr-h"></i>
+    {{ userObj.user.name }}
+    <i *ngIf="selectedItem === userObj" class="icon-arrow-right-circle pl-1"></i>
+  </li>
+
+  <!--Surveys-->
+  <li class="mt-2 mb-h list-unstyled"><b>{{ 'T_SURVEYS' | translate }}</b></li>
+  <ng-container *ngFor="let survey of surveys">
+    <li class="list-group-item"
+        *ngFor="let formObj of survey.forms"
+        (click)="selectSurvey(formObj)">
+      <i [ngClass]="{'fa-check-circle-o' : !!formObj.answers.length,
+                     'fa-circle-o': !formObj.answers.length}"
+         class="fa mr-h"></i>
+      {{ formObj.form.name }}
+      <i *ngIf="selectedItem === formObj" class="icon-arrow-right-circle pl-1"></i>
+    </li>
+  </ng-container>
+</ul>
