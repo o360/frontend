@@ -41,8 +41,6 @@ export class ProjectConfig extends SeedConfig {
       { src: 'jquery/dist/jquery.min.js', inject: 'libs' },
       { src: 'pace-progress/pace.min.js', inject: 'libs' },
       { src: 'bootstrap/dist/js/bootstrap.min.js', inject: 'libs' },
-      { src: `ckeditor/ckeditor.js`, inject: 'libs' }
-      // {src: 'lodash/lodash.min.js', inject: 'libs'},
     ];
 
     // Add `local` third-party libraries to be injected/bundled.
@@ -65,9 +63,9 @@ export class ProjectConfig extends SeedConfig {
       path: 'node_modules/ngx-bootstrap/bundles/ngx-bootstrap.umd.min.js'
     }, {
       name: 'ng2-ckeditor',
-      path: 'node_modules/ng2-ckeditor/lib',
+      path: 'node_modules/ng2-ckeditor',
       packageMeta: {
-        main: 'index.js',
+        main: 'lib/index.js',
         defaultExtension: 'js'
       }
     }, {
