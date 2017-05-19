@@ -29,7 +29,7 @@
                       required>
                 <option *ngFor="let kind of kinds"
                         [ngValue]="kind">
-                  {{ kind }}
+                  {{ 'T_EMAIL_TEMPLATE_KIND_' + kind.toUpperCase() | translate }}
                 </option>
               </select>
 

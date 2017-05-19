@@ -20,7 +20,7 @@
         <tr *ngFor="let model of list">
           <td>{{ model.id }}</td>
           <td><a [routerLink]="['/admin/templates', model.id]">{{ model.name }}</a></td>
-          <td>{{ model.kind }}</td>
+          <td>{{ 'T_EMAIL_TEMPLATE_KIND_' + model.kind.toUpperCase() | translate }}</td>
           <td class="actions-column">
             <button type="button"
                     class="btn btn-sm btn-warning ml-1"
