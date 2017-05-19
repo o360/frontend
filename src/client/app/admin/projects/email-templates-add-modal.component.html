@@ -1,5 +1,5 @@
 <div bsModal #modal="bs-modal" class="modal" tabindex="-1" role="dialog">
-  <div class="modal-dialog modal-lg">
+  <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">{{ 'T_ACTION_ADD_EMAIL_TEMPLATE' | translate }}</h5>
@@ -9,43 +9,63 @@
       </div>
 
       <div class="modal-body">
-        <form class="form-group" (ngSubmit)="submit(); modal.hide(); emailTemplatesForm.reset()"
-             #emailTemplatesForm="ngForm" >
-          <label for="kind" class="col-form-label col-md-4">
-            {{ 'T_ACTION_PROJECT_EMAIL_TEMPLATE_CHOSE_KIND' | translate }}
-          </label>
-          <label for="template" class="col-form-label col-md-4 ml-1">
-            {{ 'T_ACTION_PROJECT_EMAIL_TEMPLATE_CHOSE_TEMPLATE' | translate }}
-          </label>
-          <div class="ml-1 row">
-            <select name="kind"
-                    id="kind"
-                    class="form-control col-md-4 mr-1"
-                    #kind="ngModel"
-                    [(ngModel)]="selectedKind"
-                    required>
-              <option *ngFor="let kind of availableKinds"
-                      [ngValue]="kind">
-                {{kind}}
-              </option>
-            </select>
-            <select name="template"
-                    id="template"
-                    class="form-control col-md-4"
-                    #template="ngModel"
-                    [(ngModel)]="selectedTemplate"
-                    required
-                    [disabled]="selectedKind === ''">
-              <option *ngFor="let template of availableTemplates"
-                      [ngValue]="template">
-                {{template.name}}
-              </option>
-            </select>
-            <div class="col-md-2 text-right">
-              <button type="submit"
-                      class="btn btn-primary">
-                {{ 'T_ACTION_ADD_EMAIL_TEMPLATE' | translate }}
-              </button>
+        <form class="form-group"
+              (ngSubmit)="submit(); modal.hide(); emailTemplatesForm.reset()"
+              #emailTemplatesForm="ngForm">
+
+          <div class="form-group row"
+               [ngClass]="{'has-success': kind.valid, 'has-danger': !kind.valid && kind.touched }">
+
+            <label for="kind" class="col-form-label col-md-3 required">
+              {{ 'T_EMAIL_TEMPLATE_KIND' | translate }}
+            </label>
+            <div class="col-md-9">
+              <select class="form-control"
+                      id="kind"
+                      name="kind"
+                      #kind="ngModel"
+                      [(ngModel)]="model.kind"
+                      (ngModelChange)="updateTemplatesList()"
+                      required>
+                <option *ngFor="let kind of kinds"
+                        [ngValue]="kind">
+                  {{ kind }}
+                </option>
+              </select>
+
+
+              <div class="form-errors"
+                   *ngIf="kind.errors && kind.touched">
+                <div class="form-control-feedback" *ngIf="kind.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row"
+               [ngClass]="{'has-success': template.valid, 'has-danger': !template.valid && template.touched }">
+
+            <label for="template" class="col-form-label col-md-3 required">
+              {{ 'T_EMAIL_TEMPLATES' | translate }}
+            </label>
+            <div class="col-md-9">
+              <select class="form-control"
+                      id="template"
+                      name="template"
+                      #template="ngModel"
+                      [disabled]="!model.kind"
+                      [(ngModel)]="model.templateId"
+                      required>
+                <option *ngFor="let item of availableTemplates"
+                        [ngValue]="item.id">
+                  {{ item.name }}
+                </option>
+              </select>
+
+
+              <div class="form-errors"
+                   *ngIf="template.errors && template.touched">
+                <div class="form-control-feedback" *ngIf="template.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}</div>
+              </div>
             </div>
           </div>
         </form>
@@ -54,7 +74,13 @@
       <div class="modal-footer">
         <button type="button"
                 class="btn btn-secondary"
-                (click)="modal.hide(); selectedKind = ''">{{ 'T_ACTION_CANCEL' | translate }}
+                (click)="modal.hide(); emailTemplatesForm.reset()">{{ 'T_ACTION_CANCEL' | translate }}
+        </button>
+        <button type="submit"
+                class="btn btn-primary"
+                [disabled]="!emailTemplatesForm.valid"
+                (click)="submit(); modal.hide(); emailTemplatesForm.reset()">
+          {{ 'T_ACTION_ADD_EMAIL_TEMPLATE' | translate }}
         </button>
       </div>
     </div>

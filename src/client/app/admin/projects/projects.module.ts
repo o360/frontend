@@ -10,6 +10,7 @@ import { ModalModule } from 'ngx-bootstrap';
 import { ProjectRelationDetailsComponent } from './project-relation-details.component';
 import { EmailTemplateAddModalComponent } from './email-templates-add-modal.component';
 import { ProjectEmailTemplatesListComponent } from './project-email-template-list.component';
+import { RelationEmailTemplatesListComponent } from './relation-email-template-list.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { ProjectEmailTemplatesListComponent } from './project-email-template-lis
     ProjectRelationFormComponent,
     ProjectRelationDetailsComponent,
     EmailTemplateAddModalComponent,
-    ProjectEmailTemplatesListComponent
+    ProjectEmailTemplatesListComponent,
+    RelationEmailTemplatesListComponent
   ],
   exports: [
     ProjectListComponent,
@@ -36,7 +38,8 @@ import { ProjectEmailTemplatesListComponent } from './project-email-template-lis
     ProjectRelationFormComponent,
     ProjectRelationDetailsComponent,
     EmailTemplateAddModalComponent,
-    ProjectEmailTemplatesListComponent
+    ProjectEmailTemplatesListComponent,
+    RelationEmailTemplatesListComponent
   ],
 })
 export class ProjectsModule {
