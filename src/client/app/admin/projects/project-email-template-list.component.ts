@@ -42,15 +42,15 @@ export class ProjectEmailTemplatesListComponent {
 
     this._projectService.save(model).subscribe(model => {
       this._model.templates = model.templates;
+      this._notificationService.success('T_EMAIL_TEMPLATE_ADDED_TO_PROJECT');
     });
-    this._notificationService.success('T_EMAIL_TEMPLATE_ADDED_TO_PROJECT');
   }
 
   public removeTemplate(templateId: ModelId) {
     this._model.templates = this._model.templates.filter(x => x.templateId !== templateId);
     this._projectService.save(this._model).subscribe(model => {
       this._model.templates = model.templates;
+      this._notificationService.success('T_EMAIL_TEMPLATE_REMOVE_FROM_PROJECT');
     });
-    this._notificationService.success('T_EMAIL_TEMPLATE_REMOVE_FROM_PROJECT');
   }
 }

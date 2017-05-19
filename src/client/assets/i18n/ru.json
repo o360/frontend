@@ -206,5 +206,6 @@
   "T_NEW_EVENT_NOTIFICATION_ADDED": "Новое уведомление о событии оценки успешно добавлено",
   "T_PROJECTS_ADDED_TO_EVENT": "Проекты успешно добавлены в событие оценки",
   "T_EMAIL_TEMPLATE_ADDED_TO_PROJECT": "Шаблон письма успешно добавлен",
-  "T_EMAIL_TEMPLATE_REMOVE_FROM_PROJECT": "Шаблон письма успешно удален"
+  "T_EMAIL_TEMPLATE_REMOVE_FROM_PROJECT": "Шаблон письма успешно удален",
+  "T_EMAIL_TEMPLATE": "Шаблон письма"
 }
