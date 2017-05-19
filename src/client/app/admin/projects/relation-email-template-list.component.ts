@@ -43,8 +43,8 @@ export class RelationEmailTemplatesListComponent {
 
     this._relationService.save(model).subscribe(model => {
       this._model.templates = model.templates;
+      this._notificationService.success('T_EMAIL_TEMPLATE_ADDED_TO_PROJECT');
     });
-    this._notificationService.success('T_EMAIL_TEMPLATE_ADDED_TO_PROJECT');
   }
 
   public removeTemplate(templateId: ModelId) {
@@ -52,7 +52,7 @@ export class RelationEmailTemplatesListComponent {
 
     this._relationService.save(this._model).subscribe(model => {
       this._model.templates = model.templates;
+      this._notificationService.success('T_EMAIL_TEMPLATE_REMOVE_FROM_PROJECT');
     });
-    this._notificationService.success('T_EMAIL_TEMPLATE_REMOVE_FROM_PROJECT');
   }
 }

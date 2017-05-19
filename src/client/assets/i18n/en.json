@@ -204,5 +204,6 @@
   "T_EMAIL_TEMPLATE_ADD_RECIPIENT": "Add recipient",
   "T_EMAIL_TEMPLATE_ADD_EVENT_START": "Add event start",
   "T_EMAIL_TEMPLATE_ADD_EVENT_END": "Add event end",
-  "T_EMAIL_TEMPLATE_ADD_EVENT_DESCRIPTION": "Add event description"
+  "T_EMAIL_TEMPLATE_ADD_EVENT_DESCRIPTION": "Add event description",
+  "T_EMAIL_TEMPLATE": "Email template"
 }

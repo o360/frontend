@@ -1,5 +1,5 @@
 <div bsModal #modal="bs-modal" class="modal" tabindex="-1" role="dialog">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">{{ 'T_ACTION_ADD_EMAIL_TEMPLATE' | translate }}</h5>
@@ -45,7 +45,7 @@
                [ngClass]="{'has-success': template.valid, 'has-danger': !template.valid && template.touched }">
 
             <label for="template" class="col-form-label col-md-3 required">
-              {{ 'T_EMAIL_TEMPLATES' | translate }}
+              {{ 'T_EMAIL_TEMPLATE' | translate }}
             </label>
             <div class="col-md-9">
               <select class="form-control"
