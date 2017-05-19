@@ -1,49 +1,31 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
-import { EmailTemplateService } from '../../core/services/email-template.service';
-import { NotificationService } from '../../core/services/notification.service';
-import { ProjectService } from '../../core/services/project.service';
-import { RelationService } from '../../core/services/relation.service';
-import { IListResponse } from '../../core/services/rest.service';
-import { EmailKind, EmailTemplateModel } from '../../core/models/email-template-model';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap';
-import { Observable } from 'rxjs/Observable';
-import { ModelId } from '../../core/models/model';
-import { UserModel } from '../../core/models/user-model';
-import { ProjectModel } from '../../core/models/project-model';
+import { EmailKind, EmailTemplateModel, Recipient } from '../../core/models/email-template-model';
+import { IEmailTemplate } from '../../core/models/project-model';
+import { EmailTemplateService } from '../../core/services/email-template.service';
 
 @Component({
   moduleId: module.id,
   selector: 'bs-email-templates-add-modal',
   templateUrl: 'email-templates-add-modal.component.html'
 })
-export class EmailTemplateAddModalComponent implements OnChanges {
-  protected _emailTemplates: EmailTemplateModel[];
-  private _availableTemplates: EmailTemplateModel[];
-  private _selectedTemplate: ModelId[] = [];
-  private _availableKinds: string[] = Object.values(EmailKind);
-  private _selectedKind: string = '';
-  private _kind: string = 'null';
-  private _recipient: string = 'null';
+export class EmailTemplateAddModalComponent {
   private _modal: ModalDirective;
-  private _parent: ProjectModel;
-  private _emailTemplatesAdded: EventEmitter<ModelId[]> = new EventEmitter<ModelId[]>();
-
-  public get availableKinds(): string[] {
-    return this._availableKinds;
-  }
-
-  public get emailTemplates(): EmailTemplateModel[] {
-    return this._emailTemplates;
-  }
-
-  @Input()
-  public set parent(value: string) {
-    this._parent = value;
-  }
+  private _kinds: string[] = Object.values(EmailKind);
+  private _emailTemplates: EmailTemplateModel[];
+  private _availableTemplates: EmailTemplateModel[];
+  private _usedEmailTemplates: IEmailTemplate[];
+  private _recipient: string;
+  private _model: IEmailTemplate = {
+    kind: null,
+    templateId: null,
+    recipient: Recipient.auditor
+  };
+  private _templateAdded: EventEmitter<IEmailTemplate> = new EventEmitter<IEmailTemplate>();
 
   @Input()
-  public set kind(value: string) {
-    this._kind = value;
+  public set usedEmailTemplate(value: IEmailTemplate[]) {
+    this._usedEmailTemplates = value;
   }
 
   @Input()
@@ -51,50 +33,33 @@ export class EmailTemplateAddModalComponent implements OnChanges {
     this._recipient = value;
   }
 
-  @Output()
-  public get emailTemplatesAdded(): EventEmitter<ModelId[]> {
-    return this._emailTemplatesAdded;
-  }
-
   @ViewChild('modal')
   public set modal(value: ModalDirective) {
     this._modal = value;
+  }
+
+  public get model(): IEmailTemplate {
+    return this._model;
+  }
+
+  public set model(value: IEmailTemplate) {
+    this._model = value;
+  }
+
+  public get kinds(): string[] {
+    return this._kinds;
   }
 
   public get availableTemplates(): EmailTemplateModel[] {
     return this._availableTemplates;
   }
 
-  public get selectedTemplate(): ModelId[] {
-    return this._selectedTemplate;
+  @Output()
+  public get templateAdded(): EventEmitter<IEmailTemplate> {
+    return this._templateAdded;
   }
 
-  public set selectedTemplate(value: ModelId[]) {
-    this._selectedTemplate = value;
-  }
-
-  public get selectedKind(): string {
-    return this._selectedKind;
-  }
-
-  public set selectedKind(value: string) {
-    this._selectedKind = value;
-  }
-
-  constructor(protected _emailTemplateService: EmailTemplateService,
-              protected _projectService: ProjectService,
-              protected _notificationService: NotificationService) {
-  }
-
-  public ngOnChanges(changes: SimpleChanges) {
-    if (changes['model']) {
-      this._load();
-    }
-
-    if (changes['kind']) {
-      this._load();
-      console.log('Я сделяль');
-    }
+  constructor(protected _emailTemplateService: EmailTemplateService) {
   }
 
   public show() {
@@ -102,28 +67,21 @@ export class EmailTemplateAddModalComponent implements OnChanges {
     this._modal.show();
   }
 
-  public submit() {
-    console.log(this._selectedKind);
-    console.log(this._selectedTemplate);
-    let transaction = this._projectService.addTemplate(this._parent, this._selectedTemplate);
-    Observable.forkJoin(transaction).subscribe(() => {
-      this._load();
-       this._emailTemplatesAdded.emit(this._selectedTemplate);
-      this._notificationService.success('T_EMAIL_TEMPLATE_ADDED_TO_PROJECT');
+  public updateTemplatesList() {
+    this._availableTemplates = this._emailTemplates.filter(template => {
+      return template.kind === this._model.kind &&
+        template.recipient === this._recipient &&
+        !this._usedEmailTemplates.find(x => x.templateId === template.id);
     });
   }
 
-  protected _load() {
-    console.log(this._selectedKind);
-    // let allQueryParams = { recipient: this._recipient, kind: this.selectedKind };
-    let allQueryParams = { recipient: this._recipient };
+  public submit() {
+    this._templateAdded.emit(JSON.parse(JSON.stringify(this._model)));
+  }
 
-
-    this._emailTemplateService.list(allQueryParams).subscribe((list: IListResponse<EmailTemplateModel>) => {
-      this._availableTemplates = list.data;
-      // this._preBeginTemplates = list.data.filter(function (item) {
-      //   return item.kind === EmailKind.preBegin;
-      // });
+  private _load() {
+    this._emailTemplateService.list().subscribe(res => {
+      this._emailTemplates = res.data;
     });
   }
 }

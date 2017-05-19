@@ -1,25 +1,26 @@
 import { Component, Input } from '@angular/core';
 import { ModelId } from '../../core/models/model';
-import { IEmailTemplate, ProjectModel } from '../../core/models/project-model';
-import { ProjectService } from '../../core/services/project.service';
-import { NotificationService } from '../../core/services/notification.service';
+import { IEmailTemplate } from '../../core/models/project-model';
+import { RelationModel } from '../../core/models/relation-model';
+import { RelationService } from '../../core/services/relation.service';
 import { Recipient } from '../../core/models/email-template-model';
+import { NotificationService } from '../../core/services/notification.service';
 
 @Component({
   moduleId: module.id,
-  selector: 'bs-project-email-template-list',
-  templateUrl: 'project-email-template-list.component.html'
+  selector: 'bs-relation-email-template-list',
+  templateUrl: 'relation-email-template-list.component.html'
 })
-export class ProjectEmailTemplatesListComponent {
-  private _model: ProjectModel;
-  private _recipient: string = Recipient.auditor;
+export class RelationEmailTemplatesListComponent {
+  private _model: RelationModel;
+  private _recipient: string = Recipient.respondent;
 
-  public get model(): ProjectModel {
+  public get model(): RelationModel {
     return this._model;
   }
 
   @Input()
-  public set model(value: ProjectModel) {
+  public set model(value: RelationModel) {
     this._model = value;
   }
 
@@ -32,15 +33,15 @@ export class ProjectEmailTemplatesListComponent {
     return this._recipient;
   }
 
-  constructor(private _projectService: ProjectService,
+  constructor(private _relationService: RelationService,
               private _notificationService: NotificationService) {
   }
 
   public emailTemplateAdded(template: IEmailTemplate) {
-    let model = new ProjectModel(JSON.parse(this._model.toJson()));
+    let model = new RelationModel(JSON.parse(this._model.toJson()));
     model.templates.push(template);
 
-    this._projectService.save(model).subscribe(model => {
+    this._relationService.save(model).subscribe(model => {
       this._model.templates = model.templates;
     });
     this._notificationService.success('T_EMAIL_TEMPLATE_ADDED_TO_PROJECT');
@@ -48,7 +49,8 @@ export class ProjectEmailTemplatesListComponent {
 
   public removeTemplate(templateId: ModelId) {
     this._model.templates = this._model.templates.filter(x => x.templateId !== templateId);
-    this._projectService.save(this._model).subscribe(model => {
+
+    this._relationService.save(this._model).subscribe(model => {
       this._model.templates = model.templates;
     });
     this._notificationService.success('T_EMAIL_TEMPLATE_REMOVE_FROM_PROJECT');

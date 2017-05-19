@@ -5,7 +5,7 @@ import { Model, ModelId } from './model';
 
 export interface IEmailTemplate {
   templateId?: ModelId;
-  template: {
+  template?: {
     id: string;
     name: string;
   };
@@ -33,5 +33,9 @@ export class ProjectModel extends Model {
         item.templateId = item.template.id;
       }
     });
+
+    if (this.groupAuditor) {
+      this.groupAuditorId = this.groupAuditor.id;
+    }
   }
 }

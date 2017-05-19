@@ -1,6 +1,7 @@
 import { Defaults } from '../decorators/defaults.decorator';
 import { Model, ModelId } from './model';
 import { IEmailTemplate } from './project-model';
+import { EmailKind, Recipient } from './email-template-model';
 
 export class RelationKind {
   public static readonly Classic: string = 'classic';
@@ -29,5 +30,31 @@ export class RelationModel extends Model {
   public form?: IModelIdName;
   public formId?: ModelId;
   public kind: string;
-  public templates: IEmailTemplate;
+  public templates: IEmailTemplate[];
+
+  constructor(json: any) {
+    super(json);
+
+    this.templates.forEach(item => {
+      if (item.template) {
+        item.templateId = item.template.id;
+      }
+    });
+
+    if (this.project) {
+      this.projectId = this.project.id;
+    }
+
+    if (this.groupFrom) {
+      this.groupFromId = this.groupFrom.id;
+    }
+
+    if (this.groupTo) {
+      this.groupToId = this.groupTo.id;
+    }
+
+    if (this.form) {
+      this.formId = this.form.id;
+    }
+  }
 }
