@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { RestServiceConfig } from '../decorators/rest-service-config.decorator';
 import { ProjectModel } from '../models/project-model';
 import { RestService } from './rest.service';
+import { ModelId } from '../models/model';
 
 @Injectable()
 @RestServiceConfig({
@@ -10,4 +11,5 @@ import { RestService } from './rest.service';
 })
 export class ProjectService extends RestService<ProjectModel> {
 }
+
 

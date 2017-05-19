@@ -1,0 +1,47 @@
+<div class="card">
+  <div class="card-header"><b>{{ 'T_EMAIL_TEMPLATES' | translate }}</b></div>
+  <div class="card-block">
+    <button
+      class="btn btn-primary"
+      type="button"
+      title="{{ 'T_ACTION_ADD_EMAIL_TEMPLATE' | translate }}"
+      (click)="modalForm.show()"><i class="fa fa-plus mr-h"></i>
+      {{ 'T_ACTION_ADD_EMAIL_TEMPLATE' | translate }}
+    </button>
+
+    <table *ngIf="model.templates" class="table table-striped mt-1">
+      <thead>
+        <tr>
+          <th>{{ 'T_EMAIL_TEMPLATE_KIND' | translate }}</th>
+          <th>{{ 'T_EMAIL_TEMPLATE' | translate }}</th>
+          <th class="actions-column">{{ 'T_ACTIONS' | translate }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let template of model.templates">
+          <td>{{ 'T_PROJECT_EMAIL_TEMPLATE_KIND_' + template.kind.toUpperCase() | translate }}</td>
+          <td><a [routerLink]="['/admin/templates', template.template.id]">{{ template.template.name }}</a></td>
+          <td class="actions-column">
+            <button
+              type="button"
+              class="btn btn-sm btn-danger ml-1"
+              bsConfirm
+              title="{{ 'T_ACTION_REMOVE' | translate }}"
+              (confirm)="removeTemplate(template.templateId)"><i class="fa fa-trash"></i>&nbsp;{{ 'T_ACTION_REMOVE' | translate }}
+            </button>
+          </td>
+        </tr>
+
+        <tr *ngIf="!model.templates.length">
+          <td colspan="25" class="text-center">{{ 'T_EMPTY' | translate }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Adding email template to group modal-->
+<bs-email-templates-add-modal #modalForm
+                              [usedEmailTemplate]="model.templates"
+                              [recipient]="recipient"
+                              (templateAdded)="emailTemplateAdded($event)"></bs-email-templates-add-modal>

@@ -49,7 +49,8 @@
                     name="description"
                     #description="ngModel"
                     placeholder="{{ 'T_FORM_ENTER_DESCRIPTION' | translate }}"
-                    [(ngModel)]="model.description"> </textarea>
+                    [(ngModel)]="model.description"
+                    rows="10"> </textarea>
           <div class="form-errors"
                *ngIf="description.errors && description.touched">
             <div class="form-control-feedback" *ngIf="description.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}</div>
