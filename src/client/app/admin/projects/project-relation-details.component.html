@@ -1,36 +1,43 @@
-<div class="card" *ngIf="model">
-  <div class="card-header"><b>{{ 'T_DETAILS' | translate }}</b></div>
-  <div class="card-block">
-    <div class="row">
-      <div class="col-md-1 text-right">
-        <button type="button"
-                class="btn btn-md btn-primary"
-                [routerLink]="['/admin/projects/', model.projectId, 'relations', model.id, 'edit']">{{ 'T_ACTION_EDIT' | translate }}
-        </button>
-      </div>
-    </div>
-
-    <div class="row mt-1">
-      <div class="col-md-3">
-        <small class="text-muted">{{ 'T_PROJECT_RELATION_RATING_GROUP' | translate}}</small>
-        <div class="h6"><a [routerLink]="['/admin/groups', model.groupFrom.id]">{{ model.groupFrom.name }}</a></div>
+<div *ngIf="model">
+  <div class="card">
+    <div class="card-header"><b>{{ 'T_DETAILS' | translate }}</b></div>
+    <div class="card-block">
+      <div class="row">
+        <div class="col-md-1 text-right">
+          <button type="button"
+                  class="btn btn-md btn-primary"
+                  [routerLink]="['/admin/projects/', model.projectId, 'relations', model.id, 'edit']">{{ 'T_ACTION_EDIT' | translate }}
+          </button>
+        </div>
       </div>
 
-      <div class="col-md-3" *ngIf="!!model.groupTo">
-        <small class="text-muted">{{ 'T_PROJECT_RELATION_ASSESSMENT_GROUP' | translate}}</small>
-        <div class="h6"><a [routerLink]="['/admin/groups', model.groupTo.id]">{{ model.groupTo.name }}</a></div>
-      </div>
+      <div class="row mt-1">
+        <div class="col-md-3">
+          <small class="text-muted">{{ 'T_PROJECT_RELATION_RATING_GROUP' | translate}}</small>
+          <div class="h6"><a [routerLink]="['/admin/groups', model.groupFrom.id]">{{ model.groupFrom.name }}</a></div>
+        </div>
 
-      <div class="col-md-3">
-        <small class="text-muted">{{ 'T_PROJECT_RELATION_EVALUATION_FORM' | translate}}</small>
-        <div class="h6"><a [routerLink]="['/admin/forms', model.form.id]">{{ model.form.name }}</a></div>
-      </div>
+        <div class="col-md-3" *ngIf="!!model.groupTo">
+          <small class="text-muted">{{ 'T_PROJECT_RELATION_ASSESSMENT_GROUP' | translate}}</small>
+          <div class="h6"><a [routerLink]="['/admin/groups', model.groupTo.id]">{{ model.groupTo.name }}</a></div>
+        </div>
 
-      <div class="col-md-3">
-        <small class="text-muted">{{ 'T_PROJECT_RELATION_KIND' | translate}}</small>
-        <div class="h6">{{ 'T_PROJECT_RELATION_KIND_' + model.kind.toUpperCase() | translate }}</div>
-      </div>
+        <div class="col-md-3">
+          <small class="text-muted">{{ 'T_PROJECT_RELATION_EVALUATION_FORM' | translate}}</small>
+          <div class="h6"><a [routerLink]="['/admin/forms', model.form.id]">{{ model.form.name }}</a></div>
+        </div>
 
+        <div class="col-md-3">
+          <small class="text-muted">{{ 'T_PROJECT_RELATION_KIND' | translate}}</small>
+          <div class="h6">{{ 'T_PROJECT_RELATION_KIND_' + model.kind.toUpperCase() | translate }}</div>
+        </div>
+
+      </div>
     </div>
   </div>
+
+  <bs-relation-email-template-list  embedded [model]="model"></bs-relation-email-template-list>
 </div>
+
+
+

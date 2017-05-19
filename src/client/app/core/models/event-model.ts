@@ -40,8 +40,8 @@ export interface IEventNotification {
 
 export class EventNotificationKind {
   public static readonly PreBegin: string = 'preBegin';
-  public static readonly PreEnd: string = 'preEnd';
   public static readonly Begin: string = 'begin';
+  public static readonly PreEnd: string = 'preEnd';
   public static readonly End: string = 'end';
 }
 

@@ -41,6 +41,9 @@
           </td>
         </tr>
 
+        <tr *ngIf="!list.length">
+          <td colspan="25" class="text-center">{{ 'T_EMPTY' | translate }}</td>
+        </tr>
       </tbody>
     </table>
 
