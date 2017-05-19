@@ -3,7 +3,7 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { AccordionModule, CollapseModule, ModalModule, PaginationModule } from 'ngx-bootstrap';
+import { AccordionModule, CollapseModule, ModalModule, PaginationModule, TabsModule } from 'ngx-bootstrap';
 import { FiltersComponent } from './components/filters/filters.component';
 import { ConfirmationDirective } from './directives/confirmation.directive';
 import { ToastModule } from 'ng2-toastr/ng2-toastr';
@@ -22,6 +22,7 @@ import { CKEditorModule } from 'ng2-ckeditor';
     TranslateModule,
     ToastModule,
     AccordionModule,
+    TabsModule,
     CollapseModule,
     PaginationModule,
     ModalModule,
@@ -42,6 +43,7 @@ import { CKEditorModule } from 'ng2-ckeditor';
     FiltersComponent,
     ToastModule,
     AccordionModule,
+    TabsModule,
     PaginationModule,
     PaginationComponent,
     ModalModule,
