@@ -6,6 +6,12 @@
         <h2>{{ model.name }}</h2>
       </div>
       <div class="col-md-4 text-right">
+        <button type="button" class="btn btn-warning mr-1"
+                bsConfirm
+                [message]="'T_FORM_CONFIRM_CLONE_MESSAGE' | translate"
+                (confirm)="clone(model);">
+          <i class="mr-h fa fa-copy"></i> {{ 'T_ACTION_CLONE' | translate }}
+        </button>
         <button type="button"
                 class="btn btn-md btn-primary"
                 [routerLink]="['/admin/templates/', model.id, 'edit']">{{ 'T_ACTION_EDIT' | translate }}
@@ -14,11 +20,6 @@
     </div>
 
     <div class="row mt-1">
-      <div class="col-md-3">
-        <small class="text-muted">{{ 'T_EMAIL_TEMPLATE_NAME' | translate}}</small>
-        <div class="h6">{{ model.name }}</div>
-      </div>
-
       <div class="col-md-3">
         <small class="text-muted">{{ 'T_EMAIL_TEMPLATE_SUBJECT' | translate}}</small>
         <div class="h6">{{ model.subject }}</div>

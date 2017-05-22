@@ -2,13 +2,6 @@
   <div class="card">
     <div class="card-header"><b>{{ 'T_EVENT_DETAILS' | translate }}</b></div>
     <div class="card-block">
-      <button type="button"
-              class="btn btn-md btn-primary"
-              [routerLink]="['/admin/events/', model.id, 'edit']">
-        <i class="mr-h fa fa-pencil"></i>
-        {{ 'T_ACTION_EDIT' | translate }}
-      </button>
-
       <div class="row mt-1">
         <div class="col-md-3">
           <small class="text-muted">{{ 'T_EVENT_START' | translate}}</small>
@@ -30,7 +23,14 @@
           </span>
           </div>
         </div>
-
+        <div class="col-md-3 text-right">
+          <button type="button"
+                  class="btn btn-md btn-primary"
+                  [routerLink]="['/admin/events/', model.id, 'edit']">
+            <i class="mr-h fa fa-pencil"></i>
+            {{ 'T_ACTION_EDIT' | translate }}
+          </button>
+        </div>
       </div>
       <div class="row mt-1">
         <div class="col-md-6">
