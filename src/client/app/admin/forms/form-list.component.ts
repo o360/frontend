@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormModel } from '../../core/models/form-model';
 import { FormService } from '../../core/services/form.service';
-import { ListComponent } from '../../shared/components/list.component';
 import { NotificationService } from '../../core/services/notification.service';
+import { ListComponent } from '../../shared/components/list.component';
 
 @Component({
   moduleId: module.id,
@@ -20,9 +20,11 @@ export class FormListComponent extends ListComponent<FormModel> {
   }
 
   public clone(model: FormModel) {
-    (<FormService>this._service).clone(model).subscribe(() => {
-      this._update();
-      this._notificationService.success('T_SUCCESS_CLONED');
+    this._service.get(model.id).subscribe((model: FormModel) => {
+      (<FormService>this._service).clone(model).subscribe(() => {
+        this._update();
+        this._notificationService.success('T_SUCCESS_CLONED');
+      });
     });
   }
 }
