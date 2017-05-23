@@ -11,7 +11,9 @@ export abstract class ListComponent<T extends Model> implements OnInit {
   protected _list: T[];
   protected _filters: Filter[] = [];
   protected _meta: IResponseMeta;
+  protected _id: string = 'id';
   protected _queryParams: IQueryParams = {
+    sort: this._id,
     number: defaultPage.toString(),
     size: supportedSizes[0].toString()
   };
