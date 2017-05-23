@@ -1,6 +1,9 @@
-<div class="card">
-  <div class="card-header"><b>{{ 'T_GROUPS' | translate }}</b></div>
-  <div class="card-block" *ngIf="isLoaded">
+<div class="card" *ngIf="isLoaded">
+  <div class="card-header" [ngSwitch]="parentId">
+    <ng-template [ngSwitchCase]="'null'"><b>{{ 'T_GROUPS' | translate }}</b></ng-template>
+    <ng-template ngSwitchDefault><b>{{ 'T_CHILD_GROUPS' | translate }}</b></ng-template>
+  </div>
+  <div class="card-block">
     <button class="btn btn-primary"
             type="button"
             title="{{ 'T_ACTION_CREATE' | translate }}"
