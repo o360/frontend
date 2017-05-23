@@ -27,7 +27,7 @@
         <ng-template [ngSwitchCase]="FormElementType.Checkboxgroup">
           <label class="col-sm-3">{{ element.caption }}</label>
           <div class="col-sm-9">
-            <div class="form-check form-check-inline" *ngFor="let item of element.values">
+            <div class="form-check" *ngFor="let item of element.values">
               <label class="form-check-label">
                 <input class="form-check-input" type="checkbox" value="{{ item.value }}">
                 {{ item.caption }}
@@ -59,7 +59,7 @@
         <ng-template [ngSwitchCase]="FormElementType.Radio">
           <label class=" col-sm-3">{{ element.caption }}</label>
           <div class="col-sm-9">
-            <div class="form-check form-check-inline" *ngFor="let item of element.values">
+            <div class="form-check form-check-inline ml-0 mr-1" *ngFor="let item of element.values">
               <label class="form-check-label">
                 <input class="form-check-input" type="radio" name="inlineRadioOptions" id="radio" value="{{ item.value }}">
                 {{ item.caption }}
