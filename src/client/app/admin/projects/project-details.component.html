@@ -16,11 +16,6 @@
 
       <div class="row mt-1">
         <div class="col-md-3">
-          <small class="text-muted">{{ 'T_PROJECT_NAME' | translate}}</small>
-          <div class="h6">{{ model.name }}</div>
-        </div>
-
-        <div class="col-md-3">
           <small class="text-muted">{{ 'T_PROJECT_AUDITOR' | translate}}</small>
           <div class="h6"><a [routerLink]="['/admin/groups/', model.groupAuditor.id]">{{ model.groupAuditor.name }}</a></div>
         </div>
