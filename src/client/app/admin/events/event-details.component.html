@@ -42,20 +42,19 @@
     </div>
   </div>
 
-  <!-- Notifications -->
-  <div class="card">
-    <div class="card-header"><b>{{ 'T_EVENT_NOTIFICATIONS' | translate }}</b></div>
-    <div class="card-block">
-      <bs-assessment-event-notification embedded [event]="model"></bs-assessment-event-notification>
-    </div>
-  </div>
-
-
   <!-- Projects in Event -->
   <div class="card">
     <div class="card-header"><b>{{ 'T_PROJECTS' | translate }}</b></div>
     <div class="card-block">
       <bs-assessment-event-project-list embedded [event]="model"></bs-assessment-event-project-list>
+    </div>
+  </div>
+
+  <!-- Notifications -->
+  <div class="card">
+    <div class="card-header"><b>{{ 'T_EVENT_NOTIFICATIONS' | translate }}</b></div>
+    <div class="card-block">
+      <bs-assessment-event-notification embedded [event]="model"></bs-assessment-event-notification>
     </div>
   </div>
 </div>

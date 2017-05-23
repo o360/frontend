@@ -19,7 +19,7 @@ export class EmailTemplateAddModalComponent {
   private _model: IEmailTemplate = {
     kind: null,
     templateId: null,
-    recipient: Recipient.auditor
+    recipient: null
   };
   private _templateAdded: EventEmitter<IEmailTemplate> = new EventEmitter<IEmailTemplate>();
 
@@ -76,6 +76,7 @@ export class EmailTemplateAddModalComponent {
   }
 
   public submit() {
+    this._model.recipient = this._recipient;
     this._templateAdded.emit(JSON.parse(JSON.stringify(this._model)));
   }
 
