@@ -91,6 +91,7 @@
   "T_SUCCESS_MESSAGE_DEFAULT": "Some text!",
   "T_SUCCESS_DELETED": "Deleted!",
   "T_SUCCESS_SAVED": "Saved!",
+  "T_SUCCESS_NEW_USER_SAVED": "Please, wait for your account to be approved by the administrator",
   "T_SUCCESS_CLONED": "Cloned!",
   "T_ERROR_CONFLICT_GENERAL": "Changes are impossible, there are related entities.",
   "T_ERROR_CONFLICT_GROUP_1": "Group can't be parent group to itself.",
