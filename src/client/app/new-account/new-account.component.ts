@@ -36,7 +36,7 @@ export class NewAccountComponent {
   public update() {
     this._profileService.save(this._user).subscribe(
       () => {
-        this._notificationService.success('T_SUCCESS_SAVED');
+        this._notificationService.success('T_SUCCESS_NEW_USER_SAVED');
       },
       error => this._notificationService.error('T_ERROR_SAVED')
     );
