@@ -142,6 +142,7 @@
   "T_USERS_ADDED_TO_GROUP": "Пользователи успешно добавлены в группу",
   "T_EMAIL_TEMPLATES": "Шаблоны писем",
   "T_EMAIL_TEMPLATES_FOR_AUDITOR": "Шаблоны писем для аудитора",
+  "T_EMAIL_TEMPLATES_FOR_RESPONDENT": "Шаблоны писем для опрашиваемого",
   "T_EMAIL_TEMPLATE_DETAILS": "Подробнее о шаблоне письма",
   "T_EMAIL_TEMPLATE_CREATE": "Создать новый шаблон письма",
   "T_EMAIL_TEMPLATE_NAME": "Название",

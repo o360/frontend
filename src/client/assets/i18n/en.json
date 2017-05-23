@@ -185,6 +185,7 @@
   "T_FORM_VALUES_ARE_REQUIRED": "For this type of element values are required",
   "T_EMAIL_TEMPLATES": "Email templates",
   "T_EMAIL_TEMPLATES_FOR_AUDITOR": "Email templates for auditor",
+  "T_EMAIL_TEMPLATES_FOR_RESPONDENT": "Email templates for respondent",
   "T_EMAIL_TEMPLATE_DETAILS": "Details of email template",
   "T_EMAIL_TEMPLATE_CREATE": "Create an email template",
   "T_EMAIL_TEMPLATE_NAME": "Name",
