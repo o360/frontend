@@ -21,6 +21,7 @@ import { ProjectService } from './services/project.service';
 import { RelationService } from './services/relation.service';
 import { EmailTemplateService } from './services/email-template.service';
 import { AdminGuard } from './guards/admin.guard';
+import { AssessmentService } from './services/assessment.service';
 
 @NgModule({
   imports: [
@@ -52,6 +53,7 @@ import { AdminGuard } from './guards/admin.guard';
     ProjectService,
     RelationService,
     EmailTemplateService,
+    AssessmentService,
     NotificationService
   ],
   exports: [

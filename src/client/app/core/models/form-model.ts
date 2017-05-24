@@ -16,11 +16,13 @@ export interface IFormElement {
   caption: string;
   required: boolean;
   values?: IFormElementValue[];
+  tempValue?: any;
 }
 
 export interface IFormElementValue {
   id?: ModelId;
   caption: string;
+  tempValue? : any;
 }
 
 export class FormElementType {
