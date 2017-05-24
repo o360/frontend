@@ -1,12 +1,12 @@
-import { AfterViewInit, Component, ElementRef, forwardRef, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, forwardRef, Input, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgModel, ValidationErrors } from '@angular/forms';
-import { Observable } from 'rxjs/Rx';
 import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
 
 import * as moment from 'moment';
+import { Observable } from 'rxjs/Rx';
 
 export const DateFormat = {
-  OnlyDate: 'DD.MM.YYYY',
+  Date: 'DD.MM.YYYY',
   DateTime: 'DD.MM.YYYY HH:mm'
 };
 
@@ -106,6 +106,12 @@ export class DateTimeComponent implements ControlValueAccessor, AfterViewInit {
   public ngAfterViewInit() {
     let $element = $(this._input.nativeElement);
 
+    Object.assign($.fn.datepicker.language['en'], {
+      dateFormat: 'dd.mm.yyyy',
+      timeFormat: 'hh:ii',
+      firstDay: 0
+    });
+
     let datepicker = $element.datepicker({
       timepicker: !this._onlyDateMode,
       language: this._translateService.currentLang,
@@ -114,20 +120,6 @@ export class DateTimeComponent implements ControlValueAccessor, AfterViewInit {
     this._translateService.onLangChange.forEach((e: LangChangeEvent) => {
       datepicker.update('language', e.lang);
     });
-
-    $.fn.datepicker.language['en'] =  {
-      days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-      daysShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-      daysMin: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
-      months: ['January','February','March','April','May','June', 'July','August','September','October','November','December'],
-      monthsShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-      today: 'Today',
-      clear: 'Clear',
-      dateFormat: 'dd.mm.yyyy',
-      timeFormat: 'hh:ii',
-      firstDay: 0
-    };
-
   }
 
   protected _validate(): Observable<ValidationErrors> {
@@ -158,7 +150,7 @@ export class DateTimeComponent implements ControlValueAccessor, AfterViewInit {
 
   protected _formatDate(date: any) {
     if (this.onlyDateMode) {
-      return moment(date).format(DateFormat.OnlyDate);
+      return moment(date).format(DateFormat.Date);
     } else {
       return moment(date).format(DateFormat.DateTime);
     }
@@ -166,7 +158,7 @@ export class DateTimeComponent implements ControlValueAccessor, AfterViewInit {
 
   protected _parseDate(date: any) {
     if (this.onlyDateMode) {
-      return moment(date, DateFormat.OnlyDate, true);
+      return moment(date, DateFormat.Date, true);
     } else {
       return moment(date, DateFormat.DateTime, true);
     }
