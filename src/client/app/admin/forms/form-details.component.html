@@ -21,84 +21,128 @@
         </button>
       </div>
     </div>
-    <form class="mt-2">
-      <div class="form-group row mb-1" *ngFor="let element of model.elements" [ngSwitch]="element.kind">
-        <!--For checkbox groups-->
-        <ng-template [ngSwitchCase]="FormElementType.Checkboxgroup">
-          <label class="col-sm-3">{{ element.caption }}</label>
-          <div class="col-sm-9">
-            <div class="form-check" *ngFor="let item of element.values">
-              <label class="form-check-label">
-                <input class="form-check-input" type="checkbox" value="{{ item.value }}">
-                {{ item.caption }}
+      <form #assessmentForm="ngForm"
+            class="mt-2"
+            (ngSubmit)="save()">
+
+        <div class="form-group row mb-1"
+             *ngFor="let element of model.elements;"
+             [ngSwitch]="element.kind">
+
+          <!--For checkbox groups-->
+          <ng-template [ngSwitchCase]="FormElementType.Checkboxgroup">
+            <label class="col-sm-3" [ngClass]="{'required': element.required === true}">{{ element.caption }}</label>
+            <div class="col-sm-9">
+              <div class="form-check" *ngFor="let item of element.values; let j = index;">
+                <label class="custom-control custom-checkbox">
+                  <input name="{{ item.id }}"
+                         id="{{ item.id }}"
+                         type="checkbox"
+                         class="custom-control-input"
+                         [required]="element.required">
+                  <span class="custom-control-indicator"></span>
+                  <span class="custom-control-description"> {{ item.caption }}</span>
+                </label>
+              </div>
+            </div>
+          </ng-template>
+
+          <!--For checkbox-->
+          <ng-template [ngSwitchCase]="FormElementType.Checkbox">
+            <label class="col-sm-3" [ngClass]="{'required': element.required === true}">
+              {{ element.caption }}
+            </label>
+            <div class="col-sm-9">
+              <label class="custom-control custom-checkbox">
+                <input name="{{ element.id }}"
+                       id="{{ element.id }}"
+                       class="custom-control-input"
+                       type="checkbox"
+                       value="true"
+                       [required]="element.required">
+                <span class="custom-control-indicator"></span>
               </label>
             </div>
-          </div>
-        </ng-template>
+          </ng-template>
 
-        <!--For checkbox-->
-        <ng-template [ngSwitchCase]="FormElementType.Checkbox">
-          <label class="col-sm-3" [ngClass]="{'required': element.required === true}">
-            {{ element.caption }}
-          </label>
-          <div class="col-sm-9">
-            <input type="checkbox" value="true">
-          </div>
-        </ng-template>
+          <!--For select-->
+          <ng-template [ngSwitchCase]="FormElementType.Select">
+            <label class="col-form-label col-sm-3" [ngClass]="{'required': element.required === true}">{{ element.caption }}</label>
+            <div class="col-sm-9">
+              <select name="{{ element.id }}"
+                      id="{{ element.id }}"
+                      class="form-control custom-select"
+                      [required]="element.required">
+                <option *ngFor="let item of element.values"
+                        [value]="item.id">
+                  {{ item.caption }}
+                </option>
+              </select></div>
+          </ng-template>
 
-        <!--For select-->
-        <ng-template [ngSwitchCase]="FormElementType.Select">
-          <label class="col-form-label col-sm-3">{{ element.caption }}</label>
-          <div class="col-sm-9">
-            <select class="form-control">
-              <option *ngFor="let item of element.values" value="{{ item.value }}">{{ item.caption }}</option>
-            </select></div>
-        </ng-template>
-
-        <!--For radio-->
-        <ng-template [ngSwitchCase]="FormElementType.Radio">
-          <label class=" col-sm-3">{{ element.caption }}</label>
-          <div class="col-sm-9">
-            <div class="form-check form-check-inline ml-0 mr-1" *ngFor="let item of element.values">
-              <label class="form-check-label">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="radio" value="{{ item.value }}">
-                {{ item.caption }}
-              </label>
+          <!--For radio-->
+          <ng-template [ngSwitchCase]="FormElementType.Radio">
+            <label class=" col-sm-3" [ngClass]="{'required': element.required === true}">{{ element.caption }}</label>
+            <div class="col-sm-9">
+              <div class="form-check form-check-inline ml-0 mr-1" *ngFor="let item of element.values; let j = index;">
+                <label class="custom-control custom-radio">
+                  <input id="{{ element.id }}"
+                         name="{{ element.id }}"
+                         type="radio"
+                         class="custom-control-input"
+                         [value]="item.id"
+                         [required]="element.required">
+                  <span class="custom-control-indicator"></span>
+                  <span class="custom-control-description"> {{ item.caption }} </span>
+                </label>
+              </div>
             </div>
-          </div>
-        </ng-template>
+          </ng-template>
 
-        <!--For textarea-->
-        <ng-template [ngSwitchCase]="FormElementType.Textarea">
-          <label class="col-form-label col-sm-3" for="textarea" [ngClass]="{'required': element.required === true}">{{ element.caption
-            }}</label>
-          <div class="col-sm-9">
-            <textarea class="form-control" id="textarea" rows="3"></textarea>
-          </div>
-        </ng-template>
+          <!--For textarea-->
+          <ng-template [ngSwitchCase]="FormElementType.Textarea">
+            <label class="col-form-label col-sm-3" for="{{ element.id }}" [ngClass]="{'required': element.required === true}">
+              {{ element.caption }}
+            </label>
+            <div class="col-sm-9">
+          <textarea name="{{ element.id }}"
+                    class="form-control"
+                    id="{{ element.id }}"
+                    rows="3"
+                    [required]="element.required">
+          </textarea>
+            </div>
+          </ng-template>
 
-        <!--For textfield-->
-        <ng-template [ngSwitchCase]="FormElementType.Textfield">
-          <label class="col-form-label col-sm-3" for="textfield" [ngClass]="{'required': element.required === true}">{{
-            element.caption}}</label>
-          <div class="col-sm-9">
-            <input type="text" class="form-control" id="textfield">
-          </div>
-        </ng-template>
+          <!--For textfield-->
+          <ng-template [ngSwitchCase]="FormElementType.Textfield">
+            <label class="col-form-label col-sm-3" for="{{ element.id }}" [ngClass]="{'required': element.required === true}">{{
+              element.caption}}</label>
+            <div class="col-sm-9">
+              <input name="{{ element.id }}"
+                     type="text"
+                     class="form-control"
+                     id="{{ element.id }}"
+                     [required]="element.required">
+            </div>
+          </ng-template>
 
-        <!--For another types-->
-        <ng-template ngSwitchDefault>
-          <label for="{{ element.kind }}" class="col-form-label col-sm-3" [ngClass]="{'required': element.required === true}">{{
-            element.caption }}</label>
-          <div class="col-sm-9">
-            <input class="form-control"
-                   type="{{ element.kind }}"
-                   placeholder="{{ element.value }}"
-                   value="{{ element.value }}"
-                   id="{{ element.kind }}">
-          </div>
-        </ng-template>
-      </div>
-    </form>
+          <!--For another types-->
+          <ng-template ngSwitchDefault>
+            <label for="{{ element.id }}" class="col-form-label col-sm-3" [ngClass]="{'required': element.required === true}">
+              {{ element.caption }}</label>
+            <div class="col-sm-9">
+              <input class="form-control"
+                     name="{{ element.id }}"
+                     type="{{ element.kind }}"
+                     placeholder="{{ element.value }}"
+                     value="{{ element.value }}"
+                     [required]="element.required"
+                     id="{{ element.id }}">
+            </div>
+          </ng-template>
+        </div>
+      </form>
+
   </div>
 </div>

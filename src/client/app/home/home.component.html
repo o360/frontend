@@ -3,3 +3,45 @@
     <h2 class="m-0">Bitworks Staff Assessment System</h2>
   </div>
 </div>
+
+<div class="card">
+  <div class="card-header">
+    <b>{{ 'T_ASSESSMENT_EVENTS_IN_PROGRESS' | translate}}</b>
+  </div>
+  <div class="card-block">
+    <div *ngIf="isLoaded">
+      <table class="table table-striped mt-1">
+        <thead>
+          <tr>
+            <th>{{ 'T_EVENT_DESCRIPTION' | translate }}</th>
+            <th>{{ 'T_EVENT_START' | translate }}</th>
+            <th>{{ 'T_EVENT_END' | translate }}</th>
+            <th class="actions-column">{{ 'T_ACTION' | translate }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let model of list">
+            <td>{{ model.description }}</td>
+            <td>{{ model.start | date: 'mediumDate' }}</td>
+            <td>{{ model.end | date: 'mediumDate' }}</td>
+            <td class="actions-column">
+              <button type="button"
+                      class="btn btn-sm btn-success ml-1"
+                      title="{{ 'T_ACTION_ASSESS' | translate }}"
+                      [routerLink]="['/events', model.id]">
+                <i class="fa fa-hand-pointer-o"></i> {{ 'T_ACTION_ASSESS' | translate}}
+              </button>
+            </td>
+          </tr>
+
+          <tr *ngIf="!list.length">
+            <td colspan="25" class="text-center">{{ 'T_EMPTY' | translate }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <bs-pagination [meta]="meta"
+                     (queryParamsChange)="pageQueryParamsChanged($event)"></bs-pagination>
+    </div>
+  </div>
+</div>

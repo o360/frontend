@@ -1,0 +1,8 @@
+<!--Projects-->
+<tabset>
+  <tab *ngFor="let project of list;"
+       heading="{{ project.name }}">
+    <bs-user-assessment-event [projectId]="project.id"
+                              [eventId]="eventId"></bs-user-assessment-event>
+  </tab>
+</tabset>

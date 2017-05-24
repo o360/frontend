@@ -4136,9 +4136,9 @@ ng2-toastr@^4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/ng2-toastr/-/ng2-toastr-4.0.1.tgz#87d5ea60e4fd0ff3626980a3c1bd9c76dc06bfdc"
 
-ngx-bootstrap@^1.6.6:
-  version "1.6.6"
-  resolved "https://registry.yarnpkg.com/ngx-bootstrap/-/ngx-bootstrap-1.6.6.tgz#0057141cfbdd7e8a50e81bda735fad8e95acb0dd"
+ngx-bootstrap@2.0.0-beta.2:
+  version "2.0.0-beta.2"
+  resolved "https://registry.yarnpkg.com/ngx-bootstrap/-/ngx-bootstrap-2.0.0-beta.2.tgz#4accf1b09994b3270c2bcd270f3e88c9a829e2ac"
   dependencies:
     moment "2.18.1"
 
