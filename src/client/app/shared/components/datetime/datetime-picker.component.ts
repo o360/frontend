@@ -92,9 +92,10 @@ export class DateTimeComponent implements ControlValueAccessor, AfterViewInit {
     this._touched.push(fn);
   }
 
-  public onChange() {
+  public onChange(value: any) {
     this.invalid.subscribe(validState => {
       if (!validState) {
+        this._date = value;
         let datetime = this._parseDate(this._date);
         this._innerValue = datetime.toDate();
         this._changed.forEach(f => f(this._innerValue));
@@ -115,6 +116,9 @@ export class DateTimeComponent implements ControlValueAccessor, AfterViewInit {
     let datepicker = $element.datepicker({
       timepicker: !this._onlyDateMode,
       language: this._translateService.currentLang,
+      onSelect: (formattedDate: any) => {
+        this.onChange(formattedDate);
+      }
     }).data('datepicker');
 
     this._translateService.onLangChange.forEach((e: LangChangeEvent) => {
