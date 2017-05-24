@@ -9,6 +9,9 @@ import { TestModel } from '../models/model.spec';
 import { AuthService } from './auth.service';
 import { NotificationService } from './notification.service';
 import { RestService } from './rest.service';
+import { Model } from '../models/model';
+import { underline } from 'chalk';
+import { isUndefined } from 'util';
 
 
 /* Notification service stub */
@@ -52,6 +55,10 @@ export class RouterStub {
   }
 }
 
+export interface IListResponse<TestModel extends Model> {
+  // meta: IResponseMeta;
+  data: TestModel[];
+}
 
 /* Test Service */
 @Injectable()
@@ -69,6 +76,11 @@ export function main() {
     let injector: Injector;
     let mockBackend: MockBackend;
     let connection: MockConnection;
+    let model: TestModel;
+
+    beforeEach(() => {
+      model = new TestModel();
+    });
 
     beforeEach(() => {
       TestBed.configureTestingModule({
@@ -113,5 +125,52 @@ export function main() {
 
       connection.mockRespond(new Response(new ResponseOptions({ body: { id: 1 }, type: ResponseType.Basic })));
     });
+
+    it('should return an Observable when save() called with new model', () => {
+      let getResponse = testService.save(model);
+
+      expect(getResponse).toEqual(jasmine.any(Observable));
+    });
+
+    it('should return an Observable when save() called if model exist', () => {
+      model.id = 1;
+      let getResponse = testService.save(model);
+
+      expect(getResponse).toEqual(jasmine.any(Observable));
+    });
+
+    it('should return an Observable when save() called with new model without params', () => {
+      testService.save(model).subscribe((model: TestModel) => {
+        expect(model).toEqual(model);
+      });
+
+      connection.mockRespond(new Response(new ResponseOptions({ body: { model }, type: ResponseType.Basic })));
+    });
+
+    it('should return correct model on list() without params', () => {
+      let modelList: IListResponse<TestModel> = { data: [model] };
+      testService.list().subscribe((model: IListResponse<TestModel>) => {
+        expect(model).toEqual(modelList);
+      });
+
+      connection.mockRespond(new Response(new ResponseOptions({ body: JSON.stringify(modelList), type: ResponseType.Basic })));
+    });
+
+    it('should return correct model on list() with query params', () => {
+      let queryParams = { sort: 'data1' };
+      let modelList: IListResponse<TestModel> = { data: [model] };
+      testService.list(queryParams).subscribe((model: IListResponse<TestModel>) => {
+        expect(model).toEqual(modelList);
+      });
+
+      connection.mockRespond(new Response(new ResponseOptions({ body: JSON.stringify(modelList), type: ResponseType.Basic })));
+    });
+
+    it('should return an Observable when delete() called', () => {
+      let getResponse = testService.delete(1);
+
+      expect(getResponse).toEqual(jasmine.any(Observable));
+    });
+
   });
 }
