@@ -35,7 +35,9 @@
            [ngClass]="{'has-success': start.valid, 'has-danger': !start.valid }">
         <label class="col-form-label col-md-3 required">{{ 'T_EVENT_START' | translate }}</label>
         <div class="col-md-9">
-          <bs-datetime #start name="start" [(ngModel)]="model.start"></bs-datetime>
+          <bs-datetime #start name="start"
+                       [(ngModel)]="model.start"
+                       [disabled]="model.status === EventStatus.InProgress"></bs-datetime>
         </div>
       </div>
 
