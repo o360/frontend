@@ -22,5 +22,9 @@ export function main() {
       expect(model).toBeDefined();
       expect(model instanceof TestModel).toBeTruthy();
     });
+
+    it('should convert an object to json', () => {
+      expect(model.toJson()).toEqual('{"name":"test"}');
+    });
   });
 }
