@@ -19,7 +19,7 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
   protected _eventId: ModelId;
   protected _forms: FormModel[];
   protected _queryParams: IQueryParams = {};
-  private _assessmentObject: AssessmentObject = null;
+  protected _assessmentObject: AssessmentObject = null;
 
   @Input()
   public set projectId(value: ModelId) {
@@ -65,7 +65,7 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
     this._service.list(this._queryParams).subscribe((res: IListResponse<AssessmentModel>) => {
       this._meta = res.meta;
       this._list = res.data;
-      this._list.map(assessment => {
+      this._list.forEach(assessment => {
         assessment.isClassic = !!assessment.user;
         assessment.isAnswered = !assessment.forms.find(x => !x.answers.length);
       });
