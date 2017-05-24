@@ -14,7 +14,7 @@ export class EventNotificationsEditModalComponent {
   protected _modal: ModalDirective;
 
   protected _notification: IEventNotification = {
-    time: new Date().toString(),
+    time: new Date().toISOString(),
     recipient: '',
     kind: ''
   };
