@@ -13,7 +13,7 @@ export abstract class ListComponent<T extends Model> implements OnInit {
   protected _meta: IResponseMeta;
   protected _id: string = 'id';
   protected _queryParams: IQueryParams = {
-    sort: this._id,
+    sort: this._id.toString(),
     number: defaultPage.toString(),
     size: supportedSizes[0].toString()
   };
@@ -97,6 +97,7 @@ export abstract class ListComponent<T extends Model> implements OnInit {
 
     queryParams.size = this._queryParams.size;
     queryParams.number = this._queryParams.number;
+    queryParams.sort = this._queryParams.sort;
 
     this._queryParams = queryParams;
 
@@ -110,7 +111,7 @@ export abstract class ListComponent<T extends Model> implements OnInit {
       this._update();
     } else {
       this._router.navigate([], {
-        queryParams: { number: this._queryParams.number, size: this._queryParams.size },
+        queryParams: { number: this._queryParams.number, size: this._queryParams.size, sort: this._queryParams.sort },
         relativeTo: this._activatedRoute
       });
     }
