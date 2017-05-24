@@ -31,6 +31,7 @@ export class DateTimeComponent implements ControlValueAccessor, AfterViewInit {
   protected _changed = new Array<(value: any) => void>();
   protected _touched = new Array<() => void>();
   protected _onlyDateMode: boolean = false;
+  protected _disabled: boolean = false;
   protected _input: ElementRef;
 
   protected _id = `picker-${ id++ }`;
@@ -71,6 +72,15 @@ export class DateTimeComponent implements ControlValueAccessor, AfterViewInit {
   @Input()
   public set onlyDateMode(value: boolean | string) {
     this._onlyDateMode = typeof value === 'boolean' ? value : true;
+  }
+
+  @Input()
+  public set disabled(value: boolean | string) {
+    this._disabled = typeof value === 'boolean' ? value : true;
+  }
+
+  public get disabled(): boolean | string {
+    return this._disabled;
   }
 
   constructor(protected _translateService: TranslateService) {
