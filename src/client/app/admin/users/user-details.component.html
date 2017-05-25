@@ -1,39 +1,45 @@
-<div class="card" *ngIf="model">
-  <div class="card-header"><b>{{ 'T_DETAILS' | translate }}</b></div>
-  <div class="card-block">
-    <div class="row">
-      <div class="col-md-8">
-        <h2>{{ model.name }}</h2>
-      </div>
-      <div class="col-md-4 text-right">
-        <button type="button"
-                class="btn btn-md btn-primary"
-                [routerLink]="['/admin/users/', model.id, 'edit']">{{ 'T_ACTION_EDIT' | translate }}
-        </button>
-      </div>
-    </div>
-
-    <div class="row mt-1">
-      <div class="col-md-3">
-        <small class="text-muted">{{ 'T_USER_EMAIL' | translate}}</small>
-        <div class="h6">{{ model.email }}</div>
+<ng-container *ngIf="model">
+  <div class="card">
+    <div class="card-header"><b>{{ 'T_DETAILS' | translate }}</b></div>
+    <div class="card-block">
+      <div class="row">
+        <div class="col-md-8">
+          <h2>{{ model.name }}</h2>
+        </div>
+        <div class="col-md-4 text-right">
+          <button type="button"
+                  class="btn btn-md btn-primary"
+                  [routerLink]="['/admin/users/', model.id, 'edit']">{{ 'T_ACTION_EDIT' | translate }}
+          </button>
+        </div>
       </div>
 
-      <div class="col-md-3">
-        <small class="text-muted">{{ 'T_USER_ROLE' | translate}}</small>
-        <div class="h6">{{ 'T_USER_ROLE_' + model.role.toUpperCase() | translate }}</div>
-      </div>
+      <div class="row mt-1">
+        <div class="col-md-3">
+          <small class="text-muted">{{ 'T_USER_EMAIL' | translate}}</small>
+          <div class="h6">{{ model.email }}</div>
+        </div>
 
-      <div class="col-md-3">
-        <small class="text-muted">{{ 'T_USER_STATUS' | translate}}</small>
-        <div class="h6">{{ 'T_USER_STATUS_' + model.status.toUpperCase() | translate }}</div>
-      </div>
+        <div class="col-md-3">
+          <small class="text-muted">{{ 'T_USER_ROLE' | translate}}</small>
+          <div class="h6">{{ 'T_USER_ROLE_' + model.role.toUpperCase() | translate }}</div>
+        </div>
 
-      <div class="col-md-3">
-        <small class="text-muted">{{ 'T_USER_GENDER' | translate}}</small>
-        <div *ngIf="model.gender" class="h6">{{ 'T_USER_GENDER_' + model.gender.toUpperCase() | translate }}</div>
-        <div *ngIf="!model.gender" class="h6">{{ 'T_NOT_SPECIFIED' | translate }}</div>
+        <div class="col-md-3">
+          <small class="text-muted">{{ 'T_USER_STATUS' | translate}}</small>
+          <div class="h6">{{ 'T_USER_STATUS_' + model.status.toUpperCase() | translate }}</div>
+        </div>
+
+        <div class="col-md-3">
+          <small class="text-muted">{{ 'T_USER_GENDER' | translate}}</small>
+          <div *ngIf="model.gender" class="h6">{{ 'T_USER_GENDER_' + model.gender.toUpperCase() | translate }}</div>
+          <div *ngIf="!model.gender" class="h6">{{ 'T_NOT_SPECIFIED' | translate }}</div>
+        </div>
       </div>
     </div>
   </div>
-</div>
+
+  <bs-user-group-list embedded [userId]="model.id"></bs-user-group-list>
+
+</ng-container>
+
