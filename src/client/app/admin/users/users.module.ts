@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { UserDetailsComponent } from './user-details.component';
 import { UserListComponent } from './user-list.component';
 import { UserFormComponent } from './user-form.component';
+import { UserGroupListComponent } from './user-group-list.component';
 
 @NgModule({
   imports: [
@@ -13,12 +14,14 @@ import { UserFormComponent } from './user-form.component';
   declarations: [
     UserListComponent,
     UserDetailsComponent,
-    UserFormComponent
+    UserFormComponent,
+    UserGroupListComponent
   ],
   exports: [
     UserListComponent,
     UserDetailsComponent,
-    UserFormComponent
+    UserFormComponent,
+    UserGroupListComponent
   ]
 })
 export class UsersModule {
