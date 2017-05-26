@@ -6,25 +6,30 @@ import { GroupDetailsComponent } from './group-details.component';
 import { GroupFormComponent } from './group-form.component';
 import { GroupUserListComponent } from './group-user-list.component';
 import { UsersAddModalComponent } from './users-add-modal.component';
+import { ChildGroupListComponent } from './child-group-list.component';
+import { BsDropdownModule } from 'ngx-bootstrap';
 
 @NgModule({
   imports: [
     SharedModule,
-    GroupsRoutingModule
+    GroupsRoutingModule,
+    BsDropdownModule
   ],
   declarations: [
     GroupListComponent,
     GroupDetailsComponent,
     GroupFormComponent,
     GroupUserListComponent,
-    UsersAddModalComponent
+    UsersAddModalComponent,
+    ChildGroupListComponent
   ],
   exports: [
     GroupListComponent,
     GroupDetailsComponent,
     GroupFormComponent,
     GroupUserListComponent,
-    UsersAddModalComponent
+    UsersAddModalComponent,
+    ChildGroupListComponent
   ],
 })
 export class GroupsModule {

@@ -1,0 +1,19 @@
+<ul class="list-group" *ngFor="let group of list">
+  <li class="list-group-item">
+    <a class="col-md-6" [routerLink]="['/admin/groups/', group.id, 'edit']">{{group.name}}</a>
+    <div class="col-md-6">
+      <button type="button"
+              class="btn btn-sm btn-primary ml-1"
+              title="{{ 'T_ACTION_EDIT' | translate }}"
+              [routerLink]="['/admin/groups/', group.id, 'edit']"><i class="fa fa-pencil"></i>&nbsp;{{ 'T_ACTION_EDIT' | translate }}
+      </button>
+
+      <button type="button"
+              class="btn btn-sm btn-danger ml-1"
+              title="{{ 'T_ACTION_DELETE' | translate }}"
+              bsConfirm
+              (confirm)="delete(group.id)"><i class="fa fa-trash"></i>&nbsp;{{ 'T_ACTION_DELETE' | translate }}
+      </button>
+    </div>
+  </li>
+</ul>
