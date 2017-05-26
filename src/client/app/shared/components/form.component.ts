@@ -37,9 +37,9 @@ export abstract class FormComponent<T extends Model> implements OnInit {
   }
 
   public save() {
-    this._service.save(this._model).subscribe(() => {
+    this._service.save(this._model).subscribe(model => {
       if (this._returnPath) {
-        this._router.navigate(this._returnPath);
+        this._router.navigate([this._returnPath + '/' + model.id]);
       }
       this._notificationService.success('T_SUCCESS_SAVED');
     });
