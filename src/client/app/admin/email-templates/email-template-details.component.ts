@@ -11,7 +11,6 @@ import { NotificationService } from '../../core/services/notification.service';
   templateUrl: `email-template-details.component.html`
 })
 export class EmailTemplateDetailsComponent extends DetailsComponent<EmailTemplateModel> {
-  protected _returnPath = ['/admin/templates'];
 
   constructor(service: EmailTemplateService,
               route: ActivatedRoute,
@@ -21,10 +20,8 @@ export class EmailTemplateDetailsComponent extends DetailsComponent<EmailTemplat
   }
 
   public clone(model: EmailTemplateModel) {
-    (<EmailTemplateService>this._service).clone(model).subscribe(() => {
-      if (this._returnPath) {
-        this._router.navigate(this._returnPath);
-      }
+    (<EmailTemplateService>this._service).clone(model).subscribe(model => {
+      this._router.navigate(['/admin/templates', model.id, 'edit']);
       this._notificationService.success('T_SUCCESS_CLONED');
     });
   }

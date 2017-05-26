@@ -16,7 +16,7 @@ import { FormComponent } from '../../shared/components/form.component';
 export class EmailTemplateFormComponent extends FormComponent<EmailTemplateModel> implements OnInit {
   protected _kinds: string[] = Object.values(EmailKind);
   protected _recipients: string[] = Object.values(Recipient);
-  protected _returnPath = ['/admin/templates'];
+  protected _returnPath: any[] = ['/admin/templates'];
   protected _emailParameters = [{
     label: 'T_EMAIL_TEMPLATE_ADD_RECIPIENT',
     name: 'addRecipient',

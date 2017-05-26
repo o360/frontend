@@ -16,7 +16,7 @@ import { NotificationService } from '../../core/services/notification.service';
 })
 export class ProjectFormComponent extends FormComponent<ProjectModel> {
   protected _auditors: GroupModel[];
-  protected _returnPath = ['/admin/projects'];
+  protected _returnPath: any[] = ['/admin/projects'];
 
   public get auditors(): GroupModel[] {
     return this._auditors;
