@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { SupportedLanguages } from '../../../shared/config/translate-loader.config';
+import { SupportedLanguages } from '../config/translate-loader.config';
 
 interface ILanguage {
   id: string;

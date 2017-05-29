@@ -3,7 +3,6 @@ import { SharedModule } from '../shared/shared.module';
 import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
-import { LanguageSelectorComponent } from './components/language-selector/language-selector.component';
 import { LayoutComponent } from './components/layout/layout.component';
 import { SidebarNavComponent } from './components/sidebar-nav/sidebar-nav.component';
 import { AuthServiceLoader } from './guards/auth-service.loader';
@@ -30,7 +29,6 @@ import { AssessmentService } from './services/assessment.service';
   ],
   declarations: [
     HeaderComponent,
-    LanguageSelectorComponent,
     SidebarNavComponent,
     BreadcrumbComponent,
     FooterComponent,
@@ -58,7 +56,6 @@ import { AssessmentService } from './services/assessment.service';
   ],
   exports: [
     HeaderComponent,
-    LanguageSelectorComponent,
     SidebarNavComponent,
     BreadcrumbComponent,
     FooterComponent,
