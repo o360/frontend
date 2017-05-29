@@ -11,7 +11,6 @@ import { NotificationService } from '../../core/services/notification.service';
   templateUrl: 'form-details.component.html'
 })
 export class FormDetailsComponent extends DetailsComponent<FormModel> {
-  protected _returnPath = ['/admin/forms'];
 
   public get FormElementType() {
     return FormElementType;
@@ -25,10 +24,8 @@ export class FormDetailsComponent extends DetailsComponent<FormModel> {
   }
 
   public clone(model: FormModel) {
-    (<FormService>this._service).clone(model).subscribe(() => {
-      if (this._returnPath) {
-        this._router.navigate(this._returnPath);
-      }
+    (<FormService>this._service).clone(model).subscribe(model => {
+      this._router.navigate(['/admin/forms', model.id, 'edit']);
       this._notificationService.success('T_SUCCESS_CLONED');
     });
   }
