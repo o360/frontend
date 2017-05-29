@@ -77,3 +77,24 @@ header.navbar .navbar-brand {
 .cke_button__addeventdescription_label {
   display: block !important;
 }
+
+.group-list-accordion {
+  .card {
+    margin-bottom: 0;
+    border: none;
+  }
+  .card-header {
+    padding: 0.25rem 1.25rem;
+  }
+}
+
+.accordion-group {
+  &:nth-child(even) {
+    .card-header {
+      background-color: #ffffff;
+    }
+  }
+  .card-block {
+    padding: 0;
+  }
+}
