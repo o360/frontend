@@ -9,6 +9,7 @@ import { ConfirmationDirective } from './directives/confirmation.directive';
 import { ToastModule } from 'ng2-toastr/ng2-toastr';
 import { PaginationComponent } from './components/pagination/pagination.component';
 import { CKEditorModule } from 'ng2-ckeditor';
+import { LanguageSelectorComponent } from './language-selector/language-selector.component';
 
 /**
  * Do not specify providers for modules that might be imported by a lazy loaded module.
@@ -32,7 +33,8 @@ import { CKEditorModule } from 'ng2-ckeditor';
   declarations: [
     ConfirmationDirective,
     FiltersComponent,
-    PaginationComponent
+    PaginationComponent,
+    LanguageSelectorComponent
   ],
   exports: [
     CommonModule,
@@ -49,7 +51,8 @@ import { CKEditorModule } from 'ng2-ckeditor';
     PaginationComponent,
     ModalModule,
     CKEditorModule,
-    TabsModule
+    TabsModule,
+    LanguageSelectorComponent
   ]
 })
 export class SharedModule {
