@@ -12,16 +12,26 @@
             (submit)="addNotification(time.value, recipient.value, kind.value); addNewNotificationForm.reset(); modal.hide();">
 
         <div class="modal-body">
-          <div class="form-group row mb-1">
+          <div class="form-group row mb-1"
+               [ngClass]="{'has-success': time.valid, 'has-danger': !time.valid && time.touched }">
             <label class="col-form-label col-4">{{ 'T_EVENT_NOTIFICATION_TIME' | translate }}</label>
             <div class="col-8">
-              <bs-datetime #time name="notification-time" [ngModel]="notification.time"></bs-datetime>
+              <bs-datetime #time="ngModel"
+                           name="notification-time"
+                           required
+                           [(ngModel)]="notification.time"></bs-datetime>
+              <div class="form-errors"
+                   *ngIf="time.errors && time.touched">
+                <div class="form-control-feedback" *ngIf="time.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}</div>
+                <div class="form-control-feedback" *ngIf="time.errors['format']"> {{ 'T_ERROR_INVALID_DATE' | translate }}</div>
+              </div>
             </div>
           </div>
-          <div class="form-group row mb-1">
+          <div class="form-group row mb-1"
+               [ngClass]="{'has-success': recipient.valid, 'has-danger': !recipient.valid && recipient.touched }">
             <label class="col-form-label col-4 " for="recipient">{{ 'T_EVENT_RECIPIENT' | translate }}</label>
             <div class="col-8">
-              <select #recipient
+              <select #recipient="ngModel"
                       id="recipient"
                       name="recipient"
                       class="form-control"
@@ -29,12 +39,17 @@
                       required>
                 <option *ngFor="let item of recipients" [value]="item">{{ 'T_EVENT_RECIPIENT_' + item.toUpperCase() | translate }}</option>
               </select>
+              <div class="form-errors"
+                   *ngIf="recipient.errors && recipient.touched">
+                <div class="form-control-feedback" *ngIf="recipient.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}</div>
+              </div>
             </div>
           </div>
-          <div class="form-group row mb-1">
+          <div class="form-group row mb-1"
+               [ngClass]="{'has-success': kind.valid, 'has-danger': !kind.valid && kind.touched }">
             <label class="col-form-label col-4 " for="kind">{{ 'T_EVENT_NOTIFICATION_KIND' | translate }}</label>
             <div class="col-8">
-              <select #kind
+              <select #kind="ngModel"
                       id="kind"
                       name="kind"
                       class="form-control"
@@ -42,6 +57,10 @@
                       required>
                 <option *ngFor="let item of kinds" [value]="item">{{ 'T_EVENT_NOTIFICATION_' + item.toUpperCase() | translate }}</option>
               </select>
+              <div class="form-errors"
+                   *ngIf="kind.errors && kind.touched">
+                <div class="form-control-feedback" *ngIf="kind.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}</div>
+              </div>
             </div>
           </div>
 

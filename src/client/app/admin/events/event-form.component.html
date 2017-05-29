@@ -14,7 +14,7 @@
 
       <!-- Description -->
       <div class="form-group row"
-           [ngClass]="{'has-success': description.valid, 'has-danger': !description.valid && description._touched }">
+           [ngClass]="{'has-success': description.valid, 'has-danger': !description.valid && description.touched }">
         <label for="description" class="col-form-label col-md-3">{{ 'T_EVENT_DESCRIPTION' | translate }}</label>
         <div class="col-md-9">
           <textarea type="text"
@@ -32,12 +32,20 @@
 
       <!-- Begin -->
       <div class="form-group row"
-           [ngClass]="{'has-success': start.valid, 'has-danger': !start.valid }">
+           [ngClass]="{'has-success': start.valid, 'has-danger': !start.valid && start.touched }">
         <label class="col-form-label col-md-3 required">{{ 'T_EVENT_START' | translate }}</label>
         <div class="col-md-9">
-          <bs-datetime #start name="start"
+          <bs-datetime #start="ngModel"
+                       required
+                       name="start"
                        [(ngModel)]="model.start"
                        [disabled]="model.status === EventStatus.InProgress"></bs-datetime>
+
+          <div class="form-errors"
+               *ngIf="start.errors && start.touched">
+            <div class="form-control-feedback" *ngIf="start.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}</div>
+            <div class="form-control-feedback" *ngIf="start.errors['format']"> {{ 'T_ERROR_INVALID_DATE' | translate }}</div>
+          </div>
         </div>
       </div>
 
@@ -46,9 +54,18 @@
            [ngClass]="{'has-success': end.valid, 'has-danger': !end.valid }">
         <label class="col-form-label col-md-3 required">{{ 'T_EVENT_END' | translate }}</label>
         <div class="col-md-9">
-          <bs-datetime #end name="end" [(ngModel)]="model.end"></bs-datetime>
+          <bs-datetime #end="ngModel"
+                       name="end"
+                       required
+                       [(ngModel)]="model.end"></bs-datetime>
+          <div class="form-errors"
+               *ngIf="end.errors && end.touched">
+            <div class="form-control-feedback" *ngIf="end.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}</div>
+            <div class="form-control-feedback" *ngIf="end.errors['format']"> {{ 'T_ERROR_INVALID_DATE' | translate }}</div>
+          </div>
         </div>
       </div>
+
 
       <!-- Can Revote -->
       <div class="form-group row">

@@ -7,13 +7,8 @@
            name="datepicker-{{id}}"
            class="form-control"
            [disabled]="disabled"
-           [(ngModel)]="date">
-  </div>
-</div>
-
-<div *ngIf="invalid | async">
-  <div class="form-errors"
-       *ngFor="let message of (failures | async)">
-    <div class="form-control-feedback">{{ message | translate }}</div>
+           (blur)="onBlur()"
+           [ngModel]="date"
+           (ngModelChange)="onChange($event)">
   </div>
 </div>
