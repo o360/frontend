@@ -1,9 +1,8 @@
 import { AfterViewInit, Component, ElementRef, forwardRef, Input, ViewChild } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgModel, ValidationErrors } from '@angular/forms';
+import { ControlValueAccessor, FormControl, NG_VALIDATORS, NG_VALUE_ACCESSOR, NgModel, Validator } from '@angular/forms';
 import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
 
 import * as moment from 'moment';
-import { Observable } from 'rxjs/Rx';
 
 export const DateFormat = {
   Date: 'DD.MM.YYYY',
@@ -16,23 +15,24 @@ let id = 0;
   moduleId: module.id,
   selector: 'bs-datetime',
   templateUrl: 'datetime-picker.component.html',
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => DateTimeComponent),
-      multi: true
-    }
-  ]
+  providers: [{
+    provide: NG_VALUE_ACCESSOR,
+    useExisting: forwardRef(() => DateTimeComponent),
+    multi: true
+  }, {
+    provide: NG_VALIDATORS,
+    useExisting: forwardRef(() => DateTimeComponent),
+    multi: true
+  }]
 })
-export class DateTimeComponent implements ControlValueAccessor, AfterViewInit {
+export class DateTimeComponent implements ControlValueAccessor, AfterViewInit, Validator {
   protected _innerValue: any;
   protected _date: any;
-  protected _valid: boolean;
-  protected _changed = new Array<(value: any) => void>();
-  protected _touched = new Array<() => void>();
   protected _onlyDateMode: boolean = false;
   protected _disabled: boolean = false;
   protected _input: ElementRef;
+  protected _propagateChange: Function;
+  protected _propagateTouch: Function;
 
   protected _id = `picker-${ id++ }`;
 
@@ -60,10 +60,6 @@ export class DateTimeComponent implements ControlValueAccessor, AfterViewInit {
     return this._id;
   }
 
-  public get valid(): boolean {
-    return this._valid;
-  }
-
   @ViewChild('input')
   public set input(value: ElementRef) {
     this._input = value;
@@ -75,43 +71,39 @@ export class DateTimeComponent implements ControlValueAccessor, AfterViewInit {
   }
 
   @Input()
-  public set disabled(value: boolean | string) {
+  public set disabled(value: boolean) {
     this._disabled = typeof value === 'boolean' ? value : true;
   }
 
-  public get disabled(): boolean | string {
+  public get disabled(): boolean {
     return this._disabled;
   }
+
 
   constructor(protected _translateService: TranslateService) {
   }
 
+
   public writeValue(value: any) {
-    this._innerValue = value;
-    this._date = this._formatDate(this._innerValue);
-    this.invalid.subscribe(validState => {
-      this._valid = !validState;
-    });
+    if (value) {
+      this._innerValue = value;
+      this._date = this._formatDate(this._innerValue);
+    }
   }
 
-  public registerOnChange(fn: (value: any) => void) {
-    this._changed.push(fn);
+  public registerOnChange(fn: any) {
+    this._propagateChange = fn;
   }
 
-  public registerOnTouched(fn: () => void) {
-    this._touched.push(fn);
+  public registerOnTouched(fn: any) {
+    this._propagateTouch = fn;
   }
 
   public onChange(value: any) {
-    this.invalid.subscribe(validState => {
-      if (!validState) {
-        this._date = value;
-        let datetime = this._parseDate(this._date);
-        this._innerValue = datetime.toDate();
-        this._changed.forEach(f => f(this._innerValue));
-      }
-      this._valid = !validState;
-    });
+    this._date = value;
+    let datetime = this._parseDate(this._date);
+    this._propagateChange(datetime);
+    this._innerValue = datetime.toDate();
   }
 
   public ngAfterViewInit() {
@@ -136,30 +128,17 @@ export class DateTimeComponent implements ControlValueAccessor, AfterViewInit {
     });
   }
 
-  protected _validate(): Observable<ValidationErrors> {
-    let errors: ValidationErrors = {};
-    let date = this._parseDate(this._date);
-
-    if (!date.isValid()) {
-      Object.assign(errors, { date: 'T_ERROR_INVALID_DATE' });
+  public validate(c: FormControl) {
+    if (c.value) {
+      let date = this._parseDate(c.value);
+      return (date.isValid()) ? null : { format: 'T_ERROR_INVALID_DATE' };
+    } else {
+      return { required: 'T_FORM_FIELD_IS_REQUIRED' };
     }
-
-    return Observable.of(errors);
   }
 
-  public get invalid(): Observable<boolean> {
-    return this._validate().map(v => Object.keys(v || {}).length > 0);
-  }
-
-  public get failures(): Observable<Array<string>> {
-    return this._validate().map(validator => Object.keys(validator).map(key => {
-      switch (typeof validator[key]) {
-        case 'string':
-          return <string> validator[key];
-        default:
-          return `${key}`;
-      }
-    }));
+  public onBlur() {
+    this._propagateTouch();
   }
 
   protected _formatDate(date: any) {
