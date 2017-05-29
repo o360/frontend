@@ -21,8 +21,8 @@ export class FormListComponent extends ListComponent<FormModel> {
 
   public clone(model: FormModel) {
     this._service.get(model.id).subscribe((model: FormModel) => {
-      (<FormService>this._service).clone(model).subscribe(() => {
-        this._update();
+      (<FormService>this._service).clone(model).subscribe(model => {
+        this._router.navigate(['/admin/forms', model.id, 'edit']);
         this._notificationService.success('T_SUCCESS_CLONED');
       });
     });
