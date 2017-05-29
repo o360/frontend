@@ -7,7 +7,7 @@ import { OAuthComponent } from './oauth.component';
 @NgModule({
   imports: [
     LoginRoutingModule,
-    SharedModule,
+    SharedModule
   ],
   exports: [
     OAuthComponent,
