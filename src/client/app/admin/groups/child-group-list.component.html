@@ -1,7 +1,9 @@
-<ul class="list-group" *ngFor="let group of list">
-  <li class="list-group-item">
-    <a class="col-md-6" [routerLink]="['/admin/groups/', group.id, 'edit']">{{group.name}}</a>
-    <div class="col-md-6">
+<ul class="list-group">
+  <li class="list-group-item" *ngFor="let group of list">
+    <span class="col-md-9 text-right pr-3">
+      <a [routerLink]="['/admin/groups/', group.id]">{{group.name}}</a>
+    </span>
+    <div class="col-md-3 text-right">
       <button type="button"
               class="btn btn-sm btn-primary ml-1"
               title="{{ 'T_ACTION_EDIT' | translate }}"
@@ -17,3 +19,4 @@
     </div>
   </li>
 </ul>
+
