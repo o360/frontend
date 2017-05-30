@@ -27,7 +27,7 @@
             <li class="d-flex justify-content-between align-items-center">
               <p class="col-md-3 mt-1 pl-0">{{ group.id }}</p>
               <div class="col-md-6 pl-0">
-                <a  [routerLink]="['/admin/groups/', group.id]">{{ group.name }}</a>
+                <a [routerLink]="['/admin/groups/', group.id]">{{ group.name }}</a>
                 <button type="button" class="btn btn-link btn-sm">
                   <i class="fa"
                      [ngClass]="{'fa-chevron-up': accordionGroup?.isOpen, 'fa-chevron-down': !accordionGroup?.isOpen }"></i>
@@ -51,11 +51,11 @@
             </li>
           </ul>
         </div>
-          <bs-child-group-list embedded [parentId]="group.id"></bs-child-group-list>
+        <bs-child-group-list embedded [parentId]="group.id"></bs-child-group-list>
       </accordion-group>
     </accordion>
-  </div>
 
-  <bs-pagination [meta]="meta"
-                 (queryParamsChange)="pageQueryParamsChanged($event)"></bs-pagination>
+    <bs-pagination [meta]="meta"
+                   (queryParamsChange)="pageQueryParamsChanged($event)"></bs-pagination>
+  </div>
 </div>

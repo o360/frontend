@@ -86,6 +86,10 @@ header.navbar .navbar-brand {
   .card-header {
     padding: 0.25rem 1.25rem;
   }
+  .list-group-item {
+    border: none;
+    padding: 0.75rem 0;
+  }
 }
 
 .accordion-group {
@@ -96,5 +100,18 @@ header.navbar .navbar-brand {
   }
   .card-block {
     padding: 0;
+  }
+}
+.accordion-inner-group {
+  .card-header {
+    background-color: #ffffff;
+  }
+  .inner-element {
+    padding-right: 10rem;
+  }
+  .accordion-inner-group {
+    .inner-element {
+      padding-right: 0;
+    }
   }
 }
