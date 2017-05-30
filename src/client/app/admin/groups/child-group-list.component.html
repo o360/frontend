@@ -3,9 +3,10 @@
     <div accordion-heading>
       <ul class="list-group">
         <li class="list-group-item">
-        <div class="col-md-9 text-right inner-element">
+        <p class="col-md-3 pl-0">{{ group.id }}</p>
+        <div class="col-md-6 inner-element">
           <a [routerLink]="['/admin/groups/', group.id]">{{group.name}}</a>
-           <button type="button" class="btn btn-link btn-sm">
+           <button *ngIf="group.hasChildren" type="button" class="btn btn-link btn-sm">
               <i class="fa"
                  [ngClass]="{'fa-chevron-up': accordionGroup?.isOpen, 'fa-chevron-down': !accordionGroup?.isOpen }"></i>
             </button>
