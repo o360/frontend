@@ -3,14 +3,14 @@
     <div accordion-heading>
       <ul class="list-group">
         <li class="list-group-item">
-        <p class="col-md-3 pl-0">{{ group.id }}</p>
-        <div class="col-md-6 inner-element">
-          <a [routerLink]="['/admin/groups/', group.id]">{{group.name}}</a>
-           <button *ngIf="group.hasChildren" type="button" class="btn btn-link btn-sm">
+          <p class="col-md-3 pl-0">{{ group.id }}</p>
+          <div class="col-md-6 inner-element">
+            <a [routerLink]="['/admin/groups/', group.id]">{{group.name}}</a>
+            <button *ngIf="group.hasChildren" type="button" class="btn btn-link btn-sm">
               <i class="fa"
                  [ngClass]="{'fa-chevron-up': accordionGroup?.isOpen, 'fa-chevron-down': !accordionGroup?.isOpen }"></i>
             </button>
-        </div>
+          </div>
           <div class="col-md-3 text-right">
             <button type="button"
                     class="btn btn-sm btn-primary ml-1"
@@ -28,6 +28,8 @@
         </li>
       </ul>
     </div>
-    <bs-child-group-list embedded [parentId]="group.id"></bs-child-group-list>
+    <ng-template [ngIf]="group.hasChildren">
+      <bs-child-group-list embedded [parentId]="group.id"></bs-child-group-list>
+    </ng-template>
   </accordion-group>
 </accordion>

@@ -10,7 +10,8 @@
             [routerLink]="['/admin/groups/create', parentId!='null' ? { parentId: parentId } : {}]"><i class="fa fa-group mr-h"></i>
       {{ parentId!='null' ? ('T_ACTION_CREATE_CHILD_GROUP'| translate) : ('T_ACTION_CREATE' | translate )}}
     </button>
-    <table class="table table-striped mt-1 mb-0">
+
+    <table class="table table-striped mt-1 mb-0" *ngIf="list.length">
       <thead>
         <tr class="ml-1">
           <th>#</th>
@@ -54,7 +55,8 @@
       </accordion-group>
     </accordion>
 
-    <bs-pagination [meta]="meta"
+
+    <bs-pagination *ngIf="list.length === 10" [meta]="meta"
                    (queryParamsChange)="pageQueryParamsChanged($event)"></bs-pagination>
   </div>
 </div>
