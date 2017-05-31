@@ -56,5 +56,12 @@ export class GroupFormComponent extends FormComponent<GroupModel> {
 
     super._processModel(model);
   }
+
+  public save() {
+    if (this._model.parentId === '') {
+      delete this._model.parentId;
+    }
+    super.save();
+  }
 }
 
