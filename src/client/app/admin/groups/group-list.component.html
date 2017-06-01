@@ -10,41 +10,53 @@
             [routerLink]="['/admin/groups/create', parentId!='null' ? { parentId: parentId } : {}]"><i class="fa fa-group mr-h"></i>
       {{ parentId!='null' ? ('T_ACTION_CREATE_CHILD_GROUP'| translate) : ('T_ACTION_CREATE' | translate )}}
     </button>
-    <table class="table table-striped mt-1">
+
+    <table class="table table-striped mt-1 mb-0" *ngIf="list.length">
       <thead>
-        <tr>
+        <tr class="ml-1">
           <th>#</th>
           <th>{{ 'T_GROUP_NAME' | translate }}</th>
           <th class="actions-column">{{ 'T_ACTION' | translate }}</th>
         </tr>
       </thead>
-      <tbody>
-        <tr *ngFor="let group of list">
-          <td>{{ group.id }}</td>
-          <td><a [routerLink]="['/admin/groups', group.id]">{{ group.name }}</a></td>
-          <td class="actions-column">
-            <button type="button"
-                    class="btn btn-sm btn-primary ml-1"
-                    title="{{ 'T_ACTION_EDIT' | translate }}"
-                    [routerLink]="['/admin/groups/', group.id, 'edit']"><i class="fa fa-pencil"></i>&nbsp;{{ 'T_ACTION_EDIT' | translate }}
-            </button>
-
-            <button type="button"
-                    class="btn btn-sm btn-danger ml-1"
-                    title="{{ 'T_ACTION_DELETE' | translate }}"
-                    bsConfirm
-                    (confirm)="delete(group.id)"><i class="fa fa-trash"></i>&nbsp;{{ 'T_ACTION_DELETE' | translate }}
-            </button>
-          </td>
-        </tr>
-
-        <tr *ngIf="!list.length">
-          <td colspan="25" class="text-center">{{ 'T_EMPTY' | translate }}</td>
-        </tr>
-      </tbody>
     </table>
 
-    <bs-pagination [meta]="meta"
+    <accordion class="group-list-accordion">
+      <accordion-group *ngFor="let group of list" class="accordion-group" #accordionGroup>
+        <div accordion-heading>
+          <ul class="list-group">
+            <li class="d-flex justify-content-between align-items-center">
+              <p class="col-md-3 mt-1 pl-0">{{ group.id }}</p>
+              <div class="col-md-6 pl-0">
+                <a [routerLink]="['/admin/groups/', group.id]">{{ group.name }}</a>
+                <button *ngIf="group.hasChildren" type="button" class="btn btn-link btn-sm">
+                  <i class="fa"
+                     [ngClass]="{'fa-chevron-up': accordionGroup?.isOpen, 'fa-chevron-down': !accordionGroup?.isOpen }"></i>
+                </button>
+              </div>
+              <div class="action-column col-md-3 text-right">
+                <button type="button"
+                        class="btn btn-sm btn-primary ml-1"
+                        title="{{ 'T_ACTION_EDIT' | translate }}"
+                        [routerLink]="['/admin/groups/', group.id, 'edit']"><i class="fa fa-pencil"></i> {{ 'T_ACTION_EDIT' | translate }}
+                </button>
+
+                <button type="button"
+                        class="btn btn-sm btn-danger ml-1"
+                        title="{{ 'T_ACTION_DELETE' | translate }}"
+                        bsConfirm
+                        (confirm)="delete(group.id)"><i class="fa fa-trash"></i> {{ 'T_ACTION_DELETE' | translate }}
+                </button>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <bs-child-group-list embedded [parentId]="group.id"></bs-child-group-list>
+      </accordion-group>
+    </accordion>
+
+
+    <bs-pagination *ngIf="meta.total > 10" [meta]="meta"
                    (queryParamsChange)="pageQueryParamsChanged($event)"></bs-pagination>
   </div>
 </div>

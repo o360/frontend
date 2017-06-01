@@ -43,6 +43,7 @@
   "T_USER_DETAILS": "Подробнее о пользователе",
   "T_FORM_ENTER_NAME": "Введите имя пользователя...",
   "T_FORM_ENTER_EMAIL": "Введите email...",
+  "T_FORM_ENTER_GROUP_NAME": "Введите название группы...",
   "T_FORM_ENTER_DESCRIPTION": "Введите описание...",
   "T_FORM_FIELD_IS_REQUIRED": "Поле должно быть заполнено",
   "T_FORM_FIELD_IS_INVALID": "Поле заполнено неверно",

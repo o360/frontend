@@ -77,3 +77,41 @@ header.navbar .navbar-brand {
 .cke_button__addeventdescription_label {
   display: block !important;
 }
+
+.group-list-accordion {
+  .card {
+    margin-bottom: 0;
+    border: none;
+  }
+  .card-header {
+    padding: 0.25rem 1.25rem;
+  }
+  .list-group-item {
+    border: none;
+    padding: 0.75rem 0;
+  }
+}
+
+.accordion-group {
+  &:nth-child(even) {
+    .card-header {
+      background-color: #ffffff;
+    }
+  }
+  .card-block {
+    padding: 0;
+  }
+}
+.accordion-inner-group {
+  .card-header {
+    background-color: #ffffff;
+  }
+  .inner-element {
+    padding-left: 3rem;
+  }
+  .accordion-inner-group {
+    .inner-element {
+      padding-left: 6rem;
+    }
+  }
+}
