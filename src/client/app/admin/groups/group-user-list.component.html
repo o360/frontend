@@ -50,7 +50,7 @@
       </tbody>
     </table>
 
-    <bs-pagination *ngIf="list.length === 10" [meta]="meta"
+    <bs-pagination *ngIf="meta.total > 10" [meta]="meta"
                    (queryParamsChange)="pageQueryParamsChanged($event)"></bs-pagination>
 
   </div>
