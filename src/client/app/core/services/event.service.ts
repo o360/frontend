@@ -35,4 +35,16 @@ export class EventService extends RestService<EventModel> {
     return this._http.delete(requestParams, requestOptions)
       .catch((error: Response) => this._handleErrors(error));
   }
+
+  public clone(model: EventModel): Observable<EventModel> {
+    let clone = new EventModel(JSON.parse(model.toJson()));
+    let date = new Date();
+
+    clone.id = undefined;
+    clone.notifications = [];
+    clone.start = date.setDate(date.getDate() + 1);
+    clone.end = date.setDate(date.getDate() + 2);
+
+    return this.save(clone);
+  }
 }
