@@ -24,6 +24,12 @@
           </div>
         </div>
         <div class="col-md-3 text-right">
+          <button type="button" class="btn btn-warning mr-1"
+                  bsConfirm
+                  [message]="'T_FORM_CONFIRM_CLONE_MESSAGE' | translate"
+                  (confirm)="clone(model);">
+            <i class="mr-h fa fa-copy"></i> {{ 'T_ACTION_CLONE' | translate }}
+          </button>
           <button type="button"
                   class="btn btn-md btn-primary"
                   [routerLink]="['/admin/events/', model.id, 'edit']">

@@ -28,7 +28,7 @@
                   class="btn btn-sm btn-danger ml-1"
                   bsConfirm
                   (confirm)="delete(project.id)">
-            <i class="fa fa-trash"></i>&nbsp;
+            <i class="fa fa-remove"></i>&nbsp;
             {{ 'T_ACTION_REMOVE' | translate }}
           </button>
         </td>
@@ -40,9 +40,10 @@
     </tbody>
   </table>
 
-  <bs-pagination [meta]="meta"
+  <bs-pagination *ngIf="meta.total > 10" [meta]="meta"
                  (queryParamsChange)="pageQueryParamsChanged($event)"></bs-pagination>
 </div>
+
 <!-- Adding projects to event modal-->
 <bs-projects-add-modal #modalForm
                        [eventId]="event.id"
