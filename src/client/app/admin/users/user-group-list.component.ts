@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ListComponent } from '../../shared/components/list.component';
 import { GroupModel } from '../../core/models/group-model';
 import { GroupService } from '../../core/services/group.service';
@@ -11,7 +11,7 @@ import { ModelId } from '../../core/models/model';
   selector: 'bs-user-group-list',
   templateUrl: 'user-group-list.component.html'
 })
-export class UserGroupListComponent extends ListComponent<GroupModel> {
+export class UserGroupListComponent extends ListComponent<GroupModel> implements OnInit {
   protected _userId: ModelId;
 
   @Input()
