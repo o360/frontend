@@ -24,7 +24,7 @@ export class HomeComponent extends ListComponent<EventModel> {
 
   protected _update() {
     this._embedded = true;
-    let queryParams = { status: EventStatus.InProgress };
+    let queryParams = { status: EventStatus.InProgress, onlyAvailable: 'true' };
     this._service.list(queryParams).subscribe((res: IListResponse<EventModel>) => {
       this._list = res.data;
       this._meta = res.meta;
