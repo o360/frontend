@@ -1,5 +1,7 @@
 import { Defaults } from '../decorators/defaults.decorator';
 import { Model } from './model';
+import * as moment from 'moment';
+import { DateFormat } from '../../shared/components/datetime/datetime-picker.component';
 
 @Defaults({
   start: new Date(),
@@ -23,11 +25,8 @@ export class EventModel extends Model {
   }
 
   public toJson(): any {
-    let start = new Date(this.start);
-    let end = new Date(this.end);
-    this.start = start.toISOString().split('.')[0] + 'Z';
-    this.end = end.toISOString().split('.')[0] + 'Z';
-
+    this.start = moment(this.start).format(DateFormat.Backend);
+    this.end = moment(this.end).format(DateFormat.Backend);
     return JSON.stringify(this);
   }
 }

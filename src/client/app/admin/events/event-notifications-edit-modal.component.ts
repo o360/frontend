@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { EventModel, EventNotificationKind, EventRecipient, IEventNotification } from '../../core/models/event-model';
 import { ModalDirective } from 'ngx-bootstrap';
+import * as moment from 'moment';
+import { DateFormat } from '../../shared/components/datetime/datetime-picker.component';
 
 @Component({
   moduleId: module.id,
@@ -14,7 +16,7 @@ export class EventNotificationsEditModalComponent {
   protected _modal: ModalDirective;
 
   protected _notification: IEventNotification = {
-    time: new Date().toISOString(),
+    time: moment(new Date()).format(DateFormat.Backend),
     recipient: '',
     kind: ''
   };
@@ -55,7 +57,7 @@ export class EventNotificationsEditModalComponent {
 
   public addNotification(time: string, recipient: string, kind: string) {
     this._notification = {
-      time: new Date(time).toISOString().split('.')[0] + 'Z',
+      time: moment(time).format(DateFormat.Backend),
       recipient: recipient,
       kind: kind
     };
