@@ -85,8 +85,8 @@ export class RestService<T extends Model> {
    * @params {number} id of record
    * @return {Observable<T>}
    */
-  public get(id: ModelId): Observable<T> {
-    return this._http.get(this._getRequestParams(id), this._getRequestOptions())
+  public get(id: ModelId, queryParams?: IQueryParams): Observable<T> {
+    return this._http.get(this._getRequestParams(id, queryParams), this._getRequestOptions())
       .map((response: Response) => response.json())
       .map((json: any) => this.createEntity(json))
       .catch((error: Response) => this._handleErrors(error));
