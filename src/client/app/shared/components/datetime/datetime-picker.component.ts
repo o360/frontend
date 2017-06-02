@@ -6,7 +6,8 @@ import * as moment from 'moment';
 
 export const DateFormat = {
   Date: 'DD.MM.YYYY',
-  DateTime: 'DD.MM.YYYY HH:mm'
+  DateTime: 'DD.MM.YYYY HH:mm',
+  Backend: 'YYYY-MM-DDTHH:mm:ss'
 };
 
 let id = 0;
