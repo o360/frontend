@@ -36,8 +36,8 @@ export class EventDetailsComponent extends DetailsComponent<EventModel> {
         });
         projectsId.map(projectId => (<EventService>this._service).addProject(clone.id, projectId).subscribe());
         this._router.navigate(['/admin/events', clone.id, 'clone']);
-        this._notificationService.success('T_SUCCESS_CLONED_EVENT');
       });
+      this._notificationService.success('T_SUCCESS_CLONED_EVENT');
     });
   }
 }
