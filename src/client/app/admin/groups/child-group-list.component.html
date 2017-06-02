@@ -2,16 +2,16 @@
   <accordion-group *ngFor="let group of list" class="accordion-inner-group" #accordionGroup>
     <div accordion-heading>
       <ul class="list-group">
-        <li class="list-group-item">
-          <p class="col-md-3 pl-0">{{ group.id }}</p>
-          <div class="col-md-6 inner-element">
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <p class="col-md-2 mr-2">{{ group.id }}</p>
+          <div class="col-md-5 inner-element">
             <a [routerLink]="['/admin/groups/', group.id]">{{group.name}}</a>
             <button *ngIf="group.hasChildren" type="button" class="btn btn-link btn-sm">
               <i class="fa"
                  [ngClass]="{'fa-chevron-up': accordionGroup?.isOpen, 'fa-chevron-down': !accordionGroup?.isOpen }"></i>
             </button>
           </div>
-          <div class="col-md-3 text-right">
+          <div class="col-md-4 text-right actions-column pr-2">
             <button type="button"
                     class="btn btn-sm btn-primary ml-1"
                     title="{{ 'T_ACTION_EDIT' | translate }}"
