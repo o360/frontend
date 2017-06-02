@@ -3,9 +3,9 @@ import { AssessmentModel, IElementAnswer } from '../core/models/assessment-model
 import { FormElementType, FormModel, IFormElement } from '../core/models/form-model';
 import { ModelId } from '../core/models/model';
 import { AssessmentService } from '../core/services/assessment.service';
-import { FormService } from '../core/services/form.service';
 import { NotificationService } from '../core/services/notification.service';
 import { IListResponse, IQueryParams } from '../core/services/rest.service';
+import { FormUsersService } from '../core/services/form-users.service';
 
 @Component({
   moduleId: module.id,
@@ -61,7 +61,7 @@ export class UserAssessmentFormComponent implements OnInit {
   }
 
   constructor(protected _assessmentService: AssessmentService,
-              protected _formService: FormService,
+              protected _formUsersService: FormUsersService,
               protected _notificationService: NotificationService) {
   }
 
@@ -70,7 +70,7 @@ export class UserAssessmentFormComponent implements OnInit {
   }
 
   protected _update(): void {
-    this._formService.get(this._id).subscribe((form: FormModel) => {
+    this._formUsersService.get(this._id, this._queryParams).subscribe((form: FormModel) => {
       this._form = form;
 
       this._getAnswers();
@@ -79,7 +79,7 @@ export class UserAssessmentFormComponent implements OnInit {
 
   public save() {
     let answers = this._form.elements.map((element: IFormElement) => {
-      let elementAnswer: IElementAnswer = { elementId: element.id };
+      let elementAnswer: IElementAnswer = {elementId: element.id};
 
       if (!this.requireValue(element.kind)) {
         if (!!element.tempValue) {
