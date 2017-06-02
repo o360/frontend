@@ -11,12 +11,13 @@
         <!-- Description -->
         <div class="form-group row"
              [ngClass]="{'has-success': description.valid, 'has-danger': !description.valid && description.touched }">
-          <label for="description" class="col-form-label col-md-3">{{ 'T_EVENT_DESCRIPTION' | translate }}</label>
+          <label for="description" class="col-form-label col-md-3 required">{{ 'T_EVENT_DESCRIPTION' | translate }}</label>
           <div class="col-md-9">
           <textarea type="text"
                     class="form-control"
                     id="description"
                     name="description"
+                    required
                     #description="ngModel"
                     placeholder="{{ 'T_EVENT_ENTER_DESCRIPTION' | translate }}"
                     [(ngModel)]="model.description">
