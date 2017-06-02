@@ -4,6 +4,7 @@ import { AuthService } from '../core/services/auth.service';
 import { ProfileService } from '../core/services/profile.service';
 import { UserGender } from '../core/models/user-model';
 import { NotificationService } from '../core/services/notification.service';
+import { TimeZone } from '../shared/config/timezone.config';
 
 
 @Component({
@@ -13,10 +14,15 @@ import { NotificationService } from '../core/services/notification.service';
 })
 export class NewAccountComponent {
   private _genders: string[] = Object.values(UserGender);
+  private _timezones: string[] = Object.values(TimeZone);
   private _user: AccountModel;
 
   public get genders(): string[] {
     return this._genders;
+  }
+
+  public get timezones(): string[] {
+    return this._timezones;
   }
 
   public get user(): AccountModel {
