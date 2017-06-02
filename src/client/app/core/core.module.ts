@@ -21,6 +21,7 @@ import { RelationService } from './services/relation.service';
 import { EmailTemplateService } from './services/email-template.service';
 import { AdminGuard } from './guards/admin.guard';
 import { AssessmentService } from './services/assessment.service';
+import { FormUsersService } from './services/form-users.service';
 
 @NgModule({
   imports: [
@@ -46,6 +47,7 @@ import { AssessmentService } from './services/assessment.service';
     NotificationService,
     EventService,
     FormService,
+    FormUsersService,
     ProjectService,
     EventService,
     ProjectService,
