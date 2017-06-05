@@ -15,13 +15,31 @@
           <td>{{ model.description }}</td>
           <td>{{ model.start | date: 'mediumDate' }}</td>
           <td>{{ model.end | date: 'mediumDate' }}</td>
-          <td class="actions-column">
-            <button type="button"
-                    class="btn btn-sm btn-success ml-1"
-                    title="{{ 'T_ACTION_ASSESS' | translate }}"
-                    [routerLink]="['/events', model.id]">
-              <i class="fa fa-hand-pointer-o"></i> {{ 'T_ACTION_ASSESS' | translate}}
-            </button>
+          <td class="actions-column" [ngSwitch]="model.status">
+            <ng-template [ngSwitchCase]="EventStatus.InProgress">
+              <button type="button"
+                      class="btn btn-sm btn-success ml-1"
+                      title="{{ 'T_ACTION_ASSESS' | translate }}"
+                      [routerLink]="['/events', model.id]">
+                <i class="fa fa-hand-pointer-o"></i> {{ 'T_ACTION_ASSESS' | translate}}
+              </button>
+            </ng-template>
+            <ng-template [ngSwitchCase]="EventStatus.Completed">
+              <button type="button"
+                      class="btn btn-sm btn-success ml-1"
+                      title="{{ 'T_ACTION_VIEW_ASSESSMENT' | translate }}"
+                      [routerLink]="['/events', model.id]">
+                <i class="fa fa-hand-pointer-o"></i> {{ 'T_ACTION_VIEW_ASSESSMENT' | translate}}
+              </button>
+            </ng-template>
+            <ng-template [ngSwitchCase]="EventStatus.NotStarted">
+              <button type="button"
+                      class="btn btn-sm btn-success ml-1"
+                      title="{{ 'T_ACTION_VIEW_FORM' | translate }}"
+                      [routerLink]="['/events', model.id]">
+                <i class="fa fa-hand-pointer-o"></i> {{ 'T_ACTION_VIEW_FORM' | translate}}
+              </button>
+            </ng-template>
           </td>
         </tr>
 
