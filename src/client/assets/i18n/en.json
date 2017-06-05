@@ -101,6 +101,7 @@
   "T_SUCCESS_NEW_USER_SAVED": "Please, wait for your account to be approved by the administrator",
   "T_SUCCESS_CLONED": "Cloned!",
   "T_ERROR_INVALID_DATE": "Wrong date format",
+  "T_ERROR_MIN_DATE": "End date cannot be before start date",
   "T_ERROR_INVALID_TIME":"Wrong time format",
   "T_ERROR_PAGINATION": "Invalid request! Check parameter 'number' (page number) in the URL.",
   "T_ERROR_SORTING": "Invalid request! Check parameter 'sort' in the URL.",

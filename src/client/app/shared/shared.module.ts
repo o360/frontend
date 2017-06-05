@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { AccordionModule, CollapseModule, TabsModule, ModalModule, PaginationModule } from 'ngx-bootstrap';
@@ -20,6 +20,7 @@ import { LanguageSelectorComponent } from './language-selector/language-selector
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     RouterModule,
     TranslateModule,
     ToastModule,
@@ -42,6 +43,7 @@ import { LanguageSelectorComponent } from './language-selector/language-selector
   exports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     RouterModule,
     TranslateModule,
     ConfirmationDirective,
