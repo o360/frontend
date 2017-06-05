@@ -32,6 +32,8 @@
   "T_ACTION_CHOOSE_EMAIL_TEMPLATE": "Выбрать шаблон письма",
   "T_ACTION_CHANGE_EMAIL_TEMPLATE": "Выбрать другой шаблон письма",
   "T_ACTION_EDIT_EVENT_NOTIFICATIONS": "Редактировать уведомления о событии оценки",
+  "T_ACTION_VIEW_ASSESSMENT": "Просмотреть оценки",
+  "T_ACTION_VIEW_FORM": "Просмотреть формы",
   "T_USER": "Пользователь",
   "T_USER_NAME": "Имя",
   "T_USER_EMAIL": "Email",
