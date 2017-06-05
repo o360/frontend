@@ -17,8 +17,6 @@ export class GroupListComponent extends ListComponent<GroupModel> implements OnI
     name: 'T_GROUP_NAME',
     field: 'name',
     type: FilterType.String,
-    values: Object.values(GroupModel)
-
   }];
 
   protected _parentId: string = 'null';
@@ -49,32 +47,15 @@ export class GroupListComponent extends ListComponent<GroupModel> implements OnI
       Object.assign(this._queryParams, { parentId: this._parentId });
       this._update();
     }
-    if (changes['list']) {
-     console.log('onchange');
-    }
   }
 
   public filterChange(value: IQueryParams) {
-    console.log(value);
-    let queryParams = Object.assign({}, value);
-
-    // queryParams.size = this._queryParams.size;
-    // queryParams.number = this._queryParams.number;
-    // queryParams.sort = this._queryParams.sort;
-    console.log(this._filters[0]);
-    console.log(this._filters[0].value);
-    this._list.find(x => x.name === this._filters[0].value);
-    this.filterUpdate();
-  }
-
-  public filterUpdate() {
+    console.log(value.name);
     this._service.list(this._queryParams).subscribe((res: IListResponse<GroupModel>) => {
-      // this._meta = res.meta;
       this._list = res.data;
-      this._list.find(x => x.name === this._filters[0].value);
       console.log(this._list);
-      console.log(this._list.find(x => x.name === this._filters[0].value);
-      return Object.values(this._list);
     });
+    this._list = this._list.filter(x => x.name === value.name);
+    console.log(this._list);
   }
 }
