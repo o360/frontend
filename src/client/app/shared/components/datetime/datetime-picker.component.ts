@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, forwardRef, Input, ViewChild } from '@angular/core';
-import { ControlValueAccessor, FormControl, NG_VALIDATORS, NG_VALUE_ACCESSOR, NgModel, Validator } from '@angular/forms';
+import { ControlValueAccessor, FormControl, NG_VALIDATORS, NG_VALUE_ACCESSOR, NgModel, ValidationErrors, Validator } from '@angular/forms';
 import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
 
 import * as moment from 'moment';
@@ -80,10 +80,8 @@ export class DateTimeComponent implements ControlValueAccessor, AfterViewInit, V
     return this._disabled;
   }
 
-
   constructor(protected _translateService: TranslateService) {
   }
-
 
   public writeValue(value: any) {
     if (value) {
@@ -129,13 +127,18 @@ export class DateTimeComponent implements ControlValueAccessor, AfterViewInit, V
     });
   }
 
-  public validate(c: FormControl) {
+  public validate(c: FormControl): ValidationErrors {
+    let errors: ValidationErrors = {};
     if (c.value) {
       let date = this._parseDate(c.value);
-      return (date.isValid()) ? null : { format: 'T_ERROR_INVALID_DATE' };
+      if (!date.isValid()) {
+        Object.assign(errors, { format: 'T_ERROR_INVALID_DATE' });
+      }
     } else {
-      return { required: 'T_FORM_FIELD_IS_REQUIRED' };
+      Object.assign(errors, { required: 'T_FORM_FIELD_IS_REQUIRED' });
     }
+
+    return errors;
   }
 
   public onBlur() {
@@ -157,4 +160,5 @@ export class DateTimeComponent implements ControlValueAccessor, AfterViewInit, V
       return moment(date, DateFormat.DateTime, true);
     }
   }
+
 }

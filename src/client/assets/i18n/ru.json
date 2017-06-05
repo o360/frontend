@@ -91,6 +91,7 @@
   "T_ERROR_CONFLICT_ASSESSMENT_2": "Запрещено менять оценку",
   "T_ERROR_INVALID_DATE": "Неверный формат даты",
   "T_ERROR_INVALID_TIME":"Неверный формат времени",
+  "T_ERROR_MIN_DATE": "Дата окончания события не может быть раньше даты его начала",
   "T_LOG_IN": "Войти",
   "T_LOG_OUT": "Выйти",
   "T_FILTER_TITLE": "Фильтрация",
