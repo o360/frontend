@@ -12,7 +12,7 @@ export const EventFormValidator = (control: AbstractControl): ValidationErrors =
   const end = control.get('end').value;
 
   if (moment(start).isValid() && moment(end).isValid()) {
-    return (moment(start).isSameOrBefore(end)) ? null : { minDate: 'T_ERROR_MIN_DATE' };
+    return (moment(start).isSameOrBefore(end)) ? null : {minDate: 'T_ERROR_MIN_DATE'};
   } else {
     return null;
   }
@@ -47,7 +47,7 @@ export class EventFormComponent extends FormComponent<EventModel> {
   }
 
   public save() {
-    this._model = this._prepareSaveForm();
+    this._model = new EventModel(this._eventForm.value);
 
     super.save();
   }
@@ -55,12 +55,7 @@ export class EventFormComponent extends FormComponent<EventModel> {
   protected _processModel(model: EventModel) {
     super._processModel(model);
 
-    this._eventForm.reset({
-      description: this._model.description,
-      start: this._model.start,
-      end: this._model.end,
-      canRevote: this._model.canRevote
-    });
+    this._eventForm.reset(this._model);
   }
 
   protected _createForm() {
@@ -70,18 +65,6 @@ export class EventFormComponent extends FormComponent<EventModel> {
         end: ['', Validators.required],
         canRevote: false
       },
-      { validator: EventFormValidator });
-  }
-
-  protected _prepareSaveForm(): EventModel {
-    let formModel = this._eventForm.value;
-
-    let saveForm: EventModel = new EventModel({
-      description: formModel.description,
-      start: formModel.start,
-      end: formModel.end,
-      canRevote: formModel.canRevote
-    });
-    return saveForm;
+      {validator: EventFormValidator});
   }
 }
