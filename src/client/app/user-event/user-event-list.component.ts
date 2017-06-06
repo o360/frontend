@@ -12,11 +12,15 @@ import { IListResponse } from '../core/services/rest.service';
   templateUrl: 'user-event-list.component.html'
 })
 export class UserEventListComponent extends ListComponent<EventModel> {
-  private _status: string = 'null';
+  protected _status: string = 'null';
 
   @Input()
   public set status(value: string) {
     this._status = value;
+  }
+
+  public get status(): string {
+    return this._status;
   }
 
   public get EventStatus() {
