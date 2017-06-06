@@ -63,6 +63,22 @@
           </select>
         </div>
       </div>
+
+      <!--Time zone-->
+      <div class="form-group row"
+           [ngClass]="{'has-success': timezone.valid, 'has-danger': !timezone.value && timezone.touched }">
+        <label for="timezone" class="col-form-label col-md-3 required">{{ 'T_USER_TIME_ZONE' | translate }}</label>
+        <div class="col-md-9">
+          <select id="timezone"
+                  #timezone="ngModel"
+                  name="timezone"
+                  required
+                  class="form-control col-xs-6"
+                  [(ngModel)]="model.timezone">
+            <option *ngFor="let timezone of timezones" [ngValue]="timezone">{{ 'T_USER_TIME_ZONE_' + timezone | translate }}</option>
+          </select>
+        </div>
+      </div>
       <hr/>
 
       <div class="text-right">
