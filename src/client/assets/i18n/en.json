@@ -19,6 +19,8 @@
   "T_ACTION_DETAILS": "Details",
   "T_ACTION_GO_BACK": "Go back",
   "T_ACTION_APPROVE": "Approve",
+  "T_ACTION_EXPAND": "Expand all",
+  "T_ACTION_HIDE": "Hide all",
   "T_ACTION_CREATE_CHILD_GROUP": "Create child group",
   "T_ACTION_ADD_USERS_TO_GROUP": "Add users to group",
   "T_ACTION_ADD_PROJECTS_TO_EVENT": "Add projects to event",
