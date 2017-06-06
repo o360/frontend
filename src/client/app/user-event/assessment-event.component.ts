@@ -8,6 +8,7 @@ import { NotificationService } from '../core/services/notification.service';
 import { IListResponse, IQueryParams } from '../core/services/rest.service';
 import { ListComponent } from '../shared/components/list.component';
 import { AssessmentObject } from './assessment-object-list.component';
+import { EventService } from '../core/services/event.service';
 
 @Component({
   moduleId: module.id,
@@ -18,8 +19,11 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
   protected _projectId: ModelId;
   protected _eventId: ModelId;
   protected _forms: FormModel[];
+
   protected _queryParams: IQueryParams = {};
   protected _assessmentObject: AssessmentObject = null;
+
+  protected _status: string;
 
   @Input()
   public set projectId(value: ModelId) {
@@ -47,16 +51,23 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
     return this._assessmentObject;
   }
 
+  public get status(): string {
+    return this._status;
+  }
+
   constructor(service: AssessmentService,
               activatedRoute: ActivatedRoute,
               router: Router,
-              notificationService: NotificationService) {
+              notificationService: NotificationService,
+              protected _eventService: EventService) {
     super(service, activatedRoute, router, notificationService);
   }
 
   public ngOnInit() {
     this._queryParams.eventId = this._eventId.toString();
     this._queryParams.projectId = this._projectId.toString();
+
+    this._eventService.get(this._eventId).subscribe(event => this._status = event.status);
 
     super.ngOnInit();
   }

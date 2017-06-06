@@ -3,7 +3,7 @@
         class="mt-2"
         (ngSubmit)="save()">
 
-    <ng-container *ngFor="let element of form.elements;"
+   <ng-container *ngFor="let element of form.elements;"
                   [ngSwitch]="element.kind">
 
       <!-- Checkbox groups -->
@@ -21,6 +21,7 @@
                        id="{{ item.id }}"
                        type="checkbox"
                        class="custom-control-input"
+                       [disabled]="status !== EventStatus.InProgress"
                        [(ngModel)]="item.tempValue">
                 <span class="custom-control-indicator"></span>
                 <span class="custom-control-description"> {{ item.caption }}</span>
@@ -46,6 +47,7 @@
                      type="checkbox"
                      value="true"
                      #checkbox="ngModel"
+                     [disabled]="status !== EventStatus.InProgress"
                      [(ngModel)]="element.tempValue"
                      [required]="element.required">
               <span class="custom-control-indicator"></span>
@@ -72,6 +74,7 @@
                     id="{{ element.id }}"
                     class="form-control custom-select"
                     #select="ngModel"
+                    [disabled]="status !== EventStatus.InProgress"
                     [required]="element.required"
                     [(ngModel)]="element.tempValue">
               <option *ngFor="let item of element.values"
@@ -100,6 +103,7 @@
                        name="{{ element.id }}"
                        type="radio"
                        class="custom-control-input"
+                       [disabled]="status !== EventStatus.InProgress"
                        [value]="item.id"
                        [required]="element.required"
                        [(ngModel)]="element.tempValue">
@@ -126,6 +130,7 @@
                       id="{{ element.id }}"
                       rows="3"
                       #textarea="ngModel"
+                      [disabled]="status !== EventStatus.InProgress"
                       [required]="element.required"
                       [(ngModel)]="element.tempValue">
             </textarea>
@@ -153,6 +158,7 @@
                    class="form-control"
                    id="{{ element.id }}"
                    #textfield="ngModel"
+                   [disabled]="status !== EventStatus.InProgress"
                    [required]="element.required"
                    [(ngModel)]="element.tempValue">
 
@@ -182,6 +188,7 @@
                    placeholder="{{ element.value }}"
                    value="{{ element.value }}"
                    #input="ngModel"
+                   [disabled]="status !== EventStatus.InProgress"
                    [required]="element.required"
                    [(ngModel)]="element.tempValue"
                    id="{{ element.id }}">
@@ -196,7 +203,7 @@
     </ng-container>
 
 
-    <div class="text-right">
+    <div class="text-right" *ngIf="status === EventStatus.InProgress">
       <button type="submit"
               class="btn btn-primary mt-0"
               [disabled]="!assessmentForm.valid">

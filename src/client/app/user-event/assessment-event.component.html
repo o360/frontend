@@ -17,6 +17,7 @@
             </ng-template>
             <bs-user-assessment-form [userId]="assessmentObject.user.id"
                                      [id]="formObj.form.id"
+                                     [status]="status"
                                      [queryParams]="queryParams"
                                      (formChange)="formChanged();"></bs-user-assessment-form>
           </tab>
@@ -24,6 +25,7 @@
       </ng-template>
       <ng-template [ngSwitchCase]="false">
         <bs-user-assessment-form [id]="assessmentObject.form.id"
+                                 [status]="status"
                                  [queryParams]="queryParams"
                                  (formChange)="formChanged();"></bs-user-assessment-form>
       </ng-template>

@@ -31,6 +31,7 @@
   "T_ACTION_CHOOSE_EMAIL_TEMPLATE": "Choose email template",
   "T_ACTION_CHANGE_EMAIL_TEMPLATE": "Change email template",
   "T_ACTION_EDIT_EVENT_NOTIFICATIONS": "Edit assessment event notifications",
+  "T_ACTION_VIEW_ASSESSMENT": "View completed assessment",
   "T_USER": "User",
   "T_USER_NAME": "Name",
   "T_USER_EMAIL": "Email",

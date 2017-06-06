@@ -6,6 +6,7 @@ import { AssessmentService } from '../core/services/assessment.service';
 import { NotificationService } from '../core/services/notification.service';
 import { IListResponse, IQueryParams } from '../core/services/rest.service';
 import { FormUsersService } from '../core/services/form-users.service';
+import { EventStatus } from '../core/models/event-model';
 
 @Component({
   moduleId: module.id,
@@ -19,6 +20,7 @@ export class UserAssessmentFormComponent implements OnInit {
   protected _answers: IElementAnswer[] = [];
   protected _queryParams: IQueryParams = {};
   protected _formChange: EventEmitter<AssessmentModel> = new EventEmitter<AssessmentModel>();
+  private _status: string;
 
   public get id(): ModelId {
     return this._id;
@@ -47,6 +49,10 @@ export class UserAssessmentFormComponent implements OnInit {
     return FormElementType;
   }
 
+  public get EventStatus() {
+    return EventStatus;
+  }
+
   public requireValue(kind: string) {
     return [
       FormElementType.Radio,
@@ -58,6 +64,15 @@ export class UserAssessmentFormComponent implements OnInit {
   @Output()
   public get formChange(): EventEmitter<AssessmentModel> {
     return this._formChange;
+  }
+
+  public get status(): string {
+    return this._status;
+  }
+
+  @Input()
+  public set status(value: string) {
+    this._status = value;
   }
 
   constructor(protected _assessmentService: AssessmentService,
@@ -79,7 +94,7 @@ export class UserAssessmentFormComponent implements OnInit {
 
   public save() {
     let answers = this._form.elements.map((element: IFormElement) => {
-      let elementAnswer: IElementAnswer = {elementId: element.id};
+      let elementAnswer: IElementAnswer = { elementId: element.id };
 
       if (!this.requireValue(element.kind)) {
         if (!!element.tempValue) {
