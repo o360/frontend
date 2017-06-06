@@ -30,4 +30,11 @@ export class UserGroupListComponent extends ListComponent<GroupModel> implements
     this._queryParams.userId = this._userId.toString();
     super.ngOnInit();
   }
+
+  public delete(id?: ModelId) {
+    (<GroupService>this._service).removeUser(id, this._userId).subscribe(() => {
+      this._update();
+      this._notificationService.success('T_SUCCESS_DELETED');
+    });
+  }
 }
