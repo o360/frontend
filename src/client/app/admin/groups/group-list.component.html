@@ -54,7 +54,7 @@
     </accordion>
 
 
-    <bs-pagination *ngIf="meta.total > 10" [meta]="meta"
+    <bs-pagination [meta]="meta"
                    (queryParamsChange)="pageQueryParamsChanged($event)"></bs-pagination>
   </div>
 </div>
