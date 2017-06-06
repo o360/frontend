@@ -17,11 +17,4 @@ export class EmailTemplateListComponent extends ListComponent<EmailTemplateModel
               notificationService: NotificationService) {
     super(service, activatedRoute, router, notificationService);
   }
-
-  public clone(model: EmailTemplateModel) {
-    (<EmailTemplateService>this._service).clone(model).subscribe(model => {
-      this._router.navigate(['/admin/templates', model.id, 'edit']);
-      this._notificationService.success('T_SUCCESS_CLONED');
-    });
-  }
 }
