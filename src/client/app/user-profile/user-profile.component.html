@@ -29,6 +29,10 @@
         <div *ngIf="model.gender" class="h6">{{ 'T_USER_GENDER_' + model.gender.toUpperCase() | translate }}</div>
         <div *ngIf="!model.gender" class="h6">{{ 'T_NOT_SPECIFIED' | translate }}</div>
       </div>
+      <div class="col-md-3">
+        <small class="text-muted">{{ 'T_USER_TIME_ZONE' | translate}}</small>
+        <div *ngIf="model.timezone" class="h6">{{ 'T_USER_TIME_ZONE_' + model.timezone | translate }}</div>
+      </div>
     </div>
   </div>
 </div>

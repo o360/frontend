@@ -68,6 +68,31 @@
                 </div>
               </div>
 
+
+              <!--Time zone-->
+              <div class="form-group mb-1"
+                   [ngClass]="{'has-success': timezone.valid, 'has-danger': !timezone.value && timezone.touched }">
+                <label for="timezone" class="col-form-label required">{{ 'T_USER_TIME_ZONE' | translate }}</label>
+                <select id="timezone"
+                        #timezone="ngModel"
+                        name="timezone"
+                        required
+                        class="form-control col-xs-6"
+                        [(ngModel)]="user.timezone">
+                  <option *ngFor="let timezone of timezones" [ngValue]="timezone">{{ 'T_USER_TIME_ZONE_' + timezone | translate }}</option>
+                </select>
+
+                <div class="alert alert-danger" role="alert"
+                     *ngIf="timezone.errors && timezone.touched">
+                  <div class="form-control-feedback"
+                       *ngIf="timezone.errors['required']">
+                    {{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}
+                  </div>
+                </div>
+              </div>
+              <hr/>
+
+
               <button type="button"
                       (click)="update();"
                       [disabled]="!newUserForm.valid"
