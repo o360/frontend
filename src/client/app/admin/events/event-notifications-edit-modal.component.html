@@ -3,13 +3,16 @@
     <div class="modal-content">
 
       <div class="modal-header">
-        <h5 class="modal-title">{{ 'T_ACTION_ADD_NEW_ASSESSMENT_EVENT_NOTIFICATIONS' | translate }}</h5>
-        <button type="button" class="close" aria-label="Close" (click)="modal.hide();">
+        <h5 class="modal-title" [ngSwitch]="index !== -1">
+          <ng-template [ngSwitchCase]="true">{{ 'T_ACTION_EDIT' | translate }}</ng-template>
+          <ng-template ngSwitchDefault>{{ 'T_ACTION_ADD_NEW_ASSESSMENT_EVENT_NOTIFICATIONS' | translate }}</ng-template>
+        </h5>
+        <button type="button" class="close" aria-label="Close" (click)="modal.hide(); clear()">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <form #addNewNotificationForm="ngForm"
-            (submit)="addNotification(time.value, recipient.value, kind.value); addNewNotificationForm.reset(); modal.hide();">
+            (submit)="addNotification(); addNewNotificationForm.reset(); modal.hide();">
 
         <div class="modal-body">
           <div class="form-group row mb-1"
@@ -35,7 +38,8 @@
                       id="recipient"
                       name="recipient"
                       class="form-control"
-                      ngModel
+                      [(ngModel)]="notification.recipient"
+                      [disabled]="index !== -1"
                       required>
                 <option *ngFor="let item of recipients" [value]="item">{{ 'T_EVENT_RECIPIENT_' + item.toUpperCase() | translate }}</option>
               </select>
@@ -53,7 +57,8 @@
                       id="kind"
                       name="kind"
                       class="form-control"
-                      ngModel
+                      [(ngModel)]="notification.kind"
+                      [disabled]="index !== -1"
                       required>
                 <option *ngFor="let item of kinds" [value]="item">{{ 'T_EVENT_NOTIFICATION_' + item.toUpperCase() | translate }}</option>
               </select>
@@ -63,17 +68,24 @@
               </div>
             </div>
           </div>
-
         </div>
 
         <div class="modal-footer">
           <button type="button"
                   class="btn btn-secondary"
-                  (click)="modal.hide()">{{ 'T_ACTION_CLOSE' | translate }}
+                  (click)="modal.hide(); clear()">{{ 'T_ACTION_CLOSE' | translate }}
           </button>
 
           <button type="submit"
                   class="btn btn-success"
+                  [disabled]="!time.value || !addNewNotificationForm.valid">
+            <span [ngSwitch]="index !== -1">
+              <ng-template [ngSwitchCase]="true">
+                <i class="mr-h fa fa-check"></i> {{ 'T_ACTION_UPDATE' | translate }}</ng-template>
+              <ng-template ngSwitchDefault>
+                <i class="mr-h fa fa-plus"></i> {{ 'T_ACTION_ADD' | translate }}
+              </ng-template>
+          </span>
                   [disabled]="!time || !addNewNotificationForm.valid">
             <i class="mr-h fa fa-plus"></i> {{ 'T_ACTION_ADD' | translate }}
           </button>
