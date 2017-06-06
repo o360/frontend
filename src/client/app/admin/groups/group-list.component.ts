@@ -4,8 +4,6 @@ import { GroupModel } from '../../core/models/group-model';
 import { GroupService } from '../../core/services/group.service';
 import { ListComponent } from '../../shared/components/list.component';
 import { NotificationService } from '../../core/services/notification.service';
-import { Filter, FilterType } from '../../core/models/filter';
-import { IListResponse, IQueryParams } from '../../core/services/rest.service';
 
 @Component({
   moduleId: module.id,
@@ -13,12 +11,6 @@ import { IListResponse, IQueryParams } from '../../core/services/rest.service';
   templateUrl: 'group-list.component.html'
 })
 export class GroupListComponent extends ListComponent<GroupModel> implements OnInit, OnChanges {
-  protected _filters: Filter[] = [{
-    name: 'T_GROUP_NAME',
-    field: 'name',
-    type: FilterType.String,
-  }];
-
   protected _parentId: string = 'null';
 
   @Input()
@@ -47,15 +39,5 @@ export class GroupListComponent extends ListComponent<GroupModel> implements OnI
       Object.assign(this._queryParams, { parentId: this._parentId });
       this._update();
     }
-  }
-
-  public filterChange(value: IQueryParams) {
-    console.log(value.name);
-    this._service.list(this._queryParams).subscribe((res: IListResponse<GroupModel>) => {
-      this._list = res.data;
-      console.log(this._list);
-    });
-    this._list = this._list.filter(x => x.name === value.name);
-    console.log(this._list);
   }
 }

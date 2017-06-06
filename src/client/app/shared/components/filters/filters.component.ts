@@ -39,12 +39,11 @@ export class FiltersComponent {
   }
 
   public apply() {
-    let params = this._filters
+    let params: IQueryParams = this._filters
       .filter(x => x.value !== undefined && x.value !== null)
       .reduce((acc, filter) => Object.assign(acc, { [filter.field]: filter.value.toString() }), {});
 
     this._filterChange.emit(params);
-    console.log(this._filters);
   }
 
   public reset() {
