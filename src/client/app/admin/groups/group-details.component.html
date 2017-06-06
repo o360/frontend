@@ -1,20 +1,23 @@
-<div class="card" *ngIf="model">
-  <div class="card-header"><b>{{ 'T_DETAILS' | translate }}</b></div>
-  <div class="card-block">
-    <div class="row">
-      <div class="col-md-8">
-        <h2>{{ model.name }}</h2>
-      </div>
-      <div class="col-md-4 text-right">
-        <button type="button"
-                class="btn btn-md btn-primary"
-                [routerLink]="['/admin/groups/', model.id, 'edit']">{{ 'T_ACTION_EDIT' | translate }}
-        </button>
+<div *ngIf="model">
+  <div class="card">
+    <div class="card-header"><b>{{ 'T_DETAILS' | translate }}</b></div>
+    <div class="card-block">
+      <div class="row">
+        <div class="col-md-8">
+          <h2>{{ model.name }}</h2>
+        </div>
+        <div class="col-md-4 text-right">
+          <button type="button"
+                  class="btn btn-md btn-primary"
+                  [routerLink]="['/admin/groups/', model.id, 'edit']">{{ 'T_ACTION_EDIT' | translate }}
+          </button>
+        </div>
       </div>
     </div>
   </div>
+
+  <bs-group-list embedded [parentId]="model?.id"></bs-group-list>
+  <bs-group-user-list embedded [groupId]="model?.id"></bs-group-user-list>
+  <bs-group-project-list embedded [groupId]="model.id"></bs-group-project-list>
 </div>
 
-<bs-group-list embedded [parentId]="model?.id"></bs-group-list>
-
-<bs-group-user-list embedded [groupId]="model?.id"></bs-group-user-list>

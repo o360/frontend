@@ -11,6 +11,7 @@ import { ProjectRelationDetailsComponent } from './project-relation-details.comp
 import { EmailTemplateAddModalComponent } from './email-templates-add-modal.component';
 import { ProjectEmailTemplatesListComponent } from './project-email-template-list.component';
 import { RelationEmailTemplatesListComponent } from './relation-email-template-list.component';
+import { ProjectEventListComponent } from './project-event-list.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { RelationEmailTemplatesListComponent } from './relation-email-template-l
     ProjectRelationDetailsComponent,
     EmailTemplateAddModalComponent,
     ProjectEmailTemplatesListComponent,
-    RelationEmailTemplatesListComponent
+    RelationEmailTemplatesListComponent,
+    ProjectEventListComponent
   ],
   exports: [
     ProjectListComponent,
@@ -39,7 +41,8 @@ import { RelationEmailTemplatesListComponent } from './relation-email-template-l
     ProjectRelationDetailsComponent,
     EmailTemplateAddModalComponent,
     ProjectEmailTemplatesListComponent,
-    RelationEmailTemplatesListComponent
+    RelationEmailTemplatesListComponent,
+    ProjectEventListComponent
   ],
 })
 export class ProjectsModule {
