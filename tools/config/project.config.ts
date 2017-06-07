@@ -38,6 +38,7 @@ export class ProjectConfig extends SeedConfig {
       { src: 'simple-line-icons/css/simple-line-icons.css', inject: true },
       { src: 'animate.css/animate.css', inject: true },
       { src: 'ng2-toastr/bundles/ng2-toastr.min.css', inject: true },
+      { src: 'ng2-dnd/style.css', inject: true },
       { src: 'jquery/dist/jquery.min.js', inject: 'libs' },
       { src: 'pace-progress/pace.min.js', inject: 'libs' },
       { src: 'bootstrap/dist/js/bootstrap.min.js', inject: 'libs' },
@@ -78,7 +79,10 @@ export class ProjectConfig extends SeedConfig {
       packageMeta: {
         main: 'moment.js',
         defaultExtension: 'js'
-      }
+      },
+    }, {
+      name: 'ng2-dnd',
+      path: 'node_modules/ng2-dnd/bundles/index.umd.js'
     }];
 
     this.addPackagesBundles(additionalPackages);
