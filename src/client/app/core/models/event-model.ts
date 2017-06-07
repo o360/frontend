@@ -4,8 +4,8 @@ import * as moment from 'moment';
 import { DateFormat } from '../../shared/components/datetime/datetime-picker.component';
 
 @Defaults({
-  start: new Date(),
-  end: new Date(),
+  start: moment(),
+  end: moment(),
   canRevote: false,
   notifications: []
 })
@@ -20,8 +20,9 @@ export class EventModel extends Model {
 
   constructor(json: Object) {
     super(json);
-    this.start = new Date(this.start);
-    this.end = new Date(this.end);
+
+    this.start = moment(this.start);
+    this.end = moment(this.end);
   }
 
   public toJson(): any {

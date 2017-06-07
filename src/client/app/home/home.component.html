@@ -22,8 +22,8 @@
         <tbody>
           <tr *ngFor="let model of list">
             <td>{{ model.description }}</td>
-            <td>{{ model.start | date: 'mediumDate' }}</td>
-            <td>{{ model.end | date: 'mediumDate' }}</td>
+            <td>{{ model.start | dateFormat }}</td>
+            <td>{{ model.end | dateFormat }}</td>
             <td class="actions-column">
               <button type="button"
                       class="btn btn-sm btn-success ml-1"
