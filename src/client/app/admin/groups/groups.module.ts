@@ -8,6 +8,7 @@ import { GroupUserListComponent } from './group-user-list.component';
 import { UsersAddModalComponent } from './users-add-modal.component';
 import { ChildGroupListComponent } from './child-group-list.component';
 import { BsDropdownModule } from 'ngx-bootstrap';
+import { GroupProjectListComponent } from './group-project-list.component';
 
 @NgModule({
   imports: [
@@ -21,7 +22,8 @@ import { BsDropdownModule } from 'ngx-bootstrap';
     GroupFormComponent,
     GroupUserListComponent,
     UsersAddModalComponent,
-    ChildGroupListComponent
+    ChildGroupListComponent,
+    GroupProjectListComponent
   ],
   exports: [
     GroupListComponent,
@@ -29,7 +31,8 @@ import { BsDropdownModule } from 'ngx-bootstrap';
     GroupFormComponent,
     GroupUserListComponent,
     UsersAddModalComponent,
-    ChildGroupListComponent
+    ChildGroupListComponent,
+    GroupProjectListComponent
   ],
 })
 export class GroupsModule {
