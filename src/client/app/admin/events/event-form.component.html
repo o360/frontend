@@ -44,7 +44,7 @@
         <label class="col-form-label col-md-3 required">{{ 'T_EVENT_START' | translate }}</label>
         <div class="col-md-9">
           <bs-datetime name="start"
-                       [disabled]="model.status === EventStatus.InProgress || model.status === EventStatus.Completed"
+                       [disable]="model.status === EventStatus.InProgress || model.status === EventStatus.Completed"
                        formControlName="start"></bs-datetime>
 
           <div class="form-errors"
@@ -69,7 +69,7 @@
         <label class="col-form-label col-md-3 required">{{ 'T_EVENT_END' | translate }}</label>
         <div class="col-md-9">
           <bs-datetime name="end"
-                       [disabled]="model.status === EventStatus.Completed"
+                       [disable]="model.status === EventStatus.Completed"
                        formControlName="end">
           </bs-datetime>
           <div class="form-errors"
