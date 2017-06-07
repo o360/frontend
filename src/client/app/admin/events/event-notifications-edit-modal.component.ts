@@ -75,10 +75,8 @@ export class EventNotificationsEditModalComponent {
     if (this._index !== -1) {
       this._model.notifications.splice(this._index, 1);
     }
-    this._eventService.save(this._model).subscribe(() => {
-      this._eventService.get(this._model.id).subscribe((event: EventModel) => {
-        this._model = event;
-      });
+    this._eventService.save(this._model).subscribe((event) => {
+      this._model = event;
     });
     this._notification = {
       time: moment(time).format(DateFormat.Backend),
