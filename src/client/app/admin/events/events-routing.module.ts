@@ -4,6 +4,7 @@ import { EventListComponent } from './event-list.component';
 import { EventFormComponent } from './event-form.component';
 import { EventDetailsComponent } from './event-details.component';
 import { AppRoutes } from '../../core/models/app-routes.model';
+import { EventCloneFormComponent } from './event-clone-form.component';
 
 
 @NgModule({
@@ -24,6 +25,10 @@ import { AppRoutes } from '../../core/models/app-routes.model';
       path: ':id/edit',
       component: EventFormComponent,
       breadcrumb: 'T_ACTION_EDIT',
+    }, {
+      path: ':id/clone',
+      component: EventCloneFormComponent,
+      breadcrumb: 'T_ACTION_CLONE',
     }])
   ],
   exports: [RouterModule]

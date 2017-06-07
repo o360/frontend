@@ -35,4 +35,14 @@ export class EventService extends RestService<EventModel> {
     return this._http.delete(requestParams, requestOptions)
       .catch((error: Response) => this._handleErrors(error));
   }
+
+  public clone(model: EventModel): Observable<EventModel> {
+    let requestParams = `${this._getRequestParams(model.id)}/clone`;
+    let requestOptions = this._getRequestOptions();
+    let clone = new EventModel(JSON.parse(model.toJson()));
+    return this._http.post(requestParams, clone, requestOptions)
+      .map((res: Response) => res.json())
+      .map((json: any) => this.createEntity(json))
+      .catch((error: Response) => this._handleErrors(error));
+  }
 }
