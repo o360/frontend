@@ -1,14 +1,12 @@
 <div class="input-group">
-  <div class="input-group">
-    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-    <input type="text"
-           #input
-           id="datepicker-{{id}}"
-           name="datepicker-{{id}}"
-           class="form-control"
-           [disabled]="disabled"
-           (blur)="onBlur()"
-           [ngModel]="date"
-           (ngModelChange)="onChange($event)">
-  </div>
+  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+  <input type="text"
+         #input
+         id="datepicker-{{id}}"
+         name="datepicker-{{id}}"
+         class="form-control"
+         [disabled]="disable"
+         (blur)="onBlur()"
+         [ngModel]="date"
+         (ngModelChange)="onChange($event)">
 </div>
