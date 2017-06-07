@@ -4,6 +4,8 @@ import { EventModel, EventStatus } from '../../core/models/event-model';
 import { EventService } from '../../core/services/event.service';
 import { FormComponent } from '../../shared/components/form.component';
 import { NotificationService } from '../../core/services/notification.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ValidatorIsAfter, ValidatorIsBefore } from '../../shared/components/datetime/datetime-picker.component';
 
 @Component({
   moduleId: module.id,
@@ -12,6 +14,12 @@ import { NotificationService } from '../../core/services/notification.service';
 })
 export class EventFormComponent extends FormComponent<EventModel> {
   protected _returnPath = ['/admin/events'];
+  protected _eventForm: FormGroup;
+
+
+  public get eventForm(): FormGroup {
+    return this._eventForm;
+  }
 
   public get EventStatus() {
     return EventStatus;
@@ -20,7 +28,31 @@ export class EventFormComponent extends FormComponent<EventModel> {
   constructor(service: EventService,
               router: Router,
               route: ActivatedRoute,
-              notificationService: NotificationService) {
+              notificationService: NotificationService,
+              protected _formBuilder: FormBuilder) {
     super(service, router, route, notificationService);
+
+    this._createForm();
+  }
+
+  public save() {
+    this._model = new EventModel(this._eventForm.value);
+
+    super.save();
+  }
+
+  protected _processModel(model: EventModel) {
+    super._processModel(model);
+
+    this._eventForm.reset(this._model);
+  }
+
+  protected _createForm() {
+    this._eventForm = this._formBuilder.group({
+      description: ['', Validators.required],
+      start: ['', [Validators.required, ValidatorIsBefore('end')]],
+      end: ['', [Validators.required, ValidatorIsAfter('start')]],
+      canRevote: false
+    });
   }
 }

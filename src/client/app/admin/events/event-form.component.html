@@ -10,73 +10,95 @@
 
   <div class="card-block">
     <form class="form form-horizontal"
-          (ngSubmit)="save();" #eventForm="ngForm">
+          (ngSubmit)="save();"
+          [formGroup]="eventForm">
 
       <!-- Description -->
       <div class="form-group row"
-           [ngClass]="{'has-success': description.valid, 'has-danger': !description.valid && description.touched }">
-        <label for="description" class="col-form-label col-md-3">{{ 'T_EVENT_DESCRIPTION' | translate }}</label>
+           [ngClass]="{ 'has-success': !!eventForm.value.description,
+                        'has-danger': !eventForm.value.description && eventForm.controls['description'].touched }">
+        <label for="description" class="col-form-label col-md-3 required">{{ 'T_EVENT_DESCRIPTION' | translate }}</label>
         <div class="col-md-9">
           <textarea type="text"
                     class="form-control"
                     id="description"
                     name="description"
-                    #description="ngModel"
                     placeholder="{{ 'T_EVENT_ENTER_DESCRIPTION' | translate }}"
-                    [(ngModel)]="model.description">
+                    formControlName="description">
           </textarea>
+          <div class="form-errors"
+               *ngIf="eventForm.controls['description'].errors && eventForm.controls['description'].touched">
+            <div class="form-control-feedback" *ngIf="eventForm.controls['description'].errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' |
+              translate }}
+            </div>
+          </div>
         </div>
       </div>
 
       <!-- Period of event  -->
 
       <!-- Begin -->
-      <div class="form-group row" [ngClass]="{'has-success': start.valid, 'has-danger': !start.valid && start.touched }">
-        <label for="start" class="col-form-label col-md-3 required">{{ 'T_EVENT_START' | translate }}</label>
+      <div class="form-group row"
+           [ngClass]="{ 'has-success':  !!eventForm.value.start && eventForm.controls['start'].valid,
+                        'has-danger': !eventForm.controls['start'].valid || !!eventForm.errors }">
+        <label class="col-form-label col-md-3 required">{{ 'T_EVENT_START' | translate }}</label>
         <div class="col-md-9">
-          <input class="form-control"
-                 [ngModel]="model.start | date:'yyyy-MM-dd'"
-                 (ngModelChange)="model.start = $event"
-                 type="date"
-                 #start="ngModel"
-                 id="start"
-                 [disabled]="model.status === EventStatus.InProgress"
-                 name="startDate"/>
-
+          <bs-datetime name="start"
+                       [disabled]="model.status === EventStatus.InProgress || model.status === EventStatus.Completed"
+                       formControlName="start"></bs-datetime>
 
           <div class="form-errors"
-               *ngIf="start.errors && start.touched">
-            <div class="form-control-feedback" *ngIf="start.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}</div>
+               *ngIf="eventForm.controls['start'].errors && eventForm.controls['start'].touched">
+            <div class="form-control-feedback" *ngIf="eventForm.controls['start'].errors['required']">
+              {{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}
+            </div>
+            <div class="form-control-feedback" *ngIf="eventForm.controls['start'].errors['format']">
+              {{ 'T_ERROR_INVALID_DATE' | translate }}
+            </div>
+            <div class="form-control-feedback" *ngIf="eventForm.controls['start'].errors['maxDate']">
+              {{ 'T_ERROR_MIN_DATE' | translate }}
+            </div>
           </div>
         </div>
       </div>
 
       <!-- End -->
-      <div class="form-group row" [ngClass]="{'has-success': end.valid, 'has-danger': !end.valid && end.touched }">
-        <label for="end" class="col-form-label col-md-3 required">{{ 'T_EVENT_END' | translate }}</label>
+      <div class="form-group row"
+           [ngClass]="{ 'has-success':  !!eventForm.value.end && eventForm.controls['end'].valid,
+                        'has-danger': !eventForm.controls['end'].valid || !!eventForm.errors }">
+        <label class="col-form-label col-md-3 required">{{ 'T_EVENT_END' | translate }}</label>
         <div class="col-md-9">
-          <input class="form-control"
-                 [ngModel]="model.end | date:'yyyy-MM-dd'"
-                 (ngModelChange)="model.end = $event"
-                 type="date"
-                 #end="ngModel"
-                 id="end"
-                 name="endDate"/>
-
-
+          <bs-datetime name="end"
+                       [disabled]="model.status === EventStatus.Completed"
+                       formControlName="end">
+          </bs-datetime>
           <div class="form-errors"
-               *ngIf="end.errors && end.touched">
-            <div class="form-control-feedback" *ngIf="end.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}</div>
+               *ngIf="eventForm.controls['end'].errors && eventForm.controls['end'].touched">
+            <div class="form-control-feedback" *ngIf="eventForm.controls['end'].errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' |
+              translate }}
+            </div>
+            <div class="form-control-feedback" *ngIf="eventForm.controls['end'].errors['format']"> {{ 'T_ERROR_INVALID_DATE' | translate
+              }}
+            </div>
+            <div class="form-control-feedback" *ngIf="eventForm.controls['end'].errors['minDate']">
+              {{ 'T_ERROR_MAX_DATE' | translate }}
+            </div>
           </div>
         </div>
       </div>
+
 
       <!-- Can Revote -->
       <div class="form-group row">
         <label for="canRevote" class="col-form-label col-md-3">{{ 'T_EVENT_CAN_REVOTE' | translate }}</label>
         <div class="col-md-9">
           <label class="switch switch-default switch-primary">
-            <input id="canRevote" name="canRevote" type="checkbox" class="switch-input" checked="true" [(ngModel)]="model.canRevote">
+            <input id="canRevote"
+                   name="canRevote"
+                   type="checkbox"
+                   class="switch-input"
+                   checked="true"
+                   formControlName="canRevote">
             <span class="switch-label"></span>
             <span class="switch-handle"></span>
           </label>

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { EventModel, EventNotificationKind, EventRecipient, IEventNotification } from '../../core/models/event-model';
+import { EventModel, IEventNotification } from '../../core/models/event-model';
 import { EventService } from '../../core/services/event.service';
 import { NotificationService } from '../../core/services/notification.service';
 
