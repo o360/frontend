@@ -71,7 +71,7 @@ export class EventNotificationsEditModalComponent {
   constructor(protected _eventService: EventService) {
   }
 
-  public addNotification(time: string) {
+  public addNotification() {
     if (this._index !== -1) {
       this._model.notifications.splice(this._index, 1);
     }
@@ -79,7 +79,7 @@ export class EventNotificationsEditModalComponent {
       this._model = event;
     });
     this._notification = {
-      time: moment(time).format(DateFormat.Backend),
+      time: moment(this.notification.time).format(DateFormat.Backend),
       recipient: this._notification.recipient,
       kind: this._notification.kind
     };
@@ -91,11 +91,6 @@ export class EventNotificationsEditModalComponent {
     this.clear();
     this._index = this._model.notifications.indexOf(item);
     if (item) {
-      // this._notification = {
-      //   time: moment(item.time).format(DateFormat.Backend),
-      //   recipient: recipient,
-      //   kind: kind
-      // };
       this._notification = Object.assign({}, item);
     }
     this._modal.show();
@@ -103,7 +98,7 @@ export class EventNotificationsEditModalComponent {
 
   public clear() {
     this._notification = {
-      time: '',
+      time: moment().format(DateFormat.Backend),
       recipient: '',
       kind: ''
     };
