@@ -20,6 +20,8 @@
   "T_ACTION_DETAILS": "Подробнее",
   "T_ACTION_GO_BACK": "Вернуться назад",
   "T_ACTION_APPROVE": "Подтвердить",
+  "T_ACTION_EXPAND": "Развернуть",
+  "T_ACTION_HIDE": "Свернуть",
   "T_ACTION_CREATE_CHILD_GROUP": "Создать дочернюю группу",
   "T_ACTION_ADD_USERS_TO_GROUP": "Добавить пользователей в группу",
   "T_ACTION_ADD_PROJECTS_TO_EVENT": "Добавить проекты в событие оценки",

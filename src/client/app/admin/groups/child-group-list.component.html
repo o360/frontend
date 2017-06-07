@@ -1,5 +1,8 @@
 <accordion class="group-inner-accordion">
-  <accordion-group *ngFor="let group of list" class="accordion-inner-group" #accordionGroup>
+  <accordion-group *ngFor="let group of list"
+                   class="accordion-inner-group"
+                   #accordionGroup
+                   [isOpen]="innerGroupState">
     <div accordion-heading>
       <ul class="list-group">
         <li class="list-group-item d-flex justify-content-between align-items-center">
