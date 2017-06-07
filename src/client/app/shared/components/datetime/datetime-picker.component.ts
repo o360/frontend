@@ -4,6 +4,77 @@ import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
 
 import * as moment from 'moment';
 
+export const ValidatorIsAfter = (otherDateName: string): ValidationErrors => {
+  let thisDate: FormControl;
+  let otherDate: FormControl;
+
+  return function matchOtherValidate(control: FormControl) {
+    if (!control.parent) {
+      return null;
+    }
+
+    // Initializing the validator.
+    if (!thisDate) {
+      thisDate = control;
+      otherDate = control.parent.get(otherDateName) as FormControl;
+      if (!otherDate) {
+        throw new Error('Other control is not found in parent group');
+      }
+      otherDate.valueChanges.distinctUntilChanged().debounceTime(100).subscribe(() => {
+        thisDate.updateValueAndValidity();
+      });
+    }
+
+    if (!otherDate) {
+      return null;
+    }
+
+    if (!moment(thisDate.value).isValid() || !moment(otherDate.value).isValid() || !moment(thisDate.value).isSameOrAfter(otherDate.value)) {
+      return {
+        minDate: true
+      };
+    }
+
+    return null;
+  };
+};
+
+export const ValidatorIsBefore = (otherDateName: string): ValidationErrors => {
+  let thisDate: FormControl;
+  let otherDate: FormControl;
+
+  return function matchOtherValidate(control: FormControl) {
+    if (!control.parent) {
+      return null;
+    }
+
+    // Initializing the validator.
+    if (!thisDate) {
+      thisDate = control;
+      otherDate = control.parent.get(otherDateName) as FormControl;
+      if (!otherDate) {
+        throw new Error('Other control is not found in parent group');
+      }
+      otherDate.valueChanges.distinctUntilChanged().debounceTime(100).subscribe(() => {
+        thisDate.updateValueAndValidity();
+      });
+    }
+
+    if (!otherDate) {
+      return null;
+    }
+
+    if (!moment(thisDate.value).isValid() || !moment(otherDate.value).isValid() ||
+      !moment(thisDate.value).isSameOrBefore(otherDate.value)) {
+      return {
+        maxDate: true
+      };
+    }
+
+    return null;
+  };
+};
+
 export const DateFormat = {
   Date: 'DD.MM.YYYY',
   DateTime: 'DD.MM.YYYY HH:mm',

@@ -49,11 +49,14 @@
 
           <div class="form-errors"
                *ngIf="eventForm.controls['start'].errors && eventForm.controls['start'].touched">
-            <div class="form-control-feedback" *ngIf="eventForm.controls['start'].errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' |
-              translate }}
+            <div class="form-control-feedback" *ngIf="eventForm.controls['start'].errors['required']">
+              {{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}
             </div>
-            <div class="form-control-feedback" *ngIf="eventForm.controls['start'].errors['format']"> {{ 'T_ERROR_INVALID_DATE' | translate
-              }}
+            <div class="form-control-feedback" *ngIf="eventForm.controls['start'].errors['format']">
+              {{ 'T_ERROR_INVALID_DATE' | translate }}
+            </div>
+            <div class="form-control-feedback" *ngIf="eventForm.controls['start'].errors['maxDate']">
+              {{ 'T_ERROR_MIN_DATE' | translate }}
             </div>
           </div>
         </div>
@@ -77,11 +80,9 @@
             <div class="form-control-feedback" *ngIf="eventForm.controls['end'].errors['format']"> {{ 'T_ERROR_INVALID_DATE' | translate
               }}
             </div>
-          </div>
-          <div class="form-errors"
-               class="has-danger"
-               *ngIf="eventForm.errors">
-            <div class="form-control-feedback" *ngIf="eventForm.errors['minDate']">{{ 'T_ERROR_MIN_DATE' | translate }}</div>
+            <div class="form-control-feedback" *ngIf="eventForm.controls['end'].errors['minDate']">
+              {{ 'T_ERROR_MAX_DATE' | translate }}
+            </div>
           </div>
         </div>
       </div>
