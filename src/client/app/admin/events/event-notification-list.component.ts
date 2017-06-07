@@ -34,8 +34,14 @@ export class EventNotificationComponent {
     });
   }
 
-  public notificationAdded(value: IEventNotification) {
-    this._event.notifications.push(value);
+  public onNotificationAdded(value: IEventNotification) {
+    let notification = {
+      time: value.time,
+      recipient: value.recipient,
+      kind: value.kind
+    };
+    this._event.notifications.push(notification);
+
     this._eventService.save(this._event).subscribe(
       () => {
         this._update();
