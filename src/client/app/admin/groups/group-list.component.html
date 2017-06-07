@@ -49,7 +49,10 @@
             </li>
           </ul>
         </div>
-        <bs-child-group-list *ngIf="group.hasChildren" embedded [parentId]="group.id"></bs-child-group-list>
+        <bs-child-group-list *ngIf="group.hasChildren"
+                             embedded
+                             [parentId]="group.id"
+                             [innerGroupState]="innerGroupState"></bs-child-group-list>
       </accordion-group>
     </accordion>
 
