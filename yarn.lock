@@ -4138,6 +4138,10 @@ ng2-ckeditor@^1.1.7:
   version "1.1.7"
   resolved "https://registry.yarnpkg.com/ng2-ckeditor/-/ng2-ckeditor-1.1.7.tgz#5b50df23dccb06f60fead5e01cb19e4ca4b5f175"
 
+ng2-dnd@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/ng2-dnd/-/ng2-dnd-4.1.0.tgz#8a028d09b96e9ad17d960f1328b60cb5a9c53349"
+
 ng2-toastr@^4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/ng2-toastr/-/ng2-toastr-4.0.1.tgz#87d5ea60e4fd0ff3626980a3c1bd9c76dc06bfdc"
