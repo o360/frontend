@@ -4,19 +4,8 @@ import { EventModel, EventStatus } from '../../core/models/event-model';
 import { EventService } from '../../core/services/event.service';
 import { FormComponent } from '../../shared/components/form.component';
 import { NotificationService } from '../../core/services/notification.service';
-import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
-import * as moment from 'moment';
-
-export const EventFormValidator = (control: AbstractControl): ValidationErrors => {
-  const start = control.get('start').value;
-  const end = control.get('end').value;
-
-  if (moment(start).isValid() && moment(end).isValid()) {
-    return (moment(start).isSameOrBefore(end)) ? null : {minDate: 'T_ERROR_MIN_DATE'};
-  } else {
-    return null;
-  }
-}
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ValidatorIsAfter, ValidatorIsBefore } from '../../shared/components/datetime/datetime-picker.component';
 
 @Component({
   moduleId: module.id,
@@ -60,11 +49,10 @@ export class EventFormComponent extends FormComponent<EventModel> {
 
   protected _createForm() {
     this._eventForm = this._formBuilder.group({
-        description: ['', Validators.required],
-        start: ['', Validators.required],
-        end: ['', Validators.required],
-        canRevote: false
-      },
-      {validator: EventFormValidator});
+      description: ['', Validators.required],
+      start: ['', [Validators.required, ValidatorIsBefore('end')]],
+      end: ['', [Validators.required, ValidatorIsAfter('start')]],
+      canRevote: false
+    });
   }
 }
