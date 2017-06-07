@@ -36,7 +36,7 @@ export class EventFormComponent extends FormComponent<EventModel> {
   }
 
   public save() {
-    this._model = new EventModel(this._eventForm.value);
+    this._model = this._prepareSaveForm();
 
     super.save();
   }
@@ -54,5 +54,22 @@ export class EventFormComponent extends FormComponent<EventModel> {
       end: ['', [Validators.required, ValidatorIsAfter('start')]],
       canRevote: false
     });
+  }
+
+  protected _prepareSaveForm(): EventModel {
+    let formModel = this._eventForm.value;
+
+    let saveForm: EventModel = new EventModel({
+      description: formModel.description,
+      start: formModel.start,
+      end: formModel.end,
+      canRevote: formModel.canRevote
+    });
+
+    if (this._model.id) {
+      saveForm.id = this._model.id;
+    }
+
+    return saveForm;
   }
 }

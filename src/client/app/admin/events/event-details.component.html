@@ -5,11 +5,11 @@
       <div class="row mt-1">
         <div class="col-md-3">
           <small class="text-muted">{{ 'T_EVENT_START' | translate}}</small>
-          <div class="h6">{{ model.start | date:'mediumDate' }}</div>
+          <div class="h6">{{ model.start | dateFormat }}</div>
         </div>
         <div class="col-md-3">
           <small class="text-muted">{{ 'T_EVENT_END' | translate}}</small>
-          <div class="h6">{{ model.end | date:'mediumDate' }}</div>
+          <div class="h6">{{ model.end | dateFormat }}</div>
         </div>
         <div class="col-md-3">
           <small class="text-muted">{{ 'T_EVENT_STATUS' | translate}}</small>
