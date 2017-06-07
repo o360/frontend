@@ -52,9 +52,17 @@
           </div>
         </div>
         <div class="col-md-8 col-lg-9">
-
-          <accordion [closeOthers]="true">
-            <accordion-group *ngFor="let item of model.elements" #accordionGroup>
+          <accordion class="list-group"
+                     dnd-sortable-container
+                     [sortableData]="model.elements"
+                     [closeOthers]="true"
+                     [dropZones]="['container-dropZone']"
+                     #accordion>
+            <accordion-group *ngFor="let item of model.elements; let i = index"
+                             dnd-sortable
+                             [sortableIndex]="i"
+                             [dragEnabled]="!accordionGroup.isOpen"
+                             #accordionGroup>
               <div class="accordion-heading row" accordion-heading>
                 <div class="col-8">
                   <i class="mr-h fa"
