@@ -11,6 +11,7 @@ import { PaginationComponent } from './components/pagination/pagination.componen
 import { CKEditorModule } from 'ng2-ckeditor';
 import { DateTimeComponent } from './components/datetime/datetime-picker.component';
 import { LanguageSelectorComponent } from './language-selector/language-selector.component';
+import { DateFormatPipe } from './pipes/date.pipe';
 
 /**
  * Do not specify providers for modules that might be imported by a lazy loaded module.
@@ -38,7 +39,8 @@ import { LanguageSelectorComponent } from './language-selector/language-selector
     PaginationComponent,
     DateTimeComponent,
     PaginationComponent,
-    LanguageSelectorComponent
+    LanguageSelectorComponent,
+    DateFormatPipe
   ],
   exports: [
     CommonModule,
@@ -58,7 +60,8 @@ import { LanguageSelectorComponent } from './language-selector/language-selector
     CKEditorModule,
     TabsModule,
     LanguageSelectorComponent,
-    DateTimeComponent
+    DateTimeComponent,
+    DateFormatPipe
   ]
 })
 export class SharedModule {

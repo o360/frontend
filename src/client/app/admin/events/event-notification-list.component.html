@@ -13,7 +13,7 @@
     <tr *ngFor="let item of event.notifications">
       <td>{{ 'T_EVENT_RECIPIENT_' + item.recipient.toUpperCase() | translate }}</td>
       <td>{{ 'T_EVENT_NOTIFICATION_' + item.kind.toUpperCase() | translate }}</td>
-      <td>{{ item.time | date:'dd.MM.yyyy HH:mm' }}</td>
+      <td>{{ item.time | dateFormat }}</td>
       <td class="actions-column">
         <button type="button"
                 class="btn btn-danger btn-sm"
