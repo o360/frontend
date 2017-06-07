@@ -12,6 +12,7 @@ import { NotificationService } from '../../core/services/notification.service';
 })
 export class ChildGroupListComponent extends ListComponent<GroupModel> implements OnInit, OnChanges {
   protected _parentId: string = 'null';
+  private _innerGroupState: boolean = false;
 
   @Input()
   public set parentId(value: string) {
@@ -20,6 +21,15 @@ export class ChildGroupListComponent extends ListComponent<GroupModel> implement
 
   public get parentId() {
     return this._parentId;
+  }
+
+  @Input()
+  public set innerGroupState(value: boolean) {
+    this._innerGroupState = value;
+  }
+
+  public get innerGroupState(): boolean {
+    return this._innerGroupState;
   }
 
   constructor(service: GroupService,

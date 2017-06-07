@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GroupModel } from '../../core/models/group-model';
 import { GroupService } from '../../core/services/group.service';
@@ -12,6 +12,7 @@ import { NotificationService } from '../../core/services/notification.service';
 })
 export class GroupListComponent extends ListComponent<GroupModel> implements OnInit, OnChanges {
   protected _parentId: string = 'null';
+  private _innerGroupState: boolean = false;
 
   @Input()
   public set parentId(value: string) {
@@ -20,6 +21,11 @@ export class GroupListComponent extends ListComponent<GroupModel> implements OnI
 
   public get parentId() {
     return this._parentId;
+  }
+
+  @Output()
+  public get innerGroupState(): boolean {
+    return this._innerGroupState;
   }
 
   constructor(service: GroupService,
@@ -39,5 +45,9 @@ export class GroupListComponent extends ListComponent<GroupModel> implements OnI
       Object.assign(this._queryParams, { parentId: this._parentId });
       this._update();
     }
+  }
+
+  public changeInnerGroupState() {
+    return this._innerGroupState = !this._innerGroupState;
   }
 }
