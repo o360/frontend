@@ -28,15 +28,7 @@ export class EventDetailsComponent extends DetailsComponent<EventModel> {
 
   public clone(model: EventModel) {
     (<EventService>this._service).clone(model).subscribe(clone => {
-      let queryParams: IQueryParams = {};
-      queryParams.eventId = model.id.toString();
-      this._projectService.list(queryParams).subscribe((res: IListResponse<ProjectModel>) => {
-        let projectsId = res.data.map(function (element) {
-          return element.id;
-        });
-        projectsId.map(projectId => (<EventService>this._service).addProject(clone.id, projectId).subscribe());
-        this._router.navigate(['/admin/events', clone.id, 'clone']);
-      });
+      this._router.navigate(['/admin/events', clone.id, 'clone']);
       this._notificationService.success('T_SUCCESS_CLONED_EVENT');
     });
   }
