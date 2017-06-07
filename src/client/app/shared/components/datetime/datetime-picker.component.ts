@@ -101,7 +101,7 @@ export class DateTimeComponent implements ControlValueAccessor, AfterViewInit, V
   protected _innerValue: any;
   protected _date: any;
   protected _onlyDateMode: boolean = false;
-  protected _disabled: boolean = false;
+  protected _disable: boolean = false;
   protected _input: ElementRef;
   protected _propagateChange: Function;
   protected _propagateTouch: Function;
@@ -143,12 +143,12 @@ export class DateTimeComponent implements ControlValueAccessor, AfterViewInit, V
   }
 
   @Input()
-  public set disabled(value: boolean) {
-    this._disabled = typeof value === 'boolean' ? value : true;
+  public set disable(value: boolean) {
+    this._disable = typeof value === 'boolean' ? value : true;
   }
 
-  public get disabled(): boolean {
-    return this._disabled;
+  public get disable(): boolean {
+    return this._disable;
   }
 
   constructor(protected _translateService: TranslateService) {
