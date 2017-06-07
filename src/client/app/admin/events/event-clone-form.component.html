@@ -1,0 +1,116 @@
+<div *ngIf="model">
+  <div class="card" *ngIf="isLoaded">
+    <div class="card-header">
+      <b>{{ 'T_ACTION_CLONE' | translate }}</b>
+    </div>
+
+    <div class="card-block">
+      <form class="form form-horizontal"
+            (ngSubmit)="save();" #eventForm="ngForm">
+
+        <!-- Description -->
+        <div class="form-group row"
+             [ngClass]="{'has-success': description.valid, 'has-danger': !description.valid && description.touched }">
+          <label for="description" class="col-form-label col-md-3 required">{{ 'T_EVENT_DESCRIPTION' | translate }}</label>
+          <div class="col-md-9">
+          <textarea type="text"
+                    class="form-control"
+                    id="description"
+                    name="description"
+                    required
+                    #description="ngModel"
+                    placeholder="{{ 'T_EVENT_ENTER_DESCRIPTION' | translate }}"
+                    [(ngModel)]="model.description">
+          </textarea>
+          </div>
+        </div>
+
+        <!-- Period of event  -->
+
+        <!-- Begin -->
+        <div class="form-group row" [ngClass]="{'has-success': start.valid, 'has-danger': !start.valid && start.touched }">
+          <label for="start" class="col-form-label col-md-3 required">{{ 'T_EVENT_START' | translate }}</label>
+          <div class="col-md-9">
+            <input class="form-control"
+                   [ngModel]="model.start | date:'yyyy-MM-dd'"
+                   (ngModelChange)="model.start = $event"
+                   type="date"
+                   #start="ngModel"
+                   id="start"
+                   [disabled]="model.status === EventStatus.InProgress"
+                   name="startDate"/>
+
+
+            <div class="form-errors"
+                 *ngIf="start.errors && start.touched">
+              <div class="form-control-feedback" *ngIf="start.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- End -->
+        <div class="form-group row" [ngClass]="{'has-success': end.valid, 'has-danger': !end.valid && end.touched }">
+          <label for="end" class="col-form-label col-md-3 required">{{ 'T_EVENT_END' | translate }}</label>
+          <div class="col-md-9">
+            <input class="form-control"
+                   [ngModel]="model.end | date:'yyyy-MM-dd'"
+                   (ngModelChange)="model.end = $event"
+                   type="date"
+                   #end="ngModel"
+                   id="end"
+                   name="endDate"/>
+
+
+            <div class="form-errors"
+                 *ngIf="end.errors && end.touched">
+              <div class="form-control-feedback" *ngIf="end.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Can Revote -->
+        <div class="form-group row">
+          <label for="canRevote" class="col-form-label col-md-3">{{ 'T_EVENT_CAN_REVOTE' | translate }}</label>
+          <div class="col-md-9">
+            <label class="switch switch-default switch-primary">
+              <input id="canRevote" name="canRevote" type="checkbox" class="switch-input" checked="true" [(ngModel)]="model.canRevote">
+              <span class="switch-label"></span>
+              <span class="switch-handle"></span>
+            </label>
+          </div>
+        </div>
+
+        <hr/>
+
+        <div class="text-right mt-1">
+          <button type="submit"
+                  class="btn btn-primary mt-0"
+                  [disabled]="!eventForm.valid">
+          <span [ngSwitch]="editMode">
+            <ng-template [ngSwitchCase]="true">{{ 'T_ACTION_UPDATE' | translate }}</ng-template>
+            <ng-template ngSwitchDefault>{{ 'T_ACTION_CREATE' | translate }}</ng-template>
+          </span>
+          </button>
+        </div>
+      </form>
+    </div>
+
+  </div>
+
+  <!-- Projects in Event -->
+  <div class="card">
+    <div class="card-header"><b>{{ 'T_PROJECTS' | translate }}</b></div>
+    <div class="card-block">
+      <bs-assessment-event-project-list embedded [event]="model"></bs-assessment-event-project-list>
+    </div>
+  </div>
+
+  <!-- Notifications -->
+  <div class="card">
+    <div class="card-header"><b>{{ 'T_EVENT_NOTIFICATIONS' | translate }}</b></div>
+    <div class="card-block">
+      <bs-assessment-event-notification embedded [event]="model"></bs-assessment-event-notification>
+    </div>
+  </div>
+</div>
+

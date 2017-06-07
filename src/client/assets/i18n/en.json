@@ -106,6 +106,7 @@
   "T_ERROR_INVALID_TIME":"Wrong time format",
   "T_ERROR_PAGINATION": "Invalid request! Check parameter 'number' (page number) in the URL.",
   "T_ERROR_SORTING": "Invalid request! Check parameter 'sort' in the URL.",
+  "T_SUCCESS_CLONED_EVENT": "Cloned! Don't forget to change dates and add notifications",
   "T_ERROR_CONFLICT_GENERAL": "Changes are impossible, there are related entities",
   "T_ERROR_CONFLICT_GROUP_1": "Group can't be parent group to itself",
   "T_ERROR_CONFLICT_GROUP_2": "There is a circular reference parent-child",
