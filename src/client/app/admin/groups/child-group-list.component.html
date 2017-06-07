@@ -31,8 +31,6 @@
         </li>
       </ul>
     </div>
-    <ng-template [ngIf]="group.hasChildren">
-      <bs-child-group-list embedded [parentId]="group.id"></bs-child-group-list>
-    </ng-template>
+      <bs-child-group-list *ngIf="group.hasChildren" embedded [parentId]="group.id"></bs-child-group-list>
   </accordion-group>
 </accordion>
