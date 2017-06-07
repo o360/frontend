@@ -16,10 +16,17 @@
       <td>{{ item.time | dateFormat }}</td>
       <td class="actions-column">
         <button type="button"
+                class="btn btn-primary btn-sm mr-1"
+                (click)="notificationsEditModal.show(item)">
+          <i class="mr-h fa fa-pencil"></i>
+          {{ 'T_ACTION_EDIT_DATE' | translate }}
+        </button>
+
+        <button type="button"
                 class="btn btn-danger btn-sm"
                 (click)="deleteNotification(item)">
           <i class="mr-h fa fa-remove"></i>
-          {{ 'T_ACTION_DELETE' | translate }}
+          {{ 'T_ACTION_REMOVE' | translate }}
         </button>
       </td>
     </tr>
@@ -31,4 +38,4 @@
 
 <bs-assessment-event-notifications-edit-modal #notificationsEditModal
                                               [model]="event"
-                                              (notificationAdded)="notificationAdded($event)"></bs-assessment-event-notifications-edit-modal>
+                                              (onNotificationAdded)="onNotificationAdded($event)"></bs-assessment-event-notifications-edit-modal>
