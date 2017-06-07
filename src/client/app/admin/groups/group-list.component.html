@@ -11,6 +11,22 @@
       {{ parentId!='null' ? ('T_ACTION_CREATE_CHILD_GROUP'| translate) : ('T_ACTION_CREATE' | translate )}}
     </button>
 
+    <button class="btn btn-default mb-1"
+            type="button"
+            title="{{ 'T_ACTION_EXPAND' | translate }}"
+            (click)="changeInnerGroupState()">
+      <span [ngSwitch]="innerGroupState">
+          <ng-template [ngSwitchCase]="true">
+               <i class="fa fa-chevron-up mr-h"></i>
+              {{ 'T_ACTION_HIDE' | translate }}
+          </ng-template>
+          <ng-template ngSwitchDefault>
+             <i class="fa fa-chevron-down mr-h"></i>
+              {{ 'T_ACTION_EXPAND' | translate }}
+          </ng-template>
+      </span>
+    </button>
+
     <ul class="list-group border-1 group-header">
       <li class="d-flex justify-content-between align-items-center">
         <b class="col-md-2 mt-1 mr-2 pb-1">#</b>
@@ -20,7 +36,10 @@
     </ul>
 
     <accordion class="group-list-accordion">
-      <accordion-group *ngFor="let group of list" class="accordion-group" #accordionGroup>
+      <accordion-group *ngFor="let group of list"
+                       class="accordion-group"
+                       #accordionGroup
+                       [isOpen]="innerGroupState">
         <div accordion-heading>
           <ul class="list-group">
             <li class="d-flex justify-content-between align-items-center">
