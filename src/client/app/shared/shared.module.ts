@@ -12,6 +12,7 @@ import { CKEditorModule } from 'ng2-ckeditor';
 import { DateTimeComponent } from './components/datetime/datetime-picker.component';
 import { LanguageSelectorComponent } from './language-selector/language-selector.component';
 import { DateFormatPipe } from './pipes/date.pipe';
+import { DndModule } from 'ng2-dnd';
 
 /**
  * Do not specify providers for modules that might be imported by a lazy loaded module.
@@ -26,12 +27,12 @@ import { DateFormatPipe } from './pipes/date.pipe';
     TranslateModule,
     ToastModule,
     AccordionModule,
-    TabsModule,
     CollapseModule,
     PaginationModule,
     ModalModule,
     CKEditorModule,
-    TabsModule
+    TabsModule,
+    DndModule
   ],
   declarations: [
     ConfirmationDirective,
@@ -53,7 +54,6 @@ import { DateFormatPipe } from './pipes/date.pipe';
     FiltersComponent,
     ToastModule,
     AccordionModule,
-    TabsModule,
     PaginationModule,
     PaginationComponent,
     ModalModule,
@@ -61,7 +61,8 @@ import { DateFormatPipe } from './pipes/date.pipe';
     TabsModule,
     LanguageSelectorComponent,
     DateTimeComponent,
-    DateFormatPipe
+    DateFormatPipe,
+    DndModule
   ]
 })
 export class SharedModule {

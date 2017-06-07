@@ -11,6 +11,7 @@ import { createTranslateLoader } from './shared/config/translate-loader.config';
 import { SharedModule } from './shared/shared.module';
 import { ToastModule } from 'ng2-toastr/ng2-toastr';
 import { ModalModule, PaginationModule, AccordionModule, TabsModule } from 'ngx-bootstrap';
+import { DndModule } from 'ng2-dnd';
 
 @NgModule({
   imports: [
@@ -32,6 +33,7 @@ import { ModalModule, PaginationModule, AccordionModule, TabsModule } from 'ngx-
     TabsModule.forRoot(),
     ModalModule.forRoot(),
     TabsModule.forRoot(),
+    DndModule.forRoot(),
     // App related modules
     AppRoutingModule
   ],

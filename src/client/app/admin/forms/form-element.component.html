@@ -60,11 +60,16 @@
       </div>
     </form>
 
-    <table class="table table-striped mt-2">
+    <table class="table table-striped mt-2"
+           dnd-sortable-container
+           [sortableData]="element.values"
+           [dropZones]="['element-dropZone']">
       <th>{{ 'T_FORM_CAPTION' | translate}}</th>
       <th class="actions-column">{{ 'T_ACTION' | translate }}</th>
       <tbody>
-        <tr *ngFor="let value of element.values">
+        <tr *ngFor="let value of element.values; let j = index"
+            dnd-sortable
+            [sortableIndex]="j">
           <td>{{ value.caption }}</td>
           <td class="actions-column">
             <button type="button"
