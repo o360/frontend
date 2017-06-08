@@ -1,13 +1,12 @@
-import { Input, OnInit } from '@angular/core';
+import { Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Model, ModelId } from '../../core/models/model';
 import { IListResponse, IQueryParams, IResponseMeta, RestService } from '../../core/services/rest.service';
 import { Filter } from '../../core/models/filter';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { defaultPage, supportedSizes } from './pagination/pagination.component';
-import { EventService } from '../../core/services/event.service';
 import { NotificationService } from '../../core/services/notification.service';
 
-export abstract class ListComponent<T extends Model> implements OnInit {
+export abstract class ListComponent<T extends Model> implements OnInit, OnChanges {
   protected _list: T[];
   protected _filters: Filter[] = [];
   protected _meta: IResponseMeta;
@@ -26,6 +25,11 @@ export abstract class ListComponent<T extends Model> implements OnInit {
 
   public get filters(): Filter[] {
     return this._filters;
+  }
+
+  @Input()
+  public set filters(value: Filter[]) {
+    this._filters = value;
   }
 
   public get meta(): IResponseMeta {
@@ -62,6 +66,11 @@ export abstract class ListComponent<T extends Model> implements OnInit {
 
   public ngOnInit() {
     this._activatedRoute.queryParams.forEach(this._processRequestParams.bind(this));
+  }
+  public ngOnChanges(changes: SimpleChanges) {
+    if (changes['filters']) {
+      console.log('FUCK');
+    }
   }
 
   public delete(id: ModelId) {
