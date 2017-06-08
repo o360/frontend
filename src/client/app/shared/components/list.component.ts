@@ -4,7 +4,6 @@ import { IListResponse, IQueryParams, IResponseMeta, RestService } from '../../c
 import { Filter } from '../../core/models/filter';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { defaultPage, supportedSizes } from './pagination/pagination.component';
-import { EventService } from '../../core/services/event.service';
 import { NotificationService } from '../../core/services/notification.service';
 
 export abstract class ListComponent<T extends Model> implements OnInit {
@@ -26,6 +25,11 @@ export abstract class ListComponent<T extends Model> implements OnInit {
 
   public get filters(): Filter[] {
     return this._filters;
+  }
+
+  @Input()
+  public set filters(value: Filter[]) {
+    this._filters = value;
   }
 
   public get meta(): IResponseMeta {
