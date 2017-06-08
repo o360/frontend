@@ -58,10 +58,6 @@ export class FormBuilderComponent extends FormComponent<FormModel> implements On
     return this.form.get('elements') as FormArray;
   }
 
-  public requireValue(kind: string) {
-    return RequireValue(kind);
-  }
-
   constructor(service: FormService,
               router: Router,
               route: ActivatedRoute,
