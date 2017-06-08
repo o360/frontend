@@ -9,7 +9,7 @@
     </button>
 
     <!--Group user list-->
-    <table class="table table-striped mt-1" *ngIf="list.length">
+    <table class="table table-striped mt-1">
       <thead>
         <tr>
           <th>#</th>
@@ -46,6 +46,10 @@
               {{ 'T_ACTION_REMOVE' | translate }}
             </button>
           </td>
+        </tr>
+
+        <tr *ngIf="!list.length">
+          <td colspan="25" class="text-center">{{ 'T_EMPTY' | translate }}</td>
         </tr>
       </tbody>
     </table>

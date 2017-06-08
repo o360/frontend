@@ -22,6 +22,11 @@ export class UserListComponent extends ListComponent<UserModel> {
     field: 'role',
     type: FilterType.Select,
     values: Object.values(UserRole).map(x => ({ name: 'T_USER_ROLE_' + x.toUpperCase(), value: x }))
+  }, {
+    name: 'T_USER_NAME',
+    field: 'name',
+    type: FilterType.String,
+    values: Object.values(UserModel.name).map(x => ({ value: x}))
   }];
 
   constructor(service: UserService,

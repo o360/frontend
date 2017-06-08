@@ -4,6 +4,7 @@ import { GroupModel } from '../../core/models/group-model';
 import { GroupService } from '../../core/services/group.service';
 import { ListComponent } from '../../shared/components/list.component';
 import { NotificationService } from '../../core/services/notification.service';
+import { Filter, FilterType } from '../../core/models/filter';
 
 @Component({
   moduleId: module.id,
@@ -11,8 +12,16 @@ import { NotificationService } from '../../core/services/notification.service';
   templateUrl: 'group-list.component.html'
 })
 export class GroupListComponent extends ListComponent<GroupModel> implements OnInit, OnChanges {
+  protected _filters: Filter[] = [{
+    name: 'T_GROUP_NAME',
+    field: 'name',
+    type: FilterType.String,
+    values: Object.values(GroupModel.name).map(x => ({ value: x }))
+  }];
+
   protected _parentId: string = 'null';
-  private _innerGroupState: boolean = false;
+  protected _innerGroupState: boolean = false;
+  private _hasInnerGroup: boolean = false;
 
   @Input()
   public set parentId(value: string) {
