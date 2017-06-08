@@ -1,4 +1,4 @@
-import { Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Input, OnInit } from '@angular/core';
 import { Model, ModelId } from '../../core/models/model';
 import { IListResponse, IQueryParams, IResponseMeta, RestService } from '../../core/services/rest.service';
 import { Filter } from '../../core/models/filter';
@@ -6,7 +6,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { defaultPage, supportedSizes } from './pagination/pagination.component';
 import { NotificationService } from '../../core/services/notification.service';
 
-export abstract class ListComponent<T extends Model> implements OnInit, OnChanges {
+export abstract class ListComponent<T extends Model> implements OnInit {
   protected _list: T[];
   protected _filters: Filter[] = [];
   protected _meta: IResponseMeta;
@@ -66,11 +66,6 @@ export abstract class ListComponent<T extends Model> implements OnInit, OnChange
 
   public ngOnInit() {
     this._activatedRoute.queryParams.forEach(this._processRequestParams.bind(this));
-  }
-  public ngOnChanges(changes: SimpleChanges) {
-    if (changes['filters']) {
-      console.log('FUCK');
-    }
   }
 
   public delete(id: ModelId) {

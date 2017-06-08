@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Filter, FilterType } from '../../../core/models/filter';
-import { IQueryParams } from '../../../core/services/rest.service';
 
 @Component({
   moduleId: module.id,
