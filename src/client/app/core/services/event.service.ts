@@ -8,6 +8,7 @@ import { Http, Response } from '@angular/http';
 import { AuthService } from './auth.service';
 import { NotificationService } from './notification.service';
 import { Router } from '@angular/router';
+import { ConfirmationService } from './confirmation.service';
 
 @Injectable()
 @RestServiceConfig({
@@ -15,8 +16,12 @@ import { Router } from '@angular/router';
   entityConstructor: EventModel
 })
 export class EventService extends RestService<EventModel> {
-  constructor(http: Http, authService: AuthService, router: Router, notificationService: NotificationService) {
-    super(http, authService, router, notificationService);
+  constructor(http: Http,
+              authService: AuthService,
+              router: Router,
+              notificationService: NotificationService,
+              confirmationService: ConfirmationService) {
+    super(http, authService, router, notificationService, confirmationService);
   }
 
   public addProject(eventId?: ModelId, projectId?: ModelId): Observable<void> {

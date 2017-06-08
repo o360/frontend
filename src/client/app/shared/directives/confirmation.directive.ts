@@ -6,28 +6,31 @@ import { ConfirmationService } from '../../core/services/confirmation.service';
   selector: '[bsConfirm]'
 })
 export class ConfirmationDirective {
-  protected _message: string = 'T_CONFIRM_MESSAGE';
-  private _confirm: EventEmitter<any> = new EventEmitter<any>()
-
-  @Input()
-  public set message(value: any) {
-    this._message = value;
-  }
+  private _message: string = 'T_CONFIRM_MESSAGE';
+  private _confirm: EventEmitter<any> = new EventEmitter<any>();
 
   @Output()
   public get confirm(): EventEmitter<any> {
     return this._confirm;
   }
 
+  @Input()
+  set message(value: string) {
+    this._message = value;
+  }
+
   constructor(protected _viewContainerRef: ViewContainerRef,
-              protected _translateService: TranslateService,
               protected _confirmationService: ConfirmationService) {
   }
 
   @HostListener('click', ['$event'])
   public clickHandler() {
-    let translatedMessage = this._translateService.instant(this._message);
-    this._confirmationService.container = this._viewContainerRef;
-    this._confirmationService.loadComponent(translatedMessage);
+    this._confirmationService.setViewContainerRef(this._viewContainerRef);
+
+    this._confirmationService.loadComponent(this._message).subscribe(value => {
+      if (value) {
+        this._confirm.emit();
+      }
+    });
   }
 }

@@ -1,16 +1,19 @@
-<div bsModal #modal="bs-modal" [config]="{ show: true }" class="modal" tabindex="-1" role="dialog">
+<div bsModal #modal="bs-modal" [config]="{ show: true }"
+     class="modal text-left" tabindex="-1" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content confirmation-modal-content" [ngSwitch]="!!conflicts">
 
       <!--Confirmation-->
       <ng-template ngSwitchDefault>
-        <div class="modal-header"><b class="modal-title">{{ 'T_ACTION_DELETE' | translate }}</b>
-          <button type="button" class="close" aria-label="Close" (click)="modal.hide()"><span aria-hidden="true">&times;</span></button>
+        <div class="modal-header"><b class="modal-title">{{ 'T_ACTION_CONFIRM' | translate }}</b>
+          <button type="button" class="close" aria-label="Close" (click)="modal.hide()"><span
+            aria-hidden="true">&times;</span></button>
         </div>
-        <div class="modal-body"> {{ message }}</div>
+        <div class="modal-body"> {{ message | translate }}</div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" (click)="modal.hide()">{{ 'T_ACTION_CANCEL' | translate }}</button>
-          <button type="submit" class="btn btn-primary" (click)="submit()"> {{ 'T_ACTION_DELETE' | translate }}</button>
+          <button type="submit" class="btn btn-primary" (click)="submit()"> {{ 'T_ACTION_YES' | translate }}</button>
+          <button type="button" class="btn btn-secondary" (click)="modal.hide()">{{ 'T_ACTION_CANCEL' | translate }}
+          </button>
         </div>
       </ng-template>
 
@@ -31,20 +34,16 @@
                 {{ conflicts[item].length }} </span>
             </li>
             <li class="list-group-item p-0"
-                *ngFor="let conflict of conflicts[item]"
-                [ngSwitch]="item !== 'relations'">
-              <ng-template [ngSwitchCase]="true">
-                <a [routerLink]="['/admin', item, conflict.id]">
-                  {{ conflict.name }}
-                </a>
-              </ng-template>
-              <ng-template ngSwitchDefault>{{ conflict.name }}</ng-template>
+                *ngFor="let conflict of conflicts[item]">
+              <a [routerLink]="['/admin', item, conflict.id]">
+                {{ conflict.name }}
+              </a>
             </li>
           </ul>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary"
-                  (click)="modal.hide()">{{ 'T_ACTION_OK' | translate }}
+                  (click)="hide()">{{ 'T_ACTION_OK' | translate }}
           </button>
         </div>
       </ng-template>

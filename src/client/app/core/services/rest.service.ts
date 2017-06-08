@@ -6,6 +6,7 @@ import { Config } from '../../shared/config/env.config';
 import { Model, ModelId } from '../models/model';
 import { AuthService } from './auth.service';
 import { NotificationService } from './notification.service';
+import { ConfirmationService } from './confirmation.service';
 
 export interface IQueryParams {
   [key: string]: string;
@@ -57,7 +58,8 @@ export class RestService<T extends Model> {
   constructor(protected _http: Http,
               protected _authService: AuthService,
               protected _router: Router,
-              protected _notificationService: NotificationService) {
+              protected _notificationService: NotificationService,
+              protected _confirmationService: ConfirmationService) {
   }
 
   /**
@@ -76,7 +78,7 @@ export class RestService<T extends Model> {
   public list(queryParams?: IQueryParams): Observable<IListResponse<T>> {
     return this._http.get(this._getRequestParams(undefined, queryParams), this._getRequestOptions())
       .map((response: Response) => response.json())
-      .map((json: any) => Object.assign(json, { data: json.data.map((x: any) => this.createEntity(x)) }))
+      .map((json: any) => Object.assign(json, {data: json.data.map((x: any) => this.createEntity(x))}))
       .catch((error: any) => this._handleErrors(error));
   }
 
@@ -219,7 +221,7 @@ export class RestService<T extends Model> {
       this._notificationService.error(this._prepareErrorCodeTranslation(err.code));
       return Observable.throw(error);
     } else if (error.status === 409) {
-      this._notificationService.error(this._prepareErrorCodeTranslation(err.code));
+      this._confirmationService.loadComponent(null, err.conflicts);
       return Observable.throw(error);
     } else {
       this._notificationService.error(err.message, `${error.status} ${error.statusText}`);

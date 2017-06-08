@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
 import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import { ConfirmationService } from './confirmation.service';
 
 @Injectable()
 @RestServiceConfig({
@@ -17,8 +18,9 @@ export class EmailTemplateService extends RestService<EmailTemplateModel> {
   constructor(http: Http,
               authService: AuthService,
               router: Router,
-              notificationService: NotificationService) {
-    super(http, authService, router, notificationService);
+              notificationService: NotificationService,
+              confirmationService: ConfirmationService) {
+    super(http, authService, router, notificationService, confirmationService);
   }
 
   public clone(model: EmailTemplateModel): Observable<EmailTemplateModel> {

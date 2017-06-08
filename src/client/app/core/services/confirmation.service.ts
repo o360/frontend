@@ -1,25 +1,54 @@
-import { ComponentFactoryResolver, Injectable, ViewContainerRef } from '@angular/core';
+import { ComponentFactoryResolver, ComponentRef, Injectable, ViewContainerRef } from '@angular/core';
 import { ConfirmationModalComponent } from '../../shared/confirmation/confirmation.component';
+import { Subject } from 'rxjs/Subject';
+import { TranslateService } from '@ngx-translate/core';
+import { ModelId } from '../models/model';
+
+export interface IConflicts {
+  projects?: IEntity;
+  events?: IEntity;
+  groups?: IEntity;
+  users?: IEntity;
+  relations?: IEntity;
+}
+
+export interface IEntity {
+  id: ModelId;
+  name: string;
+}
 
 @Injectable()
 export class ConfirmationService {
-  protected _container: ViewContainerRef;
+  protected _message: string = 'T_CONFIRM_MESSAGE';
+  protected _componentRef: ComponentRef<ConfirmationModalComponent>;
+  protected _viewContainerRef: ViewContainerRef;
 
-  public set container(value: ViewContainerRef) {
-    this._container = value;
+  constructor(protected _resolver: ComponentFactoryResolver,
+              protected _translateService: TranslateService) {
   }
 
-  constructor(protected _resolver: ComponentFactoryResolver) {
-  }
-
-  public loadComponent(message?: string, conflicts?: string) {
+  public loadComponent(message?: string, conflicts?: IConflicts): Subject<boolean> {
     let componentFactory = this._resolver.resolveComponentFactory(ConfirmationModalComponent);
-    let viewContainerRef = this._container;
+    this._viewContainerRef.clear();
+    this._componentRef = this._viewContainerRef.createComponent(componentFactory);
 
-    viewContainerRef.clear();
+    let translatedMessage: string;
+    if (message) {
+      translatedMessage = this._translateService.instant(message);
+    } else {
+      translatedMessage = this._translateService.instant(this._message);
+    }
+    this._componentRef.instance.message = translatedMessage;
+    this._componentRef.instance.conflicts = conflicts;
 
-    let componentRef = viewContainerRef.createComponent(componentFactory);
-    (<ConfirmationModalComponent>componentRef.instance).message = message;
-    (<ConfirmationModalComponent>componentRef.instance).conflicts = conflicts;
+    return this._componentRef.instance.confirmed;
+  }
+
+  public setViewContainerRef(vRef: ViewContainerRef) {
+    this._viewContainerRef = vRef;
+  }
+
+  public destroy() {
+    this._viewContainerRef.remove(1);
   }
 }
