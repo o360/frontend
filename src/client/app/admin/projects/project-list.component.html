@@ -29,6 +29,7 @@
                     class="btn btn-sm btn-danger ml-1"
                     title="{{ 'T_ACTION_DELETE' | translate }}"
                     bsConfirm
+                    [message]="'T_CONFIRM_MESSAGE_DELETE_PROJECT' | translate"
                     (confirm)="delete(model.id)"><i class="fa fa-trash"></i>&nbsp;{{ 'T_ACTION_DELETE' | translate }}
             </button>
           </td>

@@ -92,6 +92,14 @@ header.navbar .navbar-brand {
   }
 }
 
+.confirmation-modal-content {
+  font-size: 0.875rem;
+
+  .list-group-item {
+    border: none;
+  }
+}
+
 .accordion-group {
   &:nth-child(even) {
     .card-header {

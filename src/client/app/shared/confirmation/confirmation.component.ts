@@ -1,18 +1,19 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap';
+import { Subject } from 'rxjs/Subject';
+import { ConfirmationService, IConflicts } from '../../core/services/confirmation.service';
 
 @Component({
   moduleId: module.id,
   selector: 'bs-confirmation-modal',
   templateUrl: 'confirmation.component.html'
 })
-export class ConfirmationModalComponent implements OnChanges, OnInit {
-  protected _message: string;
-  protected _conflicts: any;
-  protected _confirmed: any;
+export class ConfirmationModalComponent implements OnInit {
+  protected _message: string = 'T_CONFIRM_MESSAGE';
+  protected _conflicts: IConflicts;
   protected _modal: ModalDirective;
   protected _conflictKeys: string[];
-  protected _confirm: EventEmitter<void> = new EventEmitter<void>();
+  protected _confirmed: Subject<boolean> = new Subject<boolean>();
 
   @Input()
   public set message(value: string) {
@@ -20,26 +21,20 @@ export class ConfirmationModalComponent implements OnChanges, OnInit {
   }
 
   @Input()
-  public set conflicts(value: any) {
+  public set conflicts(value: IConflicts) {
     this._conflicts = value;
   }
 
-  @Input()
-  public set confirmed(value: any) {
-    this._confirmed = value;
+  get confirmed(): Subject<boolean> {
+    return this._confirmed;
   }
 
   public get message(): string {
     return this._message;
   }
 
-  public get conflicts(): any {
+  public get conflicts(): IConflicts {
     return this._conflicts;
-  }
-
-  @Output()
-  public get confirm(): EventEmitter<void> {
-    return this._confirm;
   }
 
   public get conflictKeys(): any {
@@ -55,25 +50,17 @@ export class ConfirmationModalComponent implements OnChanges, OnInit {
     this._modal = value;
   }
 
-  public ngOnChanges(changes: SimpleChanges) {
+  public ngOnInit() {
     if (this._conflicts) {
       this._conflictKeys = Object.keys(this._conflicts);
     }
   }
 
-  public ngOnInit() {
-    if (this._modal) {
-      console.log('ngOnInit', this._modal);
-    }
-  }
-
-  public show() {
-    if (this._modal) {
-      this._modal.show();
-    }
-  }
-
   public submit() {
-    this._confirm.emit();
+    this._confirmed.next(true);
+  }
+
+  public hide() {
+    this._modal.hide();
   }
 }
