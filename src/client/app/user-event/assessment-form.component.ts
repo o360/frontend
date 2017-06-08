@@ -1,12 +1,13 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AssessmentModel, IElementAnswer } from '../core/models/assessment-model';
-import { FormElementType, FormModel, IFormElement } from '../core/models/form-model';
+import { FormElementType, FormModel, FormElement } from '../core/models/form-model';
 import { ModelId } from '../core/models/model';
 import { AssessmentService } from '../core/services/assessment.service';
 import { NotificationService } from '../core/services/notification.service';
 import { IListResponse, IQueryParams } from '../core/services/rest.service';
 import { FormUsersService } from '../core/services/form-users.service';
 import { EventStatus } from '../core/models/event-model';
+import { RequireValue } from '../admin/forms/form-builder.component';
 
 @Component({
   moduleId: module.id,
@@ -53,14 +54,6 @@ export class UserAssessmentFormComponent implements OnInit {
     return EventStatus;
   }
 
-  public requireValue(kind: string) {
-    return [
-      FormElementType.Radio,
-      FormElementType.Checkboxgroup,
-      FormElementType.Select
-    ].includes(kind);
-  }
-
   @Output()
   public get formChange(): EventEmitter<AssessmentModel> {
     return this._formChange;
@@ -93,10 +86,10 @@ export class UserAssessmentFormComponent implements OnInit {
   }
 
   public save() {
-    let answers = this._form.elements.map((element: IFormElement) => {
+    let answers = this._form.elements.map((element: FormElement) => {
       let elementAnswer: IElementAnswer = { elementId: element.id };
 
-      if (!this.requireValue(element.kind)) {
+      if (!RequireValue(element.kind)) {
         if (!!element.tempValue) {
           elementAnswer.text = element.tempValue.toString();
         }
@@ -146,7 +139,7 @@ export class UserAssessmentFormComponent implements OnInit {
         this._answers.forEach(answer => {
           let element = this._form.elements.find(x => x.id === answer.elementId);
 
-          if (!this.requireValue(element.kind)) {
+          if (!RequireValue(element.kind)) {
             element.tempValue = answer.text;
           } else if (element.kind === FormElementType.Checkboxgroup) {
             if (answer.valuesIds) {
