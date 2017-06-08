@@ -22,7 +22,7 @@ export const FormBuilderValidator = (control: AbstractControl): ValidationErrors
 export const FormElementValidator = (control: AbstractControl): ValidationErrors => {
   const values = (control.get('values') as FormArray).value;
   return (!!values.length) ? null : {noValues: 'T_FORM_VALUES_ARE_REQUIRED'};
-}
+};
 
 @Component({
   moduleId: module.id,
