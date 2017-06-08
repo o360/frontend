@@ -7,11 +7,10 @@ import { Model, ModelId } from './model';
 })
 export class FormModel extends Model {
   public name: string;
-  public elements: IFormElement[];
+  public elements: FormElement[];
 }
 
-export interface IFormElement {
-  id?: ModelId;
+export class FormElement extends Model {
   kind: string;
   caption: string;
   required: boolean;
