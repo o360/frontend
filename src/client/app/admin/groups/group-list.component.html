@@ -17,7 +17,8 @@
         {{ parentId!='null' ? ('T_ACTION_CREATE_CHILD_GROUP'| translate) : ('T_ACTION_CREATE' | translate )}}
       </button>
 
-      <button *ngIf="list.length" class="btn btn-default mb-1"
+      <button *ngIf="list.length"
+              class="btn btn-default mb-1"
               type="button"
               title="{{ 'T_ACTION_EXPAND' | translate }}"
               (click)="changeInnerGroupState()">
