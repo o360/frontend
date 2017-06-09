@@ -21,7 +21,6 @@ export class GroupListComponent extends ListComponent<GroupModel> implements OnI
 
   protected _parentId: string = 'null';
   protected _innerGroupState: boolean = false;
-  private _hasInnerGroup: boolean = false;
 
   @Input()
   public set parentId(value: string) {
@@ -52,7 +51,6 @@ export class GroupListComponent extends ListComponent<GroupModel> implements OnI
   public ngOnChanges(changes: SimpleChanges) {
     if (changes['parentId']) {
       Object.assign(this._queryParams, { parentId: this._parentId });
-      this._update();
     }
   }
 
