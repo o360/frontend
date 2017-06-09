@@ -47,7 +47,6 @@ export class ChildGroupListComponent extends ListComponent<GroupModel> implement
   public ngOnChanges(changes: SimpleChanges) {
     if (changes['parentId']) {
       Object.assign(this._queryParams, { parentId: this._parentId });
-      this._update();
     }
   }
 }
