@@ -3,8 +3,16 @@
         class="mt-2"
         (ngSubmit)="save()">
 
-   <ng-container *ngFor="let element of form.elements;"
+    <ng-container *ngFor="let element of form.elements;"
                   [ngSwitch]="element.kind">
+
+      <!-- Likes & dislikes -->
+      <ng-template [ngSwitchCase]="FormElementType.LikeDislike">
+        <bs-likes-dislikes name="{{ element.id }}"
+                           #likeDislike="ngModel"
+                           [element]="element"
+                           [(ngModel)]="element.tempValue"></bs-likes-dislikes>
+      </ng-template>
 
       <!-- Checkbox groups -->
       <ng-template [ngSwitchCase]="FormElementType.Checkboxgroup">
@@ -55,7 +63,9 @@
 
             <div class="form-errors"
                  *ngIf="checkbox.errors && checkbox.touched">
-              <div class="form-control-feedback" *ngIf="checkbox.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}</div>
+              <div class="form-control-feedback" *ngIf="checkbox.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' |
+                translate }}
+              </div>
             </div>
           </div>
         </div>
@@ -85,7 +95,9 @@
 
             <div class="form-errors"
                  *ngIf="select.errors && select.touched">
-              <div class="form-control-feedback" *ngIf="select.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}</div>
+              <div class="form-control-feedback" *ngIf="select.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' |
+                translate }}
+              </div>
             </div>
           </div>
         </div>
@@ -137,7 +149,9 @@
 
             <div class="form-errors"
                  *ngIf="textarea.errors && textarea.touched">
-              <div class="form-control-feedback" *ngIf="textarea.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}</div>
+              <div class="form-control-feedback" *ngIf="textarea.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' |
+                translate }}
+              </div>
             </div>
           </div>
         </div>
@@ -164,10 +178,13 @@
 
             <div class="form-errors"
                  *ngIf="textfield.errors && textfield.touched">
-              <div class="form-control-feedback" *ngIf="textfield.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}</div>
+              <div class="form-control-feedback" *ngIf="textfield.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' |
+                translate }}
+              </div>
             </div>
           </div>
         </div>
+
       </ng-template>
 
       <!-- Any other -->
@@ -195,7 +212,9 @@
 
             <div class="form-errors"
                  *ngIf="input.errors && input.touched">
-              <div class="form-control-feedback" *ngIf="input.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}</div>
+              <div class="form-control-feedback" *ngIf="input.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' |
+                translate }}
+              </div>
             </div>
           </div>
         </div>

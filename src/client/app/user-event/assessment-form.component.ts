@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AssessmentModel, IElementAnswer } from '../core/models/assessment-model';
-import { FormElementType, FormModel, FormElement } from '../core/models/form-model';
+import { FormElement, FormElementType, FormModel } from '../core/models/form-model';
 import { ModelId } from '../core/models/model';
 import { AssessmentService } from '../core/services/assessment.service';
 import { NotificationService } from '../core/services/notification.service';
@@ -87,11 +87,15 @@ export class UserAssessmentFormComponent implements OnInit {
 
   public save() {
     let answers = this._form.elements.map((element: FormElement) => {
-      let elementAnswer: IElementAnswer = { elementId: element.id };
-
+      let elementAnswer: IElementAnswer = {elementId: element.id};
       if (!RequireValue(element.kind)) {
         if (!!element.tempValue) {
-          elementAnswer.text = element.tempValue.toString();
+          if (element.kind === FormElementType.LikeDislike) {
+            elementAnswer.valuesIds = [+element.tempValue.valuesIds];
+            elementAnswer.text = element.tempValue.text.toString();
+          } else {
+            elementAnswer.text = element.tempValue.toString();
+          }
         }
       } else if (element.kind === FormElementType.Checkboxgroup) {
         elementAnswer.valuesIds = element.values.filter(x => x.tempValue).map(x => x.id);
@@ -100,7 +104,6 @@ export class UserAssessmentFormComponent implements OnInit {
           elementAnswer.valuesIds = [+element.tempValue];
         }
       }
-
       return elementAnswer;
     });
 
@@ -140,7 +143,17 @@ export class UserAssessmentFormComponent implements OnInit {
           let element = this._form.elements.find(x => x.id === answer.elementId);
 
           if (!RequireValue(element.kind)) {
-            element.tempValue = answer.text;
+            if (element.kind === FormElementType.LikeDislike) {
+              element.tempValue = {};
+              if (answer.valuesIds) {
+                element.tempValue.valuesIds = answer.valuesIds;
+                if (answer.text) {
+                  element.tempValue.text = answer.text;
+                }
+              }
+            } else {
+              element.tempValue = answer.text;
+            }
           } else if (element.kind === FormElementType.Checkboxgroup) {
             if (answer.valuesIds) {
               answer.valuesIds.forEach(id => {
