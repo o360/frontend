@@ -14,7 +14,7 @@
       <div class="form-group row"
            [ngClass]="{ 'has-success': !!form.value.name,
                         'has-danger': !form.value.name && form.controls['name'].touched}">
-      <label for="name" class="col-form-label col-md-3 required">{{ 'T_FORM_NAME' | translate }}</label>
+        <label for="name" class="col-form-label col-md-3 required">{{ 'T_FORM_NAME' | translate }}</label>
         <div class="col-md-9">
           <input type="text"
                  class="form-control"
@@ -32,6 +32,26 @@
           </div>
         </div>
       </div>
+
+      <!-- Show in aggregation -->
+      <div class="form-group row">
+        <label for="showInAggregation" class="col-form-label col-md-3">
+          {{ 'T_FORM_SHOW_IN_AGGREGATION' | translate }}
+        </label>
+        <div class="col-md-9">
+          <label class="switch switch-default switch-primary">
+            <input id="showInAggregation"
+                   name="showInAggregation"
+                   type="checkbox"
+                   class="switch-input"
+                   checked="true"
+                   formControlName="showInAggregation">
+            <span class="switch-label"></span>
+            <span class="switch-handle"></span>
+          </label>
+        </div>
+      </div>
+
     </div>
   </div>
 
@@ -63,6 +83,7 @@
                              dnd-sortable
                              [sortableIndex]="i"
                              [dragEnabled]="!accordionGroup.isOpen"
+                             [isDisabled]="item.value.kind === FormElementType.LikeDislike"
                              #accordionGroup>
               <div class="accordion-heading row" accordion-heading>
                 <div class="col-8">
@@ -73,11 +94,12 @@
                   </i>
 
                   {{ 'T_FORM_ELEMENT_TYPE_' + item.value.kind.toUpperCase() | translate }}
-                  <b> {{ item.value.caption }} </b>
+                  <b *ngIf="item.value.kind !== FormElementType.LikeDislike"> {{ item.value.caption }} </b>
                 </div>
                 <div class="col-4 text-right">
                   <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-link btn-sm">
+                    <button *ngIf="item.value.kind !== FormElementType.LikeDislike"
+                            type="button" class="btn btn-link btn-sm">
                       <i class="fa"
                          [ngClass]="{'fa-chevron-up': accordionGroup?.isOpen, 'fa-chevron-down': !accordionGroup?.isOpen }"></i>
                     </button>
@@ -87,7 +109,8 @@
                   </div>
                 </div>
               </div>
-              <bs-form-builder-element #elementBuilder
+              <bs-form-builder-element *ngIf="item.value.kind !== FormElementType.LikeDislike"
+                                       #elementBuilder
                                        [element]="item"></bs-form-builder-element>
 
             </accordion-group>

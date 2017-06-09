@@ -3,7 +3,7 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { AccordionModule, CollapseModule, TabsModule, ModalModule, PaginationModule } from 'ngx-bootstrap';
+import { AccordionModule, CollapseModule, ModalModule, PaginationModule, TabsModule } from 'ngx-bootstrap';
 import { FiltersComponent } from './components/filters/filters.component';
 import { ConfirmationDirective } from './directives/confirmation.directive';
 import { ToastModule } from 'ng2-toastr/ng2-toastr';
@@ -13,6 +13,7 @@ import { DateTimeComponent } from './components/datetime/datetime-picker.compone
 import { LanguageSelectorComponent } from './language-selector/language-selector.component';
 import { DateFormatPipe } from './pipes/date.pipe';
 import { DndModule } from 'ng2-dnd';
+import { LikesDislikesComponent } from './components/likes-dislikes/likes-dislikes.component';
 import { ConfirmationModalComponent } from './confirmation/confirmation.component';
 import { SearchComponent } from './components/search/search.component';
 
@@ -44,6 +45,7 @@ import { SearchComponent } from './components/search/search.component';
     PaginationComponent,
     LanguageSelectorComponent,
     DateFormatPipe,
+    LikesDislikesComponent,
     ConfirmationModalComponent,
     SearchComponent
   ],

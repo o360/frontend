@@ -50,6 +50,10 @@ export class FormBuilderComponent extends FormComponent<FormModel> implements On
     return this._elementTypes;
   }
 
+  public get FormElementType(): any {
+    return FormElementType;
+  }
+
   public get form(): FormGroup {
     return this._form;
   }
@@ -104,7 +108,8 @@ export class FormBuilderComponent extends FormComponent<FormModel> implements On
   protected _createForm() {
     this._form = this._formBuilder.group({
         name: ['', Validators.required],
-        elements: this._formBuilder.array([])
+        elements: this._formBuilder.array([]),
+        showInAggregation: true
       },
       {validator: FormBuilderValidator});
   }
@@ -121,8 +126,10 @@ export class FormBuilderComponent extends FormComponent<FormModel> implements On
 
     let saveForm: FormModel = new FormModel({
       name: formModel.name,
-      elements: elementsCopy
+      elements: elementsCopy,
+      showInAggregation: formModel.showInAggregation
     });
+
     return saveForm;
   }
 
@@ -131,19 +138,31 @@ export class FormBuilderComponent extends FormComponent<FormModel> implements On
 
     if (RequireValue(element.kind)) {
       form = this._formBuilder.group({
-          caption: [element.caption, Validators.required],
-          required: element.required,
-          valueCaption: '',
-          values: this._formBuilder.array(element.values),
-          kind: element.kind
-        },
-        {validator: FormElementValidator});
-    } else {
-      form = this._formBuilder.group({
         caption: [element.caption, Validators.required],
         required: element.required,
+        valueCaption: '',
+        values: this._formBuilder.array(element.values),
         kind: element.kind
-      });
+      }, {validator: FormElementValidator});
+    } else {
+      if (element.kind === FormElementType.LikeDislike) {
+        form = this._formBuilder.group({
+          caption: 'like-dislike',
+          required: false,
+          values: this._formBuilder.array([{
+            caption: 'like'
+          }, {
+            caption: 'dislike'
+          }]),
+          kind: element.kind
+        }, {validator: FormElementValidator});
+      } else {
+        form = this._formBuilder.group({
+          caption: [element.caption, Validators.required],
+          required: element.required,
+          kind: element.kind
+        });
+      }
     }
     return form;
   }

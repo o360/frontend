@@ -1,0 +1,44 @@
+.like-dislike input {
+  margin: 0;
+  padding: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  outline: none;
+}
+
+.like {
+  position: relative;
+}
+
+.dislike {
+  position: relative;
+}
+
+.like:before {
+  content: "\f004";
+  font-family: FontAwesome;
+  font-style: normal;
+  font-weight: normal;
+  text-decoration: inherit;
+  font-size: 1.5rem;
+}
+
+.dislike:before {
+  content: "\f08a";
+  font-family: FontAwesome;
+  font-style: normal;
+  font-weight: normal;
+  text-decoration: inherit;
+  font-size: 1.5rem;
+}
+
+.like-dislike .like:hover,
+.like-dislike .like:checked {
+  color: #ff6384;
+}
+
+.like-dislike .dislike:hover,
+.like-dislike .dislike:checked {
+  color: #4bc0c0;
+}
