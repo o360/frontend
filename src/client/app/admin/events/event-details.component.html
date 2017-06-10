@@ -31,6 +31,7 @@
             <i class="mr-h fa fa-copy"></i> {{ 'T_ACTION_CLONE' | translate }}
           </button>
           <button type="button"
+                  *ngIf="model.status !== EventStatus.Completed"
                   class="btn btn-md btn-primary"
                   [routerLink]="['/admin/events/', model.id, 'edit']">
             <i class="mr-h fa fa-pencil"></i>

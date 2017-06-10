@@ -5,7 +5,7 @@ import { EventService } from '../../core/services/event.service';
 import { FormComponent } from '../../shared/components/form.component';
 import { NotificationService } from '../../core/services/notification.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ValidatorIsAfter, ValidatorIsBefore } from '../../shared/components/datetime/datetime-picker.component';
+import { ValidatorFutureDate, ValidatorIsAfter, ValidatorIsBefore } from '../../shared/components/datetime/datetime-picker.component';
 
 @Component({
   moduleId: module.id,
@@ -50,8 +50,8 @@ export class EventFormComponent extends FormComponent<EventModel> {
   protected _createForm() {
     this._eventForm = this._formBuilder.group({
       description: ['', Validators.required],
-      start: ['', [Validators.required, ValidatorIsBefore('end')]],
-      end: ['', [Validators.required, ValidatorIsAfter('start')]],
+      start: ['', [Validators.required, ValidatorIsBefore('end'), ValidatorFutureDate]],
+      end: ['', [Validators.required, ValidatorIsAfter('start'), ValidatorFutureDate]],
       canRevote: false
     });
   }
