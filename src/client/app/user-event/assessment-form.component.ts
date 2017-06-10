@@ -21,7 +21,10 @@ export class UserAssessmentFormComponent implements OnInit {
   protected _answers: IElementAnswer[] = [];
   protected _queryParams: IQueryParams = {};
   protected _formChange: EventEmitter<AssessmentModel> = new EventEmitter<AssessmentModel>();
-  private _status: string;
+  protected _formSave: EventEmitter<AssessmentModel> = new EventEmitter<AssessmentModel>();
+  protected _inline: boolean = false;
+  protected _status: string;
+  protected _assessment: AssessmentModel;
 
   public get id(): ModelId {
     return this._id;
@@ -59,6 +62,11 @@ export class UserAssessmentFormComponent implements OnInit {
     return this._formChange;
   }
 
+  @Output()
+  public get formSave(): EventEmitter<AssessmentModel> {
+    return this._formSave;
+  }
+
   public get status(): string {
     return this._status;
   }
@@ -66,6 +74,19 @@ export class UserAssessmentFormComponent implements OnInit {
   @Input()
   public set status(value: string) {
     this._status = value;
+  }
+
+  @Input()
+  public set inline(value: boolean | string) {
+    this._inline = typeof value === 'boolean' ? value : true;
+  }
+
+  public get inline(): boolean | string {
+    return this._inline;
+  }
+
+  get assessment(): AssessmentModel {
+    return this._assessment;
   }
 
   constructor(protected _assessmentService: AssessmentService,
@@ -85,14 +106,16 @@ export class UserAssessmentFormComponent implements OnInit {
     });
   }
 
-  public save() {
+  public onFormChange() {
     let answers = this._form.elements.map((element: FormElement) => {
       let elementAnswer: IElementAnswer = {elementId: element.id};
       if (!RequireValue(element.kind)) {
         if (!!element.tempValue) {
           if (element.kind === FormElementType.LikeDislike) {
             elementAnswer.valuesIds = [+element.tempValue.valuesIds];
-            elementAnswer.text = element.tempValue.text.toString();
+            if (element.tempValue.text) {
+              elementAnswer.text = element.tempValue.text.toString();
+            }
           } else {
             elementAnswer.text = element.tempValue.toString();
           }
@@ -107,7 +130,7 @@ export class UserAssessmentFormComponent implements OnInit {
       return elementAnswer;
     });
 
-    let answer: AssessmentModel = new AssessmentModel({
+    this._assessment = new AssessmentModel({
       userId: this._userId,
       form: {
         formId: this._id,
@@ -116,10 +139,14 @@ export class UserAssessmentFormComponent implements OnInit {
       isAnswered: true
     });
 
-    this._assessmentService.save(answer, this._queryParams).subscribe(() => {
+    this._formChange.emit(this._assessment);
+  }
+
+  public save() {
+    this._assessmentService.save(this._assessment, this._queryParams).subscribe(() => {
       this._notificationService.success('T_SUCCESS_SAVED');
-      this._formChange.emit(answer);
       this._update();
+      this._formSave.emit();
     });
   }
 

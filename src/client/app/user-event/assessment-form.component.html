@@ -1,8 +1,7 @@
 <div *ngIf="form">
   <form #assessmentForm="ngForm"
-        class="mt-2"
+        [ngClass]="{ 'mt-1': !inline }"
         (ngSubmit)="save()">
-
     <ng-container *ngFor="let element of form.elements;"
                   [ngSwitch]="element.kind">
 
@@ -11,7 +10,8 @@
         <bs-likes-dislikes name="{{ element.id }}"
                            #likeDislike="ngModel"
                            [element]="element"
-                           [(ngModel)]="element.tempValue"></bs-likes-dislikes>
+                           [ngModel]="element.tempValue"
+                           (ngModelChange)="element.tempValue = $event; onFormChange();"></bs-likes-dislikes>
       </ng-template>
 
       <!-- Checkbox groups -->
@@ -30,7 +30,8 @@
                        type="checkbox"
                        class="custom-control-input"
                        [disabled]="status !== EventStatus.InProgress"
-                       [(ngModel)]="item.tempValue">
+                       [ngModel]="item.tempValue"
+                       (ngModelChange)="item.tempValue = $event; onFormChange();">
                 <span class="custom-control-indicator"></span>
                 <span class="custom-control-description"> {{ item.caption }}</span>
               </label>
@@ -56,7 +57,8 @@
                      value="true"
                      #checkbox="ngModel"
                      [disabled]="status !== EventStatus.InProgress"
-                     [(ngModel)]="element.tempValue"
+                     [ngModel]="element.tempValue"
+                     (ngModelChange)="element.tempValue = $event; onFormChange();"
                      [required]="element.required">
               <span class="custom-control-indicator"></span>
             </label>
@@ -86,7 +88,8 @@
                     #select="ngModel"
                     [disabled]="status !== EventStatus.InProgress"
                     [required]="element.required"
-                    [(ngModel)]="element.tempValue">
+                    [ngModel]="element.tempValue"
+                    (ngModelChange)="element.tempValue = $event; onFormChange();">
               <option *ngFor="let item of element.values"
                       [value]="item.id">
                 {{ item.caption }}
@@ -118,7 +121,8 @@
                        [disabled]="status !== EventStatus.InProgress"
                        [value]="item.id"
                        [required]="element.required"
-                       [(ngModel)]="element.tempValue">
+                       [ngModel]="element.tempValue"
+                       (ngModelChange)="element.tempValue = $event; onFormChange();">
                 <span class="custom-control-indicator"></span>
                 <span class="custom-control-description"> {{ item.caption }} </span>
               </label>
@@ -144,7 +148,8 @@
                       #textarea="ngModel"
                       [disabled]="status !== EventStatus.InProgress"
                       [required]="element.required"
-                      [(ngModel)]="element.tempValue">
+                      [ngModel]="element.tempValue"
+                      (ngModelChange)="element.tempValue = $event; onFormChange();">
             </textarea>
 
             <div class="form-errors"
@@ -174,7 +179,8 @@
                    #textfield="ngModel"
                    [disabled]="status !== EventStatus.InProgress"
                    [required]="element.required"
-                   [(ngModel)]="element.tempValue">
+                   [ngModel]="element.tempValue"
+                   (ngModelChange)="element.tempValue = $event; onFormChange();">
 
             <div class="form-errors"
                  *ngIf="textfield.errors && textfield.touched">
@@ -207,7 +213,8 @@
                    #input="ngModel"
                    [disabled]="status !== EventStatus.InProgress"
                    [required]="element.required"
-                   [(ngModel)]="element.tempValue"
+                   [ngModel]="element.tempValue"
+                   (ngModelChange)="element.tempValue = $event; onFormChange();"
                    id="{{ element.id }}">
 
             <div class="form-errors"
@@ -221,11 +228,10 @@
       </ng-template>
     </ng-container>
 
-
-    <div class="text-right" *ngIf="status === EventStatus.InProgress">
+    <div class="text-right" *ngIf="status === EventStatus.InProgress && !inline">
       <button type="submit"
               class="btn btn-primary mt-0"
-              [disabled]="!assessmentForm.valid">
+              [disabled]="!assessmentForm.valid || !assessment">
         {{ 'T_ACTION_SAVE' | translate }}
       </button>
     </div>
