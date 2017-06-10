@@ -1,7 +1,8 @@
 import { Component, forwardRef, Input, ViewChild } from '@angular/core';
-import { ControlValueAccessor, FormControl, NG_VALIDATORS, NG_VALUE_ACCESSOR, NgModel, ValidationErrors, Validator } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { FormElement } from '../../../core/models/form-model';
+import { AuthService } from '../../../core/services/auth.service';
+import { ControlValueAccessor, NG_VALIDATORS, NG_VALUE_ACCESSOR, NgModel } from '@angular/forms';
 
 let id = 0;
 
@@ -20,7 +21,7 @@ let id = 0;
   }],
   styleUrls: ['likes-dislikes.component.css']
 })
-export class LikesDislikesComponent implements ControlValueAccessor, Validator {
+export class LikesDislikesComponent implements ControlValueAccessor {
   protected _element: FormElement;
   protected _innerValue: any;
   protected _propagateChange: Function;
@@ -48,7 +49,16 @@ export class LikesDislikesComponent implements ControlValueAccessor, Validator {
     this._element = value;
   }
 
-  constructor(protected _translateService: TranslateService) {
+  get id(): string {
+    return this._id;
+  }
+
+  public get gender(): string {
+    return this._authService.user.gender;
+  }
+
+  constructor(protected _translateService: TranslateService,
+              protected _authService: AuthService) {
   }
 
   public writeValue(value: any) {
@@ -67,9 +77,6 @@ export class LikesDislikesComponent implements ControlValueAccessor, Validator {
     this._propagateTouch = fn;
   }
 
-  public onChange(value: any) {
-  }
-
   public onLikeDislikeChange(value: any) {
     this._innerValue.valuesIds[0] = value;
     this._propagateChange(this._innerValue);
@@ -78,14 +85,6 @@ export class LikesDislikesComponent implements ControlValueAccessor, Validator {
   public onCommentChange(value: any) {
     this._innerValue.text = value;
     this._propagateChange(this._innerValue);
-  }
-
-  public validate(c: FormControl): ValidationErrors {
-    let errors: ValidationErrors = {};
-    if (c.value) {
-    }
-
-    return errors;
   }
 
   public onBlur() {
