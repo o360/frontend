@@ -1,4 +1,5 @@
 <button class="btn btn-primary mb-1"
+        *ngIf="event.status !== EventStatus.Completed"
         type="button"
         title="{{ 'T_ACTION_ADD_NEW_ASSESSMENT_EVENT_NOTIFICATIONS' | translate }}"
         (click)="notificationsEditModal.show()">
