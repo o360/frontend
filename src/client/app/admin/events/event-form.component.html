@@ -58,6 +58,9 @@
             <div class="form-control-feedback" *ngIf="eventForm.controls['start'].errors['maxDate']">
               {{ 'T_ERROR_MIN_DATE' | translate }}
             </div>
+            <div class="form-control-feedback" *ngIf="eventForm.controls['start'].errors['dateInPast']">
+              {{ 'T_ERROR_DATE_IN_PAST' | translate }}
+            </div>
           </div>
         </div>
       </div>
@@ -82,6 +85,9 @@
             </div>
             <div class="form-control-feedback" *ngIf="eventForm.controls['end'].errors['minDate']">
               {{ 'T_ERROR_MAX_DATE' | translate }}
+            </div>
+            <div class="form-control-feedback" *ngIf="eventForm.controls['end'].errors['dateInPast']">
+              {{ 'T_ERROR_DATE_IN_PAST' | translate }}
             </div>
           </div>
         </div>

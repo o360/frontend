@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { EventModel, IEventNotification } from '../../core/models/event-model';
+import { EventModel, EventStatus, IEventNotification } from '../../core/models/event-model';
 import { EventService } from '../../core/services/event.service';
 import { NotificationService } from '../../core/services/notification.service';
 
@@ -18,6 +18,10 @@ export class EventNotificationComponent {
 
   public get event(): EventModel {
     return this._event;
+  }
+
+  public get EventStatus() {
+    return EventStatus;
   }
 
   constructor(protected _eventService: EventService,

@@ -4,8 +4,8 @@ import * as moment from 'moment';
 import { DateFormat } from '../../shared/components/datetime/datetime-picker.component';
 
 @Defaults({
-  start: moment(),
-  end: moment(),
+  start: moment().add(1, 'hour'),
+  end:  moment().add(2, 'hour'),
   canRevote: false,
   notifications: []
 })
