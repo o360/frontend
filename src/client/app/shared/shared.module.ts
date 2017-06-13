@@ -13,6 +13,7 @@ import { DateTimeComponent } from './components/datetime/datetime-picker.compone
 import { LanguageSelectorComponent } from './language-selector/language-selector.component';
 import { DateFormatPipe } from './pipes/date.pipe';
 import { DndModule } from 'ng2-dnd';
+import { ConfirmationModalComponent } from './confirmation/confirmation.component';
 
 /**
  * Do not specify providers for modules that might be imported by a lazy loaded module.
@@ -41,7 +42,8 @@ import { DndModule } from 'ng2-dnd';
     DateTimeComponent,
     PaginationComponent,
     LanguageSelectorComponent,
-    DateFormatPipe
+    DateFormatPipe,
+    ConfirmationModalComponent
   ],
   exports: [
     CommonModule,
@@ -62,8 +64,10 @@ import { DndModule } from 'ng2-dnd';
     LanguageSelectorComponent,
     DateTimeComponent,
     DateFormatPipe,
-    DndModule
-  ]
+    DndModule,
+    ConfirmationModalComponent
+  ],
+  entryComponents: [ConfirmationModalComponent]
 })
 export class SharedModule {
   public static forRoot(): ModuleWithProviders {

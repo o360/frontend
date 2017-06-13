@@ -7,6 +7,7 @@ import { FormModel } from '../models/form-model';
 import { AuthService } from './auth.service';
 import { NotificationService } from './notification.service';
 import { IListResponse, IQueryParams, RestService } from './rest.service';
+import { ConfirmationService } from './confirmation.service';
 
 @Injectable()
 @RestServiceConfig({
@@ -15,8 +16,12 @@ import { IListResponse, IQueryParams, RestService } from './rest.service';
 })
 export class FormUsersService extends RestService<FormModel> {
 
-  constructor(http: Http, authService: AuthService, router: Router, notificationService: NotificationService) {
-    super(http, authService, router, notificationService);
+  constructor(http: Http,
+              authService: AuthService,
+              router: Router,
+              notificationService: NotificationService,
+              confirmationService: ConfirmationService) {
+    super(http, authService, router, notificationService, confirmationService);
   }
 
   public clone(model: FormModel): Observable<FormModel> {
