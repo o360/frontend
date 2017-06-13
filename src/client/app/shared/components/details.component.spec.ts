@@ -16,7 +16,7 @@ import { ActivatedRouteStub, AuthServiceStub, NotificationServiceStub, RouterStu
   template: ''
 })
 export class TestDetailsComponent extends DetailsComponent<TestModel> implements OnInit {
-  protected _testModel: TestModel = new TestModel({id:1, name:'test1'});
+  protected _testModel: TestModel = new TestModel();
 
   constructor(service: TestService,
               activatedRoute: ActivatedRoute) {
