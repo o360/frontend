@@ -8,6 +8,7 @@ import { IListResponse, IQueryParams } from '../core/services/rest.service';
 import { FormUsersService } from '../core/services/form-users.service';
 import { EventStatus } from '../core/models/event-model';
 import { RequireValue } from '../admin/forms/form-builder.component';
+import { UserModel } from '../core/models/user-model';
 
 @Component({
   moduleId: module.id,
@@ -16,7 +17,7 @@ import { RequireValue } from '../admin/forms/form-builder.component';
 })
 export class UserAssessmentFormComponent implements OnInit {
   protected _id: ModelId;
-  protected _userId: ModelId;
+  protected _user: UserModel;
   protected _form: FormModel;
   protected _answers: IElementAnswer[] = [];
   protected _queryParams: IQueryParams = {};
@@ -36,8 +37,12 @@ export class UserAssessmentFormComponent implements OnInit {
   }
 
   @Input()
-  public set userId(value: ModelId) {
-    this._userId = value;
+  public set user(value: UserModel) {
+    this._user = value;
+  }
+
+  public get user(): UserModel {
+    return this._user;
   }
 
   @Input()
@@ -131,13 +136,16 @@ export class UserAssessmentFormComponent implements OnInit {
     });
 
     this._assessment = new AssessmentModel({
-      userId: this._userId,
       form: {
         formId: this._id,
         answers: answers.filter(x => (!!x.valuesIds || !!x.text))
       },
       isAnswered: true
     });
+
+    if (this._user) {
+      this._assessment.userId = this._user.id;
+    }
 
     this._formChange.emit(this._assessment);
   }
@@ -155,8 +163,8 @@ export class UserAssessmentFormComponent implements OnInit {
       let list = res.data;
       let currentForm;
 
-      if (this._userId) {
-        currentForm = list.find(x => x.user && x.user.id === this._userId).forms.find(x => x.form.id === this._form.id);
+      if (this._user) {
+        currentForm = list.find(x => x.user && x.user.id === this._user.id).forms.find(x => x.form.id === this._form.id);
       } else {
         currentForm = list.filter(x => !x.user)
           .reduce((acc, item) => acc.concat(item.forms), [])

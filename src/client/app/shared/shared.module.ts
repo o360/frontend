@@ -70,7 +70,8 @@ import { SearchComponent } from './components/search/search.component';
     DateTimeComponent,
     DateFormatPipe,
     DndModule,
-    ConfirmationModalComponent
+    ConfirmationModalComponent,
+    LikesDislikesComponent
   ],
   entryComponents: [ConfirmationModalComponent]
 })

@@ -4,7 +4,7 @@
     <input id="{{ element.id }}-{{ id }}"
            name="{{ element.id }}-{{ id }}"
            type="radio"
-           class="{{ item.caption }} {{ gender }} ml-1"
+           class="{{ item.caption }} {{ user.gender }} ml-1"
            [value]="item.id"
            [ngModel]="value.valuesIds[0]"
            (ngModelChange)="onLikeDislikeChange($event)">
