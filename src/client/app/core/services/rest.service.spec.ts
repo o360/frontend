@@ -89,5 +89,82 @@ export function main() {
 
       connection.mockRespond(new Response(new ResponseOptions({ body: { id: 1 }, type: ResponseType.Basic })));
     });
+
+    it('should throw if model was not found by id', () => {
+      testService.get('unknown-id').subscribe(model => {
+        expect(model.id).toBeNull();},
+        error => expect(error).toBeDefined()
+      );
+    });
+
+    it('should return an Observable when save() called with new model', () => {
+      let getResponse = testService.save(model);
+
+      expect(getResponse).toEqual(jasmine.any(Observable));
+    });
+
+    it('should call create with new model', () => {
+      const templateSave = spyOn(testService, 'save').and.callThrough();
+      const templateCreate = spyOn(testService, '_create').and.callThrough();
+      const templateUpdate = spyOn(testService, '_update').and.callThrough();
+
+      testService.save(model).subscribe();
+      expect(templateSave).toHaveBeenCalledTimes(1);
+      expect(templateCreate).toHaveBeenCalledTimes(1);
+      expect(templateUpdate).toHaveBeenCalledTimes(0);
+    });
+
+    it('should call update if model exist', () => {
+      const templateSave = spyOn(testService, 'save').and.callThrough();
+      const templateCreate = spyOn(testService, '_create').and.callThrough();
+      const templateUpdate = spyOn(testService, '_update').and.callThrough();
+
+      model.id = 1;
+      testService.save(model).subscribe();
+      expect(templateSave).toHaveBeenCalledTimes(1);
+      expect(templateCreate).toHaveBeenCalledTimes(0);
+      expect(templateUpdate).toHaveBeenCalledTimes(1);
+    });
+
+    it('should return an Observable when save() called with new model without params', () => {
+      testService.save(model).subscribe((model: TestModel) => {
+        expect(model).toEqual(model);
+      });
+
+      connection.mockRespond(new Response(new ResponseOptions({ body: { model }, type: ResponseType.Basic })));
+    });
+
+    it('should return correct model on list() without params', () => {
+      let modelList: IListResponse<TestModel> = { data: [model] };
+      testService.list().subscribe((model: IListResponse<TestModel>) => {
+        expect(model).toEqual(modelList);
+      });
+
+      connection.mockRespond(new Response(new ResponseOptions({ body: JSON.stringify(modelList), type: ResponseType.Basic })));
+    });
+
+    it('should return correct model on list() with query params', () => {
+      let queryParams = { sort: 'data1' };
+      let modelList: IListResponse<TestModel> = { data: [model] };
+      testService.list(queryParams).subscribe((model: IListResponse<TestModel>) => {
+        expect(model).toEqual(modelList);
+      });
+
+      connection.mockRespond(new Response(new ResponseOptions({ body: JSON.stringify(modelList), type: ResponseType.Basic })));
+    });
+
+    it('should be OK returning empty model when list() called', () => {
+      testService.list()
+        .do(res => {
+          expect(res.data.length).toBe(0, 'should have no model');
+        })
+        .toPromise();
+    });
+
+    it('should return an Observable when delete() called', () => {
+      let getResponse = testService.delete(1);
+
+      expect(getResponse).toEqual(jasmine.any(Observable));
+    });
   });
 }
