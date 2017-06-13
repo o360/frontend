@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
-import { IQueryParams, RestService } from '../core/services/rest.service';
+import { IQueryParams } from '../core/services/rest.service';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { RestServiceConfig } from '../core/decorators/rest-service-config.decorator';
-import { TestModel } from '../core/models/model.spec';
 
 /* Notification service stub */
 export class NotificationServiceStub {
