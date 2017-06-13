@@ -2,7 +2,8 @@ import { Component, forwardRef, Input, ViewChild } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { FormElement } from '../../../core/models/form-model';
 import { AuthService } from '../../../core/services/auth.service';
-import { ControlValueAccessor, NG_VALIDATORS, NG_VALUE_ACCESSOR, NgModel } from '@angular/forms';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgModel } from '@angular/forms';
+import { UserModel } from '../../../core/models/user-model';
 
 let id = 0;
 
@@ -14,15 +15,12 @@ let id = 0;
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => LikesDislikesComponent),
     multi: true
-  }, {
-    provide: NG_VALIDATORS,
-    useExisting: forwardRef(() => LikesDislikesComponent),
-    multi: true
   }],
   styleUrls: ['likes-dislikes.component.css']
 })
 export class LikesDislikesComponent implements ControlValueAccessor {
   protected _element: FormElement;
+  protected _user: UserModel;
   protected _innerValue: any;
   protected _propagateChange: Function;
   protected _propagateTouch: Function;
@@ -40,25 +38,29 @@ export class LikesDislikesComponent implements ControlValueAccessor {
     this._innerValue = value;
   }
 
-  get element(): FormElement {
+  public get element(): FormElement {
     return this._element;
   }
 
   @Input()
-  set element(value: FormElement) {
+  public  set element(value: FormElement) {
     this._element = value;
   }
 
-  get id(): string {
+  public get id(): string {
     return this._id;
   }
 
-  public get gender(): string {
-    return this._authService.user.gender;
+  public get user(): UserModel {
+    return this._user;
   }
 
-  constructor(protected _translateService: TranslateService,
-              protected _authService: AuthService) {
+  @Input()
+  public set user(value: UserModel) {
+    this._user = value;
+  }
+
+  constructor(protected _translateService: TranslateService) {
   }
 
   public writeValue(value: any) {
@@ -90,5 +92,4 @@ export class LikesDislikesComponent implements ControlValueAccessor {
   public onBlur() {
     this._propagateTouch();
   }
-
 }

@@ -11,7 +11,7 @@
         <div class="col-sm-9">
           <bs-user-assessment-form inline
                                    #formComponent
-                                   [userId]="item.user.id"
+                                   [user]="item.user"
                                    [id]="item.forms[0].form.id"
                                    [status]="status"
                                    [queryParams]="queryParams"
@@ -45,7 +45,7 @@
               <ng-template tabHeading>
                 {{ formObj.form.name }}
               </ng-template>
-              <bs-user-assessment-form [userId]="assessmentObject.user.id"
+              <bs-user-assessment-form [user]="assessmentObject.user"
                                        #formComponent
                                        [id]="formObj.form.id"
                                        [status]="status"

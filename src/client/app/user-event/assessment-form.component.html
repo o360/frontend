@@ -9,6 +9,7 @@
       <ng-template [ngSwitchCase]="FormElementType.LikeDislike">
         <bs-likes-dislikes name="{{ element.id }}"
                            #likeDislike="ngModel"
+                           [user]="user"
                            [element]="element"
                            [ngModel]="element.tempValue"
                            (ngModelChange)="element.tempValue = $event; onFormChange();"></bs-likes-dislikes>
