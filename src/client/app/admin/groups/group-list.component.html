@@ -1,6 +1,6 @@
 <div *ngIf="isLoaded">
 
-  <bs-filters *ngIf="list.length"
+  <bs-filters *ngIf="parentId == 'null'"
               [filters]="filters"
               (filterChange)="filterChange($event)"></bs-filters>
 
@@ -24,12 +24,12 @@
               (click)="changeInnerGroupState()">
       <span [ngSwitch]="innerGroupState">
           <ng-template [ngSwitchCase]="true">
-               <i class="fa fa-chevron-up mr-h"></i>
               {{ 'T_ACTION_HIDE' | translate }}
+              <i class="fa fa-chevron-up mr-h"></i>
           </ng-template>
           <ng-template ngSwitchDefault>
-             <i class="fa fa-chevron-down mr-h"></i>
               {{ 'T_ACTION_EXPAND' | translate }}
+              <i class="fa fa-chevron-down mr-h"></i>
           </ng-template>
       </span>
       </button>
