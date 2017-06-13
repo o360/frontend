@@ -13,7 +13,6 @@ import { IListResponse, IQueryParams } from '../../core/services/rest.service';
 import { FilterType } from '../../core/models/filter';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { ModelId } from '../../core/models/model';
-import addMatchers = jasmine.addMatchers;
 
 @Injectable()
 export class ActivatedRouteStub {
