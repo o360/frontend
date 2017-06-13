@@ -12,7 +12,8 @@ import { AuthService } from '../../core/services/auth.service';
 import { IListResponse, IQueryParams } from '../../core/services/rest.service';
 import { FilterType } from '../../core/models/filter';
 import { ModelId } from '../../core/models/model';
-import { ActivatedRouteStub, NotificationServiceStub, AuthServiceStub, RouterStub } from '../../stubs/stubs.utils';
+import { ActivatedRouteStub, NotificationServiceStub, AuthServiceStub, RouterStub, ConfirmationStub } from '../../stubs/stubs.utils';
+import { ConfirmationService } from '../../core/services/confirmation.service';
 
 @Component({
   moduleId: module.id,
@@ -77,7 +78,9 @@ export function main() {
           {provide: AuthService, useClass: AuthServiceStub},
           {provide: XHRBackend, useClass: MockBackend},
           {provide: ActivatedRoute, useClass: ActivatedRouteStub},
-          {provide: Router, useClass: RouterStub}
+          {provide: Router, useClass: RouterStub},
+          {provide: ConfirmationService, useClass: ConfirmationStub}
+
         ]
       });
 

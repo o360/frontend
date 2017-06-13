@@ -43,6 +43,16 @@ export class RouterStub {
   }
 }
 
+/* Confirmation stub */
+export class ConfirmationStub {
+  public loadComponent() {
+    return;
+  }
+  public setViewContainerRef() {
+    return;
+  }
+}
+
 /* ActivatedRouteStub stub */
 @Injectable()
 export class ActivatedRouteStub {
