@@ -12,22 +12,22 @@
     </button>
     <table class="table table-striped mt-1">
       <thead>
-        <tr>
-          <th>#</th>
-          <th>{{ 'T_EVENT_DESCRIPTION' | translate }}</th>
-          <th>{{ 'T_EVENT_START' | translate }}</th>
-          <th>{{ 'T_EVENT_END' | translate }}</th>
-          <th>{{ 'T_EVENT_STATUS' | translate }}</th>
-          <th class="actions-column">{{ 'T_ACTION' | translate }}</th>
-        </tr>
+      <tr>
+        <th>#</th>
+        <th>{{ 'T_EVENT_DESCRIPTION' | translate }}</th>
+        <th>{{ 'T_EVENT_START' | translate }}</th>
+        <th>{{ 'T_EVENT_END' | translate }}</th>
+        <th>{{ 'T_EVENT_STATUS' | translate }}</th>
+        <th class="actions-column">{{ 'T_ACTION' | translate }}</th>
+      </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let model of list">
-          <td>{{ model.id }}</td>
-          <td>{{ model.description }}</td>
-          <td>{{ model.start | dateFormat }}</td>
-          <td>{{ model.end | dateFormat }}</td>
-          <td>
+      <tr *ngFor="let model of list">
+        <td>{{ model.id }}</td>
+        <td>{{ model.description }}</td>
+        <td>{{ model.start | dateFormat }}</td>
+        <td>{{ model.end | dateFormat }}</td>
+        <td>
             <span class="badge badge-pill"
                   [ngClass]="{
                     'badge-primary': model.status === EventStatus.NotStarted,
@@ -36,29 +36,29 @@
               }">
               {{ 'T_EVENT_STATUS_' + model.status?.toUpperCase() | translate }}
             </span>
-          </td>
-          <td class="actions-column">
-            <button type="button"
-                    class="btn btn-sm btn-success ml-1"
-                    title="{{ 'T_ACTION_DETAILS' | translate }}"
-                    [routerLink]="['/admin/events', model.id]">
-              <i class="fa fa-hand-pointer-o"></i> {{ 'T_ACTION_DETAILS' | translate}}
-            </button>
+        </td>
+        <td class="actions-column">
+          <button type="button"
+                  class="btn btn-sm btn-success ml-1"
+                  title="{{ 'T_ACTION_DETAILS' | translate }}"
+                  [routerLink]="['/admin/events', model.id]">
+            <i class="fa fa-hand-pointer-o"></i> {{ 'T_ACTION_DETAILS' | translate}}
+          </button>
 
-            <button type="button"
-                    class="btn btn-sm btn-danger ml-1"
-                    bsConfirm
-                    (confirm)="delete(model.id)">
+          <button type="button"
+                  class="btn btn-sm btn-danger ml-1"
+                  bsConfirm
+                  [message]="'T_CONFIRM_MESSAGE_DELETE_EVENT' | translate"
+                  (confirm)="delete(model.id)">
+            <i class="fa fa-trash"></i>&nbsp;
+            {{ 'T_ACTION_DELETE' | translate }}
+          </button>
+        </td>
+      </tr>
 
-              <i class="fa fa-trash"></i>&nbsp;
-              {{ 'T_ACTION_DELETE' | translate }}
-            </button>
-          </td>
-        </tr>
-
-        <tr *ngIf="!list.length">
-          <td colspan="25" class="text-center">{{ 'T_EMPTY' | translate }}</td>
-        </tr>
+      <tr *ngIf="!list.length">
+        <td colspan="25" class="text-center">{{ 'T_EMPTY' | translate }}</td>
+      </tr>
       </tbody>
     </table>
 

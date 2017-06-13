@@ -1,42 +1,36 @@
-import { Directive, EventEmitter, HostListener, Input, Output } from '@angular/core';
+import { Directive, EventEmitter, HostListener, Input, Output, ViewContainerRef } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { ConfirmationService } from '../../core/services/confirmation.service';
 
 @Directive({
   selector: '[bsConfirm]'
 })
 export class ConfirmationDirective {
   private _message: string = 'T_CONFIRM_MESSAGE';
-  private _confirm: EventEmitter<void> = new EventEmitter<void>();
-  private _cancel: EventEmitter<void> = new EventEmitter<void>();
-
-  @Input()
-  public set message(value: any) {
-    this._message = value;
-  }
+  private _confirm: EventEmitter<any> = new EventEmitter<any>();
 
   @Output()
-  public get cancel(): EventEmitter<void> {
-    return this._cancel;
-  }
-
-  @Output()
-  public get confirm(): EventEmitter<void> {
+  public get confirm(): EventEmitter<any> {
     return this._confirm;
   }
 
-  constructor(protected _translateService: TranslateService) {
+  @Input()
+  set message(value: string) {
+    this._message = value;
+  }
+
+  constructor(protected _viewContainerRef: ViewContainerRef,
+              protected _confirmationService: ConfirmationService) {
   }
 
   @HostListener('click', ['$event'])
   public clickHandler() {
-    let translatedMessage = this._translateService.instant(this._message);
-    const confirmed = window.confirm(translatedMessage);
+    this._confirmationService.setViewContainerRef(this._viewContainerRef);
 
-    if (confirmed) {
-      this._confirm.emit();
-    } else {
-      this._cancel.emit();
-    }
+    this._confirmationService.loadComponent(this._message).subscribe(value => {
+      if (value) {
+        this._confirm.emit();
+      }
+    });
   }
-
 }
