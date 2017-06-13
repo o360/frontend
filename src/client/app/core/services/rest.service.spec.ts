@@ -28,11 +28,6 @@ export interface IListResponse<TestModel extends Model> {
 export class TestService extends RestService<TestModel> {
 }
 
-export class MockError extends Response implements Error {
-  public name: string;
-  public message: string;
-}
-
 export function main() {
   describe('RestService Service', () => {
     let testService: TestService;
