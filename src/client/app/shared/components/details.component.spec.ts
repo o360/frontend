@@ -8,7 +8,8 @@ import { TestModel } from '../../core/models/model.spec';
 import { NotificationService } from '../../core/services/notification.service';
 import { AuthService } from '../../core/services/auth.service';
 import { DetailsComponent } from './details.component';
-import { ActivatedRouteStub, AuthServiceStub, NotificationServiceStub, RouterStub } from '../../stubs/stubs.utils';
+import { ActivatedRouteStub, AuthServiceStub, ConfirmationStub, NotificationServiceStub, RouterStub } from '../../stubs/stubs.utils';
+import { ConfirmationService } from '../../core/services/confirmation.service';
 
 @Component({
   moduleId: module.id,
@@ -48,7 +49,8 @@ export function main() {
           { provide: AuthService, useClass: AuthServiceStub },
           { provide: XHRBackend, useClass: MockBackend },
           { provide: ActivatedRoute, useClass: ActivatedRouteStub },
-          {provide: Router, useClass: RouterStub}
+          { provide: Router, useClass: RouterStub },
+          { provide: ConfirmationService, useClass: ConfirmationStub }
         ]
       });
 
