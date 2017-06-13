@@ -182,17 +182,14 @@ export class DateTimeComponent implements ControlValueAccessor, AfterViewInit, V
   }
 
   public ngAfterViewInit() {
-    let $element = $(this._input.nativeElement);
-
-    Object.assign($.fn.datepicker.language['en'], {
-      dateFormat: 'dd.mm.yyyy',
-      timeFormat: 'hh:ii',
-      firstDay: 0
-    });
+    let $element = <any>$(this._input.nativeElement);
 
     let datepicker = $element.datepicker({
       timepicker: !this._onlyDateMode,
       language: this._translateService.currentLang,
+      dateFormat: 'dd.mm.yyyy',
+      timeFormat: 'hh:ii',
+      firstDay: 0,
       onSelect: (formattedDate: any) => {
         this.onChange(formattedDate);
       }
