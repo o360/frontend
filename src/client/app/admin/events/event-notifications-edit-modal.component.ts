@@ -3,7 +3,8 @@ import { EventModel, EventNotificationKind, EventRecipient, IEventNotification }
 import { ModalDirective } from 'ngx-bootstrap';
 import { EventService } from '../../core/services/event.service';
 import * as moment from 'moment';
-import { DateFormat } from '../../shared/components/datetime/datetime-picker.component';
+import { ValidatorFutureDate } from '../../shared/components/datetime/datetime-picker.component';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   moduleId: module.id,
@@ -16,14 +17,13 @@ export class EventNotificationsEditModalComponent {
   protected _model: EventModel;
   protected _modal: ModalDirective;
   protected _index: number = null;
+  protected _notificationForm: FormGroup;
 
-  protected _notification: IEventNotification = {
-    time: moment().format(DateFormat.Backend),
-    recipient: '',
-    kind: ''
-  };
+  protected _onNotificationAdded: EventEmitter<IEventNotification> = new EventEmitter<IEventNotification>();
 
-  private _onNotificationAdded: EventEmitter<IEventNotification> = new EventEmitter<IEventNotification>();
+  public get notificationForm(): FormGroup {
+    return this._notificationForm;
+  }
 
   public get model(): EventModel {
     return this._model;
@@ -34,20 +34,8 @@ export class EventNotificationsEditModalComponent {
     this._model = value;
   }
 
-  public get notification(): IEventNotification {
-    return this._notification;
-  }
-
-  public set notification(value: IEventNotification) {
-    this._notification = value;
-  }
-
   public get index(): number {
     return this._index;
-  }
-
-  public set index(value: number) {
-    this._index = value;
   }
 
   @ViewChild('modal')
@@ -68,39 +56,55 @@ export class EventNotificationsEditModalComponent {
     return this._recipients;
   }
 
-  constructor(protected _eventService: EventService) {
+  constructor(protected _eventService: EventService,
+              protected _formBuilder: FormBuilder) {
+    this._createForm();
   }
 
   public addNotification() {
+    let notification: IEventNotification = this._notificationForm.value;
+
+    if (!notification.kind || !notification.recipient) {
+      let prevNotification = this._model.notifications[this._index];
+      notification.kind = prevNotification.kind;
+      notification.recipient = prevNotification.recipient;
+    }
+
     if (this._index !== -1) {
       this._model.notifications.splice(this._index, 1);
     }
-    this._eventService.save(this._model).subscribe((event) => {
-      this._model = event;
-    });
-    this._notification = {
-      time: moment(this.notification.time).format(DateFormat.Backend),
-      recipient: this._notification.recipient,
-      kind: this._notification.kind
-    };
-    this._onNotificationAdded.emit(this._notification);
-    this._modal.hide();
+
+    this._onNotificationAdded.emit(notification);
+    this.close();
   }
 
   public show(item: IEventNotification) {
-    this.clear();
     this._index = this._model.notifications.indexOf(item);
+
     if (item) {
-      this._notification = Object.assign({}, item);
+      this._notificationForm.reset(item);
+    }
+    if (this._index !== -1) {
+      this._notificationForm.controls['recipient'].disable();
+      this._notificationForm.controls['kind'].disable();
+    } else {
+      this._notificationForm.controls['recipient'].enable();
+      this._notificationForm.controls['kind'].enable();
     }
     this._modal.show();
   }
 
-  public clear() {
-    this._notification = {
-      time: moment().format(DateFormat.Backend),
-      recipient: '',
-      kind: ''
-    };
+  public close() {
+    this._notificationForm.reset();
+    this._modal.hide();
   }
+
+  protected _createForm() {
+    this._notificationForm = this._formBuilder.group({
+      time: [moment.now(), [Validators.required, ValidatorFutureDate]],
+      recipient: ['', Validators.required],
+      kind: ['', Validators.required]
+    });
+  }
+
 }
