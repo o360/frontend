@@ -2,11 +2,11 @@
   <table class="table table-striped mt-1">
     <thead>
       <tr>
-        <th>#</th>
-        <th>{{ 'T_EVENT_DESCRIPTION' | translate }}</th>
-        <th>{{ 'T_EVENT_START' | translate }}</th>
-        <th>{{ 'T_EVENT_END' | translate }}</th>
-        <th class="actions-column" *ngIf="status !== EventStatus.NotStarted">
+        <th><p class="mb-0 text-left id-column">#</p></th>
+        <th class="w-25">{{ 'T_EVENT_DESCRIPTION' | translate }}</th>
+        <th class="w-25">{{ 'T_EVENT_START' | translate }}</th>
+        <th class="w-25">{{ 'T_EVENT_END' | translate }}</th>
+        <th class="actions-column w-25">
           {{ 'T_ACTION' | translate }}
         </th>
       </tr>
@@ -17,7 +17,7 @@
         <td>{{ model.description }}</td>
         <td>{{ model.start | date: 'mediumDate' }}</td>
         <td>{{ model.end | date: 'mediumDate' }}</td>
-        <td class="actions-column" *ngIf="status !== EventStatus.NotStarted" [ngSwitch]="status">
+        <td class="actions-column" [ngSwitch]="status">
           <ng-template [ngSwitchCase]="EventStatus.InProgress">
             <button type="button"
                     class="btn btn-sm btn-success ml-1"
@@ -33,6 +33,8 @@
                     [routerLink]="['/events', model.id]">
               <i class="fa fa-hand-pointer-o"></i> {{ 'T_ACTION_VIEW_ASSESSMENT' | translate}}
             </button>
+          </ng-template>
+          <ng-template [ngSwitchCase]="EventStatus.NotStarted">
           </ng-template>
         </td>
       </tr>
