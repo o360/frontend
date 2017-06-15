@@ -1,6 +1,11 @@
 <ul class="list-group">
   <!--Users-->
   <li class="mb-h list-unstyled"><b>{{ 'T_USERS' | translate}}</b></li>
+
+  <!--Search-->
+  <bs-search [items]="users"
+             (itemsSearch)="userSearch($event)"></bs-search>
+
   <li class="list-group-item"
       *ngFor="let userObj of users"
       (click)="selectUser(userObj)">
