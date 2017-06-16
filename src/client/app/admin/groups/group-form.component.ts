@@ -61,6 +61,7 @@ export class GroupFormComponent extends FormComponent<GroupModel> {
     if (this._model.parentId === '') {
       delete this._model.parentId;
     }
+    this._returnPath = ['/admin/groups/'];
     super.save();
   }
 }
