@@ -5,6 +5,7 @@ import { GroupService } from '../../core/services/group.service';
 import { ListComponent } from '../../shared/components/list.component';
 import { NotificationService } from '../../core/services/notification.service';
 import { Filter, FilterType } from '../../core/models/filter';
+import { IListResponse } from '../../core/services/rest.service';
 
 @Component({
   moduleId: module.id,
@@ -56,5 +57,40 @@ export class GroupListComponent extends ListComponent<GroupModel> implements OnI
 
   public changeInnerGroupState() {
     return this._innerGroupState = !this._innerGroupState;
+  }
+
+  public _update() {
+    this._service.list(this._queryParams).subscribe((res: IListResponse<GroupModel>) => {
+      this._meta = res.meta;
+      this._list = res.data;
+
+      if (this._queryParams.name) {
+        let result = this._list.map(function (a) {
+          return a.parentId;
+        });
+        for (let i = 0; i < result.length; i++) {
+          if (result[i] !== undefined) {
+            this._service.get(result[i]).subscribe((parentModel: GroupModel) => {
+              this._list = this._list.filter(function (el) {
+                return el.parentId !== result[i];
+              });
+              if (parentModel.parentId) {
+                this._service.get(parentModel.parentId).subscribe((firstParentModel: GroupModel) => {
+                  if (!this._list.find(x => x.id === firstParentModel.id)) {
+                    this._list.push(firstParentModel);
+                  }
+                });
+              } else {
+                if (!this._list.find(x => x.id === parentModel.id)) {
+                  this._list.push(parentModel);
+                }
+              }
+              this._innerGroupState = true;
+            });
+          }
+        }
+      }
+      this._innerGroupState = false;
+    });
   }
 }
