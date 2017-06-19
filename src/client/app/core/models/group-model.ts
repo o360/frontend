@@ -3,10 +3,12 @@ import { Model, ModelId } from './model';
 
 @Defaults({
   name: '',
-  hasChildren: false
+  hasChildren: false,
+  level: '0'
 })
 export class GroupModel extends Model {
   public name: string;
   public parentId?: ModelId;
   public hasChildren: boolean;
+  public level: string;
 }
