@@ -1,34 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component, Injectable, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpModule, XHRBackend } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
 
-import { AuthServiceStub, NotificationServiceStub, RouterStub, TestService } from '../../core/services/rest.service.spec';
+import { TestService } from '../../core/services/rest.service.spec';
 import { ListComponent } from './list.component';
 import { TestModel } from '../../core/models/model.spec';
 import { NotificationService } from '../../core/services/notification.service';
 import { AuthService } from '../../core/services/auth.service';
 import { IListResponse, IQueryParams } from '../../core/services/rest.service';
 import { FilterType } from '../../core/models/filter';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { ModelId } from '../../core/models/model';
-
-@Injectable()
-export class ActivatedRouteStub {
-  protected _testParams: IQueryParams = {number: '2'};
-  protected _subject = new BehaviorSubject(this.testParams);
-  public params = this._subject.asObservable();
-
-  get testParams() {
-    return this._testParams;
-  }
-
-  set testParams(params: IQueryParams) {
-    this._testParams = params;
-    this._subject.next(params);
-  }
-}
+import { ActivatedRouteStub, NotificationServiceStub, AuthServiceStub, RouterStub, ConfirmationStub } from '../../stubs/stubs.utils';
+import { ConfirmationService } from '../../core/services/confirmation.service';
 
 @Component({
   moduleId: module.id,
@@ -93,7 +78,9 @@ export function main() {
           {provide: AuthService, useClass: AuthServiceStub},
           {provide: XHRBackend, useClass: MockBackend},
           {provide: ActivatedRoute, useClass: ActivatedRouteStub},
-          {provide: Router, useClass: RouterStub}
+          {provide: Router, useClass: RouterStub},
+          {provide: ConfirmationService, useClass: ConfirmationStub}
+
         ]
       });
 

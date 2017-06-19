@@ -9,49 +9,14 @@ import { TestModel } from '../models/model.spec';
 import { AuthService } from './auth.service';
 import { NotificationService } from './notification.service';
 import { RestService } from './rest.service';
+import { Model } from '../models/model';
+import { ConfirmationService } from './confirmation.service';
+import { AuthServiceStub, ConfirmationStub, NotificationServiceStub, RouterStub } from '../../stubs/stubs.utils';
 
-
-/* Notification service stub */
-export class NotificationServiceStub {
-  public success() {
-    return;
-  }
-
-  public error() {
-    return;
-  }
-
-  public warning() {
-    return;
-  }
-
-  public info() {
-    return;
-  }
-
-  public clearAll() {
-    return;
-  }
+export interface IListResponse<TestModel extends Model> {
+  // meta: IResponseMeta;
+  data: TestModel[];
 }
-
-/* Auth service stub */
-export class AuthServiceStub {
-  public get isLoggedIn() {
-    return true;
-  }
-
-  public get token() {
-    return 'test-token';
-  }
-}
-
-/* Router stub */
-export class RouterStub {
-  public navigate() {
-    return Promise.resolve(true);
-  }
-}
-
 
 /* Test Service */
 @Injectable()
@@ -63,12 +28,22 @@ export class RouterStub {
 export class TestService extends RestService<TestModel> {
 }
 
+export class MockError extends Response implements Error {
+  public name: string;
+  public message: string;
+}
+
 export function main() {
   describe('RestService Service', () => {
     let testService: TestService;
     let injector: Injector;
     let mockBackend: MockBackend;
     let connection: MockConnection;
+    let model: TestModel;
+
+    beforeEach(() => {
+      model = new TestModel();
+    });
 
     beforeEach(() => {
       TestBed.configureTestingModule({
@@ -78,7 +53,8 @@ export function main() {
           { provide: NotificationService, useClass: NotificationServiceStub },
           { provide: AuthService, useClass: AuthServiceStub },
           { provide: XHRBackend, useClass: MockBackend },
-          { provide: Router, useClass: RouterStub }
+          { provide: Router, useClass: RouterStub },
+          { provide: ConfirmationService, useClass: ConfirmationStub}
         ]
       });
       injector = getTestBed();
