@@ -14,6 +14,7 @@ import { LanguageSelectorComponent } from './language-selector/language-selector
 import { DateFormatPipe } from './pipes/date.pipe';
 import { DndModule } from 'ng2-dnd';
 import { ConfirmationModalComponent } from './confirmation/confirmation.component';
+import { SearchComponent } from './components/search/search.component';
 
 /**
  * Do not specify providers for modules that might be imported by a lazy loaded module.
@@ -43,7 +44,8 @@ import { ConfirmationModalComponent } from './confirmation/confirmation.componen
     PaginationComponent,
     LanguageSelectorComponent,
     DateFormatPipe,
-    ConfirmationModalComponent
+    ConfirmationModalComponent,
+    SearchComponent
   ],
   exports: [
     CommonModule,
@@ -54,6 +56,7 @@ import { ConfirmationModalComponent } from './confirmation/confirmation.componen
     ConfirmationDirective,
     CollapseModule,
     FiltersComponent,
+    SearchComponent,
     ToastModule,
     AccordionModule,
     PaginationModule,
