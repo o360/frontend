@@ -5,6 +5,8 @@ import { GroupService } from '../../core/services/group.service';
 import { ListComponent } from '../../shared/components/list.component';
 import { NotificationService } from '../../core/services/notification.service';
 import { Filter, FilterType } from '../../core/models/filter';
+import { IListResponse } from '../../core/services/rest.service';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   moduleId: module.id,
@@ -57,4 +59,38 @@ export class GroupListComponent extends ListComponent<GroupModel> implements OnI
   public changeInnerGroupState() {
     return this._innerGroupState = !this._innerGroupState;
   }
+
+  public _update() {
+    this._service.list(this._queryParams).subscribe((res: IListResponse<GroupModel>) => {
+      this._meta = res.meta;
+      this._list = res.data;
+
+      if (this._queryParams.name) {
+        this._searchForParents(this._list);
+      }
+    });
+  }
+
+  protected _searchForParents(list: GroupModel[]) {
+    if (list.length) {
+      this._innerGroupState = true;
+      Observable.forkJoin(list.filter(x => x.parentId)
+        .map((group: GroupModel) => {
+          return this._service.get(group.parentId);
+        }))
+        .subscribe((list: GroupModel[]) => {
+          list.filter((group, i) => list.findIndex(listGroup => listGroup.id === group.id) === i)
+            .filter(group => !this._list.find(listGroup => listGroup.id === group.id))
+            .forEach((group: GroupModel) => {
+              this._list = this._list.filter((listGroup) => listGroup.parentId !== group.id);
+              this._list.push(group);
+            });
+          this._searchForParents(list);
+        });
+    } else {
+      this._innerGroupState = false;
+    }
+  }
 }
+
+

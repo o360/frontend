@@ -12,8 +12,8 @@ export class SearchComponent implements OnInit, OnDestroy {
   protected _list: AssessmentModel[];
   protected _searchSubscription: any;
   public searchControl: FormControl = new FormControl();
-  private _itemsSearch: EventEmitter<AssessmentModel> = new EventEmitter<AssessmentModel>();
-  private _items: AssessmentModel[];
+  private _itemsSearch: EventEmitter<AssessmentModel[]> = new EventEmitter<AssessmentModel[]>();
+  private _items: AssessmentModel[] = [];
 
   @Input()
   public set items(value: AssessmentModel[]) {
@@ -21,7 +21,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   @Output()
-  public get itemsSearch(): EventEmitter<AssessmentModel> {
+  public get itemsSearch(): EventEmitter<AssessmentModel[]> {
     return this._itemsSearch;
   }
 
