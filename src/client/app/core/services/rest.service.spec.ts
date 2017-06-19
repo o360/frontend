@@ -14,7 +14,6 @@ import { ConfirmationService } from './confirmation.service';
 import { AuthServiceStub, ConfirmationStub, NotificationServiceStub, RouterStub } from '../../stubs/stubs.utils';
 
 export interface IListResponse<TestModel extends Model> {
-  // meta: IResponseMeta;
   data: TestModel[];
 }
 
