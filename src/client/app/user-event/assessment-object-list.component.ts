@@ -52,4 +52,8 @@ export class AssessmentObjectListComponent {
       this._selectedItemChange.emit(survey);
     }
   }
+
+  public userSearch(searchUser: AssessmentModel[]) {
+    this._users = searchUser;
+  }
 }
