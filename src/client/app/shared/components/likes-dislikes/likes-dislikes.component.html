@@ -1,0 +1,20 @@
+<div class="form-inline input-group" *ngIf="!!value">
+  <div class="like-dislike"
+       *ngFor="let item of element.values; let j = index;">
+    <input id="{{ element.id }}-{{ id }}"
+           name="{{ element.id }}-{{ id }}"
+           type="radio"
+           class="{{ item.caption }} {{ user.gender }} ml-1"
+           [value]="item.id"
+           [ngModel]="value.valuesIds[0]"
+           (ngModelChange)="onLikeDislikeChange($event)">
+  </div>
+  <input *ngIf="!!value.valuesIds.length"
+         name="{{ element.id }}"
+         type="text"
+         class="form-control ml-1"
+         id="{{ element.id }}"
+         #textfield="ngModel"
+         [ngModel]="value.text"
+         (ngModelChange)="onCommentChange($event)">
+</div>

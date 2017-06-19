@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AssessmentModel } from '../core/models/assessment-model';
 import { FormModel } from '../core/models/form-model';
@@ -19,10 +19,11 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
   protected _projectId: ModelId;
   protected _eventId: ModelId;
   protected _forms: FormModel[];
-
+  protected _answers: AssessmentModel[] = [];
+  protected _answersChange: EventEmitter<AssessmentModel> = new EventEmitter<AssessmentModel>();
+  protected _inline: boolean;
   protected _queryParams: IQueryParams = {};
   protected _assessmentObject: AssessmentObject = null;
-
   protected _status: string;
 
   @Input()
@@ -30,8 +31,17 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
     this._projectId = value;
   }
 
-  public get projectId() {
+  public get projectId(): ModelId {
     return this._projectId;
+  }
+
+  @Input()
+  public set inline(value: boolean) {
+    this._inline = value;
+  }
+
+  public get inline(): boolean {
+    return this._inline;
   }
 
   @Input()
@@ -53,6 +63,11 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
 
   public get status(): string {
     return this._status;
+  }
+
+  @Output()
+  get answersChange(): EventEmitter<AssessmentModel> {
+    return this._answersChange;
   }
 
   constructor(service: AssessmentService,
@@ -99,7 +114,31 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
     setTimeout(() => this._assessmentObject = item);
   }
 
-  public formChanged() {
+  public formChanged(value: any) {
+    let sameAnswer = this._answers.find(x => x.userId === value.userId);
+
+    if (!!sameAnswer) {
+      let index = this._answers.indexOf(sameAnswer);
+      this._answers[index] = value;
+    } else {
+      this._answers.push(value);
+    }
+  }
+
+  public save() {
+    let postQueryParams: IQueryParams = {
+      eventId: this._eventId.toString(),
+      projectId: this._projectId.toString()
+    };
+
+    this._answers.forEach(assessment => {
+      (<AssessmentService>this._service).save(assessment, postQueryParams).subscribe();
+    });
+
+    this._update();
+  }
+
+  public formSaved() {
     this._update();
   }
 }
