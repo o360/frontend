@@ -2,6 +2,8 @@ import { Component, Input } from '@angular/core';
 import { EventModel, EventStatus, IEventNotification } from '../../core/models/event-model';
 import { EventService } from '../../core/services/event.service';
 import { NotificationService } from '../../core/services/notification.service';
+import { DateFormat } from '../../shared/components/datetime/datetime-picker.component';
+import * as moment from 'moment';
 
 @Component({
   moduleId: module.id,
@@ -40,7 +42,7 @@ export class EventNotificationComponent {
 
   public onNotificationAdded(value: IEventNotification) {
     let notification = {
-      time: value.time,
+      time: moment(value.time).format(DateFormat.Backend),
       recipient: value.recipient,
       kind: value.kind
     };
