@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { AssessmentModel } from '../../../core/models/assessment-model';
@@ -8,8 +8,9 @@ import { AssessmentModel } from '../../../core/models/assessment-model';
   selector: 'bs-search',
   templateUrl: 'search.component.html'
 })
-export class SearchComponent implements OnInit {
-  public list: AssessmentModel[];
+export class SearchComponent implements OnInit, OnDestroy {
+  protected _list: AssessmentModel[];
+  protected _searchSubscription: any;
   public searchControl: FormControl = new FormControl();
   private _itemsSearch: EventEmitter<AssessmentModel> = new EventEmitter<AssessmentModel>();
   private _items: AssessmentModel[];
@@ -25,8 +26,8 @@ export class SearchComponent implements OnInit {
   }
 
   public ngOnInit() {
-    this.list = this._items;
-    this.searchControl.valueChanges
+    this._list = this._items;
+    this._searchSubscription = this.searchControl.valueChanges
       .distinctUntilChanged()
       .switchMap((term: string) => {
         this._items = [];
@@ -37,10 +38,14 @@ export class SearchComponent implements OnInit {
       });
   }
 
+  public ngOnDestroy() {
+    this._searchSubscription.unsubscribe();
+  }
+
   public update(term: string) {
     this._itemsSearch.emit(this._items);
 
-    let items = this.list.filter((e: AssessmentModel) => {
+    let items = this._list.filter((e: AssessmentModel) => {
       return new RegExp(term, 'gi').test(e.user.name);
     });
     return Observable.from(items);
