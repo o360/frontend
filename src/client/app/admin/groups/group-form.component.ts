@@ -3,10 +3,9 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { GroupModel } from '../../core/models/group-model';
 import { ModelId } from '../../core/models/model';
 import { GroupService } from '../../core/services/group.service';
-import { IListResponse } from '../../core/services/rest.service';
+import { IListResponse, IQueryParams } from '../../core/services/rest.service';
 import { FormComponent } from '../../shared/components/form.component';
 import { NotificationService } from '../../core/services/notification.service';
-
 
 @Component({
   moduleId: module.id,
@@ -17,6 +16,7 @@ export class GroupFormComponent extends FormComponent<GroupModel> {
   protected _groups: GroupModel[];
   protected _parentId: ModelId = null;
   protected _returnPath: any[] = ['/admin/groups'];
+  protected _queryParams: IQueryParams = {};
 
   public get groups(): GroupModel[] {
     return this._groups;
@@ -34,7 +34,8 @@ export class GroupFormComponent extends FormComponent<GroupModel> {
   }
 
   protected _load() {
-    this._service.list().subscribe((res: IListResponse<GroupModel>) => {
+    this._queryParams = Object.assign({}, { levels : '0' });
+    this._service.list(this._queryParams).subscribe((res: IListResponse<GroupModel>) => {
       this._groups = res.data;
       super._load();
     });
