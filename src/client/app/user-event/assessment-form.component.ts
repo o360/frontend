@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AssessmentModel, IElementAnswer } from '../core/models/assessment-model';
-import { FormElementType, FormModel, FormElement } from '../core/models/form-model';
+import { FormElement, FormElementType, FormModel } from '../core/models/form-model';
 import { ModelId } from '../core/models/model';
 import { AssessmentService } from '../core/services/assessment.service';
 import { NotificationService } from '../core/services/notification.service';
@@ -8,6 +8,7 @@ import { IListResponse, IQueryParams } from '../core/services/rest.service';
 import { FormUsersService } from '../core/services/form-users.service';
 import { EventStatus } from '../core/models/event-model';
 import { RequireValue } from '../admin/forms/form-builder.component';
+import { UserModel } from '../core/models/user-model';
 
 @Component({
   moduleId: module.id,
@@ -16,12 +17,15 @@ import { RequireValue } from '../admin/forms/form-builder.component';
 })
 export class UserAssessmentFormComponent implements OnInit {
   protected _id: ModelId;
-  protected _userId: ModelId;
+  protected _user: UserModel;
   protected _form: FormModel;
   protected _answers: IElementAnswer[] = [];
   protected _queryParams: IQueryParams = {};
   protected _formChange: EventEmitter<AssessmentModel> = new EventEmitter<AssessmentModel>();
-  private _status: string;
+  protected _formSave: EventEmitter<AssessmentModel> = new EventEmitter<AssessmentModel>();
+  protected _inline: boolean = false;
+  protected _status: string;
+  protected _assessment: AssessmentModel;
 
   public get id(): ModelId {
     return this._id;
@@ -33,8 +37,12 @@ export class UserAssessmentFormComponent implements OnInit {
   }
 
   @Input()
-  public set userId(value: ModelId) {
-    this._userId = value;
+  public set user(value: UserModel) {
+    this._user = value;
+  }
+
+  public get user(): UserModel {
+    return this._user;
   }
 
   @Input()
@@ -59,6 +67,11 @@ export class UserAssessmentFormComponent implements OnInit {
     return this._formChange;
   }
 
+  @Output()
+  public get formSave(): EventEmitter<AssessmentModel> {
+    return this._formSave;
+  }
+
   public get status(): string {
     return this._status;
   }
@@ -66,6 +79,19 @@ export class UserAssessmentFormComponent implements OnInit {
   @Input()
   public set status(value: string) {
     this._status = value;
+  }
+
+  @Input()
+  public set inline(value: boolean | string) {
+    this._inline = typeof value === 'boolean' ? value : true;
+  }
+
+  public get inline(): boolean | string {
+    return this._inline;
+  }
+
+  get assessment(): AssessmentModel {
+    return this._assessment;
   }
 
   constructor(protected _assessmentService: AssessmentService,
@@ -85,12 +111,16 @@ export class UserAssessmentFormComponent implements OnInit {
     });
   }
 
-  public save() {
+  public onFormChange() {
     let answers = this._form.elements.map((element: FormElement) => {
-      let elementAnswer: IElementAnswer = { elementId: element.id };
-
-      if (!RequireValue(element.kind)) {
-        if (!!element.tempValue) {
+      let elementAnswer: IElementAnswer = {elementId: element.id};
+      if (!RequireValue(element.kind) && element.tempValue) {
+        if (element.kind === FormElementType.LikeDislike) {
+          elementAnswer.valuesIds = [+element.tempValue.valuesIds];
+          if (element.tempValue.text) {
+            elementAnswer.text = element.tempValue.text.toString();
+          }
+        } else {
           elementAnswer.text = element.tempValue.toString();
         }
       } else if (element.kind === FormElementType.Checkboxgroup) {
@@ -100,12 +130,10 @@ export class UserAssessmentFormComponent implements OnInit {
           elementAnswer.valuesIds = [+element.tempValue];
         }
       }
-
       return elementAnswer;
     });
 
-    let answer: AssessmentModel = new AssessmentModel({
-      userId: this._userId,
+    this._assessment = new AssessmentModel({
       form: {
         formId: this._id,
         answers: answers.filter(x => (!!x.valuesIds || !!x.text))
@@ -113,10 +141,18 @@ export class UserAssessmentFormComponent implements OnInit {
       isAnswered: true
     });
 
-    this._assessmentService.save(answer, this._queryParams).subscribe(() => {
+    if (this._user) {
+      this._assessment.userId = this._user.id;
+    }
+
+    this._formChange.emit(this._assessment);
+  }
+
+  public save() {
+    this._assessmentService.save(this._assessment, this._queryParams).subscribe(() => {
       this._notificationService.success('T_SUCCESS_SAVED');
-      this._formChange.emit(answer);
       this._update();
+      this._formSave.emit();
     });
   }
 
@@ -125,8 +161,8 @@ export class UserAssessmentFormComponent implements OnInit {
       let list = res.data;
       let currentForm;
 
-      if (this._userId) {
-        currentForm = list.find(x => x.user && x.user.id === this._userId).forms.find(x => x.form.id === this._form.id);
+      if (this._user) {
+        currentForm = list.find(x => x.user && x.user.id === this._user.id).forms.find(x => x.form.id === this._form.id);
       } else {
         currentForm = list.filter(x => !x.user)
           .reduce((acc, item) => acc.concat(item.forms), [])
@@ -140,7 +176,17 @@ export class UserAssessmentFormComponent implements OnInit {
           let element = this._form.elements.find(x => x.id === answer.elementId);
 
           if (!RequireValue(element.kind)) {
-            element.tempValue = answer.text;
+            if (element.kind === FormElementType.LikeDislike) {
+              element.tempValue = {};
+              if (answer.valuesIds) {
+                element.tempValue.valuesIds = answer.valuesIds;
+                if (answer.text) {
+                  element.tempValue.text = answer.text;
+                }
+              }
+            } else {
+              element.tempValue = answer.text;
+            }
           } else if (element.kind === FormElementType.Checkboxgroup) {
             if (answer.valuesIds) {
               answer.valuesIds.forEach(id => {
