@@ -144,25 +144,23 @@ export class FormBuilderComponent extends FormComponent<FormModel> implements On
         values: this._formBuilder.array(element.values),
         kind: element.kind
       }, {validator: FormElementValidator});
+    } else if (element.kind === FormElementType.LikeDislike) {
+      form = this._formBuilder.group({
+        caption: 'like-dislike',
+        required: false,
+        values: this._formBuilder.array([{
+          caption: 'like'
+        }, {
+          caption: 'dislike'
+        }]),
+        kind: element.kind
+      }, {validator: FormElementValidator});
     } else {
-      if (element.kind === FormElementType.LikeDislike) {
-        form = this._formBuilder.group({
-          caption: 'like-dislike',
-          required: false,
-          values: this._formBuilder.array([{
-            caption: 'like'
-          }, {
-            caption: 'dislike'
-          }]),
-          kind: element.kind
-        }, {validator: FormElementValidator});
-      } else {
-        form = this._formBuilder.group({
-          caption: [element.caption, Validators.required],
-          required: element.required,
-          kind: element.kind
-        });
-      }
+      form = this._formBuilder.group({
+        caption: [element.caption, Validators.required],
+        required: element.required,
+        kind: element.kind
+      });
     }
     return form;
   }

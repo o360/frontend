@@ -114,16 +114,14 @@ export class UserAssessmentFormComponent implements OnInit {
   public onFormChange() {
     let answers = this._form.elements.map((element: FormElement) => {
       let elementAnswer: IElementAnswer = {elementId: element.id};
-      if (!RequireValue(element.kind)) {
-        if (!!element.tempValue) {
-          if (element.kind === FormElementType.LikeDislike) {
-            elementAnswer.valuesIds = [+element.tempValue.valuesIds];
-            if (element.tempValue.text) {
-              elementAnswer.text = element.tempValue.text.toString();
-            }
-          } else {
-            elementAnswer.text = element.tempValue.toString();
+      if (!RequireValue(element.kind) && element.tempValue) {
+        if (element.kind === FormElementType.LikeDislike) {
+          elementAnswer.valuesIds = [+element.tempValue.valuesIds];
+          if (element.tempValue.text) {
+            elementAnswer.text = element.tempValue.text.toString();
           }
+        } else {
+          elementAnswer.text = element.tempValue.toString();
         }
       } else if (element.kind === FormElementType.Checkboxgroup) {
         elementAnswer.valuesIds = element.values.filter(x => x.tempValue).map(x => x.id);
