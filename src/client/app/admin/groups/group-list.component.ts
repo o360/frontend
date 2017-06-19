@@ -6,6 +6,7 @@ import { ListComponent } from '../../shared/components/list.component';
 import { NotificationService } from '../../core/services/notification.service';
 import { Filter, FilterType } from '../../core/models/filter';
 import { IListResponse } from '../../core/services/rest.service';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   moduleId: module.id,
@@ -65,32 +66,31 @@ export class GroupListComponent extends ListComponent<GroupModel> implements OnI
       this._list = res.data;
 
       if (this._queryParams.name) {
-        let result = this._list.map(function (a) {
-          return a.parentId;
-        });
-        for (let i = 0; i < result.length; i++) {
-          if (result[i] !== undefined) {
-            this._service.get(result[i]).subscribe((parentModel: GroupModel) => {
-              this._list = this._list.filter(function (el) {
-                return el.parentId !== result[i];
-              });
-              if (parentModel.parentId) {
-                this._service.get(parentModel.parentId).subscribe((firstParentModel: GroupModel) => {
-                  if (!this._list.find(x => x.id === firstParentModel.id)) {
-                    this._list.push(firstParentModel);
-                  }
-                });
-              } else {
-                if (!this._list.find(x => x.id === parentModel.id)) {
-                  this._list.push(parentModel);
-                }
-              }
-              this._innerGroupState = true;
-            });
-          }
-        }
+        this._searchForParents(this._list);
       }
-      this._innerGroupState = false;
     });
   }
+
+  protected _searchForParents(list: GroupModel[]) {
+    if (list.length) {
+      this._innerGroupState = true;
+      Observable.forkJoin(list.filter(x => x.parentId)
+        .map((group: GroupModel) => {
+          return this._service.get(group.parentId);
+        }))
+        .subscribe((list: GroupModel[]) => {
+          list.filter((group, i) => list.findIndex(listGroup => listGroup.id === group.id) === i)
+            .filter(group => !this._list.find(listGroup => listGroup.id === group.id))
+            .forEach((group: GroupModel) => {
+              this._list = this._list.filter((listGroup) => listGroup.parentId !== group.id);
+              this._list.push(group);
+            });
+          this._searchForParents(list);
+        });
+    } else {
+      this._innerGroupState = false;
+    }
+  }
 }
+
+
