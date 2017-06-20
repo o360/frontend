@@ -141,4 +141,8 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
   public formSaved() {
     this._update();
   }
+
+  public userSearch(searchUser: AssessmentModel[]) {
+    this._list = searchUser;
+  }
 }
