@@ -9,6 +9,7 @@ import { IListResponse, IQueryParams } from '../core/services/rest.service';
 import { ListComponent } from '../shared/components/list.component';
 import { AssessmentObject } from './assessment-object-list.component';
 import { EventService } from '../core/services/event.service';
+import { EventStatus } from '../core/models/event-model';
 
 @Component({
   moduleId: module.id,
@@ -68,6 +69,10 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
   @Output()
   get answersChange(): EventEmitter<AssessmentModel> {
     return this._answersChange;
+  }
+
+  public get EventStatus() {
+    return EventStatus;
   }
 
   constructor(service: AssessmentService,
