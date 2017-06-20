@@ -1,17 +1,20 @@
 <div class="form-inline input-group" *ngIf="!!value">
   <div class="like-dislike"
        *ngFor="let item of element.values; let j = index;">
-    <input id="{{ element.id }}-{{ id }}"
-           name="{{ element.id }}-{{ id }}"
-           type="radio"
-           class="{{ item.caption }} {{ user.gender }} ml-1"
-           [value]="item.id"
-           [ngModel]="value.valuesIds[0]"
-           (ngModelChange)="onLikeDislikeChange($event)">
+    <button id="{{ element.id }}-{{ id }}"
+            name="{{ element.id }}-{{ id }}"
+            type="button"
+            [disabled]="disabled"
+            [ngClass]="{ 'selected' : isSelected(item.id) }"
+            class=" ml-1"
+            (click)="select(item.id)">
+      <i class="{{ item.caption }} {{ user.gender }}"></i>
+    </button>
   </div>
   <input *ngIf="!!value.valuesIds.length"
          name="{{ element.id }}"
          type="text"
+         [disabled]="disabled"
          class="form-control ml-1"
          id="{{ element.id }}"
          #textfield="ngModel"
