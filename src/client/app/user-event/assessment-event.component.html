@@ -1,6 +1,10 @@
 <div *ngIf="isLoaded" [ngSwitch]="inline">
   <!--Inline forms-->
   <ng-template [ngSwitchCase]="true">
+    <div class="col-sm-3 pl-0">
+      <bs-search [items]="list"
+                 (itemsSearch)="userSearch($event)"></bs-search>
+    </div>
     <ul class="list-group">
       <li class="list-group-item"
           *ngFor="let item of list">
