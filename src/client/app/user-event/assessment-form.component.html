@@ -11,6 +11,7 @@
                            #likeDislike="ngModel"
                            [user]="user"
                            [element]="element"
+                           [disabled]="status !== EventStatus.InProgress"
                            [ngModel]="element.tempValue"
                            (ngModelChange)="element.tempValue = $event; onFormChange();"></bs-likes-dislikes>
       </ng-template>

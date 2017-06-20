@@ -1,7 +1,6 @@
 import { Component, forwardRef, Input, ViewChild } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { FormElement } from '../../../core/models/form-model';
-import { AuthService } from '../../../core/services/auth.service';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgModel } from '@angular/forms';
 import { UserModel } from '../../../core/models/user-model';
 
@@ -24,6 +23,7 @@ export class LikesDislikesComponent implements ControlValueAccessor {
   protected _innerValue: any;
   protected _propagateChange: Function;
   protected _propagateTouch: Function;
+  protected _disabled: boolean;
 
   protected _id = `like-dislike-${ id++ }`;
 
@@ -60,7 +60,20 @@ export class LikesDislikesComponent implements ControlValueAccessor {
     this._user = value;
   }
 
+  public get disabled(): boolean {
+    return this._disabled;
+  }
+
+  @Input()
+  public set disabled(value: boolean) {
+    this._disabled = value;
+  }
+
   constructor(protected _translateService: TranslateService) {
+  }
+
+  public isSelected(value: any): boolean {
+    return (this._innerValue.valuesIds) ? (this._innerValue.valuesIds.indexOf(value) !== -1) : false;
   }
 
   public writeValue(value: any) {
@@ -79,8 +92,12 @@ export class LikesDislikesComponent implements ControlValueAccessor {
     this._propagateTouch = fn;
   }
 
-  public onLikeDislikeChange(value: any) {
-    this._innerValue.valuesIds[0] = value;
+  public select(value: any) {
+    if (this._innerValue.valuesIds[0] === value) {
+      this._innerValue.valuesIds = [];
+    } else {
+      this._innerValue.valuesIds[0] = value;
+    }
     this._propagateChange(this._innerValue);
   }
 
