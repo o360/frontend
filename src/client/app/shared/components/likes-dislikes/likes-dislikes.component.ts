@@ -93,11 +93,7 @@ export class LikesDislikesComponent implements ControlValueAccessor {
   }
 
   public select(value: any) {
-    if (this._innerValue.valuesIds[0] === value) {
-      this._innerValue.valuesIds = [];
-    } else {
-      this._innerValue.valuesIds[0] = value;
-    }
+    this._innerValue.valuesIds[0] = value;
     this._propagateChange(this._innerValue);
   }
 
