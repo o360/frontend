@@ -51,8 +51,7 @@ export class EventCloneFormComponent extends FormComponent<EventModel> {
     this._eventForm = this._formBuilder.group({
       description: ['', Validators.required],
       start: ['', [Validators.required, ValidatorIsBefore('end'), ValidatorFutureDate]],
-      end: ['', [Validators.required, ValidatorIsAfter('start'), ValidatorFutureDate]],
-      canRevote: false
+      end: ['', [Validators.required, ValidatorIsAfter('start'), ValidatorFutureDate]]
     });
   }
 
@@ -62,8 +61,7 @@ export class EventCloneFormComponent extends FormComponent<EventModel> {
     let saveForm: EventModel = new EventModel({
       description: formModel.description,
       start: formModel.start,
-      end: formModel.end,
-      canRevote: formModel.canRevote
+      end: formModel.end
     });
 
     if (this._model.id) {

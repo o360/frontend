@@ -1,35 +1,71 @@
-<div *ngIf="isLoaded">
-  <!--Classic-->
-  <div class="row">
-    <div class="col-sm-4 col-md-4 col-lg-3">
-      <bs-assessment-object-list [list]="list"
-                                 (selectedItemChange)="displayItem($event)"></bs-assessment-object-list>
-    </div>
+<div *ngIf="isLoaded" [ngSwitch]="inline">
+  <!--Inline forms-->
+  <ng-template [ngSwitchCase]="true">
+    <ul class="list-group">
+      <li class="list-group-item"
+          *ngFor="let item of list">
+        <div class="col-sm-3">
+          {{ item.user.name }}
+        </div>
 
-    <div class="col-sm-8 col-md-8 col-lg-9"
-         *ngIf="assessmentObject"
-         [ngSwitch]="assessmentObject.hasOwnProperty('forms')">
-      <ng-template [ngSwitchCase]="true">
-        <tabset>
-          <tab *ngFor="let formObj of assessmentObject.forms">
-            <ng-template tabHeading>
-              {{ formObj.form.name }}
-            </ng-template>
-            <bs-user-assessment-form [userId]="assessmentObject.user.id"
-                                     [id]="formObj.form.id"
-                                     [status]="status"
-                                     [queryParams]="queryParams"
-                                     (formChange)="formChanged();"></bs-user-assessment-form>
-          </tab>
-        </tabset>
-      </ng-template>
-      <ng-template [ngSwitchCase]="false">
-        <bs-user-assessment-form [id]="assessmentObject.form.id"
-                                 [status]="status"
-                                 [queryParams]="queryParams"
-                                 (formChange)="formChanged();"></bs-user-assessment-form>
-      </ng-template>
+        <div class="col-sm-9">
+          <bs-user-assessment-form inline
+                                   #formComponent
+                                   [user]="item.user"
+                                   [id]="item.forms[0].form.id"
+                                   [status]="status"
+                                   [queryParams]="queryParams"
+                                   (formChange)="formChanged($event);"></bs-user-assessment-form>
+        </div>
+      </li>
+    </ul>
+    <div class="text-right mt-1">
+      <button type="submit"
+              class="btn btn-primary mt-0"
+              (click)="save();">
+        {{ 'T_ACTION_SAVE' | translate }}
+      </button>
     </div>
-  </div>
+  </ng-template>
+
+  <ng-template ngSwitchDefault>
+    <!--Classic-->
+    <div class="row">
+      <div class="col-sm-4 col-md-4 col-lg-3">
+        <bs-assessment-object-list [list]="list"
+                                   (selectedItemChange)="displayItem($event)"></bs-assessment-object-list>
+      </div>
+
+      <div class="col-sm-8 col-md-8 col-lg-9"
+           *ngIf="assessmentObject"
+           [ngSwitch]="assessmentObject.hasOwnProperty('forms')">
+        <ng-template [ngSwitchCase]="true">
+          <tabset>
+            <tab *ngFor="let formObj of assessmentObject.forms">
+              <ng-template tabHeading>
+                {{ formObj.form.name }}
+              </ng-template>
+              <bs-user-assessment-form [user]="assessmentObject.user"
+                                       #formComponent
+                                       [id]="formObj.form.id"
+                                       [status]="status"
+                                       [queryParams]="queryParams"
+                                       (formSave)="formSaved()"
+                                       (formChange)="formChanged($event);"></bs-user-assessment-form>
+            </tab>
+          </tabset>
+        </ng-template>
+        <!--Survey-->
+        <ng-template [ngSwitchCase]="false">
+          <bs-user-assessment-form [id]="assessmentObject.form.id"
+                                   #formComponent
+                                   [status]="status"
+                                   [queryParams]="queryParams"
+                                   (formSave)="formSaved()"
+                                   (formChange)="formChanged($event);"></bs-user-assessment-form>
+        </ng-template>
+      </div>
+    </div>
+  </ng-template>
 </div>
 

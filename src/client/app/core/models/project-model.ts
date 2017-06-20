@@ -16,7 +16,9 @@ export interface IEmailTemplate {
 @Defaults({
   name: '',
   groupAuditorId: null,
-  templates: []
+  templates: [],
+  canRevote: true,
+  formsOnSamePage: false
 })
 export class ProjectModel extends Model {
   public name: string;
@@ -24,6 +26,8 @@ export class ProjectModel extends Model {
   public groupAuditorId?: ModelId;
   public groupAuditor?: GroupModel;
   public templates: IEmailTemplate[];
+  public canRevote: boolean;
+  public formsOnSamePage: boolean;
 
   constructor(json: any) {
     super(json);

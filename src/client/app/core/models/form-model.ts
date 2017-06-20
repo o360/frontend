@@ -3,11 +3,13 @@ import { Model, ModelId } from './model';
 
 @Defaults({
   name: '',
-  elements: []
+  elements: [],
+  showInAggregation: true
 })
 export class FormModel extends Model {
   public name: string;
   public elements: FormElement[];
+  public showInAggregation: boolean;
 }
 
 export class FormElement extends Model {
@@ -21,7 +23,7 @@ export class FormElement extends Model {
 export interface IFormElementValue {
   id?: ModelId;
   caption: string;
-  tempValue? : any;
+  tempValue?: any;
 }
 
 export class FormElementType {
@@ -31,4 +33,5 @@ export class FormElementType {
   public static readonly Checkbox: string = 'checkbox';
   public static readonly Checkboxgroup: string = 'checkboxgroup';
   public static readonly Select: string = 'select';
+  public static readonly LikeDislike: string = 'likedislike';
 }

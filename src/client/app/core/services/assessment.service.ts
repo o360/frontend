@@ -3,7 +3,6 @@ import { RestServiceConfig } from '../decorators/rest-service-config.decorator';
 import { IQueryParams, RestService } from './rest.service';
 import { AssessmentModel } from '../models/assessment-model';
 import { Observable } from 'rxjs/Rx';
-import { ModelId } from '../models/model';
 import { Response } from '@angular/http';
 
 @Injectable()
