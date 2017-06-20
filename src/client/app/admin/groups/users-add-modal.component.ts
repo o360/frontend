@@ -7,6 +7,7 @@ import { GroupService } from '../../core/services/group.service';
 import { NotificationService } from '../../core/services/notification.service';
 import { IListResponse } from '../../core/services/rest.service';
 import { UserService } from '../../core/services/user.service';
+import { SelectComponent } from 'ng2-select';
 
 @Component({
   moduleId: module.id,
@@ -19,6 +20,9 @@ export class UsersAddModalComponent implements OnChanges {
   private _selectedUsers: ModelId[] = [];
   private _modal: ModalDirective;
   private _usersAdded: EventEmitter<ModelId[]> = new EventEmitter<ModelId[]>();
+
+  @ViewChild(SelectComponent)
+  private _select: SelectComponent;
 
   @Input()
   public set groupId(value: string) {
@@ -64,15 +68,21 @@ export class UsersAddModalComponent implements OnChanges {
   }
 
   public submit() {
-    if (this._selectedUsers.length > 0) {
-      let transaction = this._selectedUsers.map(userId => this._groupService.addUser(this._groupId, userId));
+    let transaction = this._selectedUsers.map(userId => this._groupService.addUser(this._groupId, userId));
 
-      Observable.forkJoin(transaction).subscribe(() => {
-        this._modal.hide();
-        this._usersAdded.emit(this._selectedUsers);
-        this._notificationService.success('T_USERS_ADDED_TO_GROUP');
-      });
-    }
+    Observable.forkJoin(transaction).subscribe(() => {
+      this._modal.hide();
+      this._usersAdded.emit(this._selectedUsers);
+      this._notificationService.success('T_USERS_ADDED_TO_GROUP');
+    });
+  }
+
+  public selectUser(value: any) {
+    this._selectedUsers.push(value.id);
+  }
+
+  public isSelected(user: any): boolean {
+    return (this._selectedUsers) ? (this._selectedUsers.indexOf(user.id) !== -1) : false;
   }
 
   protected _load() {
@@ -89,6 +99,11 @@ export class UsersAddModalComponent implements OnChanges {
       })
       .subscribe((availableUsers: UserModel[]) => {
         this._availableUsers = availableUsers;
+        let availableForSelectionUsers: any[] = [];
+        this._availableUsers.forEach((user: UserModel) => {
+          availableForSelectionUsers.push({id: user.id, text: `${user.name} (${user.email})`});
+        });
+        this._select.items = availableForSelectionUsers;
       });
   }
 }

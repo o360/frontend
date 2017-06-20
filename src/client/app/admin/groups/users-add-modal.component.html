@@ -17,14 +17,20 @@
                [ngClass]="{'has-success': users.valid, 'has-danger': !users.valid && users.touched }">
             <label for="users" class="col-form-label col-md-3 required">{{ 'T_USERS' | translate }}</label>
             <div class="col-md-9">
+              <ng-select ngModel
+                         #select="ngModel"
+                         name="select"
+                         [multiple]="true"
+                         (selected)="selectUser($event)"></ng-select>
               <select name="user"
                       id="users"
-                      class="form-control"
+                      class="form-control mt-1"
                       multiple
+                      required
                       #users="ngModel"
-                      [(ngModel)]="selectedUsers"
-                      required>
+                      [(ngModel)]="selectedUsers">
                 <option *ngFor="let user of availableUsers"
+                        [selected]="isSelected(user)"
                         [ngValue]="user.id">
                   {{ user.name }} ({{ user.email }})
                 </option>
@@ -37,13 +43,13 @@
       <div class="modal-footer">
         <button type="button"
                 class="btn btn-secondary"
-                (click)="modal.hide(); groupUserForm.reset()">{{ 'T_ACTION_CANCEL' | translate }}
+                (click)="modal.hide(); groupUserForm.reset(); select.active = [];">{{ 'T_ACTION_CANCEL' | translate }}
         </button>
 
         <button type="submit"
                 class="btn btn-primary"
-                (click)="submit(); groupUserForm.reset()"
-                [disabled]="!groupUserForm.valid">
+                (click)="submit(); groupUserForm.reset(); select.active = [];"
+                [disabled]="selectedUsers === null">
           {{ 'T_ACTION_ADD_USERS_TO_GROUP' | translate }}
         </button>
       </div>
