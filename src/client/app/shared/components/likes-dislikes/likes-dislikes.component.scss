@@ -9,13 +9,15 @@
   font-style: normal;
 }
 
-.like-dislike input {
+.like-dislike button {
   margin: 0;
   padding: 0;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
   outline: none;
+  border: none;
+  background-color: transparent;
 }
 
 .like {
@@ -54,18 +56,12 @@
 }
 
 .like-dislike .like:hover:before,
-.like-dislike .like:checked:before {
-  content: "\f004";
-  font-family: FontAwesome;
-  font-style: normal;
-  font-weight: normal;
-  text-decoration: inherit;
-  font-size: 1.5rem;
-  color: #20a8d8;
+.like-dislike .selected .like:before {
+  content: "\f004" !important;
 }
 
-.like-dislike .dislike:hover:before,
-.like-dislike .dislike:checked:before {
+.like-dislike button:hover,
+.like-dislike .selected {
   color: #20a8d8;
 }
 
