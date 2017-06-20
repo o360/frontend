@@ -16,6 +16,7 @@ import { DndModule } from 'ng2-dnd';
 import { LikesDislikesComponent } from './components/likes-dislikes/likes-dislikes.component';
 import { ConfirmationModalComponent } from './confirmation/confirmation.component';
 import { SearchComponent } from './components/search/search.component';
+import { SelectModule } from 'ng2-select';
 
 /**
  * Do not specify providers for modules that might be imported by a lazy loaded module.
@@ -35,7 +36,8 @@ import { SearchComponent } from './components/search/search.component';
     ModalModule,
     CKEditorModule,
     TabsModule,
-    DndModule
+    DndModule,
+    SelectModule
   ],
   declarations: [
     ConfirmationDirective,
@@ -70,6 +72,7 @@ import { SearchComponent } from './components/search/search.component';
     DateTimeComponent,
     DateFormatPipe,
     DndModule,
+    SelectModule,
     ConfirmationModalComponent,
     LikesDislikesComponent
   ],

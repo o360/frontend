@@ -67,6 +67,9 @@ export class ProjectConfig extends SeedConfig {
       name: 'ngx-bootstrap',
       path: 'node_modules/ngx-bootstrap/bundles/ngx-bootstrap.umd.min.js'
     }, {
+      name: 'ng2-select',
+      path: 'node_modules/ng2-select/bundles/ng2-select.umd.min.js'
+    }, {
       name: 'ng2-ckeditor',
       path: 'node_modules/ng2-ckeditor',
       packageMeta: {
