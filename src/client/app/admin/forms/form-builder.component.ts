@@ -76,13 +76,15 @@ export class FormBuilderComponent extends FormComponent<FormModel> implements On
     super._processModel(model);
 
     this._form.reset({
-      name: this._model.name
+      name: this._model.name,
+      showInAggregation: this._model.showInAggregation
     });
     this._setElements(this._model.elements);
   }
 
   public save() {
     this._model = this._prepareSaveForm();
+
 
     super.save();
   }
@@ -129,6 +131,10 @@ export class FormBuilderComponent extends FormComponent<FormModel> implements On
       elements: elementsCopy,
       showInAggregation: formModel.showInAggregation
     });
+
+    if (this._model.id) {
+      saveForm.id = this._model.id;
+    }
 
     return saveForm;
   }
