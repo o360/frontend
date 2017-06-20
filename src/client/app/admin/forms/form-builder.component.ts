@@ -50,6 +50,10 @@ export class FormBuilderComponent extends FormComponent<FormModel> implements On
     return this._elementTypes;
   }
 
+  public get FormElementType(): any {
+    return FormElementType;
+  }
+
   public get form(): FormGroup {
     return this._form;
   }
@@ -72,13 +76,15 @@ export class FormBuilderComponent extends FormComponent<FormModel> implements On
     super._processModel(model);
 
     this._form.reset({
-      name: this._model.name
+      name: this._model.name,
+      showInAggregation: this._model.showInAggregation
     });
     this._setElements(this._model.elements);
   }
 
   public save() {
     this._model = this._prepareSaveForm();
+
 
     super.save();
   }
@@ -104,7 +110,8 @@ export class FormBuilderComponent extends FormComponent<FormModel> implements On
   protected _createForm() {
     this._form = this._formBuilder.group({
         name: ['', Validators.required],
-        elements: this._formBuilder.array([])
+        elements: this._formBuilder.array([]),
+        showInAggregation: true
       },
       {validator: FormBuilderValidator});
   }
@@ -121,8 +128,14 @@ export class FormBuilderComponent extends FormComponent<FormModel> implements On
 
     let saveForm: FormModel = new FormModel({
       name: formModel.name,
-      elements: elementsCopy
+      elements: elementsCopy,
+      showInAggregation: formModel.showInAggregation
     });
+
+    if (this._model.id) {
+      saveForm.id = this._model.id;
+    }
+
     return saveForm;
   }
 
@@ -131,13 +144,23 @@ export class FormBuilderComponent extends FormComponent<FormModel> implements On
 
     if (RequireValue(element.kind)) {
       form = this._formBuilder.group({
-          caption: [element.caption, Validators.required],
-          required: element.required,
-          valueCaption: '',
-          values: this._formBuilder.array(element.values),
-          kind: element.kind
-        },
-        {validator: FormElementValidator});
+        caption: [element.caption, Validators.required],
+        required: element.required,
+        valueCaption: '',
+        values: this._formBuilder.array(element.values),
+        kind: element.kind
+      }, {validator: FormElementValidator});
+    } else if (element.kind === FormElementType.LikeDislike) {
+      form = this._formBuilder.group({
+        caption: 'like-dislike',
+        required: false,
+        values: this._formBuilder.array([{
+          caption: 'like'
+        }, {
+          caption: 'dislike'
+        }]),
+        kind: element.kind
+      }, {validator: FormElementValidator});
     } else {
       form = this._formBuilder.group({
         caption: [element.caption, Validators.required],

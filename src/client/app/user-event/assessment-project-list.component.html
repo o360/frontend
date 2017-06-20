@@ -1,8 +1,10 @@
 <!--Projects-->
 <tabset>
   <tab *ngFor="let project of list;"
-       heading="{{ project.name }}">
-    <bs-user-assessment-event [projectId]="project.id"
-                              [eventId]="eventId"></bs-user-assessment-event>
+       heading="{{ project.name }}" [ngSwitch]="project.formsOnSamePage">
+    <bs-user-assessment-event [inline]="project.formsOnSamePage"
+                              [projectId]="project.id"
+                              [eventId]="eventId"
+                              (answersChange)="answerChanged()"></bs-user-assessment-event>
   </tab>
 </tabset>

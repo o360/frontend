@@ -33,4 +33,8 @@ export class AssessmentProjectListComponent extends ListComponent<ProjectModel> 
       this._update();
     });
   }
+
+  public answerChanged() {
+    this._update();
+  }
 }

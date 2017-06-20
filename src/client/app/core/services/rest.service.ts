@@ -221,7 +221,11 @@ export class RestService<T extends Model> {
       this._notificationService.error(this._prepareErrorCodeTranslation(err.code));
       return Observable.throw(error);
     } else if (error.status === 409) {
-      this._confirmationService.loadComponent(null, err.conflicts);
+      if (err.code === 'CONFLICT-PROJECT-2') {
+        this._notificationService.error(this._prepareErrorCodeTranslation(err.code));
+      } else {
+        this._confirmationService.loadComponent(null, err.conflicts);
+      }
       return Observable.throw(error);
     } else {
       this._notificationService.error(err.message, `${error.status} ${error.statusText}`);

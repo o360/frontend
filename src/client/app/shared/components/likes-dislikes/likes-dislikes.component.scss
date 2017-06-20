@@ -1,0 +1,71 @@
+@font-face {
+  font-family: 'mfg_labs_iconsetregular';
+  src: url('../../../../css/fonts/mfglabsiconset-webfont.eot');
+  src: url('../../../../css/fonts/mfglabsiconset-webfont.eot?#iefix') format('embedded-opentype'),
+  url('../../../../css/fonts/mfglabsiconset-webfont.woff') format('woff'),
+  url('../../../../css/fonts/mfglabsiconset-webfont.ttf') format('truetype'),
+  url('../../../../css/fonts/mfglabsiconset-webfont.svg#mfg_labs_iconsetregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.like-dislike input {
+  margin: 0;
+  padding: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  outline: none;
+}
+
+.like {
+  position: relative;
+}
+
+.dislike {
+  position: relative;
+}
+
+.like:before {
+  content: "\f08a";
+  font-family: FontAwesome;
+  font-style: normal;
+  font-weight: normal;
+  text-decoration: inherit;
+  font-size: 1.5rem;
+}
+
+.dislike.female:before {
+  content: "\f028";
+  font-family: 'mfg_labs_iconsetregular';
+  font-style: normal;
+  font-weight: normal;
+  text-decoration: inherit;
+  font-size: 1.5rem;
+}
+
+.dislike.male:before {
+  content: "\f119";
+  font-family: FontAwesome;
+  font-style: normal;
+  font-weight: normal;
+  text-decoration: inherit;
+  font-size: 1.5rem;
+}
+
+.like-dislike .like:hover:before,
+.like-dislike .like:checked:before {
+  content: "\f004";
+  font-family: FontAwesome;
+  font-style: normal;
+  font-weight: normal;
+  text-decoration: inherit;
+  font-size: 1.5rem;
+  color: #20a8d8;
+}
+
+.like-dislike .dislike:hover:before,
+.like-dislike .dislike:checked:before {
+  color: #20a8d8;
+}
+
