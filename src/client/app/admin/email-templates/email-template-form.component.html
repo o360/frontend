@@ -24,12 +24,14 @@
                  name="name"
                  #name="ngModel"
                  required
+                 pattern=".*[^ ].*"
                  placeholder="{{ 'T_EMAIL_TEMPLATE_ENTER_NAME' | translate }}"
                  [(ngModel)]="model.name">
 
           <div class="form-errors"
                *ngIf="name.errors && name.touched">
             <div class="form-control-feedback" *ngIf="name.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}</div>
+            <div class="form-control-feedback" *ngIf="!!name.errors['pattern']">{{ 'T_ERROR_TEXT_PATTERN' | translate }}</div>
           </div>
         </div>
       </div>
@@ -94,12 +96,14 @@
                  name="subject"
                  #subject="ngModel"
                  required
+                 pattern=".*[^ ].*"
                  placeholder="{{ 'T_EMAIL_TEMPLATE_ENTER_SUBJECT' | translate }}"
                  [(ngModel)]="model.subject">
 
           <div class="form-errors"
                *ngIf="subject.errors && subject.touched">
             <div class="form-control-feedback" *ngIf="subject.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}</div>
+            <div class="form-control-feedback" *ngIf="!!subject.errors['pattern']">{{ 'T_ERROR_TEXT_PATTERN' | translate }}</div>
           </div>
         </div>
       </div>

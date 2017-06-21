@@ -33,6 +33,10 @@
               'T_FORM_FIELD_IS_REQUIRED' |
               translate }}
             </div>
+            <div class="form-control-feedback" *ngIf="!!eventForm.controls['description'].errors['pattern']">{{
+              'T_ERROR_TEXT_PATTERN' |
+              translate }}
+            </div>
           </div>
         </div>
       </div>
