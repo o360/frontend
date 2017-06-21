@@ -3,6 +3,7 @@ import { GroupModel } from '../../core/models/group-model';
 import { DetailsComponent } from '../../shared/components/details.component';
 import { GroupService } from '../../core/services/group.service';
 import { ActivatedRoute } from '@angular/router';
+import { BreadcrumbService } from '../../core/services/breadcrumb.service';
 
 @Component({
   moduleId: module.id,
@@ -10,7 +11,24 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: 'group-details.component.html'
 })
 export class GroupDetailsComponent extends DetailsComponent<GroupModel> {
-  constructor(service: GroupService, route: ActivatedRoute) {
+  constructor(service: GroupService, route: ActivatedRoute,
+              protected _breadcrumbService: BreadcrumbService) {
     super(service, route);
+  }
+
+  protected _update() {
+    this._service.get(this._id).subscribe((model: GroupModel) => {
+      this._model = model;
+      if (model.parentId) {
+        this._service.get(model.parentId).subscribe(model => {
+          this._breadcrumbService.load(model.name, model.id, 'group');
+          if (model.parentId) {
+            this._service.get(model.parentId).subscribe(model => {
+              this._breadcrumbService.load(model.name, model.id, 'group');
+            });
+          }
+        });
+      }
+    });
   }
 }

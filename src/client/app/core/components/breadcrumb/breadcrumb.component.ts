@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRouteSnapshot, NavigationEnd, Router } from '@angular/router';
 import { AppRoute } from '../../models/app-routes.model';
+import { BreadcrumbService } from '../../services/breadcrumb.service';
 
 interface IBreadcrumb {
   label: string;
@@ -19,7 +20,8 @@ export class BreadcrumbComponent implements OnInit {
     return this._breadcrumbs;
   }
 
-  constructor(protected _router: Router) {
+  constructor(protected _router: Router,
+              protected _breadcrumbService: BreadcrumbService) {
     this._breadcrumbs = [];
   }
 
@@ -41,17 +43,36 @@ export class BreadcrumbComponent implements OnInit {
       let parts: string[] = child.url.map(x => x.path);
 
       path = path.concat(parts);
-
       if (!routeConfig.breadcrumbIgnore) {
         newState.push({
           label: label,
           url: '/' + path.join('/')
         });
       }
-
       child = child.firstChild;
     }
 
+    this._breadcrumbService.nameChange.subscribe(value => {
+      if (value.type === 'project') {
+        let projectParent = {
+          label: value.label,
+          url: '/admin/projects/' + value.url
+        };
+        newState.splice(2, 0, projectParent);
+        console.log(newState);
+        return this._breadcrumbs = newState;
+      }
+      if (value.type === 'group') {
+        let groupParent = {
+          label: value.label,
+          url: '/admin/groups/' + value.url
+        };
+        console.log(groupParent);
+        newState.splice(2, 0, groupParent);
+        console.log(newState);
+        return this._breadcrumbs = newState;
+      }
+    });
     this._breadcrumbs = newState;
   }
 
@@ -72,4 +93,3 @@ export class BreadcrumbComponent implements OnInit {
     return str[0].toUpperCase() + str.slice(1);
   }
 }
-
