@@ -11,14 +11,16 @@ import { BreadcrumbService } from '../../core/services/breadcrumb.service';
   templateUrl: 'group-details.component.html'
 })
 export class GroupDetailsComponent extends DetailsComponent<GroupModel> {
-  constructor(service: GroupService, route: ActivatedRoute,
-              protected _breadcrumbService: BreadcrumbService) {
-    super(service, route);
+  constructor(service: GroupService,
+              route: ActivatedRoute,
+              breadcrumbService: BreadcrumbService) {
+    super(service, route, breadcrumbService);
   }
 
   protected _update() {
     this._service.get(this._id).subscribe((model: GroupModel) => {
       this._model = model;
+      this._breadcrumbService.loadEntityName(model);
       if (model.parentId) {
         this._service.get(model.parentId).subscribe(model => {
           this._breadcrumbService.load(model.name, model.id, 'group');

@@ -51,6 +51,7 @@ export class BreadcrumbComponent implements OnInit {
       }
       child = child.firstChild;
     }
+    this._breadcrumbs = newState;
 
     this._breadcrumbService.nameChange.subscribe(value => {
       if (value.type === 'project') {
@@ -59,21 +60,22 @@ export class BreadcrumbComponent implements OnInit {
           url: '/admin/projects/' + value.url
         };
         newState.splice(2, 0, projectParent);
-        console.log(newState);
-        return this._breadcrumbs = newState;
+        return newState;
       }
       if (value.type === 'group') {
         let groupParent = {
           label: value.label,
           url: '/admin/groups/' + value.url
         };
-        console.log(groupParent);
         newState.splice(2, 0, groupParent);
-        console.log(newState);
-        return this._breadcrumbs = newState;
+        return newState;
       }
     });
-    this._breadcrumbs = newState;
+
+    this._breadcrumbService.nameEntity.subscribe(value => {
+      newState.slice(-1)[0].label = value;
+      return this._breadcrumbs = newState;
+    });
   }
 
   private _extractRouteName(route: ActivatedRouteSnapshot) {
