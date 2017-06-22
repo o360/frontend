@@ -12,7 +12,8 @@ import { BreadcrumbService } from '../../core/services/breadcrumb.service';
 })
 export class ProjectDetailsComponent extends DetailsComponent<ProjectModel> {
   constructor(service: ProjectService,
-              route: ActivatedRoute) {
-    super(service, route);
+              route: ActivatedRoute,
+              breadcrumbService: BreadcrumbService) {
+    super(service, route, breadcrumbService);
   }
 }

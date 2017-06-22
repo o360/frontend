@@ -15,9 +15,9 @@ import { ProjectService } from '../../core/services/project.service';
 export class ProjectRelationDetailsComponent extends DetailsComponent<RelationModel> {
   constructor(service: RelationService,
               route: ActivatedRoute,
-              protected _breadcrumbService: BreadcrumbService,
+              breadcrumbService: BreadcrumbService,
               protected _projectService: ProjectService) {
-    super(service, route);
+    super(service, route, breadcrumbService);
   }
 
   protected _update(): void {

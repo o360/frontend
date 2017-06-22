@@ -4,6 +4,7 @@ import { DetailsComponent } from '../../shared/components/details.component';
 import { EmailTemplateModel } from '../../core/models/email-template-model';
 import { EmailTemplateService } from '../../core/services/email-template.service';
 import { NotificationService } from '../../core/services/notification.service';
+import { BreadcrumbService } from '../../core/services/breadcrumb.service';
 
 @Component({
   moduleId: module.id,
@@ -14,9 +15,10 @@ export class EmailTemplateDetailsComponent extends DetailsComponent<EmailTemplat
 
   constructor(service: EmailTemplateService,
               route: ActivatedRoute,
+              breadcrumbService: BreadcrumbService,
               protected _router: Router,
               protected _notificationService: NotificationService) {
-    super(service, route);
+    super(service, route, breadcrumbService);
   }
 
   public clone(model: EmailTemplateModel) {
