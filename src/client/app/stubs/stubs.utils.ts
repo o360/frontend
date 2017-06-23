@@ -48,6 +48,7 @@ export class ConfirmationStub {
   public loadComponent() {
     return;
   }
+
   public setViewContainerRef() {
     return;
   }
@@ -67,5 +68,13 @@ export class ActivatedRouteStub {
   set testParams(params: IQueryParams) {
     this._testParams = params;
     this._subject.next(params);
+  }
+}
+
+/* TranslateServiceStub ssub */
+@Injectable()
+export class TranslateServiceStub {
+  setDefaultLang() {
+    return;
   }
 }

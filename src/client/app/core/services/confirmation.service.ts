@@ -45,6 +45,7 @@ export class ConfirmationService {
   }
 
   public setViewContainerRef(vRef: ViewContainerRef) {
+    console.log(vRef);
     this._viewContainerRef = vRef;
   }
 
