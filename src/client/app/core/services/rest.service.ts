@@ -221,10 +221,18 @@ export class RestService<T extends Model> {
       this._notificationService.error(this._prepareErrorCodeTranslation(err.code));
       return Observable.throw(error);
     } else if (error.status === 409) {
-      if (err.code === 'CONFLICT-PROJECT-2') {
-        this._notificationService.error(this._prepareErrorCodeTranslation(err.code));
-      } else {
+      let conflicts = [
+        'CONFLICT-GROUP-GENERAL',
+        'CONFLICT-USER-GENERAL',
+        'CONFLICT-FORM-GENERAL',
+        'CONFLICT-PROJECT-GENERAL',
+        'CONFLICT-RELATION-GENERAL',
+        'CONFLICT-TEMPLATE-GENERAL'
+      ];
+      if (conflicts.indexOf(err.code) !== -1) {
         this._confirmationService.loadComponent(null, err.conflicts);
+      } else {
+        this._notificationService.error(this._prepareErrorCodeTranslation(err.code));
       }
       return Observable.throw(error);
     } else {
