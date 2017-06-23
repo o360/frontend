@@ -16,7 +16,7 @@
     </div>
   </div>
 
-  <bs-group-list *ngIf="model.level < 2"embedded [parentId]="model?.id"></bs-group-list>
+  <bs-group-list *ngIf="model.level < 2" embedded [parentId]="model?.id"></bs-group-list>
   <bs-group-user-list embedded [groupId]="model?.id"></bs-group-user-list>
   <bs-group-project-list embedded [groupId]="model.id"></bs-group-project-list>
 </div>
