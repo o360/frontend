@@ -52,7 +52,9 @@ export class GroupListComponent extends ListComponent<GroupModel> implements OnI
 
   public ngOnChanges(changes: SimpleChanges) {
     if (changes['parentId']) {
+      this._list = [];
       Object.assign(this._queryParams, { parentId: this._parentId });
+      this._update();
     }
   }
 
