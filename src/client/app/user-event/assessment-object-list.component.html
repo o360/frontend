@@ -13,7 +13,7 @@
                    'fa-circle-o': !userObj.isAnswered}"
        class="fa mr-h"></i>
     {{ userObj.user.name }}
-    <i *ngIf="selectedItem === userObj" class="icon-arrow-right-circle pl-1"></i>
+    <i *ngIf="!!selectedItem && selectedItem['user'].id === userObj.user.id" class="icon-arrow-right-circle pl-1"></i>
   </li>
 
   <!--Surveys-->
