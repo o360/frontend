@@ -66,6 +66,10 @@ export class EventFormComponent extends FormComponent<EventModel> {
       canRevote: formModel.canRevote
     });
 
+    if (this._model.notifications) {
+      saveForm.notifications = this._model.notifications;
+    }
+
     if (this._model.id) {
       saveForm.id = this._model.id;
     }
