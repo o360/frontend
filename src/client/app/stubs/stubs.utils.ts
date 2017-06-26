@@ -70,11 +70,3 @@ export class ActivatedRouteStub {
     this._subject.next(params);
   }
 }
-
-/* TranslateServiceStub ssub */
-@Injectable()
-export class TranslateServiceStub {
-  setDefaultLang() {
-    return;
-  }
-}
