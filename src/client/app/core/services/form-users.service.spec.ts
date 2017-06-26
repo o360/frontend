@@ -9,7 +9,6 @@ import { ConfirmationService } from './confirmation.service';
 import { AuthServiceStub, ConfirmationStub, NotificationServiceStub, RouterStub } from '../../stubs/stubs.utils';
 import { Observable } from 'rxjs/Observable';
 import { FormModel } from '../models/form-model';
-import { FormService } from './form.service';
 import { FormUsersService } from './form-users.service';
 
 
