@@ -82,3 +82,11 @@ export class BreadcrumbServiceStub {
     return;
   }
 }
+
+/* TranslateServiceStub stub */
+@Injectable()
+export class TranslateServiceStub {
+  setDefaultLang() {
+    return;
+  }
+}
