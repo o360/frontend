@@ -82,6 +82,11 @@ export class ProjectRelationFormComponent extends FormComponent<RelationModel> {
 
     super._processModel(model);
   }
+
+  public save() {
+    this._returnPath = ['/admin/projects/', this._projectId.toString(), '/relations'];
+    super.save();
+  }
 }
 
 
