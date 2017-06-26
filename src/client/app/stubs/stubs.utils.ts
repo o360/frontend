@@ -48,6 +48,7 @@ export class ConfirmationStub {
   public loadComponent() {
     return;
   }
+
   public setViewContainerRef() {
     return;
   }
