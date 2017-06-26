@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { AssessmentModel } from '../../../core/models/assessment-model';
@@ -8,7 +8,7 @@ import { AssessmentModel } from '../../../core/models/assessment-model';
   selector: 'bs-search',
   templateUrl: 'search.component.html'
 })
-export class SearchComponent implements OnInit, OnChanges, OnDestroy {
+export class SearchComponent implements OnInit, OnDestroy {
   protected _list: AssessmentModel[];
   protected _searchSubscription: any;
   public searchControl: FormControl = new FormControl();
@@ -37,19 +37,6 @@ export class SearchComponent implements OnInit, OnChanges, OnDestroy {
       .subscribe((item: AssessmentModel) => {
         this._searchList.push(item);
       });
-  }
-
-  public ngOnChanges(changes: SimpleChanges) {
-    if (changes['items']) {
-      changes['items'].currentValue.forEach((curAssessment: AssessmentModel) => {
-        if (changes['items'].previousValue) {
-          let prevAssessment = changes['items'].previousValue.find((x: AssessmentModel) => x.user.id === curAssessment.user.id);
-          if (prevAssessment.isAnswered !== curAssessment.isAnswered) {
-            this._list = this._items;
-          }
-        }
-      });
-    }
   }
 
   public  ngOnDestroy() {
