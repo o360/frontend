@@ -37,4 +37,9 @@ export class AssessmentProjectListComponent extends ListComponent<ProjectModel> 
   public answerChanged() {
     this._update();
   }
+
+  protected _update() {
+    Object.assign(this._queryParams, { onlyAvailable: 'true' });
+    super._update()
+  }
 }
