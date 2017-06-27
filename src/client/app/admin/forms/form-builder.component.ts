@@ -109,7 +109,7 @@ export class FormBuilderComponent extends FormComponent<FormModel> implements On
 
   protected _createForm() {
     this._form = this._formBuilder.group({
-        name: ['', Validators.required],
+        name: ['', Validators.pattern(/.*^[\S].*/)],
         elements: this._formBuilder.array([]),
         showInAggregation: true
       },
@@ -144,9 +144,9 @@ export class FormBuilderComponent extends FormComponent<FormModel> implements On
 
     if (RequireValue(element.kind)) {
       form = this._formBuilder.group({
-        caption: [element.caption, Validators.required],
+        caption: [element.caption, [Validators.required, Validators.pattern(/.*^[\S].*/)]],
         required: element.required,
-        valueCaption: '',
+        valueCaption: ['', Validators.pattern(/.*^[\S].*/)],
         values: this._formBuilder.array(element.values),
         kind: element.kind
       }, {validator: FormElementValidator});
@@ -163,7 +163,7 @@ export class FormBuilderComponent extends FormComponent<FormModel> implements On
       }, {validator: FormElementValidator});
     } else {
       form = this._formBuilder.group({
-        caption: [element.caption, Validators.required],
+        caption: [element.caption,  [Validators.required, Validators.pattern(/.*^[\S].*/)]],
         required: element.required,
         kind: element.kind
       });

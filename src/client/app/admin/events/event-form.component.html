@@ -15,9 +15,10 @@
 
       <!-- Description -->
       <div class="form-group row"
-           [ngClass]="{ 'has-success': !!eventForm.value.description,
-                        'has-danger': !eventForm.value.description && eventForm.controls['description'].touched }">
-        <label for="description" class="col-form-label col-md-3 required">{{ 'T_EVENT_DESCRIPTION' | translate }}</label>
+           [ngClass]="{ 'has-success': eventForm.controls['description'].valid,
+                        'has-danger': !eventForm.controls['description'].valid && eventForm.controls['description'].touched }">
+        <label for="description" class="col-form-label col-md-3 required">{{ 'T_EVENT_DESCRIPTION' | translate
+          }}</label>
         <div class="col-md-9">
           <textarea type="text"
                     class="form-control"
@@ -28,8 +29,11 @@
           </textarea>
           <div class="form-errors"
                *ngIf="eventForm.controls['description'].errors && eventForm.controls['description'].touched">
-            <div class="form-control-feedback" *ngIf="eventForm.controls['description'].errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' |
-              translate }}
+            <div class="form-control-feedback" *ngIf="eventForm.controls['description'].errors['required']">
+              {{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}
+            </div>
+            <div class="form-control-feedback" *ngIf="!!eventForm.controls['description'].errors['pattern']">
+              {{ 'T_ERROR_TEXT_PATTERN' | translate }}
             </div>
           </div>
         </div>
@@ -77,10 +81,12 @@
           </bs-datetime>
           <div class="form-errors"
                *ngIf="eventForm.controls['end'].errors && eventForm.controls['end'].touched">
-            <div class="form-control-feedback" *ngIf="eventForm.controls['end'].errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' |
+            <div class="form-control-feedback" *ngIf="eventForm.controls['end'].errors['required']">{{
+              'T_FORM_FIELD_IS_REQUIRED' |
               translate }}
             </div>
-            <div class="form-control-feedback" *ngIf="eventForm.controls['end'].errors['format']"> {{ 'T_ERROR_INVALID_DATE' | translate
+            <div class="form-control-feedback" *ngIf="eventForm.controls['end'].errors['format']"> {{
+              'T_ERROR_INVALID_DATE' | translate
               }}
             </div>
             <div class="form-control-feedback" *ngIf="eventForm.controls['end'].errors['minDate']">
