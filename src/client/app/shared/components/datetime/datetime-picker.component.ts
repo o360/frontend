@@ -4,7 +4,7 @@ import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
 
 import * as moment from 'moment';
 
-export const ValidatorIsAfter = (otherDateName: string): ValidationErrors => {
+export const ValidatorIsAfter = (otherDateName: string) => {
   let thisDate: FormControl;
   let otherDate: FormControl;
 
@@ -39,7 +39,7 @@ export const ValidatorIsAfter = (otherDateName: string): ValidationErrors => {
   };
 };
 
-export const ValidatorIsBefore = (otherDateName: string): ValidationErrors => {
+export const ValidatorIsBefore = (otherDateName: string) => {
   let thisDate: FormControl;
   let otherDate: FormControl;
 
@@ -81,7 +81,7 @@ export const DateFormat = {
   Backend: 'YYYY-MM-DDTHH:mm:ss'
 };
 
-export const ValidatorFutureDate = (control: FormControl): ValidationErrors => {
+export const ValidatorFutureDate = (control: FormControl) => {
   let isFuture = moment(control.value).isAfter(moment.now());
   return isFuture ? null : {dateInPast: 'T_ERROR_DATE_IN_PAST'};
 };
@@ -187,6 +187,7 @@ export class DateTimeComponent implements ControlValueAccessor, AfterViewInit, V
     let datepicker = $element.datepicker({
       timepicker: !this._onlyDateMode,
       language: this._translateService.currentLang,
+      startDate: new Date(this._innerValue),
       dateFormat: 'dd.mm.yyyy',
       timeFormat: 'hh:ii',
       firstDay: 0,
