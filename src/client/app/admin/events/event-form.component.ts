@@ -50,10 +50,14 @@ export class EventFormComponent extends FormComponent<EventModel> {
   protected _createForm() {
     this._eventForm = this._formBuilder.group({
       description: ['', Validators.required],
-      start: ['', [Validators.required, ValidatorIsBefore('end'), ValidatorFutureDate]],
+      start: ['', [Validators.required, ValidatorIsBefore('end')]],
       end: ['', [Validators.required, ValidatorIsAfter('start'), ValidatorFutureDate]],
       canRevote: false
     });
+
+    if (this._model && this._model.status === EventStatus.NotStarted) {
+      this._eventForm.controls['start'].setValidators([Validators.required, ValidatorIsBefore('end'), ValidatorFutureDate]);
+    }
   }
 
   protected _prepareSaveForm(): EventModel {
