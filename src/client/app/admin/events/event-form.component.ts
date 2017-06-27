@@ -45,6 +45,9 @@ export class EventFormComponent extends FormComponent<EventModel> {
     super._processModel(model);
 
     this._eventForm.reset(this._model);
+    if (this._model.status !== EventStatus.InProgress) {
+      this._eventForm.controls['start'].setValidators([Validators.required, ValidatorIsBefore('end'), ValidatorFutureDate]);
+    }
   }
 
   protected _createForm() {
@@ -54,10 +57,6 @@ export class EventFormComponent extends FormComponent<EventModel> {
       end: ['', [Validators.required, ValidatorIsAfter('start'), ValidatorFutureDate]],
       canRevote: false
     });
-
-    if (this._model && this._model.status === EventStatus.NotStarted) {
-      this._eventForm.controls['start'].setValidators([Validators.required, ValidatorIsBefore('end'), ValidatorFutureDate]);
-    }
   }
 
   protected _prepareSaveForm(): EventModel {
