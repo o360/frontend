@@ -40,6 +40,6 @@ export class AssessmentProjectListComponent extends ListComponent<ProjectModel> 
 
   protected _update() {
     Object.assign(this._queryParams, { onlyAvailable: 'true' });
-    super._update()
+    super._update();
   }
 }
