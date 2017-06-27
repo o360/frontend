@@ -12,8 +12,8 @@
     <div class="card-block">
       <!-- Name -->
       <div class="form-group row"
-           [ngClass]="{ 'has-success': !!form.value.name,
-                        'has-danger': !form.value.name && form.controls['name'].touched}">
+           [ngClass]="{ 'has-success': form.controls['name'].valid,
+                        'has-danger': !form.controls['name'].valid && form.controls['name'].touched}">
         <label for="name" class="col-form-label col-md-3 required">{{ 'T_FORM_NAME' | translate }}</label>
         <div class="col-md-9">
           <input type="text"
@@ -25,9 +25,12 @@
                  formControlName="name">
 
           <div class="form-errors"
-               *ngIf="!form.value.name && form.controls['name'].touched">
+               *ngIf="!!form.controls['name'].errors && form.controls['name'].touched">
             <div class="form-control-feedback" *ngIf="form.controls['name'].errors['required']">{{
               'T_FORM_FIELD_IS_REQUIRED' | translate }}
+            </div>
+            <div class="form-control-feedback" *ngIf="!!form.controls['name'].errors['pattern']">{{
+              'T_ERROR_TEXT_PATTERN' | translate }}
             </div>
           </div>
         </div>

@@ -1,5 +1,4 @@
 import { Directive, EventEmitter, HostListener, Input, Output, ViewContainerRef } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
 import { ConfirmationService } from '../../core/services/confirmation.service';
 
 @Directive({

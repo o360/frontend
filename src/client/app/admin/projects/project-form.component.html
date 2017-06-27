@@ -10,7 +10,7 @@
 
   <div class="card-block">
     <form class="form form-horizontal"
-          (ngSubmit)="save()" #userForm="ngForm">
+          (ngSubmit)="save(); userForm.reset()" #userForm="ngForm">
 
       <!-- Name -->
       <div class="form-group row"
@@ -23,6 +23,7 @@
                  id="name"
                  name="name"
                  #name="ngModel"
+                 pattern=".*^[\S].*"
                  required
                  placeholder="{{ 'T_FORM_ENTER_NAME' | translate }}"
                  [(ngModel)]="model.name">
@@ -30,7 +31,11 @@
 
           <div class="form-errors"
                *ngIf="name.errors && name.touched">
-            <div class="form-control-feedback" *ngIf="name.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}
+            <div class="form-control-feedback" *ngIf="name.errors['required']">
+              {{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}
+            </div>
+            <div class="form-control-feedback" *ngIf="!!name.errors['pattern']">
+              {{ 'T_ERROR_TEXT_PATTERN' | translate }}
             </div>
           </div>
         </div>
@@ -49,12 +54,13 @@
                     id="description"
                     name="description"
                     #description="ngModel"
+                    pattern=".*^[\S].*"
                     placeholder="{{ 'T_FORM_ENTER_DESCRIPTION' | translate }}"
                     [(ngModel)]="model.description"
                     rows="10"> </textarea>
           <div class="form-errors"
                *ngIf="description.errors && description.touched">
-            <div class="form-control-feedback" *ngIf="description.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' |
+            <div class="form-control-feedback" *ngIf="!!description.errors['pattern']">{{ 'T_ERROR_TEXT_PATTERN' |
               translate }}
             </div>
           </div>

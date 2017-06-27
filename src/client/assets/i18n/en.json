@@ -113,6 +113,7 @@
   "T_SUCCESS_MESSAGE_DEFAULT": "Some text!",
   "T_SUCCESS_DELETED": "Deleted!",
   "T_SUCCESS_SAVED": "Saved!",
+  "T_ERROR_TEXT_PATTERN": "Value should contain visible symbols",
   "T_SUCCESS_NEW_USER_SAVED": "Please, wait for your account to be approved by the administrator",
   "T_SUCCESS_CLONED": "Cloned!",
   "T_ERROR_INVALID_DATE": "Wrong date format",
