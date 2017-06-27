@@ -52,7 +52,7 @@ export class EventFormComponent extends FormComponent<EventModel> {
 
   protected _createForm() {
     this._eventForm = this._formBuilder.group({
-      description: ['', [Validators.required, Validators.pattern('.*[^ ].*')]],
+      description: ['', [Validators.required, Validators.pattern(/.*^[\S].*/)]],
       start: ['', [Validators.required, ValidatorIsBefore('end')]],
       end: ['', [Validators.required, ValidatorIsAfter('start'), ValidatorFutureDate]],
       canRevote: false

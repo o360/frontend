@@ -24,7 +24,7 @@
                  name="name"
                  #name="ngModel"
                  required
-                 pattern=".*[^ ].*"
+                 pattern=".*^[\S].*"
                  placeholder="{{ 'T_FORM_ENTER_NAME' | translate }}"
                  [(ngModel)]="model.name">
 
@@ -53,7 +53,7 @@
                  name="email"
                  #email="ngModel"
                  required
-                 pattern=".*[^ ].*"
+                 pattern=".*^[\S].*"
                  placeholder="{{ 'T_FORM_ENTER_EMAIL' | translate }}"
                  [(ngModel)]="model.email">
           <div class="form-errors"
