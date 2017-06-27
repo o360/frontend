@@ -24,7 +24,7 @@
                  name="name"
                  #name="ngModel"
                  required
-                 pattern=".*[^ ].*"
+                 pattern=".*^[\S].*"
                  placeholder="{{ 'T_EMAIL_TEMPLATE_ENTER_NAME' | translate }}"
                  [(ngModel)]="model.name">
 
@@ -96,7 +96,7 @@
                  name="subject"
                  #subject="ngModel"
                  required
-                 pattern=".*[^ ].*"
+                 pattern=".*^[\S].*"
                  placeholder="{{ 'T_EMAIL_TEMPLATE_ENTER_SUBJECT' | translate }}"
                  [(ngModel)]="model.subject">
 

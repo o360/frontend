@@ -16,7 +16,7 @@
                        [(ngModel)]="user.name"
                        class="form-control"
                        required
-                       pattern=".*[^ ].*"
+                       pattern=".*^[\S].*"
                        #name="ngModel"
                        placeholder="{{ 'T_NEW_ACCOUNT_NAME' | translate }}">
               </div>
@@ -38,7 +38,7 @@
                        name="email"
                        [(ngModel)]="user.email"
                        required
-                       pattern=".*[^ ].*"
+                       pattern=".*^[\S].*"
                        #email="ngModel"
                        class="form-control"
                        placeholder="{{ 'T_NEW_ACCOUNT_EMAIL' | translate }}">

@@ -24,7 +24,7 @@
                  name="name"
                  #name="ngModel"
                  required
-                 pattern=".*[^ ].*"
+                 pattern=".*^[\S].*"
                  placeholder="{{ 'T_FORM_ENTER_GROUP_NAME' | translate }}"
                  [(ngModel)]="model.name">
 
