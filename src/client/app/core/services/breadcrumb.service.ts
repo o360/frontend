@@ -1,33 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
-
-export interface IBreadcrumbUrl {
-  type: string;
-  label: string;
-  url: string;
-}
+import { IBreadcrumb } from '../components/breadcrumb/breadcrumb.component';
 
 @Injectable()
 export class BreadcrumbService {
-  public nameChange: Subject<object> = new Subject<object>();
-  public nameEntity: Subject<object> = new Subject<object>();
+  private _override: Subject<IBreadcrumb[]> = new Subject<IBreadcrumb[]>();
 
-  public load(label: string, url: string, type: string) {
-    let breadcrumb: IBreadcrumbUrl = {
-      type: type,
-      label: label,
-      url: url
-    };
-    this.nameChange.next(breadcrumb);
+  public get override(): Subject<IBreadcrumb[]> {
+    return this._override;
   }
 
-  public loadEntityName(model) {
-    if (model.name) {
-      let breadcrumbName = {
-        name: model.name
-      };
-      this.nameEntity.next(breadcrumbName);
-    }
+  public overrideBreadcrumb(breadcrumbs: IBreadcrumb[]) {
+    this._override.next(breadcrumbs);
   }
 }
 

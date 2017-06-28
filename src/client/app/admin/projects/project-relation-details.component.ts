@@ -20,12 +20,14 @@ export class ProjectRelationDetailsComponent extends DetailsComponent<RelationMo
     super(service, route, breadcrumbService);
   }
 
-  protected _update(): void {
-    super._update();
-    this._route.params.subscribe((params: Params) => {
-      this._projectService.get(params['projectId']).subscribe((model: ProjectModel) => {
-        this._breadcrumbService.load(model.name, model.id, 'project');
-      });
+  protected _fillBreadcrumbs(model: RelationModel) {
+    this._projectService.get(model.projectId).subscribe((project: ProjectModel) => {
+      let breadcrumbs = [];
+
+      breadcrumbs.push({ label: project.name });
+      breadcrumbs.push({ label: 'T_PROJECT_RELATION_DETAILS' });
+
+      this._breadcrumbService.overrideBreadcrumb(breadcrumbs);
     });
   }
 }
