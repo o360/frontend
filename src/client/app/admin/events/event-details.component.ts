@@ -4,9 +4,7 @@ import { EventModel, EventStatus } from '../../core/models/event-model';
 import { EventService } from '../../core/services/event.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NotificationService } from '../../core/services/notification.service';
-import { ProjectModel } from '../../core/models/project-model';
-import { ProjectService } from '../../core/services/project.service';
-import { IListResponse, IQueryParams } from '../../core/services/rest.service';
+import { BreadcrumbService } from '../../core/services/breadcrumb.service';
 
 @Component({
   moduleId: module.id,
@@ -20,10 +18,10 @@ export class EventDetailsComponent extends DetailsComponent<EventModel> {
 
   constructor(service: EventService,
               route: ActivatedRoute,
-              private _projectService: ProjectService,
+              breadcrumbService: BreadcrumbService,
               private _router: Router,
               private _notificationService: NotificationService) {
-    super(service, route);
+    super(service, route, breadcrumbService);
   }
 
   public clone(model: EventModel) {

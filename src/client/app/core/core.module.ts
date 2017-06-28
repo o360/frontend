@@ -23,6 +23,7 @@ import { AdminGuard } from './guards/admin.guard';
 import { AssessmentService } from './services/assessment.service';
 import { FormUsersService } from './services/form-users.service';
 import { ConfirmationService } from './services/confirmation.service';
+import { BreadcrumbService } from './services/breadcrumb.service';
 
 @NgModule({
   imports: [
@@ -56,7 +57,8 @@ import { ConfirmationService } from './services/confirmation.service';
     EmailTemplateService,
     AssessmentService,
     NotificationService,
-    ConfirmationService
+    ConfirmationService,
+    BreadcrumbService
   ],
   exports: [
     HeaderComponent,

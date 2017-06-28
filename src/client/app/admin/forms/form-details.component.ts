@@ -4,6 +4,7 @@ import { FormElementType, FormModel } from '../../core/models/form-model';
 import { FormService } from '../../core/services/form.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NotificationService } from '../../core/services/notification.service';
+import { BreadcrumbService } from '../../core/services/breadcrumb.service';
 
 @Component({
   moduleId: module.id,
@@ -18,9 +19,10 @@ export class FormDetailsComponent extends DetailsComponent<FormModel> {
 
   constructor(service: FormService,
               route: ActivatedRoute,
+              breadcrumbService: BreadcrumbService,
               protected _router: Router,
               protected _notificationService: NotificationService) {
-    super(service, route);
+    super(service, route, breadcrumbService);
   }
 
   public clone(model: FormModel) {

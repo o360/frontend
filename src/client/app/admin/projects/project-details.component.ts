@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, ViewContainerRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProjectModel } from '../../core/models/project-model';
 import { ProjectService } from '../../core/services/project.service';
 import { DetailsComponent } from '../../shared/components/details.component';
+import { BreadcrumbService } from '../../core/services/breadcrumb.service';
 
 @Component({
   moduleId: module.id,
@@ -11,7 +12,8 @@ import { DetailsComponent } from '../../shared/components/details.component';
 })
 export class ProjectDetailsComponent extends DetailsComponent<ProjectModel> {
   constructor(service: ProjectService,
-              route: ActivatedRoute) {
-    super(service, route);
+              route: ActivatedRoute,
+              breadcrumbService: BreadcrumbService) {
+    super(service, route, breadcrumbService);
   }
 }
