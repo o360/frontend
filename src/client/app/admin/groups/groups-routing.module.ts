@@ -20,6 +20,10 @@ import { AppRoutes } from '../../core/models/app-routes.model';
       component: GroupDetailsComponent,
       breadcrumb: 'T_GROUP_DETAILS',
     }, {
+      path: ':id',
+      component: GroupDetailsComponent,
+      breadcrumb: 'T_GROUP_DETAILS',
+    }, {
       path: ':id/edit',
       component: GroupFormComponent,
       breadcrumb: 'T_ACTION_EDIT',

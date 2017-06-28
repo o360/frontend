@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { UserModel } from '../../core/models/user-model';
 import { UserService } from '../../core/services/user.service';
 import { DetailsComponent } from '../../shared/components/details.component';
+import { BreadcrumbService } from '../../core/services/breadcrumb.service';
 
 @Component({
   moduleId: module.id,
@@ -11,8 +12,8 @@ import { DetailsComponent } from '../../shared/components/details.component';
 })
 export class UserDetailsComponent extends DetailsComponent<UserModel> {
   constructor(service: UserService,
-              route: ActivatedRoute) {
-    super(service, route);
+              route: ActivatedRoute,
+              breadcrumbService: BreadcrumbService) {
+    super(service, route, breadcrumbService);
   }
 }
-

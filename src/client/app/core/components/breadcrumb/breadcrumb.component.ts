@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRouteSnapshot, NavigationEnd, Router } from '@angular/router';
 import { AppRoute } from '../../models/app-routes.model';
+import { BreadcrumbService } from '../../services/breadcrumb.service';
 
-interface IBreadcrumb {
+export interface IBreadcrumb {
   label: string;
-  url: string;
+  url?: string;
 }
 
 @Component({
@@ -19,7 +20,8 @@ export class BreadcrumbComponent implements OnInit {
     return this._breadcrumbs;
   }
 
-  constructor(protected _router: Router) {
+  constructor(protected _router: Router,
+              protected _breadcrumbService: BreadcrumbService) {
     this._breadcrumbs = [];
   }
 
@@ -27,13 +29,17 @@ export class BreadcrumbComponent implements OnInit {
     this._router.events
       .filter(event => event instanceof NavigationEnd)
       .subscribe(() => this._updateBreadcrumbs());
+
+    this._breadcrumbService.override.subscribe((breadcrumbs: IBreadcrumb[]) => {
+      this._breadcrumbs.splice(this._breadcrumbs.length - 1, 1, ...breadcrumbs);
+    });
   }
 
   private _updateBreadcrumbs() {
     let child = this._router.routerState.snapshot.root.firstChild;
     let path: string[] = [];
 
-    let newState = [];
+    let newState: IBreadcrumb[] = [];
 
     while (child) {
       let routeConfig = <AppRoute>child.routeConfig;
@@ -72,4 +78,3 @@ export class BreadcrumbComponent implements OnInit {
     return str[0].toUpperCase() + str.slice(1);
   }
 }
-
