@@ -16,9 +16,9 @@ import { AppRoutes } from '../../core/models/app-routes.model';
       component: GroupFormComponent,
       breadcrumb: 'T_ACTION_CREATE',
     }, {
-        path: ':id',
-        component: GroupDetailsComponent,
-        breadcrumb: 'T_GROUP_DETAILS',
+      path: ':id',
+      component: GroupDetailsComponent,
+      breadcrumb: 'T_GROUP_DETAILS',
     }, {
       path: ':id',
       component: GroupDetailsComponent,
@@ -27,8 +27,7 @@ import { AppRoutes } from '../../core/models/app-routes.model';
       path: ':id/edit',
       component: GroupFormComponent,
       breadcrumb: 'T_ACTION_EDIT',
-    }
-    ])
+    }])
   ],
   exports: [RouterModule]
 })
