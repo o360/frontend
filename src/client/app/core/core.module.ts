@@ -58,8 +58,7 @@ import { BreadcrumbService } from './services/breadcrumb.service';
     AssessmentService,
     NotificationService,
     ConfirmationService,
-    BreadcrumbService,
-    BreadcrumbComponent
+    BreadcrumbService
   ],
   exports: [
     HeaderComponent,

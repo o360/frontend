@@ -1,6 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 
+export interface IBreadcrumbUrl {
+  type: string;
+  label: string;
+  url: string;
+}
 
 @Injectable()
 export class BreadcrumbService {
@@ -8,7 +13,7 @@ export class BreadcrumbService {
   public nameEntity: Subject<object> = new Subject<object>();
 
   public load(label: string, url: string, type: string) {
-    let breadcrumb = {
+    let breadcrumb: IBreadcrumbUrl = {
       type: type,
       label: label,
       url: url
@@ -18,7 +23,10 @@ export class BreadcrumbService {
 
   public loadEntityName(model) {
     if (model.name) {
-      this.nameEntity.next(model.name);
+      let breadcrumbName = {
+        name: model.name
+      };
+      this.nameEntity.next(breadcrumbName);
     }
   }
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRouteSnapshot, NavigationEnd, Router } from '@angular/router';
 import { AppRoute } from '../../models/app-routes.model';
-import { BreadcrumbService } from '../../services/breadcrumb.service';
+import { BreadcrumbService, IBreadcrumbUrl } from '../../services/breadcrumb.service';
 
 interface IBreadcrumb {
   label: string;
@@ -35,7 +35,7 @@ export class BreadcrumbComponent implements OnInit {
     let child = this._router.routerState.snapshot.root.firstChild;
     let path: string[] = [];
 
-    let newState = [];
+    let newState: IBreadcrumb[] = [];
 
     while (child) {
       let routeConfig = <AppRoute>child.routeConfig;
@@ -43,36 +43,29 @@ export class BreadcrumbComponent implements OnInit {
       let parts: string[] = child.url.map(x => x.path);
 
       path = path.concat(parts);
+
       if (!routeConfig.breadcrumbIgnore) {
         newState.push({
           label: label,
           url: '/' + path.join('/')
         });
       }
+
       child = child.firstChild;
     }
+
     this._breadcrumbs = newState;
 
-    this._breadcrumbService.nameChange.subscribe(value => {
-      if (value.type === 'project') {
-        let projectParent = {
-          label: value.label,
-          url: '/admin/projects/' + value.url
-        };
-        newState.splice(2, 0, projectParent);
-        return newState;
-      }
-      if (value.type === 'group') {
-        let groupParent = {
-          label: value.label,
-          url: '/admin/groups/' + value.url
-        };
-        newState.splice(2, 0, groupParent);
-        return newState;
-      }
+    this._breadcrumbService.nameChange.subscribe((value: IBreadcrumbUrl) => {
+      let groupParent = {
+        label: value.label,
+        url: (value.type === 'group') ? '/admin/groups/' + value.url : '/admin/projects/' + value.url
+      };
+      newState.splice(2, 0, groupParent);
+      return newState;
     });
 
-    this._breadcrumbService.nameEntity.subscribe(value => {
+    this._breadcrumbService.nameEntity.subscribe((value: IBreadcrumbUrl) => {
       newState.slice(-1)[0].label = value;
       return this._breadcrumbs = newState;
     });
