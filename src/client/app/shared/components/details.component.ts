@@ -27,7 +27,13 @@ export abstract class DetailsComponent<T extends Model> implements OnInit {
   protected _update(): void {
     this._service.get(this._id).subscribe((model: T) => {
       this._model = model;
-      this._breadcrumbService.loadEntityName(model);
+      this._fillBreadcrumbs(model);
     });
   }
+
+  protected _fillBreadcrumbs(model: T) {
+    if (model.hasOwnProperty('name')) {
+      this._breadcrumbService.overrideBreadcrumb([{ label: (<any>model).name }]);
+    }
+  };
 }

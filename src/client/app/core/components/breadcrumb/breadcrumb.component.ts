@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRouteSnapshot, NavigationEnd, Router } from '@angular/router';
 import { AppRoute } from '../../models/app-routes.model';
-import { BreadcrumbService, IBreadcrumbUrl } from '../../services/breadcrumb.service';
+import { BreadcrumbService } from '../../services/breadcrumb.service';
 
-interface IBreadcrumb {
+export interface IBreadcrumb {
   label: string;
-  url: string;
+  url?: string;
 }
 
 @Component({
@@ -29,6 +29,10 @@ export class BreadcrumbComponent implements OnInit {
     this._router.events
       .filter(event => event instanceof NavigationEnd)
       .subscribe(() => this._updateBreadcrumbs());
+
+    this._breadcrumbService.override.subscribe((breadcrumbs: IBreadcrumb[]) => {
+      this._breadcrumbs.splice(this._breadcrumbs.length - 1, 1, ...breadcrumbs);
+    });
   }
 
   private _updateBreadcrumbs() {
@@ -55,20 +59,6 @@ export class BreadcrumbComponent implements OnInit {
     }
 
     this._breadcrumbs = newState;
-
-    this._breadcrumbService.nameChange.subscribe((value: IBreadcrumbUrl) => {
-      let groupParent = {
-        label: value.label,
-        url: (value.type === 'group') ? '/admin/groups/' + value.url : '/admin/projects/' + value.url
-      };
-      newState.splice(2, 0, groupParent);
-      return newState;
-    });
-
-    this._breadcrumbService.nameEntity.subscribe((value: IBreadcrumbUrl) => {
-      newState.slice(-1)[0].label = value;
-      return this._breadcrumbs = newState;
-    });
   }
 
   private _extractRouteName(route: ActivatedRouteSnapshot) {
