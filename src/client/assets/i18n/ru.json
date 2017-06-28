@@ -162,7 +162,7 @@
   "T_GROUPS_PROJECTS": "Проекты, в которых состоит группа",
   "T_GROUPS_USERS": "Пользователи, состоящие в группе",
   "T_FORM_BUILDER_TITLE": "Редактор формы",
-  "T_FORM_SHOW_IN_AGGREGATION": "Отображать в аггрегированном отчете",
+  "T_FORM_SHOW_IN_AGGREGATION": "Отображать в агрегированном отчете",
   "T_FORM_ELEMENT_TYPE_TEXTBOX": "Поле редактирования (textbox)",
   "T_FORM_ELEMENT_TYPE_RADIO": "Переключатель",
   "T_FORM_ELEMENT_TYPE_TEXTFIELD": "Текстовое поле (textfield)",
