@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angu
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { AssessmentModel } from '../../../core/models/assessment-model';
+import { Utils } from '../../../utils';
 
 @Component({
   moduleId: module.id,
@@ -47,7 +48,8 @@ export class SearchComponent implements OnInit, OnDestroy {
     this._itemsSearch.emit(this._searchList);
 
     let items = this._list.filter((e: AssessmentModel) => {
-      return new RegExp(term, 'gi').test(e.user.name);
+      return new RegExp(term, 'gi').test(e.user.name) ||
+        new RegExp(term, 'gi').test(Utils.transliterate(e.user.name));
     });
     return Observable.from(items);
   }
