@@ -12,6 +12,7 @@ import { NotificationService } from '../../core/services/notification.service';
 })
 export class ProjectRelationListComponent extends ListComponent<RelationModel> implements OnInit, OnChanges {
   protected _projectId: string = 'null';
+  private _hasInProgressEvents: boolean;
 
   @Input()
   public set projectId(value: string) {
@@ -22,11 +23,21 @@ export class ProjectRelationListComponent extends ListComponent<RelationModel> i
     return this._projectId;
   }
 
+  @Input()
+  public set hasInProgressEvents(value: boolean) {
+    this._hasInProgressEvents = value;
+  }
+
+  public get hasInProgressEvents(): boolean {
+    return this._hasInProgressEvents;
+  }
+
   constructor(service: RelationService,
               activatedRoute: ActivatedRoute,
               router: Router,
               notificationService: NotificationService) {
     super(service, activatedRoute, router, notificationService);
+    console.log(this._hasInProgressEvents);
   }
 
   public ngOnChanges(changes: SimpleChanges) {
