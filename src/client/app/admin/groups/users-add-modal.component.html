@@ -20,12 +20,25 @@
               <ng-select ngModel
                          #select="ngModel"
                          name="select"
-                         id="users"
-                         #users
                          [multiple]="true"
                          (selected)="selectUser($event)"
                          [allowClear]="true"
-                         [items]="selectItems"></ng-select>
+                         [items]="selectItems"
+                         placeholder="{{'T_FORM_NO_USER_SELECTED' | translate}}"></ng-select>
+              <select
+                name="user"
+                id="users"
+                class="form-control mt-1"
+                multiple
+                required
+                #users="ngModel"
+                [(ngModel)]="selectedUsers">
+                <option *ngFor="let user of availableUsers"
+                        [selected]="isSelected(user)"
+                        [ngValue]="user.id">
+                  {{ user.name }} ({{ user.email }})
+                </option>
+              </select>
             </div>
           </div>
         </form>

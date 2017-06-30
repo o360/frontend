@@ -52,6 +52,7 @@
   "T_FORM_ENTER_NAME": "Enter name...",
   "T_FORM_ENTER_EMAIL": "Enter email...",
   "T_FORM_ENTER_GROUP_NAME": "Enter group name...",
+  "T_FORM_NO_USER_SELECTED": "No user selected",
   "T_FORM_ENTER_DESCRIPTION": "Enter description...",
   "T_FORM_FIELD_IS_REQUIRED": "Field is required",
   "T_FORM_FIELD_IS_INVALID": "Field is invalid",

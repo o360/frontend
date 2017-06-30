@@ -1491,7 +1491,7 @@ debug@2.2.0, debug@^2.2.0, debug@~2.2.0:
   dependencies:
     ms "0.7.1"
 
-debug@2.3.3:
+debug@2.3.3, debug@2.X:
   version "2.3.3"
   resolved "https://registry.yarnpkg.com/debug/-/debug-2.3.3.tgz#40c453e67e6e13c901ddec317af8986cda9eff8c"
   dependencies:
@@ -1503,7 +1503,7 @@ debug@2.6.4:
   dependencies:
     ms "0.7.3"
 
-debug@2.6.7, debug@2.X, debug@^2.1.1:
+debug@2.6.7, debug@^2.1.1:
   version "2.6.7"
   resolved "https://registry.yarnpkg.com/debug/-/debug-2.6.7.tgz#92bad1f6d05bbb6bba22cca88bcd0ec894c2861e"
   dependencies:
@@ -4155,9 +4155,13 @@ ng2-ckeditor@^1.1.7:
   version "1.1.8"
   resolved "https://registry.yarnpkg.com/ng2-ckeditor/-/ng2-ckeditor-1.1.8.tgz#d8b72d4eef32fc035833c0faf1adb33eaa13225c"
 
-ng2-dnd@^4.1.0:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/ng2-dnd/-/ng2-dnd-4.1.0.tgz#8a028d09b96e9ad17d960f1328b60cb5a9c53349"
+ng2-dnd@^4.2.0:
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/ng2-dnd/-/ng2-dnd-4.2.0.tgz#85d7ac75199f39a3434b7c32b9ab006677b19b59"
+
+ng2-select@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/ng2-select/-/ng2-select-1.2.0.tgz#5c90618bffbe32acc5ee1c128c88547059b4f11c"
 
 ng2-toastr@^4.0.1:
   version "4.1.0"
