@@ -26,6 +26,7 @@
   "T_ACTION_HIDE": "Свернуть",
   "T_ACTION_CREATE_CHILD_GROUP": "Создать дочернюю группу",
   "T_ACTION_ADD_USERS_TO_GROUP": "Добавить пользователей в группу",
+  "T_FORM_NO_USER_SELECTED": "Не выбран ни один пользователь",
   "T_ACTION_ADD_PROJECTS_TO_EVENT": "Добавить проекты в событие оценки",
   "T_ACTION_ADD_USER": "Добавить",
   "T_ACTION_ADD_NEW_ASSESSMENT_EVENT_NOTIFICATIONS": "Добавить новое уведомление",
