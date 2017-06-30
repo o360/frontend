@@ -9,6 +9,10 @@ import { IListResponse } from '../../core/services/rest.service';
 import { UserService } from '../../core/services/user.service';
 import { SelectComponent } from 'ng2-select';
 
+interface ISelectUser {
+  id: ModelId;
+  text: string;
+}
 @Component({
   moduleId: module.id,
   selector: 'bs-users-add-modal',
@@ -20,13 +24,15 @@ export class UsersAddModalComponent implements OnChanges {
   private _selectedUsers: ModelId[] = [];
   private _modal: ModalDirective;
   private _usersAdded: EventEmitter<ModelId[]> = new EventEmitter<ModelId[]>();
-
-  @ViewChild(SelectComponent)
-  private _select: SelectComponent;
+  private _selectItems: ISelectUser[];
 
   @Input()
   public set groupId(value: string) {
     this._groupId = value;
+  }
+
+  public get selectItems(): ISelectUser[] {
+    return this._selectItems;
   }
 
   public get availableUsers(): UserModel[] {
@@ -86,6 +92,7 @@ export class UsersAddModalComponent implements OnChanges {
   }
 
   protected _load() {
+    console.log(this._selectedUsers);
     let allQueryParams = { status: UserStatus.Approved };
     let groupQueryParams = { status: UserStatus.Approved, groupId: this._groupId };
 
@@ -99,11 +106,11 @@ export class UsersAddModalComponent implements OnChanges {
       })
       .subscribe((availableUsers: UserModel[]) => {
         this._availableUsers = availableUsers;
-        let availableForSelectionUsers: any[] = [];
+        let availableForSelectionUsers: ISelectUser[] = [];
         this._availableUsers.forEach((user: UserModel) => {
           availableForSelectionUsers.push({id: user.id, text: `${user.name} (${user.email})`});
         });
-        this._select.items = availableForSelectionUsers;
+        this._selectItems = availableForSelectionUsers;
       });
   }
 }
