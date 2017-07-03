@@ -10,6 +10,7 @@ import { AuthService } from '../../core/services/auth.service';
 import { DetailsComponent } from './details.component';
 import { ActivatedRouteStub, AuthServiceStub, ConfirmationStub, NotificationServiceStub, RouterStub } from '../../stubs/stubs.utils';
 import { ConfirmationService } from '../../core/services/confirmation.service';
+import { BreadcrumbService } from '../../core/services/breadcrumb.service';
 
 @Component({
   moduleId: module.id,
@@ -20,8 +21,9 @@ export class TestDetailsComponent extends DetailsComponent<TestModel> implements
   protected _testModel: TestModel = new TestModel();
 
   constructor(service: TestService,
-              activatedRoute: ActivatedRoute) {
-    super(service, activatedRoute);
+              activatedRoute: ActivatedRoute,
+              breadcrumbService: BreadcrumbService) {
+    super(service, activatedRoute, breadcrumbService);
   }
 
   public ngOnInit() {

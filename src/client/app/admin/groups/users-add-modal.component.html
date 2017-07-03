@@ -17,28 +17,13 @@
                [ngClass]="{'has-success': users.valid, 'has-danger': !users.valid && users.touched }">
             <label class="col-form-label col-md-3 required">{{ 'T_USERS' | translate }}</label>
             <div class="col-md-9">
-              <ng-select ngModel
-                         #select="ngModel"
-                         name="select"
-                         [multiple]="true"
-                         (selected)="selectUser($event)"
-                         [allowClear]="true"
-                         [items]="selectItems"
-                         placeholder="{{'T_FORM_NO_USER_SELECTED' | translate}}"></ng-select>
-              <select
-                name="user"
-                id="users"
-                class="form-control mt-1"
-                multiple
-                required
-                #users="ngModel"
-                [(ngModel)]="selectedUsers">
-                <option *ngFor="let user of availableUsers"
-                        [selected]="isSelected(user)"
-                        [ngValue]="user.id">
-                  {{ user.name }} ({{ user.email }})
-                </option>
-              </select>
+              <select2 id="users"
+                       #users
+                       [data]="selectItems"
+                       [width]="570"
+                       [options]="options"
+                       (valueChanged)="selectUser($event)"></select2>
+              <span class="text-muted">{{'T_ACTION_MULTIPLE_SELECT' | translate }}</span>
             </div>
           </div>
         </form>
@@ -47,14 +32,20 @@
       <div class="modal-footer">
         <button type="button"
                 class="btn btn-secondary"
-                (click)="modal.hide(); groupUserForm.reset(); select.active = [];">{{ 'T_ACTION_CANCEL' | translate }}
+                (click)="modal.hide(); groupUserForm.reset();">{{ 'T_ACTION_CANCEL' | translate }}
         </button>
 
         <button type="submit"
                 class="btn btn-primary"
-                (click)="submit(); groupUserForm.reset(); select.active = [];"
+                (click)="submit(); groupUserForm.reset();"
                 [disabled]="!selectedUsers.length">
           {{ 'T_ACTION_ADD_USERS_TO_GROUP' | translate }}
+        </button>
+
+        <button type="button"
+                class="btn btn-primary"
+                (click)="addAll(); modal.hide()">
+          {{ 'T_ACTION_ADD_ALL_USERS_TO_GROUP' | translate }}
         </button>
       </div>
     </div>

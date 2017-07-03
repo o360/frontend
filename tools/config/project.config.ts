@@ -44,7 +44,8 @@ export class ProjectConfig extends SeedConfig {
       { src: 'bootstrap/dist/js/bootstrap.min.js', inject: 'libs' },
       { src: `air-datepicker/dist/css/datepicker.min.css`, inject: true },
       { src: `air-datepicker/dist/js/datepicker.min.js`, inject: 'libs' },
-      { src: `air-datepicker/dist/js/i18n/datepicker.en.js`, inject: 'libs' }
+      { src: `air-datepicker/dist/js/i18n/datepicker.en.js`, inject: 'libs' },
+      { src: 'select2/dist/js/select2.full.min.js', inject: 'libs' },
       // {src: 'lodash/lodash.min.js', inject: 'libs'},
     ];
 

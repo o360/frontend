@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap';
 import { Observable } from 'rxjs/Observable';
 import { ModelId } from '../../core/models/model';
@@ -7,6 +7,7 @@ import { GroupService } from '../../core/services/group.service';
 import { NotificationService } from '../../core/services/notification.service';
 import { IListResponse } from '../../core/services/rest.service';
 import { UserService } from '../../core/services/user.service';
+import { Utils } from '../../utils';
 
 interface ISelectUser {
   id: ModelId;
@@ -17,33 +18,34 @@ interface ISelectUser {
   selector: 'bs-users-add-modal',
   templateUrl: 'users-add-modal.component.html'
 })
-export class UsersAddModalComponent implements OnChanges {
+export class UsersAddModalComponent implements OnChanges, OnInit {
   private _groupId: string = 'null';
   private _availableUsers: UserModel[];
   private _selectedUsers: ModelId[] = [];
   private _modal: ModalDirective;
   private _usersAdded: EventEmitter<ModelId[]> = new EventEmitter<ModelId[]>();
   private _selectItems: ISelectUser[];
+  private _options: Select2Options;
 
   @Input()
   public set groupId(value: string) {
     this._groupId = value;
   }
 
-  public get availableUsers(): UserModel[] {
-    return this._availableUsers;
-  }
-
   public get selectItems(): ISelectUser[] {
     return this._selectItems;
   }
 
-  public set selectedUsers(value: ModelId[]) {
-    this._selectedUsers = value;
+  public get options() {
+    return this._options;
   }
 
   public get selectedUsers(): ModelId[] {
     return this._selectedUsers;
+  }
+
+  public set selectedUsers(value: ModelId[]) {
+    this._selectedUsers = value;
   }
 
   @Output()
@@ -59,6 +61,18 @@ export class UsersAddModalComponent implements OnChanges {
   constructor(protected _userService: UserService,
               protected _groupService: GroupService,
               protected _notificationService: NotificationService) {
+  }
+
+  public ngOnInit() {
+    this._options = {
+      multiple: true,
+      openOnEnter: true,
+      closeOnSelect: true,
+      matcher: (term: string, text: string) => {
+        return new RegExp(term, 'gi').test(text) ||
+          new RegExp(term, 'gi').test(Utils.transliterate(text));
+      }
+    };
   }
 
   public ngOnChanges(changes: SimpleChanges) {
@@ -82,12 +96,20 @@ export class UsersAddModalComponent implements OnChanges {
     });
   }
 
-  public selectUser(value: any) {
-    this._selectedUsers.push(value.id);
+  public selectUser(value: { value: string[] }) {
+    if (value.value) {
+      value.value.forEach((id => {
+        this._selectedUsers.push(id);
+      }));
+    }
   }
 
-  public isSelected(user: any): boolean {
-    return (this._selectedUsers) ? (this._selectedUsers.indexOf(user.id) !== -1) : false;
+  public addAll() {
+    this._selectItems.forEach((item => {
+      this._selectedUsers.push(item.id);
+    }));
+    this.submit();
+    this._selectedUsers = [];
   }
 
   protected _load() {
