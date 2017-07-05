@@ -61,7 +61,6 @@ export class EventFormComponent extends FormComponent<EventModel> {
 
   protected _prepareSaveForm(): EventModel {
     let formModel = this._eventForm.value;
-
     let saveForm: EventModel = new EventModel({
       description: formModel.description,
       start: formModel.start,

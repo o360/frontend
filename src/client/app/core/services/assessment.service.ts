@@ -45,11 +45,10 @@ export class AssessmentService extends RestService<AssessmentModel> {
       .catch((error: Response) => this._handleErrors(error));
   }
 
-  protected _createBulk(model: AssessmentModel[], queryParams?: IQueryParams) {
+  protected _createBulk(model: AssessmentModel[], queryParams?: IQueryParams): Observable<AssessmentModel> {
     let requestParams = this._getRequestParams('bulk', queryParams);
     let json = JSON.stringify(model);
     let requestOptions = this._getRequestOptions();
-    console.log(requestParams);
 
     return this._http.post(requestParams, json, requestOptions)
       .map((res: Response) => res.json())

@@ -101,10 +101,9 @@ export class EventNotificationsEditModalComponent {
 
   protected _createForm() {
     this._notificationForm = this._formBuilder.group({
-      time: [moment.now(), [Validators.required, ValidatorFutureDate]],
+      time: [moment.now, [Validators.required, ValidatorFutureDate]],
       recipient: ['', Validators.required],
       kind: ['', Validators.required]
     });
   }
-
 }
