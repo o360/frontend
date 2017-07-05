@@ -157,4 +157,8 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
   public userSearch(searchUser: AssessmentModel[]) {
     this._list = searchUser;
   }
+
+  public clear() {
+    this._answers = [];
+  }
 }
