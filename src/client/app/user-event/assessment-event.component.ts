@@ -141,9 +141,7 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
     };
 
     let errors: number = 0;
-    this._answers.forEach(assessment => {
-      (<AssessmentService>this._service).save(assessment, postQueryParams).subscribe(error => errors++);
-    });
+    (<AssessmentService>this._service).saveBulk(this._answers, postQueryParams).subscribe(error => errors++);
 
     this._update();
     if (!errors) {
