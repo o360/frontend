@@ -16,7 +16,6 @@ import { DndModule } from 'ng2-dnd';
 import { LikesDislikesComponent } from './components/likes-dislikes/likes-dislikes.component';
 import { ConfirmationModalComponent } from './confirmation/confirmation.component';
 import { SearchComponent } from './components/search/search.component';
-import { SelectModule } from 'ng2-select';
 import { Select2Module } from 'ng2-select2/ng2-select2';
 
 /**
@@ -38,7 +37,6 @@ import { Select2Module } from 'ng2-select2/ng2-select2';
     CKEditorModule,
     TabsModule,
     DndModule,
-    SelectModule,
     Select2Module
   ],
   declarations: [
@@ -74,7 +72,6 @@ import { Select2Module } from 'ng2-select2/ng2-select2';
     DateTimeComponent,
     DateFormatPipe,
     DndModule,
-    SelectModule,
     Select2Module,
     ConfirmationModalComponent,
     LikesDislikesComponent

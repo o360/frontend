@@ -157,7 +157,6 @@
     "jquery": "^3.2.1",
     "ng2-ckeditor": "^1.1.7",
     "ng2-dnd": "^4.2.0",
-    "ng2-select": "^1.2.0",
     "ng2-select2": "^1.0.0-beta.10",
     "ng2-toastr": "^4.0.1",
     "ngx-bootstrap": "2.0.0-beta.2",

@@ -4180,10 +4180,6 @@ ng2-select2@^1.0.0-beta.10:
     "@types/jquery" "^2.0.39"
     "@types/select2" "^4.0.31"
 
-ng2-select@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/ng2-select/-/ng2-select-1.2.0.tgz#5c90618bffbe32acc5ee1c128c88547059b4f11c"
-
 ng2-toastr@^4.0.1:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/ng2-toastr/-/ng2-toastr-4.1.0.tgz#0c750c18fe0d1d03b9866cc815629df15989e2e2"
