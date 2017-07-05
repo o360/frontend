@@ -18,10 +18,14 @@
           <div class="h6"><a [routerLink]="['/admin/forms', model.form.id]">{{ model.form.name }}</a></div>
         </div>
 
-        <div class="col-md-3 text-right">
+        <div class="col-md-3 text-right"
+             [ngClass]="{'col-md-3': !!model.groupTo,
+                         'col-md-6': !model.groupTo}">
           <button type="button"
                   class="btn btn-md btn-primary"
-                  [routerLink]="['/admin/projects/', model.projectId, 'relations', model.id, 'edit']">{{ 'T_ACTION_EDIT' | translate }}
+                  [disabled]="!hasInProgressProject"
+                  [routerLink]="['/admin/projects/', model.projectId, 'relations', model.id, 'edit']">
+            {{ 'T_ACTION_EDIT' | translate }}
           </button>
         </div>
       </div>
@@ -35,7 +39,8 @@
     </div>
   </div>
 
-  <bs-relation-email-template-list embedded [model]="model"></bs-relation-email-template-list>
+  <bs-relation-email-template-list embedded [model]="model"
+                                   [hasInProgressProject]="hasInProgressProject"></bs-relation-email-template-list>
 </div>
 
 

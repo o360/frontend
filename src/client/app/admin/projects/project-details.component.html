@@ -9,7 +9,8 @@
         <div class="col-md-4 text-right">
           <button type="button"
                   class="btn btn-md btn-primary"
-                  [routerLink]="['/admin/projects/', model.id, 'edit']">{{ 'T_ACTION_EDIT' | translate }}
+                  [routerLink]="['/admin/projects/', model.id, 'edit']"
+                  [disabled]="model.hasInProgressEvents">{{ 'T_ACTION_EDIT' | translate }}
           </button>
         </div>
       </div>
@@ -30,7 +31,7 @@
     </div>
   </div>
 
-  <bs-project-relation-list embedded [projectId]="model.id"></bs-project-relation-list>
+  <bs-project-relation-list embedded [projectId]="model.id" [hasInProgressEvents]="model.hasInProgressEvents"></bs-project-relation-list>
   <bs-project-email-template-list embedded [model]="model"></bs-project-email-template-list>
   <bs-project-event-list embedded  [projectId]="model.id"></bs-project-event-list>
 </div>
