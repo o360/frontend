@@ -12,7 +12,7 @@ import { Utils } from '../../../utils';
 export class SearchComponent implements OnInit, OnDestroy {
   protected _list: AssessmentModel[];
   protected _searchSubscription: any;
-  public searchControl: FormControl = new FormControl();
+  private _searchControl: FormControl = new FormControl();
   private _itemsSearch: EventEmitter<AssessmentModel[]> = new EventEmitter<AssessmentModel[]>();
   private _items: AssessmentModel[] = [];
   private _searchList: AssessmentModel[] = [];
@@ -27,9 +27,13 @@ export class SearchComponent implements OnInit, OnDestroy {
     return this._itemsSearch;
   }
 
+  public get searchControl(): FormControl {
+    return this._searchControl;
+  }
+
   public ngOnInit() {
     this._list = this._items;
-    this._searchSubscription = this.searchControl.valueChanges
+    this._searchSubscription = this._searchControl.valueChanges
       .distinctUntilChanged()
       .switchMap((term: string) => {
         this._searchList = [];
@@ -40,11 +44,11 @@ export class SearchComponent implements OnInit, OnDestroy {
       });
   }
 
-  public  ngOnDestroy() {
+  public ngOnDestroy() {
     this._searchSubscription.unsubscribe();
   }
 
-  public  update(term: string) {
+  public update(term: string) {
     this._itemsSearch.emit(this._searchList);
 
     let items = this._list.filter((e: AssessmentModel) => {
