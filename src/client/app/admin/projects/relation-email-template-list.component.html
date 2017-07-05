@@ -5,7 +5,8 @@
       class="btn btn-primary"
       type="button"
       title="{{ 'T_ACTION_ADD_EMAIL_TEMPLATE' | translate }}"
-      (click)="modalForm.show()"><i class="fa fa-plus mr-h"></i>
+      (click)="modalForm.show()"
+      [disabled]="!hasInProgressProject"><i class="fa fa-plus mr-h"></i>
       {{ 'T_ACTION_ADD_EMAIL_TEMPLATE' | translate }}
     </button>
 
@@ -26,6 +27,7 @@
               type="button"
               class="btn btn-sm btn-danger ml-1"
               bsConfirm
+              *ngIf="!hasInProgressEvents"
               title="{{ 'T_ACTION_REMOVE' | translate }}"
               (confirm)="removeTemplate(template.templateId)"><i class="fa fa-trash"></i>&nbsp;{{ 'T_ACTION_REMOVE' | translate }}
             </button>

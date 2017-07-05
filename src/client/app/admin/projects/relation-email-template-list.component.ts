@@ -14,9 +14,14 @@ import { NotificationService } from '../../core/services/notification.service';
 export class RelationEmailTemplatesListComponent {
   private _model: RelationModel;
   private _recipient: string = Recipient.respondent;
+  private _hasInProgressProject: boolean;
 
   public get model(): RelationModel {
     return this._model;
+  }
+  @Input()
+  public set hasInProgressProject(value: boolean) {
+    this._hasInProgressProject = value;
   }
 
   @Input()

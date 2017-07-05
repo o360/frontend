@@ -18,7 +18,8 @@ export interface IEmailTemplate {
   groupAuditorId: null,
   templates: [],
   canRevote: true,
-  formsOnSamePage: false
+  formsOnSamePage: false,
+  hasInProgressEvents: false
 })
 export class ProjectModel extends Model {
   public name: string;
@@ -28,6 +29,7 @@ export class ProjectModel extends Model {
   public templates: IEmailTemplate[];
   public canRevote: boolean;
   public formsOnSamePage: boolean;
+  public hasInProgressEvents: boolean;
 
   constructor(json: any) {
     super(json);
