@@ -9,6 +9,7 @@ import { FormUsersService } from '../core/services/form-users.service';
 import { EventStatus } from '../core/models/event-model';
 import { RequireValue } from '../admin/forms/form-builder.component';
 import { UserModel } from '../core/models/user-model';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   moduleId: module.id,
@@ -26,7 +27,11 @@ export class UserAssessmentFormComponent implements OnInit {
   protected _inline: boolean = false;
   protected _status: string;
   protected _assessment: AssessmentModel;
+  protected _assessmentForm: FormGroup;
 
+  public get assessmentForm(): FormGroup {
+    return this._assessmentForm;
+  }
   public get id(): ModelId {
     return this._id;
   }

@@ -4,25 +4,20 @@ import * as moment from 'moment';
 import { DateFormat } from '../../shared/components/datetime/datetime-picker.component';
 
 @Defaults({
-  start: moment().add(1, 'hour'),
-  end:  moment().add(2, 'hour'),
-  canRevote: false,
   notifications: []
 })
 export class EventModel extends Model {
   public description?: string;
   public start: any;
   public end: any;
-  public canRevote: boolean;
   public status: string;
   public notifications: IEventNotification[];
-
 
   constructor(json: Object) {
     super(json);
 
-    this.start = moment(this.start);
-    this.end = moment(this.end);
+    this.start = moment().add(1, 'hour');
+    this.end = moment().add(2, 'hour');
   }
 
   public toJson(): any {
