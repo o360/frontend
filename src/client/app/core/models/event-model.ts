@@ -13,11 +13,15 @@ export class EventModel extends Model {
   public status: string;
   public notifications: IEventNotification[];
 
+
   constructor(json: Object) {
     super(json);
-
-    this.start = moment().add(1, 'hour');
-    this.end = moment().add(2, 'hour');
+    if (!this.start) {
+      this.start = moment().add(1, 'hour');
+      this.end = moment().add(2, 'hour');
+    }
+    this.start = moment(this.start);
+    this.end = moment(this.end);
   }
 
   public toJson(): any {
