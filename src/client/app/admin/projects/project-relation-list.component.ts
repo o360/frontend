@@ -37,7 +37,6 @@ export class ProjectRelationListComponent extends ListComponent<RelationModel> i
               router: Router,
               notificationService: NotificationService) {
     super(service, activatedRoute, router, notificationService);
-    console.log(this._hasInProgressEvents);
   }
 
   public ngOnChanges(changes: SimpleChanges) {
