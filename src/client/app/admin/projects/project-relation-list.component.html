@@ -39,7 +39,7 @@
                     class="btn btn-sm btn-danger ml-1"
                     bsConfirm
                     (confirm)="delete(model.id)"
-                    *ngIf="!hasInProgressEvents">
+                    *ngIf="!model.hasInProgressEvents">
               <i class="fa fa-trash"></i>
               {{ 'T_ACTION_DELETE' | translate }}
             </button>

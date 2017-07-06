@@ -13,12 +13,6 @@ import { ProjectService } from '../../core/services/project.service';
   templateUrl: `project-relation-details.component.html`
 })
 export class ProjectRelationDetailsComponent extends DetailsComponent<RelationModel> implements OnInit {
-  private _hasInProgressProject: boolean;
-
-  public set hasInProgressProject(value: boolean) {
-    this._hasInProgressProject = value;
-  }
-
   constructor(service: RelationService,
               route: ActivatedRoute,
               breadcrumbService: BreadcrumbService,
@@ -28,8 +22,6 @@ export class ProjectRelationDetailsComponent extends DetailsComponent<RelationMo
 
   protected _fillBreadcrumbs(model: RelationModel) {
     this._projectService.get(model.projectId).subscribe((project: ProjectModel) => {
-      this._hasInProgressProject = project.hasInProgressEvents;
-
       let breadcrumbs = [];
 
       breadcrumbs.push({ label: project.name, url: `/admin/projects/${project.id}` });
