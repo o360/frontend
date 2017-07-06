@@ -6,26 +6,32 @@
                  (itemsSearch)="userSearch($event)"></bs-search>
     </div>
     <ul class="list-group">
-      <li class="list-group-item"
+      <li class="list-group-item inline"
           *ngFor="let item of list">
-        <div class="col-sm-3">
-          {{ item.user.name }}
+        <div class="col-sm-4 col-md-4 col-lg-3 pl-0">
+          <div class="inline-user">
+            {{ item.user.name }}
+          </div>
         </div>
 
-        <div class="col-sm-9">
-          <bs-user-assessment-form inline
-                                   #formComponent
-                                   [user]="item.user"
-                                   [id]="item.forms[0].form.id"
-                                   [status]="status"
-                                   [queryParams]="queryParams"
-                                   (formChange)="formChanged($event);"></bs-user-assessment-form>
+        <div class="col-sm-8 col-md-8 col-lg-9 pr-0">
+          <div class="inline-form">
+            <bs-user-assessment-form inline
+                                     #formComponent
+                                     [user]="item.user"
+                                     [id]="item.forms[0].form.id"
+                                     [status]="status"
+                                     [queryParams]="queryParams"
+                                     (formChange)="formChanged($event);"></bs-user-assessment-form>
+
+          </div>
         </div>
       </li>
     </ul>
     <div class="text-right mt-1" *ngIf="status === EventStatus.InProgress">
       <button type="submit"
               class="btn btn-primary mt-0"
+              [disabled]="!answers.length"
               (click)="save();">
         {{ 'T_ACTION_SAVE' | translate }}
       </button>

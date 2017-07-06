@@ -71,6 +71,10 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
     return this._answersChange;
   }
 
+  public get answers(): AssessmentModel[] {
+    return this._answers;
+  }
+
   public get EventStatus() {
     return EventStatus;
   }
@@ -136,11 +140,14 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
       projectId: this._projectId.toString()
     };
 
-    this._answers.forEach(assessment => {
-      (<AssessmentService>this._service).save(assessment, postQueryParams).subscribe();
-    });
+    let errors: number = 0;
+    (<AssessmentService>this._service).saveBulk(this._answers, postQueryParams).subscribe(error => errors++);
 
     this._update();
+    if (!errors) {
+      this._notificationService.success('T_SUCCESS_SAVED');
+    }
+    this._answers = [];
   }
 
   public formSaved() {
@@ -149,5 +156,9 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
 
   public userSearch(searchUser: AssessmentModel[]) {
     this._list = searchUser;
+  }
+
+  public clear() {
+    this._answers = [];
   }
 }
