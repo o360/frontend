@@ -231,6 +231,12 @@
     </ng-container>
 
     <div class="text-right" *ngIf="status === EventStatus.InProgress && !inline">
+      <button type="button"
+              (click)="assessmentForm.reset()"
+              class="btn btn-default mt-0"
+              [disabled]="!assessment">
+        {{ 'T_ACTION_CLEAR' | translate }}
+      </button>
       <button type="submit"
               class="btn btn-primary mt-0"
               [disabled]="!assessmentForm.valid || !assessment">

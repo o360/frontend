@@ -206,4 +206,5 @@ export class UserAssessmentFormComponent implements OnInit {
       }
     });
   }
+  public clear() {}
 }

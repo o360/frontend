@@ -93,9 +93,21 @@ export class LikesDislikesComponent implements ControlValueAccessor {
     this._propagateTouch = fn;
   }
 
+  // public select(value: any) {
+  //   this._innerValue.valuesIds[0] = value;
+  //   this._propagateChange(this._innerValue);
+  // }
   public select(value: any) {
-    this._innerValue.valuesIds[0] = value;
+    console.log(value);
+    console.log(this._innerValue.valuesIds);
+    if (value === this._innerValue.valuesIds[0]) {
+      // console.log(this._innerValue);
+      this._innerValue.valuesIds.length = 0;
+    } else {
+      this._innerValue.valuesIds[0] = value;
+    }
     this._propagateChange(this._innerValue);
+    console.log(this._innerValue.valuesIds[0]);
   }
 
   public onCommentChange(value: any) {
