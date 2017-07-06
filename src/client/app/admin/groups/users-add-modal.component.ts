@@ -68,7 +68,7 @@ export class UsersAddModalComponent implements OnChanges, OnInit {
       placeholder: '',
       multiple: true,
       openOnEnter: true,
-      closeOnSelect: true,
+      closeOnSelect: false,
       matcher: (term: string, text: string) => {
         console.log(new RegExp(term, 'gi').test(text));
         return new RegExp(term, 'gi').test(text) ||

@@ -141,6 +141,11 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
     };
 
     let errors: number = 0;
+    console.log(this._answers);
+    if (this._answers[0].form.answers[0].valuesIds[0] === 0) {
+      this._answers.splice(0, 1);
+    }
+    console.log(this._answers);
     (<AssessmentService>this._service).saveBulk(this._answers, postQueryParams).subscribe(error => errors++);
 
     this._update();
@@ -159,6 +164,7 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
   }
 
   public clear() {
+    console.log(this._answers);
     this._answers = [];
   }
 }
