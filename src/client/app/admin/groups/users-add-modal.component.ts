@@ -26,7 +26,6 @@ export class UsersAddModalComponent implements OnChanges, OnInit {
   private _usersAdded: EventEmitter<ModelId[]> = new EventEmitter<ModelId[]>();
   private _selectItems: ISelectUser[];
   private _options: Select2Options;
-
   @Input()
   public set groupId(value: string) {
     this._groupId = value;
@@ -65,10 +64,13 @@ export class UsersAddModalComponent implements OnChanges, OnInit {
 
   public ngOnInit() {
     this._options = {
+      allowClear: true,
+      placeholder: '',
       multiple: true,
       openOnEnter: true,
       closeOnSelect: true,
       matcher: (term: string, text: string) => {
+        console.log(new RegExp(term, 'gi').test(text));
         return new RegExp(term, 'gi').test(text) ||
           new RegExp(term, 'gi').test(Utils.transliterate(text));
       }
@@ -97,6 +99,7 @@ export class UsersAddModalComponent implements OnChanges, OnInit {
   }
 
   public selectUser(value: { value: string[] }) {
+    this._selectedUsers = [];
     if (value.value) {
       value.value.forEach((id => {
         this._selectedUsers.push(id);
@@ -105,11 +108,10 @@ export class UsersAddModalComponent implements OnChanges, OnInit {
   }
 
   public addAll() {
-    this._selectItems.forEach((item => {
+    this._selectItems.map((item => {
       this._selectedUsers.push(item.id);
     }));
     this.submit();
-    this._selectedUsers = [];
   }
 
   protected _load() {
@@ -127,10 +129,11 @@ export class UsersAddModalComponent implements OnChanges, OnInit {
       .subscribe((availableUsers: UserModel[]) => {
         this._availableUsers = availableUsers;
         let availableForSelectionUsers: ISelectUser[] = [];
-        this._availableUsers.forEach((user: UserModel) => {
+        this._availableUsers.map((user: UserModel) => {
           availableForSelectionUsers.push({ id: user.id, text: `${user.name} (${user.email})` });
         });
         this._selectItems = availableForSelectionUsers;
       });
+    this._selectedUsers = [];
   }
 }
