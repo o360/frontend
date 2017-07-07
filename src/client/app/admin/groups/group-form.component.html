@@ -39,7 +39,7 @@
 
       <!-- Parent -->
       <div class="form-group row"
-           [ngClass]="{'has-success': parent.valid, 'has-danger': !parent.valid && parent.touched }">
+           [ngClass]="{'has-success': parent.valid && parent.touched, 'has-danger': !parent.valid && parent.touched }">
         <label for="parent" class="col-form-label col-md-3">{{ 'T_GROUP_PARENT' | translate }}</label>
         <div class="col-md-9">
           <select name="parent"
