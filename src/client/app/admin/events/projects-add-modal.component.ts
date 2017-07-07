@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap';
 import { Observable } from 'rxjs/Observable';
 import { ModelId } from '../../core/models/model';
@@ -8,33 +8,34 @@ import { ProjectModel } from '../../core/models/project-model';
 import { ProjectService } from '../../core/services/project.service';
 import { EventService } from '../../core/services/event.service';
 
+interface ISelectProject {
+  id: ModelId;
+  text: string;
+}
 @Component({
   moduleId: module.id,
   selector: 'bs-projects-add-modal',
   templateUrl: 'projects-add-modal.component.html'
 })
-export class ProjectsAddModalComponent implements OnChanges {
+export class ProjectsAddModalComponent implements OnChanges, OnInit {
   private _eventId: ModelId;
-  private _availableProjects: ProjectModel[];
   private _selectedProjects: ModelId[] = [];
   private _modal: ModalDirective;
   private _projectsAdded: EventEmitter<ModelId[]> = new EventEmitter<ModelId[]>();
+  private _options: Select2Options;
+  private _selectItems: ISelectProject[] = [];
 
   @Input()
   public set eventId(value: ModelId) {
     this._eventId = value;
   }
 
-  public get availableProjects(): ProjectModel[] {
-    return this._availableProjects;
+  public get options(): Select2Options {
+    return this._options;
   }
 
-  public get selectedProjects(): ModelId[] {
-    return this._selectedProjects;
-  }
-
-  public set selectedProjects(value: ModelId[]) {
-    this._selectedProjects = value;
+  public get selectItems(): ISelectProject[] {
+    return this._selectItems;
   }
 
   @Output()
@@ -50,6 +51,16 @@ export class ProjectsAddModalComponent implements OnChanges {
   constructor(protected _projectService: ProjectService,
               protected _eventService: EventService,
               protected _notificationService: NotificationService) {
+  }
+
+  public ngOnInit() {
+    this._options = {
+      allowClear: true,
+      placeholder: '',
+      multiple: true,
+      openOnEnter: true,
+      closeOnSelect: true,
+    };
   }
 
   public ngOnChanges(changes: SimpleChanges) {
@@ -75,6 +86,15 @@ export class ProjectsAddModalComponent implements OnChanges {
     }
   }
 
+  public selectProject(value: { value: string[] }) {
+    this._selectedProjects = [];
+    if (value.value) {
+      value.value.forEach((id => {
+        this._selectedProjects.push(id);
+      }));
+    }
+  }
+
   protected _load() {
     let eventQueryParams = { eventId: this._eventId.toString() };
 
@@ -87,7 +107,12 @@ export class ProjectsAddModalComponent implements OnChanges {
         return allProjects.data.filter(project => !eventProjects.data.find(x => x.id === project.id));
       })
       .subscribe((availableProjects: ProjectModel[]) => {
-        this._availableProjects = availableProjects;
+        let availableForSelectionProjects: ISelectProject[] = [];
+        availableProjects.map((project: ProjectModel) => {
+          availableForSelectionProjects.push({ id: project.id, text: project.name });
+        });
+        this._selectItems = availableForSelectionProjects;
       });
+    this._selectedProjects = [];
   }
 }
