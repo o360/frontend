@@ -20,12 +20,12 @@ interface ISelectUser {
 })
 export class UsersAddModalComponent implements OnChanges, OnInit {
   private _groupId: string = 'null';
-  private _availableUsers: UserModel[];
   private _selectedUsers: ModelId[] = [];
   private _modal: ModalDirective;
   private _usersAdded: EventEmitter<ModelId[]> = new EventEmitter<ModelId[]>();
   private _selectItems: ISelectUser[];
   private _options: Select2Options;
+
   @Input()
   public set groupId(value: string) {
     this._groupId = value;
@@ -127,9 +127,8 @@ export class UsersAddModalComponent implements OnChanges, OnInit {
         return allUsers.data.filter(user => !groupUsers.data.find(x => x.id === user.id));
       })
       .subscribe((availableUsers: UserModel[]) => {
-        this._availableUsers = availableUsers;
         let availableForSelectionUsers: ISelectUser[] = [];
-        this._availableUsers.map((user: UserModel) => {
+        availableUsers.map((user: UserModel) => {
           availableForSelectionUsers.push({ id: user.id, text: `${user.name} (${user.email})` });
         });
         this._selectItems = availableForSelectionUsers;
