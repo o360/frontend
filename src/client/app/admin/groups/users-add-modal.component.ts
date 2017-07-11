@@ -8,6 +8,8 @@ import { NotificationService } from '../../core/services/notification.service';
 import { IListResponse } from '../../core/services/rest.service';
 import { UserService } from '../../core/services/user.service';
 import { Utils } from '../../utils';
+import { TranslateService } from '@ngx-translate/core';
+// import { Select2Component } from 'ng2-select2/ng2-select2';
 
 interface ISelectUser {
   id: ModelId;
@@ -23,8 +25,15 @@ export class UsersAddModalComponent implements OnChanges, OnInit {
   private _selectedUsers: ModelId[] = [];
   private _modal: ModalDirective;
   private _usersAdded: EventEmitter<ModelId[]> = new EventEmitter<ModelId[]>();
-  private _selectItems: ISelectUser[];
+  private _selectItems: ISelectUser[] = [];
   private _options: Select2Options;
+  public inside: ISelectUser[] = [];
+  // protected _selectComponent: Select2Component;
+  //
+  // @ViewChild('users')
+  // public set selectComponent(value: Select2Component) {
+  //   this._selectComponent = value;
+  // }
 
   @Input()
   public set groupId(value: string) {
@@ -59,18 +68,26 @@ export class UsersAddModalComponent implements OnChanges, OnInit {
 
   constructor(protected _userService: UserService,
               protected _groupService: GroupService,
-              protected _notificationService: NotificationService) {
+              protected _notificationService: NotificationService,
+              protected _translate: TranslateService) {
   }
 
   public ngOnInit() {
+    console.log(this._selectItems);
     this._options = {
       allowClear: true,
       placeholder: '',
       multiple: true,
       openOnEnter: true,
       closeOnSelect: true,
+      dropdownAutoWidth: true,
+      initSelection: (element: any, callback: any) => {
+        callback(this.inside);
+      },
+      escapeMarkup: (term: any) => {
+        return (term === 'No results found') ? this._translate.instant('T_EMPTY') : term;
+      },
       matcher: (term: string, text: string) => {
-        console.log(new RegExp(term, 'gi').test(text));
         return new RegExp(term, 'gi').test(text) ||
           new RegExp(term, 'gi').test(Utils.transliterate(text));
       }
@@ -99,19 +116,23 @@ export class UsersAddModalComponent implements OnChanges, OnInit {
   }
 
   public selectUser(value: { value: string[] }) {
-    this._selectedUsers = [];
     if (value.value) {
+      this._selectedUsers = [];
       value.value.forEach((id => {
         this._selectedUsers.push(id);
       }));
+      console.log(this._selectComponent);
     }
   }
 
   public addAll() {
+    this.inside = this._selectItems;
     this._selectItems.map((item => {
       this._selectedUsers.push(item.id);
     }));
-    this.submit();
+    this._selectItems = [];
+    console.log(this._selectedUsers);
+    console.log(this._selectItems);
   }
 
   protected _load() {
@@ -134,5 +155,6 @@ export class UsersAddModalComponent implements OnChanges, OnInit {
         this._selectItems = availableForSelectionUsers;
       });
     this._selectedUsers = [];
+    this._selectItems = [];
   }
 }
