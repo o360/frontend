@@ -1,7 +1,7 @@
 import { EnvConfig } from './env-config.interface';
 
-const DevConfig: EnvConfig = {
-  ENV: 'DEV',
+const ProdConfig: EnvConfig = {
+  ENV: 'PROD',
   API: '<API_ENDPOINT>',
   PROVIDERS: {
     'google': {
@@ -16,5 +16,5 @@ const DevConfig: EnvConfig = {
   }
 };
 
-export = DevConfig;
+export = ProdConfig;
 
