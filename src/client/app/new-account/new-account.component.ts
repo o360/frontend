@@ -5,7 +5,7 @@ import { ProfileService } from '../core/services/profile.service';
 import { UserGender } from '../core/models/user-model';
 import { NotificationService } from '../core/services/notification.service';
 import { TimeZone } from '../shared/config/timezone.config';
-
+import * as moment from 'moment-timezone';
 
 @Component({
   moduleId: module.id,
@@ -51,19 +51,9 @@ export class NewAccountComponent {
 
   protected _setTimeZone() {
     if (this._user && (this._user.timezone === undefined || this._user.timezone === TimeZone.UTC)) {
-      let browserZone = Math.floor(new Date().getTimezoneOffset() / -60);
-      let result: string;
-      if (browserZone > 0) {
-        result = (browserZone < 10) ? `+0${browserZone}:00` : `+${browserZone}:00`;
-      } else if (browserZone === 0) {
-        result = 'Z';
-      } else {
-        result = (browserZone > -10) ? `-0${browserZone}:00` : `-${browserZone}:00`;
-      }
-
-      console.log(result);
-
-      this._user.timezone = result;
+      let offset = moment().tz(moment.tz.guess()).format('Z');
+      this._user.timezone = offset;
+      this.update();
     }
   }
 }
