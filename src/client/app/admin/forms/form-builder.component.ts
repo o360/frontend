@@ -16,12 +16,12 @@ export const RequireValue = (kind: string): boolean => {
 
 export const FormBuilderValidator = (control: AbstractControl): ValidationErrors => {
   const elements = (control.get('elements') as FormArray).value;
-  return elements.length ? null : {noElements: true};
+  return elements.length ? null : { noElements: true };
 };
 
 export const FormElementValidator = (control: AbstractControl): ValidationErrors => {
   const values = (control.get('values') as FormArray).value;
-  return (!!values.length) ? null : {noValues: 'T_FORM_VALUES_ARE_REQUIRED'};
+  return (!!values.length) ? null : { noValues: 'T_FORM_VALUES_ARE_REQUIRED' };
 };
 
 @Component({
@@ -113,7 +113,7 @@ export class FormBuilderComponent extends FormComponent<FormModel> implements On
         elements: this._formBuilder.array([]),
         showInAggregation: true
       },
-      {validator: FormBuilderValidator});
+      { validator: FormBuilderValidator });
   }
 
   protected _setElements(elements: FormElement[]) {
@@ -124,7 +124,7 @@ export class FormBuilderComponent extends FormComponent<FormModel> implements On
 
   protected _prepareSaveForm(): FormModel {
     let formModel = this._form.value;
-    let elementsCopy: FormElement[] = formModel.elements.map((element: FormElement) => Object.assign({}, element));
+    let elementsCopy = this.elements.controls.map(x => x.value);
 
     let saveForm: FormModel = new FormModel({
       name: formModel.name,
@@ -149,7 +149,7 @@ export class FormBuilderComponent extends FormComponent<FormModel> implements On
         valueCaption: ['', Validators.pattern(/.*^[\S].*/)],
         values: this._formBuilder.array(element.values),
         kind: element.kind
-      }, {validator: FormElementValidator});
+      }, { validator: FormElementValidator });
     } else if (element.kind === FormElementType.LikeDislike) {
       form = this._formBuilder.group({
         caption: 'like-dislike',
@@ -160,10 +160,10 @@ export class FormBuilderComponent extends FormComponent<FormModel> implements On
           caption: 'dislike'
         }]),
         kind: element.kind
-      }, {validator: FormElementValidator});
+      }, { validator: FormElementValidator });
     } else {
       form = this._formBuilder.group({
-        caption: [element.caption,  [Validators.required, Validators.pattern(/.*^[\S].*/)]],
+        caption: [element.caption, [Validators.required, Validators.pattern(/.*^[\S].*/)]],
         required: element.required,
         kind: element.kind
       });
