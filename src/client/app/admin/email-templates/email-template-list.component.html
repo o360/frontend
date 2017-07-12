@@ -3,6 +3,7 @@
   <div class="card-block">
     <button class="btn btn-primary"
             type="button"
+            role="button"
             title="{{ 'T_ACTION_CREATE' | translate }}"
             [routerLink]="['/admin/templates/create']"><i class="fa fa-file-text-o mr-h"></i>
       {{ 'T_EMAIL_TEMPLATE_CREATE' | translate }}
@@ -23,6 +24,7 @@
           <td>{{ 'T_EMAIL_TEMPLATE_KIND_' + model.kind.toUpperCase() | translate }}</td>
           <td class="actions-column">
             <button type="button"
+                    role="button"
                     class="btn btn-sm btn-danger ml-1"
                     bsConfirm
                     [message]="'T_CONFIRM_MESSAGE_DELETE_TEMPLATE' | translate"

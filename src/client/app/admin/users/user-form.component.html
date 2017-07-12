@@ -71,7 +71,7 @@
         <div class="col-md-9">
           <select name="role"
                   id="role"
-                  class="form-control col-xs-6"
+                  class="form-control custom-select col-xs-6"
                   #role="ngModel"
                   [(ngModel)]="model.role">
             <option *ngFor="let role of roles"
@@ -90,7 +90,7 @@
           <select id="gender"
                   name="gender"
                   #gender="ngModel"
-                  class="form-control col-xs-6"
+                  class="form-control custom-select col-xs-6"
                   required
                   [(ngModel)]="model.gender">
             <option *ngFor="let gender of genders" [ngValue]="gender">{{ 'T_USER_GENDER_' + gender.toUpperCase() | translate }}</option>
@@ -102,6 +102,7 @@
       <div class="text-right">
 
         <button type="submit"
+                role="button"
                 class="btn btn-primary mt-0"
                 [disabled]="!userForm.valid">
           <span [ngSwitch]="editMode">

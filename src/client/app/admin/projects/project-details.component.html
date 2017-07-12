@@ -8,6 +8,7 @@
         </div>
         <div class="col-md-4 text-right">
           <button type="button"
+                  role="button"
                   class="btn btn-md btn-primary"
                   [routerLink]="['/admin/projects/', model.id, 'edit']"
                   [disabled]="model.hasInProgressEvents">{{ 'T_ACTION_EDIT' | translate }}

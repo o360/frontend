@@ -7,7 +7,11 @@
           <ng-template [ngSwitchCase]="true">{{ 'T_ACTION_EDIT' | translate }}</ng-template>
           <ng-template ngSwitchDefault>{{ 'T_ACTION_ADD_NEW_ASSESSMENT_EVENT_NOTIFICATIONS' | translate }}</ng-template>
         </h5>
-        <button type="button" class="close" aria-label="Close" (click)="close()">
+        <button type="button"
+                role="button"
+                class="close"
+                aria-label="Close"
+                (click)="close()">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -85,11 +89,13 @@
 
         <div class="modal-footer">
           <button type="button"
+                  role="button"
                   class="btn btn-secondary"
                   (click)="close()">{{ 'T_ACTION_CLOSE' | translate }}
           </button>
 
           <button type="submit"
+                  role="button"
                   class="btn btn-success"
                   [disabled]="!notificationForm.valid">
             <span [ngSwitch]="index !== -1">

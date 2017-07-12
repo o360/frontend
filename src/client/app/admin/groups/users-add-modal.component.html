@@ -4,7 +4,11 @@
 
       <div class="modal-header">
         <h5 class="modal-title">{{ 'T_ACTION_ADD_USERS_TO_GROUP' | translate }}</h5>
-        <button type="button" class="close" aria-label="Close" (click)="modal.hide(); groupUserForm.reset()">
+        <button type="button"
+                role="button"
+                class="close"
+                aria-label="Close"
+                (click)="modal.hide(); groupUserForm.reset()">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -31,11 +35,13 @@
 
       <div class="modal-footer">
         <button type="button"
+                role="button"
                 class="btn btn-secondary"
                 (click)="modal.hide(); groupUserForm.reset();">{{ 'T_ACTION_CANCEL' | translate }}
         </button>
 
         <button type="submit"
+                role="button"
                 class="btn btn-primary"
                 (click)="submit(); groupUserForm.reset();"
                 [disabled]="!selectedUsers.length">
@@ -43,6 +49,7 @@
         </button>
 
         <button type="button"
+                role="button"
                 class="btn btn-primary"
                 (click)="addAll(); modal.hide()">
           {{ 'T_ACTION_ADD_ALL_USERS_TO_GROUP' | translate }}
