@@ -70,9 +70,11 @@
           <div *ngFor="let kind of elementTypes;">
             <button type="button"
                     role="button"
+                    [disabled]="((isLikesDislikesForm) ||
+                                (kind === FormElementType.LikeDislike && !isLikesDislikesForm && !!elements.controls.length))"
                     class="btn btn-primary btn-block mb-1 text-left"
                     (click)="addElement(kind)">
-              <i class="mr-h fa fa-plus"></i> {{ 'T_FORM_ELEMENT_TYPE_' + kind.toUpperCase() | translate }}
+              <i class="mr-h fa fa-plus"></i>{{ 'T_FORM_ELEMENT_TYPE_' + kind.toUpperCase() | translate }}
             </button>
           </div>
         </div>
