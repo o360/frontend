@@ -13,6 +13,8 @@
     <div class="btn-group">
       <button ngDefaultControl
               class="btn btn-secondary"
+              type="button"
+              role="button"
               *ngFor="let item of sizes"
               [ngClass]="{ 'active' : item === meta.size }"
               (click)="sizeChanged(item)"> {{ item }}

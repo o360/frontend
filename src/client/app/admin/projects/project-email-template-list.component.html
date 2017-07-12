@@ -4,6 +4,7 @@
     <button
       class="btn btn-primary"
       type="button"
+      role="button"
       title="{{ 'T_ACTION_ADD_EMAIL_TEMPLATE' | translate }}"
       (click)="modalForm.show()"><i class="fa fa-plus mr-h"></i>
       {{ 'T_ACTION_ADD_EMAIL_TEMPLATE' | translate }}
@@ -24,6 +25,7 @@
           <td class="actions-column">
             <button
               type="button"
+              role="button"
               class="btn btn-sm btn-danger ml-1"
               bsConfirm
               title="{{ 'T_ACTION_REMOVE' | translate }}"

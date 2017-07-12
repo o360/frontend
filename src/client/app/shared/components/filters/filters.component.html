@@ -3,6 +3,8 @@
     {{ 'T_FILTER_TITLE' | translate }}
     <div class="card-actions">
       <button class="btn-minimize"
+              type="button"
+              role="button"
               (click)="isCollapsed = !isCollapsed">
         <i [ngClass]="{ 'icon-arrow-up': isCollapsed, 'icon-arrow-down': !isCollapsed}"></i>
       </button>
@@ -24,6 +26,7 @@
             <div class="input-group">
               <input type="text" [(ngModel)]="filter.value" name="{{ filter.field }}" class="form-control" id="{{ filter.field }}">
               <button type="button"
+                      role="button"
                       class="btn btn-sm"
                       (click)="resetFilter(filter)">
                 <i class="icon-reload"></i>
@@ -36,6 +39,7 @@
             <div class="input-group">
               <input type="text" [(ngModel)]="filter.value" name="{{ filter.field }}" class="form-control" id="{{ filter.field }}">
               <button type="button"
+                      role="button"
                       class="btn btn-sm"
                       (click)="resetFilter(filter)">
                 <i class="icon-reload"></i>
@@ -53,6 +57,7 @@
                 <option *ngFor="let valueItem of filter.values" [ngValue]="valueItem.value">{{ valueItem.name | translate }}</option>
               </select>
               <button type="button"
+                      role="button"
                       class="btn btn-sm"
                       (click)="resetFilter(filter)">
                 <i class="icon-reload"></i>
@@ -63,11 +68,14 @@
       </div>
       <div class="text-right">
         <button type="button"
+                role="button"
                 class="btn btn-sm btn-secondary"
                 (click)="reset();">
           {{ 'T_ACTION_RESET' | translate }}
         </button>
-        <button type="submit" class="btn btn-sm btn-primary ml-1">
+        <button type="submit"
+                class="btn btn-sm btn-primary ml-1"
+                role="button">
           {{ 'T_FILTER_APPLY' | translate }}
         </button>
       </div>

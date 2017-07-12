@@ -3,6 +3,7 @@
   <div class="card-block" *ngIf="isLoaded">
     <button class="btn btn-primary"
             type="button"
+            role="button"
             title="{{ 'T_ACTION_CREATE' | translate }}"
             [routerLink]="['/admin/projects/', projectId, 'relations', 'create']"
             [disabled]="hasInProgressEvents">
@@ -29,6 +30,7 @@
           <td>{{ 'T_PROJECT_RELATION_KIND_' + model.kind.toUpperCase() | translate }}</td>
           <td class="actions-column">
             <button type="button"
+                    role="button"
                     class="btn btn-sm btn-success ml-1"
                     title="{{ 'T_ACTION_DETAILS' | translate }}"
                     [routerLink]="['/admin/projects/', projectId, 'relations', model.id]">
@@ -36,6 +38,7 @@
             </button>
 
             <button type="button"
+                    role="button"
                     class="btn btn-sm btn-danger ml-1"
                     bsConfirm
                     (confirm)="delete(model.id)"

@@ -121,6 +121,8 @@
           <ckgroup [name]="'textConstants'"
                    *ngFor="let param of emailParameters">
             <ckbutton [name]="param.name"
+                      type="button"
+                      role="button"
                       (click)="addText(editor, param.click)"
                       [label]="param.label | translate"
                       [command]="param.command">
