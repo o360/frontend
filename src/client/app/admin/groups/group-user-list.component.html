@@ -3,6 +3,7 @@
   <div class="card-block" *ngIf="isLoaded">
     <button class="btn btn-primary"
             type="button"
+            role="button"
             title="{{ 'T_ACTION_ADD_USERS_TO_GROUP' | translate }}"
             (click)="modalForm.show()">
       <i class="fa fa-user mr-h"></i>{{ 'T_ACTION_ADD_USERS_TO_GROUP' | translate }}
@@ -39,6 +40,7 @@
           </td>
           <td class="actions-column">
             <button type="button"
+                    role="button"
                     class="btn btn-sm btn-danger ml-1"
                     bsConfirm
                     (confirm)="delete(model.id)">

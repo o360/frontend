@@ -34,12 +34,14 @@
           <td class="actions-column">
             <button *ngIf="model.status === UserStatus.New"
                     type="button"
+                    role="button"
                     class="btn btn-sm btn-success ml-1"
                     title="{{ 'T_USER_APPROVE' | translate }}"
                     (click)="approve(model)"><i class="fa fa-thumbs-up"></i>&nbsp;{{ 'T_USER_APPROVE' | translate }}
             </button>
 
             <button type="button"
+                    role="button"
                     class="btn btn-sm btn-danger ml-1"
                     bsConfirm
                     [message]="'T_CONFIRM_MESSAGE_DELETE_USER' | translate"
