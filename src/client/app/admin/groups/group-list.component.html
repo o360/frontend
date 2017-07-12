@@ -10,6 +10,7 @@
   <div class="card-block" *ngIf="isLoaded">
     <button class="btn btn-primary mb-1"
             type="button"
+            role="button"
             title="{{ 'T_ACTION_CREATE' | translate }}"
             [routerLink]="['/admin/groups/create', parentId!='null' ? { parentId: parentId } : {}]"><i class="fa fa-group mr-h"></i>
       {{ parentId!='null' ? ('T_ACTION_CREATE_CHILD_GROUP'| translate) : ('T_ACTION_CREATE' | translate )}}
@@ -18,6 +19,7 @@
     <button *ngIf="list.length"
             class="btn btn-default mb-1"
             type="button"
+            role="button"
             title="{{ 'T_ACTION_EXPAND' | translate }}"
             (click)="changeInnerGroupState()">
       <span [ngSwitch]="innerGroupState">
@@ -58,6 +60,7 @@
               </div>
               <div class="action-column col-md-5 pr-3 text-right">
                 <button type="button"
+                        role="button"
                         class="btn btn-sm btn-danger ml-1"
                         title="{{ 'T_ACTION_DELETE' | translate }}"
                         bsConfirm

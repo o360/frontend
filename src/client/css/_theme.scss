@@ -430,7 +430,8 @@ img {
   vertical-align: middle;
 }
 
-[role="button"] {
+[role="button"],
+[type="button"] {
   cursor: pointer;
 }
 
@@ -11997,6 +11998,7 @@ base-chart.chart {
   min-height: 1.5rem;
   padding-left: 1.5rem;
   margin-right: 1rem;
+  cursor: pointer;
 }
 
 .custom-control-input {
@@ -12084,6 +12086,7 @@ base-chart.chart {
   background-size: 8px 10px;
   border: 1px solid rgba(0, 0, 0, 0.15);
   appearance: none;
+  cursor: pointer;
 }
 
 .custom-select:focus {
@@ -12111,6 +12114,10 @@ base-chart.chart {
   font-size: 75%;
 }
 
+.custom-item {
+  cursor: pointer;
+}
+
 .custom-file {
   position: relative;
   display: inline-block;
@@ -12118,3 +12125,4 @@ base-chart.chart {
   height: 2.5rem;
   margin-bottom: 0;
 }
+

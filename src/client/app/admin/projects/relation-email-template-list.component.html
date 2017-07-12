@@ -4,6 +4,7 @@
     <button
       class="btn btn-primary"
       type="button"
+      role="button"
       title="{{ 'T_ACTION_ADD_EMAIL_TEMPLATE' | translate }}"
       (click)="modalForm.show()"
       [disabled]="hasInProgressEvents"><i class="fa fa-plus mr-h"></i>
@@ -25,6 +26,7 @@
           <td class="actions-column">
             <button
               type="button"
+              role="button"
               class="btn btn-sm btn-danger ml-1"
               bsConfirm
               *ngIf="!hasInProgressEvents"

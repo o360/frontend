@@ -18,6 +18,7 @@
           <td><a [routerLink]="['/admin/groups', group.id]">{{ group.name }}</a></td>
           <td  class="actions-column">
             <button type="button"
+                    role="button"
                     class="btn btn-sm btn-danger"
                     bsConfirm
                     (confirm)="delete(group.id)">

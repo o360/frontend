@@ -22,6 +22,7 @@
              [ngClass]="{'col-md-3': !!model.groupTo,
                          'col-md-6': !model.groupTo}">
           <button type="button"
+                  role="button"
                   class="btn btn-md btn-primary"
                   [disabled]="model.hasInProgressEvents"
                   [routerLink]="['/admin/projects/', model.projectId, 'relations', model.id, 'edit']">

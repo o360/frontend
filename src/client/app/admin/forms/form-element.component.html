@@ -60,7 +60,7 @@
       </div>
     </div>
     <div class="text-right">
-      <button type="button" class="btn btn-sm btn-success"
+      <button type="button" role="button" class="btn btn-sm btn-success"
               [disabled]="!element.value.valueCaption || !element.controls['valueCaption'].valid"
               (click)="addValue(element.value.valueCaption);">
         <i class="mr-h fa fa-plus"></i> {{ 'T_ACTION_ADD' | translate }}
@@ -79,6 +79,7 @@
         <td>{{ value.caption }}</td>
         <td class="actions-column">
           <button type="button"
+                  role="button"
                   class="btn btn-danger btn-sm"
                   (click)="deleteValue(value)">
             <i class="mr-h fa fa-remove"></i>
