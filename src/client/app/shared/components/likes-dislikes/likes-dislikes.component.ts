@@ -3,7 +3,6 @@ import { TranslateService } from '@ngx-translate/core';
 import { FormElement } from '../../../core/models/form-model';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgModel } from '@angular/forms';
 import { UserModel } from '../../../core/models/user-model';
-import { isUndefined } from 'util';
 
 let id = 0;
 
@@ -93,21 +92,13 @@ export class LikesDislikesComponent implements ControlValueAccessor {
     this._propagateTouch = fn;
   }
 
-  // public select(value: any) {
-  //   this._innerValue.valuesIds[0] = value;
-  //   this._propagateChange(this._innerValue);
-  // }
   public select(value: any) {
-    console.log(value);
-    console.log(this._innerValue.valuesIds);
     if (value === this._innerValue.valuesIds[0]) {
-      // console.log(this._innerValue);
-      this._innerValue.valuesIds.length = 0;
+      this._innerValue.valuesIds = [];
     } else {
-      this._innerValue.valuesIds[0] = value;
+      this._innerValue.valuesIds = [+value];
     }
     this._propagateChange(this._innerValue);
-    console.log(this._innerValue.valuesIds[0]);
   }
 
   public onCommentChange(value: any) {
