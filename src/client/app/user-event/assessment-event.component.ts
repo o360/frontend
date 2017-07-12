@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AssessmentModel } from '../core/models/assessment-model';
 import { FormModel } from '../core/models/form-model';
@@ -26,6 +26,7 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
   protected _queryParams: IQueryParams = {};
   protected _assessmentObject: AssessmentObject = null;
   protected _status: string;
+  protected _cleared: number = 0;
 
   @Input()
   public set projectId(value: ModelId) {
@@ -79,6 +80,10 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
     return EventStatus;
   }
 
+  public get cleared(): number {
+    return this._cleared;
+  }
+
   constructor(service: AssessmentService,
               activatedRoute: ActivatedRoute,
               router: Router,
@@ -97,6 +102,8 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
   }
 
   public _update() {
+    this._answers = [];
+
     this._service.list(this._queryParams).subscribe((res: IListResponse<AssessmentModel>) => {
       this._meta = res.meta;
       this._list = res.data;
@@ -128,7 +135,7 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
 
     if (!!sameAnswer) {
       let index = this._answers.indexOf(sameAnswer);
-      this._answers[index] = value;
+      this._answers[index].form.answers = value.form.answers;
     } else {
       this._answers.push(value);
     }
@@ -140,19 +147,9 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
       projectId: this._projectId.toString()
     };
 
-    let errors: number = 0;
-    console.log(this._answers);
-    if (this._answers[0].form.answers[0].valuesIds[0] === 0) {
-      this._answers.splice(0, 1);
-    }
-    console.log(this._answers);
-    (<AssessmentService>this._service).saveBulk(this._answers, postQueryParams).subscribe(error => errors++);
-
-    this._update();
-    if (!errors) {
+    (<AssessmentService>this._service).saveBulk(this._answers, postQueryParams).subscribe(() => {
       this._notificationService.success('T_SUCCESS_SAVED');
-    }
-    this._answers = [];
+    });
   }
 
   public formSaved() {
@@ -164,7 +161,10 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
   }
 
   public clear() {
-    console.log(this._answers);
-    this._answers = [];
+    if (this._inline) {
+      this._cleared++;
+    } else {
+      this._answers = [];
+    }
   }
 }
