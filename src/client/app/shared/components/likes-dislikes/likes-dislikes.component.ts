@@ -3,7 +3,6 @@ import { TranslateService } from '@ngx-translate/core';
 import { FormElement } from '../../../core/models/form-model';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgModel } from '@angular/forms';
 import { UserModel } from '../../../core/models/user-model';
-import { isUndefined } from 'util';
 
 let id = 0;
 
@@ -94,7 +93,11 @@ export class LikesDislikesComponent implements ControlValueAccessor {
   }
 
   public select(value: any) {
-    this._innerValue.valuesIds[0] = value;
+    if (value === this._innerValue.valuesIds[0]) {
+      this._innerValue.valuesIds = [];
+    } else {
+      this._innerValue.valuesIds = [+value];
+    }
     this._propagateChange(this._innerValue);
   }
 

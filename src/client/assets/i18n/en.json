@@ -154,6 +154,7 @@
   "T_ERROR_BAD_REQUEST_RELATION_3": "Missed group to assess in classic kind of relation",
   "T_ERROR_BAD_REQUEST_ASSESSMENT_2": "Your answers were not saved, contact please administrator",
   "T_ERROR_BAD_REQUEST_ASSESSMENT_1": "Your answers were not saved, contact please administrator",
+  "T_ERROR_BAD_REQUEST_ASSESSMENT_4":"There are not filled required fields",
   "T_ERROR_CONFLICT_ASSESSMENT_1": "Can't find relation matched user and form ids",
   "T_ERROR_CONFLICT_ASSESSMENT_2": "Revoting is forbidden",
   "T_EMPTY": "No records found",
