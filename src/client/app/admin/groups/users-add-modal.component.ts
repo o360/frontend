@@ -9,7 +9,6 @@ import { IListResponse } from '../../core/services/rest.service';
 import { UserService } from '../../core/services/user.service';
 import { Utils } from '../../utils';
 import { TranslateService } from '@ngx-translate/core';
-// import { Select2Component } from 'ng2-select2/ng2-select2';
 
 interface ISelectUser {
   id: ModelId;
@@ -21,19 +20,13 @@ interface ISelectUser {
   templateUrl: 'users-add-modal.component.html'
 })
 export class UsersAddModalComponent implements OnChanges, OnInit {
+  protected _selectData: ISelectUser[] = [];
   private _groupId: string = 'null';
   private _selectedUsers: ModelId[] = [];
   private _modal: ModalDirective;
   private _usersAdded: EventEmitter<ModelId[]> = new EventEmitter<ModelId[]>();
   private _selectItems: ISelectUser[] = [];
   private _options: Select2Options;
-  public inside: ISelectUser[] = [];
-  // protected _selectComponent: Select2Component;
-  //
-  // @ViewChild('users')
-  // public set selectComponent(value: Select2Component) {
-  //   this._selectComponent = value;
-  // }
 
   @Input()
   public set groupId(value: string) {
@@ -73,7 +66,6 @@ export class UsersAddModalComponent implements OnChanges, OnInit {
   }
 
   public ngOnInit() {
-    console.log(this._selectItems);
     this._options = {
       allowClear: true,
       placeholder: '',
@@ -82,7 +74,7 @@ export class UsersAddModalComponent implements OnChanges, OnInit {
       closeOnSelect: true,
       dropdownAutoWidth: true,
       initSelection: (element: any, callback: any) => {
-        callback(this.inside);
+        callback(this._selectData);
       },
       escapeMarkup: (term: any) => {
         return (term === 'No results found') ? this._translate.instant('T_EMPTY') : term;
@@ -115,24 +107,21 @@ export class UsersAddModalComponent implements OnChanges, OnInit {
     });
   }
 
-  public selectUser(value: { value: string[] }) {
+  public valueChanged(value: { value: string[] }) {
     if (value.value) {
       this._selectedUsers = [];
       value.value.forEach((id => {
         this._selectedUsers.push(id);
       }));
-      console.log(this._selectComponent);
     }
   }
 
   public addAll() {
-    this.inside = this._selectItems;
+    this._selectData = this._selectItems;
     this._selectItems.map((item => {
       this._selectedUsers.push(item.id);
     }));
     this._selectItems = [];
-    console.log(this._selectedUsers);
-    console.log(this._selectItems);
   }
 
   protected _load() {
