@@ -11,7 +11,7 @@
       {{ 'T_ACTION_ADD_EMAIL_TEMPLATE' | translate }}
     </button>
 
-    <table id="relation-templates"
+    <table [id]="listName"
            *ngIf="model.templates"
            class="table table-striped mt-1">
       <thead>

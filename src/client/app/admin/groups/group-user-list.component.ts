@@ -31,7 +31,7 @@ export class GroupUserListComponent extends ListComponent<UserModel> implements 
               notificationService: NotificationService) {
     super(service, activatedRoute, router, notificationService);
 
-    this._listName = '#group-users';
+    this._listName = 'group-users';
   }
 
   public ngOnChanges(changes: SimpleChanges) {

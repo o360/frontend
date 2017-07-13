@@ -38,7 +38,7 @@ export class ProjectRelationListComponent extends ListComponent<RelationModel> i
               notificationService: NotificationService) {
     super(service, activatedRoute, router, notificationService);
 
-    this._listName = '#project-relations';
+    this._listName = 'project-relations';
   }
 
   public ngOnChanges(changes: SimpleChanges) {
