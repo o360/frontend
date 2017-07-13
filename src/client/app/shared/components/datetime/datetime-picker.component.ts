@@ -108,10 +108,10 @@ export class DateTimeComponent implements ControlValueAccessor, AfterViewInit, V
   protected _onlyDateMode: boolean = false;
   protected _disable: boolean = false;
   protected _input: ElementRef;
-  protected _propagateChange: Function;
-  protected _propagateTouch: Function;
-
   protected _id = `picker-${ id++ }`;
+
+  protected _propagateChange: Function = () => {};
+  protected _propagateTouch: Function = () => {};
 
   @ViewChild(NgModel)
   public model: NgModel;
@@ -220,7 +220,7 @@ export class DateTimeComponent implements ControlValueAccessor, AfterViewInit, V
   }
 
   protected _formatDate(date: any) {
-    if (this.onlyDateMode) {
+    if (this._onlyDateMode) {
       return moment(date).format(DateFormat.Date);
     } else {
       return moment(date).format(DateFormat.DateTime);
@@ -228,7 +228,7 @@ export class DateTimeComponent implements ControlValueAccessor, AfterViewInit, V
   }
 
   protected _parseDate(date: any) {
-    if (this.onlyDateMode) {
+    if (this._onlyDateMode) {
       return moment(date, DateFormat.Date, true);
     } else {
       return moment(date, DateFormat.DateTime, true);
