@@ -28,7 +28,7 @@
   "T_ACTION_CREATE_CHILD_GROUP": "Create child group",
   "T_ACTION_ADD_USERS_TO_GROUP": "Add users",
   "T_ACTION_ADD_SELECTED_USERS_TO_GROUP": "Add selected users",
-  "T_ACTION_ADD_ALL_USERS_TO_GROUP": "Add all",
+  "T_ACTION_SELECT_ALL_USERS_TO_GROUP": "Select all",
   "T_ACTION_ADD_PROJECTS_TO_EVENT": "Add projects to event",
   "T_ACTION_ADD_USER": "Add user",
   "T_ACTION_ADD_NEW_ASSESSMENT_EVENT_NOTIFICATIONS": "Add new notification",
