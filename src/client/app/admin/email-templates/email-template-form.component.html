@@ -43,7 +43,7 @@
         <div class="col-md-9">
           <select name="kind"
                   id="kind"
-                  class="form-control col-xs-6"
+                  class="form-control custom-select col-xs-6"
                   #kind="ngModel"
                   required
                   [(ngModel)]="model.kind">
@@ -67,7 +67,7 @@
         <div class="col-md-9">
           <select name="recipient"
                   id="recipient"
-                  class="form-control col-xs-6"
+                  class="form-control custom-select col-xs-6"
                   #recipient="ngModel"
                   required
                   [(ngModel)]="model.recipient">
@@ -121,6 +121,8 @@
           <ckgroup [name]="'textConstants'"
                    *ngFor="let param of emailParameters">
             <ckbutton [name]="param.name"
+                      type="button"
+                      role="button"
                       (click)="addText(editor, param.click)"
                       [label]="param.label | translate"
                       [command]="param.command">

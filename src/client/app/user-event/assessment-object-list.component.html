@@ -3,7 +3,7 @@
   <bs-search [items]="users"
              (itemsSearch)="userSearch($event)"></bs-search>
 
-  <li class="list-group-item"
+  <li class="list-group-item custom-item"
       *ngFor="let userObj of users"
       (click)="selectUser(userObj)">
     <i [ngClass]="{'fa-check-circle-o' : userObj.isAnswered,
@@ -16,7 +16,7 @@
   <!--Surveys-->
   <li class="mt-2 mb-h list-unstyled"><b>{{ 'T_SURVEYS' | translate }}</b></li>
   <ng-container *ngFor="let survey of surveys">
-    <li class="list-group-item"
+    <li class="list-group-item custom-item"
         *ngFor="let formObj of survey.forms"
         (click)="selectSurvey(formObj)">
       <i [ngClass]="{'fa-check-circle-o' : !!formObj.answers.length,

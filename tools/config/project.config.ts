@@ -82,6 +82,13 @@ export class ProjectConfig extends SeedConfig {
         defaultExtension: 'js'
       },
     }, {
+      name: 'moment-timezone',
+      path: 'node_modules/moment-timezone',
+      packageMeta: {
+        main: 'builds/moment-timezone-with-data.js',
+        defaultExtension: 'js'
+      }
+    }, {
       name: 'ng2-dnd',
       path: 'node_modules/ng2-dnd/bundles/index.umd.js'
     }];

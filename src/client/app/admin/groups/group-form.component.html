@@ -44,7 +44,7 @@
         <div class="col-md-9">
           <select name="parent"
                   id="parent"
-                  class="form-control"
+                  class="form-control custom-select "
                   #parent="ngModel"
                   [(ngModel)]="model.parentId"
                   [disabled]="parentId">
@@ -61,6 +61,7 @@
 
       <div class="text-right">
         <button type="submit"
+                role="button"
                 class="btn btn-primary mt-0"
                 [disabled]="!groupForm.valid">
           <span [ngSwitch]="editMode">
