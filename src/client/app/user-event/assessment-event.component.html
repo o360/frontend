@@ -21,6 +21,7 @@
                                      [user]="item.user"
                                      [id]="item.forms[0].form.id"
                                      [status]="status"
+                                     [cleared]="cleared"
                                      [queryParams]="queryParams"
                                      (formChange)="formChanged($event);"></bs-user-assessment-form>
 
@@ -29,7 +30,14 @@
       </li>
     </ul>
     <div class="text-right mt-1" *ngIf="status === EventStatus.InProgress">
+      <button type="button"
+              class="btn btn-default mt-0"
+              [disabled]="!answers.length"
+              (click)="clear();">
+        {{ 'T_ACTION_CLEAR' | translate }}
+      </button>
       <button type="submit"
+              role="button"
               class="btn btn-primary mt-0"
               [disabled]="!answers.length"
               (click)="save();">

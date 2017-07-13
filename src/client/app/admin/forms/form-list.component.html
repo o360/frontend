@@ -3,6 +3,7 @@
   <div class="card-block">
     <button class="btn btn-primary"
             type="button"
+            role="button"
             title="{{ 'T_ACTION_CREATE' | translate }}"
             [routerLink]="['/admin/forms/create']">
       <i class="mr-h fa fa-file-o"></i>
@@ -23,6 +24,7 @@
         <td><a [routerLink]="['/admin/forms/', model.id]">{{ model.name }}</a></td>
         <td class="actions-column">
           <button type="button"
+                  role="button"
                   class="btn btn-sm btn-danger ml-1"
                   bsConfirm
                   [message]="'T_CONFIRM_MESSAGE_DELETE_FORM' | translate"

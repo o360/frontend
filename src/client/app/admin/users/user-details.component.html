@@ -8,6 +8,7 @@
         </div>
         <div class="col-md-4 text-right">
           <button type="button"
+                  role="button"
                   class="btn btn-md btn-primary"
                   [routerLink]="['/admin/users/', model.id, 'edit']">{{ 'T_ACTION_EDIT' | translate }}
           </button>
@@ -40,6 +41,5 @@
   </div>
 
   <bs-user-group-list embedded [userId]="model.id"></bs-user-group-list>
-
 </ng-container>
 

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { AssessmentModel, IElementAnswer } from '../core/models/assessment-model';
 import { FormElement, FormElementType, FormModel } from '../core/models/form-model';
 import { ModelId } from '../core/models/model';
@@ -9,14 +9,13 @@ import { FormUsersService } from '../core/services/form-users.service';
 import { EventStatus } from '../core/models/event-model';
 import { RequireValue } from '../admin/forms/form-builder.component';
 import { UserModel } from '../core/models/user-model';
-import { FormGroup } from '@angular/forms';
 
 @Component({
   moduleId: module.id,
   selector: 'bs-user-assessment-form',
   templateUrl: 'assessment-form.component.html'
 })
-export class UserAssessmentFormComponent implements OnInit {
+export class UserAssessmentFormComponent implements OnInit, OnChanges {
   protected _id: ModelId;
   protected _user: UserModel;
   protected _form: FormModel;
@@ -27,11 +26,8 @@ export class UserAssessmentFormComponent implements OnInit {
   protected _inline: boolean = false;
   protected _status: string;
   protected _assessment: AssessmentModel;
-  protected _assessmentForm: FormGroup;
+  protected _cleared: number;
 
-  public get assessmentForm(): FormGroup {
-    return this._assessmentForm;
-  }
   public get id(): ModelId {
     return this._id;
   }
@@ -87,6 +83,11 @@ export class UserAssessmentFormComponent implements OnInit {
   }
 
   @Input()
+  public set cleared(value: number) {
+    this._cleared = value;
+  }
+
+  @Input()
   public set inline(value: boolean | string) {
     this._inline = typeof value === 'boolean' ? value : true;
   }
@@ -95,7 +96,7 @@ export class UserAssessmentFormComponent implements OnInit {
     return this._inline;
   }
 
-  get assessment(): AssessmentModel {
+  public get assessment(): AssessmentModel {
     return this._assessment;
   }
 
@@ -108,6 +109,12 @@ export class UserAssessmentFormComponent implements OnInit {
     this._update();
   }
 
+  public ngOnChanges(changes: SimpleChanges): void {
+    if (changes['cleared']) {
+      this._clearLikes();
+    }
+  }
+
   protected _update(): void {
     this._formUsersService.get(this._id, this._queryParams).subscribe((form: FormModel) => {
       this._form = form;
@@ -118,15 +125,19 @@ export class UserAssessmentFormComponent implements OnInit {
 
   public onFormChange() {
     let answers = this._form.elements.map((element: FormElement) => {
-      let elementAnswer: IElementAnswer = {elementId: element.id};
+      let elementAnswer: IElementAnswer = { elementId: element.id };
       if (!RequireValue(element.kind) && element.tempValue) {
-        if (element.kind === FormElementType.LikeDislike) {
-          elementAnswer.valuesIds = [+element.tempValue.valuesIds];
-          if (element.tempValue.text) {
-            elementAnswer.text = element.tempValue.text.toString();
+        if (element.kind === FormElementType.LikeDislike && element.tempValue.valuesIds) {
+          if (!element.tempValue.valuesIds.length) {
+            elementAnswer.valuesIds = [];
+            element.tempValue.text = null;
+            elementAnswer.text = null;
+          } else {
+            elementAnswer.valuesIds = [+element.tempValue.valuesIds];
+            if (element.tempValue.text) {
+              elementAnswer.text = element.tempValue.text.toString();
+            }
           }
-        } else {
-          elementAnswer.text = element.tempValue.toString();
         }
       } else if (element.kind === FormElementType.Checkboxgroup) {
         elementAnswer.valuesIds = element.values.filter(x => x.tempValue).map(x => x.id);
@@ -156,7 +167,6 @@ export class UserAssessmentFormComponent implements OnInit {
   public save() {
     this._assessmentService.save(this._assessment, this._queryParams).subscribe(() => {
       this._notificationService.success('T_SUCCESS_SAVED');
-      this._update();
       this._formSave.emit();
     });
   }
@@ -183,11 +193,13 @@ export class UserAssessmentFormComponent implements OnInit {
           if (!RequireValue(element.kind)) {
             if (element.kind === FormElementType.LikeDislike) {
               element.tempValue = {};
-              if (answer.valuesIds) {
+              if (answer && answer.valuesIds) {
                 element.tempValue.valuesIds = answer.valuesIds;
                 if (answer.text) {
                   element.tempValue.text = answer.text;
                 }
+              } else {
+                element.tempValue.valuesIds = [];
               }
             } else {
               element.tempValue = answer.text;
@@ -205,5 +217,30 @@ export class UserAssessmentFormComponent implements OnInit {
         });
       }
     });
+  }
+
+  protected _clearLikes() {
+    if (this._form) {
+      this._form.elements.forEach(element => {
+        if (element.tempValue) {
+          element.tempValue.elementId = element.id;
+          element.tempValue.valuesIds = [];
+          element.tempValue.text = null;
+        }
+        this._assessment = new AssessmentModel({
+          form: {
+            formId: this._id,
+            answers: [element.tempValue]
+          },
+          isAnswered: true
+        });
+
+        if (this._user) {
+          this._assessment.userId = this._user.id;
+        }
+
+        this._formChange.emit(this._assessment);
+      });
+    }
   }
 }

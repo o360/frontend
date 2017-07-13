@@ -62,6 +62,10 @@ export class FormBuilderComponent extends FormComponent<FormModel> implements On
     return this.form.get('elements') as FormArray;
   }
 
+  public get isLikesDislikesForm(): boolean {
+    return (this._form.value['elements'].length && this._form.value['elements'][0].kind === FormElementType.LikeDislike);
+  }
+
   constructor(service: FormService,
               router: Router,
               route: ActivatedRoute,

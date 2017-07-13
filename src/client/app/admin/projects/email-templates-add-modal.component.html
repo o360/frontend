@@ -73,10 +73,12 @@
 
       <div class="modal-footer">
         <button type="button"
+                role="button"
                 class="btn btn-secondary"
                 (click)="modal.hide(); emailTemplatesForm.reset()">{{ 'T_ACTION_CANCEL' | translate }}
         </button>
         <button type="submit"
+                role="button"
                 class="btn btn-primary"
                 [disabled]="!emailTemplatesForm.valid"
                 (click)="submit(); modal.hide(); emailTemplatesForm.reset()">
