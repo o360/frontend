@@ -13,7 +13,7 @@ export class EmailTemplateAddModalComponent {
   private _modal: ModalDirective;
   private _kinds: string[] = Object.values(EmailKind);
   private _emailTemplates: EmailTemplateModel[];
-  private _availableTemplates: EmailTemplateModel[];
+  private _availableTemplates: EmailTemplateModel[] = [];
   private _usedEmailTemplates: IEmailTemplate[];
   private _recipient: string;
   private _model: IEmailTemplate = {

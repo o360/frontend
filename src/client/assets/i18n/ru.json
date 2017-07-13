@@ -215,6 +215,7 @@
   "T_EMAIL_TEMPLATE_ADD_EVENT_START": "Добавить начало события",
   "T_EMAIL_TEMPLATE_ADD_EVENT_END": "Добавить окончание события",
   "T_EMAIL_TEMPLATE_ADD_EVENT_DESCRIPTION": "Добавить описание события",
+  "T_EMAIL_TEMPLATE_NO_ONE": "Шаблонов такого типа не существует.",
   "T_PROJECT_RELATION": "Отношение",
   "T_PROJECT_RELATION_RATING_GROUP": "Оценивающая группа",
   "T_PROJECT_RELATION_ASSESSMENT_GROUP": "Оцениваемая группа",
