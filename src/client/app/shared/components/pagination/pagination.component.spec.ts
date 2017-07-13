@@ -30,30 +30,9 @@ export function main() {
       expect(comp.meta).toBeDefined();
     });
 
-    it('ngOnChanges', () => {
-      comp.meta = {
-        number: 6,
-        size: 6,
-        total: 1
-      };
-      comp.ngOnChanges({
-        meta: new SimpleChange(null, comp.meta, true)
-      });
-
-      // expect(comp.pagination).toBeDefined();
-      expect(comp.pagination.nativeElement.hidden).toEqual(false);
-      // expect(comp.queryParamsChange).toEqual({ number: '10' });
-    });
-
-    it('sizeChanged', () => {
+    it('should call sizeChanged', () => {
       comp.sizeChanged(10);
       expect(comp.queryParamsChange).toEqual(jasmine.any(EventEmitter));
-      // expect(comp.queryParamsChange).toEqual({ number: '10' });
-    });
-
-    it('pageChanged', () => {
-      comp.pageChanged(10);
-      // expect(comp.queryParamsChange).toEqual(jasmine.any(EventEmitter));
     });
   });
 }
