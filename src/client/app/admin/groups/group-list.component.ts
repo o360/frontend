@@ -43,6 +43,8 @@ export class GroupListComponent extends ListComponent<GroupModel> implements OnI
               router: Router,
               notificationService: NotificationService) {
     super(service, activatedRoute, router, notificationService);
+
+    this._listName = '#group-list';
   }
 
   public ngOnInit() {

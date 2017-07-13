@@ -24,6 +24,7 @@ export class UserGroupListComponent extends ListComponent<GroupModel> implements
               router: Router,
               notificationService: NotificationService) {
     super(service, activatedRoute, router, notificationService);
+    this._listName = '#users-groups';
   }
 
   public ngOnInit() {

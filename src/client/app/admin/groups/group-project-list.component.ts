@@ -24,6 +24,8 @@ export class GroupProjectListComponent extends ListComponent<ProjectModel> imple
               router: Router,
               notificationService: NotificationService) {
     super(service, activatedRoute, router, notificationService);
+
+    this._listName = '#group-projects';
   }
 
   public ngOnInit() {
