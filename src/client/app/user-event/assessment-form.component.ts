@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { AssessmentModel, IElementAnswer } from '../core/models/assessment-model';
+import { AssessmentModel, IElementAnswer, IFormAnswer } from '../core/models/assessment-model';
 import { FormElement, FormElementType, FormModel } from '../core/models/form-model';
 import { ModelId } from '../core/models/model';
 import { AssessmentService } from '../core/services/assessment.service';
@@ -226,20 +226,23 @@ export class UserAssessmentFormComponent implements OnInit, OnChanges {
           element.tempValue.elementId = element.id;
           element.tempValue.valuesIds = [];
           element.tempValue.text = null;
-        }
-        this._assessment = new AssessmentModel({
-          form: {
-            formId: this._id,
-            answers: [element.tempValue]
-          },
-          isAnswered: true
-        });
 
-        if (this._user) {
-          this._assessment.userId = this._user.id;
-        }
+          console.log('в элементе', element.tempValue);
+          this._assessment = new AssessmentModel({
+            form: {
+              formId: this._id,
+              answers: [element.tempValue]
+            },
+            isAnswered: true
+          });
 
-        this._formChange.emit(this._assessment);
+          if (this._user) {
+            this._assessment.userId = this._user.id;
+          }
+
+          console.log('after cleaning:', this._assessment);
+          this._formChange.emit(this._assessment);
+        }
       });
     }
   }
