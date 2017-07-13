@@ -72,10 +72,12 @@ export class ActivatedRouteStub {
 }
 /* BreadcrumbService Stub */
 export class BreadcrumbServiceStub {
-  private _override;
+  private _override: any;
+
   get override() {
     return this._override;
   }
+
   public overrideBreadcrumb() {
     return;
   }
