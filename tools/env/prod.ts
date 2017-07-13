@@ -3,6 +3,8 @@ import { EnvConfig } from './env-config.interface';
 const ProdConfig: EnvConfig = {
   ENV: 'PROD',
   API: 'https://sop.bw-sw.com/api/v1.0',
+  TITLE_MAIN: 'Bitworks Staff Assessment System',
+  TITLE_NAV: 'BW Assessment',
   PROVIDERS: {
     'google': {
       authorizationUrlBase: 'https://accounts.google.com/o/oauth2/auth',
