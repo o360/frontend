@@ -4,22 +4,21 @@
 
       <div class="modal-header">
         <h5 class="modal-title">{{ 'T_ACTION_ADD_USERS_TO_GROUP' | translate }}</h5>
-        <button type="button" class="close" aria-label="Close" (click)="modal.hide(); groupUserForm.reset()">
+        <button type="button" class="close" aria-label="Close" (click)="modal.hide();">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
 
       <div class="modal-body">
         <form class="form form-horizontal"
-              (ngSubmit)="submit(); groupUserForm.reset()"
-              #groupUserForm="ngForm">
+              (ngSubmit)="submit();">
           <div class="form-group row"
                [ngClass]="{'has-success': users.valid, 'has-danger': !users.valid && users.touched }">
             <label class="col-form-label col-md-3 required">{{ 'T_USERS' | translate }}</label>
             <div class="col-md-8">
               <select2 id="users"
                        #users
-                       [data]="selectItems"
+                       [data]="availableUsers"
                        [width]="570"
                        [options]="options"
                        (valueChanged)="valueChanged($event)"></select2>
@@ -32,20 +31,21 @@
       <div class="modal-footer">
         <button type="button"
                 class="btn btn-secondary"
-                (click)="modal.hide(); groupUserForm.reset();">{{ 'T_ACTION_CANCEL' | translate }}
+                (click)="modal.hide();;">{{ 'T_ACTION_CANCEL' | translate }}
         </button>
 
         <button type="submit"
                 class="btn btn-primary"
-                (click)="submit(); groupUserForm.reset();"
+                (click)="submit();"
                 [disabled]="!selectedUsers.length">
           {{ 'T_ACTION_ADD_SELECTED_USERS_TO_GROUP' | translate }}
         </button>
 
         <button type="button"
                 class="btn btn-primary"
-                (click)="addAll()">
-          {{ 'T_ACTION_ADD_ALL_USERS_TO_GROUP' | translate }}
+                (click)="addAll()"
+                [disabled]="!availableUsers.length || selectedUsers.length === availableUsers.length">
+          {{ 'T_ACTION_SELECT_ALL_USERS_TO_GROUP' | translate }}
         </button>
       </div>
     </div>
