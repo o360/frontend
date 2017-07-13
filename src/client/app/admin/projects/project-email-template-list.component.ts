@@ -41,7 +41,7 @@ export class ProjectEmailTemplatesListComponent extends ListComponent<ProjectMod
               notificationService: NotificationService) {
     super(service, activatedRoute, router, notificationService);
 
-    this._listName = '#project-templates';
+    this._listName = 'project-templates';
   }
 
   public emailTemplateAdded(template: IEmailTemplate) {

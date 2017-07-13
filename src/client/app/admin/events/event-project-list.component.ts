@@ -36,7 +36,7 @@ export class EventProjectListComponent extends ListComponent<ProjectModel> imple
               protected _eventService: EventService) {
     super(service, activatedRoute, router, notificationService);
 
-    this._listName = '#event-projects';
+    this._listName = 'event-projects';
   }
 
   public ngOnInit() {

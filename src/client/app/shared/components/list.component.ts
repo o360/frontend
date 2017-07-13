@@ -24,6 +24,10 @@ export abstract class ListComponent<T extends Model> implements OnInit {
     return this._list;
   }
 
+  public get listName(): string {
+    return this._listName;
+  }
+
   public get filters(): Filter[] {
     return this._filters;
   }
@@ -127,7 +131,7 @@ export abstract class ListComponent<T extends Model> implements OnInit {
   }
 
   protected  _backToTop() {
-    let top = $(this._listName).offset().top - $(this._listName).position().top;
+    let top = $(`#${this._listName}`).offset().top - $(`#${this._listName}`).position().top;
     $(window).scrollTop(top);
   }
 }
