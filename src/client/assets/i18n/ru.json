@@ -27,7 +27,7 @@
   "T_ACTION_CREATE_CHILD_GROUP": "Создать дочернюю группу",
   "T_ACTION_ADD_USERS_TO_GROUP": "Добавить пользователей",
   "T_ACTION_ADD_SELECTED_USERS_TO_GROUP": "Добавить выбранных",
-  "T_ACTION_ADD_ALL_USERS_TO_GROUP": "Добавить всех",
+  "T_ACTION_SELECT_ALL_USERS_TO_GROUP": "Выбрать всех",
   "T_FORM_NO_USER_SELECTED": "Не выбран ни один пользователь",
   "T_ACTION_ADD_PROJECTS_TO_EVENT": "Добавить проекты в событие оценки",
   "T_ACTION_ADD_USER": "Добавить",

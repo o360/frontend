@@ -9,7 +9,7 @@ import { NotificationService } from './notification.service';
 import { ConfirmationService } from './confirmation.service';
 
 export interface IQueryParams {
-  [key: string]: string;
+  [key: string]: string | ModelId;
 }
 
 export interface IResponseMeta {
