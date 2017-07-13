@@ -1,6 +1,7 @@
 import { AfterViewInit, Component } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { AccountModel } from '../../models/account-model';
+import { Config } from '../../../shared/config/env.config';
 
 @Component({
   moduleId: module.id,
@@ -9,13 +10,19 @@ import { AccountModel } from '../../models/account-model';
 })
 export class HeaderComponent implements AfterViewInit {
   private _user: AccountModel;
+  private _titleNav: string;
 
   public get user(): AccountModel {
     return this._user;
   }
 
+  public get titleNav(): string {
+    return this._titleNav;
+  }
+
   constructor(private _authService: AuthService) {
     this._user = this._authService.user;
+    this._titleNav = Config.TITLE_NAV || 'BW Assessment';
   }
 
   public logout() {
