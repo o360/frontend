@@ -52,7 +52,7 @@
                       id="template"
                       name="template"
                       #template="ngModel"
-                      [disabled]="!model.kind"
+                      [disabled]="!model.kind || !availableTemplates.length"
                       [(ngModel)]="model.templateId"
                       required>
                 <option *ngFor="let item of availableTemplates"
@@ -61,6 +61,13 @@
                 </option>
               </select>
 
+              <div class="form-errors"
+                   *ngIf="model.kind">
+                <div class="form-control-feedback" *ngIf="!availableTemplates.length">
+                  {{ 'T_EMAIL_TEMPLATE_NO_ONE' | translate }}
+                  <a [routerLink]="['/admin/templates/create']">{{ 'T_ACTION_CREATE' | translate }}</a>
+                </div>
+              </div>
 
               <div class="form-errors"
                    *ngIf="template.errors && template.touched">
@@ -80,7 +87,7 @@
         <button type="submit"
                 role="button"
                 class="btn btn-primary"
-                [disabled]="!emailTemplatesForm.valid"
+                [disabled]="!emailTemplatesForm.valid || !availableTemplates.length"
                 (click)="submit(); modal.hide(); emailTemplatesForm.reset()">
           {{ 'T_ACTION_ADD_EMAIL_TEMPLATE' | translate }}
         </button>

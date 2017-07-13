@@ -12,7 +12,6 @@ import { BreadcrumbService } from '../../core/services/breadcrumb.service';
   templateUrl: `email-template-details.component.html`
 })
 export class EmailTemplateDetailsComponent extends DetailsComponent<EmailTemplateModel> {
-
   constructor(service: EmailTemplateService,
               route: ActivatedRoute,
               breadcrumbService: BreadcrumbService,
