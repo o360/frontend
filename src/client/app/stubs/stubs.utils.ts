@@ -70,3 +70,13 @@ export class ActivatedRouteStub {
     this._subject.next(params);
   }
 }
+/* BreadcrumbService Stub */
+export class BreadcrumbServiceStub {
+  private _override;
+  get override() {
+    return this._override;
+  }
+  public overrideBreadcrumb() {
+    return;
+  }
+}
