@@ -8,6 +8,7 @@ import { NotificationService } from '../../core/services/notification.service';
 
 export abstract class ListComponent<T extends Model> implements OnInit {
   protected _list: T[];
+  protected _listName: string = 'table';
   protected _filters: Filter[] = [];
   protected _meta: IResponseMeta;
   protected _id: string = 'id';
@@ -21,6 +22,10 @@ export abstract class ListComponent<T extends Model> implements OnInit {
 
   public get list(): T[] {
     return this._list;
+  }
+
+  public get listName(): string {
+    return this._listName;
   }
 
   public get filters(): Filter[] {
@@ -109,6 +114,10 @@ export abstract class ListComponent<T extends Model> implements OnInit {
   }
 
   public pageQueryParamsChanged(value: IQueryParams) {
+    if (value.number) {
+      this._backToTop();
+    }
+
     Object.assign(this._queryParams, value);
 
     if (this._embedded) {
@@ -119,5 +128,10 @@ export abstract class ListComponent<T extends Model> implements OnInit {
         relativeTo: this._activatedRoute
       });
     }
+  }
+
+  protected  _backToTop() {
+    let top = $(`#${this._listName}`).offset().top - $(`#${this._listName}`).position().top;
+    $(window).scrollTop(top);
   }
 }

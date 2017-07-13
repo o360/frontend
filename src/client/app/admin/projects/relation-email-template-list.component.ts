@@ -5,13 +5,15 @@ import { RelationModel } from '../../core/models/relation-model';
 import { RelationService } from '../../core/services/relation.service';
 import { Recipient } from '../../core/models/email-template-model';
 import { NotificationService } from '../../core/services/notification.service';
+import { ListComponent } from '../../shared/components/list.component';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   moduleId: module.id,
   selector: 'bs-relation-email-template-list',
   templateUrl: 'relation-email-template-list.component.html'
 })
-export class RelationEmailTemplatesListComponent {
+export class RelationEmailTemplatesListComponent extends ListComponent<RelationModel> {
   private _model: RelationModel;
   private _recipient: string = Recipient.respondent;
   private _hasInProgressEvents: boolean;
@@ -43,15 +45,19 @@ export class RelationEmailTemplatesListComponent {
     return this._recipient;
   }
 
-  constructor(private _relationService: RelationService,
-              private _notificationService: NotificationService) {
+
+  constructor(service: RelationService,
+              activatedRoute: ActivatedRoute,
+              router: Router,
+              notificationService: NotificationService) {
+    super(service, activatedRoute, router, notificationService);
   }
 
   public emailTemplateAdded(template: IEmailTemplate) {
     let model = new RelationModel(JSON.parse(this._model.toJson()));
     model.templates.push(template);
 
-    this._relationService.save(model).subscribe(model => {
+    this._service.save(model).subscribe(model => {
       this._model.templates = model.templates;
       this._notificationService.success('T_EMAIL_TEMPLATE_ADDED_TO_PROJECT');
     });
@@ -60,7 +66,7 @@ export class RelationEmailTemplatesListComponent {
   public removeTemplate(templateId: ModelId) {
     this._model.templates = this._model.templates.filter(x => x.templateId !== templateId);
 
-    this._relationService.save(this._model).subscribe(model => {
+    this._service.save(this._model).subscribe(model => {
       this._model.templates = model.templates;
       this._notificationService.success('T_EMAIL_TEMPLATE_REMOVE_FROM_PROJECT');
     });
