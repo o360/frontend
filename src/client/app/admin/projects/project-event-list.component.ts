@@ -27,6 +27,8 @@ export class ProjectEventListComponent extends ListComponent<EventModel> impleme
               router: Router,
               notificationService: NotificationService) {
     super(service, activatedRoute, router, notificationService);
+
+    this._listName = '#project-events';
   }
 
   public ngOnInit() {
