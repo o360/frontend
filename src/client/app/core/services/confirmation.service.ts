@@ -22,6 +22,7 @@ export class ConfirmationService {
   protected _message: string = 'T_CONFIRM_MESSAGE';
   protected _componentRef: ComponentRef<ConfirmationModalComponent>;
   protected _viewContainerRef: ViewContainerRef;
+  protected _userIdInstance: ModelId;
 
   constructor(protected _resolver: ComponentFactoryResolver,
               protected _translateService: TranslateService) {
@@ -32,15 +33,9 @@ export class ConfirmationService {
     this._viewContainerRef.clear();
     this._componentRef = this._viewContainerRef.createComponent(componentFactory);
 
-    let translatedMessage: string;
-    if (message) {
-      translatedMessage = this._translateService.instant(message);
-    } else {
-      translatedMessage = this._translateService.instant(this._message);
-    }
-    this._componentRef.instance.message = translatedMessage;
+    this._componentRef.instance.message = this._translateMessage(message);
     this._componentRef.instance.conflicts = conflicts;
-
+    this._componentRef.instance.userId = this._userIdInstance;
     return this._componentRef.instance.confirmed;
   }
 
@@ -50,5 +45,17 @@ export class ConfirmationService {
 
   public destroy() {
     this._viewContainerRef.remove(1);
+  }
+
+  public setUserId(userId: ModelId) {
+    this._userIdInstance = userId;
+  }
+
+  protected _translateMessage(message?: string) {
+    if (message) {
+      return this._translateService.instant(message);
+    } else {
+      return this._translateService.instant(this._message);
+    }
   }
 }

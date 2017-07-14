@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { forwardRef, Inject, Injectable } from '@angular/core';
 import { Headers, Http, RequestOptions, Response } from '@angular/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
@@ -59,7 +59,7 @@ export class RestService<T extends Model> {
               protected _authService: AuthService,
               protected _router: Router,
               protected _notificationService: NotificationService,
-              protected _confirmationService: ConfirmationService) {
+              @Inject(forwardRef(() => ConfirmationService)) protected _confirmationService: ConfirmationService) {
   }
 
   /**
@@ -230,7 +230,7 @@ export class RestService<T extends Model> {
         'CONFLICT-TEMPLATE-GENERAL'
       ];
       if (conflicts.indexOf(err.code) !== -1) {
-        this._confirmationService.loadComponent(null, err.conflicts);
+        this._confirmationService.loadComponent(null, err.conflicts, null);
       } else {
         this._notificationService.error(this._prepareErrorCodeTranslation(err.code));
       }

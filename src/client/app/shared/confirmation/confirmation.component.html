@@ -42,6 +42,10 @@
           </ul>
         </div>
         <div class="modal-footer">
+          <button *ngIf="conflicts.groups"
+                  type="button" class="btn btn-danger"
+                  (click)="deleteFromAllGroup(); hide()">{{ 'Delete from all groups' | translate }}
+          </button>
           <button type="button" class="btn btn-secondary"
                   (click)="hide()">{{ 'T_ACTION_OK' | translate }}
           </button>

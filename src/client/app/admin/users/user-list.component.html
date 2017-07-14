@@ -47,10 +47,11 @@
                     class="btn btn-sm btn-danger ml-1"
                     [tooltip]="'T_ACTION_DELETE' | translate"
                     placement="bottom"
-                    bsConfirm
+                    [bsConfirm]="model.id"
                     [message]="'T_CONFIRM_MESSAGE_DELETE_USER' | translate"
                     (confirm)="delete(model.id)">
-              <i class="fa fa-trash"></i>
+              <i class="fa fa-trash"></i>&nbsp;
+              {{ 'T_ACTION_DELETE' | translate }}
             </button>
           </td>
         </tr>
