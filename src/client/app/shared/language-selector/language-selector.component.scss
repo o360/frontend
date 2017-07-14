@@ -1,14 +1,12 @@
-a.disabled,
-a.disabled:hover,
-a.disabled:focus {
-  color: rgba(0, 0, 0, 0.8);
+button {
+  outline: none;
 }
 
-a {
-  cursor: pointer;
+.language-selector .dropdown-menu {
+  min-width: 0px;
+  width: 6rem;
 }
 
-.lang-selector .nav-item {
-  padding: 0px 5px;
+.language-selector .dropdown-item {
+  min-width: 0px;
 }
-
