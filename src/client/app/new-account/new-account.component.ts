@@ -4,7 +4,6 @@ import { AuthService } from '../core/services/auth.service';
 import { ProfileService } from '../core/services/profile.service';
 import { UserGender } from '../core/models/user-model';
 import { NotificationService } from '../core/services/notification.service';
-import { TimeZone } from '../shared/config/timezone.config';
 import * as moment from 'moment-timezone';
 
 @Component({
@@ -14,7 +13,7 @@ import * as moment from 'moment-timezone';
 })
 export class NewAccountComponent {
   private _genders: string[] = Object.values(UserGender);
-  private _timezones: string[] = Object.values(TimeZone);
+  private _timezones: string[] = moment.tz.names();
   private _user: AccountModel;
 
   public get genders(): string[] {
@@ -50,9 +49,8 @@ export class NewAccountComponent {
   }
 
   protected _setTimeZone() {
-    if (this._user && (this._user.timezone === undefined || this._user.timezone === TimeZone.UTC)) {
-      let offset = moment().tz(moment.tz.guess()).format('Z');
-      this._user.timezone = offset;
+    if (this._user) {
+      this._user.timezone = moment.tz.guess();
       this.update();
     }
   }
