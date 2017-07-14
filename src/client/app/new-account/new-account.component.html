@@ -99,6 +99,12 @@
                     {{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}
                   </div>
                 </div>
+                <div class="alert alert-danger" role="alert"
+                     *ngIf="timezone.value === null">
+                  <div class="form-control-feedback">
+                    {{ 'T_ERROR_INVALID_TIMEZONE' | translate }}
+                  </div>
+                </div>
               </div>
               <hr/>
 
