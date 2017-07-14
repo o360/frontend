@@ -75,12 +75,19 @@
         </ng-template>
         <!--Survey-->
         <ng-template [ngSwitchCase]="false">
-          <bs-user-assessment-form [id]="assessmentObject.form.id"
-                                   #formComponent
-                                   [status]="status"
-                                   [queryParams]="queryParams"
-                                   (formSave)="formSaved()"
-                                   (formChange)="formChanged($event);"></bs-user-assessment-form>
+          <tabset>
+            <tab>
+              <ng-template tabHeading>
+                {{ assessmentObject.form.name }}
+              </ng-template>
+              <bs-user-assessment-form [id]="assessmentObject.form.id"
+                                       #formComponent
+                                       [status]="status"
+                                       [queryParams]="queryParams"
+                                       (formSave)="formSaved()"
+                                       (formChange)="formChanged($event);"></bs-user-assessment-form>
+            </tab>
+          </tabset>
         </ng-template>
       </div>
     </div>
