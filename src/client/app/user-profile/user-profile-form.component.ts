@@ -5,7 +5,7 @@ import { AuthService } from '../core/services/auth.service';
 import { UserService } from '../core/services/user.service';
 import { FormComponent } from '../shared/components/form.component';
 import { NotificationService } from '../core/services/notification.service';
-import { TimeZone } from '../shared/config/timezone.config';
+import * as moment from 'moment-timezone';
 
 @Component({
   moduleId: module.id,
@@ -15,7 +15,7 @@ import { TimeZone } from '../shared/config/timezone.config';
 export class UserProfileFormComponent extends FormComponent<UserModel> implements OnInit {
   protected _returnPath = ['/profile'];
   protected _genders: string[] = Object.values(UserGender);
-  protected _timezones: string[] = Object.values(TimeZone);
+  protected _timezones: string[] = moment.tz.names();
 
   public get genders(): string[] {
     return this._genders;

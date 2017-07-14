@@ -81,7 +81,7 @@
                   required
                   class="form-control custom-select col-xs-6"
                   [(ngModel)]="model.timezone">
-            <option class="custom-option" *ngFor="let timezone of timezones" [ngValue]="timezone">{{ 'T_USER_TIME_ZONE_' + timezone | translate }}</option>
+            <option class="custom-option" *ngFor="let timezone of timezones" [ngValue]="timezone">{{ timezone }}</option>
           </select>
         </div>
       </div>
