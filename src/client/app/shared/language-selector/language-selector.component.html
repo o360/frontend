@@ -1,9 +1,21 @@
-<ul class="nav lang-selector">
-  <li class="nav-item"
-      *ngFor="let language of languages">
-    <a class="nav-link"
-       href="/"
-       [ngClass]="{ 'disabled': language.selected }"
-       (click)="changeLanguage(language.id); $event.preventDefault();">{{ language.name | translate }}</a>
-  </li>
-</ul>
+<li class="nav-item"
+    [ngClass]="{ 'dropdown': directionDown,
+                 'dropup': !directionDown }">
+  <a class="nav-link dropdown-toggle nav-link"
+     data-toggle="dropdown"
+     role="button"
+     aria-haspopup="true"
+     aria-expanded="true">
+    {{ 'T_LANG_' + selected.toString().toUpperCase() | translate }}
+  </a>
+
+  <div class="dropdown-menu">
+    <button class="dropdown-item"
+            [ngClass]="{ 'pt-0 pb-0': !directionDown }"
+            *ngFor="let language of languages"
+            [disabled]="language.selected"
+            (click)="changeLanguage(language.id); $event.preventDefault();">
+      {{ language.name | translate }}
+    </button>
+  </div>
+</li>
