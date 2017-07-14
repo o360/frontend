@@ -31,7 +31,7 @@
       </div>
       <div class="col-md-3">
         <small class="text-muted">{{ 'T_USER_TIME_ZONE' | translate}}</small>
-        <div *ngIf="model.timezone" class="h6">{{ 'T_USER_TIME_ZONE_' + model.timezone | translate }}</div>
+        <div *ngIf="model.timezone" class="h6">{{ model.timezone }}</div>
       </div>
     </div>
   </div>
