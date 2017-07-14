@@ -137,7 +137,6 @@ export function main() {
       comp.embedded = true;
       let oldQueryParams = comp.queryParams;
       let newQueryParams: IQueryParams = {
-        number: '1',
         size: '1'
       };
       comp.pageQueryParamsChanged(newQueryParams);
