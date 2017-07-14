@@ -89,7 +89,9 @@
                         required
                         class="form-control col-xs-6"
                         [(ngModel)]="user.timezone">
-                  <option *ngFor="let timezone of timezones" [ngValue]="timezone">{{ timezone }}</option>
+                  <option *ngFor="let timezone of timezones" [ngValue]="timezone">
+                    {{ timezone }} (UTC{{ getOffset(timezone) }})
+                  </option>
                 </select>
 
                 <div class="alert alert-danger" role="alert"
