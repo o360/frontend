@@ -131,7 +131,14 @@ export abstract class ListComponent<T extends Model> implements OnInit {
   }
 
   protected  _backToTop() {
-    let top = $(`#${this._listName}`).offset().top - $(`#${this._listName}`).position().top;
+    let top: number;
+
+    if (this._listName === 'table') {
+      top = $(this._listName).offset().top - $(this._listName).position().top;
+    } else {
+      top = $(`#${this._listName}`).offset().top - $(`#${this._listName}`).position().top;
+    }
+
     $(window).scrollTop(top);
   }
 }
