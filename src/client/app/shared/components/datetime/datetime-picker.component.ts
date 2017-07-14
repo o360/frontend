@@ -83,7 +83,7 @@ export const DateFormat = {
 
 export const ValidatorFutureDate = (control: FormControl) => {
   let isFuture = moment(control.value).isAfter(moment.now());
-  return isFuture ? null : {dateInPast: 'T_ERROR_DATE_IN_PAST'};
+  return isFuture ? null : { dateInPast: 'T_ERROR_DATE_IN_PAST' };
 };
 
 let id = 0;
@@ -109,9 +109,6 @@ export class DateTimeComponent implements ControlValueAccessor, AfterViewInit, V
   protected _disable: boolean = false;
   protected _input: ElementRef;
   protected _id = `picker-${ id++ }`;
-
-  protected _propagateChange: Function = () => {};
-  protected _propagateTouch: Function = () => {};
 
   @ViewChild(NgModel)
   public model: NgModel;
@@ -155,6 +152,9 @@ export class DateTimeComponent implements ControlValueAccessor, AfterViewInit, V
   public get disable(): boolean {
     return this._disable;
   }
+
+  protected _propagateChange: Function = () => ({});
+  protected _propagateTouch: Function = () => ({});
 
   constructor(protected _translateService: TranslateService) {
   }
@@ -206,10 +206,10 @@ export class DateTimeComponent implements ControlValueAccessor, AfterViewInit, V
     if (c.value) {
       let date = this._parseDate(c.value);
       if (!date.isValid()) {
-        Object.assign(errors, {format: 'T_ERROR_INVALID_DATE'});
+        Object.assign(errors, { format: 'T_ERROR_INVALID_DATE' });
       }
     } else {
-      Object.assign(errors, {required: 'T_FORM_FIELD_IS_REQUIRED'});
+      Object.assign(errors, { required: 'T_FORM_FIELD_IS_REQUIRED' });
     }
 
     return errors;
