@@ -1,6 +1,6 @@
-<li class="nav-item"
+<li class="nav-item language-selector"
     [ngClass]="{ 'dropdown': directionDown,
-                 'dropup': !directionDown }">
+                 'dropup pl-1': !directionDown }">
   <a class="nav-link dropdown-toggle nav-link"
      data-toggle="dropdown"
      role="button"
@@ -9,7 +9,8 @@
     {{ 'T_LANG_' + selected.toString().toUpperCase() | translate }}
   </a>
 
-  <div class="dropdown-menu">
+  <div class="dropdown-menu"
+  [ngClass]="{ 'dropdown-menu-right': directionDown }">
     <button class="dropdown-item"
             [ngClass]="{ 'pt-0 pb-0': !directionDown }"
             *ngFor="let language of languages"
