@@ -1,7 +1,8 @@
-import { DateFormat, DateTimeComponent, ValidatorFutureDate, ValidatorIsAfter } from './datetime-picker.component';
+import { DateFormat, DateTimeComponent, ValidatorFutureDate, ValidatorIsAfter, ValidatorIsBefore } from './datetime-picker.component';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
-import { FormControl } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { fn } from '@angular/compiler/src/output/output_ast';
 
 export function main() {
   describe('Date and time picker', () => {
@@ -32,6 +33,8 @@ export function main() {
 
       date = new Date('15.10.2018');
       comp.date = date;
+      comp.value = date;
+      console.log(comp.id);
       expect(comp.date).toEqual(date);
     });
 
@@ -49,6 +52,7 @@ export function main() {
 
       comp.onChange(date);
       expect(comp.value).toEqual(date);
+      comp.onBlur();
     });
 
     it('should validate the input', () => {
@@ -57,13 +61,42 @@ export function main() {
       let input: FormControl = new FormControl();
       input.setValue(date);
       expect(comp.validate(input)).toEqual({});
-
       expect(ValidatorFutureDate(input)).toEqual({ dateInPast: 'T_ERROR_DATE_IN_PAST' });
 
-      // let secondInput: FormControl = new FormControl();
-      // secondInput.setValue(new Date('10.02.2011'));
-      // expect(ValidatorIsAfter('')).toEqual({ dateInPast: 'T_ERROR_DATE_IN_PAST' });
-      // expect(ValidatorFutureDate(input)).toEqual({ dateInPast: 'T_ERROR_DATE_IN_PAST' });
+      comp.onlyDateMode = true;
+      expect(comp.validate(input)).toEqual({});
+
+      let test = 'test not a date';
+      input.setValue(test);
+      expect(comp.validate(input)).toEqual({ format: 'T_ERROR_INVALID_DATE' });
+
+      input.reset();
+      expect(comp.validate(input)).toEqual({ required: 'T_FORM_FIELD_IS_REQUIRED' });
+    });
+
+    it('should compare two date inputs and validate them', () => {
+      let formBuilder: FormBuilder = new FormBuilder;
+      let form = formBuilder.group({
+        start: ['', [ValidatorIsBefore('end')]],
+        end: ['', [ValidatorIsAfter('start')]],
+        test: ['', ValidatorIsBefore('noInput')]
+      });
+
+      form.controls['start'].setValue(new Date('01.01.2010'));
+      form.controls['end'].setValue(new Date('01.01.2000'));
+
+      expect(form.controls['start'].valid).toBeFalsy();
+      expect(form.controls['start'].errors).toEqual({ maxDate: true });
+      expect(form.controls['end'].valid).toBeFalsy();
+      expect(form.controls['end'].errors).toEqual({ minDate: true });
+
+      form.controls['start'].setValue(new Date('01.01.1990'));
+      form.controls['end'].setValue(new Date('01.01.2000'));
+
+      expect(form.controls['start'].valid).toBeTruthy();
+      expect(form.controls['start'].errors).toEqual(null);
+      expect(form.controls['end'].valid).toBeTruthy();
+      expect(form.controls['end'].errors).toEqual(null);
     });
   });
 }
