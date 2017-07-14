@@ -262,6 +262,7 @@
   "T_EMAIL_TEMPLATE_ADD_EVENT_START": "Add event start",
   "T_EMAIL_TEMPLATE_ADD_EVENT_END": "Add event end",
   "T_EMAIL_TEMPLATE_ADD_EVENT_DESCRIPTION": "Add event description",
+  "T_EMAIL_TEMPLATE_NO_ONE": "There are no templates of this kind.",
   "T_ASSESSMENT_OVERALL": "Overall assessment",
   "T_ASSESSMENT_INCOMMAND": "In-command assessment",
   "T_ASSESSMENT_EVENT": "Assessment event",
