@@ -1,6 +1,5 @@
 <div *ngIf="form">
   <form #assessmentForm="ngForm"
-        [ngClass]="{ 'mt-1': !inline }"
         (ngSubmit)="save()">
     <ng-container *ngFor="let element of form.elements;"
                   [ngSwitch]="element.kind">
@@ -19,12 +18,12 @@
       <!-- Checkbox groups -->
       <ng-template [ngSwitchCase]="FormElementType.Checkboxgroup">
         <div class="form-group row mb-1">
-          <label class="col-sm-3"
+          <label class="col-sm-5"
                  [ngClass]="{ 'required': element.required }">
             {{ element.caption }}
           </label>
 
-          <div class="col-sm-9">
+          <div class="col-sm-7">
             <div class="form-check" *ngFor="let item of element.values">
               <label class="custom-control custom-checkbox">
                 <input name="{{ item.id }}"
@@ -46,11 +45,11 @@
       <ng-template [ngSwitchCase]="FormElementType.Checkbox">
         <div class="form-group row mb-1"
              [ngClass]="{'has-success': checkbox.valid, 'has-danger': !checkbox.valid && checkbox.touched }">
-          <label class="col-sm-3"
+          <label class="col-sm-5"
                  [ngClass]="{ 'required': element.required }">
             {{ element.caption }}
           </label>
-          <div class="col-sm-9">
+          <div class="col-sm-7">
             <label class="custom-control custom-checkbox">
               <input name="{{ element.id }}"
                      id="{{ element.id }}"
@@ -79,11 +78,11 @@
       <ng-template [ngSwitchCase]="FormElementType.Select">
         <div class="form-group row mb-1"
              [ngClass]="{'has-success': select.valid, 'has-danger': !select.valid && select.touched }">
-          <label class="col-form-label col-sm-3"
+          <label class="col-sm-5"
                  [ngClass]="{ 'required': element.required }">
             {{ element.caption }}
           </label>
-          <div class="col-sm-9">
+          <div class="col-sm-7">
             <select name="{{ element.id }}"
                     id="{{ element.id }}"
                     class="form-control custom-select"
@@ -111,9 +110,9 @@
       <!-- Radio -->
       <ng-template [ngSwitchCase]="FormElementType.Radio">
         <div class="form-group row mb-1">
-          <label class="col-sm-3"
+          <label class="col-sm-5"
                  [ngClass]="{ 'required': element.required }">{{ element.caption }}</label>
-          <div class="col-sm-9">
+          <div class="col-sm-7">
             <div class="form-check form-check-inline ml-0 mr-1" *ngFor="let item of element.values; let j = index;">
               <label class="custom-control custom-radio">
                 <input id="{{ element.id }}"
@@ -137,12 +136,12 @@
       <ng-template [ngSwitchCase]="FormElementType.Textarea">
         <div class="form-group row mb-1"
              [ngClass]="{'has-success': textarea.valid && textarea.touched , 'has-danger': !textarea.valid && textarea.touched }">
-          <label class="col-form-label col-sm-3"
+          <label class="col-sm-5"
                  for="{{ element.id }}"
                  [ngClass]="{'required': element.required === true}">
             {{ element.caption }}
           </label>
-          <div class="col-sm-9">
+          <div class="col-sm-7">
             <textarea name="{{ element.id }}"
                       class="form-control"
                       id="{{ element.id }}"
@@ -168,12 +167,12 @@
       <ng-template [ngSwitchCase]="FormElementType.Textfield">
         <div class="form-group row mb-1"
              [ngClass]="{'has-success': textfield.valid && textfield.touched , 'has-danger': !textfield.valid && textfield.touched }">
-          <label class="col-form-label col-sm-3"
+          <label class="col-sm-5"
                  for="{{ element.id }}"
                  [ngClass]="{ 'required': element.required }">
             {{ element.caption }}
           </label>
-          <div class="col-sm-9">
+          <div class="col-sm-7">
             <input name="{{ element.id }}"
                    type="text"
                    class="form-control"
@@ -201,12 +200,12 @@
              [ngClass]="{'has-success': input.valid, 'has-danger': !input.valid && input.touched }">
 
           <label for="{{ element.id }}"
-                 class="col-form-label col-sm-3"
+                 class="col-sm-5"
                  [ngClass]="{'required': element.required }">
             {{ element.caption }}
           </label>
 
-          <div class="col-sm-9">
+          <div class="col-sm-7">
             <input class="form-control"
                    name="{{ element.id }}"
                    type="{{ element.kind }}"
