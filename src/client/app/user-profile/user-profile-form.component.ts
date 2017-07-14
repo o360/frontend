@@ -46,4 +46,8 @@ export class UserProfileFormComponent extends FormComponent<UserModel> implement
       this._notificationService.success('T_SUCCESS_SAVED');
     });
   }
+
+  public getOffset(tzId: string) {
+    return moment.tz(tzId).format('Z');
+  }
 }

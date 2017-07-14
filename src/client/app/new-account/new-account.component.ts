@@ -48,8 +48,12 @@ export class NewAccountComponent {
     );
   }
 
+  public getOffset(tzId: string) {
+    return moment.tz(tzId).format('Z');
+  }
+
   protected _setTimeZone() {
-    if (this._user) {
+    if (this._user && (this._user.timezone === 'GMT' || !this._user.timezone)) {
       this._user.timezone = moment.tz.guess();
       this.update();
     }
