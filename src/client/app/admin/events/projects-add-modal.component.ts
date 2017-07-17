@@ -7,6 +7,8 @@ import { IListResponse } from '../../core/services/rest.service';
 import { ProjectModel } from '../../core/models/project-model';
 import { ProjectService } from '../../core/services/project.service';
 import { EventService } from '../../core/services/event.service';
+import { TranslateService } from '@ngx-translate/core';
+import { Utils } from '../../utils';
 
 interface ISelectProject {
   id: ModelId;
@@ -50,7 +52,8 @@ export class ProjectsAddModalComponent implements OnChanges, OnInit {
 
   constructor(protected _projectService: ProjectService,
               protected _eventService: EventService,
-              protected _notificationService: NotificationService) {
+              protected _notificationService: NotificationService,
+              protected _translate: TranslateService) {
   }
 
   public ngOnInit() {
@@ -60,6 +63,14 @@ export class ProjectsAddModalComponent implements OnChanges, OnInit {
       multiple: true,
       openOnEnter: true,
       closeOnSelect: true,
+      dropdownAutoWidth: true,
+      escapeMarkup: (term: any) => {
+        return (term === 'No results found') ? this._translate.instant('T_EMPTY') : term;
+      },
+      matcher: (term: string, text: string) => {
+        return new RegExp(term, 'gi').test(text) ||
+          new RegExp(term, 'gi').test(Utils.transliterate(text));
+      }
     };
   }
 
