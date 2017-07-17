@@ -55,13 +55,16 @@
   font-size: 1.5rem;
 }
 
-.like-dislike .like:hover:before,
+.like-dislike .like:enabled:hover:before,
 .like-dislike .selected .like:before {
   content: "\f004" !important;
 }
 
-.like-dislike button:hover,
+.like-dislike button:enabled:hover,
 .like-dislike .selected {
   color: #20a8d8;
 }
 
+.like-dislike button:disabled:hover {
+  cursor: not-allowed;
+}

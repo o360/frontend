@@ -27,6 +27,7 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
   protected _assessmentObject: AssessmentObject = null;
   protected _status: string;
   protected _cleared: number = 0;
+  protected _isClear: boolean = true;
 
   @Input()
   public set projectId(value: ModelId) {
@@ -65,6 +66,10 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
 
   public get status(): string {
     return this._status;
+  }
+
+  public get isClear(): boolean {
+    return this._isClear;
   }
 
   @Output()
@@ -110,6 +115,7 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
       this._list.forEach(assessment => {
         assessment.isClassic = !!assessment.user;
         assessment.isAnswered = !assessment.forms.find(x => !x.answers.length);
+        this._isClear = !assessment.isAnswered;
       });
     });
   }
@@ -133,12 +139,14 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
   public formChanged(value: any) {
     let sameAnswer = this._answers.find(x => x.userId === value.userId);
 
-    if (!!sameAnswer) {
+    if (sameAnswer) {
       let index = this._answers.indexOf(sameAnswer);
       this._answers[index].form.answers = value.form.answers;
     } else {
       this._answers.push(value);
     }
+
+    this._isClear = !value.isAnswered;
   }
 
   public save() {
@@ -162,6 +170,7 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
 
   public clear() {
     if (this._inline) {
+      this._isClear = true;
       this._cleared++;
     } else {
       this._answers = [];
