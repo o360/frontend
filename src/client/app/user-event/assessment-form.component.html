@@ -57,10 +57,10 @@
                      type="checkbox"
                      value="true"
                      #checkbox="ngModel"
-                     [disabled]="status !== EventStatus.InProgress"
                      [ngModel]="element.tempValue"
                      (ngModelChange)="element.tempValue = $event; onFormChange();"
-                     [required]="element.required">
+                     [required]="element.required"                     [disabled]="status !== EventStatus.InProgress"
+                     [disabled]="status !== EventStatus.InProgress">
               <span class="custom-control-indicator"></span>
             </label>
 
@@ -119,13 +119,14 @@
                        name="{{ element.id }}"
                        type="radio"
                        class="custom-control-input"
-                       [disabled]="status !== EventStatus.InProgress"
+                       [attr.disabled]="status !== EventStatus.InProgress"
                        [value]="item.id"
                        [required]="element.required"
                        [ngModel]="element.tempValue"
                        (ngModelChange)="element.tempValue = $event; onFormChange();">
                 <span class="custom-control-indicator"></span>
-                <span class="custom-control-description"> {{ item.caption }} </span>
+                <span class="custom-control-description"> {{ item.caption }}
+              </span>
               </label>
             </div>
           </div>
@@ -233,7 +234,7 @@
       <button type="button"
               (click)="assessmentForm.reset()"
               class="btn btn-default mt-0"
-              [disabled]="!assessment">
+              [disabled]="assessmentForm.pristine">
         {{ 'T_ACTION_CLEAR' | translate }}
       </button>
       <button type="submit"

@@ -160,3 +160,7 @@ header.navbar .navbar-brand {
   padding: 0.28125rem 1.5rem;
   border: 1px solid rgba(0, 0, 0, 0.125);
 }
+
+.custom-control-input:disabled {
+  background-color: #cfd8dc;
+}
