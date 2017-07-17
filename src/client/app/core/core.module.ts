@@ -11,7 +11,6 @@ import { AccountService } from './services/account.service';
 import { AuthService } from './services/auth.service';
 import { UserService } from './services/user.service';
 import { BsDropdownModule } from 'ngx-bootstrap';
-import { ProfileService } from './services/profile.service';
 import { NotificationService } from './services/notification.service';
 import { GroupService } from './services/group.service';
 import { EventService } from './services/event.service';
@@ -41,7 +40,6 @@ import { BreadcrumbService } from './services/breadcrumb.service';
     AuthService,
     AuthServiceLoader,
     AccountService,
-    ProfileService,
     AuthGuard,
     AdminGuard,
     UserService,

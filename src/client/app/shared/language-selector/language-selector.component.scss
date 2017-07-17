@@ -9,4 +9,9 @@ button {
 
 .language-selector .dropdown-item {
   min-width: 0px;
+  cursor: pointer;
+}
+
+.language-selector .dropdown-item:disabled {
+  cursor: not-allowed !important;
 }

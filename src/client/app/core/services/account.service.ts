@@ -35,10 +35,6 @@ export class AccountService extends RestService<AccountModel> {
     return Observable.throw('Method not allowed!');
   }
 
-  public save() {
-    return Observable.throw('Method not allowed!');
-  }
-
   public delete() {
     return Observable.throw('Method not allowed!');
   }
