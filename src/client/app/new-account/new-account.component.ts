@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { AccountModel } from '../core/models/account-model';
 import { AuthService } from '../core/services/auth.service';
-import { ProfileService } from '../core/services/profile.service';
 import { UserGender } from '../core/models/user-model';
 import { NotificationService } from '../core/services/notification.service';
+import { AccountService } from '../core/services/account.service';
 import * as moment from 'moment-timezone';
 
 @Component({
@@ -29,7 +29,7 @@ export class NewAccountComponent {
   }
 
   constructor(private _authService: AuthService,
-              private _profileService: ProfileService,
+              private _accountService: AccountService,
               private _notificationService: NotificationService) {
     this._user = this._authService.user;
     this._setTimeZone();
@@ -40,7 +40,7 @@ export class NewAccountComponent {
   }
 
   public update() {
-    this._profileService.save(this._user).subscribe(
+    this._accountService.save(this._user).subscribe(
       () => {
         this._notificationService.success('T_SUCCESS_NEW_USER_SAVED');
       },
@@ -53,7 +53,7 @@ export class NewAccountComponent {
   }
 
   protected _setTimeZone() {
-    if (this._user && (this._user.timezone === 'GMT' || !this._user.timezone)) {
+    if (this._user && (this._user.timezone === 'GMT' || this._user.timezone === 'Z' || !this._user.timezone)) {
       this._user.timezone = moment.tz.guess();
       this.update();
     }
