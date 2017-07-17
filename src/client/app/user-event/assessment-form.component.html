@@ -119,7 +119,7 @@
                        name="{{ element.id }}"
                        type="radio"
                        class="custom-control-input"
-                       [disabled]="status !== EventStatus.InProgress"
+                       [attr.disabled]="status !== EventStatus.InProgress"
                        [value]="item.id"
                        [required]="element.required"
                        [ngModel]="element.tempValue"
