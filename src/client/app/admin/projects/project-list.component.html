@@ -6,7 +6,6 @@
             role="button"
             [tooltip]="'T_ACTION_CREATE' | translate"
             placement="bottom"
-            title="{{ 'T_ACTION_CREATE' | translate }}"
             [routerLink]="['/admin/projects/create']">
       <i class="fa fa-plus"></i>
     </button>
@@ -33,7 +32,6 @@
                     class="btn btn-sm btn-danger ml-1"
                     [tooltip]="'T_ACTION_DELETE' | translate"
                     placement="bottom"
-                    title="{{ 'T_ACTION_DELETE' | translate }}"
                     bsConfirm
                     [message]="'T_CONFIRM_MESSAGE_DELETE_PROJECT' | translate"
                     (confirm)="delete(model.id)"
