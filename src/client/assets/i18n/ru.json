@@ -247,6 +247,7 @@
   "T_EVENT_END": "Дата окончания",
   "T_PROJECT_CAN_REVOTE": "Можно изменять ответы",
   "T_PROJECT_FORMS_ON_THE_SAME_PAGE": "Показывать формы на одной странице",
+  "T_PROJECT_ANONYMOUS": "Анонимные ответы",
   "T_EVENT_STATUS": "Статус",
   "T_EVENT_STATUS_NOTSTARTED": "Не начато",
   "T_EVENT_STATUS_INPROGRESS": "В процессе",
