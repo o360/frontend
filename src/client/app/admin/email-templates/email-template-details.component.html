@@ -1,5 +1,6 @@
 <div class="card" *ngIf="model">
-  <div class="card-header"><b>{{ 'T_DETAILS' | translate }}</b></div>
+  <div class="card-header"><b>{{ 'T_DETAILS' | translate }}</b>
+ </div>
   <div class="card-block">
     <div class="row">
       <div class="col-md-6">
@@ -8,16 +9,30 @@
       <div class="col-md-6 text-right">
         <button type="button"
                 role="button"
-                class="btn btn-warning mr-1"
+                [tooltip]="'T_ACTION_CLONE' | translate"
+                placement="bottom"
+                class="btn btn-warning"
                 bsConfirm
                 [message]="'T_FORM_CONFIRM_CLONE_MESSAGE' | translate"
                 (confirm)="clone(model);">
-          <i class="mr-h fa fa-copy"></i> {{ 'T_ACTION_CLONE' | translate }}
+          <i class="fa fa-copy"></i>
         </button>
         <button type="button"
                 role="button"
-                class="btn btn-md btn-primary"
-                [routerLink]="['/admin/templates/', model.id, 'edit']">{{ 'T_ACTION_EDIT' | translate }}
+                [tooltip]="'T_ACTION_EDIT' | translate"
+                placement="bottom"
+                class="btn btn-primary"
+                [routerLink]="['/admin/templates/', model.id, 'edit']">
+          <i class="fa fa-pencil"></i></button>
+        <button type="button"
+                [tooltip]="'T_ACTION_DELETE' | translate"
+                placement="bottom"
+                role="button"
+                class="btn btn-danger"
+                bsConfirm
+                [message]="'T_CONFIRM_MESSAGE_DELETE_TEMPLATE' | translate"
+                (confirm)="delete(model.id)">
+          <i class="fa fa-trash"></i>
         </button>
       </div>
     </div>

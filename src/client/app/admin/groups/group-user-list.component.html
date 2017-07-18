@@ -4,9 +4,11 @@
     <button class="btn btn-primary"
             type="button"
             role="button"
+            [tooltip]="'T_ACTION_ADD_USERS_TO_GROUP' | translate"
+            placement="right"
             title="{{ 'T_ACTION_ADD_USERS_TO_GROUP' | translate }}"
             (click)="modalForm.show()">
-      <i class="fa fa-user mr-h"></i>{{ 'T_ACTION_ADD_USERS_TO_GROUP' | translate }}
+      <i class="fa fa-plus"></i>
     </button>
 
     <!--Group user list-->
@@ -42,10 +44,11 @@
             <button type="button"
                     role="button"
                     class="btn btn-sm btn-danger ml-1"
+                    [tooltip]="'T_ACTION_REMOVE' | translate"
+                    placement="bottom"
                     bsConfirm
                     (confirm)="delete(model.id)">
-              <i class="fa fa-remove"></i>&nbsp;
-              {{ 'T_ACTION_REMOVE' | translate }}
+              <i class="fa fa-remove"></i>
             </button>
           </td>
         </tr>

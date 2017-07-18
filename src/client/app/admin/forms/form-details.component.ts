@@ -19,15 +19,17 @@ export class FormDetailsComponent extends DetailsComponent<FormModel> {
 
   constructor(service: FormService,
               route: ActivatedRoute,
+              router: Router,
               breadcrumbService: BreadcrumbService,
-              protected _router: Router,
-              protected _notificationService: NotificationService) {
-    super(service, route, breadcrumbService);
+              notificationService: NotificationService) {
+    super(service, route, router, breadcrumbService, notificationService);
+
+    this._returnPath = '/admin/forms';
   }
 
   public clone(model: FormModel) {
     (<FormService>this._service).clone(model).subscribe(model => {
-      this._router.navigate(['/admin/forms', model.id, 'edit']);
+      this._router.navigate([this._returnPath, model.id, 'edit']);
       this._notificationService.success('T_SUCCESS_CLONED');
     });
   }

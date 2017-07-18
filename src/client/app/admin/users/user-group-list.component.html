@@ -20,11 +20,11 @@
             <button type="button"
                     role="button"
                     class="btn btn-sm btn-danger"
+                    [tooltip]="'T_ACTION_REMOVE' | translate"
+                    placement="bottom"
                     bsConfirm
                     (confirm)="delete(group.id)">
-
-              <i class="fa fa-remove"></i>&nbsp;
-              {{ 'T_ACTION_REMOVE' | translate }}
+              <i class="fa fa-remove"></i>
             </button>
           </td>
         </tr>

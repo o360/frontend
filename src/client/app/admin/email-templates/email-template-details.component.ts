@@ -14,15 +14,17 @@ import { BreadcrumbService } from '../../core/services/breadcrumb.service';
 export class EmailTemplateDetailsComponent extends DetailsComponent<EmailTemplateModel> {
   constructor(service: EmailTemplateService,
               route: ActivatedRoute,
+              router: Router,
               breadcrumbService: BreadcrumbService,
-              protected _router: Router,
-              protected _notificationService: NotificationService) {
-    super(service, route, breadcrumbService);
+              notificationService: NotificationService) {
+    super(service, route, router, breadcrumbService, notificationService);
+
+    this._returnPath = '/admin/templates';
   }
 
   public clone(model: EmailTemplateModel) {
     (<EmailTemplateService>this._service).clone(model).subscribe(model => {
-      this._router.navigate(['/admin/templates', model.id, 'edit']);
+      this._router.navigate([this._returnPath, model.id, 'edit']);
       this._notificationService.success('T_SUCCESS_CLONED');
     });
   }
