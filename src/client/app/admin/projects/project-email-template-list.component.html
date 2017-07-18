@@ -7,7 +7,6 @@
       role="button"
       [tooltip]="'T_ACTION_ADD_EMAIL_TEMPLATE' | translate"
       placement="right"
-      title="{{ 'T_ACTION_ADD_EMAIL_TEMPLATE' | translate }}"
       (click)="modalForm.show()"><i class="fa fa-plus"></i>
     </button>
 
@@ -31,7 +30,6 @@
               [tooltip]="'T_ACTION_REMOVE' | translate"
               placement="bottom"
               bsConfirm
-              title="{{ 'T_ACTION_REMOVE' | translate }}"
               (confirm)="removeTemplate(template.templateId)"><i class="fa fa-trash"></i>
             </button>
           </td>
