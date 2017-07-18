@@ -118,7 +118,7 @@
 
       <!-- Forms On Same Page -->
       <div class="form-group row">
-        <label for="canRevote" class="col-form-label col-md-3">
+        <label for="formsOnSamePage" class="col-form-label col-md-3">
           {{ 'T_PROJECT_FORMS_ON_THE_SAME_PAGE' | translate }}
         </label>
         <div class="col-md-9">
@@ -136,7 +136,25 @@
         </div>
       </div>
 
-
+      <!-- Forms On Same Page -->
+      <div class="form-group row">
+        <label for="isAnonymous" class="col-form-label col-md-3">
+          {{ 'T_PROJECT_ANONYMOUS' | translate }}
+        </label>
+        <div class="col-md-9">
+          <label class="switch switch-default switch-primary">
+            <input id="isAnonymous"
+                   name="isAnonymous"
+                   type="checkbox"
+                   class="switch-input"
+                   checked="true"
+                   #isAnonymous="ngModel"
+                   [(ngModel)]="model.isAnonymous">
+            <span class="switch-label"></span>
+            <span class="switch-handle"></span>
+          </label>
+        </div>
+      </div>
       <hr/>
 
       <div class="text-right">

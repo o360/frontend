@@ -173,6 +173,7 @@
   "T_EVENT_END": "End Date",
   "T_PROJECT_CAN_REVOTE": "Can revote",
   "T_PROJECT_FORMS_ON_THE_SAME_PAGE": "Show forms on the same page",
+  "T_PROJECT_ANONYMOUS": "Anonymous answers",
   "T_EVENT_STATUS": "Status",
   "T_EVENT_STATUS_NOTSTARTED": "Not started",
   "T_EVENT_STATUS_INPROGRESS": "In progress",
