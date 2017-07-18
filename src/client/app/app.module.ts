@@ -10,7 +10,7 @@ import { CoreModule } from './core/core.module';
 import { createTranslateLoader } from './shared/config/translate-loader.config';
 import { SharedModule } from './shared/shared.module';
 import { ToastModule } from 'ng2-toastr/ng2-toastr';
-import { ModalModule, PaginationModule, AccordionModule, TabsModule } from 'ngx-bootstrap';
+import { ModalModule, PaginationModule, AccordionModule, TabsModule, TooltipModule } from 'ngx-bootstrap';
 import { DndModule } from 'ng2-dnd';
 
 @NgModule({
@@ -33,6 +33,7 @@ import { DndModule } from 'ng2-dnd';
     TabsModule.forRoot(),
     ModalModule.forRoot(),
     TabsModule.forRoot(),
+    TooltipModule.forRoot(),
     DndModule.forRoot(),
     // App related modules
     AppRoutingModule
