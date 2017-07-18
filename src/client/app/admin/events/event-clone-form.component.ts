@@ -6,6 +6,7 @@ import { FormComponent } from '../../shared/components/form.component';
 import { NotificationService } from '../../core/services/notification.service';
 import { ValidatorFutureDate, ValidatorIsAfter, ValidatorIsBefore } from '../../shared/components/datetime/datetime-picker.component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { BreadcrumbService } from '../../core/services/breadcrumb.service';
 
 @Component({
   moduleId: module.id,
@@ -29,8 +30,9 @@ export class EventCloneFormComponent extends FormComponent<EventModel> {
               router: Router,
               route: ActivatedRoute,
               notificationService: NotificationService,
+              breadcrumbService: BreadcrumbService,
               protected _formBuilder: FormBuilder) {
-    super(service, router, route, notificationService);
+    super(service, router, route, notificationService, breadcrumbService);
 
     this._createForm();
   }

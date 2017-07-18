@@ -69,6 +69,7 @@ export abstract class FormComponent<T extends Model> implements OnInit {
 
   protected _processModel(model: T) {
     this._model = model;
+    this._fillBreadcrumbs(model);
   }
 
   protected _fillBreadcrumbs(model: T) {
