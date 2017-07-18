@@ -6,6 +6,8 @@ import { GroupService } from '../../core/services/group.service';
 import { IListResponse, IQueryParams } from '../../core/services/rest.service';
 import { FormComponent } from '../../shared/components/form.component';
 import { NotificationService } from '../../core/services/notification.service';
+import { BreadcrumbService } from '../../core/services/breadcrumb.service';
+import { IBreadcrumb } from '../../core/components/breadcrumb/breadcrumb.component';
 
 @Component({
   moduleId: module.id,
@@ -29,8 +31,9 @@ export class GroupFormComponent extends FormComponent<GroupModel> {
   constructor(service: GroupService,
               router: Router,
               route: ActivatedRoute,
-              notificationService: NotificationService) {
-    super(service, router, route, notificationService);
+              notificationService: NotificationService,
+              breadcrumbService: BreadcrumbService ) {
+    super(service, router, route, notificationService, breadcrumbService);
   }
 
   protected _load() {
@@ -56,6 +59,23 @@ export class GroupFormComponent extends FormComponent<GroupModel> {
     }
 
     super._processModel(model);
+  }
+
+  protected async _fillBreadcrumbs(model: GroupModel) {
+    let breadcrumbs: IBreadcrumb[] = [];
+
+    breadcrumbs.push({ label: model.name });
+
+    let item = model;
+
+    while (item.parentId) {
+      item = await this._service.get(item.parentId).toPromise();
+
+      breadcrumbs.push({ label: item.name, url: `/admin/groups/${item.id}` });
+    }
+    let index = breadcrumbs.length - 1;
+    breadcrumbs.reverse()[index].label = 'T_ACTION_CREATE';
+    this._breadcrumbService.overrideBreadcrumb(breadcrumbs);
   }
 
   public save() {

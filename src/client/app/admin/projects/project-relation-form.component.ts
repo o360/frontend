@@ -11,6 +11,9 @@ import { FormService } from '../../core/services/form.service';
 import { FormModel } from '../../core/models/form-model';
 import { Observable } from 'rxjs/Observable';
 import { NotificationService } from '../../core/services/notification.service';
+import { BreadcrumbService } from '../../core/services/breadcrumb.service';
+import { ProjectModel } from '../../core/models/project-model';
+import { ProjectService } from '../../core/services/project.service';
 
 
 @Component({
@@ -49,9 +52,11 @@ export class ProjectRelationFormComponent extends FormComponent<RelationModel> {
               router: Router,
               route: ActivatedRoute,
               notificationService: NotificationService,
+              breadcrumbService: BreadcrumbService,
               protected _groupService: GroupService,
-              protected _formService: FormService) {
-    super(service, router, route, notificationService);
+              protected _formService: FormService,
+              protected _projectService: ProjectService) {
+    super(service, router, route, notificationService, breadcrumbService);
   }
 
   protected _load() {
@@ -86,6 +91,17 @@ export class ProjectRelationFormComponent extends FormComponent<RelationModel> {
   public save() {
     this._returnPath = ['/admin/projects/', this._projectId.toString(), '/relations'];
     super.save();
+  }
+
+  protected _fillBreadcrumbs(model: RelationModel) {
+    this._projectService.get(this._projectId).subscribe((project: ProjectModel) => {
+      let breadcrumbs = [];
+
+      breadcrumbs.push({ label: project.name, url: `/admin/projects/${project.id}` });
+      breadcrumbs.push({ label: 'T_PROJECT_RELATION_DETAILS' });
+
+      this._breadcrumbService.overrideBreadcrumb(breadcrumbs);
+    });
   }
 }
 
