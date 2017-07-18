@@ -3,7 +3,7 @@ import { AccountModel } from '../core/models/account-model';
 import { AuthService } from '../core/services/auth.service';
 import { UserGender } from '../core/models/user-model';
 import { NotificationService } from '../core/services/notification.service';
-import { AccountService } from '../core/services/account.service';
+import { UserService } from '../core/services/user.service';
 import * as moment from 'moment-timezone';
 
 @Component({
@@ -29,7 +29,7 @@ export class NewAccountComponent {
   }
 
   constructor(private _authService: AuthService,
-              private _accountService: AccountService,
+              private _userService: UserService,
               private _notificationService: NotificationService) {
     this._user = this._authService.user;
     this._setTimeZone();
@@ -40,7 +40,7 @@ export class NewAccountComponent {
   }
 
   public update() {
-    this._accountService.save(this._user).subscribe(
+    this._userService.save(this._user).subscribe(
       () => {
         this._notificationService.success('T_SUCCESS_NEW_USER_SAVED');
       },
