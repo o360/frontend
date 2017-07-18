@@ -11,7 +11,21 @@
                   role="button"
                   class="btn btn-md btn-primary"
                   [routerLink]="['/admin/projects/', model.id, 'edit']"
-                  [disabled]="model.hasInProgressEvents">{{ 'T_ACTION_EDIT' | translate }}
+                  [disabled]="model.hasInProgressEvents"
+                  [tooltip]="'T_ACTION_EDIT' | translate"
+                  placement="bottom">
+            <i class="fa fa-pencil"></i>
+          </button>
+          <button type="button"
+                  role="button"
+                  class="btn btn-danger"
+                  bsConfirm
+                  [message]="'T_CONFIRM_MESSAGE_DELETE_PROJECT' | translate"
+                  (confirm)="delete(model.id)"
+                  [disabled]="model.hasInProgressEvents"
+                  [tooltip]="'T_ACTION_DELETE' | translate"
+                  placement="bottom">
+            <i class="fa fa-trash"></i>
           </button>
         </div>
       </div>
@@ -34,7 +48,7 @@
 
   <bs-project-relation-list embedded [projectId]="model.id" [hasInProgressEvents]="model.hasInProgressEvents"></bs-project-relation-list>
   <bs-project-email-template-list embedded [model]="model"></bs-project-email-template-list>
-  <bs-project-event-list embedded  [projectId]="model.id"></bs-project-event-list>
+  <bs-project-event-list embedded [projectId]="model.id"></bs-project-event-list>
 </div>
 
 

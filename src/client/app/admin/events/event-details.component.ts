@@ -18,15 +18,17 @@ export class EventDetailsComponent extends DetailsComponent<EventModel> {
 
   constructor(service: EventService,
               route: ActivatedRoute,
+              router: Router,
               breadcrumbService: BreadcrumbService,
-              private _router: Router,
-              private _notificationService: NotificationService) {
-    super(service, route, breadcrumbService);
+              notificationService: NotificationService) {
+    super(service, route, router, breadcrumbService, notificationService);
+
+    this._returnPath = '/admin/events';
   }
 
   public clone(model: EventModel) {
     (<EventService>this._service).clone(model).subscribe(clone => {
-      this._router.navigate(['/admin/events', clone.id, 'clone']);
+      this._router.navigate([this._returnPath, clone.id, 'clone']);
       this._notificationService.success('T_SUCCESS_CLONED_EVENT');
     });
   }

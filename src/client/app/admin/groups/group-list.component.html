@@ -8,12 +8,12 @@
     <ng-template ngSwitchDefault><b>{{ 'T_CHILD_GROUPS' | translate }}</b></ng-template>
   </div>
   <div class="card-block" *ngIf="isLoaded">
-    <button class="btn btn-primary mb-1"
+    <button class="btn btn-primary mb-1 mr-1"
             type="button"
             role="button"
-            title="{{ 'T_ACTION_CREATE' | translate }}"
-            [routerLink]="['/admin/groups/create', parentId!='null' ? { parentId: parentId } : {}]"><i class="fa fa-group mr-h"></i>
-      {{ parentId!='null' ? ('T_ACTION_CREATE_CHILD_GROUP'| translate) : ('T_ACTION_CREATE' | translate )}}
+            [tooltip]="parentId !== 'null' ? ('T_ACTION_CREATE_CHILD_GROUP'| translate) : ('T_ACTION_CREATE' | translate )"
+            placement="right"
+            [routerLink]="['/admin/groups/create', parentId!='null' ? { parentId: parentId } : {}]"><i class="fa fa-plus"></i>
     </button>
 
     <button *ngIf="list.length"
@@ -62,10 +62,11 @@
                 <button type="button"
                         role="button"
                         class="btn btn-sm btn-danger ml-1"
-                        title="{{ 'T_ACTION_DELETE' | translate }}"
-                        bsConfirm
+                        [tooltip]="'T_ACTION_DELETE' | translate"
+                        placement="bottom"                        bsConfirm
                         [message]="'T_CONFIRM_MESSAGE_DELETE_GROUP' | translate"
-                        (confirm)="delete(group.id)"><i class="fa fa-trash"></i> {{ 'T_ACTION_DELETE' | translate }}
+                        (confirm)="delete(group.id)">
+                  <i class="fa fa-trash"></i>
                 </button>
               </div>
             </li>
