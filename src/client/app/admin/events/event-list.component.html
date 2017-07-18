@@ -7,9 +7,11 @@
     <button class="btn btn-primary"
             type="button"
             role="button"
+            [tooltip]="'T_ACTION_CREATE' | translate"
+            placement="bottom"
             title="{{ 'T_ACTION_CREATE' | translate }}"
             [routerLink]="['/admin/events/create']">
-      <i class="fa fa-file-o mr-h"></i> {{ 'T_ACTION_CREATE' | translate }}
+      <i class="fa fa-plus"></i>
     </button>
     <table class="table table-striped mt-1">
       <thead>
@@ -42,19 +44,21 @@
           <button type="button"
                   role="button"
                   class="btn btn-sm btn-success ml-1"
+                  [tooltip]="'T_ACTION_DETAILS' | translate"
+                  placement="bottom"
                   title="{{ 'T_ACTION_DETAILS' | translate }}"
                   [routerLink]="['/admin/events', model.id]">
-            <i class="fa fa-hand-pointer-o"></i> {{ 'T_ACTION_DETAILS' | translate}}
-          </button>
+            <i class="fa fa-hand-pointer-o"></i></button>
 
           <button type="button"
                   role="button"
+                  [tooltip]="'T_ACTION_DELETE' | translate"
+                  placement="bottom"
                   class="btn btn-sm btn-danger ml-1"
                   bsConfirm
                   [message]="'T_CONFIRM_MESSAGE_DELETE_EVENT' | translate"
                   (confirm)="delete(model.id)">
-            <i class="fa fa-trash"></i>&nbsp;
-            {{ 'T_ACTION_DELETE' | translate }}
+            <i class="fa fa-trash"></i>
           </button>
         </td>
       </tr>

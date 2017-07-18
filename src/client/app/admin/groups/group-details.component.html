@@ -9,9 +9,22 @@
         <div class="col-md-4 text-right">
           <button type="button"
                   role="button"
+                  [tooltip]="'T_ACTION_EDIT' | translate"
+                  placement="bottom"
                   class="btn btn-md btn-primary"
-                  [routerLink]="['/admin/groups/', model.id, 'edit']">{{ 'T_ACTION_EDIT' | translate }}
+                  [routerLink]="['/admin/groups/', model.id, 'edit']">
+            <i class="fa fa-pencil"></i>
           </button>
+          <button type="button"
+                  role="button"
+                  class="btn btn-danger ml-1"
+                  title="{{ 'T_ACTION_DELETE' | translate }}"
+                  bsConfirm
+                  [tooltip]="'T_ACTION_DELETE' | translate"
+                  placement="bottom"
+                  [message]="'T_CONFIRM_MESSAGE_DELETE_GROUP' | translate"
+                  (confirm)="delete(model.id)">
+            <i class="fa fa-trash"></i></button>
         </div>
       </div>
     </div>

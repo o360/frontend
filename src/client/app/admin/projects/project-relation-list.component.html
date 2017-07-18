@@ -4,10 +4,12 @@
     <button class="btn btn-primary"
             type="button"
             role="button"
+            [tooltip]="'T_ACTION_CREATE_PROJECT_RELATION' | translate"
+            placement="right"
             title="{{ 'T_ACTION_CREATE' | translate }}"
             [routerLink]="['/admin/projects/', projectId, 'relations', 'create']"
             [disabled]="hasInProgressEvents">
-      <i class="fa fa-exchange mr-h"></i> {{ 'T_ACTION_CREATE_PROJECT_RELATION' | translate }}
+      <i class="fa fa-plus"></i>
     </button>
 
     <table [id]="listName" class="table table-striped mt-1">
@@ -40,11 +42,12 @@
             <button type="button"
                     role="button"
                     class="btn btn-sm btn-danger ml-1"
+                    [tooltip]="'T_ACTION_DELETE' | translate"
+                    placement="bottom"
                     bsConfirm
                     (confirm)="delete(model.id)"
                     *ngIf="!model.hasInProgressEvents">
               <i class="fa fa-trash"></i>
-              {{ 'T_ACTION_DELETE' | translate }}
             </button>
           </td>
         </tr>

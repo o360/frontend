@@ -23,6 +23,8 @@
                          'col-md-6': !model.groupTo}">
           <button type="button"
                   role="button"
+                  [tooltip]="'T_ACTION_EDIT' | translate"
+                  placement="bottom"
                   class="btn btn-md btn-primary"
                   [disabled]="model.hasInProgressEvents"
                   [routerLink]="['/admin/projects/', model.projectId, 'relations', model.id, 'edit']">

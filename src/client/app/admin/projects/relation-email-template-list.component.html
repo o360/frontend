@@ -5,10 +5,11 @@
       class="btn btn-primary"
       type="button"
       role="button"
+      [tooltip]="'T_ACTION_ADD_EMAIL_TEMPLATE' | translate"
+      placement="right"
       title="{{ 'T_ACTION_ADD_EMAIL_TEMPLATE' | translate }}"
       (click)="modalForm.show()"
-      [disabled]="hasInProgressEvents"><i class="fa fa-plus mr-h"></i>
-      {{ 'T_ACTION_ADD_EMAIL_TEMPLATE' | translate }}
+      [disabled]="hasInProgressEvents"><i class="fa fa-plus"></i>
     </button>
 
     <table [id]="listName"
@@ -30,6 +31,8 @@
               type="button"
               role="button"
               class="btn btn-sm btn-danger ml-1"
+              [tooltip]="'T_ACTION_REMOVE' | translate"
+              placement="bottom"
               bsConfirm
               *ngIf="!hasInProgressEvents"
               title="{{ 'T_ACTION_REMOVE' | translate }}"

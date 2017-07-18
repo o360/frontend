@@ -4,10 +4,11 @@
     <button class="btn btn-primary"
             type="button"
             role="button"
+            [tooltip]="'T_ACTION_CREATE' | translate"
+            placement="bottom"
             title="{{ 'T_ACTION_CREATE' | translate }}"
             [routerLink]="['/admin/forms/create']">
-      <i class="mr-h fa fa-file-o"></i>
-      {{ 'T_ACTION_CREATE' | translate }}
+      <i class="fa fa-plus"></i>
     </button>
 
     <table class="table table-striped mt-1">
@@ -26,12 +27,12 @@
           <button type="button"
                   role="button"
                   class="btn btn-sm btn-danger ml-1"
+                  [tooltip]="'T_ACTION_DELETE' | translate"
+                  placement="bottom"
                   bsConfirm
                   [message]="'T_CONFIRM_MESSAGE_DELETE_FORM' | translate"
                   (confirm)="delete(model.id)">
-
-            <i class="fa fa-trash"></i>&nbsp;
-            {{ 'T_ACTION_DELETE' | translate }}
+            <i class="fa fa-trash"></i>
           </button>
         </td>
       </tr>

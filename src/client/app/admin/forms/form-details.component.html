@@ -10,17 +10,31 @@
       <div class="col-md-6 text-right">
         <button type="button"
                 role="button"
-                class="btn btn-warning mr-1"
+                class="btn btn-warning"
+                [tooltip]="'T_ACTION_CLONE' | translate"
+                placement="bottom"
                 bsConfirm
                 [message]="'T_FORM_CONFIRM_CLONE_MESSAGE' | translate"
                 (confirm)="clone(model);">
-          <i class="mr-h fa fa-copy"></i> {{ 'T_ACTION_CLONE' | translate }}
+          <i class="fa fa-copy"></i>
         </button>
         <button type="button"
                 role="button"
                 class="btn btn-primary"
+                [tooltip]="'T_ACTION_EDIT' | translate"
+                placement="bottom"
                 [routerLink]="['/admin/forms/', model.id, 'edit']">
-          <i class="mr-h fa fa-pencil"></i> {{ 'T_ACTION_EDIT' | translate }}
+          <i class="fa fa-pencil"></i>
+        </button>
+        <button type="button"
+                role="button"
+                class="btn btn-danger"
+                [tooltip]="'T_ACTION_DELETE' | translate"
+                placement="bottom"
+                bsConfirm
+                [message]="'T_CONFIRM_MESSAGE_DELETE_FORM' | translate"
+                (confirm)="delete(model.id)">
+          <i class="fa fa-trash"></i>
         </button>
       </div>
     </div>

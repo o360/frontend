@@ -21,10 +21,12 @@
             <button type="button"
                     role="button"
                     class="btn btn-sm btn-danger ml-1"
+                    [tooltip]="'T_ACTION_DELETE' | translate"
+                    placement="bottom"
                     title="{{ 'T_ACTION_DELETE' | translate }}"
                     bsConfirm
                     [message]="'T_CONFIRM_MESSAGE_DELETE_GROUP' | translate"
-                    (confirm)="delete(group.id)"><i class="fa fa-trash"></i>&nbsp;{{ 'T_ACTION_DELETE' | translate }}
+                    (confirm)="delete(group.id)"><i class="fa fa-trash"></i>
             </button>
           </div>
         </li>

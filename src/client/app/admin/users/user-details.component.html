@@ -10,7 +10,10 @@
           <button type="button"
                   role="button"
                   class="btn btn-md btn-primary"
-                  [routerLink]="['/admin/users/', model.id, 'edit']">{{ 'T_ACTION_EDIT' | translate }}
+                  [tooltip]="'T_ACTION_EDIT' | translate"
+                  placement="bottom"
+                  [routerLink]="['/admin/users/', model.id, 'edit']">
+            <i class="fa fa-pencil"></i>
           </button>
         </div>
       </div>
