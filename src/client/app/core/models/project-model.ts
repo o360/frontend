@@ -19,7 +19,8 @@ export interface IEmailTemplate {
   templates: [],
   canRevote: true,
   formsOnSamePage: false,
-  hasInProgressEvents: false
+  hasInProgressEvents: false,
+  isAnonymous: false
 })
 export class ProjectModel extends Model {
   public name: string;
