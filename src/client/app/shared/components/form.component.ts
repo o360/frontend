@@ -4,6 +4,7 @@ import { Model, ModelId } from '../../core/models/model';
 import { RestService } from '../../core/services/rest.service';
 import { Observable } from 'rxjs/Observable';
 import { NotificationService } from '../../core/services/notification.service';
+import { BreadcrumbService } from '../../core/services/breadcrumb.service';
 
 export abstract class FormComponent<T extends Model> implements OnInit {
   protected _id: ModelId;
@@ -29,7 +30,8 @@ export abstract class FormComponent<T extends Model> implements OnInit {
   constructor(protected _service: RestService<T>,
               protected _router: Router,
               protected _route: ActivatedRoute,
-              protected _notificationService: NotificationService) {
+              protected _notificationService: NotificationService,
+              protected _breadcrumbService: BreadcrumbService) {
   }
 
   public ngOnInit(): void {
@@ -67,6 +69,12 @@ export abstract class FormComponent<T extends Model> implements OnInit {
 
   protected _processModel(model: T) {
     this._model = model;
+  }
+
+  protected _fillBreadcrumbs(model: T) {
+    if (model.hasOwnProperty('name')) {
+      this._breadcrumbService.overrideBreadcrumb([{ label: (<any>model).name }]);
+    }
   }
 }
 
