@@ -6,6 +6,7 @@ import { EmailKind, EmailTemplateModel, Recipient } from '../../core/models/emai
 import { EmailTemplateService } from '../../core/services/email-template.service';
 import { NotificationService } from '../../core/services/notification.service';
 import { FormComponent } from '../../shared/components/form.component';
+import { BreadcrumbService } from '../../core/services/breadcrumb.service';
 
 
 @Component({
@@ -70,8 +71,9 @@ export class EmailTemplateFormComponent extends FormComponent<EmailTemplateModel
               router: Router,
               route: ActivatedRoute,
               notificationService: NotificationService,
+              breadcrumbService: BreadcrumbService,
               protected _translateService: TranslateService) {
-    super(service, router, route, notificationService);
+    super(service, router, route, notificationService, breadcrumbService);
   }
 
   public ngOnInit() {
