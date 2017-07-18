@@ -1,9 +1,11 @@
 <button class="btn btn-primary mb-1"
         *ngIf="event.status !== EventStatus.Completed"
         type="button"
+        [tooltip]="'T_ACTION_ADD_NEW_ASSESSMENT_EVENT_NOTIFICATIONS' | translate"
+        placement="bottom"
         title="{{ 'T_ACTION_ADD_NEW_ASSESSMENT_EVENT_NOTIFICATIONS' | translate }}"
         (click)="notificationsEditModal.show()">
-  <i class="fa fa-plus mr-h"></i>{{ 'T_ACTION_ADD_NEW_ASSESSMENT_EVENT_NOTIFICATIONS' | translate }}
+  <i class="fa fa-plus"></i>
 </button>
 <table class="table table-striped">
   <th>{{ 'T_EVENT_RECIPIENT' | translate}}</th>
@@ -18,16 +20,18 @@
       <td class="actions-column">
         <button type="button"
                 class="btn btn-primary btn-sm mr-1"
+                [tooltip]="'T_ACTION_EDIT_DATE' | translate"
+                placement="bottom"
                 (click)="notificationsEditModal.show(item)">
           <i class="mr-h fa fa-pencil"></i>
-          {{ 'T_ACTION_EDIT_DATE' | translate }}
         </button>
 
         <button type="button"
                 class="btn btn-danger btn-sm"
+                [tooltip]="'T_ACTION_REMOVE' | translate"
+                placement="bottom"
                 (click)="deleteNotification(item)">
           <i class="mr-h fa fa-remove"></i>
-          {{ 'T_ACTION_REMOVE' | translate }}
         </button>
       </td>
     </tr>
