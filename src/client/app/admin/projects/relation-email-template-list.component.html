@@ -7,7 +7,6 @@
       role="button"
       [tooltip]="'T_ACTION_ADD_EMAIL_TEMPLATE' | translate"
       placement="right"
-      title="{{ 'T_ACTION_ADD_EMAIL_TEMPLATE' | translate }}"
       (click)="modalForm.show()"
       [disabled]="hasInProgressEvents"><i class="fa fa-plus"></i>
     </button>
@@ -35,7 +34,6 @@
               placement="bottom"
               bsConfirm
               *ngIf="!hasInProgressEvents"
-              title="{{ 'T_ACTION_REMOVE' | translate }}"
               (confirm)="removeTemplate(template.templateId)"><i class="fa fa-trash"></i>&nbsp;{{ 'T_ACTION_REMOVE' | translate }}
             </button>
           </td>
