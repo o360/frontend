@@ -8,9 +8,10 @@
       (click)="selectUser(userObj)">
     <i [ngClass]="{'fa-check-circle-o' : userObj.isAnswered,
                    'fa-circle-o': !userObj.isAnswered}"
-       class="fa mr-h col-sm-1 pl-0"></i>
-    <span class="col-sm-9">{{ userObj.user.name }}</span>
-    <i *ngIf="!!selectedItem && selectedItem['user'].id === userObj.user.id" class="icon-arrow-right-circle pl-0 col-sm-1"></i>
+       class="fa col-sm-1 pl-0"></i>
+    <span class="col-sm-9 p-0">{{ userObj.user.name }}</span>
+    <i *ngIf="!!selectedItem && selectedItem['user'].id === userObj.user.id"
+       class="icon-arrow-right-circle col-sm-1"></i>
   </li>
 
   <!--Surveys-->
