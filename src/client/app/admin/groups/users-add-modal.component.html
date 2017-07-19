@@ -39,20 +39,20 @@
                 (click)="modal.hide();;">{{ 'T_ACTION_CANCEL' | translate }}
         </button>
 
-        <button type="submit"
-                role="button"
-                class="btn btn-primary"
-                (click)="submit();"
-                [disabled]="!selectedUsers.length">
-          {{ 'T_ACTION_ADD_SELECTED_USERS_TO_GROUP' | translate }}
-        </button>
-
         <button type="button"
                 role="button"
                 class="btn btn-primary"
                 (click)="addAll()"
                 [disabled]="!availableUsers.length || selectedUsers.length === availableUsers.length">
           {{ 'T_ACTION_SELECT_ALL_USERS_TO_GROUP' | translate }}
+        </button>
+
+        <button type="submit"
+                role="button"
+                class="btn btn-primary"
+                (click)="submit();"
+                [disabled]="!selectedUsers.length">
+          {{ 'T_ACTION_ADD_SELECTED_USERS_TO_GROUP' | translate }}
         </button>
       </div>
     </div>
