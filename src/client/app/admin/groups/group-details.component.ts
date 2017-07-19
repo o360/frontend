@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BreadcrumbService } from '../../core/services/breadcrumb.service';
 import { IBreadcrumb } from '../../core/components/breadcrumb/breadcrumb.component';
 import { NotificationService } from '../../core/services/notification.service';
+import { ModelId } from '../../core/models/model';
 
 @Component({
   moduleId: module.id,
@@ -21,6 +22,16 @@ export class GroupDetailsComponent extends DetailsComponent<GroupModel> {
     super(service, route, router, breadcrumbService, notificationService);
 
     this._returnPath = '/admin/groups';
+  }
+
+  public delete(id: ModelId) {
+    this._service.delete(id).subscribe(() => {
+      if(this._model.parentId) {
+        this._returnPath = `${'/admin/groups'}/${this._model.parentId}`;
+      }
+      this._router.navigate([this._returnPath]);
+      this._notificationService.success('T_SUCCESS_DELETED');
+    });
   }
 
   protected async _fillBreadcrumbs(model: GroupModel) {
