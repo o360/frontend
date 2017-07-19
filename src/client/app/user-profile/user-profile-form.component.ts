@@ -6,6 +6,7 @@ import { UserService } from '../core/services/user.service';
 import { FormComponent } from '../shared/components/form.component';
 import { NotificationService } from '../core/services/notification.service';
 import * as moment from 'moment-timezone';
+import { BreadcrumbService } from '../core/services/breadcrumb.service';
 
 @Component({
   moduleId: module.id,
@@ -29,8 +30,9 @@ export class UserProfileFormComponent extends FormComponent<UserModel> implement
               router: Router,
               route: ActivatedRoute,
               notificationService: NotificationService,
+              breadcrumbService: BreadcrumbService,
               protected _auth: AuthService) {
-    super(service, router, route, notificationService);
+    super(service, router, route, notificationService, breadcrumbService);
   }
 
   public ngOnInit() {
