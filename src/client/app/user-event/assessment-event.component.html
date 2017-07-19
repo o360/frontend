@@ -1,20 +1,21 @@
 <div *ngIf="isLoaded" [ngSwitch]="inline">
   <!--Inline forms-->
   <ng-template [ngSwitchCase]="true">
-    <div class="col-sm-3 pl-0">
-      <bs-search [items]="list"
-                 (itemsSearch)="userSearch($event)"></bs-search>
+    <div class="row">
+      <div class="col-4">
+        <bs-search [items]="list"
+                   (itemsSearch)="userSearch($event)"></bs-search>
+      </div>
     </div>
     <ul class="list-group">
-      <li class="list-group-item inline"
+      <li class="list-group-item row inline"
           *ngFor="let item of list">
-        <div class="col-sm-4 col-md-4 col-lg-3 pl-0">
+        <div class="col-4">
           <div class="inline-user">
             {{ item.user.name }}
           </div>
         </div>
-
-        <div class="col-sm-8 col-md-8 col-lg-9 pr-0">
+        <div class="col-8 pr-0">
           <div class="inline-form">
             <bs-user-assessment-form inline
                                      #formComponent
@@ -24,7 +25,6 @@
                                      [cleared]="cleared"
                                      [queryParams]="queryParams"
                                      (formChange)="formChanged($event);"></bs-user-assessment-form>
-
           </div>
         </div>
       </li>
@@ -50,12 +50,12 @@
   <ng-template ngSwitchDefault>
     <!--Classic-->
     <div class="row">
-      <div class="col-sm-4 col-md-4 col-lg-3">
+      <div class="col-md-4">
         <bs-assessment-object-list [list]="list"
                                    (selectedItemChange)="displayItem($event)"></bs-assessment-object-list>
       </div>
 
-      <div class="col-sm-8 col-md-8 col-lg-9"
+      <div class="col-md-8"
            *ngIf="assessmentObject"
            [ngSwitch]="assessmentObject.hasOwnProperty('forms')">
         <ng-template [ngSwitchCase]="true">
