@@ -32,6 +32,7 @@ import { UserEventModule } from './user-event/user-event.module';
       loadChildren: () => LoginModule
     }, {
       path: 'new',
+      canActivate: [AuthServiceLoader],
       loadChildren: () => RegistrationModule
     }])
   ],
