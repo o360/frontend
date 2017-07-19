@@ -113,13 +113,14 @@
           <label class="col-sm-5"
                  [ngClass]="{ 'required': element.required }">{{ element.caption }}</label>
           <div class="col-sm-7">
-            <div class="form-check form-check-inline ml-0 mr-1" *ngFor="let item of element.values; let j = index;">
+            <div class="form-check form-check-inline ml-0 mr-1"
+                 *ngFor="let item of element.values; let j = index;">
               <label class="custom-control custom-radio">
-                <input id="{{ element.id }}"
+                <input id="{{ element.id + '_' + j }}"
                        name="{{ element.id }}"
                        type="radio"
                        class="custom-control-input"
-                       [disabled]="status !== EventStatus.InProgress"
+                       [attr.disabled]="status !== EventStatus.InProgress || null"
                        [value]="item.id"
                        [required]="element.required"
                        [ngModel]="element.tempValue"
