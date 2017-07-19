@@ -33,9 +33,10 @@
             <button type="button"
                     role="button"
                     class="btn btn-sm btn-success ml-1"
-                    title="{{ 'T_ACTION_DETAILS' | translate }}"
+                    [tooltip]="'T_ACTION_DETAILS' | translate"
+                    placement="bottom"
                     [routerLink]="['/admin/projects/', projectId, 'relations', model.id]">
-              <i class="fa fa-hand-pointer-o"></i> {{ 'T_ACTION_DETAILS' | translate}}
+              <i class="fa fa-hand-pointer-o"></i>
             </button>
 
             <button type="button"

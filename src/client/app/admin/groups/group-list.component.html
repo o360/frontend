@@ -20,16 +20,15 @@
             class="btn btn-default mb-1"
             type="button"
             role="button"
-            title="{{ 'T_ACTION_EXPAND' | translate }}"
+            [tooltip]="innerGroupState ? ( 'T_ACTION_HIDE' | translate ) : ( 'T_ACTION_EXPAND' | translate )"
+            placement="bottom"
             (click)="changeInnerGroupState()">
       <span [ngSwitch]="innerGroupState">
           <ng-template [ngSwitchCase]="true">
-              {{ 'T_ACTION_HIDE' | translate }}
-              <i class="fa fa-chevron-up mr-h"></i>
+              <i class="fa fa-chevron-up"></i>
           </ng-template>
           <ng-template ngSwitchDefault>
-              {{ 'T_ACTION_EXPAND' | translate }}
-              <i class="fa fa-chevron-down mr-h"></i>
+              <i class="fa fa-chevron-down"></i>
           </ng-template>
       </span>
     </button>
@@ -63,7 +62,8 @@
                         role="button"
                         class="btn btn-sm btn-danger ml-1"
                         [tooltip]="'T_ACTION_DELETE' | translate"
-                        placement="bottom"                        bsConfirm
+                        placement="bottom"
+                        bsConfirm
                         [message]="'T_CONFIRM_MESSAGE_DELETE_GROUP' | translate"
                         (confirm)="delete(group.id)">
                   <i class="fa fa-trash"></i>

@@ -15,6 +15,16 @@
                   [routerLink]="['/admin/users/', model.id, 'edit']">
             <i class="fa fa-pencil"></i>
           </button>
+          <button type="button"
+                  role="button"
+                  class="btn btn-md btn-danger"
+                  [tooltip]="'T_ACTION_DELETE' | translate"
+                  placement="bottom"
+                  bsConfirm
+                  [message]="'T_CONFIRM_MESSAGE_DELETE_USER' | translate"
+                  (confirm)="delete(model.id)">
+            <i class="fa fa-trash"></i>
+          </button>
         </div>
       </div>
 
