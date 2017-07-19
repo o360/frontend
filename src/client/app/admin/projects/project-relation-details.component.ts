@@ -33,7 +33,7 @@ export class ProjectRelationDetailsComponent extends DetailsComponent<RelationMo
     this._projectService.get(model.projectId).subscribe((project: ProjectModel) => {
       let breadcrumbs = [];
 
-      breadcrumbs.push({ label: project.name, url: `${this._returnPath}` });
+      breadcrumbs.push({ label: project.name, url: `/admin/projects/${project.id}` });
       breadcrumbs.push({ label: 'T_PROJECT_RELATION_DETAILS' });
 
       this._breadcrumbService.overrideBreadcrumb(breadcrumbs);

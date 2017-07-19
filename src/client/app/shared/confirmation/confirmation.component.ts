@@ -58,6 +58,7 @@ export class ConfirmationModalComponent implements OnInit {
 
   public submit() {
     this._confirmed.next(true);
+    this._modal.hide();
   }
 
   public hide() {
