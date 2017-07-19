@@ -1,7 +1,7 @@
 <button class="btn btn-primary mb-1"
         *ngIf="event.status !== EventStatus.Completed"
         type="button"
-        [tooltip]="'T_ACTION_ADD_NEW_ASSESSMENT_EVENT_NOTIFICATIONS' | translate"
+        [tooltip]="'T_ACTION_ADD' | translate"
         placement="bottom"
         (click)="notificationsEditModal.show()">
   <i class="fa fa-plus"></i>
