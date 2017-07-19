@@ -55,7 +55,7 @@ export class NewAccountComponent {
   protected _setTimeZone() {
     if (this._user && (this._user.timezone === 'GMT' || this._user.timezone === 'Z' || !this._user.timezone)) {
       this._user.timezone = moment.tz.guess();
-      this.update();
+      this._userService.save(this._user).subscribe();
     }
   }
 }
