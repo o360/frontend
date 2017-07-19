@@ -5,6 +5,7 @@ import { FormService } from '../../core/services/form.service';
 import { NotificationService } from '../../core/services/notification.service';
 import { FormComponent } from '../../shared/components/form.component';
 import { AbstractControl, FormArray, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { BreadcrumbService } from '../../core/services/breadcrumb.service';
 
 export const RequireValue = (kind: string): boolean => {
   return [
@@ -70,8 +71,9 @@ export class FormBuilderComponent extends FormComponent<FormModel> implements On
               router: Router,
               route: ActivatedRoute,
               notificationService: NotificationService,
+              breadcrumbService: BreadcrumbService,
               protected _formBuilder: FormBuilder) {
-    super(service, router, route, notificationService);
+    super(service, router, route, notificationService, breadcrumbService);
 
     this._createForm();
   }
