@@ -28,7 +28,17 @@
                   class="btn btn-md btn-primary"
                   [disabled]="model.hasInProgressEvents"
                   [routerLink]="['/admin/projects/', model.projectId, 'relations', model.id, 'edit']">
-            {{ 'T_ACTION_EDIT' | translate }}
+            <i class="fa fa-pencil"></i>
+          </button>
+          <button type="button"
+                  role="button"
+                  class="btn btn-md btn-danger"
+                  [tooltip]="'T_ACTION_DELETE' | translate"
+                  placement="bottom"
+                  bsConfirm
+                  (confirm)="delete(model.id)"
+                  *ngIf="!model.hasInProgressEvents">
+            <i class="fa fa-trash"></i>
           </button>
         </div>
       </div>
