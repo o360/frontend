@@ -11,7 +11,7 @@
     <button class="btn btn-primary mb-1 mr-1"
             type="button"
             role="button"
-            [tooltip]="parentId !== 'null' ? ('T_ACTION_CREATE_CHILD_GROUP'| translate) : ('T_ACTION_CREATE' | translate )"
+            [tooltip]="'T_ACTION_CREATE' | translate"
             placement="right"
             [routerLink]="['/admin/groups/create', parentId!='null' ? { parentId: parentId } : {}]"><i class="fa fa-plus"></i>
     </button>
