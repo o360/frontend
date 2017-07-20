@@ -59,6 +59,11 @@ export class ProjectRelationFormComponent extends FormComponent<RelationModel> {
     super(service, router, route, notificationService, breadcrumbService);
   }
 
+  public save() {
+    this._returnPath = ['/admin/projects/', this._projectId.toString(), '/relations'];
+    super.save();
+  }
+
   protected _load() {
     Observable.forkJoin(
       this._groupService.list(),
@@ -86,11 +91,6 @@ export class ProjectRelationFormComponent extends FormComponent<RelationModel> {
     }
 
     super._processModel(model);
-  }
-
-  public save() {
-    this._returnPath = ['/admin/projects/', this._projectId.toString(), '/relations'];
-    super.save();
   }
 
   protected _fillBreadcrumbs(model: RelationModel) {

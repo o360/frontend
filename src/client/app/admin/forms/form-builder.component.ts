@@ -78,16 +78,6 @@ export class FormBuilderComponent extends FormComponent<FormModel> implements On
     this._createForm();
   }
 
-  protected _processModel(model: FormModel) {
-    super._processModel(model);
-
-    this._form.reset({
-      name: this._model.name,
-      showInAggregation: this._model.showInAggregation
-    });
-    this._setElements(this._model.elements);
-  }
-
   public save() {
     this._model = this._prepareSaveForm();
 
@@ -120,6 +110,16 @@ export class FormBuilderComponent extends FormComponent<FormModel> implements On
         showInAggregation: true
       },
       { validator: FormBuilderValidator });
+  }
+
+  protected _processModel(model: FormModel) {
+    super._processModel(model);
+
+    this._form.reset({
+      name: this._model.name,
+      showInAggregation: this._model.showInAggregation
+    });
+    this._setElements(this._model.elements);
   }
 
   protected _setElements(elements: FormElement[]) {

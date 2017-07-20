@@ -11,8 +11,8 @@ import { NotificationService } from '../../core/services/notification.service';
   templateUrl: 'project-relation-list.component.html'
 })
 export class ProjectRelationListComponent extends ListComponent<RelationModel> implements OnInit, OnChanges {
-  protected _projectId: string = 'null';
   private _hasInProgressEvents: boolean;
+  protected _projectId: string = 'null';
 
   @Input()
   public set projectId(value: string) {

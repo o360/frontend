@@ -80,27 +80,6 @@ export abstract class ListComponent<T extends Model> implements OnInit {
     });
   }
 
-  protected _processRequestParams(params: Params) {
-    if (!this._embedded) {
-      if (params['size']) {
-        this._queryParams.size = params['size'];
-      }
-
-      if (params['number']) {
-        this._queryParams.number = params['number'];
-      }
-    }
-
-    this._update();
-  }
-
-  protected _update() {
-    this._service.list(this._queryParams).subscribe((res: IListResponse<T>) => {
-      this._meta = res.meta;
-      this._list = res.data;
-    });
-  }
-
   public filterChange(value: IQueryParams) {
     let queryParams = Object.assign({}, value);
 
@@ -130,7 +109,7 @@ export abstract class ListComponent<T extends Model> implements OnInit {
     }
   }
 
-  protected  _backToTop() {
+  protected _backToTop() {
     let top: number;
 
     if (this._listName === 'table') {
@@ -140,5 +119,26 @@ export abstract class ListComponent<T extends Model> implements OnInit {
     }
 
     $(window).scrollTop(top);
+  }
+
+  protected _processRequestParams(params: Params) {
+    if (!this._embedded) {
+      if (params['size']) {
+        this._queryParams.size = params['size'];
+      }
+
+      if (params['number']) {
+        this._queryParams.number = params['number'];
+      }
+    }
+
+    this._update();
+  }
+
+  protected _update() {
+    this._service.list(this._queryParams).subscribe((res: IListResponse<T>) => {
+      this._meta = res.meta;
+      this._list = res.data;
+    });
   }
 }

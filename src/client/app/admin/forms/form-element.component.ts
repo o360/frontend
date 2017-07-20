@@ -12,10 +12,6 @@ import { IFormElementValue } from '../../core/models/form-model';
 export class FormBuilderElementComponent {
   protected _element: FormGroup;
 
-  public requireValue(kind: string) {
-    return RequireValue(kind);
-  }
-
   @Input()
   set element(value: FormGroup) {
     this._element = value;
@@ -26,6 +22,10 @@ export class FormBuilderElementComponent {
   }
 
   constructor(protected _formBuilder: FormBuilder) {
+  }
+
+  public requireValue(kind: string) {
+    return RequireValue(kind);
   }
 
   public addValue(caption: string) {
