@@ -45,12 +45,12 @@ export class NotificationService {
     this._toastsManager.info(this._translateText(messageText), this._translateText(titleText), this._customOptions);
   }
 
-  protected _translateText(text: string) {
-    return this._translate.instant(text);
-  }
-
   public clearAll() {
     return this._toastsManager.clearAllToasts();
+  }
+
+  protected _translateText(text: string) {
+    return this._translate.instant(text);
   }
 }
 

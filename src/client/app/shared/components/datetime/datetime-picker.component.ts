@@ -153,8 +153,6 @@ export class DateTimeComponent implements ControlValueAccessor, AfterViewInit, V
     return this._disable;
   }
 
-  protected _propagateChange: Function = () => ({});
-  protected _propagateTouch: Function = () => ({});
 
   constructor(protected _translateService: TranslateService) {
   }
@@ -235,4 +233,6 @@ export class DateTimeComponent implements ControlValueAccessor, AfterViewInit, V
     }
   }
 
+  protected _propagateChange: Function = () => ({});
+  protected _propagateTouch: Function = () => ({});
 }

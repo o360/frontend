@@ -1,6 +1,20 @@
 {
   "extends": "./tools/config/seed.tslint.json",
   "rules": {
-    "no-access-missing-member": false
+    "no-access-missing-member": false,
+    "member-ordering": [
+      true,
+      {
+        "order": [
+          "private-instance-field",
+          "protected-instance-field",
+          "public-instance-field",
+          "public-constructor",
+          "public-instance-method",
+          "private-instance-method",
+          "protected-instance-method"
+        ]
+      }
+    ]
   }
 }
