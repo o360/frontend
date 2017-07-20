@@ -27,6 +27,7 @@
               <input type="text" [(ngModel)]="filter.value" name="{{ filter.field }}" class="form-control" id="{{ filter.field }}">
               <button type="button"
                       role="button"
+                      [disabled]="!filter.value"
                       class="btn btn-sm"
                       (click)="resetFilter(filter)">
                 <i class="icon-reload"></i>
@@ -40,6 +41,7 @@
               <input type="text" [(ngModel)]="filter.value" name="{{ filter.field }}" class="form-control" id="{{ filter.field }}">
               <button type="button"
                       role="button"
+                      [disabled]="!filter.value"
                       class="btn btn-sm"
                       (click)="resetFilter(filter)">
                 <i class="icon-reload"></i>
@@ -58,6 +60,7 @@
               </select>
               <button type="button"
                       role="button"
+                      [disabled]="!filter.value"
                       class="btn btn-sm"
                       (click)="resetFilter(filter)">
                 <i class="icon-reload"></i>
@@ -66,15 +69,18 @@
           </ng-template>
         </div>
       </div>
+
       <div class="text-right">
         <button type="button"
                 role="button"
                 class="btn btn-sm btn-secondary"
+                [disabled]="!isFiltered"
                 (click)="reset();">
           {{ 'T_ACTION_RESET' | translate }}
         </button>
         <button type="submit"
                 class="btn btn-sm btn-primary ml-1"
+                [disabled]="!isFiltered"
                 role="button">
           {{ 'T_FILTER_APPLY' | translate }}
         </button>
