@@ -7,30 +7,37 @@
                    (itemsSearch)="userSearch($event)"></bs-search>
       </div>
     </div>
-    <ul class="list-group">
-      <li class="list-group-item row inline"
-          *ngFor="let item of list">
-        <div class="col-4">
-          <div class="inline-user" *ngIf="!!item.user">
-            {{ item.user.name }}
-          </div>
+    <ul class="list-group list-unstyled">
+      <li class="row inline"
+          *ngFor="let item of list"
+          [ngClass]="{ 'mb-1 align-items-baseline': item.forms.length > 1 }">
+        <div class="col-sm-4" [ngSwitch]="!!item.user">
+          <ng-template [ngSwitchCase]="true">
+            <div class="inline-user">
+              {{ item.user.name }}
+            </div>
+          </ng-template>
+          <ng-template ngSwitchDefault>
+            <b class="pl-1">{{ 'T_SURVEYS' | translate }}</b>
+          </ng-template>
         </div>
-        <div class="col-8 pr-0">
-          <div class="inline-form"
-               *ngFor="let form of item.forms">
-            <bs-user-assessment-form inline
-                                     #formComponent
-                                     [user]="!!item.user ? item.user : null"
-                                     [id]="form.form.id"
-                                     [status]="status"
-                                     [cleared]="cleared"
-                                     [queryParams]="queryParams"
-                                     (formChange)="formChanged($event);"></bs-user-assessment-form>
+        <div class="col-sm-8">
+          <div *ngFor="let form of item.forms">
+            <div [ngClass]="{ 'inline-form': item.forms.length > 1,
+                              'inline-like-dislikes': item.forms.length === 1 }">
+              <bs-user-assessment-form inline
+                                       #formComponent
+                                       [user]="!!item.user ? item.user : null"
+                                       [id]="form.form.id"
+                                       [status]="status"
+                                       [cleared]="cleared"
+                                       [queryParams]="queryParams"
+                                       (formChange)="formChanged($event);"></bs-user-assessment-form>
+            </div>
           </div>
         </div>
       </li>
     </ul>
-
     <div class="text-right mt-1" *ngIf="status === EventStatus.InProgress">
       <button type="button"
               class="btn btn-default mt-0"

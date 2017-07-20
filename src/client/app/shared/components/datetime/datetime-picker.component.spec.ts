@@ -34,7 +34,6 @@ export function main() {
       date = new Date('15.10.2018');
       comp.date = date;
       comp.value = date;
-      console.log(comp.id);
       expect(comp.date).toEqual(date);
     });
 

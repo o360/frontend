@@ -53,8 +53,12 @@ export class SearchComponent implements OnInit, OnDestroy {
     this._itemsSearch.emit(this._searchList);
 
     let items = this._list.filter((e: AssessmentModel) => {
-      return new RegExp(term, 'gi').test(e.user.name) ||
-        new RegExp(term, 'gi').test(Utils.transliterate(e.user.name));
+      if (e.user) {
+        return new RegExp(term, 'gi').test(e.user.name) ||
+          new RegExp(term, 'gi').test(Utils.transliterate(e.user.name));
+      } else {
+        return null;
+      }
     });
     return Observable.from(items);
   }
