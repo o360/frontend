@@ -112,11 +112,15 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
     this._service.list(this._queryParams).subscribe((res: IListResponse<AssessmentModel>) => {
       this._meta = res.meta;
       this._list = res.data;
-      this._list.forEach(assessment => {
-        assessment.isClassic = !!assessment.user;
-        assessment.isAnswered = !assessment.forms.find(x => !x.answers.length);
-        this._isClear = !assessment.isAnswered;
-      });
+      this._list
+        .sort(assessment => {
+          return !!assessment.user ? -1 : 1;
+        })
+        .forEach(assessment => {
+          assessment.isClassic = !!assessment.user;
+          assessment.isAnswered = !assessment.forms.find(x => !x.answers.length);
+          this._isClear = !assessment.isAnswered;
+        });
     });
   }
 
@@ -137,7 +141,11 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
   }
 
   public formChanged(value: any) {
-    let sameAnswer = this._answers.find(x => x.userId === value.userId);
+    let sameAnswer;
+
+    if (value) {
+      sameAnswer = this._answers.find(x => ((!x.userId || x.userId === value.userId) && x.form.formId === value.form.formId));
+    }
 
     if (sameAnswer) {
       let index = this._answers.indexOf(sameAnswer);

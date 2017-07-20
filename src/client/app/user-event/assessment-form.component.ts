@@ -111,7 +111,7 @@ export class UserAssessmentFormComponent implements OnInit, OnChanges {
 
   public ngOnChanges(changes: SimpleChanges): void {
     if (changes['cleared']) {
-      this._clearLikes();
+      this._clearInlineForm();
     }
   }
 
@@ -130,6 +130,8 @@ export class UserAssessmentFormComponent implements OnInit, OnChanges {
               elementAnswer.text = element.tempValue.text.toString();
             }
           }
+        } else {
+          elementAnswer.text = element.tempValue;
         }
       } else if (element.kind === FormElementType.Checkboxgroup) {
         elementAnswer.valuesIds = element.values.filter(x => x.tempValue).map(x => x.id);
@@ -149,10 +151,9 @@ export class UserAssessmentFormComponent implements OnInit, OnChanges {
       isAnswered: true
     });
 
-    if (this._user) {
+    if (this._user && this._assessment) {
       this._assessment.userId = this._user.id;
     }
-
     this._formChange.emit(this._assessment);
   }
 
@@ -211,29 +212,38 @@ export class UserAssessmentFormComponent implements OnInit, OnChanges {
     });
   }
 
-  protected _clearLikes() {
+  protected _clearInlineForm() {
     if (this._form) {
+      this._assessment = new AssessmentModel({ form: {} });
+      this._assessment.form.formId = this._id;
+      this._assessment.isAnswered = false;
+
       this._form.elements.forEach(element => {
-        if (element.tempValue) {
-          element.tempValue.elementId = element.id;
-          element.tempValue.valuesIds = [];
-          element.tempValue.text = null;
+          if (element.tempValue) {
+            if (element.kind === FormElementType.LikeDislike) {
+              element.tempValue.elementId = element.id;
+              element.tempValue.valuesIds = [];
+              element.tempValue.text = null;
 
-          this._assessment = new AssessmentModel({
-            form: {
-              formId: this._id,
-              answers: [element.tempValue]
-            },
-            isAnswered: false
-          });
+              this._assessment.form.answers = [element.tempValue];
+            } else {
+              element.tempValue = null;
+              this._assessment.form.answers = [];
+            }
+          } else {
+            if (element.kind === FormElementType.Checkboxgroup) {
+              element.values.forEach(v => v.tempValue = false);
+              this._assessment.form.answers = [];
+            }
 
-          if (this._user) {
-            this._assessment.userId = this._user.id;
+            if (this._user && this._assessment) {
+              this._assessment.userId = this._user.id;
+            }
+
+            this._formChange.emit(this._assessment);
           }
-
-          this._formChange.emit(this._assessment);
         }
-      });
+      );
     }
   }
 
