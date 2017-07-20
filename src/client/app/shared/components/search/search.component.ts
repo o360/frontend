@@ -10,12 +10,13 @@ import { Utils } from '../../../utils';
   templateUrl: 'search.component.html'
 })
 export class SearchComponent implements OnInit, OnDestroy {
-  protected _list: AssessmentModel[];
-  protected _searchSubscription: any;
   private _searchControl: FormControl = new FormControl();
   private _itemsSearch: EventEmitter<AssessmentModel[]> = new EventEmitter<AssessmentModel[]>();
   private _items: AssessmentModel[] = [];
   private _searchList: AssessmentModel[] = [];
+  protected _list: AssessmentModel[];
+  protected _searchSubscription: any;
+
 
   @Input()
   public set items(value: AssessmentModel[]) {

@@ -11,8 +11,8 @@ import { NotificationService } from '../../core/services/notification.service';
   templateUrl: 'child-group-list.component.html'
 })
 export class ChildGroupListComponent extends ListComponent<GroupModel> implements OnInit, OnChanges {
-  protected _parentId: string = 'null';
   private _innerGroupState: boolean = false;
+  protected _parentId: string = 'null';
 
   @Input()
   public set parentId(value: string) {
