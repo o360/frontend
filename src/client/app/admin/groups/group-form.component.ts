@@ -32,16 +32,19 @@ export class GroupFormComponent extends FormComponent<GroupModel> {
               router: Router,
               route: ActivatedRoute,
               notificationService: NotificationService,
-              breadcrumbService: BreadcrumbService ) {
+              breadcrumbService: BreadcrumbService) {
     super(service, router, route, notificationService, breadcrumbService);
   }
 
   protected _load() {
-    this._queryParams = Object.assign({}, { levels : '0' });
+    this._queryParams = Object.assign({}, { levels: '0' });
     this._service.list(this._queryParams).subscribe((res: IListResponse<GroupModel>) => {
       this._groups = res.data;
       super._load();
     });
+    if (this._parentId) {
+      this._service.get(this._parentId).subscribe((value: GroupModel) => this._groups.push(value));
+    }
   }
 
   protected _processRouteParams(params: Params) {
