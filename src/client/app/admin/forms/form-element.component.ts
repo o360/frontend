@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { RequireValue } from './form-builder.component';
-import { IFormElementValue } from '../../core/models/form-model';
+import { FormElementType, IFormElementValue } from '../../core/models/form-model';
 
 
 @Component({
@@ -13,12 +13,16 @@ export class FormBuilderElementComponent {
   protected _element: FormGroup;
 
   @Input()
-  set element(value: FormGroup) {
+  public set element(value: FormGroup) {
     this._element = value;
   }
 
-  get element(): FormGroup {
+  public get element(): FormGroup {
     return this._element;
+  }
+
+  public get FormElementType() {
+    return FormElementType;
   }
 
   constructor(protected _formBuilder: FormBuilder) {

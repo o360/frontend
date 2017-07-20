@@ -37,6 +37,10 @@ export class FiltersComponent {
     return FilterType;
   }
 
+  public get isFiltered() {
+    return !!this._filters.find(f => f.value);
+  }
+
   public apply() {
     let params = this._filters
       .filter(x => x.value !== undefined && x.value !== null)
