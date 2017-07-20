@@ -115,14 +115,6 @@ export class UserAssessmentFormComponent implements OnInit, OnChanges {
     }
   }
 
-  protected _update(): void {
-    this._formUsersService.get(this._id, this._queryParams).subscribe((form: FormModel) => {
-      this._form = form;
-
-      this._getAnswers();
-    });
-  }
-
   public onFormChange() {
     let answers = this._form.elements.map((element: FormElement) => {
       let elementAnswer: IElementAnswer = { elementId: element.id };
@@ -243,5 +235,13 @@ export class UserAssessmentFormComponent implements OnInit, OnChanges {
         }
       });
     }
+  }
+
+  protected _update(): void {
+    this._formUsersService.get(this._id, this._queryParams).subscribe((form: FormModel) => {
+      this._form = form;
+
+      this._getAnswers();
+    });
   }
 }
