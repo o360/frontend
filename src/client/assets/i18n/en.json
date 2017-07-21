@@ -104,6 +104,7 @@
   "T_CONFIRM_MESSAGE_DELETE_PROJECT": "Are you sure you want to delete this project?",
   "T_CONFIRM_MESSAGE_DELETE_TEMPLATE": "Are you sure you want to delete this email template?",
   "T_CONFIRM_MESSAGE_DELETE_FORM": "Are you sure you want to delete this form template?",
+  "T_CONFIRM_SAVE_CANREVOTE_FORM": "You could not revote this form, are you sure you want to send these answers?",
   "T_PAGINATION_ITEMS_PER_PAGE": "Items per page",
   "T_GROUP_NAME": "Group name",
   "T_GROUP_DETAILS": "Details of group",
