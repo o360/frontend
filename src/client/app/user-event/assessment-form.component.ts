@@ -24,6 +24,8 @@ export class UserAssessmentFormComponent implements OnInit, OnChanges {
   protected _formChange: EventEmitter<AssessmentModel> = new EventEmitter<AssessmentModel>();
   protected _formSave: EventEmitter<AssessmentModel> = new EventEmitter<AssessmentModel>();
   protected _inline: boolean = false;
+  protected _canRevote: boolean;
+  protected _isAnswered: boolean = false;
   protected _status: string;
   protected _assessment: AssessmentModel;
   protected _cleared: number;
@@ -96,8 +98,26 @@ export class UserAssessmentFormComponent implements OnInit, OnChanges {
     return this._inline;
   }
 
+  public get canRevote(): boolean {
+    return this._canRevote;
+  }
+
+  @Input()
+  public set canRevote(value: boolean) {
+    this._canRevote = value;
+  }
+
   public get assessment(): AssessmentModel {
     return this._assessment;
+  }
+
+  public get isAnswered(): boolean {
+    return this._isAnswered;
+  }
+
+  @Input()
+  public set isAnswered(value: boolean) {
+    this._isAnswered = value;
   }
 
   constructor(protected _assessmentService: AssessmentService,
@@ -161,6 +181,7 @@ export class UserAssessmentFormComponent implements OnInit, OnChanges {
     this._assessmentService.save(this._assessment, this._queryParams).subscribe(() => {
       this._notificationService.success('T_SUCCESS_SAVED');
       this._formSave.emit();
+      this._isAnswered = true;
     });
   }
 
@@ -177,7 +198,9 @@ export class UserAssessmentFormComponent implements OnInit, OnChanges {
           .find(x => x.form.id === this._form.id);
       }
 
-      this._answers = currentForm.answers;
+      if (currentForm) {
+        this._answers = currentForm.answers;
+      }
 
       if (this._answers) {
         this._answers.forEach(answer => {
