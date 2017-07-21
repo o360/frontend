@@ -61,12 +61,10 @@ export class UsersAddModalComponent implements OnInit {
     this._users = value;
   }
 
-  constructor(
-    private _userService: UserService,
-    private _groupService: GroupService,
-    private _notificationService: NotificationService,
-    private _translate: TranslateService
-  ) {
+  constructor(private _userService: UserService,
+              private _groupService: GroupService,
+              private _notificationService: NotificationService,
+              private _translate: TranslateService) {
   }
 
   public ngOnInit() {
@@ -93,9 +91,11 @@ export class UsersAddModalComponent implements OnInit {
   }
 
   public submit() {
-    let transaction = this._selectedUsers.map(userId => this._groupService.addUser(this._groupId, userId));
+    let transaction = this._selectedUsers.map(user => {
+      return { groupId: this._groupId, userId: +user };
+    });
 
-    Observable.forkJoin(transaction).subscribe(() => {
+    this._groupService.addUsers(transaction).subscribe(() => {
       this._modal.hide();
       this._usersAdded.emit(this._selectedUsers);
       this._notificationService.success('T_USERS_ADDED_TO_GROUP');
