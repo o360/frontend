@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap';
 import { Subject } from 'rxjs/Subject';
-import { ConfirmationService, IConflicts } from '../../core/services/confirmation.service';
+import { IConflicts } from '../../core/services/confirmation.service';
 
 @Component({
   moduleId: module.id,
