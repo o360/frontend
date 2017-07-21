@@ -31,6 +31,8 @@
                                        [id]="form.form.id"
                                        [status]="status"
                                        [cleared]="cleared"
+                                       [isAnswered]="isAnswered"
+                                       [canRevote]="project.canRevote"
                                        [queryParams]="queryParams"
                                        (formChange)="formChanged($event);"></bs-user-assessment-form>
             </div>
@@ -38,23 +40,35 @@
         </div>
       </li>
     </ul>
-    <div class="text-right mt-1" *ngIf="status === EventStatus.InProgress">
+    <div class="text-right mt-1" *ngIf="status === EventStatus.InProgress" [ngSwitch]="project.canRevote">
       <button type="button"
               class="btn btn-default mt-0"
-              [disabled]="!answers.length || isClear"
+              [disabled]="!answers.length || isClear || (!project.canRevote && isAnswered)"
               (click)="clear();">
         {{ 'T_ACTION_CLEAR' | translate }}
       </button>
-      <button type="submit"
-              role="button"
-              class="btn btn-primary mt-0"
-              [disabled]="!answers.length"
-              (click)="save();">
-        {{ 'T_ACTION_SAVE' | translate }}
-      </button>
+      <ng-template [ngSwitchCase]="true">
+        <button type="submit"
+                role="button"
+                class="btn btn-primary mt-0"
+                [disabled]="!answers.length || (!project.canRevote && isAnswered)"
+                (click)="save();">
+          {{ 'T_ACTION_SAVE' | translate }}
+        </button>
+      </ng-template>
+      <ng-template ngSwitchDefault>
+        <button type="submit"
+                role="button"
+                class="btn btn-primary mt-0"
+                [disabled]="!answers.length || (!project.canRevote && isAnswered)"
+                bsConfirm
+                [message]="'T_CONFIRM_SAVE_CANREVOTE_FORM' | translate"
+                (confirm)="save();">
+          {{ 'T_ACTION_SAVE' | translate }}
+        </button>
+      </ng-template>
     </div>
   </ng-template>
-
   <ng-template ngSwitchDefault>
     <!--Classic-->
     <div class="row">
@@ -76,6 +90,8 @@
                                        #formComponent
                                        [id]="formObj.form.id"
                                        [status]="status"
+                                       [canRevote]="project.canRevote"
+                                       [isAnswered]="assessmentObject.isAnswered"
                                        [queryParams]="queryParams"
                                        (formSave)="formSaved()"
                                        (formChange)="formChanged($event);"></bs-user-assessment-form>
@@ -89,9 +105,12 @@
               <ng-template tabHeading>
                 {{ assessmentObject.form.name }}
               </ng-template>
+
               <bs-user-assessment-form [id]="assessmentObject.form.id"
                                        #formComponent
                                        [status]="status"
+                                       [isAnswered]="!!assessmentObject.answers.length"
+                                       [canRevote]="project.canRevote"
                                        [queryParams]="queryParams"
                                        (formSave)="formSaved()"
                                        (formChange)="formChanged($event);"></bs-user-assessment-form>
