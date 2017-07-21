@@ -10,6 +10,7 @@ import { ListComponent } from '../shared/components/list.component';
 import { AssessmentObject } from './assessment-object-list.component';
 import { EventService } from '../core/services/event.service';
 import { EventStatus } from '../core/models/event-model';
+import { ProjectModel } from '../core/models/project-model';
 
 @Component({
   moduleId: module.id,
@@ -17,7 +18,7 @@ import { EventStatus } from '../core/models/event-model';
   templateUrl: 'assessment-event.component.html'
 })
 export class AssessmentEventComponent extends ListComponent<AssessmentModel> implements OnInit, OnChanges {
-  protected _projectId: ModelId;
+  protected _project: ProjectModel;
   protected _eventId: ModelId;
   protected _forms: FormModel[];
   protected _answers: AssessmentModel[] = [];
@@ -28,14 +29,15 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
   protected _status: string;
   protected _cleared: number = 0;
   protected _isClear: boolean = true;
+  protected _isAnswered: boolean = false;
 
   @Input()
-  public set projectId(value: ModelId) {
-    this._projectId = value;
+  public set project(value: ProjectModel) {
+    this._project = value;
   }
 
-  public get projectId(): ModelId {
-    return this._projectId;
+  public get project(): ProjectModel {
+    return this._project;
   }
 
   @Input()
@@ -89,6 +91,10 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
     return this._cleared;
   }
 
+  public get isAnswered(): boolean {
+    return this._isAnswered;
+  }
+
   constructor(service: AssessmentService,
               activatedRoute: ActivatedRoute,
               router: Router,
@@ -99,7 +105,7 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
 
   public ngOnInit() {
     this._queryParams.eventId = this._eventId.toString();
-    this._queryParams.projectId = this._projectId.toString();
+    this._queryParams.projectId = this._project.id.toString();
 
     this._eventService.get(this._eventId).subscribe(event => this._status = event.status);
 
@@ -121,6 +127,7 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
           assessment.isAnswered = !assessment.forms.find(x => !x.answers.length);
           this._isClear = !assessment.isAnswered;
         });
+      this._isAnswered = !!this._list.find(x => x.isAnswered);
     });
   }
 
@@ -128,7 +135,7 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
     if (changes['projectId']) {
       Object.assign(this._queryParams, {
         eventId: this._eventId.toString(),
-        projectId: this._projectId.toString()
+        projectId: this._project.id.toString()
       });
       this._update();
     }
@@ -160,11 +167,12 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
   public save() {
     let postQueryParams: IQueryParams = {
       eventId: this._eventId.toString(),
-      projectId: this._projectId.toString()
+      projectId: this._project.id.toString()
     };
 
     (<AssessmentService>this._service).saveBulk(this._answers, postQueryParams).subscribe(() => {
       this._notificationService.success('T_SUCCESS_SAVED');
+      this._isAnswered = true;
     });
   }
 

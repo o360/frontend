@@ -1,6 +1,5 @@
 <div *ngIf="form">
-  <form #assessmentForm="ngForm"
-        (ngSubmit)="save()">
+  <form #assessmentForm="ngForm">
     <ng-container *ngFor="let element of form.elements;"
                   [ngSwitch]="element.kind">
 
@@ -10,7 +9,7 @@
                            #likeDislike="ngModel"
                            [user]="user"
                            [element]="element"
-                           [disabled]="status !== EventStatus.InProgress"
+                           [disabled]="status !== EventStatus.InProgress || (!canRevote && isAnswered)"
                            [ngModel]="element.tempValue"
                            (ngModelChange)="element.tempValue = $event; onFormChange();"></bs-likes-dislikes>
       </ng-template>
@@ -30,7 +29,7 @@
                        id="{{ item.id }}"
                        type="checkbox"
                        class="custom-control-input"
-                       [disabled]="status !== EventStatus.InProgress"
+                       [disabled]="status !== EventStatus.InProgress || (!canRevote && isAnswered)"
                        [ngModel]="item.tempValue"
                        (ngModelChange)="item.tempValue = $event; onFormChange();">
                 <span class="custom-control-indicator"></span>
@@ -59,8 +58,8 @@
                      #checkbox="ngModel"
                      [ngModel]="element.tempValue"
                      (ngModelChange)="element.tempValue = $event; onFormChange();"
-                     [required]="element.required"                     [disabled]="status !== EventStatus.InProgress"
-                     [disabled]="status !== EventStatus.InProgress">
+                     [required]="element.required" [disabled]="status !== EventStatus.InProgress"
+                     [disabled]="status !== EventStatus.InProgress || (!canRevote && isAnswered)">
               <span class="custom-control-indicator"></span>
             </label>
 
@@ -77,7 +76,7 @@
       <!-- Select -->
       <ng-template [ngSwitchCase]="FormElementType.Select">
         <div class="form-group row mb-1"
-             [ngClass]="{'has-success': select.valid, 'has-danger': !select.valid && select.touched }">
+             [ngClass]="{'has-success': select.valid, 'has-danger': !!select.errors && select.touched }">
           <label class="col-sm-5"
                  [ngClass]="{ 'required': element.required }">
             {{ element.caption }}
@@ -87,7 +86,7 @@
                     id="{{ element.id }}"
                     class="form-control custom-select"
                     #select="ngModel"
-                    [disabled]="status !== EventStatus.InProgress"
+                    [disabled]="status !== EventStatus.InProgress || (!canRevote && isAnswered)"
                     [required]="element.required"
                     [ngModel]="element.tempValue"
                     (ngModelChange)="element.tempValue = $event; onFormChange();">
@@ -120,8 +119,8 @@
                        name="{{ element.id }}"
                        type="radio"
                        class="custom-control-input"
-                       [attr.disabled]="status !== EventStatus.InProgress || null"
                        [value]="item.id"
+                       [attr.disabled]="status !== EventStatus.InProgress || (!canRevote && isAnswered) || null"
                        [required]="element.required"
                        [ngModel]="element.tempValue"
                        (ngModelChange)="element.tempValue = $event; onFormChange();">
@@ -137,7 +136,7 @@
       <!-- Textarea -->
       <ng-template [ngSwitchCase]="FormElementType.Textarea">
         <div class="form-group row mb-1"
-             [ngClass]="{'has-success': textarea.valid && textarea.touched , 'has-danger': !textarea.valid && textarea.touched }">
+             [ngClass]="{'has-success': textarea.valid && textarea.touched , 'has-danger': !!textarea.errors && textarea.touched }">
           <label class="col-sm-5"
                  for="{{ element.id }}"
                  [ngClass]="{'required': element.required === true}">
@@ -149,7 +148,7 @@
                       id="{{ element.id }}"
                       rows="3"
                       #textarea="ngModel"
-                      [disabled]="status !== EventStatus.InProgress"
+                      [disabled]="status !== EventStatus.InProgress || (!canRevote && isAnswered)"
                       [required]="element.required"
                       [ngModel]="element.tempValue"
                       (ngModelChange)="element.tempValue = $event; onFormChange();">
@@ -168,7 +167,7 @@
       <!-- Textfield -->
       <ng-template [ngSwitchCase]="FormElementType.Textfield">
         <div class="form-group row mb-1"
-             [ngClass]="{'has-success': textfield.valid && textfield.touched , 'has-danger': !textfield.valid && textfield.touched }">
+             [ngClass]="{'has-success': textfield.valid && textfield.touched , 'has-danger': !!textfield.errors && textfield.touched }">
           <label class="col-sm-5"
                  for="{{ element.id }}"
                  [ngClass]="{ 'required': element.required }">
@@ -180,7 +179,7 @@
                    class="form-control"
                    id="{{ element.id }}"
                    #textfield="ngModel"
-                   [disabled]="status !== EventStatus.InProgress"
+                   [disabled]="status !== EventStatus.InProgress || (!canRevote && isAnswered)"
                    [required]="element.required"
                    [ngModel]="element.tempValue"
                    (ngModelChange)="element.tempValue = $event; onFormChange();">
@@ -214,7 +213,7 @@
                    placeholder="{{ element.value }}"
                    value="{{ element.value }}"
                    #input="ngModel"
-                   [disabled]="status !== EventStatus.InProgress"
+                   [disabled]="status !== EventStatus.InProgress || (!canRevote && isAnswered)"
                    [required]="element.required"
                    [ngModel]="element.tempValue"
                    (ngModelChange)="element.tempValue = $event; onFormChange();"
@@ -230,19 +229,32 @@
         </div>
       </ng-template>
     </ng-container>
-
-    <div class="text-right" *ngIf="status === EventStatus.InProgress && !inline">
+    <div class="text-right" *ngIf="(status === EventStatus.InProgress && !inline)" [ngSwitch]="canRevote">
       <button type="button"
               (click)="assessmentForm.reset()"
               class="btn btn-default mt-0"
-              [disabled]="assessmentForm.pristine">
+              [disabled]="assessmentForm.pristine ||  (!canRevote && isAnswered)">
         {{ 'T_ACTION_CLEAR' | translate }}
       </button>
-      <button type="submit"
-              class="btn btn-primary mt-0"
-              [disabled]="!assessmentForm.valid || !assessment">
-        {{ 'T_ACTION_SAVE' | translate }}
-      </button>
+
+      <ng-template [ngSwitchCase]="true">
+        <button type="submit"
+                (click)="save()"
+                class="btn btn-primary mt-0"
+                [disabled]="!assessmentForm.valid || !assessment">
+          {{ 'T_ACTION_SAVE' | translate }}
+        </button>
+      </ng-template>
+      <ng-template ngSwitchDefault>
+        <button type="submit"
+                (confirm)="save()"
+                bsConfirm
+                [message]="'T_CONFIRM_SAVE_CANREVOTE_FORM' | translate"
+                class="btn btn-primary mt-0"
+                [disabled]="!assessmentForm.valid || !assessment || (!canRevote && isAnswered)">
+          {{ 'T_ACTION_SAVE' | translate }}
+        </button>
+      </ng-template>
     </div>
   </form>
 </div>

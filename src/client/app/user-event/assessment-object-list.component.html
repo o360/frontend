@@ -15,7 +15,10 @@
   </li>
 
   <!--Surveys-->
-  <li class="mt-2 mb-h list-unstyled"><b>{{ 'T_SURVEYS' | translate }}</b></li>
+  <li *ngIf="!!surveys.length"
+      class="mt-2 mb-h list-unstyled">
+    <b>{{ 'T_SURVEYS' | translate }}</b>
+  </li>
   <ng-container *ngFor="let survey of surveys">
     <li class="list-group-item custom-item"
         *ngFor="let formObj of survey.forms"

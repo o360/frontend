@@ -3,7 +3,7 @@
   <tab *ngFor="let project of list;"
        heading="{{ project.name }}" [ngSwitch]="project.formsOnSamePage">
     <bs-user-assessment-event [inline]="project.formsOnSamePage"
-                              [projectId]="project.id"
+                              [project]="project"
                               [eventId]="eventId"
                               (answersChange)="answerChanged()"></bs-user-assessment-event>
   </tab>
