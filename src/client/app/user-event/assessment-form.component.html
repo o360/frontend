@@ -229,32 +229,19 @@
         </div>
       </ng-template>
     </ng-container>
-    <div class="text-right" *ngIf="(status === EventStatus.InProgress && !inline)" [ngSwitch]="canRevote">
+    <div class="text-right" *ngIf="(status === EventStatus.InProgress && !inline)">
       <button type="button"
               (click)="assessmentForm.reset()"
               class="btn btn-default mt-0"
               [disabled]="assessmentForm.pristine ||  (!canRevote && isAnswered)">
         {{ 'T_ACTION_CLEAR' | translate }}
       </button>
-
-      <ng-template [ngSwitchCase]="true">
-        <button type="submit"
-                (click)="save()"
-                class="btn btn-primary mt-0"
-                [disabled]="!assessmentForm.valid || !assessment">
-          {{ 'T_ACTION_SAVE' | translate }}
-        </button>
-      </ng-template>
-      <ng-template ngSwitchDefault>
-        <button type="submit"
-                (confirm)="save()"
-                bsConfirm
-                [message]="'T_CONFIRM_SAVE_CANREVOTE_FORM' | translate"
-                class="btn btn-primary mt-0"
-                [disabled]="!assessmentForm.valid || !assessment || (!canRevote && isAnswered)">
-          {{ 'T_ACTION_SAVE' | translate }}
-        </button>
-      </ng-template>
+      <button type="submit"
+              (click)="save()"
+              class="btn btn-primary mt-0"
+              [disabled]="!assessmentForm.valid || !assessment">
+        {{ 'T_ACTION_SAVE' | translate }}
+      </button>
     </div>
   </form>
 </div>

@@ -40,14 +40,13 @@
         </div>
       </li>
     </ul>
-    <div class="text-right mt-1" *ngIf="status === EventStatus.InProgress" [ngSwitch]="project.canRevote">
+    <div class="text-right mt-1" *ngIf="status === EventStatus.InProgress">
       <button type="button"
               class="btn btn-default mt-0"
               [disabled]="!answers.length || isClear || (!project.canRevote && isAnswered)"
               (click)="clear();">
         {{ 'T_ACTION_CLEAR' | translate }}
       </button>
-      <ng-template [ngSwitchCase]="true">
         <button type="submit"
                 role="button"
                 class="btn btn-primary mt-0"
@@ -55,18 +54,6 @@
                 (click)="save();">
           {{ 'T_ACTION_SAVE' | translate }}
         </button>
-      </ng-template>
-      <ng-template ngSwitchDefault>
-        <button type="submit"
-                role="button"
-                class="btn btn-primary mt-0"
-                [disabled]="!answers.length || (!project.canRevote && isAnswered)"
-                bsConfirm
-                [message]="'T_CONFIRM_SAVE_CANREVOTE_FORM' | translate"
-                (confirm)="save();">
-          {{ 'T_ACTION_SAVE' | translate }}
-        </button>
-      </ng-template>
     </div>
   </ng-template>
   <ng-template ngSwitchDefault>
