@@ -239,7 +239,7 @@
       <button type="submit"
               (click)="save()"
               class="btn btn-primary mt-0"
-              [disabled]="!assessmentForm.valid || !assessment">
+              [disabled]="!assessmentForm.valid || !assessment ||  (!canRevote && isAnswered)">
         {{ 'T_ACTION_SAVE' | translate }}
       </button>
     </div>
