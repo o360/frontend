@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { RestServiceConfig } from '../decorators/rest-service-config.decorator';
 import { IQueryParams, RestService } from './rest.service';
 import { AssessmentModel } from '../models/assessment-model';
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
 import { Response } from '@angular/http';
 
 @Injectable()
