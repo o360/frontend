@@ -3,7 +3,7 @@ import { RestServiceConfig } from '../decorators/rest-service-config.decorator';
 import { RestService } from './rest.service';
 import { EventModel } from '../models/event-model';
 import { ModelId } from '../models/model';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
 import { Http, Response } from '@angular/http';
 import { AuthService } from './auth.service';
 import { NotificationService } from './notification.service';
