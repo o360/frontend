@@ -1,0 +1,22 @@
+image: node:6.11.2-wheezy
+
+stages:
+  - packages
+  - lint
+  - test
+
+before_script:
+  - ln -s /node_modules node_modules
+
+packages:
+  stage: packages
+  script: "yarn install && npm rebuild node-sass"
+
+lint:
+  stage: lint
+  script: "yarn run lint"
+
+test:
+  stage: test
+  script: "yarn run test"
+  coverage: '/Statements\s*:\s*([^%]+)/'
