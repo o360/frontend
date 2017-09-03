@@ -14,7 +14,7 @@ import { Task } from '../../tasks/task';
  * @param {string} path - The path to load the tasks from.
  */
 export function loadTasks(path: string): void {
-  util.log('Loading tasks folder', util.colors.yellow(path));
+  // util.log('Loading tasks folder', util.colors.yellow(path));
   readDir(path, taskname => registerTask(taskname, path));
 }
 
@@ -135,7 +135,7 @@ function normalizeTask(task: any, taskName: string) {
  */
 function registerTask(taskname: string, path: string): void {
   const TASK = join(path, taskname);
-  util.log('Registering task', util.colors.yellow(tildify(TASK)));
+  // util.log('Registering task', util.colors.yellow(tildify(TASK)));
 
   gulp.task(taskname, (done: any) => {
     const task = normalizeTask(require(TASK), TASK);

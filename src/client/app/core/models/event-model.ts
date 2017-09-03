@@ -14,7 +14,7 @@ export class EventModel extends Model {
   public notifications: IEventNotification[];
 
 
-  constructor(json: Object) {
+  constructor(json?: Object) {
     super(json);
     if (!this.start) {
       this.start = moment().add(1, 'hour');

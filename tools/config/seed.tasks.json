@@ -30,7 +30,6 @@
     "initialize",
     "check.tools",
     "clean.prod",
-    "tslint",
     "build.assets.prod",
     "build.fonts",
     "build.html_css",
@@ -40,14 +39,14 @@
     "build.bundles.app",
     "minify.bundles",
     "build.index.prod",
-    "sw.manifest.static"
+    "sw.manifest.static",
+    "minify.index"
   ],
 
   "build.prod.aot": [
     "initialize",
     "check.tools",
     "clean.prod",
-    "tslint",
     "build.assets.prod",
     "build.fonts",
     "build.html_css",
@@ -58,14 +57,14 @@
     "build.bundles.app.aot",
     "minify.bundles",
     "build.index.prod",
-    "sw.manifest.static"
+    "sw.manifest.static",
+    "minify.index"
   ],
 
   "build.prod.rollup.aot": [
     "initialize",
     "check.tools",
     "clean.prod",
-    "tslint",
     "build.assets.prod",
     "build.fonts",
     "build.html_css",
@@ -77,7 +76,8 @@
     "transpile.bundles.rollup.aot",
     "minify.bundles",
     "build.index.prod",
-    "sw.manifest.static"
+    "sw.manifest.static",
+    "minify.index"
   ],
 
   "build.test": [
@@ -90,12 +90,6 @@
     "build.js.test",
     "build.index.dev",
     "sw.manifest.static"
-  ],
-
-  "test.watch": [
-    "build.test",
-    "watch.test",
-    "karma.watch"
   ],
 
   "serve.dev": [
@@ -126,6 +120,21 @@
   "serve.prod.rollup.aot": [
     "build.prod.rollup.aot",
     "server.prod"
+  ],
+
+  "sme.prod": [
+    "build.prod",
+    "build.sme.prod"
+  ],
+
+  "sme.prod.aot": [
+    "build.prod.aot",
+    "build.sme.prod.aot"
+  ],
+
+  "sme.prod.rollup.aot": [
+    "build.prod.rollup.aot",
+    "build.sme.prod.rollup.aot"
   ],
 
   "test": [

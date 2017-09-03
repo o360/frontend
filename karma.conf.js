@@ -50,7 +50,6 @@ module.exports = function (config) {
       { pattern: 'dist/dev/**/*.js', included: false, watched: true },
       { pattern: 'dist/dev/**/*.html', included: false, watched: true, served: true },
       { pattern: 'dist/dev/**/*.css', included: false, watched: true, served: true },
-      { pattern: 'node_modules/systemjs/dist/system-polyfills.js', included: false, watched: false }, // PhantomJS2 (and possibly others) might require it
 
       // suppress annoying 404 warnings for resources, images, etc.
       { pattern: 'dist/dev/assets/**/*', watched: false, included: false, served: true },
@@ -63,7 +62,7 @@ module.exports = function (config) {
 
 
       'test-config.js',
-      'dist/dev/app/system-config.js',
+      'dist/dev/system-config.js',
       'test-main.js'
     ],
 
@@ -107,7 +106,7 @@ module.exports = function (config) {
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
     browsers: [
-      'Chrome'
+      'PhantomJS2'
     ],
 
 
@@ -121,6 +120,7 @@ module.exports = function (config) {
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
     singleRun: false,
+    browserNoActivityTimeout: 90000,
 
     // Passing command line arguments to tests
     client: {

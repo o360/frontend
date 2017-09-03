@@ -37,15 +37,15 @@
       </div>
       <div class="row">
         <div class="col-md-3">
-          <small class="text-muted">{{ 'T_EVENT_START' | translate}}</small>
+          <small class="text-muted">{{ 'T_EVENT_START' | translate }}</small>
           <div class="h6">{{ model.start | dateFormat }}</div>
         </div>
         <div class="col-md-3">
-          <small class="text-muted">{{ 'T_EVENT_END' | translate}}</small>
+          <small class="text-muted">{{ 'T_EVENT_END' | translate }}</small>
           <div class="h6">{{ model.end | dateFormat }}</div>
         </div>
         <div class="col-md-3">
-          <small class="text-muted">{{ 'T_EVENT_STATUS' | translate}}</small>
+          <small class="text-muted">{{ 'T_EVENT_STATUS' | translate }}</small>
           <div class="h6">
           <span class="badge badge-pill"
                 [ngClass]="{'badge-primary': model.status === EventStatus.NotStarted,
@@ -59,7 +59,7 @@
       </div>
       <div class="row mt-1">
         <div class="col-md-6">
-          <small class="text-muted">{{ 'T_EVENT_DESCRIPTION' | translate}}</small>
+          <small class="text-muted">{{ 'T_EVENT_DESCRIPTION' | translate }}</small>
           <div class="h6" *ngIf="!!model.description">{{ model.description }}</div>
           <div class="h6" *ngIf="!model.description">{{ 'T_EVENT_NO_DESCRIPTION' | translate }}</div>
         </div>
