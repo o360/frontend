@@ -46,5 +46,5 @@ export abstract class DetailsComponent<T extends Model> implements OnInit {
     if (model.hasOwnProperty('name')) {
       this._breadcrumbService.overrideBreadcrumb([{ label: (<any>model).name }]);
     }
-  };
+  }
 }
