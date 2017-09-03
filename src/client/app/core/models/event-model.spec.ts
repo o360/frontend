@@ -1,10 +1,4 @@
-import { Defaults } from '../decorators/defaults.decorator';
 import { EventModel } from './event-model';
-import * as moment from 'moment';
-
-@Defaults({
-  notifications: []
-})
 
 export function main() {
   describe('EventModel class', () => {
