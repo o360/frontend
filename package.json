@@ -165,6 +165,7 @@
     "font-awesome": "^4.7.0",
     "intl": "^1.2.5",
     "jquery": "^3.2.1",
+    "karma-phantomjs2-launcher": "^0.5.0",
     "moment": "^2.18.1",
     "moment-timezone": "^0.5.13",
     "ng2-ckeditor": "^1.1.7",

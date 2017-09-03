@@ -648,11 +648,12 @@ export class SeedConfig {
   getKarmaReporters(): any {
     return {
       preprocessors: {
-        'dist/**/!(*spec|index|*.module|*.routes).js': ['coverage']
+        'dist/*/!(assets)/**/!(*spec).js': ['coverage']
       },
       reporters: ['mocha', 'coverage', 'karma-remap-istanbul'],
       coverageReporter: {
         dir: this.COVERAGE_DIR + '/',
+        includeAllSources: true,
         reporters: [
           { type: 'json', subdir: '.', file: 'coverage-final.json' },
           { type: 'html', subdir: '.' }
@@ -660,6 +661,7 @@ export class SeedConfig {
       },
       remapIstanbulReporter: {
         reports: {
+          'text-summary': null,
           html: this.COVERAGE_TS_DIR
         }
       }
