@@ -141,8 +141,8 @@
         <!--For textfield-->
         <ng-template [ngSwitchCase]="FormElementType.Textfield">
           <label class="col-form-label col-sm-3" for="{{ element.id }}"
-                 [ngClass]="{'required': element.required === true}">{{
-            element.caption}}</label>
+                 [ngClass]="{'required': element.required === true}">
+            {{ element.caption }}</label>
           <div class="col-sm-9">
             <input name="{{ element.id }}"
                    type="text"

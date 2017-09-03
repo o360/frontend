@@ -1,5 +1,5 @@
 <div class="card" *ngIf="isLoaded">
-  <div class="card-header"><b>{{'T_PROFILE_SETTINGS' | translate}}</b></div>
+  <div class="card-header"><b>{{ 'T_PROFILE_SETTINGS' | translate }}</b></div>
 
   <div class="card-block">
     <form (ngSubmit)="save(); userForm.reset()" #userForm="ngForm">
@@ -94,7 +94,7 @@
                 role="button"
                 class="btn btn-primary"
                 [disabled]="!userForm.valid">
-          {{'T_ACTION_UPDATE' | translate}}
+          {{ 'T_ACTION_UPDATE' | translate }}
         </button>
       </div>
     </form>

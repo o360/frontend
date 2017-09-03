@@ -1,12 +1,12 @@
 <div class="card">
   <div class="card-block">
-    <h2 class="m-0">{{title}}</h2>
+    <h2 class="m-0">{{ title }}</h2>
   </div>
 </div>
 
 <div class="card">
   <div class="card-header">
-    <b>{{ 'T_ASSESSMENT_EVENTS_IN_PROGRESS' | translate}}</b>
+    <b>{{ 'T_ASSESSMENT_EVENTS_IN_PROGRESS' | translate }}</b>
   </div>
   <div class="card-block">
     <div *ngIf="isLoaded">
@@ -29,7 +29,7 @@
                       class="btn btn-sm btn-success ml-1"
                       title="{{ 'T_ACTION_ASSESS' | translate }}"
                       [routerLink]="['/events', model.id]">
-                <i class="fa fa-hand-pointer-o"></i> {{ 'T_ACTION_ASSESS' | translate}}
+                <i class="fa fa-hand-pointer-o"></i> {{ 'T_ACTION_ASSESS' | translate }}
               </button>
             </td>
           </tr>

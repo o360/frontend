@@ -26,11 +26,11 @@
 
           <div class="form-errors"
                *ngIf="!!form.controls['name'].errors && form.controls['name'].touched">
-            <div class="form-control-feedback" *ngIf="form.controls['name'].errors['required']">{{
-              'T_FORM_FIELD_IS_REQUIRED' | translate }}
+            <div class="form-control-feedback" *ngIf="form.controls['name'].errors['required']">
+              {{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}
             </div>
-            <div class="form-control-feedback" *ngIf="!!form.controls['name'].errors['pattern']">{{
-              'T_ERROR_TEXT_PATTERN' | translate }}
+            <div class="form-control-feedback" *ngIf="!!form.controls['name'].errors['pattern']">
+              {{ 'T_ERROR_TEXT_PATTERN' | translate }}
             </div>
           </div>
         </div>

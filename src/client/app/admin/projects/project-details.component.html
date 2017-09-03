@@ -32,14 +32,14 @@
 
       <div class="row mt-1">
         <div class="col-md-3">
-          <small class="text-muted">{{ 'T_PROJECT_AUDITOR' | translate}}</small>
+          <small class="text-muted">{{ 'T_PROJECT_AUDITOR' | translate }}</small>
           <div class="h6"><a [routerLink]="['/admin/groups/', model.groupAuditor.id]">{{ model.groupAuditor.name }}</a></div>
         </div>
       </div>
 
       <div class="row mt-1">
         <div class="col-md-6" *ngIf="model.description">
-          <small class="text-muted">{{ 'T_PROJECT_DESCRIPTION' | translate}}</small>
+          <small class="text-muted">{{ 'T_PROJECT_DESCRIPTION' | translate }}</small>
           <div class="h6">{{ model.description }}</div>
         </div>
       </div>
