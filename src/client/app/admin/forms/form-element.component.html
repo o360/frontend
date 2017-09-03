@@ -16,11 +16,11 @@
 
       <div class="form-errors"
            *ngIf="!!element.controls['caption'].errors && element.controls['caption'].touched">
-        <div class="form-control-feedback" *ngIf="element.controls['caption'].errors['required']">{{
-          'T_FORM_FIELD_IS_REQUIRED' | translate }}
+        <div class="form-control-feedback" *ngIf="element.controls['caption'].errors['required']">
+          {{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}
         </div>
-        <div class="form-control-feedback" *ngIf="!!element.controls['caption'].errors['pattern']">{{
-          'T_ERROR_TEXT_PATTERN' | translate }}
+        <div class="form-control-feedback" *ngIf="!!element.controls['caption'].errors['pattern']">
+          {{ 'T_ERROR_TEXT_PATTERN' | translate }}
         </div>
       </div>
     </div>
@@ -70,7 +70,7 @@
            dnd-sortable-container
            [sortableData]="element.values"
            [dropZones]="['element-dropZone']">
-      <th>{{ 'T_FORM_CAPTION' | translate}}</th>
+      <th>{{ 'T_FORM_CAPTION' | translate }}</th>
       <th class="actions-column">{{ 'T_ACTION' | translate }}</th>
       <tbody>
       <tr *ngFor="let value of element.value.values; let J = index;"

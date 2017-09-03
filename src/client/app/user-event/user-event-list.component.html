@@ -23,7 +23,7 @@
                     class="btn btn-sm btn-success ml-1"
                     title="{{ 'T_ACTION_ASSESS' | translate }}"
                     [routerLink]="['/events', model.id]">
-              <i class="fa fa-hand-pointer-o"></i> {{ 'T_ACTION_ASSESS' | translate}}
+              <i class="fa fa-hand-pointer-o"></i> {{ 'T_ACTION_ASSESS' | translate }}
             </button>
           </ng-template>
           <ng-template [ngSwitchCase]="EventStatus.Completed">
@@ -31,7 +31,7 @@
                     class="btn btn-sm btn-success ml-1"
                     title="{{ 'T_ACTION_VIEW_ASSESSMENT' | translate }}"
                     [routerLink]="['/events', model.id]">
-              <i class="fa fa-hand-pointer-o"></i> {{ 'T_ACTION_VIEW_ASSESSMENT' | translate}}
+              <i class="fa fa-hand-pointer-o"></i> {{ 'T_ACTION_VIEW_ASSESSMENT' | translate }}
             </button>
           </ng-template>
           <ng-template [ngSwitchCase]="EventStatus.NotStarted">

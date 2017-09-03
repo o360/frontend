@@ -9,28 +9,28 @@
       <div class="col-md-4 text-right">
         <button type="button"
                 class="btn btn-primary"
-                [routerLink]="['edit']">{{'T_PROFILE_EDIT' | translate}}
+                [routerLink]="['edit']">{{ 'T_PROFILE_EDIT' | translate }}
         </button>
       </div>
     </div>
 
     <div class="row mt-1">
       <div class="col-md-3">
-        <small class="text-muted">{{ 'T_USER_NAME' | translate}}</small>
+        <small class="text-muted">{{ 'T_USER_NAME' | translate }}</small>
         <div class="h6">{{ model.name }}</div>
       </div>
 
       <div class="col-md-3">
-        <small class="text-muted">{{ 'T_USER_EMAIL' | translate}}</small>
+        <small class="text-muted">{{ 'T_USER_EMAIL' | translate }}</small>
         <div class="h6">{{ model.email }}</div>
       </div>
       <div class="col-md-3">
-        <small class="text-muted">{{ 'T_USER_GENDER' | translate}}</small>
+        <small class="text-muted">{{ 'T_USER_GENDER' | translate }}</small>
         <div *ngIf="model.gender" class="h6">{{ 'T_USER_GENDER_' + model.gender.toUpperCase() | translate }}</div>
         <div *ngIf="!model.gender" class="h6">{{ 'T_NOT_SPECIFIED' | translate }}</div>
       </div>
       <div class="col-md-3">
-        <small class="text-muted">{{ 'T_USER_TIME_ZONE' | translate}}</small>
+        <small class="text-muted">{{ 'T_USER_TIME_ZONE' | translate }}</small>
         <div *ngIf="model.timezone" class="h6">{{ model.timezone }}</div>
       </div>
     </div>

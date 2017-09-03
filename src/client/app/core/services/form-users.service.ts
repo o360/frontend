@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
 import { RestServiceConfig } from '../decorators/rest-service-config.decorator';
 import { FormModel } from '../models/form-model';
 import { AuthService } from './auth.service';

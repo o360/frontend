@@ -39,24 +39,24 @@
 
     <div class="row mt-1">
       <div class="col-md-3">
-        <small class="text-muted">{{ 'T_EMAIL_TEMPLATE_SUBJECT' | translate}}</small>
+        <small class="text-muted">{{ 'T_EMAIL_TEMPLATE_SUBJECT' | translate }}</small>
         <div class="h6">{{ model.subject }}</div>
       </div>
 
       <div class="col-md-3">
-        <small class="text-muted">{{ 'T_EMAIL_TEMPLATE_KIND' | translate}}</small>
+        <small class="text-muted">{{ 'T_EMAIL_TEMPLATE_KIND' | translate }}</small>
         <div class="h6">{{ 'T_EMAIL_TEMPLATE_KIND_' + model.kind.toUpperCase() | translate }}</div>
       </div>
 
       <div class="col-md-3">
-        <small class="text-muted">{{ 'T_EMAIL_TEMPLATE_RECIPIENT' | translate}}</small>
+        <small class="text-muted">{{ 'T_EMAIL_TEMPLATE_RECIPIENT' | translate }}</small>
         <div class="h6">{{ 'T_EMAIL_TEMPLATE_RECIPIENT_' + model.recipient.toUpperCase() | translate }}</div>
       </div>
     </div>
 
     <div class="row mt-3">
       <div class="col-12">
-        <span class="h6 pb-0">{{ 'T_EMAIL_TEMPLATE_MESSAGE' | translate}}</span>
+        <span class="h6 pb-0">{{ 'T_EMAIL_TEMPLATE_MESSAGE' | translate }}</span>
         <hr class="mt-h"/>
         <div class="mt-1" [innerHtml]="model.body"></div>
       </div>
