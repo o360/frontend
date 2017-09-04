@@ -17,6 +17,7 @@ import { LikesDislikesComponent } from './components/likes-dislikes/likes-dislik
 import { ConfirmationModalComponent } from './confirmation/confirmation.component';
 import { SearchComponent } from './components/search/search.component';
 import { Select2Module } from 'ng2-select2/ng2-select2';
+import { LocalizedDatePipe } from './pipes/localized-date.pipe';
 
 /**
  * Do not specify providers for modules that might be imported by a lazy loaded module.
@@ -48,6 +49,7 @@ import { Select2Module } from 'ng2-select2/ng2-select2';
     PaginationComponent,
     LanguageSelectorComponent,
     DateFormatPipe,
+    LocalizedDatePipe,
     LikesDislikesComponent,
     ConfirmationModalComponent,
     SearchComponent
@@ -73,6 +75,7 @@ import { Select2Module } from 'ng2-select2/ng2-select2';
     LanguageSelectorComponent,
     DateTimeComponent,
     DateFormatPipe,
+    LocalizedDatePipe,
     DndModule,
     Select2Module,
     ConfirmationModalComponent,

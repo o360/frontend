@@ -15,8 +15,8 @@
       <tr *ngFor="let model of list">
         <td>{{ model.id }}</td>
         <td>{{ model.description }}</td>
-        <td>{{ model.start | date: 'mediumDate' }}</td>
-        <td>{{ model.end | date: 'mediumDate' }}</td>
+        <td>{{ model.start | localizedDate }}</td>
+        <td>{{ model.end | localizedDate }}</td>
         <td class="actions-column" [ngSwitch]="status">
           <ng-template [ngSwitchCase]="EventStatus.InProgress">
             <button type="button"
