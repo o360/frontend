@@ -5,6 +5,11 @@ import { RestService } from './rest.service';
 import { ModelId } from '../models/model';
 import { Observable } from 'rxjs/Observable';
 
+export interface IDataRequestUserFromGroup {
+  groupId: ModelId;
+  userId: ModelId;
+}
+
 @Injectable()
 @RestServiceConfig({
   entityName: 'groups',
@@ -16,6 +21,13 @@ export class GroupService extends RestService<GroupModel> {
     const requestOptions = this._getRequestOptions();
 
     return this._http.post(requestParams, { groupId, userId }, requestOptions)
+      .catch((error: any) => this._handleErrors(error));
+  }
+
+  public addUsers(data: IDataRequestUserFromGroup[]): Observable<void> {
+    const requestParams = `${this._getRequestParams()}-users/add`;
+    const requestOptions = this._getRequestOptions();
+    return this._http.post(requestParams, data, requestOptions)
       .catch((error: any) => this._handleErrors(error));
   }
 
