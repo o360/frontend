@@ -10,6 +10,34 @@
       </b>
     </div>
     <div class="card-block">
+      <!-- Machine name -->
+      <div *ngIf="editMode"
+           class="form-group row"
+           [ngClass]="{ 'has-success': form.controls['machineName'].valid,
+                        'has-danger': !form.controls['machineName'].valid && form.controls['machineName'].touched}">
+        <label for="name" class="col-form-label col-md-3 required">{{ 'T_MACHINE_NAME' | translate }}</label>
+        <div class="col-md-9">
+          <input type="text"
+                 class="form-control"
+                 id="machineName"
+                 name="machineName"
+                 required
+                 placeholder="{{ 'T_FORM_ENTER_MACHINE_NAME' | translate }}"
+                 formControlName="machineName">
+
+
+          <div class="form-errors"
+               *ngIf="!!form.controls['machineName'].errors && form.controls['machineName'].touched">
+            <div class="form-control-feedback" *ngIf="form.controls['machineName'].errors['required']">
+              {{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}
+            </div>
+            <div class="form-control-feedback" *ngIf="!!form.controls['machineName'].errors['pattern']">
+              {{ 'T_ERROR_MACHINE_NAME_PATTERN' | translate }}
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- Name -->
       <div class="form-group row"
            [ngClass]="{ 'has-success': form.controls['name'].valid,
