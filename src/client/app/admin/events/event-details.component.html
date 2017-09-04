@@ -38,11 +38,11 @@
       <div class="row">
         <div class="col-md-3">
           <small class="text-muted">{{ 'T_EVENT_START' | translate }}</small>
-          <div class="h6">{{ model.start | dateFormat }}</div>
+          <div class="h6">{{ model.start | localizedDate:'medium' }}</div>
         </div>
         <div class="col-md-3">
           <small class="text-muted">{{ 'T_EVENT_END' | translate }}</small>
-          <div class="h6">{{ model.end | dateFormat }}</div>
+          <div class="h6">{{ model.end | localizedDate:'medium' }}</div>
         </div>
         <div class="col-md-3">
           <small class="text-muted">{{ 'T_EVENT_STATUS' | translate }}</small>

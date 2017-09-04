@@ -15,14 +15,14 @@
     <tr *ngFor="let item of event.notifications">
       <td>{{ 'T_EVENT_RECIPIENT_' + item.recipient.toUpperCase() | translate }}</td>
       <td>{{ 'T_EVENT_NOTIFICATION_' + item.kind.toUpperCase() | translate }}</td>
-      <td>{{ item.time | dateFormat }}</td>
+      <td>{{ item.time | localizedDate:'medium' }}</td>
       <td class="actions-column">
         <button type="button"
                 class="btn btn-primary btn-sm mr-1"
                 [tooltip]="'T_ACTION_EDIT_DATE' | translate"
                 placement="bottom"
                 (click)="notificationsEditModal.show(item)">
-          <i class="mr-h fa fa-pencil"></i>
+          <i class="fa fa-pencil"></i>
         </button>
 
         <button type="button"
@@ -30,7 +30,7 @@
                 [tooltip]="'T_ACTION_REMOVE' | translate"
                 placement="bottom"
                 (click)="deleteNotification(item)">
-          <i class="mr-h fa fa-remove"></i>
+          <i class="fa fa-remove"></i>
         </button>
       </td>
     </tr>
