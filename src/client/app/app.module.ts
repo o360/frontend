@@ -7,7 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { DndModule } from 'ng2-dnd';
 import { ToastModule } from 'ng2-toastr/ng2-toastr';
-import { AccordionModule, ModalModule, PaginationModule, TabsModule, TooltipModule } from 'ngx-bootstrap';
+import { AccordionModule, ModalModule, PaginationModule, TabsModule, TooltipModule, AlertModule } from 'ngx-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
@@ -35,6 +35,7 @@ import { SharedModule } from './shared/shared.module';
     TabsModule.forRoot(),
     ModalModule.forRoot(),
     TabsModule.forRoot(),
+    AlertModule.forRoot(),
     TooltipModule.forRoot(),
     DndModule.forRoot(),
     // App related modules
