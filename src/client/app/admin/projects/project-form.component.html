@@ -12,11 +12,41 @@
     <form class="form form-horizontal"
           (ngSubmit)="save(); userForm.reset()" #userForm="ngForm">
 
+      <!-- Machine name -->
+      <div *ngIf="editMode"
+           class="form-group row"
+           [ngClass]="{'has-success': machineName.valid, 'has-danger': !machineName.valid && machineName.touched }">
+
+        <label for="name" class="col-form-label col-md-3 required">{{ 'T_MACHINE_NAME' | translate }}</label>
+        <div class="col-md-9">
+          <input type="text"
+                 class="form-control"
+                 id="machineName"
+                 name="machineName"
+                 #machineName="ngModel"
+                 pattern="^[a-zA-Z0-9-_:.]+$"
+                 required
+                 placeholder="{{ 'T_FORM_ENTER_MACHINE_NAME' | translate }}"
+                 [(ngModel)]="model.machineName">
+
+
+          <div class="form-errors"
+               *ngIf="machineName.errors && machineName.touched">
+            <div class="form-control-feedback" *ngIf="machineName.errors['required']">
+              {{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}
+            </div>
+            <div class="form-control-feedback" *ngIf="!!machineName.errors['pattern']">
+              {{ 'T_ERROR_MACHINE_NAME_PATTERN' | translate }}
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- Name -->
       <div class="form-group row"
            [ngClass]="{'has-success': name.valid, 'has-danger': !name.valid && name.touched }">
 
-        <label for="name" class="col-form-label col-md-3 required">{{ 'T_USER_NAME' | translate }}</label>
+        <label for="name" class="col-form-label col-md-3 required">{{ 'T_NAME' | translate }}</label>
         <div class="col-md-9">
           <input type="text"
                  class="form-control"
