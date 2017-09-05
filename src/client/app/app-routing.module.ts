@@ -10,6 +10,7 @@ import { UserProfileModule } from './user-profile/user-profile.module';
 import { AppRoutes } from './core/models/app-routes.model';
 import { AdminGuard } from './core/guards/admin.guard';
 import { UserEventModule } from './user-event/user-event.module';
+import { AgreementModule } from './agreement/agreement.module';
 
 @NgModule({
   imports: [
@@ -33,6 +34,10 @@ import { UserEventModule } from './user-event/user-event.module';
       path: 'new',
       canActivate: [AuthServiceLoader],
       loadChildren: () => RegistrationModule
+    }, {
+      path: 'agreement',
+      canActivate: [AuthServiceLoader],
+      loadChildren: () => AgreementModule
     }])
   ],
   exports: [RouterModule]

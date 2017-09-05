@@ -349,6 +349,10 @@
     "@types/express-serve-static-core" "*"
     "@types/mime" "*"
 
+"@types/showdown@^1.7.1":
+  version "1.7.1"
+  resolved "https://registry.yarnpkg.com/@types/showdown/-/showdown-1.7.1.tgz#9ba121fc2b2dcad646040034a5581e82ccecc066"
+
 "@types/source-map@*":
   version "0.5.1"
   resolved "https://registry.yarnpkg.com/@types/source-map/-/source-map-0.5.1.tgz#7e74db5d06ab373a712356eebfaea2fad0ea2367"
@@ -6379,6 +6383,12 @@ shelljs@^0.7.6, shelljs@^0.7.8:
     glob "^7.0.0"
     interpret "^1.0.0"
     rechoir "^0.6.2"
+
+showdown@^1.7.3:
+  version "1.7.3"
+  resolved "https://registry.yarnpkg.com/showdown/-/showdown-1.7.3.tgz#8d27f501a0850f33a0c25f1a6b7a10b9fc464633"
+  dependencies:
+    yargs "^8.0.1"
 
 sigmund@~1.0.0:
   version "1.0.1"

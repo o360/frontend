@@ -4,8 +4,9 @@ import { AuthService } from '../core/services/auth.service';
 import { UserGender } from '../core/models/user-model';
 import { NotificationService } from '../core/services/notification.service';
 import { Router } from '@angular/router';
-import * as moment from 'moment-timezone';
 import { AccountService } from '../core/services/account.service';
+
+import * as moment from 'moment-timezone';
 
 @Component({
   moduleId: module.id,
