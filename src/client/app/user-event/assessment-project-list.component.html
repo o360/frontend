@@ -1,11 +1,9 @@
 <!--Projects-->
-<tabset>
+<bs-throbber *ngIf="!isLoaded"></bs-throbber>
+
+<tabset *ngIf="isLoaded">
   <tab *ngFor="let project of list;"
        heading="{{ project.name }}" [ngSwitch]="project.formsOnSamePage">
-
-    <alert *ngIf="!project.canRevote && eventStatus === EventStatus.InProgress">
-      <b>{{ 'T_WARNING' | translate }}</b> {{ 'T_WARNING_ASSESSMENT_CANT_REVOTE' | translate }}
-    </alert>
 
     <bs-user-assessment-event [inline]="project.formsOnSamePage"
                               [project]="project"

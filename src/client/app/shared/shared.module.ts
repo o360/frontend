@@ -18,6 +18,7 @@ import { ConfirmationModalComponent } from './confirmation/confirmation.componen
 import { SearchComponent } from './components/search/search.component';
 import { Select2Module } from 'ng2-select2/ng2-select2';
 import { LocalizedDatePipe } from './pipes/localized-date.pipe';
+import { ThrobberComponent } from './components/throbber/throbber.component';
 
 
 /**
@@ -48,6 +49,7 @@ import { LocalizedDatePipe } from './pipes/localized-date.pipe';
     FiltersComponent,
     PaginationComponent,
     DateTimeComponent,
+    ThrobberComponent,
     PaginationComponent,
     LanguageSelectorComponent,
     DateFormatPipe,
@@ -77,6 +79,7 @@ import { LocalizedDatePipe } from './pipes/localized-date.pipe';
     TooltipModule,
     LanguageSelectorComponent,
     DateTimeComponent,
+    ThrobberComponent,
     DateFormatPipe,
     LocalizedDatePipe,
     DndModule,

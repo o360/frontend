@@ -1,3 +1,7 @@
+<alert *ngIf="!project.canRevote && status === EventStatus.InProgress">
+  <b>{{ 'T_WARNING' | translate }}</b> {{ 'T_WARNING_ASSESSMENT_CANT_REVOTE' | translate }}
+</alert>
+
 <div *ngIf="isLoaded" [ngSwitch]="inline">
   <!--Inline forms-->
   <ng-template [ngSwitchCase]="true">
