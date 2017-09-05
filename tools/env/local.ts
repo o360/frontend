@@ -1,7 +1,7 @@
 import { EnvConfig } from './env-config.interface';
 
 const DevConfig: EnvConfig = {
-  ENV: 'DEV',
+  ENV: 'LOCAL',
   API: '<API_ENDPOINT>',
   TITLE_MAIN: 'Bitworks Staff Assessment System',
   TITLE_NAV: 'BW Assessment',
