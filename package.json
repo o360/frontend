@@ -3,8 +3,9 @@
   "version": "0.0.0",
   "description": "Open360",
   "repository": {
-    "url": "https://git/incubator/bw-assessment-ui"
+    "url": "https://git/open360/frontend.git"
   },
+  "private": true,
   "author": "Bitworks Software",
   "license": "",
   "scripts": {
