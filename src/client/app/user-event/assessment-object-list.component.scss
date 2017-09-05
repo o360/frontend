@@ -1,0 +1,8 @@
+:host .list-group {
+  max-height: 600px;
+  overflow-y: auto;
+}
+
+:host .list-group-item {
+  min-height: 48px;
+}

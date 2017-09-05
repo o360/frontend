@@ -13,7 +13,8 @@ export class UserAssessmentFilters {
 @Component({
   moduleId: module.id,
   selector: 'bs-assessment-object-list',
-  templateUrl: 'assessment-object-list.component.html'
+  templateUrl: 'assessment-object-list.component.html',
+  styleUrls: ['assessment-object-list.component.css'],
 })
 export class AssessmentObjectListComponent {
   private _usersFilterType: string = UserAssessmentFilters.All;
