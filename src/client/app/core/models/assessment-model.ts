@@ -15,6 +15,7 @@ export interface IFormAnswer {
   formId?: ModelId;
   userId?: ModelId;
   answers: IElementAnswer[];
+  isAnonymous: boolean;
 }
 
 export interface IForm {

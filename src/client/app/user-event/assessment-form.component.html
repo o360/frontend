@@ -232,6 +232,26 @@
       </ng-template>
     </ng-container>
     <div class="text-right" *ngIf="(status === EventStatus.InProgress && !inline)">
+      <!-- Is Anonymous -->
+      <div class="form-group" *ngIf="canBeAnonymous">
+        <label for="isAnonymous" class="col-form-label">
+          {{ 'T_ACTION_VOTE_ANONYMOUS' | translate }}
+        </label>
+          <label class="switch switch-default switch-primary">
+            <input id="isAnonymous"
+                   name="isAnonymous"
+                   type="checkbox"
+                   class="switch-input"
+                   checked="true"
+                   [disabled]="status !== EventStatus.InProgress || (!canRevote && isAnswered)"
+                   #anonymous="ngModel"
+                   [ngModel]="isAnonymous"
+                   (ngModelChange)="isAnonymous = $event; onFormChange();">
+            <span class="switch-label"></span>
+            <span class="switch-handle"></span>
+          </label>
+      </div>
+
       <button type="button"
               (click)="assessmentForm.reset()"
               class="btn btn-default mt-0"

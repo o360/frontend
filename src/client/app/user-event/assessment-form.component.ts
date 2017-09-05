@@ -26,6 +26,8 @@ export class AssessmentFormComponent implements OnInit, OnChanges {
   protected _inline: boolean = false;
   protected _canRevote: boolean;
   protected _isAnswered: boolean = false;
+  protected _canBeAnonymous: boolean = false;
+  protected _isAnonymous: boolean = false;
   protected _status: string;
   protected _assessment: AssessmentModel;
   protected _cleared: number;
@@ -120,6 +122,27 @@ export class AssessmentFormComponent implements OnInit, OnChanges {
     this._isAnswered = value;
   }
 
+  public get isAnonymous(): boolean {
+    return this._isAnonymous;
+  }
+
+  public set isAnonymous(value: boolean) {
+    this._isAnonymous = value;
+  }
+
+  public get canBeAnonymous(): boolean {
+    return this._canBeAnonymous;
+  }
+
+  @Input()
+  public set canBeAnonymous(value: boolean) {
+    this._canBeAnonymous = value;
+
+    if (value) {
+      this._isAnonymous = true;
+    }
+  }
+
   constructor(protected _assessmentService: AssessmentService,
               protected _formUsersService: FormService,
               protected _notificationService: NotificationService) {
@@ -166,7 +189,8 @@ export class AssessmentFormComponent implements OnInit, OnChanges {
     this._assessment = new AssessmentModel({
       form: {
         formId: this._id,
-        answers: answers.filter(x => (!!x.valuesIds || !!x.text))
+        answers: answers.filter(x => (!!x.valuesIds || !!x.text)),
+        isAnonymous: this._isAnonymous
       },
       isAnswered: true
     });
