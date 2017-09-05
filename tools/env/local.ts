@@ -1,7 +1,7 @@
 import { EnvConfig } from './env-config.interface';
 
 const DevConfig: EnvConfig = {
-  ENV: 'DEV',
+  ENV: 'LOCAL',
   API: 'http://sop-ci.z1.netpoint-dc.com:9001/api/v1.0',
   TITLE_MAIN: 'Bitworks Staff Assessment System',
   TITLE_NAV: 'BW Assessment',
