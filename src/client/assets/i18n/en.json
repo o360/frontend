@@ -283,6 +283,7 @@
   "T_ASSESSMENT_OVERALL": "Overall assessment",
   "T_ASSESSMENT_INCOMMAND": "In-command assessment",
   "T_ASSESSMENT_EVENT": "Assessment event",
+  "T_ACTION_VOTE_ANONYMOUS": "Vote anonymously",
   "T_EMAIL_TEMPLATE": "Email template",
   "T_CHILD_GROUPS": "Child Groups",
   "T_SURVEYS": "Surveys",
