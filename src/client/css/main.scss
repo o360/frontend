@@ -54,6 +54,12 @@ header.navbar .navbar-brand {
 
 .sidebar-fixed .main, .sidebar-fixed .app-footer {
   margin-left: 220px;
+  justify-content: space-between;
+}
+
+.sidebar-fixed .app-footer .agreement-link {
+  position: fixed;
+  right: 20px;
 }
 
 .fade.in {
