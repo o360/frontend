@@ -51,13 +51,8 @@
 
         <div class="col-md-3">
           <small class="text-muted">{{ 'T_PROJECT_RELATION_CAN_SELF_VOTE' | translate }}</small>
-          <div class="h6" [ngSwitch]="model.canSelfVote">
-            <ng-template [ngSwitchCase]="true">
-              {{ 'T_ACTION_YES' | translate }}
-            </ng-template>
-            <ng-template ngSwitchDefault>
-              {{ 'T_ACTION_NO' | translate }}
-            </ng-template>
+          <div class="h6">
+            {{ (model.canSelfVote ? 'T_ACTION_YES' : 'T_ACTION_NO') | translate }}
           </div>
         </div>
       </div>
