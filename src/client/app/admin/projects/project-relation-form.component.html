@@ -121,6 +121,26 @@
         </div>
       </div>
 
+      <!-- Can Self Vote -->
+      <div class="form-group row">
+        <label for="selfVote" class="col-form-label col-md-3">
+          {{ 'T_PROJECT_RELATION_CAN_SELF_VOTE' | translate }}
+        </label>
+        <div class="col-md-9">
+          <label class="switch switch-default switch-primary">
+            <input id="selfVote"
+                   name="selfVote"
+                   type="checkbox"
+                   class="switch-input"
+                   checked="true"
+                   #selfVote="ngModel"
+                   [(ngModel)]="model.canSelfVote">
+            <span class="switch-label"></span>
+            <span class="switch-handle"></span>
+          </label>
+        </div>
+      </div>
+
       <hr/>
 
       <div class="text-right">

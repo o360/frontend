@@ -1,7 +1,6 @@
 import { Defaults } from '../decorators/defaults.decorator';
 import { Model, ModelId } from './model';
 import { IEmailTemplate } from './project-model';
-import { EmailKind, Recipient } from './email-template-model';
 
 export class RelationKind {
   public static readonly Classic: string = 'classic';
@@ -18,7 +17,8 @@ export interface IModelIdName {
   groupFromId: '',
   formId: '',
   kind: RelationKind.Classic,
-  templates: []
+  templates: [],
+  canSelfVote: false
 })
 export class RelationModel extends Model {
   public project?: IModelIdName;
@@ -31,6 +31,7 @@ export class RelationModel extends Model {
   public formId?: ModelId;
   public kind: string;
   public templates: IEmailTemplate[];
+  public canSelfVote: boolean;
 
   constructor(json: any) {
     super(json);
