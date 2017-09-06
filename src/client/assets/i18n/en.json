@@ -163,6 +163,8 @@
   "T_ERROR_CONFLICT_ASSESSMENT_1": "Can't find relation matched user and form ids",
   "T_ERROR_CONFLICT_ASSESSMENT_2": "Revoting is forbidden",
   "T_ERROR_GENERAL_2": "Unexpected server error",
+  "T_WARNING": "Warning!",
+  "T_WARNING_ASSESSMENT_CANT_REVOTE": "You can not revote in this project. Please, check your answers.",
   "T_EMPTY": "No records found",
   "T_CONFLICT_ERROR": "Conflict error",
   "T_PAGINATION_PREVIOUS_TEXT": "Previous",
