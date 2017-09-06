@@ -27,8 +27,8 @@
       <tr *ngFor="let model of list">
         <td>{{ model.id }}</td>
         <td>{{ model.description }}</td>
-        <td>{{ model.start | dateFormat }}</td>
-        <td>{{ model.end | dateFormat }}</td>
+        <td>{{ model.start | localizedDate:'medium' }}</td>
+        <td>{{ model.end | localizedDate:'medium' }}</td>
         <td>
             <span class="badge badge-pill"
                   [ngClass]="{
