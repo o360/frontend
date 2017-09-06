@@ -10,6 +10,8 @@ export const tokenLsKey = 'token';
 export class AuthService {
   private _token: string;
   private _user: AccountModel;
+  private _profileFilled: boolean = false;
+
 
   public get token(): string {
     return this._token;
@@ -25,6 +27,7 @@ export class AuthService {
 
   public set user(value: AccountModel) {
     this._user = value;
+    this._profileFilled = !!value.name && !!value.gender && !!value.email && value.timezone !== 'Z';
   }
 
   public get isLoggedIn() {
@@ -33,6 +36,14 @@ export class AuthService {
 
   public get isAdmin() {
     return this._user.role === UserRole.Admin;
+  }
+
+  public get profileFilled(): boolean {
+    return this._profileFilled;
+  }
+
+  public set profileFilled(value: boolean) {
+    this._profileFilled = value;
   }
 
   constructor(protected _router: Router) {
