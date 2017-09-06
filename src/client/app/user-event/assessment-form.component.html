@@ -258,7 +258,7 @@
               [disabled]="assessmentForm.pristine ||  (!canRevote && isAnswered)">
         {{ 'T_ACTION_CLEAR' | translate }}
       </button>
-      <button type="submit"
+      <button type="button"
               (click)="save()"
               class="btn btn-primary mt-0"
               [disabled]="!assessmentForm.valid || !assessment ||  (!canRevote && isAnswered)">
