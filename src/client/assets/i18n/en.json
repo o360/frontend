@@ -124,6 +124,7 @@
   "T_ERROR_TEXT_PATTERN": "Value should contain visible symbols",
   "T_ERROR_EMAIL_PATTERN": "Enter correct email address",
   "T_SUCCESS_NEW_USER_SAVED": "Please, wait for your account to be approved by the administrator",
+  "T_WAIT_APPROVAL_MESSAGE": "Your profile is not approved, please, wait for your account to be approved by administrator",
   "T_SUCCESS_CLONED": "Cloned!",
   "T_ERROR_INVALID_DATE": "Wrong date format",
   "T_ERROR_MIN_DATE": "Start date cannot be after end date",
