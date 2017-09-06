@@ -1,7 +1,10 @@
 <!--Projects-->
-<tabset>
+<bs-throbber *ngIf="!isLoaded"></bs-throbber>
+
+<tabset *ngIf="isLoaded">
   <tab *ngFor="let project of list;"
        heading="{{ project.name }}" [ngSwitch]="project.formsOnSamePage">
+
     <bs-user-assessment-event [inline]="project.formsOnSamePage"
                               [project]="project"
                               [eventId]="eventId"
