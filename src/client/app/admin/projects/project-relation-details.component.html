@@ -48,6 +48,18 @@
           <small class="text-muted">{{ 'T_PROJECT_RELATION_KIND' | translate }}</small>
           <div class="h6">{{ 'T_PROJECT_RELATION_KIND_' + model.kind.toUpperCase() | translate }}</div>
         </div>
+
+        <div class="col-md-3">
+          <small class="text-muted">{{ 'T_PROJECT_RELATION_CAN_SELF_VOTE' | translate }}</small>
+          <div class="h6" [ngSwitch]="model.canSelfVote">
+            <ng-template [ngSwitchCase]="true">
+              {{ 'T_ACTION_YES' | translate }}
+            </ng-template>
+            <ng-template ngSwitchDefault>
+              {{ 'T_ACTION_NO' | translate }}
+            </ng-template>
+          </div>
+        </div>
       </div>
     </div>
   </div>
