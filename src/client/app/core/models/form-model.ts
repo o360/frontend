@@ -8,6 +8,7 @@ import { Model, ModelId } from './model';
 })
 export class FormModel extends Model {
   public name: string;
+  public machineName: string;
   public elements: FormElement[];
   public showInAggregation: boolean;
 }
