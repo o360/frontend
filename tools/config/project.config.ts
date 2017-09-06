@@ -21,7 +21,7 @@ export class ProjectConfig extends SeedConfig {
   constructor() {
     super();
 
-    this.APP_TITLE = 'BW Staff Assessment System';
+    this.APP_TITLE = 'Open360';
 
     this.ENABLE_SCSS = true;
 
