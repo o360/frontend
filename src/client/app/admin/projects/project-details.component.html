@@ -30,6 +30,15 @@
         </div>
       </div>
 
+      <!--Machine Name-->
+      <div class="row mt-1">
+        <div class="col-md-3">
+          <small class="text-muted">{{ 'T_MACHINE_NAME' | translate }}</small>
+          <div class="h6">{{ model.machineName }}</div>
+        </div>
+      </div>
+
+      <!--Auditor Group-->
       <div class="row mt-1">
         <div class="col-md-3">
           <small class="text-muted">{{ 'T_PROJECT_AUDITOR' | translate }}</small>
@@ -37,12 +46,45 @@
         </div>
       </div>
 
+      <!--Description-->
       <div class="row mt-1">
         <div class="col-md-6" *ngIf="model.description">
           <small class="text-muted">{{ 'T_PROJECT_DESCRIPTION' | translate }}</small>
           <div class="h6">{{ model.description }}</div>
         </div>
       </div>
+
+      <!--Can Revote-->
+      <div class="row mt-1">
+        <div class="col-md-6">
+          <small class="text-muted">{{ 'T_PROJECT_CAN_REVOTE' | translate }}</small>
+          <div class="h6">
+            {{ (model.canRevote ? 'T_ACTION_YES' : 'T_ACTION_NO') | translate }}
+          </div>
+        </div>
+      </div>
+
+      <!--Is Anonymous-->
+      <div class="row mt-1">
+        <div class="col-md-6">
+          <small class="text-muted">{{ 'T_PROJECT_ANONYMOUS' | translate }}</small>
+          <div class="h6">
+            {{ (model.isAnonymous ? 'T_ACTION_YES' : 'T_ACTION_NO') | translate }}
+          </div>
+        </div>
+      </div>
+
+      <!--Forms On The Same Page-->
+      <div class="row mt-1">
+        <div class="col-md-6">
+          <small class="text-muted">{{ 'T_PROJECT_FORMS_ON_THE_SAME_PAGE' | translate }}</small>
+          <div class="h6">
+            {{ (model.formsOnSamePage ? 'T_ACTION_YES' : 'T_ACTION_NO') | translate }}
+          </div>
+        </div>
+      </div>
+
+
     </div>
   </div>
 
