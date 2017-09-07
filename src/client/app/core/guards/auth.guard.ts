@@ -14,7 +14,7 @@ export class AuthGuard implements CanActivate, CanActivateChild {
   public canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     return this._authServiceLoader.canActivate().map(() => {
       if (this._authService.isLoggedIn) {
-        if (this._authService.user.status === UserStatus.New && !this._authService.profileFilled) {
+        if (this._authService.user.status === UserStatus.New && !this._authService.user.isFilled) {
             this._router.navigate(['/new']);
             return false;
         }

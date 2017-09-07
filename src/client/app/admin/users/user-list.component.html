@@ -32,7 +32,7 @@
               {{ 'T_USER_STATUS_' + model.status.toUpperCase() | translate }}</span>
           </td>
           <td class="actions-column">
-            <button *ngIf="model.status === UserStatus.New"
+            <button *ngIf="model.status === UserStatus.New && model.isFilled"
                     type="button"
                     role="button"
                     class="btn btn-sm btn-success ml-1"

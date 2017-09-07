@@ -7,7 +7,7 @@ import { Model } from './model';
   status: '',
   role: '',
   gender: null,
-  timezone: null
+  timezone: 'Z'
 })
 export class AccountModel extends Model {
   public name: string;
@@ -16,4 +16,8 @@ export class AccountModel extends Model {
   public role: string;
   public gender: string;
   public timezone?: string;
+
+  public get isFilled(): boolean {
+    return !!this.name && !!this.gender && !!this.email && this.timezone !== 'Z';
+  }
 }

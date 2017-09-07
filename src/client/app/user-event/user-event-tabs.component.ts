@@ -14,7 +14,7 @@ export class UserEventTabsComponent {
   }
 
   public get newUser(): boolean {
-    return this._authService.user.status === UserStatus.New && this._authService.profileFilled;
+    return this._authService.user.status === UserStatus.New;
   }
 
   constructor(private _authService: AuthService) {
