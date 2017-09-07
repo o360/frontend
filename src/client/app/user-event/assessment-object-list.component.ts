@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AssessmentFormStatus, AssessmentModel, IFormAnswer } from '../core/models/assessment-model';
 import { UserModel } from '../core/models/user-model';
 
@@ -16,7 +16,7 @@ export class UserAssessmentFilters {
   templateUrl: 'assessment-object-list.component.html',
   styleUrls: ['assessment-object-list.component.css'],
 })
-export class AssessmentObjectListComponent {
+export class AssessmentObjectListComponent implements OnInit {
   private _usersFilterType: string = UserAssessmentFilters.All;
   private _filters = Object.values(UserAssessmentFilters);
 
@@ -77,6 +77,10 @@ export class AssessmentObjectListComponent {
     return this._filters;
   }
 
+  public ngOnInit() {
+    this._setStinkySidebar();
+  }
+
   public selectUser(user: AssessmentModel) {
     if (this._selectedItem !== user) {
       this._selectedItem = user;
@@ -119,5 +123,28 @@ export class AssessmentObjectListComponent {
 
     this._users = this._list.filter(condition);
     this._filteredUsers = this._users;
+  }
+
+  private _setStinkySidebar() {
+    let sidebar = document.getElementById('sidebar-container');
+    let width = sidebar.offsetWidth;
+    let stop = (sidebar.offsetTop - 75);
+
+    window.onscroll = () => {
+      let scrollTop = (window.pageYOffset !== undefined) ?
+        window.pageYOffset :
+        (<Element>document.documentElement || <Element>document.body.parentNode || <Element>document.body).scrollTop;
+
+      if (scrollTop > stop) {
+        if (scrollTop < 105) {
+          sidebar.className = '';
+        } else {
+          sidebar.className = 'sticky';
+          sidebar.style.width = `${width}px`;
+        }
+      } else {
+        sidebar.className = '';
+      }
+    };
   }
 }
