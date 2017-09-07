@@ -29,7 +29,6 @@
           </button>
         </div>
       </div>
-
       <!--Machine Name-->
       <div class="row mt-1">
         <div class="col-md-3">
@@ -54,37 +53,31 @@
         </div>
       </div>
 
-      <!--Can Revote-->
       <div class="row mt-1">
-        <div class="col-md-6">
+        <!--Can Revote-->
+        <div class="col-md-4">
           <small class="text-muted">{{ 'T_PROJECT_CAN_REVOTE' | translate }}</small>
           <div class="h6">
             {{ (model.canRevote ? 'T_ACTION_YES' : 'T_ACTION_NO') | translate }}
           </div>
         </div>
-      </div>
 
-      <!--Is Anonymous-->
-      <div class="row mt-1">
-        <div class="col-md-6">
+        <!--Is Anonymous-->
+        <div class="col-md-4">
           <small class="text-muted">{{ 'T_PROJECT_ANONYMOUS' | translate }}</small>
           <div class="h6">
             {{ (model.isAnonymous ? 'T_ACTION_YES' : 'T_ACTION_NO') | translate }}
           </div>
         </div>
-      </div>
 
-      <!--Forms On The Same Page-->
-      <div class="row mt-1">
-        <div class="col-md-6">
+        <!--Forms On The Same Page-->
+        <div class="col-md-4">
           <small class="text-muted">{{ 'T_PROJECT_FORMS_ON_THE_SAME_PAGE' | translate }}</small>
           <div class="h6">
             {{ (model.formsOnSamePage ? 'T_ACTION_YES' : 'T_ACTION_NO') | translate }}
           </div>
         </div>
       </div>
-
-
     </div>
   </div>
 
