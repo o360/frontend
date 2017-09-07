@@ -1,46 +1,48 @@
-<div class="btn-group users-filter-buttons">
-  <label class="btn btn-outline-secondary mb-1"
-         *ngFor="let filter of filters"
-         [ngClass]="{ 'active': usersFilterType === filter }">
-    <input type="radio"
-           name="usersFilterType"
-           [(ngModel)]="usersFilterType"
-           [value]="filter"> {{ 'T_USERS_' + filter.toUpperCase() | translate }}
-  </label>
-</div>
+<div id="sidebar-container">
+  <div class="btn-group users-filter-buttons">
+    <label class="btn btn-outline-secondary mb-1"
+           *ngFor="let filter of filters"
+           [ngClass]="{ 'active': usersFilterType === filter }">
+      <input type="radio"
+             name="usersFilterType"
+             [(ngModel)]="usersFilterType"
+             [value]="filter"> {{ 'T_USERS_' + filter.toUpperCase() | translate }}
+    </label>
+  </div>
 
-<!--Search-->
-<bs-search [items]="users"
-           (itemsSearch)="userSearch($event)"></bs-search>
+  <!--Search-->
+  <bs-search [items]="users"
+             (itemsSearch)="userSearch($event)"></bs-search>
 
-<ul class="list-group assessment-object-list mb-2">
-  <li class="list-group-item custom-item assessment-user-list-item"
-      *ngFor="let userObj of filteredUsers"
-      (click)="selectUser(userObj)"
-      [ngClass]="{ 'current' : isCurrent(userObj.user) }">
-    <i [ngClass]="{ 'fa-check answered' : userObj.isAnswered }"
-       class="fa"></i>
-    <img [src]="!!userObj.user.picture ? userObj.user.picture : '../../assets/images/noUserImage.png'" [alt]=""/>
-    <span class="pl-1"> {{ userObj.user.name }}</span>
-    <i *ngIf="isCurrent(userObj.user)"
-       class="current-arrow fa fa-angle-right"></i>
-  </li>
-</ul>
-
-<!--Surveys-->
-<ul class="list-group assessment-object-list">
-  <li *ngIf="!!surveys.length"
-      class="mb-h list-unstyled">
-    <b>{{ 'T_SURVEYS' | translate }}</b>
-  </li>
-  <ng-container *ngFor="let survey of surveys">
-    <li class="list-group-item custom-item assessment-survey-list-item"
-        *ngFor="let formObj of survey.forms"
-        (click)="selectSurvey(formObj)">
-      <i [ngClass]="formObj.status === assessmentFormStatus.Answered ? 'answered' : 'not-answered'"
-         class="fa fa-check mr-1"></i>
-      <span class="mr-1">{{ formObj.form.name }}</span>
-      <i *ngIf="!!selectedItem && selectedItem === formObj" class="current-arrow fa fa-angle-right"></i>
+  <ul class="list-group assessment-object-list mb-2">
+    <li class="list-group-item custom-item assessment-user-list-item"
+        *ngFor="let userObj of filteredUsers"
+        (click)="selectUser(userObj)"
+        [ngClass]="{ 'current' : isCurrent(userObj.user) }">
+      <i [ngClass]="{ 'fa-check answered' : userObj.isAnswered }"
+         class="fa"></i>
+      <img [src]="!!userObj.user.picture ? userObj.user.picture : '../../assets/images/noUserImage.png'" [alt]=""/>
+      <span class="pl-1"> {{ userObj.user.name }}</span>
+      <i *ngIf="isCurrent(userObj.user)"
+         class="current-arrow fa fa-angle-right"></i>
     </li>
-  </ng-container>
-</ul>
+  </ul>
+
+  <!--Surveys-->
+  <ul class="list-group assessment-object-list">
+    <li *ngIf="!!surveys.length"
+        class="mb-h list-unstyled">
+      <b>{{ 'T_SURVEYS' | translate }}</b>
+    </li>
+    <ng-container *ngFor="let survey of surveys">
+      <li class="list-group-item custom-item assessment-survey-list-item"
+          *ngFor="let formObj of survey.forms"
+          (click)="selectSurvey(formObj)">
+        <i [ngClass]="formObj.status === assessmentFormStatus.Answered ? 'answered' : 'not-answered'"
+           class="fa fa-check mr-1"></i>
+        <span>{{ formObj.form.name }}</span>
+        <i *ngIf="!!selectedItem && selectedItem === formObj" class="current-arrow fa fa-angle-right"></i>
+      </li>
+    </ng-container>
+  </ul>
+</div>

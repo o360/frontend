@@ -1,6 +1,16 @@
+:host #sidebar-container {
+  max-height: calc(100vh - 10rem);
+}
+
+:host #sidebar-container.sticky {
+  position: fixed;
+  top: 0;
+  margin-top: 75px;
+}
+
 :host .list-group {
-  max-height: 600px;
   overflow-y: auto;
+  max-height: calc(100vh - 20rem);
 }
 
 :host .list-group-item {
