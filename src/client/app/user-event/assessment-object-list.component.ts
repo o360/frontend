@@ -136,11 +136,11 @@ export class AssessmentObjectListComponent implements OnInit, OnDestroy {
 
   private _recalculateLayout() {
     let sidebar = document.getElementById('sidebar-container');
+    let prettyOffsetTop = sidebar.offsetTop + 75;
     let scrollTop = (window.pageYOffset !== undefined) ?
       window.pageYOffset :
       (<Element>document.documentElement || <Element>document.body.parentNode || <Element>document.body).scrollTop;
-
-    if (scrollTop > 105) {
+    if (scrollTop > prettyOffsetTop) {
       sidebar.className = 'sticky';
     } else {
       sidebar.className = '';
