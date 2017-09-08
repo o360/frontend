@@ -1,36 +1,26 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
-import { Router } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
 import { RestServiceConfig } from '../decorators/rest-service-config.decorator';
-import { FormModel } from '../models/form-model';
+import { RestService } from './rest.service';
+import { EventModel } from '../models/event-model';
+import { ModelId } from '../models/model';
+import { Observable } from 'rxjs/Observable';
+import { Http, Response } from '@angular/http';
 import { AuthService } from './auth.service';
 import { NotificationService } from './notification.service';
-import { RestService } from './rest.service';
+import { Router } from '@angular/router';
 import { ConfirmationService } from './confirmation.service';
 
 @Injectable()
 @RestServiceConfig({
-  endpoint: 'admin',
-  entityName: 'forms',
-  entityConstructor: FormModel
+  entityName: 'events',
+  entityConstructor: EventModel
 })
-export class FormService extends RestService<FormModel> {
-
+export class EventUsersService extends RestService<EventModel> {
   constructor(http: Http,
               authService: AuthService,
               router: Router,
               notificationService: NotificationService,
               confirmationService: ConfirmationService) {
     super(http, authService, router, notificationService, confirmationService);
-  }
-
-  public clone(model: FormModel): Observable<FormModel> {
-    let clone = new FormModel(JSON.parse(model.toJson()));
-
-    clone.id = undefined;
-    clone.name += ' (copy)';
-
-    return this.save(clone);
   }
 }

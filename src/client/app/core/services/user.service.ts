@@ -5,6 +5,7 @@ import { RestService } from './rest.service';
 
 @Injectable()
 @RestServiceConfig({
+  endpoint: 'admin',
   entityName: 'users',
   entityConstructor: UserModel
 })
