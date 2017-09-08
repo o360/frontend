@@ -12,6 +12,7 @@ export interface IDataRequestUserFromGroup {
 
 @Injectable()
 @RestServiceConfig({
+  endpoint: 'admin',
   entityName: 'groups',
   entityConstructor: GroupModel
 })

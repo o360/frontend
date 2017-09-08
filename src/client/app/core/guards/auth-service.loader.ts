@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { AccountModel } from '../models/account-model';
-import { AccountService } from '../services/account.service';
 import { AuthService } from '../services/auth.service';
+import { AccountService } from '../services/account.service';
 
 
 @Injectable()
