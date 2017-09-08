@@ -1,10 +1,10 @@
 import { Component, Input } from '@angular/core';
 import { ListComponent } from '../shared/components/list.component';
 import { EventModel, EventStatus } from '../core/models/event-model';
-import { EventService } from '../core/services/event.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NotificationService } from '../core/services/notification.service';
 import { IListResponse } from '../core/services/rest.service';
+import { EventUsersService } from '../core/services/event-users.service';
 
 @Component({
   moduleId: module.id,
@@ -27,7 +27,7 @@ export class UserEventListComponent extends ListComponent<EventModel> {
     return EventStatus;
   }
 
-  constructor(service: EventService,
+  constructor(service: EventUsersService,
               activatedRoute: ActivatedRoute,
               router: Router,
               notificationService: NotificationService) {

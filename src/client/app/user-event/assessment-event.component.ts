@@ -8,9 +8,9 @@ import { NotificationService } from '../core/services/notification.service';
 import { IListResponse, IQueryParams } from '../core/services/rest.service';
 import { ListComponent } from '../shared/components/list.component';
 import { AssessmentObject } from './assessment-object-list.component';
-import { EventService } from '../core/services/event.service';
 import { EventStatus } from '../core/models/event-model';
 import { ProjectModel } from '../core/models/project-model';
+import { EventUsersService } from '../core/services/event-users.service';
 
 @Component({
   moduleId: module.id,
@@ -99,7 +99,7 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
               activatedRoute: ActivatedRoute,
               router: Router,
               notificationService: NotificationService,
-              protected _eventService: EventService) {
+              protected _eventService: EventUsersService) {
     super(service, activatedRoute, router, notificationService);
   }
 

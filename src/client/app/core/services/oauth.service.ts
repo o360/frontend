@@ -5,18 +5,18 @@ import { AccountModel } from '../models/account-model';
 import { RestService } from './rest.service';
 
 @RestServiceConfig({
-  endpoint: 'users',
-  entityName: 'current',
+  entityName: 'auth',
   entityConstructor: AccountModel
 })
-export class AccountService extends RestService<AccountModel> {
-  public get(token: string): Observable<AccountModel> {
-    let params = this._getRequestParams();
+export class OAuthService extends RestService<AccountModel> {
+  public authenticate(provider: string, code: string): Observable<string> {
+    let body = JSON.stringify({ 'code': code });
+    let params = `${this._getRequestParams()}/${provider}`;
     let options = this._getRequestOptions();
 
-    return this._http.get(params, options)
+    return this._http.post(params, body, options)
       .map((response: Response) => response.json())
-      .map((json: Object) => this.createEntity(json))
+      .map((json: any) => <string>json['token'])
       .catch((error: Response) => this._handleErrors(error));
   }
 

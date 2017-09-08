@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { AccountService } from '../core/services/account.service';
+import { OAuthService } from '../core/services/oauth.service';
 import { AuthService } from '../core/services/auth.service';
 
 @Component({
@@ -9,7 +9,7 @@ import { AuthService } from '../core/services/auth.service';
   templateUrl: 'oauth.component.html'
 })
 export class OAuthComponent implements OnInit {
-  constructor(protected _accountService: AccountService,
+  constructor(protected _oAuthService: OAuthService,
               protected _authService: AuthService,
               protected _activatedRoute: ActivatedRoute,
               protected _router: Router) {
@@ -22,7 +22,7 @@ export class OAuthComponent implements OnInit {
       this._activatedRoute.queryParams.forEach((params: Params) => {
         let code = params['code'];
 
-        this._accountService.authenticate(provider, code).subscribe(token => {
+        this._oAuthService.authenticate(provider, code).subscribe(token => {
           if (token) {
             this._authService.saveToken(token);
             this._router.navigate(['/']);
