@@ -13,14 +13,7 @@ export class InviteModel extends Model {
   public code?: string;
   public email: string;
   public groups: IGroupsModel[];
-  // public groupIds?: ModelId[];
   public creationTime?: string;
   public activationTime?: string;
-
-  // constructor(json: any) {
-  //   super(json);
-  //
-  //   if (this.)
-  // }
 }
 

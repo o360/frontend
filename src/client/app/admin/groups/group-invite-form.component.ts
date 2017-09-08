@@ -96,14 +96,12 @@ export class GroupInviteFormComponent extends FormComponent<InviteModel> impleme
       resultModel.push({ email: email, groupIds: this._groupModel.id ? [this._groupModel.id] : this._getGroups() });
     });
 
-    console.log(resultModel);
-
-    (<InviteService>this._service).createRequest(resultModel).subscribe(model => {
+    (<InviteService>this._service).createRequest(resultModel).subscribe(() => {
       if (this._groupModel.id) {
         this._returnPath = [`/admin/groups/${this._groupModel.id}`];
       }
       this._router.navigate(this._returnPath);
-      this._notificationService.success('T_SUCCESS_SAVED');
+      this._notificationService.success('T_SUCCESS_SEND_INVITE');
     });
   }
 
@@ -143,7 +141,7 @@ export class GroupInviteFormComponent extends FormComponent<InviteModel> impleme
   }
 
   protected _fillBreadcrumbs(model: GroupModel) {
-    if (model.hasOwnProperty('name')) {
+    if (model.name) {
       this._breadcrumbService.overrideBreadcrumb([{ label: model.name, url: `admin/groups/` },
         { label: 'T_ACTION_SEND_INVITE' }]);
     }

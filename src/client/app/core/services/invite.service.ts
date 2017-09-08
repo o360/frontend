@@ -12,7 +12,7 @@ import { Observable } from 'rxjs/Observable';
 })
 export class InviteService extends RestService<InviteModel> {
   public createRequest(model: InviteModel[]): Observable<InviteModel[]> {
-    let requestParams = `${this._getRequestParams()}/create`;
+    let requestParams = this._getRequestParams();
     let json = JSON.stringify(model);
     let requestOptions = this._getRequestOptions();
 
