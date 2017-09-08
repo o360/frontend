@@ -136,7 +136,6 @@ export class AssessmentObjectListComponent implements OnInit, OnDestroy {
 
   private _recalculateLayout() {
     let sidebar = document.getElementById('sidebar-container');
-    console.log(sidebar);
     let scrollTop = (window.pageYOffset !== undefined) ?
       window.pageYOffset :
       (<Element>document.documentElement || <Element>document.body.parentNode || <Element>document.body).scrollTop;
