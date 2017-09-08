@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, NgZone, OnDestroy, OnInit, Output } from '@angular/core';
 import { AssessmentFormStatus, AssessmentModel, IFormAnswer } from '../core/models/assessment-model';
 import { UserModel } from '../core/models/user-model';
 
@@ -16,7 +16,7 @@ export class UserAssessmentFilters {
   templateUrl: 'assessment-object-list.component.html',
   styleUrls: ['assessment-object-list.component.css'],
 })
-export class AssessmentObjectListComponent implements OnInit {
+export class AssessmentObjectListComponent implements OnInit, OnDestroy {
   private _usersFilterType: string = UserAssessmentFilters.All;
   private _filters = Object.values(UserAssessmentFilters);
 
@@ -77,8 +77,17 @@ export class AssessmentObjectListComponent implements OnInit {
     return this._filters;
   }
 
+  constructor(private _ngZone: NgZone) {
+  }
+
   public ngOnInit() {
-    this._setStinkySidebar();
+    this._ngZone.runOutsideAngular(() => {
+      $(window).bind('resize scroll', this._recalculateLayout);
+    });
+  }
+
+  public ngOnDestroy() {
+    $(window).unbind('resize scroll', this._recalculateLayout);
   }
 
   public selectUser(user: AssessmentModel) {
@@ -125,26 +134,17 @@ export class AssessmentObjectListComponent implements OnInit {
     this._filteredUsers = this._users;
   }
 
-  private _setStinkySidebar() {
+  private _recalculateLayout() {
     let sidebar = document.getElementById('sidebar-container');
-    let width = sidebar.offsetWidth;
-    let stop = (sidebar.offsetTop - 75);
+    console.log(sidebar);
+    let scrollTop = (window.pageYOffset !== undefined) ?
+      window.pageYOffset :
+      (<Element>document.documentElement || <Element>document.body.parentNode || <Element>document.body).scrollTop;
 
-    window.onscroll = () => {
-      let scrollTop = (window.pageYOffset !== undefined) ?
-        window.pageYOffset :
-        (<Element>document.documentElement || <Element>document.body.parentNode || <Element>document.body).scrollTop;
-
-      if (scrollTop > stop) {
-        if (scrollTop < 105) {
-          sidebar.className = '';
-        } else {
-          sidebar.className = 'sticky';
-          sidebar.style.width = `${width}px`;
-        }
-      } else {
-        sidebar.className = '';
-      }
-    };
+    if (scrollTop > 105) {
+      sidebar.className = 'sticky';
+    } else {
+      sidebar.className = '';
+    }
   }
 }

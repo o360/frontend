@@ -1,3 +1,7 @@
+:host {
+  position: relative;
+}
+
 :host #sidebar-container {
   max-height: calc(100vh - 10rem);
 }
@@ -6,6 +10,7 @@
   position: fixed;
   top: 0;
   margin-top: 75px;
+  width: 27%;
 }
 
 :host .list-group {
@@ -16,3 +21,4 @@
 :host .list-group-item {
   min-height: 48px;
 }
+
