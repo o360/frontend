@@ -22,7 +22,7 @@ import { ConfirmationService } from '../../core/services/confirmation.service';
 })
 export class TestListComponent extends ListComponent<TestModel> implements OnInit {
   protected _testResponse: IListResponse<TestModel> = {
-    data: [new TestModel({'id': 1, 'name': 'test'}), new TestModel({'id': 2, 'name': 'test2'})],
+    data: [new TestModel({ 'id': 1, 'name': 'test' }), new TestModel({ 'id': 2, 'name': 'test2' })],
     meta: {
       total: 2,
       size: 2,
@@ -74,12 +74,12 @@ export function main() {
         declarations: [TestListComponent], // declare the test component
         providers: [
           TestService,
-          {provide: NotificationService, useClass: NotificationServiceStub},
-          {provide: AuthService, useClass: AuthServiceStub},
-          {provide: XHRBackend, useClass: MockBackend},
-          {provide: ActivatedRoute, useClass: ActivatedRouteStub},
-          {provide: Router, useClass: RouterStub},
-          {provide: ConfirmationService, useClass: ConfirmationStub}
+          { provide: NotificationService, useClass: NotificationServiceStub },
+          { provide: AuthService, useClass: AuthServiceStub },
+          { provide: XHRBackend, useClass: MockBackend },
+          { provide: ActivatedRoute, useClass: ActivatedRouteStub },
+          { provide: Router, useClass: RouterStub },
+          { provide: ConfirmationService, useClass: ConfirmationStub }
 
         ]
       });
@@ -121,7 +121,7 @@ export function main() {
         name: 'T_NAME',
         field: 'name',
         type: FilterType.String,
-        values: Object.values(TestModel.name).map(x => ({value: x}))
+        values: Object.values(TestModel.name).map(x => ({ value: x }))
       }];
       expect(comp.filters.length).toEqual(1);
     });
