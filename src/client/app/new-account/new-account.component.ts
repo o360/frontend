@@ -43,8 +43,8 @@ export class NewAccountComponent {
 
   public update() {
     this._userService.save(this._user).subscribe(
-      () => {
-        this._authService.profileFilled = true;
+      (user) => {
+        this._authService.user = user;
         this._router.navigate(['/profile']);
         this._notificationService.success('T_SUCCESS_NEW_USER_SAVED');
       },

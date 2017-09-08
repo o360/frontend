@@ -1,5 +1,5 @@
 import { Defaults } from '../decorators/defaults.decorator';
-import { Model } from './model';
+import { UserModel } from './user-model';
 
 @Defaults({
   name: '',
@@ -9,11 +9,11 @@ import { Model } from './model';
   gender: null,
   timezone: 'Z'
 })
-export class AccountModel extends Model {
+export class AccountModel extends UserModel {
   public name: string;
-  public email: string;
-  public status: string;
-  public role: string;
+  public email?: string;
+  public status?: string;
+  public role?: string;
   public gender: string;
   public timezone?: string;
 
