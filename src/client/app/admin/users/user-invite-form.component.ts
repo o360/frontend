@@ -104,7 +104,7 @@ export class UserInviteFormComponent extends FormComponent<InviteModel> implemen
       if (this._returnPath) {
         this._router.navigate([this._returnPath]);
       }
-      this._notificationService.success('T_SUCCESS_SAVED');
+      this._notificationService.success('T_SUCCESS_SEND_INVITE');
     });
   }
 
