@@ -11,7 +11,7 @@ import { ConfirmationService } from './confirmation.service';
 
 @Injectable()
 @RestServiceConfig({
-  entityName: 'forms/user',
+  entityName: 'forms',
   entityConstructor: FormModel
 })
 export class FormUsersService extends RestService<FormModel> {

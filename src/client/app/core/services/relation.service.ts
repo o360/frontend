@@ -5,6 +5,7 @@ import { RelationModel } from '../models/relation-model';
 
 @Injectable()
 @RestServiceConfig({
+  endpoint: 'admin',
   entityName: 'relations',
   entityConstructor: RelationModel
 })

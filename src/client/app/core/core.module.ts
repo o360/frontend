@@ -7,7 +7,7 @@ import { LayoutComponent } from './components/layout/layout.component';
 import { SidebarNavComponent } from './components/sidebar-nav/sidebar-nav.component';
 import { AuthServiceLoader } from './guards/auth-service.loader';
 import { AuthGuard } from './guards/auth.guard';
-import { AccountService } from './services/account.service';
+import { OAuthService } from './services/oauth.service';
 import { AuthService } from './services/auth.service';
 import { UserService } from './services/user.service';
 import { BsDropdownModule } from 'ngx-bootstrap';
@@ -23,6 +23,8 @@ import { AssessmentService } from './services/assessment.service';
 import { FormUsersService } from './services/form-users.service';
 import { ConfirmationService } from './services/confirmation.service';
 import { BreadcrumbService } from './services/breadcrumb.service';
+import { AccountService } from './services/account.service';
+import { EventUsersService } from './services/event-users.service';
 
 @NgModule({
   imports: [
@@ -37,15 +39,17 @@ import { BreadcrumbService } from './services/breadcrumb.service';
     LayoutComponent
   ],
   providers: [
+    AccountService,
     AuthService,
     AuthServiceLoader,
-    AccountService,
+    OAuthService,
     AuthGuard,
     AdminGuard,
     UserService,
     GroupService,
     NotificationService,
     EventService,
+    EventUsersService,
     FormService,
     FormUsersService,
     ProjectService,
@@ -56,7 +60,7 @@ import { BreadcrumbService } from './services/breadcrumb.service';
     AssessmentService,
     NotificationService,
     ConfirmationService,
-    BreadcrumbService
+    BreadcrumbService,
   ],
   exports: [
     HeaderComponent,
