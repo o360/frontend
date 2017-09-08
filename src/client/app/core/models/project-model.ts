@@ -24,6 +24,7 @@ export interface IEmailTemplate {
 })
 export class ProjectModel extends Model {
   public name: string;
+  public machineName: string;
   public description: string;
   public groupAuditorId?: ModelId;
   public groupAuditor?: GroupModel;

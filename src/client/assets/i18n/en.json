@@ -45,6 +45,7 @@
   "T_ACTION_VIEW_ASSESSMENT": "View completed assessment",
   "T_ACTION_USER_SEARCH": "User search",
   "T_ACTION_MULTIPLE_SELECT": "Hold CTRL for multiple select",
+  "T_MACHINE_NAME": "Machine name",
   "T_USER": "User",
   "T_USER_NAME": "Name",
   "T_USER_EMAIL": "Email",
