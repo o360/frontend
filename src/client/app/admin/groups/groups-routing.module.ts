@@ -4,6 +4,7 @@ import { AdminGroupFormComponent } from './group-form.component';
 import { AdminGroupListComponent } from './group-list.component';
 import { AdminGroupDetailsComponent } from './group-details.component';
 import { AppRoutes } from '../../core/models/app-routes.model';
+import { GroupInviteFormComponent } from './group-invite-form.component';
 
 @NgModule({
   imports: [
@@ -11,6 +12,10 @@ import { AppRoutes } from '../../core/models/app-routes.model';
       path: '',
       component: AdminGroupListComponent,
       breadcrumbIgnore: true,
+    }, {
+      path: 'invite',
+      component: GroupInviteFormComponent,
+      breadcrumb: 'T_ACTION_INVITE',
     }, {
       path: 'create',
       component: AdminGroupFormComponent,
@@ -27,6 +32,10 @@ import { AppRoutes } from '../../core/models/app-routes.model';
       path: ':id/edit',
       component: AdminGroupFormComponent,
       breadcrumb: 'T_ACTION_EDIT',
+    }, {
+      path: ':id/invite',
+      component: GroupInviteFormComponent,
+      breadcrumb: 'T_ACTION_INVITE',
     }])
   ],
   exports: [RouterModule]
