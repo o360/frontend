@@ -28,6 +28,7 @@ import { AdminEventService } from './services/admin-event.service';
 import { UserService } from './services/user.service';
 import { ProjectService } from './services/project.service';
 import { UserPictureService } from './services/user-picture.service';
+import { InviteService } from './services/invite.service';
 
 @NgModule({
   imports: [
@@ -49,6 +50,7 @@ import { UserPictureService } from './services/user-picture.service';
     AuthGuard,
     AdminGuard,
     UserService,
+    InviteService,
     AdminUserService,
     AdminGroupService,
     NotificationService,
