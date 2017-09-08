@@ -38,6 +38,14 @@
         </button>
       </div>
     </div>
+    <div class="row">
+      <!--Machine Name-->
+      <div class="col-md-6 mt-1">
+        <small class="text-muted">{{ 'T_MACHINE_NAME' | translate }}</small>
+        <div class="h6">{{ model.machineName }}</div>
+      </div>
+    </div>
+    <hr/>
     <form #assessmentForm="ngForm"
           class="mt-2"
           (ngSubmit)="save()">
