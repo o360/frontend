@@ -19,7 +19,7 @@ export class UserGender {
   email: '',
   status: '',
   role: '',
-  gender: 'male',
+  gender: null,
   timezone: 'Z'
 })
 export class UserModel extends Model {
