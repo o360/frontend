@@ -82,11 +82,21 @@ export class GroupFormComponent extends FormComponent<GroupModel> {
 
     while (item.parentId) {
       item = await this._service.get(item.parentId).toPromise();
-
       breadcrumbs.push({ label: item.name, url: `/admin/groups/${item.id}` });
     }
     let index = breadcrumbs.length - 1;
-    breadcrumbs.reverse()[index].label = 'T_ACTION_CREATE';
+
+    if (this.editMode) {
+      breadcrumbs = [];
+      breadcrumbs.push({
+        label: item.name, url: `/admin/groups/${item.id}`
+      }, {
+        label: 'T_ACTION_EDIT'
+      });
+    } else {
+      breadcrumbs.reverse()[index].label = 'T_ACTION_CREATE';
+    }
+
     this._breadcrumbService.overrideBreadcrumb(breadcrumbs);
   }
 }
