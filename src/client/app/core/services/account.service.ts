@@ -27,4 +27,15 @@ export class AccountService extends RestService<AccountModel> {
   public delete() {
     return Observable.throw('Method not allowed!');
   }
+
+  protected _update(model: AccountModel): Observable<AccountModel> {
+    let requestParams = this._getRequestParams();
+    let json = model.toJson();
+    let requestOptions = this._getRequestOptions();
+
+    return this._http.put(requestParams, json, requestOptions)
+      .map((res: Response) => res.json())
+      .map((json: any) => this.createEntity(json))
+      .catch((error: Response) => this._handleErrors(error));
+  }
 }
