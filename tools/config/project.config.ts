@@ -45,6 +45,8 @@ export class ProjectConfig extends SeedConfig {
       { src: `air-datepicker/dist/js/datepicker.min.js`, inject: 'libs' },
       { src: `air-datepicker/dist/js/i18n/datepicker.en.js`, inject: 'libs' },
       { src: 'select2/dist/js/select2.full.min.js', inject: 'libs' },
+      { src: 'cropperjs/dist/cropper.css', inject: true },
+      { src: 'cropperjs/dist/cropper.js', inject: 'libs' },
       // {src: 'lodash/lodash.min.js', inject: 'libs'},
     ];
 
@@ -124,6 +126,13 @@ export class ProjectConfig extends SeedConfig {
       name: 'ng2-select2',
       path: 'node_modules/ng2-select2',
       packageMeta: {
+        defaultExtension: 'js'
+      }
+    }, {
+      name: 'cropperjs',
+      path: 'node_modules/cropperjs',
+      packageMeta: {
+        main: 'dist/cropper.js',
         defaultExtension: 'js'
       }
     }];
