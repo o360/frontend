@@ -3,7 +3,16 @@
 
   <div class="card-block">
     <div class="row">
-      <div class="col-md-8">
+      <div class="col-md-2 user-profile-image">
+        <img [src]="avatar"
+             [alt]="model.name"
+             *ngIf="!isImageLoading; else noImageFound"/>
+        <ng-template #noImageFound>
+          <img src="../../assets/images/noUserImage.png"
+               [alt]="model.name">
+        </ng-template>
+      </div>
+      <div class="col-md-6 align-self-center">
         <h2>{{ model.name }}</h2>
       </div>
       <div class="col-md-4 text-right">

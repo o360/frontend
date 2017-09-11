@@ -25,6 +25,7 @@ import { ConfirmationService } from './services/confirmation.service';
 import { BreadcrumbService } from './services/breadcrumb.service';
 import { AccountService } from './services/account.service';
 import { EventUsersService } from './services/event-users.service';
+import { UserPictureService } from './services/user-picture.service';
 
 @NgModule({
   imports: [
@@ -61,6 +62,7 @@ import { EventUsersService } from './services/event-users.service';
     NotificationService,
     ConfirmationService,
     BreadcrumbService,
+    UserPictureService
   ],
   exports: [
     HeaderComponent,
