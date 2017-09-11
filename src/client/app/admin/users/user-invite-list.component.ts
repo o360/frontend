@@ -9,9 +9,9 @@ import { GroupModel } from '../../core/models/group-model';
 @Component({
   moduleId: module.id,
   selector: 'bs-user-invite',
-  templateUrl: 'user-invite.component.html'
+  templateUrl: 'user-invite-list.component.html'
 })
-export class UserInviteComponent extends ListComponent<InviteModel> implements OnInit {
+export class AdminUserInviteListComponent extends ListComponent<InviteModel> implements OnInit {
   private _groups: GroupModel[];
 
   public get groups(): GroupModel[] {
