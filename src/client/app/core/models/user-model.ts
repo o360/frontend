@@ -29,8 +29,4 @@ export class UserModel extends Model {
   public role?: string;
   public gender: string;
   public timezone?: string;
-
-  public get isFilled(): boolean {
-    return !!this.name && !!this.gender && !!this.email;
-  }
 }

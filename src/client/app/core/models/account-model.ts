@@ -10,13 +10,6 @@ import { UserModel } from './user-model';
   timezone: 'Z'
 })
 export class AccountModel extends UserModel {
-  public name: string;
-  public email?: string;
-  public status?: string;
-  public role?: string;
-  public gender: string;
-  public timezone?: string;
-
   public get isFilled(): boolean {
     return !!this.name && !!this.gender && !!this.email && this.timezone !== 'Z';
   }
