@@ -76,7 +76,7 @@ export class GroupFormComponent extends FormComponent<GroupModel> {
   protected async _fillBreadcrumbs(model: GroupModel) {
     let breadcrumbs: IBreadcrumb[] = [];
 
-    breadcrumbs.push({ label: model.name });
+    breadcrumbs.push({ label: model.name, url: `/admin/groups/${model.id}` });
 
     let item = model;
 
@@ -84,17 +84,15 @@ export class GroupFormComponent extends FormComponent<GroupModel> {
       item = await this._service.get(item.parentId).toPromise();
       breadcrumbs.push({ label: item.name, url: `/admin/groups/${item.id}` });
     }
+    breadcrumbs.reverse();
     let index = breadcrumbs.length - 1;
 
     if (this.editMode) {
-      breadcrumbs = [];
       breadcrumbs.push({
-        label: item.name, url: `/admin/groups/${item.id}`
-      }, {
         label: 'T_ACTION_EDIT'
       });
     } else {
-      breadcrumbs.reverse()[index].label = 'T_ACTION_CREATE';
+      breadcrumbs[index].label = 'T_ACTION_CREATE';
     }
 
     this._breadcrumbService.overrideBreadcrumb(breadcrumbs);
