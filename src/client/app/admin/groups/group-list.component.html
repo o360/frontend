@@ -16,8 +16,16 @@
             [routerLink]="['/admin/groups/create', parentId!='null' ? { parentId: parentId } : {}]"><i class="fa fa-plus"></i>
     </button>
 
+    <button *ngIf="parentId == 'null'"
+            class="btn btn-primary mb-1 mr-1"
+            type="button"
+            role="button"
+            [tooltip]="'T_ACTION_SEND_INVITE_FROM_GROUP' | translate"
+            [routerLink]="['/admin/groups/invite']"><i class="fa fa-paper-plane"></i>
+    </button>
+
     <button *ngIf="list.length"
-            class="btn btn-default mb-1 mr-1"
+            class="btn btn-default mb-1"
             type="button"
             role="button"
             [tooltip]="innerGroupState ? ( 'T_ACTION_HIDE' | translate ) : ( 'T_ACTION_EXPAND' | translate )"
@@ -31,14 +39,6 @@
               <i class="fa fa-chevron-down"></i>
           </ng-template>
       </span>
-    </button>
-
-    <button *ngIf="parentId == 'null'"
-            class="btn btn-primary mb-1"
-            type="button"
-            role="button"
-            [tooltip]="'T_ACTION_SEND_INVITE_FROM_GROUP' | translate"
-            [routerLink]="['/admin/groups/invite']"><i class="fa fa-paper-plane"></i>
     </button>
 
     <ul class="list-group border-1 group-header">

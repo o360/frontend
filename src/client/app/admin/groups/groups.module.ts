@@ -10,7 +10,7 @@ import { AdminGroupUserListComponent } from './group-user-list.component';
 import { AdminUsersAddModalComponent } from './users-add-modal.component';
 import { AdminChildGroupListComponent } from './child-group-list.component';
 import { AdminGroupProjectListComponent } from './group-project-list.component';
-import { GroupInviteFormComponent } from './group-invite-form.component';
+import { AdminGroupInviteFormComponent } from './group-invite-form.component';
 
 @NgModule({
   imports: [
@@ -26,7 +26,7 @@ import { GroupInviteFormComponent } from './group-invite-form.component';
     AdminUsersAddModalComponent,
     AdminChildGroupListComponent,
     AdminGroupProjectListComponent,
-    GroupInviteFormComponent
+    AdminGroupInviteFormComponent
   ],
   exports: [
     AdminGroupListComponent,
@@ -36,7 +36,7 @@ import { GroupInviteFormComponent } from './group-invite-form.component';
     AdminUsersAddModalComponent,
     AdminChildGroupListComponent,
     AdminGroupProjectListComponent,
-    GroupInviteFormComponent
+    AdminGroupInviteFormComponent
   ],
 })
 export class AdminGroupsModule {

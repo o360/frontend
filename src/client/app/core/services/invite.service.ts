@@ -3,6 +3,12 @@ import { RestServiceConfig } from '../decorators/rest-service-config.decorator';
 import { RestService } from './rest.service';
 import { InviteModel } from '../models/invite-model';
 import { Observable } from 'rxjs/Observable';
+import { ModelId } from '../models/model';
+
+export interface IDataRequestInvite {
+  email: string;
+  groups: ModelId[];
+}
 
 @Injectable()
 @RestServiceConfig({
@@ -11,7 +17,7 @@ import { Observable } from 'rxjs/Observable';
   entityConstructor: InviteModel
 })
 export class InviteService extends RestService<InviteModel> {
-  public createRequest(model: InviteModel[]): Observable<InviteModel[]> {
+  public createRequest(model: IDataRequestInvite[]): Observable<InviteModel[]> {
     let requestParams = this._getRequestParams();
     let json = JSON.stringify(model);
     let requestOptions = this._getRequestOptions();

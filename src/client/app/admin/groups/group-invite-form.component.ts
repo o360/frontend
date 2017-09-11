@@ -1,25 +1,26 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FormComponent } from '../../shared/components/form.component';
 import { NotificationService } from '../../core/services/notification.service';
 import { BreadcrumbService } from '../../core/services/breadcrumb.service';
 import { InviteModel } from '../../core/models/invite-model';
-import { InviteService } from '../../core/services/invite.service';
+import { IDataRequestInvite, InviteService } from '../../core/services/invite.service';
 import { TranslateService } from '@ngx-translate/core';
-import { GroupService } from '../../core/services/group.service';
 import { IListResponse } from '../../core/services/rest.service';
 import { GroupModel } from '../../core/models/group-model';
 import { Select2OptionData } from 'ng2-select2';
 import { Utils } from '../../utils';
 import { Observable } from 'rxjs/Observable';
-
+import { IBreadcrumb } from '../../core/components/breadcrumb/breadcrumb.component';
+import { ModelId } from '../../core/models/model';
+import { AdminGroupService } from '../../core/services/admin-group.service';
 
 @Component({
   moduleId: module.id,
   selector: 'bs-group-invite-form',
   templateUrl: 'group-invite-form.component.html'
 })
-export class GroupInviteFormComponent extends FormComponent<InviteModel> implements OnInit {
+export class AdminGroupInviteFormComponent extends FormComponent<InviteModel> implements OnInit {
   private _availableGroups: Select2OptionData[] = [];
   private _options: Select2Options;
   private _emails: string;
@@ -27,6 +28,13 @@ export class GroupInviteFormComponent extends FormComponent<InviteModel> impleme
   private _groupModel: GroupModel;
   private _isMultipleGroups: boolean = true;
 
+  public set options(value: Select2Options) {
+    this._options = value;
+  }
+
+  public set emails(value: string) {
+    this._emails = value;
+  }
 
   public get isMultipleGroups(): boolean {
     return this._isMultipleGroups;
@@ -36,16 +44,8 @@ export class GroupInviteFormComponent extends FormComponent<InviteModel> impleme
     return this._groupModel;
   }
 
-  public set emails(value: string) {
-    this._emails = value;
-  }
-
   public get availableGroups(): Select2OptionData[] {
     return this._availableGroups;
-  }
-
-  public set options(value: Select2Options) {
-    this._options = value;
   }
 
   public get options(): Select2Options {
@@ -58,7 +58,7 @@ export class GroupInviteFormComponent extends FormComponent<InviteModel> impleme
               notificationService: NotificationService,
               breadcrumbService: BreadcrumbService,
               private _translate: TranslateService,
-              private _groupService: GroupService) {
+              private _groupService: AdminGroupService) {
     super(service, router, route, notificationService, breadcrumbService);
 
     this._returnPath = ['/admin/groups'];
@@ -82,6 +82,8 @@ export class GroupInviteFormComponent extends FormComponent<InviteModel> impleme
       }
     };
     this._model = new InviteModel();
+    this._groupModel = new GroupModel();
+
     super.ngOnInit();
   }
 
@@ -90,13 +92,7 @@ export class GroupInviteFormComponent extends FormComponent<InviteModel> impleme
   }
 
   public save() {
-    let resultModel: any = [];
-
-    this._getEmails().forEach(email => {
-      resultModel.push({ email: email, groupIds: this._groupModel.id ? [this._groupModel.id] : this._getGroups() });
-    });
-
-    (<InviteService>this._service).createRequest(resultModel).subscribe(() => {
+    (<InviteService>this._service).createRequest(this._getModel()).subscribe(() => {
       if (this._groupModel.id) {
         this._returnPath = [`/admin/groups/${this._groupModel.id}`];
       }
@@ -105,20 +101,31 @@ export class GroupInviteFormComponent extends FormComponent<InviteModel> impleme
     });
   }
 
-  private _getEmails(): String[] {
+  private _getEmails() {
     return this._emails.split(',').map(function (item) {
       return item.replace(/\s/g, '');
     });
   }
 
-  private _getGroups(): Number[] {
+  private _getGroups(): ModelId[] {
     return this._selectedGroups.map(item => {
       return parseInt(item, 10);
     });
   }
 
+  private _getModel(): IDataRequestInvite[] {
+    let resultModel: IDataRequestInvite[] = [];
+
+    this._getEmails().forEach(email => {
+      resultModel.push({ email: email, groups: this._groupModel.id ? [this._groupModel.id] : this._getGroups() });
+    });
+
+    return resultModel;
+  }
+
   private _loadGroups() {
     this._selectedGroups = [];
+
     this._groupService.list().subscribe((res: IListResponse<GroupModel>) => {
       return this._availableGroups = res.data.map(group => {
         return { id: String(group.id), text: `${group.name}` };
@@ -126,25 +133,41 @@ export class GroupInviteFormComponent extends FormComponent<InviteModel> impleme
     });
   }
 
-  protected _loadModel() {
+  protected _load() {
+    this._loadModelGroup().subscribe(this._processModelGroup.bind(this));
+  }
+
+  protected _loadModelGroup() {
     if (this._id) {
       this._isMultipleGroups = false;
       return this._groupService.get(this._id);
     } else {
-      return Observable.of(this._service.createEntity());
+      return Observable.of(this._groupService.createEntity());
     }
   }
 
-  protected _processModel(model: GroupModel) {
+  protected _processModelGroup(model: GroupModel) {
     this._groupModel = model;
-    this._fillBreadcrumbs(model);
+
+    this._fillBreadcrumbsGroup(model);
   }
 
-  protected _fillBreadcrumbs(model: GroupModel) {
-    if (model.name) {
-      this._breadcrumbService.overrideBreadcrumb([{ label: model.name, url: `admin/groups/` },
-        { label: 'T_ACTION_SEND_INVITE' }]);
+  protected async _fillBreadcrumbsGroup(model: GroupModel) {
+    let breadcrumbs: IBreadcrumb[] = [];
+    let item = model;
+
+    if (item.name) {
+      breadcrumbs.push({ label: item.name, url: `/admin/groups/${item.id}` });
+      while (item.parentId) {
+        item = await this._groupService.get(item.parentId).toPromise();
+        breadcrumbs.push({ label: item.name, url: `/admin/groups/${item.id}` });
+        breadcrumbs.reverse();
+      }
     }
+
+    breadcrumbs.push({ label: 'T_ACTION_SEND_INVITE' });
+
+    this._breadcrumbService.overrideBreadcrumb(breadcrumbs);
   }
 }
 

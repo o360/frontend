@@ -4,38 +4,24 @@ import { FormComponent } from '../../shared/components/form.component';
 import { NotificationService } from '../../core/services/notification.service';
 import { BreadcrumbService } from '../../core/services/breadcrumb.service';
 import { InviteModel } from '../../core/models/invite-model';
-import { InviteService } from '../../core/services/invite.service';
+import { IDataRequestInvite, InviteService } from '../../core/services/invite.service';
 import { TranslateService } from '@ngx-translate/core';
-import { GroupService } from '../../core/services/group.service';
+import { AdminGroupService } from '../../core/services/admin-group.service';
 import { IListResponse } from '../../core/services/rest.service';
 import { GroupModel } from '../../core/models/group-model';
 import { Select2OptionData } from 'ng2-select2';
 import { Utils } from '../../utils';
-import { ModelId } from '../../core/models/model';
-
-export interface IInvite {
-  email: string;
-  groups: ModelId[];
-}
 
 @Component({
   moduleId: module.id,
   selector: 'bs-user-invite-form',
   templateUrl: 'user-invite-form.component.html'
 })
-export class UserInviteFormComponent extends FormComponent<InviteModel> implements OnInit {
+export class AdminUserInviteFormComponent extends FormComponent<InviteModel> implements OnInit {
   private _availableGroups: Select2OptionData[] = [];
   private _options: Select2Options;
   private _emails: string;
   private _selectedGroups: string[] = [];
-
-  public get selectedGroups(): string[] {
-    return this._selectedGroups;
-  }
-
-  public set selectedGroups(value: string[]) {
-    this._selectedGroups = value;
-  }
 
   public get emails(): string {
     return this._emails;
@@ -63,7 +49,7 @@ export class UserInviteFormComponent extends FormComponent<InviteModel> implemen
               notificationService: NotificationService,
               breadcrumbService: BreadcrumbService,
               private _translate: TranslateService,
-              private _groupService: GroupService) {
+              private _groupService: AdminGroupService) {
     super(service, router, route, notificationService, breadcrumbService);
 
     this._returnPath = ['/admin/users/invite'];
@@ -95,7 +81,7 @@ export class UserInviteFormComponent extends FormComponent<InviteModel> implemen
 
 
   public save() {
-    let resultModel: any = [];
+    let resultModel: IDataRequestInvite[] = [];
     this._getEmails().forEach(email => {
       resultModel.push({ email: email, groups: this._getGroups() });
     });
