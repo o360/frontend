@@ -17,6 +17,7 @@ export class UserProfileFormComponent extends FormComponent<UserModel> implement
   protected _returnPath = ['/profile'];
   protected _genders: string[] = Object.values(UserGender);
   protected _timezones: string[] = moment.tz.names();
+  protected _profileImage: any;
 
   public get genders(): string[] {
     return this._genders;
@@ -24,6 +25,10 @@ export class UserProfileFormComponent extends FormComponent<UserModel> implement
 
   public get timezones(): string[] {
     return this._timezones;
+  }
+
+  public get profileImage(): any {
+    return this._profileImage;
   }
 
   constructor(service: AccountService,
@@ -51,5 +56,14 @@ export class UserProfileFormComponent extends FormComponent<UserModel> implement
 
   public getOffset(tzId: string) {
     return moment.tz(tzId).format('Z');
+  }
+
+  public onPictureUpload(upload: any) {
+    let reader = new FileReader();
+    reader.addEventListener('load', () => {
+      this._profileImage = reader.result;
+    }, false);
+
+    reader.readAsDataURL(upload.srcElement.files[0]);
   }
 }
