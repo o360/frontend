@@ -1,8 +1,9 @@
-import { Response } from '@angular/http';
+import { RequestOptions, Response, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { RestServiceConfig } from '../decorators/rest-service-config.decorator';
 import { AccountModel } from '../models/account-model';
 import { RestService } from './rest.service';
+import { ModelId } from '../models/model';
 
 @RestServiceConfig({
   endpoint: 'users',
@@ -26,6 +27,21 @@ export class AccountService extends RestService<AccountModel> {
 
   public delete() {
     return Observable.throw('Method not allowed!');
+  }
+
+  public setPicture(id: ModelId, file: FormData): Observable<AccountModel> {
+    let requestParams = `${this._getRequestParams(id)}/picture`;
+    let requestOptions = new RequestOptions({
+      headers: new Headers({
+        'Content-Type': 'multipart/form-data',
+        'Accept': 'application/json',
+        'X-Auth-Token': this._authService.token
+      })
+    });
+
+    return this._http.post(requestParams, file, requestOptions)
+      .map((res: Response) => res.json())
+      .catch((error: Response) => this._handleErrors(error));
   }
 
   protected _update(model: AccountModel): Observable<AccountModel> {

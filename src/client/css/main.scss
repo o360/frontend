@@ -175,3 +175,14 @@ header.navbar .navbar-brand {
 .custom-control-input:disabled {
   background-color: #cfd8dc;
 }
+
+.user-profile-image {
+  width: 100px;
+  height: 100px;
+}
+
+.user-profile-image img {
+  max-width: 100%;
+  height: 100%;
+  width: auto;
+}
