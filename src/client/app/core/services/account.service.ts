@@ -21,27 +21,28 @@ export class AccountService extends RestService<AccountModel> {
       .catch((error: Response) => this._handleErrors(error));
   }
 
+  public setPicture(file: string): Observable<AccountModel> {
+    let requestParams = `${this._getRequestParams()}/picture`;
+    let requestOptions = new RequestOptions({
+      headers: new Headers({
+        'X-Auth-Token': this._authService.token
+      })
+    });
+
+    let formData = new FormData();
+    formData.append('picture', this._convertDataUriToBlob(file), 'pic.jpg');
+
+    return this._http.post(requestParams, formData, requestOptions)
+      .map((res: Response) => res.json())
+      .catch((error: Response) => this._handleErrors(error));
+  }
+
   public list() {
     return Observable.throw('Method not allowed!');
   }
 
   public delete() {
     return Observable.throw('Method not allowed!');
-  }
-
-  public setPicture(id: ModelId, file: FormData): Observable<AccountModel> {
-    let requestParams = `${this._getRequestParams(id)}/picture`;
-    let requestOptions = new RequestOptions({
-      headers: new Headers({
-        'Content-Type': 'multipart/form-data',
-        'Accept': 'application/json',
-        'X-Auth-Token': this._authService.token
-      })
-    });
-
-    return this._http.post(requestParams, file, requestOptions)
-      .map((res: Response) => res.json())
-      .catch((error: Response) => this._handleErrors(error));
   }
 
   protected _update(model: AccountModel): Observable<AccountModel> {
@@ -53,5 +54,15 @@ export class AccountService extends RestService<AccountModel> {
       .map((res: Response) => res.json())
       .map((json: any) => this.createEntity(json))
       .catch((error: Response) => this._handleErrors(error));
+  }
+
+  protected _convertDataUriToBlob(dataUri: string) {
+    let byteString = atob(dataUri.split(',')[1]);
+    let ia = new Uint8Array(byteString.length);
+    for (let i = 0; i < byteString.length; i++) {
+      ia[i] = byteString.charCodeAt(i);
+    }
+    var mimeString = dataUri.split(',')[0].split(':')[1].split(';')[0];
+    return new Blob([ia], { type: mimeString });
   }
 }

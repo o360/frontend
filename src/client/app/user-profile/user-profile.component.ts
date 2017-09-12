@@ -15,14 +15,9 @@ import { UserPictureService } from '../core/services/user-picture.service';
 })
 export class UserProfileComponent extends DetailsComponent<AccountModel> implements OnInit {
   protected _avatar: any;
-  protected _isImageLoading: boolean;
 
   public get avatar(): any {
     return this._avatar;
-  }
-
-  public get isImageLoading(): boolean {
-    return this._isImageLoading;
   }
 
   constructor(service: AccountService,
@@ -48,11 +43,9 @@ export class UserProfileComponent extends DetailsComponent<AccountModel> impleme
   }
 
   protected _loadUserPicture() {
-    this._isImageLoading = true;
     this._userPictureService.getPicture(this._id).subscribe(pic => {
-        this._createImageFromBlob(pic);
-        this._isImageLoading = false;
-      });
+      this._createImageFromBlob(pic);
+    });
   }
 
   protected _createImageFromBlob(image: Blob): any {

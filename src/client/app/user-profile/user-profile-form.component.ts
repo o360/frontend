@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserGender, UserModel } from '../core/models/user-model';
 import { AuthService } from '../core/services/auth.service';
@@ -7,6 +7,7 @@ import { NotificationService } from '../core/services/notification.service';
 import * as moment from 'moment-timezone';
 import { BreadcrumbService } from '../core/services/breadcrumb.service';
 import { AccountService } from '../core/services/account.service';
+import { UserPictureService } from '../core/services/user-picture.service';
 
 @Component({
   moduleId: module.id,
@@ -18,6 +19,8 @@ export class UserProfileFormComponent extends FormComponent<UserModel> implement
   protected _genders: string[] = Object.values(UserGender);
   protected _timezones: string[] = moment.tz.names();
   protected _profileImage: any;
+  protected _avatar: any;
+  protected _choosePictureInput: any;
 
   public get genders(): string[] {
     return this._genders;
@@ -27,8 +30,17 @@ export class UserProfileFormComponent extends FormComponent<UserModel> implement
     return this._timezones;
   }
 
+  public get avatar(): any {
+    return this._avatar;
+  }
+
   public get profileImage(): any {
     return this._profileImage;
+  }
+
+  @ViewChild('choosePictureInput')
+  public set choosePictureInput(value: any) {
+    this._choosePictureInput = value;
   }
 
   constructor(service: AccountService,
@@ -36,12 +48,14 @@ export class UserProfileFormComponent extends FormComponent<UserModel> implement
               route: ActivatedRoute,
               notificationService: NotificationService,
               breadcrumbService: BreadcrumbService,
-              protected _auth: AuthService) {
+              protected _auth: AuthService,
+              protected _userPictureService: UserPictureService) {
     super(service, router, route, notificationService, breadcrumbService);
   }
 
   public ngOnInit() {
     this._id = this._auth.user.id;
+    this._getUserPicture();
     super.ngOnInit();
   }
 
@@ -58,12 +72,38 @@ export class UserProfileFormComponent extends FormComponent<UserModel> implement
     return moment.tz(tzId).format('Z');
   }
 
-  public onPictureUpload(upload: any) {
+  public onPictureUpload(event: EventTarget) {
     let reader = new FileReader();
     reader.addEventListener('load', () => {
       this._profileImage = reader.result;
     }, false);
 
-    reader.readAsDataURL(upload.srcElement.files[0]);
+    let eventObj = <MSInputMethodContext>event;
+    let target = <HTMLInputElement>eventObj.target;
+    let files = target.files;
+    if (files[0]) {
+      reader.readAsDataURL(files[0]);
+    }
+  }
+
+  public savePicture(image: any) {
+    (<AccountService>this._service).setPicture(image).subscribe(picture => {
+      this._getUserPicture();
+    }, error => this._notificationService.error(error));
+  }
+
+  protected _getUserPicture() {
+    this._userPictureService.getPicture(this._id).subscribe(picture => this._createImageFromBlob(picture));
+  }
+
+  protected _createImageFromBlob(image: Blob): any {
+    let reader = new FileReader();
+    reader.addEventListener('load', () => {
+      this._avatar = reader.result;
+    }, false);
+
+    if (image) {
+      reader.readAsDataURL(image);
+    }
   }
 }

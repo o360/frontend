@@ -185,8 +185,27 @@ header.navbar .navbar-brand {
   max-width: 100%;
   height: 100%;
   width: auto;
+  border-radius: 50%;
 }
 
-.user-profile-image-crop img {
-  max-width: 100%;
+.user-profile-image-crop {
+  margin: 10px 0px;
 }
+
+.user-profile-form-image .input-file {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+.user-profile-form-image {
+  display: inline-flex;
+}
+
+.user-profile-form-image .btn {
+  max-height: 35.5px;
+  align-self: center;
+}
+
