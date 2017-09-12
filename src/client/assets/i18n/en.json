@@ -53,6 +53,7 @@
   "T_USER_GENDER_MALE": "Male",
   "T_USER_GENDER_FEMALE": "Female",
   "T_USER_APPROVE": "Approve",
+  "T_USER_CANNOT_BE_APPROVED": "User cannot be approved, his profile is not completed",
   "T_USER_DETAILS": "Details of user",
   "T_USER_AVATAR": "Profile picture",
   "T_USER_AVATAR_UPLOAD": "Upload a profile picture",
