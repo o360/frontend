@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { IBreadcrumb } from '../../core/components/breadcrumb/breadcrumb.component';
 import { GroupModel } from '../../core/models/group-model';
 import { ModelId } from '../../core/models/model';
+import { BreadcrumbService } from '../../core/services/breadcrumb.service';
 import { GroupService } from '../../core/services/group.service';
+import { NotificationService } from '../../core/services/notification.service';
 import { IListResponse, IQueryParams } from '../../core/services/rest.service';
 import { FormComponent } from '../../shared/components/form.component';
-import { NotificationService } from '../../core/services/notification.service';
-import { BreadcrumbService } from '../../core/services/breadcrumb.service';
-import { IBreadcrumb } from '../../core/components/breadcrumb/breadcrumb.component';
 
 @Component({
   moduleId: module.id,
@@ -76,7 +76,12 @@ export class GroupFormComponent extends FormComponent<GroupModel> {
   protected async _fillBreadcrumbs(model: GroupModel) {
     let breadcrumbs: IBreadcrumb[] = [];
 
-    breadcrumbs.push({ label: model.name, url: `/admin/groups/${model.id}` });
+    if (this.editMode) {
+      breadcrumbs.push({ label: 'T_ACTION_EDIT' });
+      breadcrumbs.push({ label: model.name, url: `/admin/groups/${model.id}` });
+    } else {
+      breadcrumbs.push({ label: 'T_ACTION_CREATE' });
+    }
 
     let item = model;
 
@@ -84,16 +89,8 @@ export class GroupFormComponent extends FormComponent<GroupModel> {
       item = await this._service.get(item.parentId).toPromise();
       breadcrumbs.push({ label: item.name, url: `/admin/groups/${item.id}` });
     }
-    breadcrumbs.reverse();
-    let index = breadcrumbs.length - 1;
 
-    if (this.editMode) {
-      breadcrumbs.push({
-        label: 'T_ACTION_EDIT'
-      });
-    } else {
-      breadcrumbs[index].label = 'T_ACTION_CREATE';
-    }
+    breadcrumbs.reverse();
 
     this._breadcrumbService.overrideBreadcrumb(breadcrumbs);
   }
