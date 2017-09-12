@@ -11,6 +11,7 @@ export class FormModel extends Model {
   public machineName: string;
   public elements: FormElement[];
   public showInAggregation: boolean;
+  public machineName: string;
 }
 
 export class FormElement extends Model {

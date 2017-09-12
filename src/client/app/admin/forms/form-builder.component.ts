@@ -106,6 +106,7 @@ export class FormBuilderComponent extends FormComponent<FormModel> implements On
   protected _createForm() {
     this._form = this._formBuilder.group({
         name: ['', Validators.pattern(/.*^[\S].*/)],
+        machineName: ['', Validators.pattern(/^[a-zA-Z0-9-_:.]+$/)],
         elements: this._formBuilder.array([]),
         showInAggregation: true
       },
@@ -117,6 +118,7 @@ export class FormBuilderComponent extends FormComponent<FormModel> implements On
 
     this._form.reset({
       name: this._model.name,
+      machineName: this._model.machineName,
       showInAggregation: this._model.showInAggregation
     });
     this._setElements(this._model.elements);
@@ -134,6 +136,7 @@ export class FormBuilderComponent extends FormComponent<FormModel> implements On
 
     let saveForm: FormModel = new FormModel({
       name: formModel.name,
+      machineName: formModel.machineName,
       elements: elementsCopy,
       showInAggregation: formModel.showInAggregation
     });

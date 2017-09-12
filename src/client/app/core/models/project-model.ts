@@ -32,6 +32,7 @@ export class ProjectModel extends Model {
   public canRevote: boolean;
   public formsOnSamePage: boolean;
   public hasInProgressEvents: boolean;
+  public machineName: string;
 
   constructor(json: any) {
     super(json);
