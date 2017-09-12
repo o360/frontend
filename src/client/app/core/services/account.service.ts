@@ -2,8 +2,8 @@ import { RequestOptions, Response, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { RestServiceConfig } from '../decorators/rest-service-config.decorator';
 import { AccountModel } from '../models/account-model';
-import { RestService } from './rest.service';
-import { ModelId } from '../models/model';
+import { IListResponse, RestService } from './rest.service';
+import { GroupModel } from '../models/group-model';
 
 @RestServiceConfig({
   endpoint: 'users',
@@ -36,6 +36,16 @@ export class AccountService extends RestService<AccountModel> {
       .map((res: Response) => res.json())
       .catch((error: Response) => this._handleErrors(error));
   }
+
+  public getGroups(): Observable<IListResponse<GroupModel>> {
+    let requestParams = `${this._getRequestParams()}/groups`;
+    let requestOptions = this._getRequestOptions();
+
+    return this._http.get(requestParams, requestOptions)
+      .map((response: Response) => response.json())
+      .catch((error: Response) => this._handleErrors(error));
+  }
+
 
   public list() {
     return Observable.throw('Method not allowed!');
