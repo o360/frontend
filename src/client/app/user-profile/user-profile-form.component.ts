@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserGender, UserModel } from '../core/models/user-model';
 import { AuthService } from '../core/services/auth.service';
-import { UserService } from '../core/services/user.service';
 import { FormComponent } from '../shared/components/form.component';
 import { NotificationService } from '../core/services/notification.service';
 import * as moment from 'moment-timezone';
 import { BreadcrumbService } from '../core/services/breadcrumb.service';
+import { AccountService } from '../core/services/account.service';
 
 @Component({
   moduleId: module.id,
@@ -26,7 +26,7 @@ export class UserProfileFormComponent extends FormComponent<UserModel> implement
     return this._timezones;
   }
 
-  constructor(service: UserService,
+  constructor(service: AccountService,
               router: Router,
               route: ActivatedRoute,
               notificationService: NotificationService,
