@@ -9,12 +9,16 @@
         </button>
       </div>
       <div class="modal-body">
-        <div class="user-profile-image-crop" *ngIf="!!file">
-          <img [src]="file" alt="">
-
-          <button (click)="cropImage()">crop</button>
-
-          <img *ngIf="cropped" [src]="cropped" alt="">
+        <div class="user-profile-image-crop row">
+          <div class="col-md-6"><img #image id="image" [src]="file" alt=""></div>
+          <div class="col-md-6 user-profile-image"><img *ngIf="cropped" [src]="cropped" alt=""></div>
+        </div>
+        <div class="modal-footer">
+          <button type="button"
+                  class="btn btn-primary"
+                  [disabled]="!cropped"
+                  (click)="savePicture()"> {{ 'T_ACTION_SAVE' | translate }}
+          </button>
         </div>
       </div>
     </div>

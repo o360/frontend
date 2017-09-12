@@ -91,10 +91,19 @@
       <!--Picture-->
       <div class="form-group row">
         <label for="timezone" class="col-form-label col-md-3">{{ 'T_USER_AVATAR' | translate }}</label>
-        <div class="col-md-9" role="button">
-          <input type="file"
+        <div class="col-md-9 user-profile-form-image">
+          <div class="user-profile-image mr-2">
+            <img [src]="!!avatar ? avatar : '../../assets/images/noUserImage.png'" [alt]="'T_USER_AVATAR' | translate"/>
+          </div>
+          <input #choosePictureInput
+                 type="file"
+                 class="input-file"
                  accept="image/jpeg,image/png"
                  (change)="onPictureUpload($event); cropperModalContainer.load()"/>
+          <button type="button"
+                  class="btn btn-primary"
+                  (click)="choosePictureInput.click();"> {{ 'T_USER_AVATAR_UPLOAD' | translate }}
+          </button>
         </div>
       </div>
       <hr/>
@@ -109,7 +118,10 @@
       </div>
     </form>
   </div>
+
+  <bs-profile-image-crop #cropperModalContainer
+                         [file]="profileImage"
+                         (imageCropped)="savePicture($event)"></bs-profile-image-crop>
 </div>
 
-<bs-profile-image-crop #cropperModalContainer
-                       [file]="profileImage"></bs-profile-image-crop>
+

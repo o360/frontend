@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap';
 
 import Cropper = require('cropperjs');
@@ -8,14 +8,12 @@ import Cropper = require('cropperjs');
   selector: 'bs-profile-image-crop',
   templateUrl: 'profile-image-crop.component.html'
 })
-export class UserProfileImageCropComponent implements OnChanges {
+export class UserProfileImageCropComponent implements OnInit, OnChanges {
   protected _file: any;
   protected _cropperModal: ModalDirective;
-
-  protected _cropper: any;
-  protected _details: any;
-  @Output() doule = new EventEmitter();
-
+  protected _cropper: Cropper;
+  protected _cropped: any;
+  protected _imageCropped: EventEmitter<any> = new EventEmitter<any>();
 
   @ViewChild('cropperModal')
   public set cropperModal(value: ModalDirective) {
@@ -31,18 +29,35 @@ export class UserProfileImageCropComponent implements OnChanges {
     this._file = value;
   }
 
+  public get cropped(): any {
+    return this._cropped;
+  }
+
+  @Output()
+  public get imageCropped(): any {
+    return this._imageCropped;
+  }
+
   constructor(private _element: ElementRef) {
+  }
+
+  public ngOnInit() {
+    if (this._file) {
+      let image = this._element.nativeElement.querySelector('img');
+      image.src = this._file;
+      this._createCropper(image);
+    }
   }
 
   public ngOnChanges(changes: SimpleChanges): void {
     if (this._file) {
-      this._cropper = new Cropper(this._element.nativeElement.querySelector('img'), {
-        aspectRatio: 16 / 9,
-        crop: (e: any) => {
-          console.log(e);
-        }
-      });
-      console.log(this._cropper);
+      if (!this._cropper) {
+        let image = this._element.nativeElement.querySelector('img');
+        image.src = this._file;
+        this._createCropper(image);
+      } else {
+        this._cropper.replace(this._file);
+      }
     }
   }
 
@@ -50,7 +65,24 @@ export class UserProfileImageCropComponent implements OnChanges {
     this._cropperModal.show();
   }
 
-  public cropImage() {
-    this.doule.emit(this._cropper.getCroppedCanvas().toDataURL('image/jpeg'));
+  public savePicture() {
+    this._imageCropped.emit(this._cropped);
+    this._cropperModal.hide();
+  }
+
+  protected _createCropper(image: any) {
+    this._cropper = new Cropper(image, {
+      minCanvasWidth: 300,
+      minContainerWidth: 300,
+      minCanvasHeight: 200,
+      minContainerHeight: 200,
+      minCropBoxHeight: 10,
+      minCropBoxWidth: 10,
+      viewMode: 2,
+      autoCropArea: 0.5,
+      aspectRatio: 1 / 1,
+      crop: (e) =>
+        this._cropped = this._cropper.getCroppedCanvas().toDataURL('image/jpeg')
+    });
   }
 }
