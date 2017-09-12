@@ -48,7 +48,7 @@ export function main() {
           { provide: AuthService, useClass: AuthServiceStub },
           { provide: XHRBackend, useClass: MockBackend },
           { provide: Router, useClass: RouterStub },
-          { provide: ConfirmationService, useClass: ConfirmationStub}
+          { provide: ConfirmationService, useClass: ConfirmationStub }
         ]
       });
       injector = getTestBed();
@@ -86,7 +86,8 @@ export function main() {
 
     it('should throw if model was not found by id', () => {
       testService.get('unknown-id').subscribe(model => {
-        expect(model.id).toBeNull();},
+          expect(model.id).toBeNull();
+        },
         error => expect(error).toBeDefined()
       );
     });
@@ -96,30 +97,6 @@ export function main() {
 
       expect(getResponse).toEqual(jasmine.any(Observable));
     });
-
-    // @todo: Uncomment and fix tests
-/*    it('should call create with new model', () => {
-      const templateSave = spyOn(testService, 'save').and.callThrough();
-      const templateCreate = spyOn(testService, '_create').and.callThrough();
-      const templateUpdate = spyOn(testService, '_update').and.callThrough();
-
-      testService.save(model).subscribe();
-      expect(templateSave).toHaveBeenCalledTimes(1);
-      expect(templateCreate).toHaveBeenCalledTimes(1);
-      expect(templateUpdate).toHaveBeenCalledTimes(0);
-    });
-
-    it('should call update if model exist', () => {
-      const templateSave = spyOn(testService, 'save').and.callThrough();
-      const templateCreate = spyOn(testService, '_create').and.callThrough();
-      const templateUpdate = spyOn(testService, '_update').and.callThrough();
-
-      model.id = 1;
-      testService.save(model).subscribe();
-      expect(templateSave).toHaveBeenCalledTimes(1);
-      expect(templateCreate).toHaveBeenCalledTimes(0);
-      expect(templateUpdate).toHaveBeenCalledTimes(1);
-    });*/
 
     it('should return an Observable when save() called with new model without params', () => {
       testService.save(model).subscribe((model: TestModel) => {

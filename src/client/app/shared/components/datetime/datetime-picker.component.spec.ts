@@ -1,8 +1,7 @@
 import { DateFormat, DateTimeComponent, ValidatorFutureDate, ValidatorIsAfter, ValidatorIsBefore } from './datetime-picker.component';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { fn } from '@angular/compiler/src/output/output_ast';
+import { FormBuilder, FormControl } from '@angular/forms';
 
 export function main() {
   describe('Date and time picker', () => {
@@ -46,9 +45,8 @@ export function main() {
     });
 
 
-    // @todo: Uncomment and fix tests
-    /*it('should update the value inside the picker when it is changed', () => {
-      let date = new Date('10.01.2001');
+    it('should update the value inside the picker when it is changed', () => {
+      let date = new Date(2001, 1, 10);
 
       comp.onChange(date);
       expect(comp.value).toEqual(date);
@@ -56,7 +54,7 @@ export function main() {
     });
 
     it('should validate the input', () => {
-      let date = new Date('10.01.2001');
+      let date = new Date(2013, 13, 1);
 
       let input: FormControl = new FormControl();
       input.setValue(date);
@@ -82,21 +80,21 @@ export function main() {
         test: ['', ValidatorIsBefore('noInput')]
       });
 
-      form.controls['start'].setValue(new Date('01.01.2010'));
-      form.controls['end'].setValue(new Date('01.01.2000'));
+      form.controls['start'].setValue(new Date(2010, 1, 1));
+      form.controls['end'].setValue(new Date(2000, 1, 1));
 
       expect(form.controls['start'].valid).toBeFalsy();
       expect(form.controls['start'].errors).toEqual({ maxDate: true });
       expect(form.controls['end'].valid).toBeFalsy();
       expect(form.controls['end'].errors).toEqual({ minDate: true });
 
-      form.controls['start'].setValue(new Date('01.01.1990'));
-      form.controls['end'].setValue(new Date('01.01.2000'));
+      form.controls['start'].setValue(new Date(1990, 1, 1));
+      form.controls['end'].setValue(new Date(2000, 1, 1));
 
       expect(form.controls['start'].valid).toBeTruthy();
       expect(form.controls['start'].errors).toEqual(null);
       expect(form.controls['end'].valid).toBeTruthy();
       expect(form.controls['end'].errors).toEqual(null);
-    });*/
+    });
   });
 }

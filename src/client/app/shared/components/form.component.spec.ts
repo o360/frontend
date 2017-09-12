@@ -7,7 +7,10 @@ import { TestService } from '../../core/services/rest.service.spec';
 import { TestModel } from '../../core/models/model.spec';
 import { NotificationService } from '../../core/services/notification.service';
 import { AuthService } from '../../core/services/auth.service';
-import { ActivatedRouteStub, AuthServiceStub, ConfirmationStub, NotificationServiceStub, RouterStub } from '../../stubs/stubs.utils';
+import {
+  ActivatedRouteStub, AuthServiceStub, BreadcrumbServiceStub, ConfirmationStub, NotificationServiceStub,
+  RouterStub
+} from '../../stubs/stubs.utils';
 import { ConfirmationService } from '../../core/services/confirmation.service';
 import { FormComponent } from './form.component';
 import { BreadcrumbService } from '../../core/services/breadcrumb.service';
@@ -27,6 +30,15 @@ export class TestFormComponent extends FormComponent<TestModel> implements OnIni
               breadcrumbsService: BreadcrumbService) {
     super(service, router, route, notificationService, breadcrumbsService);
   }
+
+  // public ngOnInit(): void {
+  //
+  // }
+  //
+  // public load() {
+  //   super._load();
+  // }
+
 }
 
 export function main() {
@@ -40,12 +52,13 @@ export function main() {
         declarations: [TestFormComponent],
         providers: [
           TestService,
-          {provide: NotificationService, useClass: NotificationServiceStub},
-          {provide: AuthService, useClass: AuthServiceStub},
-          {provide: XHRBackend, useClass: MockBackend},
-          {provide: ActivatedRoute, useClass: ActivatedRouteStub},
-          {provide: Router, useClass: RouterStub},
-          {provide: ConfirmationService, useClass: ConfirmationStub}
+          { provide: NotificationService, useClass: NotificationServiceStub },
+          { provide: AuthService, useClass: AuthServiceStub },
+          { provide: XHRBackend, useClass: MockBackend },
+          { provide: ActivatedRoute, useClass: ActivatedRouteStub },
+          { provide: Router, useClass: RouterStub },
+          { provide: ConfirmationService, useClass: ConfirmationStub },
+          { provide: BreadcrumbService, useClass: BreadcrumbServiceStub },
         ]
       });
 
@@ -55,26 +68,23 @@ export function main() {
       comp.ngOnInit();
     });
 
-    // @todo: Uncomment and fix tests
-
-/*    it('should define a model', () => {
+    it('should define a model', () => {
       expect(comp.model).toBeDefined();
       expect(comp.model instanceof TestModel).toBeTruthy();
       expect(comp.isLoaded).toBeTruthy();
     });
 
-    it('should call load', () => {
-      const testLoad = spyOn(comp, '_load');
-
-      comp.ngOnInit();
-      expect(testLoad).toHaveBeenCalled();
-    });
+    // it('should call load', () => {
+    //   const testLoad = spyOn(comp, 'load');
+    //
+    //   comp.ngOnInit();
+    //   expect(testLoad).toHaveBeenCalled();
+    // });
 
     it('should be edit or create mode form and save updated model', () => {
       expect(comp.editMode).toBeFalsy();
-      let newTestModel = new TestModel({id: 99, name: 'new Test Model'});
-      comp.model = newTestModel;
+      comp.model = new TestModel({ id: 99, name: 'new Test Model' });
       comp.save();
-    });*/
+    });
   });
 }

@@ -14,6 +14,7 @@ import {
 } from '../../stubs/stubs.utils';
 import { ConfirmationService } from '../../core/services/confirmation.service';
 import { BreadcrumbService } from '../../core/services/breadcrumb.service';
+import { ModelId } from '../../core/models/model';
 
 @Component({
   moduleId: module.id,
@@ -32,10 +33,14 @@ export class TestDetailsComponent extends DetailsComponent<TestModel> implements
   }
 
   public ngOnInit() {
-    this._update();
+    this.update();
   }
 
-  protected _update() {
+  public delete(id: ModelId) {
+    super.delete(id);
+  }
+
+  public update() {
     super._update();
     this._model = this._testModel;
   }
@@ -73,12 +78,17 @@ export function main() {
       expect(comp.model instanceof TestModel).toBeTruthy();
     });
 
-    // @todo: Uncomment and fix tests
-/*    it('should call update', () => {
-      const testUpdate = spyOn(comp, '_update');
+    it('should call update', () => {
+      const testUpdate = spyOn(comp, 'update');
 
       comp.ngOnInit();
-      expect(testUpdate).toHaveBeenCalledTimes(1);
-    });*/
+      expect(testUpdate).toHaveBeenCalled();
+    });
+
+    it('should delete an element', () => {
+      comp.delete(comp.model.id);
+
+      expect(comp.model.id).toBeUndefined();
+    });
   });
 }

@@ -3,6 +3,7 @@ import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { AssessmentModel } from '../../../core/models/assessment-model';
 import { Utils } from '../../../utils';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   moduleId: module.id,
@@ -15,7 +16,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   private _items: AssessmentModel[] = [];
   private _searchList: AssessmentModel[] = [];
   protected _list: AssessmentModel[];
-  protected _searchSubscription: any;
+  protected _searchSubscription: Subscription;
 
 
   @Input()
