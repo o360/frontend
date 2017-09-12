@@ -5,11 +5,11 @@ import { TranslateService } from '@ngx-translate/core';
 import { ModelId } from '../models/model';
 
 export interface IConflicts {
-  projects?: IEntity;
-  events?: IEntity;
-  groups?: IEntity;
-  users?: IEntity;
-  relations?: IEntity;
+  projects?: IEntity[];
+  events?: IEntity[];
+  groups?: IEntity[];
+  users?: IEntity[];
+  relations?: IEntity[];
 }
 
 export interface IEntity {
