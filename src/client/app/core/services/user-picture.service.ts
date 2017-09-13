@@ -10,12 +10,6 @@ import { ModelId } from '../models/model';
   entityConstructor: AccountModel
 })
 export class UserPictureService extends RestService<AccountModel> {
-  protected _picture: any;
-
-  public get picture(): any {
-    return this._picture;
-  }
-
   public getPicture(id: ModelId): Observable<any> {
     let requestParams = `${this._getRequestParams(id)}/picture`;
     let requestOptions = new RequestOptions({
@@ -26,6 +20,30 @@ export class UserPictureService extends RestService<AccountModel> {
     });
 
     return this._http.get(requestParams, requestOptions)
-      .map((response: Response) => response.blob());
+      .map((response: Response) => response.blob())
+      .flatMap((image: Blob) => this._createImageFromBlob(image));
+  }
+
+  public readFile(image: Blob): Observable<any> {
+    return this._createImageFromBlob(image);
+  }
+
+  protected _createImageFromBlob(image: Blob) {
+    let obs = new Observable((observer) => {
+      let reader = new FileReader();
+
+      reader.addEventListener('load', () => {
+        observer.next(reader.result);
+        observer.complete();
+      }, false);
+
+      reader.addEventListener('error', () => {
+        observer.error();
+      }, false);
+
+      reader.readAsDataURL(image);
+    });
+
+    return obs;
   }
 }

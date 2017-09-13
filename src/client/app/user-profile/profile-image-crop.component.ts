@@ -1,5 +1,6 @@
-import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap';
+import { UserPictureService } from '../core/services/user-picture.service';
 
 import Cropper = require('cropperjs');
 
@@ -8,7 +9,7 @@ import Cropper = require('cropperjs');
   selector: 'bs-profile-image-crop',
   templateUrl: 'profile-image-crop.component.html'
 })
-export class UserProfileImageCropComponent implements OnInit, OnChanges {
+export class UserProfileImageCropComponent implements OnChanges {
   protected _file: any;
   protected _cropperModal: ModalDirective;
   protected _cropper: Cropper;
@@ -38,27 +39,12 @@ export class UserProfileImageCropComponent implements OnInit, OnChanges {
     return this._imageCropped;
   }
 
-  constructor(private _element: ElementRef) {
-  }
-
-  public ngOnInit() {
-    if (this._file) {
-      let image = this._element.nativeElement.querySelector('img');
-      image.src = this._file;
-      this._createCropper(image);
-    }
+  constructor(private _element: ElementRef,
+              private _userPictureService: UserPictureService) {
   }
 
   public ngOnChanges(changes: SimpleChanges): void {
-    if (this._file) {
-      if (!this._cropper) {
-        let image = this._element.nativeElement.querySelector('img');
-        image.src = this._file;
-        this._createCropper(image);
-      } else {
-        this._cropper.replace(this._file);
-      }
-    }
+    this._update();
   }
 
   public load() {
@@ -68,6 +54,20 @@ export class UserProfileImageCropComponent implements OnInit, OnChanges {
   public savePicture() {
     this._imageCropped.emit(this._cropped);
     this._cropperModal.hide();
+  }
+
+  protected _update() {
+    if (this._file) {
+      this._userPictureService.readFile(this._file).subscribe(picture => {
+        let image = this._element.nativeElement.querySelector('img');
+        image.src = picture;
+        if (!this._cropper) {
+          this._createCropper(image);
+        } else {
+          this._cropper.replace(picture);
+        }
+      });
+    }
   }
 
   protected _createCropper(image: any) {

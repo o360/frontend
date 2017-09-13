@@ -73,17 +73,9 @@ export class UserProfileFormComponent extends FormComponent<UserModel> implement
   }
 
   public onPictureUpload(event: EventTarget) {
-    let reader = new FileReader();
-    reader.addEventListener('load', () => {
-      this._profileImage = reader.result;
-    }, false);
-
     let eventObj = <MSInputMethodContext>event;
     let target = <HTMLInputElement>eventObj.target;
-    let files = target.files;
-    if (files[0]) {
-      reader.readAsDataURL(files[0]);
-    }
+    this._profileImage = target.files[0];
   }
 
   public savePicture(image: any) {
@@ -93,17 +85,6 @@ export class UserProfileFormComponent extends FormComponent<UserModel> implement
   }
 
   protected _getUserPicture() {
-    this._userPictureService.getPicture(this._id).subscribe(picture => this._createImageFromBlob(picture));
-  }
-
-  protected _createImageFromBlob(image: Blob): any {
-    let reader = new FileReader();
-    reader.addEventListener('load', () => {
-      this._avatar = reader.result;
-    }, false);
-
-    if (image) {
-      reader.readAsDataURL(image);
-    }
+    this._userPictureService.getPicture(this._id).subscribe(picture => this._avatar = picture);
   }
 }
