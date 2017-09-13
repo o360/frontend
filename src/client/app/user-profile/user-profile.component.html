@@ -3,11 +3,13 @@
 
   <div class="card-block">
     <div class="row">
-      <div class="col-md-2 user-profile-image">
-        <img [src]="!!avatar ? avatar : '../../assets/images/noUserImage.png'" [alt]="'T_USER_AVATAR' | translate" />
-      </div>
-      <div class="col-md-6 align-self-center">
-        <h2>{{ model.name }}</h2>
+      <div class="col-md-8 profile-header">
+        <div class="user-profile-image mr-1">
+          <img [src]="!!avatar ? avatar : '../../assets/images/noUserImage.png'" [alt]="'T_USER_AVATAR' | translate"/>
+        </div>
+        <div class="align-self-center">
+          <h2 class="mb-0">{{ model.name }}</h2>
+        </div>
       </div>
       <div class="col-md-4 text-right">
         <button type="button"
@@ -37,8 +39,10 @@
         <div *ngIf="model.timezone" class="h6">{{ model.timezone }}</div>
       </div>
     </div>
+    <div class="row mt-1">
+      <bs-user-profile-groups></bs-user-profile-groups>
+    </div>
   </div>
 </div>
 
-<bs-user-profile-groups *ngIf="model"></bs-user-profile-groups>
 

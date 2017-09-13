@@ -177,8 +177,8 @@ header.navbar .navbar-brand {
 }
 
 .user-profile-image {
-  width: 100px;
-  height: 100px;
+  width: 75px;
+  height: 75px;
 }
 
 .user-profile-image img {
@@ -200,6 +200,8 @@ header.navbar .navbar-brand {
   position: absolute;
   z-index: -1;
 }
+
+.profile-header,
 .user-profile-form-image {
   display: inline-flex;
 }
