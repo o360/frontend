@@ -20,7 +20,8 @@ export class UserGender {
   status: '',
   role: '',
   gender: null,
-  timezone: 'Z'
+  timezone: 'Z',
+  termsApproved: false
 })
 export class UserModel extends Model {
   public name: string;
@@ -29,4 +30,5 @@ export class UserModel extends Model {
   public role?: string;
   public gender: string;
   public timezone?: string;
+  public termsApproved: boolean;
 }

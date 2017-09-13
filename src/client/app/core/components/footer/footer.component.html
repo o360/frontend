@@ -1,3 +1,4 @@
-<footer class="app-footer">
- {{ 'T_OPEN360' | translate }} © 2017  <a href="https://bitworks.software">Bitworks, Ltd.</a>
+<footer class="app-footer row">
+  <span> {{ 'T_OPEN360' | translate }} © 2017  <a href="https://bitworks.software">Bitworks, Ltd.</a></span>
+  <div class="agreement-link"><a [routerLink]="['/agreement']">{{ 'T_TERMS_AND_CONDITIONS' | translate }}</a></div>
 </footer>
