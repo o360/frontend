@@ -43,20 +43,6 @@ export class UserProfileComponent extends DetailsComponent<AccountModel> impleme
   }
 
   protected _loadUserPicture() {
-    this._userPictureService.getPicture(this._id).subscribe(pic => {
-      this._createImageFromBlob(pic);
-    });
+    this._userPictureService.getPicture(this._id).subscribe(pic => this._avatar = pic);
   }
-
-  protected _createImageFromBlob(image: Blob): any {
-    let reader = new FileReader();
-    reader.addEventListener('load', () => {
-      this._avatar = reader.result;
-    }, false);
-
-    if (image) {
-      reader.readAsDataURL(image);
-    }
-  }
-
 }
