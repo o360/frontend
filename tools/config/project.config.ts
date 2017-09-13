@@ -119,20 +119,6 @@ export class ProjectConfig extends SeedConfig {
       packageMeta: {
         defaultExtension: 'js'
       }
-    }, {
-      name: '@angular/common/http',
-      path: 'node_modules/@angular/common',
-      packageMeta: {
-        main: 'bundles/common-http.umd.js',
-        defaultExtension: 'js'
-      }
-    }, {
-      name: 'tslib',
-      path: 'node_modules/tslib',
-      packageMeta: {
-        main: 'tslib.js',
-        defaultExtension: 'js'
-      }
     }];
 
     this.addPackagesBundles(additionalPackages);

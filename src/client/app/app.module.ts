@@ -1,13 +1,12 @@
 import { APP_BASE_HREF } from '@angular/common';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { HttpModule } from '@angular/http';
+import { Http, HttpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { DndModule } from 'ng2-dnd';
 import { ToastModule } from 'ng2-toastr/ng2-toastr';
-import { AccordionModule, ModalModule, PaginationModule, TabsModule, TooltipModule, AlertModule } from 'ngx-bootstrap';
+import { AccordionModule, AlertModule, ModalModule, PaginationModule, TabsModule, TooltipModule } from 'ngx-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
@@ -19,12 +18,11 @@ import { SharedModule } from './shared/shared.module';
     BrowserModule,
     BrowserAnimationsModule,
     HttpModule,
-    HttpClientModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
         useFactory: (createTranslateLoader),
-        deps: [HttpClient]
+        deps: [Http]
       }
     }),
     PaginationModule.forRoot(),
