@@ -3,8 +3,8 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { ListComponent } from '../shared/components/list.component';
 import { ProjectModel } from '../core/models/project-model';
 import { ModelId } from '../core/models/model';
-import { AdminProjectService } from '../core/services/admin-project.service';
 import { NotificationService } from '../core/services/notification.service';
+import { ProjectService } from '../core/services/project.service';
 
 
 @Component({
@@ -19,7 +19,7 @@ export class AssessmentProjectListComponent extends ListComponent<ProjectModel> 
     return this._eventId;
   }
 
-  constructor(service: AdminProjectService,
+  constructor(service: ProjectService,
               activatedRoute: ActivatedRoute,
               router: Router,
               notificationService: NotificationService) {

@@ -26,6 +26,7 @@ import { AccountService } from './services/account.service';
 import { EventService } from './services/event.service';
 import { AdminEventService } from './services/admin-event.service';
 import { UserService } from './services/user.service';
+import { ProjectService } from './services/project.service';
 import { UserPictureService } from './services/user-picture.service';
 
 @NgModule({
@@ -55,6 +56,7 @@ import { UserPictureService } from './services/user-picture.service';
     AdminEventService,
     AdminFormService,
     FormService,
+    ProjectService,
     AdminProjectService,
     AdminRelationService,
     AdminEmailTemplateService,
