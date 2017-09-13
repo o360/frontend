@@ -7,6 +7,7 @@ import { AssessmentProjectListComponent } from './assessment-project-list.compon
 import { AssessmentEventComponent } from './assessment-event.component';
 import { AssessmentFormComponent } from './assessment-form.component';
 import { AssessmentObjectListComponent } from './assessment-object-list.component';
+import { AssessmentFormModalComponent } from './assessment-form-modal.component';
 
 
 @NgModule({
@@ -20,13 +21,17 @@ import { AssessmentObjectListComponent } from './assessment-object-list.componen
     AssessmentProjectListComponent,
     AssessmentEventComponent,
     AssessmentFormComponent,
-    AssessmentObjectListComponent
+    AssessmentObjectListComponent,
+    AssessmentObjectListComponent,
+    AssessmentFormModalComponent
   ],
   exports: [
     EventListComponent,
     EventTabsComponent,
     AssessmentProjectListComponent,
     AssessmentEventComponent,
+    AssessmentObjectListComponent,
+    AssessmentFormModalComponent,
     AssessmentFormComponent,
     AssessmentObjectListComponent
   ],

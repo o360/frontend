@@ -20,9 +20,12 @@
       <ng-template [ngSwitchCase]="FormElementType.Checkboxgroup">
         <div class="question form-group mb-1">
           <div class="title">
+            <button *ngIf="!element.tempComment && status === EventStatus.InProgress"
+                    type="button"
+                    class="float-right comment-button add-comment"
+                    (click)="commentModal.show(element)">{{ 'T_ACTION_ADD_COMMENT' | translate }}
+            </button>
             <label>
-              <!--<button type="button" class="float-right comment-button add-comment">{{ 'T_ACTION_ADD_COMMENT' | translate }}</button>-->
-
               <span class="number">{{ i + 1 }}.</span>
               <span class="text" [ngClass]="{ 'required': element.required }">{{ element.caption }}</span>
             </label>
@@ -41,17 +44,29 @@
               <span class="custom-control-description"> {{ item.caption }}</span>
             </label>
           </div>
+
+          <div *ngIf="element.tempComment" class="comment-block text-muted mt-h">
+            <em class="text">{{ 'T_COMMENT' | translate }}: {{ element.tempComment }}</em>
+            <button *ngIf="status === EventStatus.InProgress"
+                    type="button"
+                    class="comment-button edit-comment ml-1"
+                    (click)="commentModal.show(element)">{{ 'T_ACTION_EDIT_COMMENT' | translate }}
+            </button>
+          </div>
         </div>
       </ng-template>
 
       <!-- Checkbox -->
       <ng-template [ngSwitchCase]="FormElementType.Checkbox">
-        <div class="question form-group mb-1"
+        <div class="question form-group row mb-1"
              [ngClass]="{'has-success': checkbox.valid, 'has-danger': !checkbox.valid && checkbox.touched }">
           <div class="title">
+            <button *ngIf="!element.tempComment && status === EventStatus.InProgress"
+                    type="button"
+                    class="float-right comment-button add-comment"
+                    (click)="commentModal.show(element)">{{ 'T_ACTION_ADD_COMMENT' | translate }}
+            </button>
             <label>
-              <!--<button type="button" class="float-right comment-button add-comment">{{ 'T_ACTION_ADD_COMMENT' | translate }}</button>-->
-
               <span class="number">{{ i + 1 }}.</span>
               <span class="text" [ngClass]="{ 'required': element.required }">{{ element.caption }}</span>
             </label>
@@ -76,6 +91,15 @@
               translate }}
             </div>
           </div>
+
+          <div *ngIf="element.tempComment" class="comment-block text-muted mt-h">
+            <em class="text">{{ 'T_COMMENT' | translate }}: {{ element.tempComment }}</em>
+            <button *ngIf="status === EventStatus.InProgress"
+                    type="button"
+                    class="comment-button edit-comment ml-1"
+                    (click)="commentModal.show(element)">{{ 'T_ACTION_EDIT_COMMENT' | translate }}
+            </button>
+          </div>
         </div>
       </ng-template>
 
@@ -84,9 +108,12 @@
         <div class="question form-group mb-1"
              [ngClass]="{'has-success': select.valid, 'has-danger': !!select.errors && select.touched }">
           <div class="title">
+            <button *ngIf="!element.tempComment  && status === EventStatus.InProgress"
+                    type="button"
+                    class="float-right comment-button add-comment"
+                    (click)="commentModal.show(element)">{{ 'T_ACTION_ADD_COMMENT' | translate }}
+            </button>
             <label>
-              <!--<button type="button" class="float-right comment-button add-comment">{{ 'T_ACTION_ADD_COMMENT' | translate }}</button>-->
-
               <span class="number">{{ i + 1 }}.</span>
               <span class="text" [ngClass]="{ 'required': element.required }">{{ element.caption }}</span>
             </label>
@@ -111,6 +138,15 @@
               translate }}
             </div>
           </div>
+
+          <div *ngIf="element.tempComment" class="comment-block text-muted mt-h">
+            <em class="text">{{ 'T_COMMENT' | translate }}: {{ element.tempComment }}</em>
+            <button *ngIf="status === EventStatus.InProgress"
+                    type="button"
+                    class="comment-button edit-comment ml-1"
+                    (click)="commentModal.show(element)">{{ 'T_ACTION_EDIT_COMMENT' | translate }}
+            </button>
+          </div>
         </div>
       </ng-template>
 
@@ -118,9 +154,12 @@
       <ng-template [ngSwitchCase]="FormElementType.Radio">
         <div class="question form-group mb-1">
           <div class="title">
+            <button *ngIf="!element.tempComment && status === EventStatus.InProgress"
+                    type="button"
+                    class="float-right comment-button add-comment"
+                    (click)="commentModal.show(element)">{{ 'T_ACTION_ADD_COMMENT' | translate }}
+            </button>
             <label>
-              <!--<button type="button" class="float-right comment-button add-comment">{{ 'T_ACTION_ADD_COMMENT' | translate }}</button>-->
-
               <span class="number">{{ i + 1 }}.</span>
               <span class="text" [ngClass]="{ 'required': element.required }">{{ element.caption }}</span>
             </label>
@@ -142,6 +181,15 @@
               </span>
             </label>
           </div>
+
+          <div *ngIf="element.tempComment" class="comment-block text-muted mt-h">
+            <em class="text">{{ 'T_COMMENT' | translate }}: {{ element.tempComment }}</em>
+            <button *ngIf="status === EventStatus.InProgress"
+                    type="button"
+                    class="comment-button edit-comment ml-1"
+                    (click)="commentModal.show(element)">{{ 'T_ACTION_EDIT_COMMENT' | translate }}
+            </button>
+          </div>
         </div>
       </ng-template>
 
@@ -150,10 +198,13 @@
         <div class="question form-group mb-1"
              [ngClass]="{'has-success': textarea.valid && textarea.touched , 'has-danger': !!textarea.errors && textarea.touched }">
           <div class="title">
+            <button *ngIf="!element.tempComment && status === EventStatus.InProgress"
+                    type="button"
+                    class="float-right comment-button add-comment"
+                    (click)="commentModal.show(element)">{{ 'T_ACTION_ADD_COMMENT' | translate }}
+            </button>
             <label for="{{ element.id }}"
                    [ngClass]="{'required': element.required === true}">
-              <!--<button type="button" class="float-right comment-button add-comment">{{ 'T_ACTION_ADD_COMMENT' | translate }}</button>-->
-
               <span class="number">{{ i + 1 }}.</span>
               <span class="text">{{ element.caption }}</span>
             </label>
@@ -175,6 +226,15 @@
               translate }}
             </div>
           </div>
+
+          <div *ngIf="element.tempComment" class="comment-block text-muted mt-h">
+            <em class="text">{{ 'T_COMMENT' | translate }}: {{ element.tempComment }}</em>
+            <button *ngIf="status === EventStatus.InProgress"
+                    type="button"
+                    class="comment-button edit-comment ml-1"
+                    (click)="commentModal.show(element)">{{ 'T_ACTION_EDIT_COMMENT' | translate }}
+            </button>
+          </div>
         </div>
       </ng-template>
 
@@ -183,6 +243,11 @@
         <div class="question form-group mb-1"
              [ngClass]="{'has-success': textfield.valid && textfield.touched , 'has-danger': !!textfield.errors && textfield.touched }">
           <div class="title">
+            <button *ngIf="!element.tempComment && status === EventStatus.InProgress"
+                    type="button"
+                    class="float-right comment-button add-comment"
+                    (click)="commentModal.show(element)">{{ 'T_ACTION_ADD_COMMENT' | translate }}
+            </button>
             <label for="{{ element.id }}">
               <span class="number">{{ i + 1 }}.</span>
               <span class="text"
@@ -205,8 +270,16 @@
               translate }}
             </div>
           </div>
-        </div>
 
+          <div *ngIf="element.tempComment" class="comment-block text-muted mt-h">
+            <em class="text">{{ 'T_COMMENT' | translate }}: {{ element.tempComment }}</em>
+            <button *ngIf="status === EventStatus.InProgress"
+                    type="button"
+                    class="comment-button edit-comment ml-1"
+                    (click)="commentModal.show(element)">{{ 'T_ACTION_EDIT_COMMENT' | translate }}
+            </button>
+          </div>
+        </div>
       </ng-template>
 
       <!-- Any other -->
@@ -214,9 +287,12 @@
         <div class="question form-group mb-1"
              [ngClass]="{'has-success': input.valid, 'has-danger': !input.valid && input.touched }">
           <div class="title">
+            <button *ngIf="!element.tempComment && status === EventStatus.InProgress"
+                    type="button"
+                    class="float-right comment-button add-comment"
+                    (click)="commentModal.show(element)">{{ 'T_ACTION_ADD_COMMENT' | translate }}
+            </button>
             <label for="{{ element.id }}">
-              <!--<button type="button" class="float-right comment-button add-comment">{{ 'T_ACTION_ADD_COMMENT' | translate }}</button>-->
-
               <span class="number">{{ i + 1 }}.</span>
               <span class="text"
                     [ngClass]="{'required': element.required }">{{ element.caption }}</span>
@@ -239,6 +315,15 @@
             <div class="form-control-feedback" *ngIf="input.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' |
               translate }}
             </div>
+          </div>
+
+          <div *ngIf="element.tempComment" class="comment-block text-muted mt-h">
+            <em class="text">{{ 'T_COMMENT' | translate }}: {{ element.tempComment }}</em>
+            <button *ngIf="status === EventStatus.InProgress"
+                    type="button"
+                    class="comment-button edit-comment ml-1"
+                    (click)="commentModal.show(element)">{{ 'T_ACTION_EDIT_COMMENT' | translate }}
+            </button>
           </div>
         </div>
       </ng-template>
@@ -297,3 +382,6 @@
     </ng-container>
   </form>
 </div>
+
+<bs-assessment-form-modal #commentModal
+                          (onCommentAdded)="onCommentAdded($event)"></bs-assessment-form-modal>
