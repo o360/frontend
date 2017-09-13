@@ -15,10 +15,16 @@ export class ImageUploaderComponent {
   protected _cropper: Cropper;
   protected _cropped: any;
   protected _imageUploaded: EventEmitter<any> = new EventEmitter<any>();
+  protected _inputFile: any;
 
   @ViewChild('cropperModal')
   public set cropperModal(value: ModalDirective) {
     this._cropperModal = value;
+  }
+
+  @ViewChild('choosePictureInput')
+  public set inputFile(value: any) {
+    this._inputFile = value;
   }
 
   public get file(): any {
@@ -48,6 +54,10 @@ export class ImageUploaderComponent {
     this._file = target.files[0];
 
     this._update();
+
+    this._cropperModal.onHide.subscribe(() => {
+      this._inputFile.nativeElement.value = '';
+    });
   }
 
   public savePicture() {
