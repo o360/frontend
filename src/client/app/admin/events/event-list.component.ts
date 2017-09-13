@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ListComponent } from '../../shared/components/list.component';
 import { EventModel, EventSortField, EventStatus } from '../../core/models/event-model';
-import { EventService } from '../../core/services/event.service';
+import { AdminEventService } from '../../core/services/admin-event.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Filter, FilterType } from '../../core/models/filter';
 import { NotificationService } from '../../core/services/notification.service';
@@ -11,7 +11,7 @@ import { NotificationService } from '../../core/services/notification.service';
   selector: 'bs-assessment-event-list',
   templateUrl: 'event-list.component.html'
 })
-export class EventListComponent extends ListComponent<EventModel> {
+export class AdminEventListComponent extends ListComponent<EventModel> {
   protected _filters: Filter[] = [{
     name: 'T_EVENT_STATUS',
     field: 'status',
@@ -28,7 +28,7 @@ export class EventListComponent extends ListComponent<EventModel> {
     return EventStatus;
   }
 
-  constructor(service: EventService,
+  constructor(service: AdminEventService,
               activatedRoute: ActivatedRoute,
               router: Router,
               notificationService: NotificationService) {

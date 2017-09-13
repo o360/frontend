@@ -5,7 +5,7 @@ import { ModelId } from '../core/models/model';
 import { AssessmentService } from '../core/services/assessment.service';
 import { NotificationService } from '../core/services/notification.service';
 import { IListResponse, IQueryParams } from '../core/services/rest.service';
-import { FormUsersService } from '../core/services/form-users.service';
+import { FormService } from '../core/services/form.service';
 import { EventStatus } from '../core/models/event-model';
 import { RequireValue } from '../admin/forms/form-builder.component';
 import { UserModel } from '../core/models/user-model';
@@ -15,7 +15,7 @@ import { UserModel } from '../core/models/user-model';
   selector: 'bs-user-assessment-form',
   templateUrl: 'assessment-form.component.html'
 })
-export class UserAssessmentFormComponent implements OnInit, OnChanges {
+export class AssessmentFormComponent implements OnInit, OnChanges {
   protected _id: ModelId;
   protected _user: UserModel;
   protected _form: FormModel;
@@ -121,7 +121,7 @@ export class UserAssessmentFormComponent implements OnInit, OnChanges {
   }
 
   constructor(protected _assessmentService: AssessmentService,
-              protected _formUsersService: FormUsersService,
+              protected _formUsersService: FormService,
               protected _notificationService: NotificationService) {
   }
 

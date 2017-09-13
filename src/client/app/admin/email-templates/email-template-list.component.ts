@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ListComponent } from '../../shared/components/list.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EmailTemplateModel } from '../../core/models/email-template-model';
-import { EmailTemplateService } from '../../core/services/email-template.service';
+import { AdminEmailTemplateService } from '../../core/services/admin-email-template.service';
 import { NotificationService } from '../../core/services/notification.service';
 
 @Component({
@@ -10,8 +10,8 @@ import { NotificationService } from '../../core/services/notification.service';
   selector: 'bs-template-list',
   templateUrl: 'email-template-list.component.html'
 })
-export class EmailTemplateListComponent extends ListComponent<EmailTemplateModel> {
-  constructor(service: EmailTemplateService,
+export class AdminEmailTemplateListComponent extends ListComponent<EmailTemplateModel> {
+  constructor(service: AdminEmailTemplateService,
               activatedRoute: ActivatedRoute,
               router: Router,
               notificationService: NotificationService) {

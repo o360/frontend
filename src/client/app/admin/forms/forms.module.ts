@@ -1,28 +1,28 @@
 import { NgModule } from '@angular/core';
 import { SharedModule } from '../../shared/shared.module';
-import { FormsRoutingModule } from './forms-routing.module';
-import { FormListComponent } from './form-list.component';
-import { FormBuilderComponent } from './form-builder.component';
-import { FormDetailsComponent } from './form-details.component';
-import { FormBuilderElementComponent } from './form-element.component';
+import { AdminFormsRoutingModule } from './forms-routing.module';
+import { AdminFormListComponent } from './form-list.component';
+import { AdminFormBuilderComponent } from './form-builder.component';
+import { AdminFormDetailsComponent } from './form-details.component';
+import { AdminFormBuilderElementComponent } from './form-element.component';
 
 @NgModule({
   imports: [
     SharedModule,
-    FormsRoutingModule
+    AdminFormsRoutingModule
   ],
   declarations: [
-    FormListComponent,
-    FormBuilderComponent,
-    FormDetailsComponent,
-    FormBuilderElementComponent
+    AdminFormListComponent,
+    AdminFormBuilderComponent,
+    AdminFormDetailsComponent,
+    AdminFormBuilderElementComponent
   ],
   exports: [
-    FormListComponent,
-    FormBuilderComponent,
-    FormDetailsComponent,
-    FormBuilderElementComponent
+    AdminFormListComponent,
+    AdminFormBuilderComponent,
+    AdminFormDetailsComponent,
+    AdminFormBuilderElementComponent
   ],
 })
-export class FormsModule {
+export class AdminFormsModule {
 }

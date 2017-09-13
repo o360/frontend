@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { UsersModule } from './users/users.module';
-import { GroupsModule } from './groups/groups.module';
-import { EventsModule } from './events/events.module';
-import { FormsModule } from './forms/forms.module';
-import { ProjectsModule } from './projects/projects.module';
-import { EmailTemplatesModule } from './email-templates/email-templates.module';
+import { AdminUsersModule } from './users/users.module';
+import { AdminGroupsModule } from './groups/groups.module';
+import { AdminEventsModule } from './events/events.module';
+import { AdminFormsModule } from './forms/forms.module';
+import { AdminProjectsModule } from './projects/projects.module';
+import { AdminEmailTemplatesModule } from './email-templates/email-templates.module';
 import { AppRoutes } from '../core/models/app-routes.model';
 
 @NgModule({
@@ -16,27 +16,27 @@ import { AppRoutes } from '../core/models/app-routes.model';
       pathMatch: 'full'
     }, {
       path: 'users',
-      loadChildren: () => UsersModule,
+      loadChildren: () => AdminUsersModule,
       breadcrumb: 'T_USERS'
     }, {
       path: 'groups',
-      loadChildren: () => GroupsModule,
+      loadChildren: () => AdminGroupsModule,
       breadcrumb: 'T_GROUPS'
     }, {
       path: 'forms',
-      loadChildren: () => FormsModule,
+      loadChildren: () => AdminFormsModule,
       breadcrumb: 'T_FORMS'
     }, {
       path: 'projects',
-      loadChildren: () => ProjectsModule,
+      loadChildren: () => AdminProjectsModule,
       breadcrumb: 'T_PROJECTS'
     }, {
       path: 'templates',
-      loadChildren: () => EmailTemplatesModule,
+      loadChildren: () => AdminEmailTemplatesModule,
       breadcrumb: 'T_EMAIL_TEMPLATES'
     }, {
       path: 'events',
-      loadChildren: () => EventsModule,
+      loadChildren: () => AdminEventsModule,
       breadcrumb: 'T_EVENTS'
     }])
   ],

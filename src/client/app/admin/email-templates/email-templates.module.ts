@@ -1,25 +1,25 @@
 import { SharedModule } from '../../shared/shared.module';
 import { NgModule } from '@angular/core';
-import { EmailTemplateFormComponent } from './email-template-form.component';
-import { EmailTemplateListComponent } from './email-template-list.component';
-import { EmailTemplatesRoutingModule } from './email-templates-routing.module';
-import { EmailTemplateDetailsComponent } from './email-template-details.component';
+import { AdminEmailTemplateFormComponent } from './email-template-form.component';
+import { AdminEmailTemplateListComponent } from './email-template-list.component';
+import { AdminEmailTemplatesRoutingModule } from './email-templates-routing.module';
+import { AdminEmailTemplateDetailsComponent } from './email-template-details.component';
 
 @NgModule({
   imports: [
-    EmailTemplatesRoutingModule,
+    AdminEmailTemplatesRoutingModule,
     SharedModule
   ],
   declarations: [
-    EmailTemplateListComponent,
-    EmailTemplateFormComponent,
-    EmailTemplateDetailsComponent
+    AdminEmailTemplateListComponent,
+    AdminEmailTemplateFormComponent,
+    AdminEmailTemplateDetailsComponent
   ],
   exports: [
-    EmailTemplateListComponent,
-    EmailTemplateFormComponent,
-    EmailTemplateDetailsComponent
+    AdminEmailTemplateListComponent,
+    AdminEmailTemplateFormComponent,
+    AdminEmailTemplateDetailsComponent
   ]
 })
-export class EmailTemplatesModule {
+export class AdminEmailTemplatesModule {
 }

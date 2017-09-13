@@ -44,7 +44,7 @@ export declare type ModelConstructor<T> = { new (json: Object): T };
  *   entityName: 'user',
  *   entityConstructor: UserModel
  * })
- * class UserService extends RestService<UserModel> {
+ * class AdminUserService extends RestService<UserModel> {
  * }
  *
  * */

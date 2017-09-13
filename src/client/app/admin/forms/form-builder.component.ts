@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormElement, FormElementType, FormModel } from '../../core/models/form-model';
-import { FormService } from '../../core/services/form.service';
+import { AdminFormService } from '../../core/services/admin-form.service';
 import { NotificationService } from '../../core/services/notification.service';
 import { FormComponent } from '../../shared/components/form.component';
 import { AbstractControl, FormArray, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
@@ -30,17 +30,17 @@ export const FormElementValidator = (control: AbstractControl): ValidationErrors
   selector: 'bs-form-builder',
   templateUrl: 'form-builder.component.html'
 })
-export class FormBuilderComponent extends FormComponent<FormModel> implements OnInit {
+export class AdminFormBuilderComponent extends FormComponent<FormModel> implements OnInit {
   protected static _idSeq = 0;
 
   protected _returnPath = ['/admin/forms'];
   protected _elementTypes: string[] = Object.values(FormElementType);
   protected _form: FormGroup;
 
-  protected _index: number = FormBuilderComponent.next();
+  protected _index: number = AdminFormBuilderComponent.next();
 
   protected static next() {
-    return FormBuilderComponent._idSeq++;
+    return AdminFormBuilderComponent._idSeq++;
   }
 
   public get index(): number {
@@ -67,7 +67,7 @@ export class FormBuilderComponent extends FormComponent<FormModel> implements On
     return (this._form.value['elements'].length && this._form.value['elements'][0].kind === FormElementType.LikeDislike);
   }
 
-  constructor(service: FormService,
+  constructor(service: AdminFormService,
               router: Router,
               route: ActivatedRoute,
               notificationService: NotificationService,

@@ -3,8 +3,8 @@ import { ListComponent } from '../../shared/components/list.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ModelId } from '../../core/models/model';
 import { ProjectModel } from '../../core/models/project-model';
-import { ProjectService } from '../../core/services/project.service';
-import { EventService } from '../../core/services/event.service';
+import { AdminProjectService } from '../../core/services/admin-project.service';
+import { AdminEventService } from '../../core/services/admin-event.service';
 import { EventModel, EventStatus } from '../../core/models/event-model';
 import { NotificationService } from '../../core/services/notification.service';
 
@@ -13,7 +13,7 @@ import { NotificationService } from '../../core/services/notification.service';
   selector: 'bs-assessment-event-project-list',
   templateUrl: 'event-project-list.component.html'
 })
-export class EventProjectListComponent extends ListComponent<ProjectModel> implements OnChanges, OnInit {
+export class AdminEventProjectListComponent extends ListComponent<ProjectModel> implements OnChanges, OnInit {
   private _event: EventModel;
 
   public get event(): EventModel {
@@ -29,11 +29,11 @@ export class EventProjectListComponent extends ListComponent<ProjectModel> imple
     return EventStatus;
   }
 
-  constructor(service: ProjectService,
+  constructor(service: AdminProjectService,
               activatedRoute: ActivatedRoute,
               router: Router,
               notificationService: NotificationService,
-              protected _eventService: EventService) {
+              protected _eventService: AdminEventService) {
     super(service, activatedRoute, router, notificationService);
 
     this._listName = 'event-projects';

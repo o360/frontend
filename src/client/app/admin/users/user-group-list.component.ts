@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ListComponent } from '../../shared/components/list.component';
 import { GroupModel } from '../../core/models/group-model';
-import { GroupService } from '../../core/services/group.service';
+import { AdminGroupService } from '../../core/services/admin-group.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NotificationService } from '../../core/services/notification.service';
 import { ModelId } from '../../core/models/model';
@@ -19,7 +19,7 @@ export class UserGroupListComponent extends ListComponent<GroupModel> implements
     this._userId = value;
   }
 
-  constructor(service: GroupService,
+  constructor(service: AdminGroupService,
               activatedRoute: ActivatedRoute,
               router: Router,
               notificationService: NotificationService) {
@@ -33,7 +33,7 @@ export class UserGroupListComponent extends ListComponent<GroupModel> implements
   }
 
   public delete(id?: ModelId) {
-    (<GroupService>this._service).removeUser(id, this._userId).subscribe(() => {
+    (<AdminGroupService>this._service).removeUser(id, this._userId).subscribe(() => {
       this._update();
       this._notificationService.success('T_SUCCESS_DELETED');
     });

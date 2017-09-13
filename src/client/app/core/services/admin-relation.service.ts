@@ -9,5 +9,5 @@ import { RelationModel } from '../models/relation-model';
   entityName: 'relations',
   entityConstructor: RelationModel
 })
-export class RelationService extends RestService<RelationModel> {
+export class AdminRelationService extends RestService<RelationModel> {
 }

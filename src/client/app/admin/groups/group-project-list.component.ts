@@ -4,14 +4,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NotificationService } from '../../core/services/notification.service';
 import { ModelId } from '../../core/models/model';
 import { ProjectModel } from '../../core/models/project-model';
-import { ProjectService } from '../../core/services/project.service';
+import { AdminProjectService } from '../../core/services/admin-project.service';
 
 @Component({
   moduleId: module.id,
   selector: 'bs-group-project-list',
   templateUrl: 'group-project-list.component.html'
 })
-export class GroupProjectListComponent extends ListComponent<ProjectModel> implements OnInit {
+export class AdminGroupProjectListComponent extends ListComponent<ProjectModel> implements OnInit {
   protected _groupId: ModelId;
 
   @Input()
@@ -19,7 +19,7 @@ export class GroupProjectListComponent extends ListComponent<ProjectModel> imple
     this._groupId = value;
   }
 
-  constructor(service: ProjectService,
+  constructor(service: AdminProjectService,
               activatedRoute: ActivatedRoute,
               router: Router,
               notificationService: NotificationService) {

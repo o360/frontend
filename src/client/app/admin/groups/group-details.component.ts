@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { GroupModel } from '../../core/models/group-model';
 import { DetailsComponent } from '../../shared/components/details.component';
-import { GroupService } from '../../core/services/group.service';
+import { AdminGroupService } from '../../core/services/admin-group.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BreadcrumbService } from '../../core/services/breadcrumb.service';
 import { IBreadcrumb } from '../../core/components/breadcrumb/breadcrumb.component';
@@ -13,8 +13,8 @@ import { ModelId } from '../../core/models/model';
   selector: 'bs-group-details',
   templateUrl: 'group-details.component.html'
 })
-export class GroupDetailsComponent extends DetailsComponent<GroupModel> {
-  constructor(service: GroupService,
+export class AdminGroupDetailsComponent extends DetailsComponent<GroupModel> {
+  constructor(service: AdminGroupService,
               route: ActivatedRoute,
               router: Router,
               breadcrumbService: BreadcrumbService,
