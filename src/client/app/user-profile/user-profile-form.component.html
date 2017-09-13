@@ -95,15 +95,7 @@
           <div class="user-profile-image mr-2">
             <img [src]="!!avatar ? avatar : '../../assets/images/noUserImage.png'" [alt]="'T_USER_AVATAR' | translate"/>
           </div>
-          <input #choosePictureInput
-                 type="file"
-                 class="input-file"
-                 accept="image/jpeg,image/png"
-                 (change)="onPictureUpload($event); cropperModalContainer.load()"/>
-          <button type="button"
-                  class="btn btn-primary"
-                  (click)="choosePictureInput.click();"> {{ 'T_USER_AVATAR_UPLOAD' | translate }}
-          </button>
+          <bs-image-uploader (imageUploaded)="savePicture($event)"></bs-image-uploader>
         </div>
       </div>
       <hr/>
@@ -118,10 +110,6 @@
       </div>
     </form>
   </div>
-
-  <bs-profile-image-crop #cropperModalContainer
-                         [file]="profileImage"
-                         (imageCropped)="savePicture($event)"></bs-profile-image-crop>
 </div>
 
 

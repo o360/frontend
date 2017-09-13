@@ -18,7 +18,6 @@ export class UserProfileFormComponent extends FormComponent<UserModel> implement
   protected _returnPath = ['/profile'];
   protected _genders: string[] = Object.values(UserGender);
   protected _timezones: string[] = moment.tz.names();
-  protected _profileImage: any;
   protected _avatar: any;
   protected _choosePictureInput: any;
 
@@ -32,10 +31,6 @@ export class UserProfileFormComponent extends FormComponent<UserModel> implement
 
   public get avatar(): any {
     return this._avatar;
-  }
-
-  public get profileImage(): any {
-    return this._profileImage;
   }
 
   @ViewChild('choosePictureInput')
@@ -70,12 +65,6 @@ export class UserProfileFormComponent extends FormComponent<UserModel> implement
 
   public getOffset(tzId: string) {
     return moment.tz(tzId).format('Z');
-  }
-
-  public onPictureUpload(event: EventTarget) {
-    let eventObj = <MSInputMethodContext>event;
-    let target = <HTMLInputElement>eventObj.target;
-    this._profileImage = target.files[0];
   }
 
   public savePicture(image: any) {

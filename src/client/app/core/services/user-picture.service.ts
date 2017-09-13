@@ -24,10 +24,6 @@ export class UserPictureService extends RestService<AccountModel> {
       .flatMap((image: Blob) => this._createImageFromBlob(image));
   }
 
-  public readFile(image: Blob): Observable<any> {
-    return this._createImageFromBlob(image);
-  }
-
   protected _createImageFromBlob(image: Blob) {
     let obs = new Observable((observer) => {
       let reader = new FileReader();
