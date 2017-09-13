@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { UserDetailsComponent } from './user-details.component';
+import { AdminUserDetailsComponent } from './user-details.component';
 import { AdminUserListComponent } from './user-list.component';
-import { UserFormComponent } from './user-form.component';
+import { AdminUserFormComponent } from './user-form.component';
 import { AppRoutes } from '../../core/models/app-routes.model';
 
 @NgModule({
@@ -13,11 +13,11 @@ import { AppRoutes } from '../../core/models/app-routes.model';
       breadcrumbIgnore: true,
     }, {
       path: ':id',
-      component: UserDetailsComponent,
+      component: AdminUserDetailsComponent,
       breadcrumb: 'T_USER_DETAILS',
     }, {
       path: ':id/edit',
-      component: UserFormComponent,
+      component: AdminUserFormComponent,
       breadcrumb: 'T_ACTION_EDIT',
     }])
   ],

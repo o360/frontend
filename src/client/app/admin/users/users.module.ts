@@ -1,10 +1,10 @@
 import { SharedModule } from '../../shared/shared.module';
 import { AdminUsersRoutingModule } from './users-routing.module';
 import { NgModule } from '@angular/core';
-import { UserDetailsComponent } from './user-details.component';
+import { AdminUserDetailsComponent } from './user-details.component';
 import { AdminUserListComponent } from './user-list.component';
-import { UserFormComponent } from './user-form.component';
-import { UserGroupListComponent } from './user-group-list.component';
+import { AdminUserFormComponent } from './user-form.component';
+import { AdminUserGroupListComponent } from './user-group-list.component';
 
 @NgModule({
   imports: [
@@ -13,15 +13,15 @@ import { UserGroupListComponent } from './user-group-list.component';
   ],
   declarations: [
     AdminUserListComponent,
-    UserDetailsComponent,
-    UserFormComponent,
-    UserGroupListComponent
+    AdminUserDetailsComponent,
+    AdminUserFormComponent,
+    AdminUserGroupListComponent
   ],
   exports: [
     AdminUserListComponent,
-    UserDetailsComponent,
-    UserFormComponent,
-    UserGroupListComponent
+    AdminUserDetailsComponent,
+    AdminUserFormComponent,
+    AdminUserGroupListComponent
   ]
 })
 export class AdminUsersModule {

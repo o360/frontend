@@ -11,7 +11,7 @@ import { NotificationService } from '../../core/services/notification.service';
   selector: 'bs-user-details',
   templateUrl: `user-details.component.html`
 })
-export class UserDetailsComponent extends DetailsComponent<UserModel> {
+export class AdminUserDetailsComponent extends DetailsComponent<UserModel> {
   constructor(service: AdminUserService,
               route: ActivatedRoute,
               router: Router,
