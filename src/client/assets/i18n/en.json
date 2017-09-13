@@ -285,5 +285,8 @@
   "T_SURVEYS": "Surveys",
   "T_ASSESSMENT_EVENTS_IN_PROGRESS": "Active assessment events",
   "T_USER_TIME_ZONE": "Time zone",
-  "T_ERROR_INVALID_TIMEZONE": "We can not identify your timezone, choose it please manually"
+  "T_ERROR_INVALID_TIMEZONE": "We can not identify your timezone, choose it please manually",
+  "T_TERMS_AND_CONDITIONS": "Terms and conditions",
+  "T_AGREEMENT_APPROVEMENT_MESSAGE": "Agree with the terms and conditions",
+  "T_ERROR_AGREEMENT": "Something is wrong, please try again later or contact administrator"
 }

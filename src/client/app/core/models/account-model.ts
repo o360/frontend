@@ -7,7 +7,8 @@ import { UserModel } from './user-model';
   status: '',
   role: '',
   gender: null,
-  timezone: 'Z'
+  timezone: 'Z',
+  termsApproved: false
 })
 export class AccountModel extends UserModel {
   public get isFilled(): boolean {

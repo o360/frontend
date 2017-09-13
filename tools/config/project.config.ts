@@ -90,6 +90,13 @@ export class ProjectConfig extends SeedConfig {
         main: 'moment.js',
         defaultExtension: 'js'
       },
+    },{
+      name: 'showdown',
+      path: 'node_modules/showdown',
+      packageMeta: {
+        main: 'dist/showdown.js',
+        defaultExtension: 'js'
+      },
     }, {
       name: 'moment-timezone',
       path: 'node_modules/moment-timezone',
