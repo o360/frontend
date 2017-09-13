@@ -19,6 +19,7 @@ import { SearchComponent } from './components/search/search.component';
 import { Select2Module } from 'ng2-select2/ng2-select2';
 import { LocalizedDatePipe } from './pipes/localized-date.pipe';
 import { ThrobberComponent } from './components/throbber/throbber.component';
+import { ImageUploaderComponent } from './components/image-uploader/image-uploader.component';
 
 
 /**
@@ -56,7 +57,8 @@ import { ThrobberComponent } from './components/throbber/throbber.component';
     LocalizedDatePipe,
     LikesDislikesComponent,
     ConfirmationModalComponent,
-    SearchComponent
+    SearchComponent,
+    ImageUploaderComponent
   ],
   exports: [
     CommonModule,
@@ -85,7 +87,8 @@ import { ThrobberComponent } from './components/throbber/throbber.component';
     DndModule,
     Select2Module,
     ConfirmationModalComponent,
-    LikesDislikesComponent
+    LikesDislikesComponent,
+    ImageUploaderComponent
   ],
   entryComponents: [ConfirmationModalComponent]
 })

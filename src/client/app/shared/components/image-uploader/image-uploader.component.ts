@@ -1,20 +1,20 @@
-import { Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap';
-import { UserPictureService } from '../core/services/user-picture.service';
+import { Observable } from 'rxjs/Observable';
 
 import Cropper = require('cropperjs');
 
 @Component({
   moduleId: module.id,
-  selector: 'bs-profile-image-crop',
-  templateUrl: 'profile-image-crop.component.html'
+  selector: 'bs-image-uploader',
+  templateUrl: 'image-uploader.component.html'
 })
-export class UserProfileImageCropComponent implements OnChanges {
+export class ImageUploaderComponent {
   protected _file: any;
   protected _cropperModal: ModalDirective;
   protected _cropper: Cropper;
   protected _cropped: any;
-  protected _imageCropped: EventEmitter<any> = new EventEmitter<any>();
+  protected _imageUploaded: EventEmitter<any> = new EventEmitter<any>();
 
   @ViewChild('cropperModal')
   public set cropperModal(value: ModalDirective) {
@@ -35,30 +35,29 @@ export class UserProfileImageCropComponent implements OnChanges {
   }
 
   @Output()
-  public get imageCropped(): any {
-    return this._imageCropped;
+  public get imageUploaded(): any {
+    return this._imageUploaded;
   }
 
-  constructor(private _element: ElementRef,
-              private _userPictureService: UserPictureService) {
+  constructor(private _element: ElementRef) {
   }
 
-  public ngOnChanges(changes: SimpleChanges): void {
+  public onPictureUpload(event: any) {
+    let eventObj = <MSInputMethodContext>event;
+    let target = <HTMLInputElement>eventObj.target;
+    this._file = target.files[0];
+
     this._update();
   }
 
-  public load() {
-    this._cropperModal.show();
-  }
-
   public savePicture() {
-    this._imageCropped.emit(this._cropped);
+    this._imageUploaded.emit(this._cropped);
     this._cropperModal.hide();
   }
 
   protected _update() {
     if (this._file) {
-      this._userPictureService.readFile(this._file).subscribe(picture => {
+      this._createImageFromBlob(this._file).subscribe((picture: string) => {
         let image = this._element.nativeElement.querySelector('img');
         image.src = picture;
         if (!this._cropper) {
@@ -68,6 +67,25 @@ export class UserProfileImageCropComponent implements OnChanges {
         }
       });
     }
+  }
+
+  protected _createImageFromBlob(image: Blob) {
+    let obs = new Observable((observer) => {
+      let reader = new FileReader();
+
+      reader.addEventListener('load', () => {
+        observer.next(reader.result);
+        observer.complete();
+      }, false);
+
+      reader.addEventListener('error', () => {
+        observer.error();
+      }, false);
+
+      reader.readAsDataURL(image);
+    });
+
+    return obs;
   }
 
   protected _createCropper(image: any) {

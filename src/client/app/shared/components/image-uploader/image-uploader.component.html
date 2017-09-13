@@ -1,3 +1,13 @@
+<input #choosePictureInput
+       type="file"
+       class="input-file"
+       accept="image/jpeg,image/png"
+       (change)="onPictureUpload($event); cropperModal.show()"/>
+<button type="button"
+        class="btn btn-primary"
+        (click)="choosePictureInput.click();"> {{ 'T_USER_AVATAR_UPLOAD' | translate }}
+</button>
+
 <div class="modal" bsModal #cropperModal="bs-modal"
      tabindex="3" role="dialog">
   <div class="modal-dialog modal-lg">
