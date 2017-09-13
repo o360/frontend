@@ -1,22 +1,4 @@
-<div class="card">
-  <div class="card-header">
-    <b>{{ 'T_YOUR_GROUPS' | translate }}</b>
-  </div>
-  <div class="card-block">
-
-    <table class="table table-striped mt-1">
-      <tbody>
-      <tr *ngFor="let group of groups">
-        <td>{{ group.name }}</td>
-      </tr>
-
-      <tr *ngIf="!groups.length">
-        <td colspan="25" class="text-center">{{ 'T_EMPTY' | translate }}</td>
-      </tr>
-      </tbody>
-    </table>
-
-    <bs-pagination [meta]="groupsMeta"
-                   (queryParamsChange)="pageQueryParamsChanged($event)"></bs-pagination>
-  </div>
+<div class="col-md-6">
+  <small class="text-muted">{{ 'T_YOUR_GROUPS' | translate }}</small>
+  <div *ngIf="isLoaded" class="h6">{{ groups }}</div>
 </div>
