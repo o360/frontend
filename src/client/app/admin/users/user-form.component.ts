@@ -12,7 +12,7 @@ import { BreadcrumbService } from '../../core/services/breadcrumb.service';
   selector: 'bs-user-form',
   templateUrl: 'user-form.component.html'
 })
-export class UserFormComponent extends FormComponent<UserModel> {
+export class AdminUserFormComponent extends FormComponent<UserModel> {
   protected _roles: string[] = Object.values(UserRole);
   protected _genders: string[] = Object.values(UserGender);
 

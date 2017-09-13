@@ -11,7 +11,7 @@ import { ModelId } from '../../core/models/model';
   selector: 'bs-user-group-list',
   templateUrl: 'user-group-list.component.html'
 })
-export class UserGroupListComponent extends ListComponent<GroupModel> implements OnInit {
+export class AdminUserGroupListComponent extends ListComponent<GroupModel> implements OnInit {
   protected _userId: ModelId;
 
   @Input()
