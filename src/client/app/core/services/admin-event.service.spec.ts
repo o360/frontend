@@ -7,28 +7,28 @@ import { AuthService } from './auth.service';
 import { NotificationService } from './notification.service';
 import { ConfirmationService } from './confirmation.service';
 import { AuthServiceStub, ConfirmationStub, NotificationServiceStub, RouterStub } from '../../stubs/stubs.utils';
-import { GroupService } from './group.service';
-import { GroupModel } from '../models/group-model';
 import { Observable } from 'rxjs/Observable';
+import { AdminEventService } from './admin-event.service';
+import { EventModel } from '../models/event-model';
 
 
 export function main() {
-  describe('EventService Service', () => {
-    let testService: GroupService;
+  describe('Admin Event Service', () => {
+    let testService: AdminEventService;
     let injector: Injector;
     let mockBackend: MockBackend;
     let connection: MockConnection;
-    let model: GroupModel;
+    let model: EventModel;
 
     beforeEach(() => {
-      model = new GroupModel();
+      model = new EventModel();
     });
 
     beforeEach(() => {
       TestBed.configureTestingModule({
         imports: [HttpModule],
         providers: [
-          GroupService,
+          AdminEventService,
           { provide: NotificationService, useClass: NotificationServiceStub },
           { provide: AuthService, useClass: AuthServiceStub },
           { provide: XHRBackend, useClass: MockBackend },
@@ -38,7 +38,7 @@ export function main() {
       });
       injector = getTestBed();
       mockBackend = <any>injector.get(XHRBackend);
-      testService = injector.get(GroupService);
+      testService = injector.get(AdminEventService);
       mockBackend.connections.subscribe((c: MockConnection) => connection = c);
     });
 
@@ -50,19 +50,25 @@ export function main() {
     });
 
     it('should be defined', () => {
-      expect(GroupService).toBeDefined();
+      expect(AdminEventService).toBeDefined();
       expect(testService).toBeDefined();
-      expect(testService instanceof GroupService).toBeTruthy();
+      expect(testService instanceof AdminEventService).toBeTruthy();
     });
 
-    it('should return an Observable when addUser() called', () => {
-      let getResponse = testService.addUser();
+    it('should return an Observable when clone() called', () => {
+      let getResponse = testService.clone(model);
 
       expect(getResponse).toEqual(jasmine.any(Observable));
     });
 
-    it('should return an Observable when removeUser() called', () => {
-      let getResponse = testService.removeUser();
+    it('should return an Observable when addProject() called', () => {
+      let getResponse = testService.addProject();
+
+      expect(getResponse).toEqual(jasmine.any(Observable));
+    });
+
+    it('should return an Observable when removeProject() called', () => {
+      let getResponse = testService.removeProject();
 
       expect(getResponse).toEqual(jasmine.any(Observable));
     });

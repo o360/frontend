@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormComponent } from '../../shared/components/form.component';
 import { ProjectModel } from '../../core/models/project-model';
-import { ProjectService } from '../../core/services/project.service';
+import { AdminProjectService } from '../../core/services/admin-project.service';
 import { GroupModel } from '../../core/models/group-model';
-import { GroupService } from '../../core/services/group.service';
+import { AdminGroupService } from '../../core/services/admin-group.service';
 import { IListResponse } from '../../core/services/rest.service';
 import { NotificationService } from '../../core/services/notification.service';
 import { BreadcrumbService } from '../../core/services/breadcrumb.service';
@@ -15,7 +15,7 @@ import { BreadcrumbService } from '../../core/services/breadcrumb.service';
   selector: 'bs-project-form',
   templateUrl: 'project-form.component.html'
 })
-export class ProjectFormComponent extends FormComponent<ProjectModel> {
+export class AdminProjectFormComponent extends FormComponent<ProjectModel> {
   protected _auditors: GroupModel[];
   protected _returnPath: any[] = ['/admin/projects'];
 
@@ -23,12 +23,12 @@ export class ProjectFormComponent extends FormComponent<ProjectModel> {
     return this._auditors;
   }
 
-  constructor(service: ProjectService,
+  constructor(service: AdminProjectService,
               router: Router,
               route: ActivatedRoute,
               notificationService: NotificationService,
               breadcrumbService: BreadcrumbService,
-              protected _groupService: GroupService) {
+              protected _groupService: AdminGroupService) {
     super(service, router, route, notificationService, breadcrumbService);
   }
 

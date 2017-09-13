@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GroupModel } from '../../core/models/group-model';
-import { GroupService } from '../../core/services/group.service';
+import { AdminGroupService } from '../../core/services/admin-group.service';
 import { ListComponent } from '../../shared/components/list.component';
 import { NotificationService } from '../../core/services/notification.service';
 import { Filter, FilterType } from '../../core/models/filter';
@@ -13,7 +13,7 @@ import { Observable } from 'rxjs/Observable';
   selector: 'bs-group-list',
   templateUrl: 'group-list.component.html'
 })
-export class GroupListComponent extends ListComponent<GroupModel> implements OnInit, OnChanges {
+export class AdminGroupListComponent extends ListComponent<GroupModel> implements OnInit, OnChanges {
   protected _filters: Filter[] = [{
     name: 'T_GROUP_NAME',
     field: 'name',
@@ -38,7 +38,7 @@ export class GroupListComponent extends ListComponent<GroupModel> implements OnI
     return this._innerGroupState;
   }
 
-  constructor(service: GroupService,
+  constructor(service: AdminGroupService,
               activatedRoute: ActivatedRoute,
               router: Router,
               notificationService: NotificationService) {

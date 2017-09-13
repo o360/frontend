@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { EventModel, EventStatus, IEventNotification } from '../../core/models/event-model';
-import { EventService } from '../../core/services/event.service';
+import { AdminEventService } from '../../core/services/admin-event.service';
 import { NotificationService } from '../../core/services/notification.service';
 import { DateFormat } from '../../shared/components/datetime/datetime-picker.component';
 import * as moment from 'moment';
@@ -10,7 +10,7 @@ import * as moment from 'moment';
   selector: 'bs-assessment-event-notification',
   templateUrl: 'event-notification-list.component.html'
 })
-export class EventNotificationComponent {
+export class AdminEventNotificationComponent {
   protected _event: EventModel;
 
   @Input()
@@ -26,7 +26,7 @@ export class EventNotificationComponent {
     return EventStatus;
   }
 
-  constructor(protected _eventService: EventService,
+  constructor(protected _eventService: AdminEventService,
               protected _notificationService: NotificationService) {
   }
 

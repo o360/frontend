@@ -9,12 +9,12 @@ import { ConfirmationService } from './confirmation.service';
 import { AuthServiceStub, ConfirmationStub, NotificationServiceStub, RouterStub } from '../../stubs/stubs.utils';
 import { Observable } from 'rxjs/Observable';
 import { FormModel } from '../models/form-model';
-import { FormService } from './form.service';
+import { FormUsersService } from './form-users.service';
 
 
 export function main() {
-  describe('FormService Service', () => {
-    let testService: FormService;
+  describe('FormUsersService Service', () => {
+    let testService: FormUsersService;
     let injector: Injector;
     let mockBackend: MockBackend;
     let connection: MockConnection;
@@ -28,7 +28,7 @@ export function main() {
       TestBed.configureTestingModule({
         imports: [HttpModule],
         providers: [
-          FormService,
+          FormUsersService,
           { provide: NotificationService, useClass: NotificationServiceStub },
           { provide: AuthService, useClass: AuthServiceStub },
           { provide: XHRBackend, useClass: MockBackend },
@@ -38,7 +38,7 @@ export function main() {
       });
       injector = getTestBed();
       mockBackend = <any>injector.get(XHRBackend);
-      testService = injector.get(FormService);
+      testService = injector.get(FormUsersService);
       mockBackend.connections.subscribe((c: MockConnection) => connection = c);
     });
 
@@ -50,9 +50,9 @@ export function main() {
     });
 
     it('should be defined', () => {
-      expect(FormService).toBeDefined();
+      expect(FormUsersService).toBeDefined();
       expect(testService).toBeDefined();
-      expect(testService instanceof FormService).toBeTruthy();
+      expect(testService instanceof FormUsersService).toBeTruthy();
     });
 
     it('should return an Observable when clone() called', () => {

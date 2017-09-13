@@ -3,10 +3,10 @@ import { ModalDirective } from 'ngx-bootstrap';
 import { Observable } from 'rxjs/Observable';
 import { ModelId } from '../../core/models/model';
 import { UserModel, UserStatus } from '../../core/models/user-model';
-import { GroupService } from '../../core/services/group.service';
+import { AdminGroupService } from '../../core/services/admin-group.service';
 import { NotificationService } from '../../core/services/notification.service';
 import { IListResponse } from '../../core/services/rest.service';
-import { UserService } from '../../core/services/user.service';
+import { AdminUserService } from '../../core/services/admin-user.service';
 import { Utils } from '../../utils';
 import { TranslateService } from '@ngx-translate/core';
 import { Select2OptionData, Select2Component } from 'ng2-select2/ng2-select2';
@@ -16,7 +16,7 @@ import { Select2OptionData, Select2Component } from 'ng2-select2/ng2-select2';
   selector: 'bs-users-add-modal',
   templateUrl: 'users-add-modal.component.html'
 })
-export class UsersAddModalComponent implements OnInit {
+export class AdminUsersAddModalComponent implements OnInit {
   private _groupId: ModelId = null;
   private _selectedUsers: string[] = [];
   private _modal: ModalDirective;
@@ -61,8 +61,8 @@ export class UsersAddModalComponent implements OnInit {
     this._users = value;
   }
 
-  constructor(private _userService: UserService,
-              private _groupService: GroupService,
+  constructor(private _userService: AdminUserService,
+              private _groupService: AdminGroupService,
               private _notificationService: NotificationService,
               private _translate: TranslateService) {
   }

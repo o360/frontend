@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserGender, UserModel, UserRole } from '../../core/models/user-model';
-import { UserService } from '../../core/services/user.service';
+import { AdminUserService } from '../../core/services/admin-user.service';
 import { FormComponent } from '../../shared/components/form.component';
 import { NotificationService } from '../../core/services/notification.service';
 import { BreadcrumbService } from '../../core/services/breadcrumb.service';
@@ -26,7 +26,7 @@ export class UserFormComponent extends FormComponent<UserModel> {
     return this._genders;
   }
 
-  constructor(service: UserService,
+  constructor(service: AdminUserService,
               router: Router,
               route: ActivatedRoute,
               notificationService: NotificationService,

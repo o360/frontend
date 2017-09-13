@@ -9,7 +9,7 @@ import { RestService } from './rest.service';
   entityName: 'projects',
   entityConstructor: ProjectModel
 })
-export class ProjectService extends RestService<ProjectModel> {
+export class AdminProjectService extends RestService<ProjectModel> {
 }
 
 

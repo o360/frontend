@@ -1,39 +1,40 @@
 import { NgModule } from '@angular/core';
-import { SharedModule } from '../../shared/shared.module';
-import { GroupListComponent } from './group-list.component';
-import { GroupsRoutingModule } from './groups-routing.module';
-import { GroupDetailsComponent } from './group-details.component';
-import { GroupFormComponent } from './group-form.component';
-import { GroupUserListComponent } from './group-user-list.component';
-import { UsersAddModalComponent } from './users-add-modal.component';
-import { ChildGroupListComponent } from './child-group-list.component';
 import { BsDropdownModule } from 'ngx-bootstrap';
-import { GroupProjectListComponent } from './group-project-list.component';
+
+import { SharedModule } from '../../shared/shared.module';
+import { AdminGroupListComponent } from './group-list.component';
+import { AdminGroupsRoutingModule } from './groups-routing.module';
+import { AdminGroupDetailsComponent } from './group-details.component';
+import { AdminGroupFormComponent } from './group-form.component';
+import { AdminGroupUserListComponent } from './group-user-list.component';
+import { AdminUsersAddModalComponent } from './users-add-modal.component';
+import { AdminChildGroupListComponent } from './child-group-list.component';
+import { AdminGroupProjectListComponent } from './group-project-list.component';
 
 @NgModule({
   imports: [
     SharedModule,
-    GroupsRoutingModule,
+    AdminGroupsRoutingModule,
     BsDropdownModule
   ],
   declarations: [
-    GroupListComponent,
-    GroupDetailsComponent,
-    GroupFormComponent,
-    GroupUserListComponent,
-    UsersAddModalComponent,
-    ChildGroupListComponent,
-    GroupProjectListComponent
+    AdminGroupListComponent,
+    AdminGroupDetailsComponent,
+    AdminGroupFormComponent,
+    AdminGroupUserListComponent,
+    AdminUsersAddModalComponent,
+    AdminChildGroupListComponent,
+    AdminGroupProjectListComponent
   ],
   exports: [
-    GroupListComponent,
-    GroupDetailsComponent,
-    GroupFormComponent,
-    GroupUserListComponent,
-    UsersAddModalComponent,
-    ChildGroupListComponent,
-    GroupProjectListComponent
+    AdminGroupListComponent,
+    AdminGroupDetailsComponent,
+    AdminGroupFormComponent,
+    AdminGroupUserListComponent,
+    AdminUsersAddModalComponent,
+    AdminChildGroupListComponent,
+    AdminGroupProjectListComponent
   ],
 })
-export class GroupsModule {
+export class AdminGroupsModule {
 }

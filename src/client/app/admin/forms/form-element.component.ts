@@ -9,7 +9,7 @@ import { FormElementType, IFormElementValue } from '../../core/models/form-model
   selector: 'bs-form-builder-element',
   templateUrl: 'form-element.component.html'
 })
-export class FormBuilderElementComponent {
+export class AdminFormBuilderElementComponent {
   protected _element: FormGroup;
 
   @Input()

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserModel } from '../../core/models/user-model';
-import { UserService } from '../../core/services/user.service';
+import { AdminUserService } from '../../core/services/admin-user.service';
 import { DetailsComponent } from '../../shared/components/details.component';
 import { BreadcrumbService } from '../../core/services/breadcrumb.service';
 import { NotificationService } from '../../core/services/notification.service';
@@ -12,7 +12,7 @@ import { NotificationService } from '../../core/services/notification.service';
   templateUrl: `user-details.component.html`
 })
 export class UserDetailsComponent extends DetailsComponent<UserModel> {
-  constructor(service: UserService,
+  constructor(service: AdminUserService,
               route: ActivatedRoute,
               router: Router,
               breadcrumbService: BreadcrumbService,

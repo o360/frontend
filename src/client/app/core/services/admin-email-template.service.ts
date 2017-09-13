@@ -15,7 +15,7 @@ import { ConfirmationService } from './confirmation.service';
   entityName: 'templates',
   entityConstructor: EmailTemplateModel
 })
-export class EmailTemplateService extends RestService<EmailTemplateModel> {
+export class AdminEmailTemplateService extends RestService<EmailTemplateModel> {
   constructor(http: Http,
               authService: AuthService,
               router: Router,

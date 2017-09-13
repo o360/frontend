@@ -11,7 +11,6 @@ import { ConfirmationService } from './confirmation.service';
 
 @Injectable()
 @RestServiceConfig({
-  endpoint: 'admin',
   entityName: 'forms',
   entityConstructor: FormModel
 })

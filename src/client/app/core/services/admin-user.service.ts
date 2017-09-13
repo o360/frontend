@@ -1,21 +1,20 @@
 import { Injectable } from '@angular/core';
 import { RestServiceConfig } from '../decorators/rest-service-config.decorator';
+import { UserModel } from '../models/user-model';
 import { RestService } from './rest.service';
-import { EventModel } from '../models/event-model';
-import { ModelId } from '../models/model';
-import { Observable } from 'rxjs/Observable';
-import { Http, Response } from '@angular/http';
-import { AuthService } from './auth.service';
+import { ConfirmationService } from './confirmation.service';
 import { NotificationService } from './notification.service';
 import { Router } from '@angular/router';
-import { ConfirmationService } from './confirmation.service';
+import { AuthService } from './auth.service';
+import { Http } from '@angular/http';
 
 @Injectable()
 @RestServiceConfig({
-  entityName: 'events',
-  entityConstructor: EventModel
+  endpoint: 'admin',
+  entityName: 'users',
+  entityConstructor: UserModel
 })
-export class EventUsersService extends RestService<EventModel> {
+export class AdminUserService extends RestService<UserModel> {
   constructor(http: Http,
               authService: AuthService,
               router: Router,

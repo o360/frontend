@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { EventModel, EventNotificationKind, EventRecipient, IEventNotification } from '../../core/models/event-model';
 import { ModalDirective } from 'ngx-bootstrap';
-import { EventService } from '../../core/services/event.service';
+import { AdminEventService } from '../../core/services/admin-event.service';
 import * as moment from 'moment';
 import { ValidatorFutureDate } from '../../shared/components/datetime/datetime-picker.component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -11,7 +11,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   selector: 'bs-assessment-event-notifications-edit-modal',
   templateUrl: 'event-notifications-edit-modal.component.html'
 })
-export class EventNotificationsEditModalComponent {
+export class AdminEventNotificationsEditModalComponent {
   protected _kinds: string[] = Object.values(EventNotificationKind);
   protected _recipients: string[] = Object.values(EventRecipient);
   protected _model: EventModel;
@@ -56,7 +56,7 @@ export class EventNotificationsEditModalComponent {
     return this._recipients;
   }
 
-  constructor(protected _eventService: EventService,
+  constructor(protected _eventService: AdminEventService,
               protected _formBuilder: FormBuilder) {
     this._createForm();
   }

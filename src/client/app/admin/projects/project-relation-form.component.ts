@@ -1,19 +1,19 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FormComponent } from '../../shared/components/form.component';
-import { GroupService } from '../../core/services/group.service';
+import { AdminGroupService } from '../../core/services/admin-group.service';
 import { RelationKind, RelationModel } from '../../core/models/relation-model';
-import { RelationService } from '../../core/services/relation.service';
+import { AdminRelationService } from '../../core/services/admin-relation.service';
 import { GroupModel } from '../../core/models/group-model';
 import { ModelId } from '../../core/models/model';
 import { IListResponse } from '../../core/services/rest.service';
-import { FormService } from '../../core/services/form.service';
+import { AdminFormService } from '../../core/services/admin-form.service';
 import { FormModel } from '../../core/models/form-model';
 import { Observable } from 'rxjs/Observable';
 import { NotificationService } from '../../core/services/notification.service';
 import { BreadcrumbService } from '../../core/services/breadcrumb.service';
 import { ProjectModel } from '../../core/models/project-model';
-import { ProjectService } from '../../core/services/project.service';
+import { AdminProjectService } from '../../core/services/admin-project.service';
 
 
 @Component({
@@ -21,7 +21,7 @@ import { ProjectService } from '../../core/services/project.service';
   selector: 'bs-project-relation-form',
   templateUrl: 'project-relation-form.component.html'
 })
-export class ProjectRelationFormComponent extends FormComponent<RelationModel> {
+export class AdminProjectRelationFormComponent extends FormComponent<RelationModel> {
   protected _kinds: string[] = Object.values(RelationKind);
   protected _groups: GroupModel[];
   protected _forms: FormModel[];
@@ -48,14 +48,14 @@ export class ProjectRelationFormComponent extends FormComponent<RelationModel> {
     return RelationKind;
   }
 
-  constructor(service: RelationService,
+  constructor(service: AdminRelationService,
               router: Router,
               route: ActivatedRoute,
               notificationService: NotificationService,
               breadcrumbService: BreadcrumbService,
-              protected _groupService: GroupService,
-              protected _formService: FormService,
-              protected _projectService: ProjectService) {
+              protected _groupService: AdminGroupService,
+              protected _formService: AdminFormService,
+              protected _projectService: AdminProjectService) {
     super(service, router, route, notificationService, breadcrumbService);
   }
 

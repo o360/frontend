@@ -6,9 +6,9 @@ import { UserStatus } from '../core/models/user-model';
 @Component({
   moduleId: module.id,
   selector: 'bs-assessment-user-event-tabs',
-  templateUrl: 'user-event-tabs.component.html'
+  templateUrl: 'event-tabs.component.html'
 })
-export class UserEventTabsComponent {
+export class EventTabsComponent {
   public get EventStatus() {
     return EventStatus;
   }

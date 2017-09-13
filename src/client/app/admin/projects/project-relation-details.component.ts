@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DetailsComponent } from '../../shared/components/details.component';
 import { RelationModel } from '../../core/models/relation-model';
-import { RelationService } from '../../core/services/relation.service';
+import { AdminRelationService } from '../../core/services/admin-relation.service';
 import { BreadcrumbService } from '../../core/services/breadcrumb.service';
 import { ProjectModel } from '../../core/models/project-model';
-import { ProjectService } from '../../core/services/project.service';
+import { AdminProjectService } from '../../core/services/admin-project.service';
 import { NotificationService } from '../../core/services/notification.service';
 
 @Component({
@@ -13,13 +13,13 @@ import { NotificationService } from '../../core/services/notification.service';
   selector: 'bs-project-relation-details',
   templateUrl: `project-relation-details.component.html`
 })
-export class ProjectRelationDetailsComponent extends DetailsComponent<RelationModel> implements OnInit {
-  constructor(service: RelationService,
+export class AdminProjectRelationDetailsComponent extends DetailsComponent<RelationModel> implements OnInit {
+  constructor(service: AdminRelationService,
               route: ActivatedRoute,
               router: Router,
               breadcrumbService: BreadcrumbService,
               notificationService: NotificationService,
-              protected _projectService: ProjectService) {
+              protected _projectService: AdminProjectService) {
     super(service, route, router, breadcrumbService, notificationService);
 
     this._returnPath = `/admin/projects`;
