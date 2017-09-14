@@ -11,6 +11,7 @@ import { AppRoutes } from './core/models/app-routes.model';
 import { AdminGuard } from './core/guards/admin.guard';
 import { EventModule } from './user-event/event.module';
 import { AgreementModule } from './agreement/agreement.module';
+import { UsersModule } from './users/users.module';
 
 @NgModule({
   imports: [
@@ -25,7 +26,8 @@ import { AgreementModule } from './agreement/agreement.module';
         { path: '', redirectTo: 'events', pathMatch: 'full' },
         { path: 'admin', canActivate: [AdminGuard], loadChildren: () => AdminModule, breadcrumb: 'T_ADMINISTRATION' },
         { path: 'profile', loadChildren: () => UserProfileModule, breadcrumb: 'T_PROFILE' },
-        { path: 'events', loadChildren: () => EventModule, breadcrumb: 'T_EVENTS' }
+        { path: 'events', loadChildren: () => EventModule, breadcrumb: 'T_EVENTS' },
+        { path: 'users', loadChildren: () => UsersModule, breadcrumb: 'T_USERS' }
       ]
     }, {
       path: 'login',

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AccountService } from '../core/services/account.service';
 import { IListResponse } from '../core/services/rest.service';
 import { GroupModel } from '../core/models/group-model';
+import { AuthService } from '../core/services/auth.service';
+import { UserStatus } from '../core/models/user-model';
 
 @Component({
   moduleId: module.id,
@@ -19,7 +21,8 @@ export class UserGroupsComponent implements OnInit {
     return !!this._groups;
   }
 
-  constructor(protected _accountService: AccountService) {
+  constructor(protected _accountService: AccountService,
+              protected _authService: AuthService) {
   }
 
   public ngOnInit() {
@@ -27,8 +30,10 @@ export class UserGroupsComponent implements OnInit {
   }
 
   protected _getUsersGroups() {
-    this._accountService.getGroups().subscribe((response: IListResponse<GroupModel>) => {
-      this._groups = response.data;
-    });
+    if (this._authService.user.status !== UserStatus.New) {
+      this._accountService.getGroups().subscribe((response: IListResponse<GroupModel>) => {
+        this._groups = response.data;
+      });
+    }
   }
 }
