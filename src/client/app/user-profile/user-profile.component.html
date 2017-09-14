@@ -5,7 +5,8 @@
     <div class="row">
       <div class="col-md-8 profile-header">
         <div class="user-profile-image mr-1">
-          <img [src]="!!model.picture ? model.picture : '../../assets/images/noUserImage.png'" [alt]="'T_USER_AVATAR' | translate"/>
+          <img [src]="!!model.picture ? model.picture : '../../assets/images/noUserImage.png'"
+               [alt]="'T_USER_AVATAR' | translate"/>
         </div>
         <div class="align-self-center">
           <h2 class="mb-0">{{ model.name }}</h2>
@@ -40,7 +41,10 @@
       </div>
     </div>
     <div class="row mt-1">
-      <bs-user-profile-groups class="col-md-6"></bs-user-profile-groups>
+      <div class="col-md-6" *ngIf="hasGroups">
+        <small class="text-muted">{{ 'T_YOUR_GROUPS' | translate }}</small>
+        <div class="h6">{{ model.groups }}</div>
+      </div>
     </div>
   </div>
 </div>

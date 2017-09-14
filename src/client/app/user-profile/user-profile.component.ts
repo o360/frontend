@@ -7,6 +7,9 @@ import { NotificationService } from '../core/services/notification.service';
 import { AccountService } from '../core/services/account.service';
 import { AccountModel } from '../core/models/account-model';
 import { UserPictureService } from '../core/services/user-picture.service';
+import { UserStatus } from '../core/models/user-model';
+import { IListResponse } from '../core/services/rest.service';
+import { GroupModel } from '../core/models/group-model';
 
 @Component({
   moduleId: module.id,
@@ -14,6 +17,10 @@ import { UserPictureService } from '../core/services/user-picture.service';
   templateUrl: 'user-profile.component.html',
 })
 export class UserProfileComponent extends DetailsComponent<AccountModel> implements OnInit {
+  public get hasGroups(): boolean {
+    return !!this._model.groups;
+  }
+
   constructor(service: AccountService,
               route: ActivatedRoute,
               router: Router,
@@ -39,6 +46,10 @@ export class UserProfileComponent extends DetailsComponent<AccountModel> impleme
       if (model.hasPicture) {
         this._loadUserPicture();
       }
+
+      if (model.status !== UserStatus.New) {
+        this._getUserGroups();
+      }
     });
   }
 
@@ -46,5 +57,11 @@ export class UserProfileComponent extends DetailsComponent<AccountModel> impleme
     if (this._auth.user.hasPicture) {
       this._userPictureService.getPicture(this._id).subscribe(pic => this._model.picture = pic);
     }
+  }
+
+  protected _getUserGroups() {
+    (<AccountService>this._service).getGroups().subscribe((response: IListResponse<GroupModel>) => {
+      this._model.groups = response.data.map(_ => _.name).join(', ');
+    });
   }
 }
