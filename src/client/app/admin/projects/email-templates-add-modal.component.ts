@@ -1,15 +1,15 @@
 import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap';
-import { EmailKind, EmailTemplateModel, Recipient } from '../../core/models/email-template-model';
+import { EmailKind, EmailTemplateModel } from '../../core/models/email-template-model';
 import { IEmailTemplate } from '../../core/models/project-model';
-import { EmailTemplateService } from '../../core/services/email-template.service';
+import { AdminEmailTemplateService } from '../../core/services/admin-email-template.service';
 
 @Component({
   moduleId: module.id,
   selector: 'bs-email-templates-add-modal',
   templateUrl: 'email-templates-add-modal.component.html'
 })
-export class EmailTemplateAddModalComponent {
+export class AdminEmailTemplateAddModalComponent {
   private _modal: ModalDirective;
   private _kinds: string[] = Object.values(EmailKind);
   private _emailTemplates: EmailTemplateModel[];
@@ -59,7 +59,7 @@ export class EmailTemplateAddModalComponent {
     return this._templateAdded;
   }
 
-  constructor(protected _emailTemplateService: EmailTemplateService) {
+  constructor(protected _emailTemplateService: AdminEmailTemplateService) {
   }
 
   public show() {

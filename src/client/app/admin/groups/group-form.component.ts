@@ -4,7 +4,7 @@ import { IBreadcrumb } from '../../core/components/breadcrumb/breadcrumb.compone
 import { GroupModel } from '../../core/models/group-model';
 import { ModelId } from '../../core/models/model';
 import { BreadcrumbService } from '../../core/services/breadcrumb.service';
-import { GroupService } from '../../core/services/group.service';
+import { AdminGroupService } from '../../core/services/admin-group.service';
 import { NotificationService } from '../../core/services/notification.service';
 import { IListResponse, IQueryParams } from '../../core/services/rest.service';
 import { FormComponent } from '../../shared/components/form.component';
@@ -14,7 +14,7 @@ import { FormComponent } from '../../shared/components/form.component';
   selector: 'bs-group-form',
   templateUrl: 'group-form.component.html'
 })
-export class GroupFormComponent extends FormComponent<GroupModel> {
+export class AdminGroupFormComponent extends FormComponent<GroupModel> {
   protected _groups: GroupModel[];
   protected _parentId: ModelId = null;
   protected _returnPath: any[] = ['/admin/groups'];
@@ -28,7 +28,7 @@ export class GroupFormComponent extends FormComponent<GroupModel> {
     return this._parentId;
   }
 
-  constructor(service: GroupService,
+  constructor(service: AdminGroupService,
               router: Router,
               route: ActivatedRoute,
               notificationService: NotificationService,

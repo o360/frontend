@@ -3,8 +3,8 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { ListComponent } from '../shared/components/list.component';
 import { ProjectModel } from '../core/models/project-model';
 import { ModelId } from '../core/models/model';
-import { ProjectService } from '../core/services/project.service';
 import { NotificationService } from '../core/services/notification.service';
+import { ProjectService } from '../core/services/project.service';
 
 
 @Component({

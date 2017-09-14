@@ -5,8 +5,8 @@ import { ModelId } from '../../core/models/model';
 import { NotificationService } from '../../core/services/notification.service';
 import { IListResponse } from '../../core/services/rest.service';
 import { ProjectModel } from '../../core/models/project-model';
-import { ProjectService } from '../../core/services/project.service';
-import { EventService } from '../../core/services/event.service';
+import { AdminProjectService } from '../../core/services/admin-project.service';
+import { AdminEventService } from '../../core/services/admin-event.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Utils } from '../../utils';
 
@@ -19,7 +19,7 @@ interface ISelectProject {
   selector: 'bs-projects-add-modal',
   templateUrl: 'projects-add-modal.component.html'
 })
-export class ProjectsAddModalComponent implements OnChanges, OnInit {
+export class AdminProjectsAddModalComponent implements OnChanges, OnInit {
   private _eventId: ModelId;
   private _selectedProjects: ModelId[] = [];
   private _modal: ModalDirective;
@@ -50,8 +50,8 @@ export class ProjectsAddModalComponent implements OnChanges, OnInit {
     this._modal = value;
   }
 
-  constructor(protected _projectService: ProjectService,
-              protected _eventService: EventService,
+  constructor(protected _projectService: AdminProjectService,
+              protected _eventService: AdminEventService,
               protected _notificationService: NotificationService,
               protected _translate: TranslateService) {
   }

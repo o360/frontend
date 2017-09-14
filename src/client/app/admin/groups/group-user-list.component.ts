@@ -2,8 +2,8 @@ import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/cor
 import { ActivatedRoute, Router } from '@angular/router';
 import { ModelId } from '../../core/models/model';
 import { UserModel } from '../../core/models/user-model';
-import { GroupService } from '../../core/services/group.service';
-import { UserService } from '../../core/services/user.service';
+import { AdminGroupService } from '../../core/services/admin-group.service';
+import { AdminUserService } from '../../core/services/admin-user.service';
 import { ListComponent } from '../../shared/components/list.component';
 import { NotificationService } from '../../core/services/notification.service';
 
@@ -12,7 +12,7 @@ import { NotificationService } from '../../core/services/notification.service';
   selector: 'bs-group-user-list',
   templateUrl: 'group-user-list.component.html'
 })
-export class GroupUserListComponent extends ListComponent<UserModel> implements OnInit, OnChanges {
+export class AdminGroupUserListComponent extends ListComponent<UserModel> implements OnInit, OnChanges {
   private _groupId: string = 'null';
 
   @Input()
@@ -24,8 +24,8 @@ export class GroupUserListComponent extends ListComponent<UserModel> implements 
     return this._groupId;
   }
 
-  constructor(service: UserService,
-              protected _groupService: GroupService,
+  constructor(service: AdminUserService,
+              protected _groupService: AdminGroupService,
               activatedRoute: ActivatedRoute,
               router: Router,
               notificationService: NotificationService) {

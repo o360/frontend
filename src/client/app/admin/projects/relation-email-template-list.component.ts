@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { ModelId } from '../../core/models/model';
 import { IEmailTemplate } from '../../core/models/project-model';
 import { RelationModel } from '../../core/models/relation-model';
-import { RelationService } from '../../core/services/relation.service';
+import { AdminRelationService } from '../../core/services/admin-relation.service';
 import { Recipient } from '../../core/models/email-template-model';
 import { NotificationService } from '../../core/services/notification.service';
 import { ListComponent } from '../../shared/components/list.component';
@@ -13,7 +13,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   selector: 'bs-relation-email-template-list',
   templateUrl: 'relation-email-template-list.component.html'
 })
-export class RelationEmailTemplatesListComponent extends ListComponent<RelationModel> {
+export class AdminRelationEmailTemplatesListComponent extends ListComponent<RelationModel> {
   private _model: RelationModel;
   private _recipient: string = Recipient.respondent;
   private _hasInProgressEvents: boolean;
@@ -46,7 +46,7 @@ export class RelationEmailTemplatesListComponent extends ListComponent<RelationM
   }
 
 
-  constructor(service: RelationService,
+  constructor(service: AdminRelationService,
               activatedRoute: ActivatedRoute,
               router: Router,
               notificationService: NotificationService) {

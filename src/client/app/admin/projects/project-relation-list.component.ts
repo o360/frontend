@@ -2,7 +2,7 @@ import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/cor
 import { ActivatedRoute, Router } from '@angular/router';
 import { ListComponent } from '../../shared/components/list.component';
 import { RelationModel } from '../../core/models/relation-model';
-import { RelationService } from '../../core/services/relation.service';
+import { AdminRelationService } from '../../core/services/admin-relation.service';
 import { NotificationService } from '../../core/services/notification.service';
 
 @Component({
@@ -10,7 +10,7 @@ import { NotificationService } from '../../core/services/notification.service';
   selector: 'bs-project-relation-list',
   templateUrl: 'project-relation-list.component.html'
 })
-export class ProjectRelationListComponent extends ListComponent<RelationModel> implements OnInit, OnChanges {
+export class AdminProjectRelationListComponent extends ListComponent<RelationModel> implements OnInit, OnChanges {
   private _hasInProgressEvents: boolean;
   protected _projectId: string = 'null';
 
@@ -32,7 +32,7 @@ export class ProjectRelationListComponent extends ListComponent<RelationModel> i
     return this._hasInProgressEvents;
   }
 
-  constructor(service: RelationService,
+  constructor(service: AdminRelationService,
               activatedRoute: ActivatedRoute,
               router: Router,
               notificationService: NotificationService) {

@@ -1,49 +1,50 @@
 import { NgModule } from '@angular/core';
-import { SharedModule } from '../../shared/shared.module';
-import { ProjectListComponent } from './project-list.component';
-import { ProjectsRoutingModule } from './projects-routing.module';
-import { ProjectDetailsComponent } from './project-details.component';
-import { ProjectFormComponent } from './project-form.component';
-import { ProjectRelationFormComponent } from './project-relation-form.component';
-import { ProjectRelationListComponent } from './project-relation-list.component';
 import { ModalModule } from 'ngx-bootstrap';
-import { ProjectRelationDetailsComponent } from './project-relation-details.component';
-import { EmailTemplateAddModalComponent } from './email-templates-add-modal.component';
-import { ProjectEmailTemplatesListComponent } from './project-email-template-list.component';
-import { RelationEmailTemplatesListComponent } from './relation-email-template-list.component';
-import { ProjectEventListComponent } from './project-event-list.component';
+
+import { SharedModule } from '../../shared/shared.module';
+import { AdminProjectListComponent } from './project-list.component';
+import { AdminProjectsRoutingModule } from './projects-routing.module';
+import { AdminProjectDetailsComponent } from './project-details.component';
+import { AdminProjectFormComponent } from './project-form.component';
+import { AdminProjectRelationFormComponent } from './project-relation-form.component';
+import { AdminProjectRelationListComponent } from './project-relation-list.component';
+import { AdminProjectRelationDetailsComponent } from './project-relation-details.component';
+import { AdminEmailTemplateAddModalComponent } from './email-templates-add-modal.component';
+import { AdminProjectEmailTemplatesListComponent } from './project-email-template-list.component';
+import { AdminRelationEmailTemplatesListComponent } from './relation-email-template-list.component';
+import { AdminProjectEventListComponent } from './project-event-list.component';
 
 
 @NgModule({
   imports: [
     SharedModule,
-    ProjectsRoutingModule,
+    AdminProjectsRoutingModule,
     ModalModule.forRoot()
   ],
   declarations: [
-    ProjectListComponent,
-    ProjectFormComponent,
-    ProjectDetailsComponent,
-    ProjectRelationListComponent,
-    ProjectRelationFormComponent,
-    ProjectRelationDetailsComponent,
-    EmailTemplateAddModalComponent,
-    ProjectEmailTemplatesListComponent,
-    RelationEmailTemplatesListComponent,
-    ProjectEventListComponent
+    AdminProjectListComponent,
+    AdminProjectFormComponent,
+    AdminProjectDetailsComponent,
+    AdminProjectRelationListComponent,
+    AdminProjectRelationFormComponent,
+    AdminProjectRelationDetailsComponent,
+    AdminEmailTemplateAddModalComponent,
+    AdminProjectEmailTemplatesListComponent,
+    AdminRelationEmailTemplatesListComponent,
+    AdminProjectEventListComponent
   ],
   exports: [
-    ProjectListComponent,
-    ProjectFormComponent,
-    ProjectDetailsComponent,
-    ProjectRelationListComponent,
-    ProjectRelationFormComponent,
-    ProjectRelationDetailsComponent,
-    EmailTemplateAddModalComponent,
-    ProjectEmailTemplatesListComponent,
-    RelationEmailTemplatesListComponent,
-    ProjectEventListComponent
+    AdminProjectListComponent,
+    AdminProjectFormComponent,
+    AdminProjectDetailsComponent,
+    AdminProjectRelationListComponent,
+    AdminProjectRelationFormComponent,
+    AdminProjectRelationDetailsComponent,
+    AdminEmailTemplateAddModalComponent,
+    AdminProjectEmailTemplatesListComponent,
+    AdminRelationEmailTemplatesListComponent,
+    AdminProjectEventListComponent
   ],
 })
-export class ProjectsModule {
+export class AdminProjectsModule {
 }

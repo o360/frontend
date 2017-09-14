@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { UserModel, UserRole, UserStatus } from '../../core/models/user-model';
-import { UserService } from '../../core/services/user.service';
+import { AdminUserService } from '../../core/services/admin-user.service';
 import { ListComponent } from '../../shared/components/list.component';
 import { Filter, FilterType } from '../../core/models/filter';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -11,7 +11,7 @@ import { NotificationService } from '../../core/services/notification.service';
   selector: 'bs-user-list',
   templateUrl: 'user-list.component.html'
 })
-export class UserListComponent extends ListComponent<UserModel> {
+export class AdminUserListComponent extends ListComponent<UserModel> {
   protected _filters: Filter[] = [{
     name: 'T_USER_STATUS',
     field: 'status',
@@ -29,7 +29,7 @@ export class UserListComponent extends ListComponent<UserModel> {
     values: Object.values(UserModel.name).map(x => ({ value: x}))
   }];
 
-  constructor(service: UserService,
+  constructor(service: AdminUserService,
               activatedRoute: ActivatedRoute,
               router: Router,
               notificationService: NotificationService) {

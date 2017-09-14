@@ -16,7 +16,7 @@ export interface IDataRequestUserFromGroup {
   entityName: 'groups',
   entityConstructor: GroupModel
 })
-export class GroupService extends RestService<GroupModel> {
+export class AdminGroupService extends RestService<GroupModel> {
   public addUser(groupId?: ModelId, userId?: ModelId): Observable<void> {
     const requestParams = `${this._getRequestParams(groupId)}/users/${userId}`;
     const requestOptions = this._getRequestOptions();
