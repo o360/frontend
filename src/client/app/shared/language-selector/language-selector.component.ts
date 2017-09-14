@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { SupportedLanguages } from '../config/translate-loader.config';
+import * as moment from 'moment';
+import 'moment/locale/ru';
 
 interface ILanguage {
   id: string;
@@ -46,7 +48,9 @@ export class LanguageSelectorComponent implements OnInit {
   }
 
   public ngOnInit() {
-    this._selected = this._translate.currentLang;
+    let lang = this._translate.currentLang;
+    this._selected = lang;
+    moment.locale(lang);
     this._languages = Object.values(SupportedLanguages).map(lang => ({
       id: lang,
       name: LanguagesTranslationMap[lang],
@@ -62,6 +66,7 @@ export class LanguageSelectorComponent implements OnInit {
         this._translate.use(id);
         this._selected = id;
       } else {
+        moment.locale(id);
         language.selected = false;
       }
     });
