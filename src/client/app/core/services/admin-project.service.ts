@@ -5,10 +5,11 @@ import { RestService } from './rest.service';
 
 @Injectable()
 @RestServiceConfig({
+  endpoint: 'admin',
   entityName: 'projects',
   entityConstructor: ProjectModel
 })
-export class ProjectService extends RestService<ProjectModel> {
+export class AdminProjectService extends RestService<ProjectModel> {
 }
 
 

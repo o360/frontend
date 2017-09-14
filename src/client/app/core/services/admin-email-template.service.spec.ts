@@ -7,14 +7,14 @@ import { AuthService } from './auth.service';
 import { NotificationService } from './notification.service';
 import { ConfirmationService } from './confirmation.service';
 import { AuthServiceStub, ConfirmationStub, NotificationServiceStub, RouterStub } from '../../stubs/stubs.utils';
-import { EmailTemplateService } from './email-template.service';
+import { AdminEmailTemplateService } from './admin-email-template.service';
 import { Observable } from 'rxjs/Observable';
 import { EmailTemplateModel } from '../models/email-template-model';
 
 
 export function main() {
-  describe('EmailTemplateService Service', () => {
-    let testService: EmailTemplateService;
+  describe('AdminEmailTemplateService Service', () => {
+    let testService: AdminEmailTemplateService;
     let injector: Injector;
     let mockBackend: MockBackend;
     let connection: MockConnection;
@@ -28,7 +28,7 @@ export function main() {
       TestBed.configureTestingModule({
         imports: [HttpModule],
         providers: [
-          EmailTemplateService,
+          AdminEmailTemplateService,
           { provide: NotificationService, useClass: NotificationServiceStub },
           { provide: AuthService, useClass: AuthServiceStub },
           { provide: XHRBackend, useClass: MockBackend },
@@ -38,7 +38,7 @@ export function main() {
       });
       injector = getTestBed();
       mockBackend = <any>injector.get(XHRBackend);
-      testService = injector.get(EmailTemplateService);
+      testService = injector.get(AdminEmailTemplateService);
       mockBackend.connections.subscribe((c: MockConnection) => connection = c);
     });
 
@@ -50,9 +50,9 @@ export function main() {
     });
 
     it('should be defined', () => {
-      expect(EmailTemplateService).toBeDefined();
+      expect(AdminEmailTemplateService).toBeDefined();
       expect(testService).toBeDefined();
-      expect(testService instanceof EmailTemplateService).toBeTruthy();
+      expect(testService instanceof AdminEmailTemplateService).toBeTruthy();
     });
 
     it('should return an Observable when clone() called', () => {

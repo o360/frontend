@@ -1,35 +1,35 @@
 import { NgModule } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
-import { UserEventRoutingModule } from './user-event.routing.module';
-import { UserEventListComponent } from './user-event-list.component';
-import { UserEventTabsComponent } from './user-event-tabs.component';
+import { EventRoutingModule } from './event.routing.module';
+import { EventListComponent } from './event-list.component';
+import { EventTabsComponent } from './event-tabs.component';
 import { AssessmentProjectListComponent } from './assessment-project-list.component';
 import { AssessmentEventComponent } from './assessment-event.component';
-import { UserAssessmentFormComponent } from './assessment-form.component';
+import { AssessmentFormComponent } from './assessment-form.component';
 import { AssessmentObjectListComponent } from './assessment-object-list.component';
 
 
 @NgModule({
   imports: [
     SharedModule,
-    UserEventRoutingModule
+    EventRoutingModule
   ],
   declarations: [
-    UserEventListComponent,
-    UserEventTabsComponent,
+    EventListComponent,
+    EventTabsComponent,
     AssessmentProjectListComponent,
     AssessmentEventComponent,
-    UserAssessmentFormComponent,
+    AssessmentFormComponent,
     AssessmentObjectListComponent
   ],
   exports: [
-    UserEventListComponent,
-    UserEventTabsComponent,
+    EventListComponent,
+    EventTabsComponent,
     AssessmentProjectListComponent,
     AssessmentEventComponent,
-    UserAssessmentFormComponent,
+    AssessmentFormComponent,
     AssessmentObjectListComponent
   ],
 })
-export class UserEventModule {
+export class EventModule {
 }

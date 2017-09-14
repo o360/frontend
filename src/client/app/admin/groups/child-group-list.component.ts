@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GroupModel } from '../../core/models/group-model';
-import { GroupService } from '../../core/services/group.service';
+import { AdminGroupService } from '../../core/services/admin-group.service';
 import { ListComponent } from '../../shared/components/list.component';
 import { NotificationService } from '../../core/services/notification.service';
 
@@ -10,7 +10,7 @@ import { NotificationService } from '../../core/services/notification.service';
   selector: 'bs-child-group-list',
   templateUrl: 'child-group-list.component.html'
 })
-export class ChildGroupListComponent extends ListComponent<GroupModel> implements OnInit, OnChanges {
+export class AdminChildGroupListComponent extends ListComponent<GroupModel> implements OnInit, OnChanges {
   private _innerGroupState: boolean = false;
   protected _parentId: string = 'null';
 
@@ -32,7 +32,7 @@ export class ChildGroupListComponent extends ListComponent<GroupModel> implement
     return this._innerGroupState;
   }
 
-  constructor(service: GroupService,
+  constructor(service: AdminGroupService,
               activatedRoute: ActivatedRoute,
               router: Router,
               notificationService: NotificationService) {

@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { CKEditorComponent } from 'ng2-ckeditor';
 import { EmailKind, EmailTemplateModel, Recipient } from '../../core/models/email-template-model';
-import { EmailTemplateService } from '../../core/services/email-template.service';
+import { AdminEmailTemplateService } from '../../core/services/admin-email-template.service';
 import { NotificationService } from '../../core/services/notification.service';
 import { FormComponent } from '../../shared/components/form.component';
 import { BreadcrumbService } from '../../core/services/breadcrumb.service';
@@ -14,7 +14,7 @@ import { BreadcrumbService } from '../../core/services/breadcrumb.service';
   selector: 'bs-template-form',
   templateUrl: 'email-template-form.component.html'
 })
-export class EmailTemplateFormComponent extends FormComponent<EmailTemplateModel> implements OnInit {
+export class AdminEmailTemplateFormComponent extends FormComponent<EmailTemplateModel> implements OnInit {
   private _ckEditorConfig: any = {
     toolbarGroups: [
       { name: 'basicstyles' },
@@ -67,7 +67,7 @@ export class EmailTemplateFormComponent extends FormComponent<EmailTemplateModel
     return this._ckEditorConfig;
   }
 
-  constructor(service: EmailTemplateService,
+  constructor(service: AdminEmailTemplateService,
               router: Router,
               route: ActivatedRoute,
               notificationService: NotificationService,

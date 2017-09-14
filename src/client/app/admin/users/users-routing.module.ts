@@ -1,27 +1,27 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { UserDetailsComponent } from './user-details.component';
-import { UserListComponent } from './user-list.component';
-import { UserFormComponent } from './user-form.component';
+import { AdminUserDetailsComponent } from './user-details.component';
+import { AdminUserListComponent } from './user-list.component';
+import { AdminUserFormComponent } from './user-form.component';
 import { AppRoutes } from '../../core/models/app-routes.model';
 
 @NgModule({
   imports: [
     RouterModule.forChild(<AppRoutes>[{
       path: '',
-      component: UserListComponent,
+      component: AdminUserListComponent,
       breadcrumbIgnore: true,
     }, {
       path: ':id',
-      component: UserDetailsComponent,
+      component: AdminUserDetailsComponent,
       breadcrumb: 'T_USER_DETAILS',
     }, {
       path: ':id/edit',
-      component: UserFormComponent,
+      component: AdminUserFormComponent,
       breadcrumb: 'T_ACTION_EDIT',
     }])
   ],
   exports: [RouterModule]
 })
-export class UsersRoutingModule {
+export class AdminUsersRoutingModule {
 }

@@ -1,29 +1,29 @@
 import { SharedModule } from '../../shared/shared.module';
-import { UsersRoutingModule } from './users-routing.module';
+import { AdminUsersRoutingModule } from './users-routing.module';
 import { NgModule } from '@angular/core';
-import { UserDetailsComponent } from './user-details.component';
-import { UserListComponent } from './user-list.component';
-import { UserFormComponent } from './user-form.component';
-import { UserGroupListComponent } from './user-group-list.component';
+import { AdminUserDetailsComponent } from './user-details.component';
+import { AdminUserListComponent } from './user-list.component';
+import { AdminUserFormComponent } from './user-form.component';
+import { AdminUserGroupListComponent } from './user-group-list.component';
 
 @NgModule({
   imports: [
-    UsersRoutingModule,
+    AdminUsersRoutingModule,
     SharedModule
   ],
   declarations: [
-    UserListComponent,
-    UserDetailsComponent,
-    UserFormComponent,
-    UserGroupListComponent
+    AdminUserListComponent,
+    AdminUserDetailsComponent,
+    AdminUserFormComponent,
+    AdminUserGroupListComponent
   ],
   exports: [
-    UserListComponent,
-    UserDetailsComponent,
-    UserFormComponent,
-    UserGroupListComponent
+    AdminUserListComponent,
+    AdminUserDetailsComponent,
+    AdminUserFormComponent,
+    AdminUserGroupListComponent
   ]
 })
-export class UsersModule {
+export class AdminUsersModule {
 }
 

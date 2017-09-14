@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { ModelId } from '../../core/models/model';
 import { IEmailTemplate, ProjectModel } from '../../core/models/project-model';
-import { ProjectService } from '../../core/services/project.service';
+import { AdminProjectService } from '../../core/services/admin-project.service';
 import { NotificationService } from '../../core/services/notification.service';
 import { Recipient } from '../../core/models/email-template-model';
 import { ListComponent } from '../../shared/components/list.component';
@@ -12,7 +12,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   selector: 'bs-project-email-template-list',
   templateUrl: 'project-email-template-list.component.html'
 })
-export class ProjectEmailTemplatesListComponent extends ListComponent<ProjectModel> {
+export class AdminProjectEmailTemplatesListComponent extends ListComponent<ProjectModel> {
   private _model: ProjectModel;
   private _recipient: string = Recipient.auditor;
 
@@ -35,7 +35,7 @@ export class ProjectEmailTemplatesListComponent extends ListComponent<ProjectMod
   }
 
 
-  constructor(service: ProjectService,
+  constructor(service: AdminProjectService,
               activatedRoute: ActivatedRoute,
               router: Router,
               notificationService: NotificationService) {

@@ -4,14 +4,14 @@ import { EventModel, EventStatus } from '../core/models/event-model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NotificationService } from '../core/services/notification.service';
 import { IListResponse } from '../core/services/rest.service';
-import { EventUsersService } from '../core/services/event-users.service';
+import { EventService } from '../core/services/event.service';
 
 @Component({
   moduleId: module.id,
   selector: 'bs-assessment-user-event-list',
-  templateUrl: 'user-event-list.component.html'
+  templateUrl: 'event-list.component.html'
 })
-export class UserEventListComponent extends ListComponent<EventModel> {
+export class EventListComponent extends ListComponent<EventModel> {
   protected _status: string = 'null';
 
   @Input()
@@ -27,7 +27,7 @@ export class UserEventListComponent extends ListComponent<EventModel> {
     return EventStatus;
   }
 
-  constructor(service: EventUsersService,
+  constructor(service: EventService,
               activatedRoute: ActivatedRoute,
               router: Router,
               notificationService: NotificationService) {
