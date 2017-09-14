@@ -17,7 +17,6 @@ export class AdminUserFormComponent extends FormComponent<UserModel> implements 
   protected _roles: string[] = Object.values(UserRole);
   protected _genders: string[] = Object.values(UserGender);
 
-  protected _avatar: any;
   protected _returnPath = ['/admin/users'];
 
   public get roles(): string[] {
@@ -26,10 +25,6 @@ export class AdminUserFormComponent extends FormComponent<UserModel> implements 
 
   public get genders(): string[] {
     return this._genders;
-  }
-
-  public get avatar(): any {
-    return this._avatar;
   }
 
   constructor(service: AdminUserService,
@@ -56,7 +51,7 @@ export class AdminUserFormComponent extends FormComponent<UserModel> implements 
   }
 
   protected _getUserPicture() {
-    this._userPictureService.getPicture(this._id).subscribe(picture => this._avatar = picture);
+    this._userPictureService.getPicture(this._id).subscribe(picture => this._model.picture = picture);
   }
 }
 

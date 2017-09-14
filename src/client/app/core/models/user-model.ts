@@ -41,4 +41,9 @@ export class UserModel extends Model {
   public get isFilled(): boolean {
     return !!this.name && !!this.email && !!this.gender;
   }
+
+  public toJson(): string {
+    this.picture = null;
+    return JSON.stringify(this);
+  }
 }
