@@ -177,6 +177,10 @@
   version "3.4.30"
   resolved "https://registry.yarnpkg.com/@types/clean-css/-/clean-css-3.4.30.tgz#0052c136f5248002428e3638b37de4a39818641d"
 
+"@types/cropperjs@^0.0.26":
+  version "0.0.26"
+  resolved "https://registry.yarnpkg.com/@types/cropperjs/-/cropperjs-0.0.26.tgz#acdc4168332575888b014c18f99454ce740ddc78"
+
 "@types/express-serve-static-core@*":
   version "4.0.45"
   resolved "https://registry.yarnpkg.com/@types/express-serve-static-core/-/express-serve-static-core-4.0.45.tgz#71bb1f87d7187482d0d8851f5b294458e1c78667"
@@ -1577,6 +1581,10 @@ cosmiconfig@^2.1.0, cosmiconfig@^2.1.1:
     os-homedir "^1.0.1"
     parse-json "^2.2.0"
     require-from-string "^1.1.0"
+
+cropperjs@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/cropperjs/-/cropperjs-1.0.0.tgz#3a4b7261f05a661316facdb4ebac90ecc48b0242"
 
 cross-spawn@^3.0.0:
   version "3.0.1"

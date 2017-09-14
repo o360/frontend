@@ -6,6 +6,7 @@ import { DetailsComponent } from '../shared/components/details.component';
 import { NotificationService } from '../core/services/notification.service';
 import { AccountService } from '../core/services/account.service';
 import { AccountModel } from '../core/models/account-model';
+import { UserPictureService } from '../core/services/user-picture.service';
 
 @Component({
   moduleId: module.id,
@@ -13,12 +14,19 @@ import { AccountModel } from '../core/models/account-model';
   templateUrl: 'user-profile.component.html',
 })
 export class UserProfileComponent extends DetailsComponent<AccountModel> implements OnInit {
+  protected _avatar: any;
+
+  public get avatar(): any {
+    return this._avatar;
+  }
+
   constructor(service: AccountService,
               route: ActivatedRoute,
               router: Router,
               breadcrumbService: BreadcrumbService,
               notificationService: NotificationService,
-              protected _auth: AuthService) {
+              protected _auth: AuthService,
+              protected _userPictureService: UserPictureService) {
     super(service, route, router, breadcrumbService, notificationService);
 
     this._returnPath = '';
@@ -27,5 +35,14 @@ export class UserProfileComponent extends DetailsComponent<AccountModel> impleme
   public ngOnInit() {
     this._id = this._auth.user.id;
     this._update();
+  }
+
+  protected _update() {
+    super._update();
+    this._loadUserPicture();
+  }
+
+  protected _loadUserPicture() {
+    this._userPictureService.getPicture(this._id).subscribe(pic => this._avatar = pic);
   }
 }

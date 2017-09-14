@@ -1,8 +1,9 @@
-import { Response } from '@angular/http';
+import { RequestOptions, Response, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { RestServiceConfig } from '../decorators/rest-service-config.decorator';
 import { AccountModel } from '../models/account-model';
-import { RestService } from './rest.service';
+import { IListResponse, RestService } from './rest.service';
+import { GroupModel } from '../models/group-model';
 
 @RestServiceConfig({
   endpoint: 'users',
@@ -19,6 +20,32 @@ export class AccountService extends RestService<AccountModel> {
       .map((json: Object) => this.createEntity(json))
       .catch((error: Response) => this._handleErrors(error));
   }
+
+  public setPicture(file: string): Observable<AccountModel> {
+    let requestParams = `${this._getRequestParams()}/picture`;
+    let requestOptions = new RequestOptions({
+      headers: new Headers({
+        'X-Auth-Token': this._authService.token
+      })
+    });
+
+    let formData = new FormData();
+    formData.append('picture', this._convertDataUriToBlob(file), 'pic.jpg');
+
+    return this._http.post(requestParams, formData, requestOptions)
+      .map((res: Response) => res.json())
+      .catch((error: Response) => this._handleErrors(error));
+  }
+
+  public getGroups(): Observable<IListResponse<GroupModel>> {
+    let requestParams = `${this._getRequestParams()}/groups`;
+    let requestOptions = this._getRequestOptions();
+
+    return this._http.get(requestParams, requestOptions)
+      .map((response: Response) => response.json())
+      .catch((error: Response) => this._handleErrors(error));
+  }
+
 
   public list() {
     return Observable.throw('Method not allowed!');
@@ -37,5 +64,15 @@ export class AccountService extends RestService<AccountModel> {
       .map((res: Response) => res.json())
       .map((json: any) => this.createEntity(json))
       .catch((error: Response) => this._handleErrors(error));
+  }
+
+  protected _convertDataUriToBlob(dataUri: string) {
+    let byteString = atob(dataUri.split(',')[1]);
+    let ia = new Uint8Array(byteString.length);
+    for (let i = 0; i < byteString.length; i++) {
+      ia[i] = byteString.charCodeAt(i);
+    }
+    var mimeString = dataUri.split(',')[0].split(':')[1].split(';')[0];
+    return new Blob([ia], { type: mimeString });
   }
 }
