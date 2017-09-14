@@ -286,6 +286,7 @@
   "T_EMAIL_TEMPLATE": "Шаблон письма",
   "T_ASSESSMENT_OVERALL": "Общая оценка",
   "T_ASSESSMENT_INCOMMAND": "Внутрикомандная оценка",
+  "T_ACTION_VOTE_ANONYMOUS": "Голосовать анонимно",
   "T_CHILD_GROUPS": "Дочерние группы",
   "T_SURVEYS": "Опросы",
   "T_ASSESSMENT_EVENTS_IN_PROGRESS": "Активные события оценки",

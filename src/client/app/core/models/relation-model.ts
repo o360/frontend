@@ -30,6 +30,7 @@ export class RelationModel extends Model {
   public form?: IModelIdName;
   public formId?: ModelId;
   public kind: string;
+  public canSelfVote: boolean;
   public templates: IEmailTemplate[];
   public canSelfVote: boolean;
 

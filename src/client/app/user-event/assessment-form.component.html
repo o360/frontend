@@ -231,19 +231,45 @@
         </div>
       </ng-template>
     </ng-container>
-    <div class="text-right" *ngIf="(status === EventStatus.InProgress && !inline)">
-      <button type="button"
-              (click)="assessmentForm.reset()"
-              class="btn btn-default mt-0"
-              [disabled]="assessmentForm.pristine ||  (!canRevote && isAnswered)">
-        {{ 'T_ACTION_CLEAR' | translate }}
-      </button>
-      <button type="submit"
-              (click)="save()"
-              class="btn btn-primary mt-0"
-              [disabled]="!assessmentForm.valid || !assessment ||  (!canRevote && isAnswered)">
-        {{ 'T_ACTION_SAVE' | translate }}
-      </button>
+
+
+    <hr/>
+
+    <div class="row" *ngIf="(status === EventStatus.InProgress && !inline)">
+      <div class="col-sm-6">
+        <div *ngIf="canBeAnonymous">
+          <label for="isAnonymous">
+            {{ 'T_ACTION_VOTE_ANONYMOUS' | translate }}
+          </label>
+          <label class="switch switch-default switch-primary ml-h">
+            <input id="isAnonymous"
+                   name="isAnonymous"
+                   type="checkbox"
+                   class="switch-input"
+                   checked="true"
+                   [disabled]="status !== EventStatus.InProgress || (!canRevote && isAnswered)"
+                   #anonymous="ngModel"
+                   [ngModel]="isAnonymous"
+                   (ngModelChange)="isAnonymous = $event; onFormChange();">
+            <span class="switch-label"></span>
+            <span class="switch-handle"></span>
+          </label>
+        </div>
+      </div>
+      <div class="col-sm-6 text-right">
+        <button type="button"
+                (click)="assessmentForm.reset()"
+                class="btn btn-default mt-0"
+                [disabled]="assessmentForm.pristine ||  (!canRevote && isAnswered)">
+          {{ 'T_ACTION_CLEAR' | translate }}
+        </button>
+        <button type="button"
+                (click)="save()"
+                class="btn btn-primary mt-0"
+                [disabled]="!assessmentForm.valid || !assessment ||  (!canRevote && isAnswered)">
+          {{ 'T_ACTION_SAVE' | translate }}
+        </button>
+      </div>
     </div>
   </form>
 </div>
