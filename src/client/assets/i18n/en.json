@@ -12,6 +12,9 @@
   "T_ACTION_NO": "No",
   "T_ACTION_OK": "OK",
   "T_ACTION_ASSESS": "Start assessment",
+  "T_ACTION_ASSESS_NOTSTARTED": "Start assessment",
+  "T_ACTION_ASSESS_PARTFILLED": "Continue assessment",
+  "T_ACTION_ASSESS_FULLFILLED": "Restart assessment",
   "T_ACTION_CONFIRM": "Confirmation",
   "T_ACTION_CREATE": "Create",
   "T_ACTION_DELETE": "Delete",
@@ -299,5 +302,6 @@
   "T_ERROR_INVALID_TIMEZONE": "We can not identify your timezone, choose it please manually",
   "T_TERMS_AND_CONDITIONS": "Terms and conditions",
   "T_AGREEMENT_APPROVEMENT_MESSAGE": "Agree with the terms and conditions",
-  "T_ERROR_AGREEMENT": "Something is wrong, please try again later or contact administrator"
+  "T_ERROR_AGREEMENT": "Something is wrong, please try again later or contact administrator",
+  "T_TIME_LEFT": "Time will leave"
 }
