@@ -83,6 +83,7 @@
                                        [status]="status"
                                        [canRevote]="project.canRevote"
                                        [isAnswered]="assessmentObject.isAnswered"
+                                       [canBeAnonymous]="project.isAnonymous"
                                        [queryParams]="queryParams"
                                        (formSave)="formSaved()"
                                        (formChange)="formChanged($event);"></bs-user-assessment-form>
@@ -102,6 +103,7 @@
                                        [status]="status"
                                        [isAnswered]="!!assessmentObject.answers.length"
                                        [canRevote]="project.canRevote"
+                                       [canBeAnonymous]="project.isAnonymous"
                                        [queryParams]="queryParams"
                                        (formSave)="formSaved()"
                                        (formChange)="formChanged($event);"></bs-user-assessment-form>
