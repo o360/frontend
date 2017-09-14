@@ -1,2 +1,4 @@
-<small class="text-muted">{{ 'T_YOUR_GROUPS' | translate }}</small>
-<div *ngIf="isLoaded" class="h6">{{ groups }}</div>
+<ng-template *ngIf="isLoaded">
+  <small class="text-muted">{{ 'T_YOUR_GROUPS' | translate }}</small>
+  <div class="h6">{{ groups }}</div>
+</ng-template>

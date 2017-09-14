@@ -38,11 +38,16 @@ export class UserProfileComponent extends DetailsComponent<AccountModel> impleme
   }
 
   protected _update() {
-    super._update();
-    this._loadUserPicture();
+    this._service.get(this._id).subscribe((model: AccountModel) => {
+      this._model = model;
+      this._fillBreadcrumbs(model);
+      this._loadUserPicture();
+    });
   }
 
   protected _loadUserPicture() {
-    this._userPictureService.getPicture(this._id).subscribe(pic => this._avatar = pic);
+    if (this._auth.user.hasPicture) {
+      this._userPictureService.getPicture(this._id).subscribe(pic => this._avatar = pic);
+    }
   }
 }

@@ -65,14 +65,4 @@ export class AccountService extends RestService<AccountModel> {
       .map((json: any) => this.createEntity(json))
       .catch((error: Response) => this._handleErrors(error));
   }
-
-  protected _convertDataUriToBlob(dataUri: string) {
-    let byteString = atob(dataUri.split(',')[1]);
-    let ia = new Uint8Array(byteString.length);
-    for (let i = 0; i < byteString.length; i++) {
-      ia[i] = byteString.charCodeAt(i);
-    }
-    var mimeString = dataUri.split(',')[0].split(':')[1].split(';')[0];
-    return new Blob([ia], { type: mimeString });
-  }
 }

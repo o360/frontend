@@ -90,8 +90,8 @@
 
       <!--Picture-->
       <div class="form-group row">
-        <label for="timezone" class="col-form-label col-md-3">{{ 'T_USER_AVATAR' | translate }}</label>
-        <div class="col-md-9 user-profile-form-image">
+        <label for="avatar" class="col-form-label col-md-3">{{ 'T_USER_AVATAR' | translate }}</label>
+        <div id="avatar" class="col-md-9 user-profile-form-image">
           <div class="user-profile-image mr-2">
             <img [src]="!!avatar ? avatar : '../../assets/images/noUserImage.png'" [alt]="'T_USER_AVATAR' | translate"/>
           </div>

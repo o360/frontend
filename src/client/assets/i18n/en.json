@@ -57,6 +57,7 @@
   "T_USER_DETAILS": "Details of user",
   "T_USER_AVATAR": "Profile picture",
   "T_USER_AVATAR_UPLOAD": "Upload a profile picture",
+  "T_USERS_IS_YOU": "you",
   "T_ERROR_MACHINE_NAME_PATTERN": "Wrong format",
   "T_NAME": "Name",
   "T_NOT_SPECIFIED": "Not specified",
