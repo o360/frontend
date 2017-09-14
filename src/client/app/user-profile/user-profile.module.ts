@@ -3,6 +3,7 @@ import { SharedModule } from '../shared/shared.module';
 import { UserProfileFormComponent } from './user-profile-form.component';
 import { UserProfileRoutingModule } from './user-profile-routing.module';
 import { UserProfileComponent } from './user-profile.component';
+import { UserGroupsComponent } from './user-groups.component';
 
 @NgModule({
   imports: [
@@ -12,10 +13,12 @@ import { UserProfileComponent } from './user-profile.component';
   declarations: [
     UserProfileComponent,
     UserProfileFormComponent,
+    UserGroupsComponent
   ],
   exports: [
     UserProfileComponent,
-    UserProfileFormComponent
+    UserProfileFormComponent,
+    UserGroupsComponent
   ]
 })
 export class UserProfileModule {
