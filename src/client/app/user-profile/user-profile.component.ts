@@ -14,12 +14,6 @@ import { UserPictureService } from '../core/services/user-picture.service';
   templateUrl: 'user-profile.component.html',
 })
 export class UserProfileComponent extends DetailsComponent<AccountModel> implements OnInit {
-  protected _avatar: any;
-
-  public get avatar(): any {
-    return this._avatar;
-  }
-
   constructor(service: AccountService,
               route: ActivatedRoute,
               router: Router,
@@ -41,13 +35,16 @@ export class UserProfileComponent extends DetailsComponent<AccountModel> impleme
     this._service.get(this._id).subscribe((model: AccountModel) => {
       this._model = model;
       this._fillBreadcrumbs(model);
-      this._loadUserPicture();
+
+      if (model.hasPicture) {
+        this._loadUserPicture();
+      }
     });
   }
 
   protected _loadUserPicture() {
     if (this._auth.user.hasPicture) {
-      this._userPictureService.getPicture(this._id).subscribe(pic => this._avatar = pic);
+      this._userPictureService.getPicture(this._id).subscribe(pic => this._model.picture = pic);
     }
   }
 }

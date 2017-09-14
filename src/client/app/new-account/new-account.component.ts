@@ -18,7 +18,6 @@ export class NewAccountComponent {
   private _genders: string[] = Object.values(UserGender);
   private _timezones: string[] = moment.tz.names();
   private _user: AccountModel;
-  private _avatar: any;
 
   public get genders(): string[] {
     return this._genders;
@@ -32,10 +31,6 @@ export class NewAccountComponent {
     return this._user;
   }
 
-  public get avatar(): any {
-    return this._avatar;
-  }
-
   constructor(private _authService: AuthService,
               private _accountService: AccountService,
               private _notificationService: NotificationService,
@@ -43,7 +38,10 @@ export class NewAccountComponent {
               private _userPictureService: UserPictureService) {
     this._user = this._authService.user;
     this._setTimeZone();
-    this._getUserPicture();
+
+    if (this._user.hasPicture) {
+      this._getUserPicture();
+    }
   }
 
   public logout() {
@@ -78,6 +76,6 @@ export class NewAccountComponent {
   }
 
   protected _getUserPicture() {
-    this._userPictureService.getPicture(this._user.id).subscribe(picture => this._avatar = picture);
+    this._userPictureService.getPicture(this._user.id).subscribe(picture => this._user.picture = picture);
   }
 }

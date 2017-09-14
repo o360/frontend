@@ -18,7 +18,6 @@ export class UserProfileFormComponent extends FormComponent<UserModel> implement
   protected _returnPath = ['/profile'];
   protected _genders: string[] = Object.values(UserGender);
   protected _timezones: string[] = moment.tz.names();
-  protected _avatar: any;
   protected _choosePictureInput: any;
 
   public get genders(): string[] {
@@ -27,10 +26,6 @@ export class UserProfileFormComponent extends FormComponent<UserModel> implement
 
   public get timezones(): string[] {
     return this._timezones;
-  }
-
-  public get avatar(): any {
-    return this._avatar;
   }
 
   @ViewChild('choosePictureInput')
@@ -50,7 +45,11 @@ export class UserProfileFormComponent extends FormComponent<UserModel> implement
 
   public ngOnInit() {
     this._id = this._auth.user.id;
-    this._getUserPicture();
+
+    if (this._auth.user.hasPicture) {
+      this._getUserPicture();
+    }
+
     super.ngOnInit();
   }
 
@@ -74,6 +73,6 @@ export class UserProfileFormComponent extends FormComponent<UserModel> implement
   }
 
   protected _getUserPicture() {
-    this._userPictureService.getPicture(this._id).subscribe(picture => this._avatar = picture);
+    this._userPictureService.getPicture(this._id).subscribe(picture => this._model.picture = picture);
   }
 }

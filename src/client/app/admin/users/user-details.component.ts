@@ -13,12 +13,6 @@ import { UserPictureService } from '../../core/services/user-picture.service';
   templateUrl: `user-details.component.html`
 })
 export class AdminUserDetailsComponent extends DetailsComponent<UserModel> {
-  protected _avatar: any;
-
-  public get avatar(): any {
-    return this._avatar;
-  }
-
   constructor(service: AdminUserService,
               route: ActivatedRoute,
               router: Router,
@@ -34,11 +28,14 @@ export class AdminUserDetailsComponent extends DetailsComponent<UserModel> {
     this._service.get(this._id).subscribe((model: UserModel) => {
       this._model = model;
       this._fillBreadcrumbs(model);
-      this._loadUserPicture();
+
+      if (model.hasPicture) {
+        this._loadUserPicture();
+      }
     });
   }
 
   protected _loadUserPicture() {
-    this._userPictureService.getPicture(this._id).subscribe(pic => this._avatar = pic);
+    this._userPictureService.getPicture(this._id).subscribe(pic => this._model.picture = pic);
   }
 }

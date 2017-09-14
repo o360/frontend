@@ -15,19 +15,8 @@ import { GroupModel } from '../core/models/group-model';
   templateUrl: 'user-public-profile.component.html'
 })
 export class UserPublicProfileComponent extends DetailsComponent<UserModel> {
-  protected _avatar: any;
-  protected _groups: GroupModel[];
-
-  public get avatar(): any {
-    return this._avatar;
-  }
-
-  public get groups(): string {
-    return this._groups.map(_ => _.name).join(', ');
-  }
-
   public get hasGroups(): boolean {
-    return !!this._groups;
+    return !!this._model.groups;
   }
 
   constructor(service: UserService,
@@ -53,11 +42,12 @@ export class UserPublicProfileComponent extends DetailsComponent<UserModel> {
   }
 
   protected _loadUserPicture() {
-    this._userPictureService.getPicture(this._id).subscribe(pic => this._avatar = pic);
+    this._userPictureService.getPicture(this._id).subscribe(pic => this._model.picture = pic);
   }
 
   protected _getUserGroups() {
     (<UserService>this._service).getGroups(this._id)
-      .subscribe((response: IListResponse<GroupModel>) => this._groups = response.data);
+      .subscribe((response: IListResponse<GroupModel>) => this._model.groups = response.data
+        .map(_ => _.name).join(', '));
   }
 }
