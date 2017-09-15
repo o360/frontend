@@ -230,7 +230,7 @@ export class RestService<T extends Model> {
         'CONFLICT-TEMPLATE-GENERAL'
       ];
       if (conflicts.indexOf(err.code) !== -1) {
-        this._confirmationService.loadComponent(null, err.conflicts, null);
+        this._confirmationService.loadComponent(null, err.conflicts);
       } else {
         this._notificationService.error(this._prepareErrorCodeTranslation(err.code));
       }

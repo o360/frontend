@@ -1,15 +1,8 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap';
 import { Subject } from 'rxjs/Subject';
-import { IConflicts, IEntity } from '../../core/services/confirmation.service';
-import { GroupService } from '../../core/services/group.service';
-import { ModelId } from '../../core/models/model';
-import { NotificationService } from '../../core/services/notification.service';
+import { IConflicts } from '../../core/services/confirmation.service';
 
-export interface IDataRequestUserFromGroup {
-  groupId: ModelId;
-  userId: ModelId;
-}
 
 @Component({
   moduleId: module.id,
@@ -22,12 +15,7 @@ export class ConfirmationModalComponent implements OnInit {
   protected _modal: ModalDirective;
   protected _conflictKeys: string[];
   protected _confirmed: Subject<boolean> = new Subject<boolean>();
-  protected _userId: ModelId = null;
-
-  @Input()
-  public set userId(value: ModelId) {
-    this._userId = value;
-  }
+  protected _contentTemplate: TemplateRef<any>;
 
   @Input()
   public set message(value: string) {
@@ -35,8 +23,22 @@ export class ConfirmationModalComponent implements OnInit {
   }
 
   @Input()
+  public set contentTemplate(value: TemplateRef<any>) {
+    this._contentTemplate = value;
+  }
+
+  @Input()
   public set conflicts(value: IConflicts) {
     this._conflicts = value;
+  }
+
+  @ViewChild('modal')
+  public set modal(value: ModalDirective) {
+    this._modal = value;
+  }
+
+  public get contentTemplate(): TemplateRef<any> {
+    return this._contentTemplate;
   }
 
   public get confirmed(): Subject<boolean> {
@@ -51,25 +53,12 @@ export class ConfirmationModalComponent implements OnInit {
     return this._conflicts;
   }
 
-  public get userId(): ModelId {
-    return this._userId;
-  }
-
   public get conflictKeys(): any {
     return this._conflictKeys;
   }
 
   public get modal(): ModalDirective {
     return this._modal;
-  }
-
-  @ViewChild('modal')
-  public set modal(value: ModalDirective) {
-    this._modal = value;
-  }
-
-  constructor(protected _groupService: GroupService,
-              protected _notificationService: NotificationService) {
   }
 
   public ngOnInit() {
@@ -85,16 +74,5 @@ export class ConfirmationModalComponent implements OnInit {
 
   public hide() {
     this._modal.hide();
-  }
-
-  public deleteFromAllGroup() {
-    let requestData: IDataRequestUserFromGroup[] = [];
-    this._conflicts.groups.forEach((result: IEntity) => {
-        let item: IDataRequestUserFromGroup = { 'groupId': result.id, 'userId': this._userId };
-        requestData.push(item);
-      }
-    );
-    this._groupService.removeUserFromAllGroup(requestData).subscribe(() =>
-      this._notificationService.success('T_SUCCESS_DELETED_USER_FROM_GROUPS'));
   }
 }
