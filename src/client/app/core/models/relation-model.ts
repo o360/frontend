@@ -32,7 +32,6 @@ export class RelationModel extends Model {
   public kind: string;
   public canSelfVote: boolean;
   public templates: IEmailTemplate[];
-  public canSelfVote: boolean;
 
   constructor(json: any) {
     super(json);
