@@ -1,0 +1,21 @@
+<div class="modal-body" *ngIf="isLoaded">
+  <ul class="list-group mt-1">
+    <li class="mb-h list-group-item p-0 list-unstyled">
+      <b>{{ 'T_GROUPS' | translate }}</b>
+      <span class="badge ml-h badge-danger badge-pill">
+          {{ list.length }} </span>
+    </li>
+    <li class="list-group-item p-0" *ngFor="let item of list">
+      <a [routerLink]="['/admin/groups/', item.id]">
+        {{ item.name }}
+      </a>
+    </li>
+  </ul>
+
+  <button type="button" class="btn btn-danger mt-1"
+          [tooltip]="'T_CONFIRM_MESSAGE_DELETE_USER_ENTITIES' | translate"
+          placement="bottom"
+          (click)="deleteFromAllGroup()">{{ 'T_ACTION_DELETE_USER_FROM_GROUPS' | translate }}
+  </button>
+
+</div>
