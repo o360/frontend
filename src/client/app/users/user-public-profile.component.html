@@ -1,0 +1,34 @@
+<div class="card" *ngIf="model">
+  <div class="card-header"><b>{{ 'T_PROFILE' | translate }}</b></div>
+
+  <div class="card-block">
+    <div class="profile-header">
+      <div class="user-profile-image mr-1">
+        <img [src]="!!model.picture ? model.picture : '../../assets/images/noUserImage.png'" [alt]="'T_USER_AVATAR' | translate"/>
+      </div>
+      <div class="align-self-center">
+        <h2 class="mb-0">{{ model.name }}</h2>
+      </div>
+    </div>
+
+    <div class="row mt-1">
+      <div class="col-md-3">
+        <small class="text-muted">{{ 'T_USER_NAME' | translate }}</small>
+        <div class="h6">{{ model.name }}</div>
+      </div>
+
+      <div class="col-md-3">
+        <small class="text-muted">{{ 'T_USER_GENDER' | translate }}</small>
+        <div *ngIf="model.gender" class="h6">{{ 'T_USER_GENDER_' + model.gender.toUpperCase() | translate }}</div>
+        <div *ngIf="!model.gender" class="h6">{{ 'T_NOT_SPECIFIED' | translate }}</div>
+      </div>
+
+      <div class="col-md-6" *ngIf="hasGroups">
+        <small class="text-muted">{{ 'T_USERS_GROUPS' | translate }}</small>
+        <div class="h6">{{ model.groups }}</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

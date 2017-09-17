@@ -108,6 +108,17 @@
                   </div>
                 </div>
               </div>
+
+              <!--Picture-->
+              <div class="form-group">
+                <label for="avatar" class="col-form-label">{{ 'T_USER_AVATAR' | translate }}</label>
+                <div id="avatar" class="col-xs-6 user-profile-form-image">
+                  <div class="user-profile-image mr-2">
+                    <img [src]="!!user.picture ? user.picture : '../../assets/images/noUserImage.png'" [alt]="'T_USER_AVATAR' | translate"/>
+                  </div>
+                  <bs-image-uploader (imageUploaded)="savePicture($event)"></bs-image-uploader>
+                </div>
+              </div>
               <hr/>
 
 
