@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { AccountService } from '../core/services/account.service';
 
 import * as moment from 'moment-timezone';
+import { UserPictureService } from '../core/services/user-picture.service';
 
 @Component({
   moduleId: module.id,
@@ -33,9 +34,14 @@ export class NewAccountComponent {
   constructor(private _authService: AuthService,
               private _accountService: AccountService,
               private _notificationService: NotificationService,
-              private _router: Router) {
+              private _router: Router,
+              private _userPictureService: UserPictureService) {
     this._user = this._authService.user;
     this._setTimeZone();
+
+    if (this._user.hasPicture) {
+      this._getUserPicture();
+    }
   }
 
   public logout() {
@@ -57,9 +63,19 @@ export class NewAccountComponent {
     return moment.tz(tzId).format('Z');
   }
 
+  public savePicture(image: any) {
+    this._accountService.setPicture(image).subscribe(picture => {
+      this._getUserPicture();
+    }, error => this._notificationService.error(error));
+  }
+
   protected _setTimeZone() {
     if (this._user && (this._user.timezone === 'GMT' || this._user.timezone === 'Z' || !this._user.timezone)) {
       this._user.timezone = moment.tz.guess();
     }
+  }
+
+  protected _getUserPicture() {
+    this._userPictureService.getPicture(this._user.id).subscribe(picture => this._user.picture = picture);
   }
 }

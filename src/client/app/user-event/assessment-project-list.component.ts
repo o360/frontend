@@ -6,7 +6,6 @@ import { ModelId } from '../core/models/model';
 import { NotificationService } from '../core/services/notification.service';
 import { ProjectService } from '../core/services/project.service';
 
-
 @Component({
   moduleId: module.id,
   selector: 'bs-assessment',

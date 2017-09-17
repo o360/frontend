@@ -5,10 +5,12 @@ export class UserStatus {
   public static readonly New: string = 'new';
   public static readonly Approved: string = 'approved';
 }
+
 export class UserRole {
   public static readonly Admin: string = 'admin';
   public static readonly User: string = 'user';
 }
+
 export class UserGender {
   public static readonly Female: string = 'female';
   public static readonly Male: string = 'male';
@@ -21,7 +23,8 @@ export class UserGender {
   role: '',
   gender: null,
   timezone: 'Z',
-  termsApproved: false
+  termsApproved: false,
+  hasPicture: false,
 })
 export class UserModel extends Model {
   public name: string;
@@ -31,8 +34,16 @@ export class UserModel extends Model {
   public gender: string;
   public timezone?: string;
   public termsApproved: boolean;
+  public hasPicture?: boolean;
+  public picture?: any;
+  public groups?: string;
 
   public get isFilled(): boolean {
     return !!this.name && !!this.email && !!this.gender;
+  }
+
+  public toJson(): string {
+    this.picture = null;
+    return JSON.stringify(this);
   }
 }

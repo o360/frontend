@@ -3,8 +3,14 @@
     <div class="card-header"><b>{{ 'T_DETAILS' | translate }}</b></div>
     <div class="card-block">
       <div class="row">
-        <div class="col-md-8">
-          <h2>{{ model.name }}</h2>
+        <div class="col-md-8 profile-header">
+          <div class="user-profile-image mr-1">
+            <img [src]="!!model.picture ? model.picture : '../../../assets/images/noUserImage.png'"
+                 [alt]="'T_USER_AVATAR' | translate"/>
+          </div>
+          <div class="align-self-center">
+            <h2 class="mb-0">{{ model.name }}</h2>
+          </div>
         </div>
         <div class="col-md-4 text-right">
           <button type="button"
