@@ -110,7 +110,9 @@ export class ImageUploaderComponent {
       autoCropArea: 0.5,
       aspectRatio: 1 / 1,
       crop: (e) =>
-        this._cropped = this._cropper.getCroppedCanvas().toDataURL('image/jpeg')
+        this._cropped = this._cropper.getCroppedCanvas({
+          fillColor: '#ffffff'
+        }).toDataURL('image/jpeg')
     });
   }
 }
