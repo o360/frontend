@@ -14,7 +14,7 @@
   "T_ACTION_ASSESS": "Start assessment",
   "T_ACTION_ASSESS_NOTSTARTED": "Start assessment",
   "T_ACTION_ASSESS_PARTFILLED": "Continue assessment",
-  "T_ACTION_ASSESS_FULLFILLED": "Restart assessment",
+  "T_ACTION_ASSESS_FULLFILLED": "Check answers",
   "T_ACTION_CONFIRM": "Confirmation",
   "T_ACTION_CREATE": "Create",
   "T_ACTION_DELETE": "Delete",

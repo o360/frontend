@@ -59,6 +59,7 @@ export class LanguageSelectorComponent implements OnInit {
   }
 
   public changeLanguage(id: string) {
+    moment.locale(id);
     this._languages.forEach(language => {
       if (language.id === id) {
         language.selected = true;
@@ -66,7 +67,6 @@ export class LanguageSelectorComponent implements OnInit {
         this._translate.use(id);
         this._selected = id;
       } else {
-        moment.locale(id);
         language.selected = false;
       }
     });
