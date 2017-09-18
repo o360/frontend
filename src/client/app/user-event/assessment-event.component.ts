@@ -33,6 +33,7 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
   protected _isClear: boolean = true;
   protected _isAnswered: boolean = false;
   protected _showNextProject: EventEmitter<any> = new EventEmitter<any>();
+  protected _filteredUsers: AssessmentModel[];
 
   @Input()
   public set project(value: ProjectModel) {
@@ -96,6 +97,10 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
   @Output()
   public get showNextProject(): EventEmitter<any> {
     return this._showNextProject;
+  }
+
+  public get filteredUsers(): AssessmentModel[] {
+    return this._filteredUsers;
   }
 
   constructor(service: AssessmentService,
@@ -210,6 +215,7 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
   public save() {
     let postQueryParams: IQueryParams = {
       projectId: this._project.id.toString()
+
     };
 
     (<AssessmentService>this._service).saveBulk(this._answers, postQueryParams).subscribe(() => {
@@ -220,7 +226,7 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
   }
 
   public userSearch(searchUser: AssessmentModel[]) {
-    this._list = searchUser;
+    this._filteredUsers = searchUser;
   }
 
   public clear() {
@@ -236,6 +242,7 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
     this._answers = [];
     return this._fetch().map(list => {
       this._list = list;
+      this._filteredUsers = this._list;
 
       this._isAnswered = !list.find((item: AssessmentModel) => !item.isAnswered);
 

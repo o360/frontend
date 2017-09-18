@@ -18,7 +18,6 @@ export class SearchComponent implements OnInit, OnChanges, OnDestroy {
   protected _list: AssessmentModel[];
   protected _searchSubscription: Subscription;
 
-
   @Input()
   public set items(value: AssessmentModel[]) {
     this._items = value;
