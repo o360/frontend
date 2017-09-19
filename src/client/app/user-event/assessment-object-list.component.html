@@ -3,16 +3,18 @@
   <bs-search [items]="users"
              (itemsSearch)="userSearch($event)"></bs-search>
 
-  <li class="list-group-item custom-item"
+  <li class="list-group-item custom-item assessment-user-list-item"
       *ngFor="let userObj of users"
-      (click)="selectUser(userObj)">
-    <i [ngClass]="{'fa-check-circle-o' : userObj.isAnswered,
-                   'fa-circle-o': !userObj.isAnswered}"
-       class="fa col-sm-1 pl-0"></i>
-    <span class="col-sm-9 p-0">{{ userObj.user.name }}</span>
-    <i *ngIf="!!selectedItem && !!selectedItem['user'] && selectedItem['user'].id === userObj.user.id"
-       class="icon-arrow-right-circle col-sm-1"></i>
+      (click)="selectUser(userObj)"
+      [ngClass]="{ 'current' : isCurrent(userObj.user) }">
+    <i [ngClass]="{ 'fa-check answered' : userObj.isAnswered }"
+       class="fa"></i>
+    <img [src]="!!userObj.user.picture ? userObj.user.picture : '../../assets/images/noUserImage.png'" [alt]=""/>
+    <span class="pl-1"> {{ userObj.user.name }}</span>
+    <i *ngIf="isCurrent(userObj.user)"
+       class="current-arrow fa fa-angle-right"></i>
   </li>
+
 
   <!--Surveys-->
   <li *ngIf="!!surveys.length"
@@ -20,14 +22,13 @@
     <b>{{ 'T_SURVEYS' | translate }}</b>
   </li>
   <ng-container *ngFor="let survey of surveys">
-    <li class="list-group-item custom-item"
+    <li class="list-group-item custom-item assessment-survey-list-item"
         *ngFor="let formObj of survey.forms"
         (click)="selectSurvey(formObj)">
-      <i [ngClass]="{'fa-check-circle-o' : !!formObj.answers.length,
-                     'fa-circle-o': !formObj.answers.length}"
-         class="fa mr-h col-sm-1 pl-0"></i>
-      <span class="col-sm-9">{{ formObj.form.name }}</span>
-      <i *ngIf="selectedItem === formObj" class="icon-arrow-right-circle pl-0 col-sm-1"></i>
+      <i [ngClass]="formObj.status === assessmentFormStatus.Answered ? 'answered' : 'not-answered'"
+         class="fa fa-check mr-1"></i>
+      <span>{{ formObj.form.name }}</span>
+      <i *ngIf="!!selectedItem && selectedItem === formObj" class="current-arrow fa fa-angle-right"></i>
     </li>
   </ng-container>
 </ul>

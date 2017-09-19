@@ -18,7 +18,8 @@ export interface IModelIdName {
   formId: '',
   kind: RelationKind.Classic,
   templates: [],
-  canSelfVote: false
+  canSelfVote: false,
+  canSkip: false
 })
 export class RelationModel extends Model {
   public project?: IModelIdName;
@@ -31,6 +32,7 @@ export class RelationModel extends Model {
   public formId?: ModelId;
   public kind: string;
   public canSelfVote: boolean;
+  public canSkip: boolean;
   public templates: IEmailTemplate[];
 
   constructor(json: any) {
