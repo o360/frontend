@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AssessmentModel } from '../core/models/assessment-model';
+import { AssessmentFormStatus, AssessmentModel, IFormAnswer } from '../core/models/assessment-model';
 import { FormModel } from '../core/models/form-model';
 import { ModelId } from '../core/models/model';
 import { AssessmentService } from '../core/services/assessment.service';
@@ -11,6 +11,8 @@ import { AssessmentObject } from './assessment-object-list.component';
 import { EventStatus } from '../core/models/event-model';
 import { ProjectModel } from '../core/models/project-model';
 import { EventService } from '../core/services/event.service';
+import { UserPictureService } from '../core/services/user-picture.service';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   moduleId: module.id,
@@ -30,6 +32,7 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
   protected _cleared: number = 0;
   protected _isClear: boolean = true;
   protected _isAnswered: boolean = false;
+  protected _formTabIndex: number = 0;
 
   @Input()
   public set project(value: ProjectModel) {
@@ -95,56 +98,90 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
     return this._isAnswered;
   }
 
+  public get formTabIndex(): number {
+    return this._formTabIndex;
+  }
+
   constructor(service: AssessmentService,
               activatedRoute: ActivatedRoute,
               router: Router,
               notificationService: NotificationService,
-              protected _eventService: EventService) {
+              protected _eventService: EventService,
+              protected _userPictureService: UserPictureService) {
     super(service, activatedRoute, router, notificationService);
   }
 
   public ngOnInit() {
-    this._queryParams.eventId = this._eventId.toString();
     this._queryParams.projectId = this._project.id.toString();
 
     this._eventService.get(this._eventId).subscribe(event => this._status = event.status);
 
     super.ngOnInit();
-  }
-
-  public _update() {
-    this._answers = [];
-
-    this._service.list(this._queryParams).subscribe((res: IListResponse<AssessmentModel>) => {
-      this._meta = res.meta;
-      this._list = res.data;
-      this._list
-        .sort(assessment => {
-          return !!assessment.user ? -1 : 1;
-        })
-        .forEach(assessment => {
-          assessment.isClassic = !!assessment.user;
-          assessment.isAnswered = !assessment.forms.find(x => !x.answers.length);
-          this._isClear = !assessment.isAnswered;
-        });
-      this._isAnswered = !!this._list.find(x => x.isAnswered);
-    });
+    this._update().subscribe();
   }
 
   public ngOnChanges(changes: SimpleChanges) {
     if (changes['projectId']) {
       Object.assign(this._queryParams, {
-        eventId: this._eventId.toString(),
         projectId: this._project.id.toString()
       });
-      this._update();
     }
   }
 
-  public displayItem(item: AssessmentObject) {
+  public displayItem(item: AssessmentObject, index?: number) {
     this._assessmentObject = null;
+    this._formTabIndex = 0;
+
+    if (index) {
+      this._formTabIndex = index;
+    }
 
     setTimeout(() => this._assessmentObject = item);
+  }
+
+  public showNext(assessment: AssessmentModel) {
+    this._update().subscribe(() => {
+      if (this._assessmentObject.hasOwnProperty('user')) {
+        let current = this._list.find(assessment => assessment.user.id === (<AssessmentModel>this._assessmentObject).user.id);
+        this._assessmentObject = current;
+
+        let notAnsweredFormIndex = (<AssessmentModel>this._assessmentObject).forms.findIndex(_ => _.status === AssessmentFormStatus.New);
+
+        if (notAnsweredFormIndex >= 0) {
+          this.displayItem(this._assessmentObject, notAnsweredFormIndex);
+        } else {
+          let notAnsweredUsers = this._list.filter(_ => !!_.user && !_.isAnswered);
+
+          if (notAnsweredUsers.length) {
+            let next = this._list.filter(_ => !!_.user && !_.isAnswered)[0];
+            this.displayItem(next);
+          } else if (!!this._list.find(_ => !_.user)) {
+            let notAnsweredSurveys = this._list.find(_ => !_.user).forms.filter(_ => _.status === AssessmentFormStatus.New);
+            let next = notAnsweredSurveys[0];
+            this.displayItem(next);
+          } else {
+            this._finishProjectAssessment();
+          }
+        }
+      } else {
+        let surveys = this._list.find(_ => !_.user).forms;
+        let currentSurvey = surveys.findIndex(formObj => formObj.form.id === (<IFormAnswer>assessment.form).formId);
+        surveys[currentSurvey].status = (<IFormAnswer>assessment.form).status;
+
+        if (surveys.filter(_ => _.status === AssessmentFormStatus.New).length) {
+          let next = surveys.filter(_ => _.status === AssessmentFormStatus.New)[0];
+          this.displayItem(next);
+        } else {
+          let notAnsweredUsers = this._list.filter(_ => !!_.user && !_.isAnswered);
+          if (notAnsweredUsers.length) {
+            let next = this._list.filter(_ => !!_.user && !_.isAnswered)[0];
+            this.displayItem(next);
+          } else {
+            this._finishProjectAssessment();
+          }
+        }
+      }
+    });
   }
 
   public formChanged(value: any) {
@@ -166,18 +203,13 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
 
   public save() {
     let postQueryParams: IQueryParams = {
-      eventId: this._eventId.toString(),
       projectId: this._project.id.toString()
     };
 
     (<AssessmentService>this._service).saveBulk(this._answers, postQueryParams).subscribe(() => {
       this._notificationService.success('T_SUCCESS_SAVED');
-      this._isAnswered = true;
+      this._isAnswered = !this._list.find(x => !x.isAnswered);
     });
-  }
-
-  public formSaved() {
-    this._update();
   }
 
   public userSearch(searchUser: AssessmentModel[]) {
@@ -191,5 +223,58 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
     } else {
       this._answers = [];
     }
+  }
+
+  protected _update(): Observable<any> {
+    this._answers = [];
+    return this._fetch().map(list => this._list = list);
+  }
+
+  protected _fetch(): Observable<any> {
+    let observable = new Observable((observer) => {
+      this._service.list(this._queryParams).subscribe((res: IListResponse<AssessmentModel>) => {
+        let list = res.data
+          .sort((x, y) => {
+            return !!x.user && !!y.user && x.user.name < y.user.name ? -1 : 1;
+          })
+          .sort(assessment => !!assessment.user ? -1 : 1);
+
+        list.forEach(assessment => {
+          assessment.isClassic = !!assessment.user;
+          assessment.isAnswered = !assessment.forms.find(x => x.status === AssessmentFormStatus.New);
+          assessment.forms
+            .sort((x: IFormAnswer, y: IFormAnswer) => x.form.name < y.form.name ? -1 : 1)
+            .forEach(form => form.isLast = false);
+
+          if (assessment.user && assessment.user.hasPicture) {
+            this._userPictureService.getPicture(assessment.user.id).subscribe(pic => assessment.user.picture = pic);
+          }
+
+          this._isClear = !assessment.isAnswered;
+        });
+
+        let notAnsweredList = list.filter(assessment => !assessment.isAnswered);
+        if (notAnsweredList.length === 1) {
+          let notAnsweredLastForms = notAnsweredList[0].forms.filter(form => form.status === AssessmentFormStatus.New);
+          if (notAnsweredLastForms.length === 1) {
+            notAnsweredLastForms[0].isLast = true;
+          }
+        }
+
+        observer.next(list);
+        observer.complete();
+        this._isAnswered = !list.find(x => !x.isAnswered);
+
+        if (this._assessmentObject && this._assessmentObject.userId) {
+          this._assessmentObject = list.find(x => x.user.id === this._assessmentObject.userId);
+        }
+
+      }, error => observer.error(error));
+    });
+    return observable;
+  }
+
+  protected _finishProjectAssessment() {
+    this._notificationService.success('T_ASSESSMENT_PROJECT_FINISH');
   }
 }

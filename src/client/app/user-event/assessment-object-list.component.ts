@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { AssessmentModel, IFormAnswer } from '../core/models/assessment-model';
+import { AssessmentFormStatus, AssessmentModel, IFormAnswer } from '../core/models/assessment-model';
+import { UserModel } from '../core/models/user-model';
 
 export declare type AssessmentObject = AssessmentModel | IFormAnswer;
 
@@ -34,9 +35,18 @@ export class AssessmentObjectListComponent {
     return this._selectedItem;
   }
 
+  @Input()
+  public set selectedItem(value: AssessmentObject) {
+    this._selectedItem = value;
+  }
+
   @Output()
   public get selectedItemChange(): EventEmitter<AssessmentObject> {
     return this._selectedItemChange;
+  }
+
+  public get assessmentFormStatus() {
+    return AssessmentFormStatus;
   }
 
   public selectUser(user: AssessmentModel) {
@@ -55,5 +65,10 @@ export class AssessmentObjectListComponent {
 
   public userSearch(searchUser: AssessmentModel[]) {
     this._users = searchUser;
+  }
+
+  public isCurrent(userObj: UserModel) {
+    return !!this._selectedItem && this._selectedItem.hasOwnProperty('user')
+      && (<AssessmentModel>this._selectedItem).user.id === userObj.id;
   }
 }

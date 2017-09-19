@@ -1,8 +1,8 @@
 <bs-throbber *ngIf="!form"></bs-throbber>
 
-<div *ngIf="form">
-  <form #assessmentForm="ngForm">
-    <ng-container *ngFor="let element of form.elements;"
+<div *ngIf="!!form">
+  <form #assessmentForm="ngForm" class="form">
+    <ng-container *ngFor="let element of form.elements; let i = index;"
                   [ngSwitch]="element.kind">
 
       <!-- Likes & dislikes -->
@@ -18,58 +18,62 @@
 
       <!-- Checkbox groups -->
       <ng-template [ngSwitchCase]="FormElementType.Checkboxgroup">
-        <div class="form-group row mb-1">
-          <label class="col-sm-5"
-                 [ngClass]="{ 'required': element.required }">
-            {{ element.caption }}
-          </label>
+        <div class="question form-group mb-1">
+          <div class="title">
+            <label>
+              <!--<button type="button" class="float-right comment-button add-comment">{{ 'T_ACTION_ADD_COMMENT' | translate }}</button>-->
 
-          <div class="col-sm-7">
-            <div class="form-check" *ngFor="let item of element.values">
-              <label class="custom-control custom-checkbox">
-                <input name="{{ item.id }}"
-                       id="{{ item.id }}"
-                       type="checkbox"
-                       class="custom-control-input"
-                       [disabled]="status !== EventStatus.InProgress || (!canRevote && isAnswered)"
-                       [ngModel]="item.tempValue"
-                       (ngModelChange)="item.tempValue = $event; onFormChange();">
-                <span class="custom-control-indicator"></span>
-                <span class="custom-control-description"> {{ item.caption }}</span>
-              </label>
-            </div>
+              <span class="number">{{ i + 1 }}.</span>
+              <span class="text" [ngClass]="{ 'required': element.required }">{{ element.caption }}</span>
+            </label>
+          </div>
+          <div class="form-check">
+            <label class="custom-control custom-checkbox"
+                   *ngFor="let item of element.values">
+              <input name="{{ item.id }}"
+                     id="{{ item.id }}"
+                     type="checkbox"
+                     class="custom-control-input"
+                     [disabled]="status !== EventStatus.InProgress || (!canRevote && isAnswered)"
+                     [ngModel]="item.tempValue"
+                     (ngModelChange)="item.tempValue = $event; onFormChange();">
+              <span class="custom-control-indicator"></span>
+              <span class="custom-control-description"> {{ item.caption }}</span>
+            </label>
           </div>
         </div>
       </ng-template>
 
       <!-- Checkbox -->
       <ng-template [ngSwitchCase]="FormElementType.Checkbox">
-        <div class="form-group row mb-1"
+        <div class="question form-group mb-1"
              [ngClass]="{'has-success': checkbox.valid, 'has-danger': !checkbox.valid && checkbox.touched }">
-          <label class="col-sm-5"
-                 [ngClass]="{ 'required': element.required }">
-            {{ element.caption }}
-          </label>
-          <div class="col-sm-7">
-            <label class="custom-control custom-checkbox">
-              <input name="{{ element.id }}"
-                     id="{{ element.id }}"
-                     class="custom-control-input"
-                     type="checkbox"
-                     value="true"
-                     #checkbox="ngModel"
-                     [ngModel]="element.tempValue"
-                     (ngModelChange)="element.tempValue = $event; onFormChange();"
-                     [required]="element.required" [disabled]="status !== EventStatus.InProgress"
-                     [disabled]="status !== EventStatus.InProgress || (!canRevote && isAnswered)">
-              <span class="custom-control-indicator"></span>
-            </label>
+          <div class="title">
+            <label>
+              <!--<button type="button" class="float-right comment-button add-comment">{{ 'T_ACTION_ADD_COMMENT' | translate }}</button>-->
 
-            <div class="form-errors"
-                 *ngIf="checkbox.errors && checkbox.touched">
-              <div class="form-control-feedback" *ngIf="checkbox.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' |
-                translate }}
-              </div>
+              <span class="number">{{ i + 1 }}.</span>
+              <span class="text" [ngClass]="{ 'required': element.required }">{{ element.caption }}</span>
+            </label>
+          </div>
+          <label class="custom-control custom-checkbox">
+            <input name="{{ element.id }}"
+                   id="{{ element.id }}"
+                   class="custom-control-input"
+                   type="checkbox"
+                   value="true"
+                   #checkbox="ngModel"
+                   [ngModel]="element.tempValue"
+                   (ngModelChange)="element.tempValue = $event; onFormChange();"
+                   [required]="element.required" [disabled]="status !== EventStatus.InProgress"
+                   [disabled]="status !== EventStatus.InProgress || (!canRevote && isAnswered)">
+            <span class="custom-control-indicator"></span>
+          </label>
+
+          <div class="form-errors"
+               *ngIf="checkbox.errors && checkbox.touched">
+            <div class="form-control-feedback" *ngIf="checkbox.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' |
+              translate }}
             </div>
           </div>
         </div>
@@ -77,32 +81,34 @@
 
       <!-- Select -->
       <ng-template [ngSwitchCase]="FormElementType.Select">
-        <div class="form-group row mb-1"
+        <div class="question form-group mb-1"
              [ngClass]="{'has-success': select.valid, 'has-danger': !!select.errors && select.touched }">
-          <label class="col-sm-5"
-                 [ngClass]="{ 'required': element.required }">
-            {{ element.caption }}
-          </label>
-          <div class="col-sm-7">
-            <select name="{{ element.id }}"
-                    id="{{ element.id }}"
-                    class="form-control custom-select"
-                    #select="ngModel"
-                    [disabled]="status !== EventStatus.InProgress || (!canRevote && isAnswered)"
-                    [required]="element.required"
-                    [ngModel]="element.tempValue"
-                    (ngModelChange)="element.tempValue = $event; onFormChange();">
-              <option *ngFor="let item of element.values"
-                      [value]="item.id">
-                {{ item.caption }}
-              </option>
-            </select>
+          <div class="title">
+            <label>
+              <!--<button type="button" class="float-right comment-button add-comment">{{ 'T_ACTION_ADD_COMMENT' | translate }}</button>-->
 
-            <div class="form-errors"
-                 *ngIf="select.errors && select.touched">
-              <div class="form-control-feedback" *ngIf="select.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' |
-                translate }}
-              </div>
+              <span class="number">{{ i + 1 }}.</span>
+              <span class="text" [ngClass]="{ 'required': element.required }">{{ element.caption }}</span>
+            </label>
+          </div>
+          <select name="{{ element.id }}"
+                  id="{{ element.id }}"
+                  class="form-control custom-select"
+                  #select="ngModel"
+                  [disabled]="status !== EventStatus.InProgress || (!canRevote && isAnswered)"
+                  [required]="element.required"
+                  [ngModel]="element.tempValue"
+                  (ngModelChange)="element.tempValue = $event; onFormChange();">
+            <option *ngFor="let item of element.values"
+                    [value]="item.id">
+              {{ item.caption }}
+            </option>
+          </select>
+
+          <div class="form-errors"
+               *ngIf="select.errors && select.touched">
+            <div class="form-control-feedback" *ngIf="select.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' |
+              translate }}
             </div>
           </div>
         </div>
@@ -110,57 +116,63 @@
 
       <!-- Radio -->
       <ng-template [ngSwitchCase]="FormElementType.Radio">
-        <div class="form-group row mb-1">
-          <label class="col-sm-5"
-                 [ngClass]="{ 'required': element.required }">{{ element.caption }}</label>
-          <div class="col-sm-7">
-            <div class="form-check form-check-inline ml-0 mr-1"
-                 *ngFor="let item of element.values; let j = index;">
-              <label class="custom-control custom-radio">
-                <input id="{{ element.id + '_' + j }}"
-                       name="{{ element.id }}"
-                       type="radio"
-                       class="custom-control-input"
-                       [value]="item.id"
-                       [attr.disabled]="status !== EventStatus.InProgress || (!canRevote && isAnswered) || null"
-                       [required]="element.required"
-                       [ngModel]="element.tempValue"
-                       (ngModelChange)="element.tempValue = $event; onFormChange();">
-                <span class="custom-control-indicator"></span>
-                <span class="custom-control-description"> {{ item.caption }}
+        <div class="question form-group mb-1">
+          <div class="title">
+            <label>
+              <!--<button type="button" class="float-right comment-button add-comment">{{ 'T_ACTION_ADD_COMMENT' | translate }}</button>-->
+
+              <span class="number">{{ i + 1 }}.</span>
+              <span class="text" [ngClass]="{ 'required': element.required }">{{ element.caption }}</span>
+            </label>
+          </div>
+          <div class="form-check form-check-inline ml-0 mr-1"
+               *ngFor="let item of element.values; let j = index;">
+            <label class="custom-control custom-radio">
+              <input id="{{ element.id + '_' + j }}"
+                     name="{{ element.id }}"
+                     type="radio"
+                     class="custom-control-input"
+                     [value]="item.id"
+                     [attr.disabled]="status !== EventStatus.InProgress || (!canRevote && isAnswered) || null"
+                     [required]="element.required"
+                     [ngModel]="element.tempValue"
+                     (ngModelChange)="element.tempValue = $event; onFormChange();">
+              <span class="custom-control-indicator"></span>
+              <span class="custom-control-description"> {{ item.caption }}
               </span>
-              </label>
-            </div>
+            </label>
           </div>
         </div>
       </ng-template>
 
       <!-- Textarea -->
       <ng-template [ngSwitchCase]="FormElementType.Textarea">
-        <div class="form-group row mb-1"
+        <div class="question form-group mb-1"
              [ngClass]="{'has-success': textarea.valid && textarea.touched , 'has-danger': !!textarea.errors && textarea.touched }">
-          <label class="col-sm-5"
-                 for="{{ element.id }}"
-                 [ngClass]="{'required': element.required === true}">
-            {{ element.caption }}
-          </label>
-          <div class="col-sm-7">
-            <textarea name="{{ element.id }}"
-                      class="form-control"
-                      id="{{ element.id }}"
-                      rows="3"
-                      #textarea="ngModel"
-                      [disabled]="status !== EventStatus.InProgress || (!canRevote && isAnswered)"
-                      [required]="element.required"
-                      [ngModel]="element.tempValue"
-                      (ngModelChange)="element.tempValue = $event; onFormChange();">
+          <div class="title">
+            <label for="{{ element.id }}"
+                   [ngClass]="{'required': element.required === true}">
+              <!--<button type="button" class="float-right comment-button add-comment">{{ 'T_ACTION_ADD_COMMENT' | translate }}</button>-->
+
+              <span class="number">{{ i + 1 }}.</span>
+              <span class="text">{{ element.caption }}</span>
+            </label>
+          </div>
+          <textarea name="{{ element.id }}"
+                    class="form-control"
+                    id="{{ element.id }}"
+                    rows="5"
+                    #textarea="ngModel"
+                    [disabled]="status !== EventStatus.InProgress || (!canRevote && isAnswered)"
+                    [required]="element.required"
+                    [ngModel]="element.tempValue"
+                    (ngModelChange)="element.tempValue = $event; onFormChange();">
             </textarea>
 
-            <div class="form-errors"
-                 *ngIf="textarea.errors && textarea.touched">
-              <div class="form-control-feedback" *ngIf="textarea.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' |
-                translate }}
-              </div>
+          <div class="form-errors"
+               *ngIf="textarea.errors && textarea.touched">
+            <div class="form-control-feedback" *ngIf="textarea.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' |
+              translate }}
             </div>
           </div>
         </div>
@@ -168,29 +180,29 @@
 
       <!-- Textfield -->
       <ng-template [ngSwitchCase]="FormElementType.Textfield">
-        <div class="form-group row mb-1"
+        <div class="question form-group mb-1"
              [ngClass]="{'has-success': textfield.valid && textfield.touched , 'has-danger': !!textfield.errors && textfield.touched }">
-          <label class="col-sm-5"
-                 for="{{ element.id }}"
-                 [ngClass]="{ 'required': element.required }">
-            {{ element.caption }}
-          </label>
-          <div class="col-sm-7">
-            <input name="{{ element.id }}"
-                   type="text"
-                   class="form-control"
-                   id="{{ element.id }}"
-                   #textfield="ngModel"
-                   [disabled]="status !== EventStatus.InProgress || (!canRevote && isAnswered)"
-                   [required]="element.required"
-                   [ngModel]="element.tempValue"
-                   (ngModelChange)="element.tempValue = $event; onFormChange();">
+          <div class="title">
+            <label for="{{ element.id }}">
+              <span class="number">{{ i + 1 }}.</span>
+              <span class="text"
+                    [ngClass]="{ 'required': element.required }">{{ element.caption }}</span>
+            </label>
+          </div>
+          <input name="{{ element.id }}"
+                 type="text"
+                 class="form-control"
+                 id="{{ element.id }}"
+                 #textfield="ngModel"
+                 [disabled]="status !== EventStatus.InProgress || (!canRevote && isAnswered)"
+                 [required]="element.required"
+                 [ngModel]="element.tempValue"
+                 (ngModelChange)="element.tempValue = $event; onFormChange();">
 
-            <div class="form-errors"
-                 *ngIf="textfield.errors && textfield.touched">
-              <div class="form-control-feedback" *ngIf="textfield.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' |
-                translate }}
-              </div>
+          <div class="form-errors"
+               *ngIf="textfield.errors && textfield.touched">
+            <div class="form-control-feedback" *ngIf="textfield.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' |
+              translate }}
             </div>
           </div>
         </div>
@@ -199,77 +211,89 @@
 
       <!-- Any other -->
       <ng-template ngSwitchDefault>
-        <div class="form-group row mb-1"
+        <div class="question form-group mb-1"
              [ngClass]="{'has-success': input.valid, 'has-danger': !input.valid && input.touched }">
+          <div class="title">
+            <label for="{{ element.id }}">
+              <!--<button type="button" class="float-right comment-button add-comment">{{ 'T_ACTION_ADD_COMMENT' | translate }}</button>-->
 
-          <label for="{{ element.id }}"
-                 class="col-sm-5"
-                 [ngClass]="{'required': element.required }">
-            {{ element.caption }}
-          </label>
+              <span class="number">{{ i + 1 }}.</span>
+              <span class="text"
+                    [ngClass]="{'required': element.required }">{{ element.caption }}</span>
+            </label>
+          </div>
+          <input class="form-control"
+                 name="{{ element.id }}"
+                 type="{{ element.kind }}"
+                 placeholder="{{ element.value }}"
+                 value="{{ element.value }}"
+                 #input="ngModel"
+                 [disabled]="status !== EventStatus.InProgress || (!canRevote && isAnswered)"
+                 [required]="element.required"
+                 [ngModel]="element.tempValue"
+                 (ngModelChange)="element.tempValue = $event; onFormChange();"
+                 id="{{ element.id }}">
 
-          <div class="col-sm-7">
-            <input class="form-control"
-                   name="{{ element.id }}"
-                   type="{{ element.kind }}"
-                   placeholder="{{ element.value }}"
-                   value="{{ element.value }}"
-                   #input="ngModel"
-                   [disabled]="status !== EventStatus.InProgress || (!canRevote && isAnswered)"
-                   [required]="element.required"
-                   [ngModel]="element.tempValue"
-                   (ngModelChange)="element.tempValue = $event; onFormChange();"
-                   id="{{ element.id }}">
-
-            <div class="form-errors"
-                 *ngIf="input.errors && input.touched">
-              <div class="form-control-feedback" *ngIf="input.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' |
-                translate }}
-              </div>
+          <div class="form-errors"
+               *ngIf="input.errors && input.touched">
+            <div class="form-control-feedback" *ngIf="input.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' |
+              translate }}
             </div>
           </div>
         </div>
       </ng-template>
     </ng-container>
 
+    <ng-container *ngIf="(status === EventStatus.InProgress && !inline) && (!(!canRevote && isAnswered) || canRevote)">
+      <div class="row">
+        <div class="col-sm-6">
+          <div *ngIf="canBeAnonymous">
+            <label for="isAnonymous">
+              {{ 'T_ACTION_VOTE_ANONYMOUS' | translate }}
+            </label>
+            <label class="switch switch-default switch-primary ml-h">
+              <input id="isAnonymous"
+                     name="isAnonymous"
+                     type="checkbox"
+                     class="switch-input"
+                     checked="true"
+                     [disabled]="status !== EventStatus.InProgress"
+                     #anonymous="ngModel"
+                     [ngModel]="isAnonymous"
+                     (ngModelChange)="isAnonymous = $event; onFormChange();">
+              <span class="switch-label"></span>
+              <span class="switch-handle"></span>
+            </label>
+          </div>
+        </div>
+        <div class="col-sm-6 row justify-content-end pr-0">
+          <button type="button"
+                  (click)="assessmentForm.reset()"
+                  class="btn btn-default mr-1 mt-0"
+                  [disabled]="assessmentForm.pristine">
+            {{ 'T_ACTION_CLEAR' | translate }}
+          </button>
 
-    <hr/>
-
-    <div class="row" *ngIf="(status === EventStatus.InProgress && !inline)">
-      <div class="col-sm-6">
-        <div *ngIf="canBeAnonymous">
-          <label for="isAnonymous">
-            {{ 'T_ACTION_VOTE_ANONYMOUS' | translate }}
-          </label>
-          <label class="switch switch-default switch-primary ml-h">
-            <input id="isAnonymous"
-                   name="isAnonymous"
-                   type="checkbox"
-                   class="switch-input"
-                   checked="true"
-                   [disabled]="status !== EventStatus.InProgress || (!canRevote && isAnswered)"
-                   #anonymous="ngModel"
-                   [ngModel]="isAnonymous"
-                   (ngModelChange)="isAnonymous = $event; onFormChange();">
-            <span class="switch-label"></span>
-            <span class="switch-handle"></span>
-          </label>
+          <div [ngSwitch]="isLast">
+            <ng-template [ngSwitchCase]="true">
+              <button type="button"
+                      (click)="save()"
+                      class="btn btn-primary mt-0"
+                      [disabled]="!assessmentForm.valid || !assessment">
+                {{ 'T_ACTION_SAVE_AND_FINISH' | translate }}
+              </button>
+            </ng-template>
+            <ng-template ngSwitchDefault>
+              <button type="button"
+                      (click)="save()"
+                      class="btn btn-primary mt-0"
+                      [disabled]="!assessmentForm.valid || !assessment">
+                {{ 'T_ACTION_SAVE_AND_SHOW_NEXT' | translate }}
+              </button>
+            </ng-template>
+          </div>
         </div>
       </div>
-      <div class="col-sm-6 text-right">
-        <button type="button"
-                (click)="assessmentForm.reset()"
-                class="btn btn-default mt-0"
-                [disabled]="assessmentForm.pristine ||  (!canRevote && isAnswered)">
-          {{ 'T_ACTION_CLEAR' | translate }}
-        </button>
-        <button type="button"
-                (click)="save()"
-                class="btn btn-primary mt-0"
-                [disabled]="!assessmentForm.valid || !assessment ||  (!canRevote && isAnswered)">
-          {{ 'T_ACTION_SAVE' | translate }}
-        </button>
-      </div>
-    </div>
+    </ng-container>
   </form>
 </div>
