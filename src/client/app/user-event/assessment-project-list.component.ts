@@ -5,6 +5,8 @@ import { ProjectModel } from '../core/models/project-model';
 import { ModelId } from '../core/models/model';
 import { NotificationService } from '../core/services/notification.service';
 import { ProjectService } from '../core/services/project.service';
+import { EventStatus } from '../core/models/event-model';
+import { EventService } from '../core/services/event.service';
 
 @Component({
   moduleId: module.id,
@@ -21,13 +23,19 @@ export class AssessmentProjectListComponent extends ListComponent<ProjectModel> 
   constructor(service: ProjectService,
               activatedRoute: ActivatedRoute,
               router: Router,
-              notificationService: NotificationService) {
+              notificationService: NotificationService,
+              protected _eventService: EventService) {
     super(service, activatedRoute, router, notificationService);
   }
 
   public ngOnInit() {
     this._activatedRoute.params.subscribe((params: Params) => {
       this._eventId = params['id'];
+      this._eventService.get(this._eventId).subscribe(event => {
+        if(event.status === EventStatus.NotStarted) {
+          this._router.navigate(['events']);
+        }
+      });
       this._queryParams.eventId = this._eventId.toString();
       this._update();
     });
