@@ -54,12 +54,14 @@ header.navbar .navbar-brand {
 
 .sidebar-fixed .main, .sidebar-fixed .app-footer {
   margin-left: 220px;
+  justify-content: space-between;
 }
 
 .footer-fixed .app-footer {
   width: auto !important;
   right: 0px;
   left: 0px;
+  margin-right: 0px;
 }
 
 .fade.in {
