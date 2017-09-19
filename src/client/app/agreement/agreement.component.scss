@@ -3,18 +3,18 @@
   width: 70%;
   position: relative;
   top: 50px;
-  margin: 0 auto;
+  margin: 0 auto 65px auto;
 }
 
 bs-agreement-view {
-  height: 500px;
+  height: 60vh;
   overflow-y: scroll;
   padding: 20px;
   display: block;
   background-color: #fff;
 }
 
-.agreement-actions  {
+.agreement-actions {
   margin-top: 20px;
   text-align: right;
 }
