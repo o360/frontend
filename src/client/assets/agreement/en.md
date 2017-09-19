@@ -18,9 +18,9 @@ Unless otherwise stated, Open360 and/or it’s licensors own the intellectual pr
 
 You must not:
 
-1.  Republish material from http://sop.bw-sw.com
-2.  Sell, rent or sub-license material from http://sop.bw-sw.com
-3.  Reproduce, duplicate or copy material from http://sop.bw-sw.com
+1.  Republish material from http://open360.bw-sw.com
+2.  Sell, rent or sub-license material from http://open360.bw-sw.com
+3.  Reproduce, duplicate or copy material from http://open360.bw-sw.com
 
 Redistribute content from Open360 (unless content is specifically made for redistribution).
 
