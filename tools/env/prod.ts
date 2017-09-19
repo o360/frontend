@@ -2,7 +2,7 @@ import { EnvConfig } from './env-config.interface';
 
 const ProdConfig: EnvConfig = {
   ENV: 'PROD',
-  API: 'https://sop.bw-sw.com/api/v1.0',
+  API: 'https://open360.bw-sw.com/api/v1.0',
   TITLE_MAIN: 'Open360',
   TITLE_NAV: 'Open360',
   PROVIDERS: {
@@ -12,7 +12,7 @@ const ProdConfig: EnvConfig = {
         response_type: 'code',
         client_id: '127600832093-e6ka9ie7hvmp6ji8k1t3mp1l2uk9vgpl.apps.googleusercontent.com',
         scope: 'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email',
-        redirect_uri: 'https://sop.bw-sw.com/login/google'
+        redirect_uri: 'https://open360.bw-sw.com/login/google'
       }
     }
   }
