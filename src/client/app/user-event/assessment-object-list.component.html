@@ -1,18 +1,18 @@
-<ul class="list-group mb-2">
-  <div class="btn-group users-filter-buttons">
-    <label class="btn btn-outline-secondary"
-           *ngFor="let filter of filters"
-           [ngClass]="{ 'active': usersFilterType === filter }">
-      <input type="radio"
-             name="usersFilterType"
-             [(ngModel)]="usersFilterType"
-             [value]="filter"> {{ 'T_USERS_' + filter.toUpperCase() | translate }}
-    </label>
-  </div>
+<div class="btn-group users-filter-buttons">
+  <label class="btn btn-outline-secondary mb-1"
+         *ngFor="let filter of filters"
+         [ngClass]="{ 'active': usersFilterType === filter }">
+    <input type="radio"
+           name="usersFilterType"
+           [(ngModel)]="usersFilterType"
+           [value]="filter"> {{ 'T_USERS_' + filter.toUpperCase() | translate }}
+  </label>
+</div>
 
-  <bs-search [items]="users"
-             (itemsSearch)="userSearch($event)"></bs-search>
+<bs-search [items]="users"
+           (itemsSearch)="userSearch($event)"></bs-search>
 
+<ul class="list-group assessment-object-list mb-2">
   <li class="list-group-item custom-item assessment-user-list-item"
       *ngFor="let userObj of filteredUsers"
       (click)="selectUser(userObj)"
@@ -24,11 +24,12 @@
     <i *ngIf="isCurrent(userObj.user)"
        class="current-arrow fa fa-angle-right"></i>
   </li>
+</ul>
 
-
-  <!--Surveys-->
+<!--Surveys-->
+<ul class="list-group assessment-object-list">
   <li *ngIf="!!surveys.length"
-      class="mt-2 mb-h list-unstyled">
+      class="mb-h list-unstyled">
     <b>{{ 'T_SURVEYS' | translate }}</b>
   </li>
   <ng-container *ngFor="let survey of surveys">
