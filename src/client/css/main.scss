@@ -57,9 +57,11 @@ header.navbar .navbar-brand {
   justify-content: space-between;
 }
 
-.sidebar-fixed .app-footer .agreement-link {
-  position: fixed;
-  right: 20px;
+.footer-fixed .app-footer {
+  width: auto !important;
+  right: 0px;
+  left: 0px;
+  margin-right: 0px;
 }
 
 .fade.in {
