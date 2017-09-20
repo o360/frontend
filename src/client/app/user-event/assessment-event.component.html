@@ -12,12 +12,13 @@
       </div>
     </div>
     <ul class="list-group list-unstyled">
-      <li class="row inline"
+      <li class="row inline assessment-user-inline-list-item"
           *ngFor="let item of list"
           [ngClass]="{ 'mb-1 align-items-baseline': item.forms.length > 1 }">
         <div class="col-sm-4" [ngSwitch]="!!item.user">
           <ng-template [ngSwitchCase]="true">
             <div class="inline-user">
+              <img [src]="!!item.user.picture ? item.user.picture : '../../assets/images/noUserImage.png'" [alt]=""/>
               {{ item.user.name }}
             </div>
           </ng-template>
@@ -26,16 +27,16 @@
           </ng-template>
         </div>
         <div class="col-sm-8">
-          <div *ngFor="let form of item.forms">
+          <div *ngFor="let formObj of item.forms">
             <div [ngClass]="{ 'inline-form': item.forms.length > 1,
                               'inline-like-dislikes': item.forms.length === 1 }">
               <bs-user-assessment-form inline
                                        #formComponent
                                        [user]="!!item.user ? item.user : null"
-                                       [id]="form.form.id"
+                                       [id]="formObj.form.id"
                                        [status]="status"
                                        [cleared]="cleared"
-                                       [isAnswered]="isAnswered"
+                                       [formStatus]="formObj.status"
                                        [canRevote]="project.canRevote"
                                        [queryParams]="queryParams"
                                        (formChange)="formChanged($event);"></bs-user-assessment-form>
@@ -51,13 +52,13 @@
               (click)="clear();">
         {{ 'T_ACTION_CLEAR' | translate }}
       </button>
-        <button type="submit"
-                role="button"
-                class="btn btn-primary mt-0"
-                [disabled]="!answers.length || (!project.canRevote && isAnswered)"
-                (click)="save();">
-          {{ 'T_ACTION_SAVE' | translate }}
-        </button>
+      <button type="submit"
+              role="button"
+              class="btn btn-primary mt-0"
+              [disabled]="!answers.length || (!project.canRevote && isAnswered)"
+              (click)="save();">
+        {{ 'T_ACTION_SAVE' | translate }}
+      </button>
     </div>
   </ng-template>
   <ng-template ngSwitchDefault>
@@ -65,6 +66,7 @@
     <div class="row">
       <div class="col-md-4">
         <bs-assessment-object-list [list]="list"
+                                   [selectedItem]="assessmentObject"
                                    (selectedItemChange)="displayItem($event)"></bs-assessment-object-list>
       </div>
 
@@ -72,28 +74,33 @@
            *ngIf="assessmentObject"
            [ngSwitch]="assessmentObject.hasOwnProperty('forms')">
         <ng-template [ngSwitchCase]="true">
-          <tabset>
-            <tab *ngFor="let formObj of assessmentObject.forms">
-              <ng-template tabHeading>
-                {{ formObj.form.name }}
-              </ng-template>
+          <tabset #formsTabset>
+            <tab *ngFor="let formObj of assessmentObject.forms; let i = index"
+                 [active]="formObj.active"
+                 (select)="formObj.active = true"
+                 (deselect)="formObj.active = false">
+              <ng-template tabHeading>{{ formObj.form.name }}</ng-template>
+
               <bs-user-assessment-form [user]="assessmentObject.user"
                                        #formComponent
                                        [id]="formObj.form.id"
                                        [status]="status"
                                        [canRevote]="project.canRevote"
-                                       [isAnswered]="assessmentObject.isAnswered"
+                                       [formStatus]="formObj.status"
+                                       [isLast]="formObj.isLast"
                                        [canBeAnonymous]="project.isAnonymous"
                                        [queryParams]="queryParams"
-                                       (formSave)="formSaved()"
-                                       (formChange)="formChanged($event);"></bs-user-assessment-form>
+                                       (formChange)="formChanged($event);"
+                                       (formSave)="showNext($event)"></bs-user-assessment-form>
             </tab>
           </tabset>
         </ng-template>
         <!--Survey-->
         <ng-template [ngSwitchCase]="false">
           <tabset>
-            <tab>
+            <tab [active]="assessmentObject.active"
+                 (select)="assessmentObject.active = true"
+                 (deselect)="assessmentObject.active = false">
               <ng-template tabHeading>
                 {{ assessmentObject.form.name }}
               </ng-template>
@@ -101,12 +108,13 @@
               <bs-user-assessment-form [id]="assessmentObject.form.id"
                                        #formComponent
                                        [status]="status"
-                                       [isAnswered]="!!assessmentObject.answers.length"
+                                       [formStatus]="assessmentObject.status"
+                                       [isLast]="assessmentObject.isLast"
                                        [canRevote]="project.canRevote"
                                        [canBeAnonymous]="project.isAnonymous"
                                        [queryParams]="queryParams"
-                                       (formSave)="formSaved()"
-                                       (formChange)="formChanged($event);"></bs-user-assessment-form>
+                                       (formChange)="formChanged($event);"
+                                       (formSave)="showNext($event)"></bs-user-assessment-form>
             </tab>
           </tabset>
         </ng-template>

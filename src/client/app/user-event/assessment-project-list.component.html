@@ -3,11 +3,15 @@
 
 <tabset *ngIf="isLoaded">
   <tab *ngFor="let project of list;"
-       heading="{{ project.name }}" [ngSwitch]="project.formsOnSamePage">
+       (select)="project.active = true"
+       (deselect)="project.active = false"
+       [active]="project.active"
+       heading="{{ project.name }}"
+       [ngSwitch]="project.formsOnSamePage">
 
     <bs-user-assessment-event [inline]="project.formsOnSamePage"
                               [project]="project"
                               [eventId]="eventId"
-                              (answersChange)="answerChanged()"></bs-user-assessment-event>
+                              (showNextProject)="loadNextProject($event)"></bs-user-assessment-event>
   </tab>
 </tabset>

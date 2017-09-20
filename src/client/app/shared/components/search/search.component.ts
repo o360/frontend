@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { AssessmentModel } from '../../../core/models/assessment-model';
@@ -10,7 +10,7 @@ import { Subscription } from 'rxjs/Subscription';
   selector: 'bs-search',
   templateUrl: 'search.component.html'
 })
-export class SearchComponent implements OnInit, OnDestroy {
+export class SearchComponent implements OnInit, OnChanges, OnDestroy {
   private _searchControl: FormControl = new FormControl();
   private _itemsSearch: EventEmitter<AssessmentModel[]> = new EventEmitter<AssessmentModel[]>();
   private _items: AssessmentModel[] = [];
@@ -44,6 +44,12 @@ export class SearchComponent implements OnInit, OnDestroy {
       .subscribe((item: AssessmentModel) => {
         this._searchList.push(item);
       });
+  }
+
+  public ngOnChanges(changes: SimpleChanges) {
+    if (changes['items']) {
+      this._list = this._items;
+    }
   }
 
   public ngOnDestroy() {
