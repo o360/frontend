@@ -67,7 +67,7 @@ export class AdminGroupListComponent extends ListComponent<GroupModel> implement
   }
 
   public _update() {
-    this._service.list(this._queryParams).subscribe((res: IListResponse<GroupModel>) => {
+    this._fetching = this._service.list(this._queryParams).subscribe((res: IListResponse<GroupModel>) => {
       this._meta = res.meta;
       this._list = res.data;
 
