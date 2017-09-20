@@ -19,6 +19,7 @@ export interface IFormAnswer {
   isSkipped: boolean;
   status?: string;
   isLast?: boolean;
+  active?: boolean;
 }
 
 export interface IForm {

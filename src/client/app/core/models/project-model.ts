@@ -20,7 +20,9 @@ export interface IEmailTemplate {
   canRevote: true,
   formsOnSamePage: false,
   hasInProgressEvents: false,
-  isAnonymous: false
+  isAnonymous: false,
+  active: false,
+  isLast: false
 })
 export class ProjectModel extends Model {
   public name: string;
@@ -32,6 +34,8 @@ export class ProjectModel extends Model {
   public canRevote: boolean;
   public formsOnSamePage: boolean;
   public hasInProgressEvents: boolean;
+  public active?: boolean;
+  public isLast?: boolean;
 
   constructor(json: any) {
     super(json);

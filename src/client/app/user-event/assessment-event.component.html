@@ -75,7 +75,10 @@
            [ngSwitch]="assessmentObject.hasOwnProperty('forms')">
         <ng-template [ngSwitchCase]="true">
           <tabset #formsTabset>
-            <tab *ngFor="let formObj of assessmentObject.forms; let i = index" [active]="i === formTabIndex">
+            <tab *ngFor="let formObj of assessmentObject.forms; let i = index"
+                 [active]="formObj.active"
+                 (select)="formObj.active = true"
+                 (deselect)="formObj.active = false">
               <ng-template tabHeading>{{ formObj.form.name }}</ng-template>
 
               <bs-user-assessment-form [user]="assessmentObject.user"
@@ -95,7 +98,7 @@
         <!--Survey-->
         <ng-template [ngSwitchCase]="false">
           <tabset>
-            <tab>
+            <tab [active]="assessmentObject.active">
               <ng-template tabHeading>
                 {{ assessmentObject.form.name }}
               </ng-template>

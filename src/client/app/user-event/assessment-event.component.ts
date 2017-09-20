@@ -13,6 +13,7 @@ import { ProjectModel } from '../core/models/project-model';
 import { EventService } from '../core/services/event.service';
 import { UserPictureService } from '../core/services/user-picture.service';
 import { Observable } from 'rxjs/Observable';
+import { Utils } from '../utils';
 
 @Component({
   moduleId: module.id,
@@ -24,7 +25,6 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
   protected _eventId: ModelId;
   protected _forms: FormModel[];
   protected _answers: AssessmentModel[] = [];
-  protected _answersChange: EventEmitter<AssessmentModel> = new EventEmitter<AssessmentModel>();
   protected _inline: boolean;
   protected _queryParams: IQueryParams = {};
   protected _assessmentObject: AssessmentObject = null;
@@ -32,7 +32,7 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
   protected _cleared: number = 0;
   protected _isClear: boolean = true;
   protected _isAnswered: boolean = false;
-  protected _formTabIndex: number = 0;
+  protected _showNextProject: EventEmitter<any> = new EventEmitter<any>();
 
   @Input()
   public set project(value: ProjectModel) {
@@ -77,11 +77,6 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
     return this._isClear;
   }
 
-  @Output()
-  get answersChange(): EventEmitter<AssessmentModel> {
-    return this._answersChange;
-  }
-
   public get answers(): AssessmentModel[] {
     return this._answers;
   }
@@ -98,8 +93,9 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
     return this._isAnswered;
   }
 
-  public get formTabIndex(): number {
-    return this._formTabIndex;
+  @Output()
+  public get showNextProject(): EventEmitter<any> {
+    return this._showNextProject;
   }
 
   constructor(service: AssessmentService,
@@ -117,7 +113,14 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
     this._eventService.get(this._eventId).subscribe(event => this._status = event.status);
 
     super.ngOnInit();
-    this._update().subscribe();
+    this._update().subscribe(() => {
+      let notAnswered = Utils.getNext(this._list, undefined, _ => !_.isAnswered);
+      if (notAnswered) {
+        this.displayItem(notAnswered);
+      } else {
+        this._showNextProject.emit(this._list);
+      }
+    });
   }
 
   public ngOnChanges(changes: SimpleChanges) {
@@ -130,56 +133,58 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
 
   public displayItem(item: AssessmentObject, index?: number) {
     this._assessmentObject = null;
-    this._formTabIndex = 0;
 
-    if (index) {
-      this._formTabIndex = index;
-    }
+    setTimeout(() => {
+      this._assessmentObject = item;
 
-    setTimeout(() => this._assessmentObject = item);
+      if (this._assessmentObject.hasOwnProperty('user')) {
+        let obj = <AssessmentModel>this._assessmentObject;
+        obj.forms.forEach(_ => _.active = false);
+        obj.forms[0].active = true;
+      } else {
+        (<IFormAnswer>this._assessmentObject).active = true;
+      }
+
+    });
   }
 
   public showNext(assessment: AssessmentModel) {
     this._update().subscribe(() => {
       if (this._assessmentObject.hasOwnProperty('user')) {
-        let current = this._list.find(assessment => assessment.user.id === (<AssessmentModel>this._assessmentObject).user.id);
-        this._assessmentObject = current;
+        let obj = <AssessmentModel>this._assessmentObject;
+        let nextForm = Utils.getNext(obj.forms, _ => _.active, _ => _.status === AssessmentFormStatus.New);
 
-        let notAnsweredFormIndex = (<AssessmentModel>this._assessmentObject).forms.findIndex(_ => _.status === AssessmentFormStatus.New);
-
-        if (notAnsweredFormIndex >= 0) {
-          this.displayItem(this._assessmentObject, notAnsweredFormIndex);
+        if (nextForm) {
+          obj.forms.forEach(_ => _.active = false);
+          nextForm.active = true;
         } else {
-          let notAnsweredUsers = this._list.filter(_ => !!_.user && !_.isAnswered);
+          let nextUser = Utils.getNext(this._list, _ => _.user.id === obj.user.id, _ => !!_.user && !_.isAnswered);
 
-          if (notAnsweredUsers.length) {
-            let next = this._list.filter(_ => !!_.user && !_.isAnswered)[0];
-            this.displayItem(next);
-          } else if (!!this._list.find(_ => !_.user)) {
-            let notAnsweredSurveys = this._list.find(_ => !_.user).forms.filter(_ => _.status === AssessmentFormStatus.New);
-            let next = notAnsweredSurveys[0];
-            this.displayItem(next);
+          if (nextUser) {
+            this.displayItem(nextUser);
+          } else if (this._list.find(_ => !_.user)) {
+            let surveys = this._list.find(_ => !_.user).forms;
+            let nextSurvey = Utils.getNext(surveys, undefined, _ => _.status === AssessmentFormStatus.New);
+
+            if (nextSurvey) {
+              this.displayItem(nextSurvey);
+            } else {
+              this._showNextProject.emit(this._list);
+            }
           } else {
-            this._finishProjectAssessment();
+            this._showNextProject.emit(this._list);
           }
+        }
+      } else if (this._list.find(_ => !_.user)) {
+        let surveys = this._list.find(_ => !_.user).forms;
+        let nextSurvey = Utils.getNext(surveys, _ => !!_.form, _ => _.status === AssessmentFormStatus.New);
+        if (nextSurvey) {
+          this.displayItem(nextSurvey);
+        } else {
+          this._showNextProject.emit(this._list);
         }
       } else {
-        let surveys = this._list.find(_ => !_.user).forms;
-        let currentSurvey = surveys.findIndex(formObj => formObj.form.id === (<IFormAnswer>assessment.form).formId);
-        surveys[currentSurvey].status = (<IFormAnswer>assessment.form).status;
-
-        if (surveys.filter(_ => _.status === AssessmentFormStatus.New).length) {
-          let next = surveys.filter(_ => _.status === AssessmentFormStatus.New)[0];
-          this.displayItem(next);
-        } else {
-          let notAnsweredUsers = this._list.filter(_ => !!_.user && !_.isAnswered);
-          if (notAnsweredUsers.length) {
-            let next = this._list.filter(_ => !!_.user && !_.isAnswered)[0];
-            this.displayItem(next);
-          } else {
-            this._finishProjectAssessment();
-          }
-        }
+        this._showNextProject.emit(this._list);
       }
     });
   }
@@ -209,6 +214,7 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
     (<AssessmentService>this._service).saveBulk(this._answers, postQueryParams).subscribe(() => {
       this._notificationService.success('T_SUCCESS_SAVED');
       this._isAnswered = !this._list.find(x => !x.isAnswered);
+      this._showNextProject.emit(this._list);
     });
   }
 
@@ -227,7 +233,15 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
 
   protected _update(): Observable<any> {
     this._answers = [];
-    return this._fetch().map(list => this._list = list);
+    return this._fetch().map(list => {
+      this._list = list;
+
+      this._isAnswered = !list.find((item: AssessmentModel) => !item.isAnswered);
+
+      if (this._assessmentObject && this._assessmentObject.userId) {
+        this._assessmentObject = list.find((item: AssessmentModel) => item.user.id === this._assessmentObject.userId);
+      }
+    });
   }
 
   protected _fetch(): Observable<any> {
@@ -243,9 +257,7 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
           assessment.isClassic = !!assessment.user;
           assessment.isAnswered = !assessment.forms.find(x => x.status === AssessmentFormStatus.New);
           assessment.forms
-            .sort((x: IFormAnswer, y: IFormAnswer) => x.form.name < y.form.name ? -1 : 1)
-            .forEach(form => form.isLast = false);
-
+            .sort((x: IFormAnswer, y: IFormAnswer) => x.form.name < y.form.name ? -1 : 1);
           if (assessment.user && assessment.user.hasPicture) {
             this._userPictureService.getPicture(assessment.user.id).subscribe(pic => assessment.user.picture = pic);
           }
@@ -253,28 +265,16 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
           this._isClear = !assessment.isAnswered;
         });
 
-        let notAnsweredList = list.filter(assessment => !assessment.isAnswered);
-        if (notAnsweredList.length === 1) {
-          let notAnsweredLastForms = notAnsweredList[0].forms.filter(form => form.status === AssessmentFormStatus.New);
-          if (notAnsweredLastForms.length === 1) {
-            notAnsweredLastForms[0].isLast = true;
-          }
+
+        if (this._project.isLast) {
+          let forms = list[list.length - 1].forms;
+          forms[forms.length - 1].isLast = true;
         }
 
         observer.next(list);
         observer.complete();
-        this._isAnswered = !list.find(x => !x.isAnswered);
-
-        if (this._assessmentObject && this._assessmentObject.userId) {
-          this._assessmentObject = list.find(x => x.user.id === this._assessmentObject.userId);
-        }
-
       }, error => observer.error(error));
     });
     return observable;
-  }
-
-  protected _finishProjectAssessment() {
-    this._notificationService.success('T_ASSESSMENT_PROJECT_FINISH');
   }
 }

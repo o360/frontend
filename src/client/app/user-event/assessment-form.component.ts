@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { AssessmentFormStatus, AssessmentModel, IElementAnswer } from '../core/models/assessment-model';
 import { FormElement, FormElementType, FormModel } from '../core/models/form-model';
 import { ModelId } from '../core/models/model';
@@ -16,7 +16,7 @@ import { Router } from '@angular/router';
   selector: 'bs-user-assessment-form',
   templateUrl: 'assessment-form.component.html'
 })
-export class AssessmentFormComponent implements OnChanges {
+export class AssessmentFormComponent implements OnInit, OnChanges {
   protected _id: ModelId;
   protected _user: UserModel;
   protected _form: FormModel;
@@ -160,11 +160,13 @@ export class AssessmentFormComponent implements OnChanges {
               protected _router: Router) {
   }
 
+  public ngOnInit() {
+    this._update();
+  }
+
   public ngOnChanges(changes: SimpleChanges): void {
     if (changes['cleared']) {
       this._clearInlineForm();
-    } else {
-      this._update();
     }
   }
 
@@ -218,8 +220,17 @@ export class AssessmentFormComponent implements OnChanges {
     this._assessmentService.saveBulk([this._assessment], this._queryParams).subscribe(() => {
       this._formStatus = AssessmentFormStatus.Answered;
       this._formSave.emit(this._assessment);
-      this._notificationService.success('T_SUCCESS_SAVED');
+
+      if (this._isLast) {
+        this._finish();
+      } else {
+        this._notificationService.success('T_SUCCESS_SAVED');
+      }
     });
+  }
+
+  protected _finish() {
+    this._notificationService.success('T_HERO_ASSESSMENT_FINISH');
   }
 
   protected _getAnswers() {
