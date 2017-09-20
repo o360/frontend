@@ -12,7 +12,7 @@ export class EventModel extends Model {
   public end: any;
   public status: string;
   public notifications: IEventNotification[];
-
+  public userInfo: IUserInfo;
 
   constructor(json?: Object) {
     super(json);
@@ -35,6 +35,11 @@ export interface IEventNotification {
   time: string;
   kind: string;
   recipient: string;
+}
+
+export interface IUserInfo {
+  answeredFormsCount: number;
+  totalFormsCount: number;
 }
 
 export class EventNotificationKind {
