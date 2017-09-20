@@ -247,7 +247,7 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
 
   protected _fetch(): Observable<any> {
     let observable = new Observable((observer) => {
-      this._service.list(this._queryParams).subscribe((res: IListResponse<AssessmentModel>) => {
+      this._fetching = this._service.list(this._queryParams).subscribe((res: IListResponse<AssessmentModel>) => {
         let list = res.data
           .sort((x, y) => {
             return !!x.user && !!y.user && x.user.name < y.user.name ? -1 : 1;
