@@ -57,7 +57,12 @@ export class AssessmentProjectListComponent extends ListComponent<ProjectModel> 
     Object.assign(this._queryParams, { onlyAvailable: 'true' });
     this._service.list(this._queryParams).subscribe((res: IListResponse<ProjectModel>) => {
       this._meta = res.meta;
-      this._list = res.data.sort((x, y) => x.name < y.name ? -1 : 1);
+      this._list = res.data
+        .sort((x, y) => x.name < y.name ? -1 : 1)
+        .sort(x => !x.formsOnSamePage ? -1 : 1);
+
+      this._list.forEach(_ => _.active = false);
+      this._list[0].active = true;
 
       this._list[this._list.length - 1].isLast = true;
     });

@@ -177,7 +177,8 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
         }
       } else if (this._list.find(_ => !_.user)) {
         let surveys = this._list.find(_ => !_.user).forms;
-        let nextSurvey = Utils.getNext(surveys, _ => !!_.form, _ => _.status === AssessmentFormStatus.New);
+        let nextSurvey = Utils.getNext(surveys, _ => _.form.id === (<IFormAnswer>this._assessmentObject).form.id,
+          _ => _.status === AssessmentFormStatus.New);
         if (nextSurvey) {
           this.displayItem(nextSurvey);
         } else {
