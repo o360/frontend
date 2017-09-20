@@ -98,7 +98,9 @@
         <!--Survey-->
         <ng-template [ngSwitchCase]="false">
           <tabset>
-            <tab [active]="assessmentObject.active">
+            <tab [active]="assessmentObject.active"
+                 (select)="assessmentObject.active = true"
+                 (deselect)="assessmentObject.active = false">
               <ng-template tabHeading>
                 {{ assessmentObject.form.name }}
               </ng-template>

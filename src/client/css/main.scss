@@ -327,11 +327,20 @@ header.navbar .navbar-brand {
       margin-bottom: 0;
     }
 
-
     &:hover {
       .title .add-comment {
         display: inline-block;
       }
     }
+  }
+}
+
+.users-filter-buttons {
+  label {
+    cursor: pointer;
+  }
+
+  input[type='radio'] {
+    display: none;
   }
 }

@@ -230,7 +230,7 @@ export class AssessmentFormComponent implements OnInit, OnChanges {
   }
 
   protected _finish() {
-    this._notificationService.success('T_HERO_ASSESSMENT_FINISH');
+    this._notificationService.success('T_SUCCESS_ASSESSMENT_FINISH');
   }
 
   protected _getAnswers() {

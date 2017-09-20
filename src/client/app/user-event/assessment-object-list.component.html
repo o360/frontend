@@ -1,10 +1,20 @@
 <ul class="list-group mb-2">
-  <!--Search-->
+  <div class="btn-group users-filter-buttons">
+    <label class="btn btn-outline-secondary"
+           *ngFor="let filter of filters"
+           [ngClass]="{ 'active': usersFilterType === filter }">
+      <input type="radio"
+             name="usersFilterType"
+             [(ngModel)]="usersFilterType"
+             [value]="filter"> {{ 'T_USERS_' + filter.toUpperCase() | translate }}
+    </label>
+  </div>
+
   <bs-search [items]="users"
              (itemsSearch)="userSearch($event)"></bs-search>
 
   <li class="list-group-item custom-item assessment-user-list-item"
-      *ngFor="let userObj of users"
+      *ngFor="let userObj of filteredUsers"
       (click)="selectUser(userObj)"
       [ngClass]="{ 'current' : isCurrent(userObj.user) }">
     <i [ngClass]="{ 'fa-check answered' : userObj.isAnswered }"
