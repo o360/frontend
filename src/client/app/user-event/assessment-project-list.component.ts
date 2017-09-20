@@ -32,12 +32,13 @@ export class AssessmentProjectListComponent extends ListComponent<ProjectModel> 
     this._activatedRoute.params.subscribe((params: Params) => {
       this._eventId = params['id'];
       this._eventService.get(this._eventId).subscribe(event => {
-        if(event.status === EventStatus.NotStarted) {
+        if (event.status === EventStatus.NotStarted) {
           this._router.navigate(['events']);
+        } else {
+          this._queryParams.eventId = this._eventId.toString();
+          this._update();
         }
       });
-      this._queryParams.eventId = this._eventId.toString();
-      this._update();
     });
   }
 
