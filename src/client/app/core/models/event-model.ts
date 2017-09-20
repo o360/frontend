@@ -81,6 +81,6 @@ export class EventSortField {
 
 export class EventState {
   public static readonly NotStarted: string = 'notstarted';
-  public static readonly PartFilled: string = 'partfilled';
+  public static readonly PartiallyFilled: string = 'partfilled';
   public static readonly FullFilled: string = 'fullfilled';
 }
