@@ -7,6 +7,8 @@ import { NotificationService } from '../core/services/notification.service';
 import { ProjectService } from '../core/services/project.service';
 import { EventStatus } from '../core/models/event-model';
 import { EventService } from '../core/services/event.service';
+import { Utils } from '../utils';
+import { IListResponse } from '../core/services/rest.service';
 
 @Component({
   moduleId: module.id,
@@ -42,12 +44,27 @@ export class AssessmentProjectListComponent extends ListComponent<ProjectModel> 
     });
   }
 
-  public answerChanged() {
-    this._update();
+  public loadNextProject(assessments: any) {
+    let nextProject = Utils.getNext(this._list, _ => _.active);
+
+    if (nextProject) {
+      this._list.forEach(_ => _.active = false);
+      nextProject.active = true;
+    }
   }
 
   protected _update() {
     Object.assign(this._queryParams, { onlyAvailable: 'true' });
-    super._update();
+    this._service.list(this._queryParams).subscribe((res: IListResponse<ProjectModel>) => {
+      this._meta = res.meta;
+      this._list = res.data
+        .sort((x, y) => x.name < y.name ? -1 : 1)
+        .sort(x => !x.formsOnSamePage ? -1 : 1);
+
+      this._list.forEach(_ => _.active = false);
+      this._list[0].active = true;
+
+      this._list[this._list.length - 1].isLast = true;
+    });
   }
 }

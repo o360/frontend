@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
-import { AssessmentModel, IElementAnswer } from '../core/models/assessment-model';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { AssessmentFormStatus, AssessmentModel, IElementAnswer } from '../core/models/assessment-model';
 import { FormElement, FormElementType, FormModel } from '../core/models/form-model';
 import { ModelId } from '../core/models/model';
 import { AssessmentService } from '../core/services/assessment.service';
@@ -9,6 +9,7 @@ import { FormService } from '../core/services/form.service';
 import { EventStatus } from '../core/models/event-model';
 import { RequireValue } from '../admin/forms/form-builder.component';
 import { UserModel } from '../core/models/user-model';
+import { Router } from '@angular/router';
 
 @Component({
   moduleId: module.id,
@@ -25,12 +26,13 @@ export class AssessmentFormComponent implements OnInit, OnChanges {
   protected _formSave: EventEmitter<AssessmentModel> = new EventEmitter<AssessmentModel>();
   protected _inline: boolean = false;
   protected _canRevote: boolean;
-  protected _isAnswered: boolean = false;
+  protected _formStatus: string;
+  protected _status: string;
   protected _canBeAnonymous: boolean = false;
   protected _isAnonymous: boolean = false;
-  protected _status: string;
   protected _assessment: AssessmentModel;
   protected _cleared: number;
+  protected _isLast: boolean;
 
   public get id(): ModelId {
     return this._id;
@@ -113,13 +115,13 @@ export class AssessmentFormComponent implements OnInit, OnChanges {
     return this._assessment;
   }
 
-  public get isAnswered(): boolean {
-    return this._isAnswered;
+  @Input()
+  public set formStatus(value: string) {
+    this._formStatus = value;
   }
 
-  @Input()
-  public set isAnswered(value: boolean) {
-    this._isAnswered = value;
+  public get isAnswered(): boolean {
+    return this._formStatus === AssessmentFormStatus.Answered;
   }
 
   public get isAnonymous(): boolean {
@@ -128,6 +130,15 @@ export class AssessmentFormComponent implements OnInit, OnChanges {
 
   public set isAnonymous(value: boolean) {
     this._isAnonymous = value;
+  }
+
+  @Input()
+  public set isLast(value: boolean) {
+    this._isLast = value;
+  }
+
+  public get isLast(): boolean {
+    return this._isLast;
   }
 
   public get canBeAnonymous(): boolean {
@@ -145,7 +156,8 @@ export class AssessmentFormComponent implements OnInit, OnChanges {
 
   constructor(protected _assessmentService: AssessmentService,
               protected _formUsersService: FormService,
-              protected _notificationService: NotificationService) {
+              protected _notificationService: NotificationService,
+              protected _router: Router) {
   }
 
   public ngOnInit() {
@@ -183,6 +195,7 @@ export class AssessmentFormComponent implements OnInit, OnChanges {
           elementAnswer.valuesIds = [+element.tempValue];
         }
       }
+      elementAnswer.comment = ''; //@TODO with comments
       return elementAnswer;
     });
 
@@ -190,7 +203,9 @@ export class AssessmentFormComponent implements OnInit, OnChanges {
       form: {
         formId: this._id,
         answers: answers.filter(x => (!!x.valuesIds || !!x.text)),
-        isAnonymous: this._isAnonymous
+        isAnonymous: this._isAnonymous,
+        isSkipped: false,
+        status: AssessmentFormStatus.Answered //@TODO with skipping
       },
       isAnswered: true
     });
@@ -202,11 +217,20 @@ export class AssessmentFormComponent implements OnInit, OnChanges {
   }
 
   public save() {
-    this._assessmentService.save(this._assessment, this._queryParams).subscribe(() => {
-      this._notificationService.success('T_SUCCESS_SAVED');
-      this._formSave.emit();
-      this._isAnswered = true;
+    this._assessmentService.saveBulk([this._assessment], this._queryParams).subscribe(() => {
+      this._formStatus = AssessmentFormStatus.Answered;
+      this._formSave.emit(this._assessment);
+
+      if (this._isLast) {
+        this._finish();
+      } else {
+        this._notificationService.success('T_SUCCESS_SAVED');
+      }
     });
+  }
+
+  protected _finish() {
+    this._notificationService.success('T_SUCCESS_ASSESSMENT_FINISH');
   }
 
   protected _getAnswers() {

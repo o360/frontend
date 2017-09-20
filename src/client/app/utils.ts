@@ -176,4 +176,18 @@ export class Utils {
     }
     return true;
   }
+
+  public static getNext<T>(arr: T[], start?: (value: T) => boolean, predicate?: (value: T) => boolean): T {
+    let tempArr = arr;
+
+    if (start) {
+      tempArr = tempArr.slice(arr.findIndex(start) + 1, arr.length);
+
+    }
+    if (predicate) {
+      tempArr = tempArr.filter(predicate);
+    }
+
+    return tempArr[0];
+  }
 }

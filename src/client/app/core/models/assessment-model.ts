@@ -16,6 +16,10 @@ export interface IFormAnswer {
   userId?: ModelId;
   answers: IElementAnswer[];
   isAnonymous: boolean;
+  isSkipped: boolean;
+  status?: string;
+  isLast?: boolean;
+  active?: boolean;
 }
 
 export interface IForm {
@@ -27,4 +31,11 @@ export interface IElementAnswer {
   elementId: ModelId;
   text?: string;
   valuesIds?: ModelId[];
+  comment?: string;
+}
+
+export class AssessmentFormStatus {
+  public static readonly New: string = 'new';
+  public static readonly Answered: string = 'answered';
+  public static readonly Skipped: string = 'skipped';
 }

@@ -46,7 +46,7 @@ export class AssessmentService extends RestService<AssessmentModel> {
   }
 
   protected _createBulk(model: AssessmentModel[], queryParams?: IQueryParams): Observable<AssessmentModel> {
-    let requestParams = this._getRequestParams('bulk', queryParams);
+    let requestParams = this._getRequestParams(undefined, queryParams);
     let json = JSON.stringify(model);
     let requestOptions = this._getRequestOptions();
 

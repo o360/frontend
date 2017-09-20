@@ -212,7 +212,8 @@ header.navbar .navbar-brand {
   align-self: center;
 }
 
-.images-column img {
+.images-column img,
+.assessment-user-list-item img {
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -220,4 +221,135 @@ header.navbar .navbar-brand {
 
 .table tr td {
   vertical-align: middle;
+  margin-right: 15px;
+}
+
+.assessment-user-inline-list-item img {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  margin-right: 15px;
+}
+
+.assessment-user-list-item {
+}
+
+.assessment-object-list {
+  li {
+    border-bottom-width: 0;
+
+    &:last-of-type {
+      border-bottom-width: 1px;
+    }
+  }
+}
+
+.assessment-survey-list-item.current,
+.assessment-user-list-item.current {
+  background-color: #f6f6f6;
+}
+
+.assessment-survey-list-item .current-arrow,
+.assessment-user-list-item .current-arrow {
+  position: absolute;
+  right: 20px;
+  font-size: 20px;
+}
+
+.list-group-item .answered {
+  border-radius: 50%;
+  border: 2px solid #fff;
+  background-color: #4dbd74;
+  color: #fff;
+  font-size: 16px;
+}
+
+.list-group-item .not-answered {
+  border-radius: 50%;
+  border: 2px solid #fff;
+  background-color: #eee;
+  color: #fff;
+  font-size: 16px;
+}
+
+.assessment-user-list-item .answered {
+  position: absolute;
+  left: 45px;
+  margin-top: 15px;
+}
+
+.list-type-radio input[type="radio"] {
+  display: none;
+}
+
+.form {
+  .question {
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    border-bottom: 1px dotted #ccc;
+
+    .comment-button {
+      padding: 0;
+      margin: 0;
+      background: none;
+      border: none;
+      border-bottom: 1px dashed #20a8d8;
+      color: #20a8d8;
+      font-size: 12px;
+
+      &:hover {
+        border-bottom-color: transparent;
+        color: #167495;
+      }
+    }
+
+    .title {
+      label {
+        margin-bottom: 0;
+        display: block;
+        padding-right: 150px;
+        vertical-align: top;
+
+        .number {
+          border-left: 3px solid #1d97c2;
+          color: #1d97c2;
+          font-weight: bold;
+          padding: 0 5px;
+          min-width: 30px;
+          display: inline-block;
+          float: left;
+        }
+
+        .text {
+          display: block;
+          padding-left: 30px;
+        }
+      }
+
+      .add-comment {
+        display: none;
+      }
+    }
+
+    .form-control, .form-check {
+      margin-top: 20px;
+      margin-bottom: 0;
+    }
+
+    &:hover {
+      .title .add-comment {
+        display: inline-block;
+      }
+    }
+  }
+}
+
+.users-filter-buttons {
+  label {
+    cursor: pointer;
+  }
+
+  input[type='radio'] {
+    display: none;
+  }
 }
