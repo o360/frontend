@@ -8,6 +8,7 @@ export declare type ModelId = string | number;
  */
 export abstract class Model {
   protected _defaults: Object;
+  protected _notSerializable: Object;
 
   public id: ModelId;
 
@@ -21,6 +22,11 @@ export abstract class Model {
    * @return {string}
    */
   public toJson(): string {
-    return JSON.stringify(this);
+    return this._serialize();
+  }
+
+  protected _serialize(): string {
+    let obj = Object.assign({}, this, this._notSerializable);
+    return JSON.stringify(obj);
   }
 }

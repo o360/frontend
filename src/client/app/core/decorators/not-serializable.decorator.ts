@@ -14,11 +14,12 @@
  */
 
 export function NotSerializable(obj: Object): ClassDecorator {
-  return function (target: any) {
+  return (target: any) => {
+    target.prototype._notSerializable = {};
 
     Object.entries(obj).forEach(([key, value]) => {
       if (value) {
-        target[key] = null;
+        target.prototype._notSerializable[key] = null;
       }
     });
 
