@@ -1,5 +1,6 @@
 import { Defaults } from '../decorators/defaults.decorator';
 import { Model } from './model';
+import { NotSerializable } from '../decorators/not-serializable.decorator';
 
 export class UserStatus {
   public static readonly New: string = 'new';
@@ -26,6 +27,10 @@ export class UserGender {
   termsApproved: false,
   hasPicture: false,
 })
+@NotSerializable({
+  picture: true,
+  groups: true
+})
 export class UserModel extends Model {
   public name: string;
   public email?: string;
@@ -40,10 +45,5 @@ export class UserModel extends Model {
 
   public get isFilled(): boolean {
     return !!this.name && !!this.email && !!this.gender;
-  }
-
-  public toJson(): string {
-    this.picture = null;
-    return JSON.stringify(this);
   }
 }
