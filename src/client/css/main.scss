@@ -240,57 +240,6 @@ header.navbar .navbar-brand {
   margin-right: 15px;
 }
 
-.assessment-user-list-item {
-}
-
-.assessment-object-list {
-  li {
-    border-bottom-width: 0;
-
-    &:last-of-type {
-      border-bottom-width: 1px;
-    }
-  }
-}
-
-.assessment-survey-list-item.current,
-.assessment-user-list-item.current {
-  background-color: #f6f6f6;
-}
-
-.assessment-survey-list-item .current-arrow,
-.assessment-user-list-item .current-arrow {
-  position: absolute;
-  right: 20px;
-  font-size: 20px;
-}
-
-.list-group-item .answered {
-  border-radius: 50%;
-  border: 2px solid #fff;
-  background-color: #4dbd74;
-  color: #fff;
-  font-size: 16px;
-}
-
-.list-group-item .not-answered {
-  border-radius: 50%;
-  border: 2px solid #fff;
-  background-color: #eee;
-  color: #fff;
-  font-size: 16px;
-}
-
-.assessment-user-list-item .answered {
-  position: absolute;
-  left: 45px;
-  margin-top: 15px;
-}
-
-.list-type-radio input[type="radio"] {
-  display: none;
-}
-
 .form {
   .question {
     padding-bottom: 20px;
@@ -360,5 +309,22 @@ header.navbar .navbar-brand {
 
   input[type='radio'] {
     display: none;
+  }
+}
+
+.nav-tabs {
+  .nav-link:hover,
+  .nav-link.active {
+    border: none;
+  }
+
+  .nav-item:hover {
+    border: 1px solid;
+    border-color: #cfd8dc #cfd8dc #ddd;
+  }
+
+  .nav-item.active {
+    border: 1px solid #cfd8dc;
+    border-bottom-color: #fff;
   }
 }

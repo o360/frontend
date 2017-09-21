@@ -1,6 +1,10 @@
 <div #stickySidebar id="sidebar-container">
+  <!--Search-->
+  <bs-search [items]="users"
+             (itemsSearch)="userSearch($event)"></bs-search>
+
   <div class="btn-group users-filter-buttons">
-    <label class="btn btn-outline-secondary mb-1"
+    <label class="user-filter-label mb-1"
            *ngFor="let filter of filters"
            [ngClass]="{ 'active': usersFilterType === filter }">
       <input type="radio"
@@ -10,11 +14,7 @@
     </label>
   </div>
 
-  <!--Search-->
-  <bs-search [items]="users"
-             (itemsSearch)="userSearch($event)"></bs-search>
-
-  <ul class="list-group assessment-object-list mb-2">
+  <ul id="users" class="list-group assessment-object-list mb-2"  [ngClass]="{ 'with-surveys': !!surveys.length }">
     <li class="list-group-item custom-item assessment-user-list-item"
         *ngFor="let userObj of filteredUsers"
         (click)="selectUser(userObj)"
@@ -22,25 +22,26 @@
       <i [ngClass]="{ 'fa-check answered' : userObj.isAnswered }"
          class="fa"></i>
       <img [src]="!!userObj.user.picture ? userObj.user.picture : '../../assets/images/noUserImage.png'" [alt]=""/>
-      <span class="pl-1"> {{ userObj.user.name }}</span>
+      <span class="name pl-1"> {{ userObj.user.name }}</span>
       <i *ngIf="isCurrent(userObj.user)"
          class="current-arrow fa fa-angle-right"></i>
     </li>
   </ul>
 
   <!--Surveys-->
-  <ul class="list-group assessment-object-list">
+  <ul id="surveys" class="list-group assessment-object-list">
     <li *ngIf="!!surveys.length"
         class="mb-h list-unstyled">
       <b>{{ 'T_SURVEYS' | translate }}</b>
     </li>
     <ng-container *ngFor="let survey of surveys">
       <li class="list-group-item custom-item assessment-survey-list-item"
+          [ngClass]="{ 'current': !!selectedItem && selectedItem === formObj }"
           *ngFor="let formObj of survey.forms"
           (click)="selectSurvey(formObj)">
         <i [ngClass]="formObj.status === assessmentFormStatus.Answered ? 'answered' : 'not-answered'"
            class="fa fa-check mr-1"></i>
-        <span>{{ formObj.form.name }}</span>
+        <span class="name">{{ formObj.form.name }}</span>
         <i *ngIf="!!selectedItem && selectedItem === formObj" class="current-arrow fa fa-angle-right"></i>
       </li>
     </ng-container>
