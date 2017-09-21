@@ -2,6 +2,7 @@ import { Defaults } from '../decorators/defaults.decorator';
 import { EmailKind, Recipient } from './email-template-model';
 import { GroupModel } from './group-model';
 import { Model, ModelId } from './model';
+import { NotSerializable } from '../decorators/not-serializable.decorator';
 
 export interface IEmailTemplate {
   templateId?: ModelId;
@@ -23,6 +24,10 @@ export interface IEmailTemplate {
   isAnonymous: false,
   active: false,
   isLast: false
+})
+@NotSerializable({
+  active: true,
+  isLast: true
 })
 export class ProjectModel extends Model {
   public name: string;

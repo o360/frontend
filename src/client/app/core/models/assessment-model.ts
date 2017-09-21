@@ -1,6 +1,8 @@
 import { Model, ModelId } from './model';
 import { UserModel } from './user-model';
+import { NotSerializable } from '../decorators/not-serializable.decorator';
 
+@NotSerializable({ isAnswered: true })
 export class AssessmentModel extends Model {
   public user?: UserModel;
   public userId?: ModelId;
