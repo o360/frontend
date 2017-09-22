@@ -39,6 +39,8 @@ export class UserListComponent extends ListComponent<UserModel> {
               protected _authService: AuthService,
               protected _userPictureService: UserPictureService) {
     super(service, activatedRoute, router, notificationService);
+
+    this._queryParams.sort = 'name';
   }
 
   protected _update() {
