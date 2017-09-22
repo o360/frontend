@@ -28,12 +28,13 @@
     </li>
   </ul>
 
+  <li *ngIf="!!surveys.length"
+      class="mb-h list-unstyled">
+    <b>{{ 'T_SURVEYS' | translate }}</b>
+  </li>
+
   <!--Surveys-->
   <ul id="surveys" class="list-group assessment-object-list">
-    <li *ngIf="!!surveys.length"
-        class="mb-h list-unstyled">
-      <b>{{ 'T_SURVEYS' | translate }}</b>
-    </li>
     <ng-container *ngFor="let survey of surveys">
       <li class="list-group-item custom-item assessment-survey-list-item"
           [ngClass]="{ 'current': !!selectedItem && selectedItem === formObj }"

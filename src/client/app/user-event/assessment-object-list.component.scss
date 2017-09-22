@@ -3,17 +3,17 @@
 }
 
 :host #sidebar-container {
-  max-height: calc(100vh - 18rem);
+  max-height: 61vh;
   overflow: hidden;
 
   #users.with-surveys {
     overflow-y: auto;
-    max-height: calc(100vh - 40rem);
+    max-height: 25vh;
   }
 
   #surveys {
     overflow-y: auto;
-    max-height: calc(100vh - 45rem);
+    max-height: 20vh;
   }
 }
 
@@ -22,15 +22,15 @@
     position: fixed;
     top: 0;
     margin-top: 75px;
-    max-height: calc(100vh - 10rem);
+    max-height: 80vh;
     width: 27%;
 
     #users.with-surveys {
-      max-height: calc(100vh - 35rem);
+      max-height: 44vh;
     }
 
     #surveys {
-      max-height: calc(100vh - 40rem);
+      max-height: 25vh;
     }
   }
 }
@@ -66,8 +66,6 @@
 
 .assessment-survey-list-item,
 .assessment-user-list-item {
-  background-color: #eaeaea;
-
   .name {
     max-width: 60%;
     line-height: normal;
