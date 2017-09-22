@@ -14,7 +14,7 @@
     </label>
   </div>
 
-  <ul id="users" class="list-group assessment-object-list mb-2"  [ngClass]="{ 'with-surveys': !!surveys.length }">
+  <ul id="users" class="list-group assessment-object-list mb-2" [ngClass]="{ 'with-surveys': !!surveys.length }">
     <li class="list-group-item custom-item assessment-user-list-item"
         *ngFor="let userObj of filteredUsers"
         (click)="selectUser(userObj)"
@@ -22,7 +22,9 @@
       <i [ngClass]="{ 'fa-check answered' : userObj.isAnswered }"
          class="fa"></i>
       <img [src]="!!userObj.user.picture ? userObj.user.picture : '../../assets/images/noUserImage.png'" [alt]=""/>
-      <span class="name pl-1"> {{ userObj.user.name }}</span>
+      <span class="name pl-1"> {{ userObj.user.name }}
+        <small class="text-muted" *ngIf="userObj.user.id === currentUserId">({{ 'T_USERS_IS_YOU' | translate }})</small>
+      </span>
       <i *ngIf="isCurrent(userObj.user)"
          class="current-arrow fa fa-angle-right"></i>
     </li>
