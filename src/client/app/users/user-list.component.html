@@ -8,7 +8,7 @@
         <table class="table table-striped mt-1">
           <thead>
             <tr>
-              <th></th>
+              <th class="images-column"></th>
               <th>{{ 'T_USER_NAME' | translate }}</th>
               <th>{{ 'T_USERS_GROUPS' | translate }}</th>
             </tr>
@@ -16,7 +16,8 @@
           <tbody>
             <tr *ngFor="let model of list">
               <td class="images-column">
-                <img [src]="model.picture" [alt]="model.name"/>
+                <img [src]="model.hasPicture && !!model.picture ? model.picture : '../../assets/images/noUserImage.png'"
+                     alt=""/>
               </td>
               <td><a [routerLink]="['/users', model.id]">{{ model.name }}</a>
                 <small class="text-muted" *ngIf="model.id === currentUserId">({{ 'T_USERS_IS_YOU' | translate }})</small>

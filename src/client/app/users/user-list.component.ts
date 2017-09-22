@@ -59,8 +59,6 @@ export class UserListComponent extends ListComponent<UserModel> {
     if (user.hasPicture) {
       this._userPictureService.getPicture(user.id)
         .subscribe(pic => user.picture = pic);
-    } else {
-      user.picture = '../../assets/images/noUserImage.png';
     }
 
     return user;
