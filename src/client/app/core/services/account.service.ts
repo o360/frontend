@@ -57,7 +57,7 @@ export class AccountService extends RestService<AccountModel> {
 
   protected _update(model: AccountModel): Observable<AccountModel> {
     let requestParams = this._getRequestParams();
-    let json = model.toJson();
+    let json = JSON.stringify(model.toJson());
     let requestOptions = this._getRequestOptions();
 
     return this._http.put(requestParams, json, requestOptions)

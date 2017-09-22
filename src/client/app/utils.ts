@@ -190,4 +190,9 @@ export class Utils {
 
     return tempArr[0];
   }
+
+  public static isFunction(value: any): boolean {
+    let getType = {};
+    return value && getType.toString.call(value) === '[object Function]';
+  }
 }

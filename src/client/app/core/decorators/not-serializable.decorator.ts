@@ -1,28 +1,17 @@
 /**
- * Decorator for setting up not serializable properties for model class.
- * Model class should be derived from Model class
+ * Decorator for setting up not serializable properties.
  *
  * @example
  *
- * @NotSerializable({
- *   name: true
- * })
  * class UserModel extends Model {
- *   public name: string;
+ *    @NotSerializable() property: any;
  * }
  *
  */
+export const Open360NotSerializeMetadataKey = 'open360-not-serializable';
 
-export function NotSerializable(obj: Object): ClassDecorator {
-  return (target: any) => {
-    target.prototype._notSerializable = {};
-
-    Object.entries(obj).forEach(([key, value]) => {
-      if (value) {
-        target.prototype._notSerializable[key] = null;
-      }
-    });
-
-    return target;
+export function NotSerializable(): PropertyDecorator {
+  return (target: any, propertyKey: string) => {
+    Reflect.defineMetadata(Open360NotSerializeMetadataKey, true, target, propertyKey);
   };
 }

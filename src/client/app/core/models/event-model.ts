@@ -27,7 +27,7 @@ export class EventModel extends Model {
   public toJson(): any {
     this.start = moment(this.start).format(DateFormat.Backend);
     this.end = moment(this.end).format(DateFormat.Backend);
-    return this._serialize();
+    return this._serialize(this);
   }
 }
 
