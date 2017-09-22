@@ -26,7 +26,7 @@ export class AdminUserListComponent extends ListComponent<UserModel> {
     name: 'T_USER_NAME',
     field: 'name',
     type: FilterType.String,
-    values: Object.values(UserModel.name).map(x => ({ value: x}))
+    values: Object.values(UserModel.name).map(x => ({ value: x }))
   }];
 
   constructor(service: AdminUserService,
@@ -34,6 +34,8 @@ export class AdminUserListComponent extends ListComponent<UserModel> {
               router: Router,
               notificationService: NotificationService) {
     super(service, activatedRoute, router, notificationService);
+
+    this._queryParams.sort = 'name';
   }
 
   public get UserStatus() {
