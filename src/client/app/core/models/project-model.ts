@@ -25,10 +25,6 @@ export interface IEmailTemplate {
   active: false,
   isLast: false
 })
-@NotSerializable({
-  active: true,
-  isLast: true
-})
 export class ProjectModel extends Model {
   public name: string;
   public machineName: string;
@@ -39,8 +35,8 @@ export class ProjectModel extends Model {
   public canRevote: boolean;
   public formsOnSamePage: boolean;
   public hasInProgressEvents: boolean;
-  public active?: boolean;
-  public isLast?: boolean;
+  @NotSerializable() public active?: boolean;
+  @NotSerializable() public isLast?: boolean;
 
   constructor(json: any) {
     super(json);

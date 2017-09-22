@@ -27,10 +27,6 @@ export class UserGender {
   termsApproved: false,
   hasPicture: false,
 })
-@NotSerializable({
-  picture: true,
-  groups: true
-})
 export class UserModel extends Model {
   public name: string;
   public email?: string;
@@ -40,9 +36,10 @@ export class UserModel extends Model {
   public timezone?: string;
   public termsApproved: boolean;
   public hasPicture?: boolean;
-  public picture?: any;
-  public groups?: string;
+  @NotSerializable() public picture?: any;
+  @NotSerializable() public groups?: string;
 
+  @NotSerializable()
   public get isFilled(): boolean {
     return !!this.name && !!this.email && !!this.gender;
   }

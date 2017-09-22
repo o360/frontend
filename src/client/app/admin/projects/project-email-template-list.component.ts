@@ -45,7 +45,7 @@ export class AdminProjectEmailTemplatesListComponent extends ListComponent<Proje
   }
 
   public emailTemplateAdded(template: IEmailTemplate) {
-    let model = new ProjectModel(JSON.parse(this._model.toJson()));
+    let model = new ProjectModel(this._model.toJson());
     model.templates.push(template);
 
     this._service.save(model).subscribe(model => {

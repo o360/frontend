@@ -78,7 +78,7 @@ export class RestService<T extends Model> {
   public list(queryParams?: IQueryParams): Observable<IListResponse<T>> {
     return this._http.get(this._getRequestParams(undefined, queryParams), this._getRequestOptions())
       .map((response: Response) => response.json())
-      .map((json: any) => Object.assign(json, {data: json.data.map((x: any) => this.createEntity(x))}))
+      .map((json: any) => Object.assign(json, { data: json.data.map((x: any) => this.createEntity(x)) }))
       .catch((error: any) => this._handleErrors(error));
   }
 
@@ -127,7 +127,7 @@ export class RestService<T extends Model> {
    */
   protected _update(model: T): Observable<T> {
     let requestParams = this._getRequestParams(model.id);
-    let json = model.toJson();
+    let json = JSON.stringify(model.toJson());
     let requestOptions = this._getRequestOptions();
 
     return this._http.put(requestParams, json, requestOptions)
@@ -143,7 +143,7 @@ export class RestService<T extends Model> {
    */
   protected _create(model: T): Observable<T> {
     let requestParams = this._getRequestParams();
-    let json = model.toJson();
+    let json = JSON.stringify(model.toJson());
     let requestOptions = this._getRequestOptions();
 
     return this._http.post(requestParams, json, requestOptions)

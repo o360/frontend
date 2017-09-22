@@ -1,3 +1,6 @@
+import { NotSerializable, Open360NotSerializeMetadataKey } from '../decorators/not-serializable.decorator';
+import { Utils } from '../../utils';
+
 export declare type ModelId = string | number;
 
 /**
@@ -7,8 +10,7 @@ export declare type ModelId = string | number;
  *
  */
 export abstract class Model {
-  protected _defaults: Object;
-  protected _notSerializable: Object;
+  @NotSerializable() protected _defaults: Object;
 
   public id: ModelId;
 
@@ -21,12 +23,20 @@ export abstract class Model {
    * @params {object} - model object
    * @return {string}
    */
-  public toJson(): string {
-    return this._serialize();
+  public toJson(): Object {
+    return this._serialize(this);
   }
 
-  protected _serialize(): string {
-    let obj = Object.assign({}, this, this._notSerializable);
-    return JSON.stringify(obj);
+  protected _serialize(model: any): Object {
+    let object: any = {};
+    let target = Object.getPrototypeOf(model);
+    for (let prop in model) {
+      let notSerializable = Reflect.getMetadata(Open360NotSerializeMetadataKey, target, prop);
+
+      if (!notSerializable && !Utils.isFunction(model[prop])) {
+        object[prop] = model[prop];
+      }
+    }
+    return object;
   }
 }
