@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, NgZone, OnDestroy, OnInit, Output } from '@angular/core';
 import { AssessmentFormStatus, AssessmentModel, IFormAnswer } from '../core/models/assessment-model';
 import { UserModel } from '../core/models/user-model';
+import { AuthService } from '../core/services/auth.service';
+import { ModelId } from '../core/models/model';
 
 export declare type AssessmentObject = AssessmentModel | IFormAnswer;
 
@@ -77,7 +79,12 @@ export class AssessmentObjectListComponent implements OnInit, OnDestroy {
     return this._filters;
   }
 
-  constructor(private _ngZone: NgZone) {
+  public get currentUserId(): ModelId {
+    return this._authService.user.id;
+  }
+
+  constructor(private _ngZone: NgZone,
+              private _authService: AuthService) {
   }
 
   public ngOnInit() {
