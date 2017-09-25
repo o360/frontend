@@ -33,6 +33,11 @@ export class AssessmentObjectListComponent {
     this._setUsers();
   }
 
+  @Input()
+  public set selectedItem(value: AssessmentObject) {
+    this._selectedItem = value;
+  }
+
   public get users(): AssessmentModel[] {
     return this._users;
   }
@@ -47,11 +52,6 @@ export class AssessmentObjectListComponent {
 
   public get selectedItem(): AssessmentObject {
     return this._selectedItem;
-  }
-
-  @Input()
-  public set selectedItem(value: AssessmentObject) {
-    this._selectedItem = value;
   }
 
   @Output()
