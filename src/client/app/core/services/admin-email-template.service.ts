@@ -25,7 +25,7 @@ export class AdminEmailTemplateService extends RestService<EmailTemplateModel> {
   }
 
   public clone(model: EmailTemplateModel): Observable<EmailTemplateModel> {
-    let clone = new EmailTemplateModel(JSON.parse(model.toJson()));
+    let clone = new EmailTemplateModel(model.toJson());
 
     clone.id = undefined;
     clone.name += ' (copy)';

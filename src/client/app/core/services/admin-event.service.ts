@@ -45,7 +45,7 @@ export class AdminEventService extends RestService<EventModel> {
   public clone(model: EventModel): Observable<EventModel> {
     let requestParams = `${this._getRequestParams(model.id)}/clone`;
     let requestOptions = this._getRequestOptions();
-    let clone = new EventModel(JSON.parse(model.toJson()));
+    let clone = new EventModel(model.toJson());
     return this._http.post(requestParams, clone, requestOptions)
       .map((res: Response) => res.json())
       .map((json: any) => this.createEntity(json))

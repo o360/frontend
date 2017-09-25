@@ -1,5 +1,6 @@
 import { Model, ModelId } from './model';
 import { UserModel } from './user-model';
+import { NotSerializable } from '../decorators/not-serializable.decorator';
 
 export class AssessmentModel extends Model {
   public user?: UserModel;
@@ -7,7 +8,7 @@ export class AssessmentModel extends Model {
   public form?: IFormAnswer;
   public forms?: IFormAnswer[];
   public isClassic?: boolean;
-  public isAnswered?: boolean;
+  @NotSerializable() public isAnswered?: boolean;
 }
 
 export interface IFormAnswer {
