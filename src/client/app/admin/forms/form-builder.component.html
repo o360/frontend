@@ -13,8 +13,8 @@
       <!-- Machine name -->
       <div *ngIf="editMode"
            class="form-group row"
-           [ngClass]="{ 'has-success': form.controls['machineName'].valid,
-                        'has-danger': !form.controls['machineName'].valid && form.controls['machineName'].touched}">
+           [ngClass]="{ 'has-success': form.controls['machineName'].valid  && form.controls['machineName'].touched,
+                        'has-danger': !form.controls['machineName'].valid && form.controls['machineName'].touched }">
         <label for="name" class="col-form-label col-md-3 required">{{ 'T_MACHINE_NAME' | translate }}</label>
         <div class="col-md-9">
           <input type="text"
@@ -40,8 +40,8 @@
 
       <!-- Name -->
       <div class="form-group row"
-           [ngClass]="{ 'has-success': form.controls['name'].valid,
-                        'has-danger': !form.controls['name'].valid && form.controls['name'].touched}">
+           [ngClass]="{ 'has-success': form.controls['name'].valid && form.controls['name'].touched,
+                        'has-danger': !form.controls['name'].valid && form.controls['name'].touched }">
         <label for="name" class="col-form-label col-md-3 required">{{ 'T_FORM_NAME' | translate }}</label>
         <div class="col-md-9">
           <input type="text"
