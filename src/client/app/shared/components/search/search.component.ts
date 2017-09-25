@@ -56,6 +56,9 @@ export class SearchComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   public update(term: string) {
+    term = term.replace(/\\/g, '')
+      .replace(/\//g, '');
+
     this._itemsSearch.emit(this._searchList);
 
     let items = this._list.filter((e: AssessmentModel) => {

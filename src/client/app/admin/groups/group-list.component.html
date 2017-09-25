@@ -25,8 +25,7 @@
             [routerLink]="['/admin/groups/invite']"><i class="fa fa-paper-plane"></i>
     </button>
 
-    <button *ngIf="list.length"
-
+    <button *ngIf="list.length && hasChildren"
             class="btn btn-default mb-1"
             type="button"
             role="button"

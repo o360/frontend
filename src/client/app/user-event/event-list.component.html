@@ -23,7 +23,7 @@
           <ng-template [ngSwitchCase]="EventStatus.InProgress">
             <button type="button"
                     class="btn btn-sm btn-success ml-1"
-                    title="{{ 'T_ACTION_ASSESS' | translate }}"
+                    title="{{ 'T_ACTION_ASSESS_' + model.state.toUpperCase() | translate }}"
                     [routerLink]="['/events', model.id]">
               <i class="fa fa-hand-pointer-o"></i>
               {{ 'T_ACTION_ASSESS_' + model.state.toUpperCase() | translate }}
