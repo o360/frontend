@@ -45,7 +45,7 @@ export class UserListComponent extends ListComponent<UserModel> {
 
   protected _update() {
     if (!this.newUser) {
-      this._service.list(this._queryParams).subscribe((res: IListResponse<UserModel>) => {
+      this._fetching = this._service.list(this._queryParams).subscribe((res: IListResponse<UserModel>) => {
         this._meta = res.meta;
         this._list = res.data;
 
