@@ -2,6 +2,7 @@ import { Defaults } from '../decorators/defaults.decorator';
 import { Model } from './model';
 import * as moment from 'moment';
 import { DateFormat } from '../../shared/components/datetime/datetime-picker.component';
+import { NotSerializable } from '../decorators/not-serializable.decorator';
 
 @Defaults({
   notifications: []
@@ -12,7 +13,23 @@ export class EventModel extends Model {
   public end: any;
   public status: string;
   public notifications: IEventNotification[];
-  public userInfo?: IFormsInfo;
+  @NotSerializable() public userInfo?: IFormsInfo;
+
+  @NotSerializable()
+  public get state() {
+    if (this.userInfo) {
+      let totalForms = this.userInfo.totalFormsCount;
+      let answeredForms = this.userInfo.answeredFormsCount;
+
+      if (answeredForms === 0) {
+        return EventState.NotStarted;
+      } else if (totalForms === answeredForms) {
+        return EventState.FullFilled;
+      } else {
+        return EventState.PartiallyFilled;
+      }
+    } else return null;
+  }
 
   constructor(json?: Object) {
     super(json);
@@ -24,24 +41,10 @@ export class EventModel extends Model {
     this.end = moment(this.end);
   }
 
-
-  public get state() {
-    let totalForms = this.userInfo.totalFormsCount;
-    let answeredForms = this.userInfo.answeredFormsCount;
-
-    if (answeredForms === 0) {
-      return EventState.NotStarted;
-    } else if (totalForms === answeredForms) {
-      return EventState.FullFilled;
-    } else {
-      return EventState.PartiallyFilled;
-    }
-  }
-
-  public toJson(): any {
+  public toJson(): Object {
     this.start = moment(this.start).format(DateFormat.Backend);
     this.end = moment(this.end).format(DateFormat.Backend);
-    return this._serialize(this);
+    return super.toJson();
   }
 }
 
