@@ -4,6 +4,8 @@ import { AdminUserDetailsComponent } from './user-details.component';
 import { AdminUserListComponent } from './user-list.component';
 import { AdminUserFormComponent } from './user-form.component';
 import { AppRoutes } from '../../core/models/app-routes.model';
+import { AdminUserInviteListComponent } from './user-invite-list.component';
+import { AdminUserInviteFormComponent } from './user-invite-form.component';
 
 @NgModule({
   imports: [
@@ -11,6 +13,14 @@ import { AppRoutes } from '../../core/models/app-routes.model';
       path: '',
       component: AdminUserListComponent,
       breadcrumbIgnore: true,
+    }, {
+      path: 'invites',
+      component: AdminUserInviteListComponent,
+      breadcrumb: 'T_INVITES',
+    }, {
+      path: 'invites/send',
+      component: AdminUserInviteFormComponent,
+      breadcrumb: 'T_ACTION_INVITE',
     }, {
       path: ':id',
       component: AdminUserDetailsComponent,

@@ -28,6 +28,7 @@ export class AdminGroupService extends RestService<GroupModel> {
   public addUsers(data: IDataRequestUserGroups[]): Observable<void> {
     const requestParams = `${this._getRequestParams()}-users/add`;
     const requestOptions = this._getRequestOptions();
+
     return this._http.post(requestParams, data, requestOptions)
       .catch((error: any) => this._handleErrors(error));
   }
