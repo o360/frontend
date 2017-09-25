@@ -43,7 +43,7 @@ export class LikesDislikesComponent implements ControlValueAccessor {
   }
 
   @Input()
-  public  set element(value: FormElement) {
+  public set element(value: FormElement) {
     this._element = value;
   }
 

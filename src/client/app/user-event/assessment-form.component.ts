@@ -11,6 +11,11 @@ import { RequireValue } from '../admin/forms/form-builder.component';
 import { UserModel } from '../core/models/user-model';
 import { Router } from '@angular/router';
 
+export interface IComment {
+  formElementId: ModelId;
+  text: string;
+}
+
 @Component({
   moduleId: module.id,
   selector: 'bs-user-assessment-form',
@@ -170,7 +175,11 @@ export class AssessmentFormComponent implements OnInit, OnChanges {
     }
   }
 
-  public onFormChange() {
+  public onCommentAdded(value: IComment) {
+    this.onFormChange(value);
+  }
+
+  public onFormChange(value?: IComment) {
     let answers = this._form.elements.map((element: FormElement) => {
       let elementAnswer: IElementAnswer = { elementId: element.id };
       if (!RequireValue(element.kind) && element.tempValue) {
@@ -195,7 +204,16 @@ export class AssessmentFormComponent implements OnInit, OnChanges {
           elementAnswer.valuesIds = [+element.tempValue];
         }
       }
-      elementAnswer.comment = ''; //@TODO with comments
+      if (element.tempComment) {
+        elementAnswer.comment = element.tempComment;
+      }
+      if (value) {
+        if (value.formElementId === element.id) {
+          element.tempComment = value.text;
+          elementAnswer.comment = element.tempComment;
+        }
+      }
+
       return elementAnswer;
     });
 
@@ -267,6 +285,7 @@ export class AssessmentFormComponent implements OnInit, OnChanges {
               }
             } else {
               element.tempValue = answer.text;
+              element.tempComment = answer.comment;
             }
           } else if (element.kind === FormElementType.Checkboxgroup) {
             if (answer.valuesIds) {
@@ -275,8 +294,12 @@ export class AssessmentFormComponent implements OnInit, OnChanges {
                 value.tempValue = true;
               });
             }
+            if (answer.comment) {
+              element.tempComment = answer.comment;
+            }
           } else if (answer.valuesIds) {
             element.tempValue = answer.valuesIds[0];
+            element.tempComment = answer.comment;
           }
         });
       }

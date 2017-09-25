@@ -73,7 +73,7 @@ export abstract class FormComponent<T extends Model> implements OnInit {
   }
 
   protected _fillBreadcrumbs(model: T) {
-    if (model.hasOwnProperty('name')) {
+    if (model.hasOwnProperty('name') && (<any>model).name !== '' ) {
       this._breadcrumbService.overrideBreadcrumb([{ label: (<any>model).name }]);
     }
   }

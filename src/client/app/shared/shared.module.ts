@@ -3,7 +3,15 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { AccordionModule, CollapseModule, ModalModule, PaginationModule, TabsModule, TooltipModule, AlertModule } from 'ngx-bootstrap';
+import {
+  AccordionModule,
+  CollapseModule,
+  ModalModule,
+  PaginationModule,
+  TabsModule,
+  TooltipModule,
+  AlertModule
+} from 'ngx-bootstrap';
 import { FiltersComponent } from './components/filters/filters.component';
 import { ConfirmationDirective } from './directives/confirmation.directive';
 import { ToastModule } from 'ng2-toastr/ng2-toastr';
