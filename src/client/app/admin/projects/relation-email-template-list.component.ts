@@ -5,15 +5,13 @@ import { RelationModel } from '../../core/models/relation-model';
 import { AdminRelationService } from '../../core/services/admin-relation.service';
 import { Recipient } from '../../core/models/email-template-model';
 import { NotificationService } from '../../core/services/notification.service';
-import { ListComponent } from '../../shared/components/list.component';
-import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   moduleId: module.id,
   selector: 'bs-relation-email-template-list',
   templateUrl: 'relation-email-template-list.component.html'
 })
-export class AdminRelationEmailTemplatesListComponent extends ListComponent<RelationModel> {
+export class AdminRelationEmailTemplatesListComponent {
   private _model: RelationModel;
   private _recipient: string = Recipient.respondent;
   private _hasInProgressEvents: boolean;
@@ -46,11 +44,8 @@ export class AdminRelationEmailTemplatesListComponent extends ListComponent<Rela
   }
 
 
-  constructor(service: AdminRelationService,
-              activatedRoute: ActivatedRoute,
-              router: Router,
-              notificationService: NotificationService) {
-    super(service, activatedRoute, router, notificationService);
+  constructor(private _service: AdminRelationService,
+              private _notificationService: NotificationService) {
   }
 
   public emailTemplateAdded(template: IEmailTemplate) {
