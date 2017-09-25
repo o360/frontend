@@ -1,4 +1,4 @@
-import { Directive, EventEmitter, HostListener, Input, Output, ViewContainerRef } from '@angular/core';
+import { Directive, EventEmitter, HostListener, Input, Output, TemplateRef, ViewContainerRef } from '@angular/core';
 import { ConfirmationService } from '../../core/services/confirmation.service';
 
 @Directive({
@@ -7,15 +7,21 @@ import { ConfirmationService } from '../../core/services/confirmation.service';
 export class ConfirmationDirective {
   private _message: string = 'T_CONFIRM_MESSAGE';
   private _confirm: EventEmitter<any> = new EventEmitter<any>();
+  protected _contentTemplate: TemplateRef<any>;
+
+  @Input()
+  public set message(value: string) {
+    this._message = value;
+  }
+
+  @Input()
+  public set contentTemplate(value: TemplateRef<any>) {
+    this._contentTemplate = value;
+  }
 
   @Output()
   public get confirm(): EventEmitter<any> {
     return this._confirm;
-  }
-
-  @Input()
-  set message(value: string) {
-    this._message = value;
   }
 
   constructor(protected _viewContainerRef: ViewContainerRef,
@@ -26,10 +32,11 @@ export class ConfirmationDirective {
   public clickHandler() {
     this._confirmationService.setViewContainerRef(this._viewContainerRef);
 
-    this._confirmationService.loadComponent(this._message).subscribe(value => {
+    this._confirmationService.loadComponent(this._message, null, this._contentTemplate).subscribe(value => {
       if (value) {
         this._confirm.emit();
       }
     });
+
   }
 }

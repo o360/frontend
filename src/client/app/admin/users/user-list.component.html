@@ -31,6 +31,7 @@
                                'badge-success': model.status === 'approved' }">
               {{ 'T_USER_STATUS_' + model.status.toUpperCase() | translate }}</span>
           </td>
+
           <td class="actions-column">
             <button *ngIf="model.status === UserStatus.New"
                     #approveButton
@@ -48,11 +49,16 @@
                     [tooltip]="'T_ACTION_DELETE' | translate"
                     placement="bottom"
                     bsConfirm
+                    [contentTemplate]="contentTemplate"
                     [message]="'T_CONFIRM_MESSAGE_DELETE_USER' | translate"
                     (confirm)="delete(model.id)">
               <i class="fa fa-trash"></i>
             </button>
           </td>
+
+          <ng-template #contentTemplate>
+            <bs-user-confirmation [userId]="model.id"></bs-user-confirmation>
+          </ng-template>
         </tr>
 
         <tr *ngIf="!list.length">

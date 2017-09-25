@@ -1,4 +1,4 @@
-import { ComponentFactoryResolver, ComponentRef, Injectable, ViewContainerRef } from '@angular/core';
+import { ComponentFactoryResolver, ComponentRef, Injectable, TemplateRef, ViewContainerRef } from '@angular/core';
 import { ConfirmationModalComponent } from '../../shared/confirmation/confirmation.component';
 import { Subject } from 'rxjs/Subject';
 import { TranslateService } from '@ngx-translate/core';
@@ -22,25 +22,23 @@ export class ConfirmationService {
   protected _message: string = 'T_CONFIRM_MESSAGE';
   protected _componentRef: ComponentRef<ConfirmationModalComponent>;
   protected _viewContainerRef: ViewContainerRef;
+  protected _contentTemplate: TemplateRef<any>;
 
   constructor(protected _resolver: ComponentFactoryResolver,
               protected _translateService: TranslateService) {
   }
 
-  public loadComponent(message?: string, conflicts?: IConflicts): Subject<boolean> {
+  public loadComponent(message?: string, conflicts?: IConflicts, contentTemplate?: TemplateRef<any>): Subject<boolean> {
     let componentFactory = this._resolver.resolveComponentFactory(ConfirmationModalComponent);
     this._viewContainerRef.clear();
     this._componentRef = this._viewContainerRef.createComponent(componentFactory);
 
-    let translatedMessage: string;
-    if (message) {
-      translatedMessage = this._translateService.instant(message);
-    } else {
-      translatedMessage = this._translateService.instant(this._message);
-    }
-    this._componentRef.instance.message = translatedMessage;
+    this._componentRef.instance.message = this._translateMessage(message);
     this._componentRef.instance.conflicts = conflicts;
-
+    if (contentTemplate) {
+      this._contentTemplate = contentTemplate;
+    }
+    this._componentRef.instance.contentTemplate = this._contentTemplate;
     return this._componentRef.instance.confirmed;
   }
 
@@ -50,5 +48,13 @@ export class ConfirmationService {
 
   public destroy() {
     this._viewContainerRef.remove(1);
+  }
+
+  protected _translateMessage(message?: string) {
+    if (message) {
+      return this._translateService.instant(message);
+    } else {
+      return this._translateService.instant(this._message);
+    }
   }
 }
