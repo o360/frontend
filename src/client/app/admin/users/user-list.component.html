@@ -3,6 +3,14 @@
 <div class="card">
   <div class="card-header"><b>{{ 'T_USERS' | translate }}</b></div>
   <div class="card-block" *ngIf="isLoaded">
+    <button class="btn btn-primary"
+            type="button"
+            role="button"
+            [tooltip]="'T_ACTION_INVITE' | translate"
+            placement="bottom"
+            [routerLink]="['/admin/users/invites']">
+      <i class="fa fa-paper-plane"></i>
+    </button>
     <table class="table table-striped mt-1">
       <thead>
         <tr>

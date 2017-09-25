@@ -12,11 +12,21 @@
             type="button"
             role="button"
             [tooltip]="'T_ACTION_CREATE' | translate"
-            placement="right"
+            placement="bottom"
             [routerLink]="['/admin/groups/create', parentId!='null' ? { parentId: parentId } : {}]"><i class="fa fa-plus"></i>
     </button>
 
+    <button *ngIf="parentId == 'null'"
+            class="btn btn-primary mb-1 mr-1"
+            type="button"
+            role="button"
+            [tooltip]="'T_ACTION_SEND_INVITE_FROM_GROUP' | translate"
+            placement="bottom"
+            [routerLink]="['/admin/groups/invite']"><i class="fa fa-paper-plane"></i>
+    </button>
+
     <button *ngIf="list.length"
+
             class="btn btn-default mb-1"
             type="button"
             role="button"

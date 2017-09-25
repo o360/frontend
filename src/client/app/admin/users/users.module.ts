@@ -5,6 +5,8 @@ import { AdminUserDetailsComponent } from './user-details.component';
 import { AdminUserListComponent } from './user-list.component';
 import { AdminUserFormComponent } from './user-form.component';
 import { AdminUserGroupListComponent } from './user-group-list.component';
+import { AdminUserInviteFormComponent } from './user-invite-form.component';
+import { AdminUserInviteListComponent } from './user-invite-list.component';
 import { AdminUserConfirmationComponent } from './user-confirmation.component';
 
 @NgModule({
@@ -17,6 +19,8 @@ import { AdminUserConfirmationComponent } from './user-confirmation.component';
     AdminUserDetailsComponent,
     AdminUserFormComponent,
     AdminUserGroupListComponent,
+    AdminUserInviteListComponent,
+    AdminUserInviteFormComponent,
     AdminUserConfirmationComponent
   ],
   exports: [
@@ -24,6 +28,8 @@ import { AdminUserConfirmationComponent } from './user-confirmation.component';
     AdminUserDetailsComponent,
     AdminUserFormComponent,
     AdminUserGroupListComponent,
+    AdminUserInviteListComponent,
+    AdminUserInviteFormComponent,
     AdminUserConfirmationComponent
   ]
 })
