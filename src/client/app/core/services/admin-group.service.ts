@@ -5,7 +5,7 @@ import { RestService } from './rest.service';
 import { ModelId } from '../models/model';
 import { Observable } from 'rxjs/Observable';
 
-export interface IDataRequestUserFromGroup {
+export interface IDataRequestUserGroups {
   groupId: ModelId;
   userId: ModelId;
 }
@@ -25,7 +25,7 @@ export class AdminGroupService extends RestService<GroupModel> {
       .catch((error: any) => this._handleErrors(error));
   }
 
-  public addUsers(data: IDataRequestUserFromGroup[]): Observable<void> {
+  public addUsers(data: IDataRequestUserGroups[]): Observable<void> {
     const requestParams = `${this._getRequestParams()}-users/add`;
     const requestOptions = this._getRequestOptions();
     return this._http.post(requestParams, data, requestOptions)
@@ -37,6 +37,14 @@ export class AdminGroupService extends RestService<GroupModel> {
     const requestOptions = this._getRequestOptions();
 
     return this._http.delete(requestParams, requestOptions)
+      .catch((error: any) => this._handleErrors(error));
+  }
+
+  public removeUserFromAllGroup(data: IDataRequestUserGroups[]): Observable<void> {
+    const requestParams = `${this._getRequestParams()}-users/remove`;
+    const requestOptions = this._getRequestOptions();
+
+    return this._http.post(requestParams, data, requestOptions)
       .catch((error: any) => this._handleErrors(error));
   }
 }

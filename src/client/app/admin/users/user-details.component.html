@@ -27,6 +27,7 @@
                   [tooltip]="'T_ACTION_DELETE' | translate"
                   placement="bottom"
                   bsConfirm
+                  [contentTemplate]="contentTemplate"
                   [message]="'T_CONFIRM_MESSAGE_DELETE_USER' | translate"
                   (confirm)="delete(model.id)">
             <i class="fa fa-trash"></i>
@@ -60,5 +61,10 @@
   </div>
 
   <bs-user-group-list embedded [userId]="model.id"></bs-user-group-list>
+
+  <ng-template #contentTemplate>
+    <bs-user-confirmation [userId]="model.id"></bs-user-confirmation>
+  </ng-template>
+
 </ng-container>
 

@@ -1,7 +1,8 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap';
 import { Subject } from 'rxjs/Subject';
 import { IConflicts } from '../../core/services/confirmation.service';
+
 
 @Component({
   moduleId: module.id,
@@ -14,6 +15,7 @@ export class ConfirmationModalComponent implements OnInit {
   protected _modal: ModalDirective;
   protected _conflictKeys: string[];
   protected _confirmed: Subject<boolean> = new Subject<boolean>();
+  protected _contentTemplate: TemplateRef<any>;
 
   @Input()
   public set message(value: string) {
@@ -21,11 +23,25 @@ export class ConfirmationModalComponent implements OnInit {
   }
 
   @Input()
+  public set contentTemplate(value: TemplateRef<any>) {
+    this._contentTemplate = value;
+  }
+
+  @Input()
   public set conflicts(value: IConflicts) {
     this._conflicts = value;
   }
 
-  get confirmed(): Subject<boolean> {
+  @ViewChild('modal')
+  public set modal(value: ModalDirective) {
+    this._modal = value;
+  }
+
+  public get contentTemplate(): TemplateRef<any> {
+    return this._contentTemplate;
+  }
+
+  public get confirmed(): Subject<boolean> {
     return this._confirmed;
   }
 
@@ -43,11 +59,6 @@ export class ConfirmationModalComponent implements OnInit {
 
   public get modal(): ModalDirective {
     return this._modal;
-  }
-
-  @ViewChild('modal')
-  public set modal(value: ModalDirective) {
-    this._modal = value;
   }
 
   public ngOnInit() {
