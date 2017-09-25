@@ -21,7 +21,8 @@
       <tbody>
         <tr *ngFor="let template of model.templates">
           <td>{{ 'T_PROJECT_EMAIL_TEMPLATE_KIND_' + template.kind.toUpperCase() | translate }}</td>
-          <td><a [routerLink]="['/admin/templates', template.template.id]">{{ template.template.name }}</a></td>
+          <td><a *ngIf="!!template.template"
+                 [routerLink]="['/admin/templates', template.template.id]">{{ template.template.name }}</a></td>
           <td class="actions-column">
             <button
               type="button"
