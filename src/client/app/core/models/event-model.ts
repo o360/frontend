@@ -1,8 +1,7 @@
 import { Defaults } from '../decorators/defaults.decorator';
 import { Model } from './model';
-import * as moment from 'moment';
 import { DateFormat } from '../../shared/components/datetime/datetime-picker.component';
-import { NotSerializable } from '../decorators/not-serializable.decorator';
+import * as moment from 'moment';
 
 @Defaults({
   notifications: []
