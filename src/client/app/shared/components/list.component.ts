@@ -5,6 +5,7 @@ import { Filter } from '../../core/models/filter';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { defaultPage, supportedSizes } from './pagination/pagination.component';
 import { NotificationService } from '../../core/services/notification.service';
+import { Subscription } from 'rxjs/Subscription';
 
 export abstract class ListComponent<T extends Model> implements OnInit {
   protected _list: T[];
@@ -12,6 +13,7 @@ export abstract class ListComponent<T extends Model> implements OnInit {
   protected _filters: Filter[] = [];
   protected _meta: IResponseMeta;
   protected _id: string = 'id';
+  protected _fetching: Subscription;
   protected _queryParams: IQueryParams = {
     sort: this._id.toString(),
     number: defaultPage.toString(),
@@ -93,14 +95,14 @@ export abstract class ListComponent<T extends Model> implements OnInit {
   }
 
   public pageQueryParamsChanged(value: IQueryParams) {
-    if (value.number) {
-      this._backToTop();
-    }
-
     Object.assign(this._queryParams, value);
 
     if (this._embedded) {
       this._update();
+
+      if (value.number) {
+        this._backToTop();
+      }
     } else {
       this._router.navigate([], {
         queryParams: { number: this._queryParams.number, size: this._queryParams.size, sort: this._queryParams.sort },
@@ -122,6 +124,10 @@ export abstract class ListComponent<T extends Model> implements OnInit {
   }
 
   protected _processRequestParams(params: Params) {
+    if (this._fetching) {
+      this._fetching.unsubscribe();
+    }
+
     if (!this._embedded) {
       if (params['size']) {
         this._queryParams.size = params['size'];
@@ -136,7 +142,7 @@ export abstract class ListComponent<T extends Model> implements OnInit {
   }
 
   protected _update() {
-    this._service.list(this._queryParams).subscribe((res: IListResponse<T>) => {
+    this._fetching = this._service.list(this._queryParams).subscribe((res: IListResponse<T>) => {
       this._meta = res.meta;
       this._list = res.data;
     });
