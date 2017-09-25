@@ -2,6 +2,7 @@ import { Defaults } from '../decorators/defaults.decorator';
 import { EmailKind, Recipient } from './email-template-model';
 import { GroupModel } from './group-model';
 import { Model, ModelId } from './model';
+import { NotSerializable } from '../decorators/not-serializable.decorator';
 
 export interface IEmailTemplate {
   templateId?: ModelId;
@@ -34,8 +35,8 @@ export class ProjectModel extends Model {
   public canRevote: boolean;
   public formsOnSamePage: boolean;
   public hasInProgressEvents: boolean;
-  public active?: boolean;
-  public isLast?: boolean;
+  @NotSerializable() public active?: boolean;
+  @NotSerializable() public isLast?: boolean;
 
   constructor(json: any) {
     super(json);

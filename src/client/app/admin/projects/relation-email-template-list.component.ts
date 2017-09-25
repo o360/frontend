@@ -54,7 +54,7 @@ export class AdminRelationEmailTemplatesListComponent extends ListComponent<Rela
   }
 
   public emailTemplateAdded(template: IEmailTemplate) {
-    let model = new RelationModel(JSON.parse(this._model.toJson()));
+    let model = new RelationModel(this._model.toJson());
     model.templates.push(template);
 
     this._service.save(model).subscribe(model => {

@@ -24,7 +24,7 @@ export function main() {
     });
 
     it('should convert an object to json', () => {
-      expect(model.toJson()).toEqual('{"name":"test"}');
+      expect(JSON.stringify(model.toJson())).toEqual('{"name":"test"}');
     });
 
     it('should have a name by default', () => {

@@ -26,7 +26,7 @@ export class AdminFormService extends RestService<FormModel> {
   }
 
   public clone(model: FormModel): Observable<FormModel> {
-    let clone = new FormModel(JSON.parse(model.toJson()));
+    let clone = new FormModel(model.toJson());
 
     clone.id = undefined;
     clone.name += ' (copy)';
