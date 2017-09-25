@@ -12,7 +12,7 @@ export class EventModel extends Model {
   public end: any;
   public status: string;
   public notifications: IEventNotification[];
-  public userInfo: IUserInfo;
+  public userInfo?: IFormsInfo;
 
   constructor(json?: Object) {
     super(json);
@@ -24,6 +24,20 @@ export class EventModel extends Model {
     this.end = moment(this.end);
   }
 
+
+  public get state() {
+    let totalForms = this.userInfo.totalFormsCount;
+    let answeredForms = this.userInfo.answeredFormsCount;
+
+    if (answeredForms === 0) {
+      return EventState.NotStarted;
+    } else if (totalForms === answeredForms) {
+      return EventState.FullFilled;
+    } else {
+      return EventState.PartiallyFilled;
+    }
+  }
+
   public toJson(): any {
     this.start = moment(this.start).format(DateFormat.Backend);
     this.end = moment(this.end).format(DateFormat.Backend);
@@ -31,15 +45,15 @@ export class EventModel extends Model {
   }
 }
 
+export interface IFormsInfo {
+  totalFormsCount: number;
+  answeredFormsCount: number;
+}
+
 export interface IEventNotification {
   time: string;
   kind: string;
   recipient: string;
-}
-
-export interface IUserInfo {
-  answeredFormsCount: number;
-  totalFormsCount: number;
 }
 
 export class EventNotificationKind {
@@ -63,4 +77,10 @@ export class EventStatus {
 export class EventSortField {
   public static readonly Start: string = 'start';
   public static readonly End: string = 'end';
+}
+
+export class EventState {
+  public static readonly NotStarted: string = 'notstarted';
+  public static readonly PartiallyFilled: string = 'partfilled';
+  public static readonly FullFilled: string = 'fullfilled';
 }

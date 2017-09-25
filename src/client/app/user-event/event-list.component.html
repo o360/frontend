@@ -6,6 +6,7 @@
         <th class="w-25">{{ 'T_EVENT_DESCRIPTION' | translate }}</th>
         <th class="w-25">{{ 'T_EVENT_START' | translate }}</th>
         <th class="w-25">{{ 'T_EVENT_END' | translate }}</th>
+        <th *ngIf="status === EventStatus.InProgress" class="w-25">{{ 'T_TIME_LEFT' | translate }}</th>
         <th class="actions-column w-25">
           {{ 'T_ACTION' | translate }}
         </th>
@@ -17,13 +18,15 @@
         <td>{{ model.description }}</td>
         <td>{{ model.start | localizedDate:'medium' }}</td>
         <td>{{ model.end | localizedDate:'medium' }}</td>
+        <td *ngIf="status === EventStatus.InProgress">{{ model.end | timeLeft }}</td>
         <td class="actions-column" [ngSwitch]="status">
           <ng-template [ngSwitchCase]="EventStatus.InProgress">
             <button type="button"
                     class="btn btn-sm btn-success ml-1"
                     title="{{ 'T_ACTION_ASSESS' | translate }}"
                     [routerLink]="['/events', model.id]">
-              <i class="fa fa-hand-pointer-o"></i> {{ 'T_ACTION_ASSESS' | translate }}
+              <i class="fa fa-hand-pointer-o"></i>
+              {{ 'T_ACTION_ASSESS_' + model.state.toUpperCase() | translate }}
             </button>
           </ng-template>
           <ng-template [ngSwitchCase]="EventStatus.Completed">

@@ -10,6 +10,9 @@
   "T_ASSESSMENT_EVENT": "Событие оценки",
   "T_ACTION_ADD": "Добавить",
   "T_ACTION_ASSESS": "Начать оценку",
+  "T_ACTION_ASSESS_NOTSTARTED": "Начать оценку",
+  "T_ACTION_ASSESS_PARTFILLED": "Продолжить оценку",
+  "T_ACTION_ASSESS_FULLFILLED": "Проверить ответы",
   "T_ACTION_CONFIRM": "Подтверждение",
   "T_ACTION_SAVE": "Сохранить",
   "T_ACTION_CREATE": "Создать",
@@ -301,5 +304,6 @@
   "T_ERROR_INVALID_TIMEZONE": "Мы не смогли определить ваш часовой пояс, выберите вручную, пожалуйста",
   "T_TERMS_AND_CONDITIONS": "Условия и положения",
   "T_AGREEMENT_APPROVEMENT_MESSAGE": "Я согласен со всеми условиями и положениями",
-  "T_ERROR_AGREEMENT": "Что-то пошло не так, пожалуйста, попробуйте позже еще раз или свяжитесь с администратором"
+  "T_ERROR_AGREEMENT": "Что-то пошло не так, пожалуйста, попробуйте позже еще раз или свяжитесь с администратором",
+  "T_TIME_LEFT": "Событие завершится"
 }
