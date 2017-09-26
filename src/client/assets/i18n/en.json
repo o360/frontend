@@ -269,6 +269,7 @@
   "T_FORM_ELEMENT_TYPE_CHECKBOXGROUP": "Checkbox group",
   "T_FORM_ELEMENT_TYPE_SELECT": "Dropdown list",
   "T_FORM_ELEMENT_TYPE_LIKEDISLIKE": "Likes - dislikes",
+  "T_FORM_ELEMENT_TYPE_LIKEDISLIKE_DISABLED": "Likes-Dislikes element can not be combined with other form elements",
   "T_FORM_BUILDER_ENTER_NAME": "Enter name of the form...",
   "T_FORM_NAME": "Name",
   "T_FORM_CAPTION": "Caption",
@@ -323,7 +324,7 @@
   "T_INVITE_EMAIL": "Email",
   "T_INVITE_GROUPS": "Add users to groups",
   "T_INVITE_CREATION_TIME": "Request creation time",
-  "T_INVITE_ACTIVATION_TIME": "Request activation time",
+  "T_INVITE_REQUEST_STATUS": "Request status",
   "T_INVITE_STATUS": "Invite status",
   "T_INVITE_UNACTIVATE": "Unactivate",
   "T_INVITE_ACTIVATE": "Activate"

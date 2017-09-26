@@ -23,20 +23,20 @@ export class AdminUserInviteFormComponent extends FormComponent<InviteModel> imp
   private _emails: string;
   private _selectedGroups: string[] = [];
 
-  public get emails(): string {
-    return this._emails;
-  }
-
   public set emails(value: string) {
     this._emails = value;
   }
 
-  public get availableGroups(): Select2OptionData[] {
-    return this._availableGroups;
-  }
-
   public set options(value: Select2Options) {
     this._options = value;
+  }
+
+  public get emails(): string {
+    return this._emails;
+  }
+
+  public get availableGroups(): Select2OptionData[] {
+    return this._availableGroups;
   }
 
   public get options(): Select2Options {
@@ -52,7 +52,7 @@ export class AdminUserInviteFormComponent extends FormComponent<InviteModel> imp
               private _groupService: AdminGroupService) {
     super(service, router, route, notificationService, breadcrumbService);
 
-    this._returnPath = ['/admin/users/invite'];
+    this._returnPath = ['/admin/users/invites'];
   }
 
   public ngOnInit() {
@@ -120,7 +120,7 @@ export class AdminUserInviteFormComponent extends FormComponent<InviteModel> imp
       label: 'T_INVITES',
       url: `/admin/users/invites`
     }, {
-      label:'T_ACTION_SEND_INVITE'
+      label: 'T_ACTION_SEND_INVITE'
     }]);
   }
 }

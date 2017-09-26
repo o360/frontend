@@ -96,14 +96,28 @@
       <div class="row">
         <div class="col-md-4 col-lg-3">
           <div *ngFor="let kind of elementTypes;">
-            <button type="button"
-                    role="button"
-                    [disabled]="((isLikesDislikesForm) ||
-                                (kind === FormElementType.LikeDislike && !isLikesDislikesForm && !!elements.controls.length))"
-                    class="btn btn-primary btn-block mb-1 text-left"
-                    (click)="addElement(kind)">
-              <i class="mr-h fa fa-plus"></i>{{ 'T_FORM_ELEMENT_TYPE_' + kind.toUpperCase() | translate }}
-            </button>
+              <button *ngIf="kind !== FormElementType.LikeDislike"
+                      type="button"
+                      role="button"
+                      [disabled]="((isLikesDislikesForm) ||
+                                  (kind === FormElementType.LikeDislike && !isLikesDislikesForm && !!elements.controls.length))"
+                      class="btn btn-primary btn-block mb-1 text-left"
+                      (click)="addElement(kind)">
+                <i class="mr-h fa fa-plus"></i>{{ 'T_FORM_ELEMENT_TYPE_' + kind.toUpperCase() | translate }}
+              </button>
+            <div *ngIf="kind === FormElementType.LikeDislike"
+                 [tooltip]="'T_FORM_ELEMENT_TYPE_LIKEDISLIKE_DISABLED' | translate"
+                 placement="bottom">
+              <button
+                      type="button"
+                      role="button"
+                      [disabled]="((isLikesDislikesForm) ||
+                                  (kind === FormElementType.LikeDislike && !isLikesDislikesForm && !!elements.controls.length))"
+                      class="btn btn-primary btn-block mb-1 text-left"
+                      (click)="addElement(kind)">
+                <i class="mr-h fa fa-plus"></i>{{ 'T_FORM_ELEMENT_TYPE_' + kind.toUpperCase() | translate }}
+              </button>
+            </div>
           </div>
         </div>
         <div class="col-md-8 col-lg-9">
