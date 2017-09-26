@@ -221,6 +221,7 @@
   "T_FORM_ELEMENT_TYPE_CHECKBOXGROUP": "Группа чекбоксов",
   "T_FORM_ELEMENT_TYPE_SELECT": "Выпадающий список",
   "T_FORM_ELEMENT_TYPE_LIKEDISLIKE": "Лайки - дизлайки",
+  "T_FORM_ELEMENT_TYPE_LIKEDISLIKE_DISABLED": "Элемент Лайки-Дизлайки не может быть скомбинирован с другими элементами формы",
   "T_FORM_BUILDER_ENTER_NAME": "Введите название...",
   "T_FORM_NAME": "Название",
   "T_FORM_CAPTION": "Заголовок",
@@ -325,7 +326,7 @@
   "T_INVITE_EMAIL": "Email",
   "T_INVITE_GROUPS": "Группы, в которые будут добавлены пользователи",
   "T_INVITE_CREATION_TIME": "Дата отправки запроса",
-  "T_INVITE_ACTIVATION_TIME": "Дата ответа на запрос",
+  "T_INVITE_REQUEST_STATUS": "Статус запроса",
   "T_INVITE_STATUS": "Статус приглашения",
   "T_INVITE_UNACTIVATE": "Неактивировано",
   "T_INVITE_ACTIVATE": "Активировано"

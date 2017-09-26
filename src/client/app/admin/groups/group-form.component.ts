@@ -77,10 +77,7 @@ export class AdminGroupFormComponent extends FormComponent<GroupModel> {
     let breadcrumbs: IBreadcrumb[] = [];
 
     if (this.editMode) {
-      breadcrumbs.push({ label: 'T_ACTION_EDIT' });
       breadcrumbs.push({ label: model.name, url: `/admin/groups/${model.id}` });
-    } else {
-      breadcrumbs.push({ label: 'T_ACTION_CREATE' });
     }
 
     let item = model;
