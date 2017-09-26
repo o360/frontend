@@ -23,6 +23,7 @@ export class AdminGroupListComponent extends ListComponent<GroupModel> implement
 
   protected _parentId: string = 'null';
   protected _innerGroupState: boolean = false;
+  protected _hasChildren: boolean = false;
 
   @Input()
   public set parentId(value: string) {
@@ -36,6 +37,10 @@ export class AdminGroupListComponent extends ListComponent<GroupModel> implement
   @Output()
   public get innerGroupState(): boolean {
     return this._innerGroupState;
+  }
+
+  public get hasChildren(): boolean {
+    return this._hasChildren;
   }
 
   constructor(service: AdminGroupService,
@@ -71,6 +76,12 @@ export class AdminGroupListComponent extends ListComponent<GroupModel> implement
       this._meta = res.meta;
       this._list = res.data;
 
+      for (let i = 0; i < this._list.length; i++) {
+        if (this._list[i].hasChildren === true) {
+          this._hasChildren = true;
+          break;
+        }
+      }
       if (this._queryParams.name) {
         this._searchForParents(this._list);
       }
