@@ -27,17 +27,20 @@
           <td>{{ model.description }}</td>
 
           <td class="actions-column">
-            <button type="button"
-                    role="button"
-                    class="btn btn-sm btn-danger ml-1"
-                    [tooltip]="'T_ACTION_DELETE' | translate"
-                    placement="bottom"
-                    bsConfirm
-                    [message]="'T_CONFIRM_MESSAGE_DELETE_PROJECT' | translate"
-                    (confirm)="delete(model.id)"
-                    [disabled]="model.hasInProgressEvents">
-              <i class="fa fa-trash"></i>
-            </button>
+            <div class="d-inline-block"
+                 [tooltip]="'T_ACTION_DELETE' | translate"
+                 placement="bottom">
+              <button type="button"
+                      role="button"
+                      class="btn btn-sm btn-danger"
+                      placement="bottom"
+                      bsConfirm
+                      [message]="'T_CONFIRM_MESSAGE_DELETE_PROJECT' | translate"
+                      (confirm)="delete(model.id)"
+                      [disabled]="model.hasInProgressEvents">
+                <i class="fa fa-trash"></i>
+              </button>
+            </div>
           </td>
         </tr>
 

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { UserGender, UserModel } from '../core/models/user-model';
+import { UserGender, UserModel, UserStatus } from '../core/models/user-model';
 import { AuthService } from '../core/services/auth.service';
 import { FormComponent } from '../shared/components/form.component';
 import { NotificationService } from '../core/services/notification.service';
@@ -44,13 +44,19 @@ export class UserProfileFormComponent extends FormComponent<UserModel> implement
   }
 
   public ngOnInit() {
-    this._id = this._auth.user.id;
+    this._service.get(this._id).subscribe((model) => {
+      if (model.status === UserStatus.New) {
+        this._router.navigate(this._returnPath);
+      } else {
+        this._id = this._auth.user.id;
 
-    if (this._auth.user.hasPicture) {
-      this._getUserPicture();
-    }
+        if (this._auth.user.hasPicture) {
+          this._getUserPicture();
+        }
 
-    super.ngOnInit();
+        super.ngOnInit();
+      }
+    });
   }
 
   public save() {

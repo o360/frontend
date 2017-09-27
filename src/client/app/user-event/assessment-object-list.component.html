@@ -38,7 +38,7 @@
         (click)="selectSurvey(formObj)">
       <i [ngClass]="formObj.status === assessmentFormStatus.Answered ? 'answered' : 'not-answered'"
          class="fa fa-check mr-1"></i>
-      <span>{{ formObj.form.name }}</span>
+      <span class="mr-1">{{ formObj.form.name }}</span>
       <i *ngIf="!!selectedItem && selectedItem === formObj" class="current-arrow fa fa-angle-right"></i>
     </li>
   </ng-container>

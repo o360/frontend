@@ -21,6 +21,10 @@ export class UserProfileComponent extends DetailsComponent<AccountModel> impleme
     return !!this._model.groups;
   }
 
+  public get UserStatus() {
+    return UserStatus;
+  }
+
   constructor(service: AccountService,
               route: ActivatedRoute,
               router: Router,
