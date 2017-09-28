@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { NotificationService } from '../core/services/notification.service';
 import { AccountService } from '../core/services/account.service';
 import { AccountModel } from '../core/models/account-model';
+import { UserStatus } from '../core/models/user-model';
 
 @Component({
   moduleId: module.id,
@@ -36,6 +37,11 @@ export class AgreementComponent {
     this._auth.user.termsApproved = this._approved;
     this._accountService.save(this._auth.user).subscribe(() => {
       this._router.navigate(['']);
+      if (this._auth.user.status === UserStatus.New) {
+        this._notificationService.success('T_SUCCESS_NEW_USER_SAVED');
+      } else {
+        this._notificationService.success('T_SUCCESS_NEW_USER_BY_INVITE');
+      }
     }, error => this._notificationService.error('T_ERROR_AGREEMENT'));
   }
 }
