@@ -1,6 +1,8 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, NgZone, OnDestroy, OnInit, Output } from '@angular/core';
 import { AssessmentFormStatus, AssessmentModel, IFormAnswer } from '../core/models/assessment-model';
 import { UserModel } from '../core/models/user-model';
+import { AuthService } from '../core/services/auth.service';
+import { ModelId } from '../core/models/model';
 
 export declare type AssessmentObject = AssessmentModel | IFormAnswer;
 
@@ -13,18 +15,24 @@ export class UserAssessmentFilters {
 @Component({
   moduleId: module.id,
   selector: 'bs-assessment-object-list',
-  templateUrl: 'assessment-object-list.component.html'
+  templateUrl: 'assessment-object-list.component.html',
+  styleUrls: ['assessment-object-list.component.css'],
 })
-export class AssessmentObjectListComponent {
+export class AssessmentObjectListComponent implements OnInit, OnDestroy {
+  private static _idSeq = 0;
+  private _index: number = AssessmentObjectListComponent.next();
   private _usersFilterType: string = UserAssessmentFilters.All;
   private _filters = Object.values(UserAssessmentFilters);
-
   private _list: AssessmentModel[];
   private _users: AssessmentModel[];
   private _filteredUsers: AssessmentModel[];
   private _selectedItem: AssessmentObject;
   private _surveys: AssessmentModel[];
   private _selectedItemChange: EventEmitter<AssessmentObject> = new EventEmitter<AssessmentObject>();
+
+  private static next() {
+    return AssessmentObjectListComponent._idSeq++;
+  }
 
   @Input()
   public set list(value: AssessmentModel[]) {
@@ -76,6 +84,24 @@ export class AssessmentObjectListComponent {
     return this._filters;
   }
 
+  public get currentUserId(): ModelId {
+    return this._authService.user.id;
+  }
+
+  constructor(private _ngZone: NgZone,
+              private _authService: AuthService) {
+  }
+
+  public ngOnInit() {
+    this._ngZone.runOutsideAngular(() => {
+      $(window).bind('resize scroll', () => this._recalculateLayout(this._index));
+    });
+  }
+
+  public ngOnDestroy() {
+    $(window).unbind('resize scroll', () => this._recalculateLayout(this._index));
+  }
+
   public selectUser(user: AssessmentModel) {
     if (this._selectedItem !== user) {
       this._selectedItem = user;
@@ -118,5 +144,22 @@ export class AssessmentObjectListComponent {
 
     this._users = this._list.filter(condition);
     this._filteredUsers = this._users;
+  }
+
+  private _recalculateLayout(index: number) {
+    let sidebars = document.getElementsByClassName('sidebar-container');
+    let sidebar = sidebars.item(index);
+
+    if (sidebar) {
+      let prettyOffsetTop = sidebar.scrollTop + 100;
+      let scrollTop = (window.pageYOffset !== undefined) ?
+        window.pageYOffset :
+        (<Element>document.documentElement || <Element>document.body.parentNode || <Element>document.body).scrollTop;
+      if (scrollTop > prettyOffsetTop) {
+        sidebar.className = 'sidebar-container sticky';
+      } else {
+        sidebar.className = 'sidebar-container';
+      }
+    }
   }
 }

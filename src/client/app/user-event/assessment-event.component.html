@@ -63,9 +63,10 @@
   </ng-template>
   <ng-template ngSwitchDefault>
     <!--Classic-->
-    <div class="row">
+    <div class="row assessment-wrapper">
       <div class="col-md-4">
-        <bs-assessment-object-list [list]="list"
+        <bs-assessment-object-list class="col-md-4"
+                                   [list]="list"
                                    [selectedItem]="assessmentObject"
                                    (selectedItemChange)="displayItem($event)"></bs-assessment-object-list>
       </div>
