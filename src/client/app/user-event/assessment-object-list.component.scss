@@ -1,0 +1,116 @@
+:host .sidebar-container {
+  max-height: 61vh;
+  overflow: hidden;
+
+  #users {
+    overflow-y: scroll;
+    max-height: 50vh;
+  }
+
+  #users.with-surveys {
+    max-height: 25vh;
+  }
+
+  #surveys {
+    overflow-y: auto;
+    max-height: 20vh;
+  }
+}
+
+:host .sidebar-container.sticky {
+  margin-top: -75px;
+  max-height: 80vh;
+
+  #users.with-surveys {
+    max-height: 40vh;
+  }
+
+  #surveys {
+    max-height: 20vh;
+  }
+}
+
+:host .list-group-item {
+  min-height: 65px;
+}
+
+:host .user-filter-label {
+  padding: 5px;
+  color: #b0bec5;
+  border: 1px solid transparent;
+}
+
+:host .user-filter-label:hover {
+  border: 1px solid #b0bec5;
+}
+
+:host .user-filter-label.active {
+  background-color: #b0bec5;
+  color: #fff;
+}
+
+.assessment-object-list {
+  li {
+    border-bottom-width: 0;
+
+    &:last-of-type {
+      border-bottom-width: 1px;
+    }
+  }
+}
+
+.assessment-survey-list-item,
+.assessment-user-list-item {
+  .name {
+    max-width: 60%;
+    line-height: normal;
+  }
+}
+
+.assessment-survey-list-item.current,
+.assessment-user-list-item.current {
+  background-color: #b0bec5;
+}
+
+.assessment-survey-list-item .current-arrow,
+.assessment-user-list-item .current-arrow {
+  position: absolute;
+  right: 20px;
+  font-size: 20px;
+}
+
+.list-group-item .answered {
+  border-radius: 50%;
+  border: 2px solid #fff;
+  background-color: #4dbd74;
+  color: #fff;
+  font-size: 16px;
+}
+
+.list-group-item .not-answered {
+  border-radius: 50%;
+  border: 2px solid #fff;
+  background-color: #eee;
+  color: #fff;
+  font-size: 16px;
+}
+
+.assessment-user-list-item .answered {
+  position: absolute;
+  left: 45px;
+  margin-top: 15px;
+}
+
+.list-type-radio input[type="radio"] {
+  display: none;
+}
+
+@media (min-width: 772px) {
+  :host {
+    position: fixed;
+  }
+
+  :host .sidebar-container {
+    width: 80%;
+  }
+}

@@ -329,54 +329,51 @@
       </ng-template>
     </ng-container>
 
-    <ng-container *ngIf="(status === EventStatus.InProgress && !inline) && (!(!canRevote && isAnswered) || canRevote)">
-      <div class="row">
-        <div class="col-sm-6">
-          <div *ngIf="canBeAnonymous">
-            <label for="isAnonymous">
-              {{ 'T_ACTION_VOTE_ANONYMOUS' | translate }}
-            </label>
-            <label class="switch switch-default switch-primary ml-h">
-              <input id="isAnonymous"
-                     name="isAnonymous"
-                     type="checkbox"
-                     class="switch-input"
-                     checked="true"
-                     [disabled]="status !== EventStatus.InProgress"
-                     #anonymous="ngModel"
-                     [ngModel]="isAnonymous"
-                     (ngModelChange)="isAnonymous = $event; onFormChange();">
-              <span class="switch-label"></span>
-              <span class="switch-handle"></span>
-            </label>
-          </div>
-        </div>
-        <div class="col-sm-6 row justify-content-end pr-0">
-          <button type="button"
-                  (click)="assessmentForm.reset()"
-                  class="btn btn-default mr-1 mt-0"
-                  [disabled]="assessmentForm.pristine">
-            {{ 'T_ACTION_CLEAR' | translate }}
-          </button>
+    <ng-container *ngIf="!inline">
+      <div *ngIf="canBeAnonymous">
+        <label for="isAnonymous">
+          {{ 'T_ACTION_VOTE_ANONYMOUS' | translate }}
+        </label>
+        <label class="switch switch-default switch-primary ml-h">
+          <input id="isAnonymous"
+                 name="isAnonymous"
+                 type="checkbox"
+                 class="switch-input"
+                 checked="true"
+                 [disabled]="status !== EventStatus.InProgress && (!(!canRevote && isAnswered) || canRevote)"
+                 #anonymous="ngModel"
+                 [ngModel]="isAnonymous"
+                 (ngModelChange)="isAnonymous = $event; onFormChange();">
+          <span class="switch-label"></span>
+          <span class="switch-handle"></span>
+        </label>
+      </div>
+      <div class="form-submit-buttons"
+           *ngIf="(status === EventStatus.InProgress && !inline) && (!(!canRevote && isAnswered) || canRevote)">
+        <button type="button"
+                (click)="assessmentForm.reset()"
+                class="btn btn-default mr-1 mt-0"
+                [disabled]="assessmentForm.pristine">
+          {{ 'T_ACTION_CLEAR' | translate }}
+        </button>
 
-          <div [ngSwitch]="isLast">
-            <ng-template [ngSwitchCase]="true">
-              <button type="button"
-                      (click)="save()"
-                      class="btn btn-primary mt-0"
-                      [disabled]="!assessmentForm.valid || !assessment">
-                {{ 'T_ACTION_SAVE_AND_FINISH' | translate }}
-              </button>
-            </ng-template>
-            <ng-template ngSwitchDefault>
-              <button type="button"
-                      (click)="save()"
-                      class="btn btn-primary mt-0"
-                      [disabled]="!assessmentForm.valid || !assessment">
-                {{ 'T_ACTION_SAVE_AND_SHOW_NEXT' | translate }}
-              </button>
-            </ng-template>
-          </div>
+        <div [ngSwitch]="isLast">
+          <ng-template [ngSwitchCase]="true">
+            <button type="button"
+                    (click)="save()"
+                    class="btn btn-primary mt-0"
+                    [disabled]="!assessmentForm.valid || !assessment">
+              {{ 'T_ACTION_SAVE_AND_FINISH' | translate }}
+            </button>
+          </ng-template>
+          <ng-template ngSwitchDefault>
+            <button type="button"
+                    (click)="save()"
+                    class="btn btn-primary mt-0"
+                    [disabled]="!assessmentForm.valid || !assessment">
+              {{ 'T_ACTION_SAVE_AND_SHOW_NEXT' | translate }}
+            </button>
+          </ng-template>
         </div>
       </div>
     </ng-container>
