@@ -27,4 +27,16 @@ export class InviteService extends RestService<InviteModel> {
       .map((json: any) => this.createEntity(json))
       .catch((error: any) => this._handleErrors(error));
   }
+
+  public asseptInvite(model: any): Observable<any> {
+    let requestParams: string = this._getRequestParams();
+    requestParams =  requestParams.replace('admin/invites', 'invites/submit');
+    let json = JSON.stringify(model);
+    let requestOptions = this._getRequestOptions();
+
+    return this._http.post(requestParams, json, requestOptions)
+      .map((res: any) => res.json())
+      .map((json: any) => this.createEntity(json))
+      .catch((error: any) => this._handleErrors(error));
+  }
 }
