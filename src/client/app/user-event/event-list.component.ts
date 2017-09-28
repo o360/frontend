@@ -36,6 +36,9 @@ export class EventListComponent extends ListComponent<EventModel> {
 
   protected _update() {
     let queryParams = { status: this._status, sort: 'start', onlyAvailable: 'true' };
+    if (this._status === EventStatus.Completed) {
+      queryParams.sort = 'end';
+    }
 
     this._fetching = this._service.list(queryParams).subscribe((res: IListResponse<EventModel>) => {
       this._meta = res.meta;
