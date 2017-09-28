@@ -199,8 +199,9 @@ header.navbar .navbar-brand {
   border-radius: 50%;
 }
 
-.user-profile-image-crop {
-  margin: 10px 0px;
+.user-profile-image-crop .user-profile-image {
+  padding: 0;
+  margin: 0 auto;
 }
 
 .user-profile-form-image .input-file {
