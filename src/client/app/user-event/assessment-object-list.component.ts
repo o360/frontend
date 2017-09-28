@@ -19,15 +19,20 @@ export class UserAssessmentFilters {
   styleUrls: ['assessment-object-list.component.css'],
 })
 export class AssessmentObjectListComponent implements OnInit, OnDestroy {
+  private static _idSeq = 0;
+  private _index: number = AssessmentObjectListComponent.next();
   private _usersFilterType: string = UserAssessmentFilters.All;
   private _filters = Object.values(UserAssessmentFilters);
-
   private _list: AssessmentModel[];
   private _users: AssessmentModel[];
   private _filteredUsers: AssessmentModel[];
   private _selectedItem: AssessmentObject;
   private _surveys: AssessmentModel[];
   private _selectedItemChange: EventEmitter<AssessmentObject> = new EventEmitter<AssessmentObject>();
+
+  private static next() {
+    return AssessmentObjectListComponent._idSeq++;
+  }
 
   @Input()
   public set list(value: AssessmentModel[]) {
@@ -89,12 +94,12 @@ export class AssessmentObjectListComponent implements OnInit, OnDestroy {
 
   public ngOnInit() {
     this._ngZone.runOutsideAngular(() => {
-      $(window).bind('resize scroll', this._recalculateLayout);
+      $(window).bind('resize scroll', () => this._recalculateLayout(this._index));
     });
   }
 
   public ngOnDestroy() {
-    $(window).unbind('resize scroll', this._recalculateLayout);
+    $(window).unbind('resize scroll', () => this._recalculateLayout(this._index));
   }
 
   public selectUser(user: AssessmentModel) {
@@ -141,16 +146,20 @@ export class AssessmentObjectListComponent implements OnInit, OnDestroy {
     this._filteredUsers = this._users;
   }
 
-  private _recalculateLayout() {
-    let sidebar = document.getElementById('sidebar-container');
-    let prettyOffsetTop = sidebar.offsetTop + 75;
-    let scrollTop = (window.pageYOffset !== undefined) ?
-      window.pageYOffset :
-      (<Element>document.documentElement || <Element>document.body.parentNode || <Element>document.body).scrollTop;
-    if (scrollTop > prettyOffsetTop) {
-      sidebar.className = 'sticky';
-    } else {
-      sidebar.className = '';
+  private _recalculateLayout(index: number) {
+    let sidebars = document.getElementsByClassName('sidebar-container');
+    let sidebar = sidebars.item(index);
+
+    if (sidebar) {
+      let prettyOffsetTop = sidebar.scrollTop + 100;
+      let scrollTop = (window.pageYOffset !== undefined) ?
+        window.pageYOffset :
+        (<Element>document.documentElement || <Element>document.body.parentNode || <Element>document.body).scrollTop;
+      if (scrollTop > prettyOffsetTop) {
+        sidebar.className = 'sidebar-container sticky';
+      } else {
+        sidebar.className = 'sidebar-container';
+      }
     }
   }
 }
