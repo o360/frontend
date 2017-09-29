@@ -34,6 +34,10 @@ export class AssessmentObjectListComponent implements OnInit, OnDestroy {
     return AssessmentObjectListComponent._idSeq++;
   }
 
+  public get index(): number {
+    return this._index;
+  }
+
   @Input()
   public set list(value: AssessmentModel[]) {
     this._list = value;
@@ -159,19 +163,17 @@ export class AssessmentObjectListComponent implements OnInit, OnDestroy {
   }
 
   private _recalculateLayout(index: number) {
-    let sidebars = document.getElementsByClassName('sidebar-container');
-    let sidebar = sidebars.item(index);
+    let sidebar = document.getElementById(`sidebar-container-${index}`);
+    let prettyOffsetTop = 106;
 
-    if (sidebar) {
-      let prettyOffsetTop = sidebar.scrollTop + 100;
-      let scrollTop = (window.pageYOffset !== undefined) ?
-        window.pageYOffset :
-        (<Element>document.documentElement || <Element>document.body.parentNode || <Element>document.body).scrollTop;
-      if (scrollTop > prettyOffsetTop) {
-        sidebar.className = 'sidebar-container sticky';
-      } else {
-        sidebar.className = 'sidebar-container';
-      }
+    let scrollTop = (window.pageYOffset !== undefined) ?
+      window.pageYOffset :
+      (<Element>document.documentElement || <Element>document.body.parentNode || <Element>document.body).scrollTop;
+
+    if (scrollTop > prettyOffsetTop) {
+      sidebar.className = 'sidebar-container sticky';
+    } else {
+      sidebar.className = 'sidebar-container';
     }
   }
 }
