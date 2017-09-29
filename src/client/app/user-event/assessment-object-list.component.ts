@@ -42,6 +42,17 @@ export class AssessmentObjectListComponent implements OnInit, OnDestroy {
   }
 
   @Input()
+  public set users(value: AssessmentModel[]) {
+    this._users = value;
+    this._setUsers();
+  }
+
+  @Input()
+  public set surveys(value: AssessmentModel[]) {
+    this._surveys = value;
+  }
+
+  @Input()
   public set selectedItem(value: AssessmentObject) {
     this._selectedItem = value;
   }
@@ -142,8 +153,9 @@ export class AssessmentObjectListComponent implements OnInit, OnDestroy {
       }
     }
 
-    this._users = this._list.filter(condition);
-    this._filteredUsers = this._users;
+    if (this._users) {
+      this._filteredUsers = this._users.filter(condition);
+    }
   }
 
   private _recalculateLayout(index: number) {

@@ -49,7 +49,7 @@
           <div class="h6">{{ 'T_PROJECT_RELATION_KIND_' + model.kind.toUpperCase() | translate }}</div>
         </div>
 
-        <div class="col-md-3">
+        <div class="col-md-3" *ngIf="!!model.groupTo">
           <small class="text-muted">{{ 'T_PROJECT_RELATION_CAN_SELF_VOTE' | translate }}</small>
           <div class="h6">
             {{ (model.canSelfVote ? 'T_ACTION_YES' : 'T_ACTION_NO') | translate }}
