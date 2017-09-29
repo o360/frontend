@@ -169,10 +169,12 @@ export class AssessmentObjectListComponent implements OnInit, OnDestroy {
       window.pageYOffset :
       (<Element>document.documentElement || <Element>document.body.parentNode || <Element>document.body).scrollTop;
 
-    if (scrollTop > prettyOffsetTop) {
-      sidebar.className = 'sidebar-container sticky';
-    } else {
-      sidebar.className = 'sidebar-container';
+    if (sidebar) {
+      if (scrollTop > prettyOffsetTop) {
+        sidebar.className = 'sidebar-container sticky';
+      } else {
+        sidebar.className = 'sidebar-container';
+      }
     }
   }
 }

@@ -14,7 +14,7 @@
     </label>
   </div>
 
-  <ul id="users" class="list-group assessment-object-list mb-2" [ngClass]="{ 'with-surveys': !!surveys.length }">
+  <ul id="users" class="list-group assessment-object-list mb-2" [ngClass]="{ 'with-surveys': !!surveys }">
     <li class="list-group-item custom-item assessment-user-list-item"
         *ngFor="let userObj of filteredUsers"
         (click)="selectUser(userObj)"
@@ -30,7 +30,7 @@
     </li>
   </ul>
 
-  <li *ngIf="!!surveys.length"
+  <li *ngIf="!!surveys"
       class="mb-h list-unstyled">
     <b>{{ 'T_SURVEYS' | translate }}</b>
   </li>
