@@ -67,6 +67,7 @@
       <div class="col-md-4">
         <bs-assessment-object-list class="col-md-4"
                                    id="assessment-object-list"
+                                   [ngClass]="{ 'with-warning': !project.canRevote && status === EventStatus.InProgress }"
                                    [list]="list"
                                    [users]="users"
                                    [surveys]="surveys"

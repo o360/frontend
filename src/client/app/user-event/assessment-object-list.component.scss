@@ -20,7 +20,6 @@
 }
 
 :host .sidebar-container.sticky {
-  margin-top: -106px;
   max-height: 80vh;
 }
 
@@ -102,6 +101,14 @@
 @media (min-width: 772px) {
   :host {
     position: fixed;
+  }
+
+  :host .sidebar-container.sticky {
+    margin-top: -106px;
+  }
+
+  :host.with-warning .sticky {
+    margin-top: -166px;
   }
 
   :host .sidebar-container {
