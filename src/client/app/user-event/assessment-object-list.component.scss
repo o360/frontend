@@ -1,33 +1,27 @@
 :host .sidebar-container {
-  max-height: 61vh;
+  max-height: 73vh;
   overflow: hidden;
+  transition-duration: 0.5s;
+  transition-property: margin-top;
 
   #users {
-    overflow-y: scroll;
+    overflow-y: auto;
     max-height: 50vh;
   }
 
   #users.with-surveys {
-    max-height: 25vh;
+    max-height: calc(50vh - 5rem);
   }
 
   #surveys {
     overflow-y: auto;
-    max-height: 20vh;
+    max-height: 5rem;
   }
 }
 
 :host .sidebar-container.sticky {
-  margin-top: -75px;
+  margin-top: -106px;
   max-height: 80vh;
-
-  #users.with-surveys {
-    max-height: 40vh;
-  }
-
-  #surveys {
-    max-height: 20vh;
-  }
 }
 
 :host .list-group-item {
