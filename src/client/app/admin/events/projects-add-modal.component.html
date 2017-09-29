@@ -16,7 +16,7 @@
           <div class="form-group row"
                [ngClass]="{'has-success': projects.valid, 'has-danger': !projects.valid && projects.touched }">
             <label for="projects" class="col-form-label col-md-3 required">{{ 'T_PROJECTS' | translate }}</label>
-            <div class="col-md-9">
+            <div class="col-md-8">
               <select2 id="projects"
                        #projects
                        [data]="selectItems"
