@@ -48,13 +48,14 @@
     <h6 class="mt-2">{{ 'T_FORM_EDIT_VALUES' | translate }}</h6>
     <hr/>
     <div class="form-group row mb-1">
-      <label class="col-form-label col-4 " for="value-caption-{{ index }}">{{ 'T_FORM_CAPTION' |
+      <label class="col-form-label col-4 " for="value-caption-{{ index }}">{{ 'T_FORM_VALUE' |
         translate}}</label>
       <div class="col-8">
         <input #newCaption
                id="value-caption-{{ index }}"
                name="value-caption-{{ index }}"
                type="text"
+               placeholder="{{ 'T_FORM_ENTER_VALUE' | translate }}"
                class="form-control"
                formControlName="valueCaption">
       </div>
@@ -70,7 +71,7 @@
            dnd-sortable-container
            [sortableData]="element.values"
            [dropZones]="['element-dropZone']">
-      <th>{{ 'T_FORM_CAPTION' | translate }}</th>
+      <th>{{ 'T_FORM_VALUE' | translate }}</th>
       <th class="actions-column">{{ 'T_ACTION' | translate }}</th>
       <tbody>
       <tr *ngFor="let value of element.value.values; let J = index;"

@@ -76,6 +76,7 @@ export class AdminGroupListComponent extends ListComponent<GroupModel> implement
       this._meta = res.meta;
       this._list = res.data;
 
+      this._hasChildren = false;
       for (let i = 0; i < this._list.length; i++) {
         if (this._list[i].hasChildren === true) {
           this._hasChildren = true;

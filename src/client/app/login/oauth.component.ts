@@ -24,8 +24,6 @@ export class OAuthComponent implements OnInit {
       this._activatedRoute.queryParams.forEach((params: Params) => {
         let code = params['code'];
 
-        this._inviteService.asseptInvite({ code }).subscribe();
-
         this._oAuthService.authenticate(provider, code).subscribe(token => {
           if (token) {
             this._authService.saveToken(token);

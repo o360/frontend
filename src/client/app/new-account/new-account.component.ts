@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import { AccountModel } from '../core/models/account-model';
 import { AuthService } from '../core/services/auth.service';
-import { UserGender } from '../core/models/user-model';
+import { UserGender, UserStatus } from '../core/models/user-model';
 import { NotificationService } from '../core/services/notification.service';
 import { Router } from '@angular/router';
 import { AccountService } from '../core/services/account.service';
+import { inviteCode } from '../login/login.component';
+import { InviteService } from '../core/services/invite.service';
 
 import * as moment from 'moment-timezone';
 import { UserPictureService } from '../core/services/user-picture.service';
@@ -35,7 +37,8 @@ export class NewAccountComponent {
               private _accountService: AccountService,
               private _notificationService: NotificationService,
               private _router: Router,
-              private _userPictureService: UserPictureService) {
+              private _userPictureService: UserPictureService,
+              private _inviteService: InviteService) {
     this._user = this._authService.user;
     this._setTimeZone();
 
@@ -49,11 +52,18 @@ export class NewAccountComponent {
   }
 
   public update() {
+    let code = localStorage[inviteCode];
+    localStorage.removeItem(inviteCode);
     this._accountService.save(this._user).subscribe(
       (user) => {
         this._authService.user = user;
+        if (code) {
+          this._inviteService.asseptInvite({ code }).subscribe(() => {
+              this._authService.user.status = UserStatus.Approved;
+            }
+          );
+        }
         this._router.navigate(['/profile']);
-        this._notificationService.success('T_SUCCESS_NEW_USER_SAVED');
       },
       error => this._notificationService.error('T_ERROR_SAVED')
     );
