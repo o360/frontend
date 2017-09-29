@@ -129,15 +129,20 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
 
     super.ngOnInit();
     this._update().subscribe(() => {
-      let notAnsweredUser = Utils.getNext(this._users, undefined, _ => !_.isAnswered);
-      let notAnsweredSurvey = Utils.getNext(this._surveys, undefined, _ => _.status === AssessmentFormStatus.New);
-
-      if (notAnsweredUser) {
-        this.displayItem(notAnsweredUser);
-      } else if (notAnsweredSurvey) {
-        this.displayItem(notAnsweredSurvey);
-      } else {
-        this._showNextProject.emit(this._list);
+      if (this._users) {
+        let notAnsweredUser = Utils.getNext(this._users, undefined, _ => !_.isAnswered);
+        if (notAnsweredUser) {
+          this.displayItem(notAnsweredUser);
+        } else {
+          if (this._surveys) {
+            let notAnsweredSurvey = Utils.getNext(this._surveys, undefined, _ => _.status === AssessmentFormStatus.New);
+            if (notAnsweredSurvey) {
+              this.displayItem(notAnsweredSurvey);
+            } else {
+              this._showNextProject.emit(this._list);
+            }
+          }
+        }
       }
     });
   }
@@ -155,7 +160,6 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
 
     setTimeout(() => {
       this._assessmentObject = item;
-      console.log(this._assessmentObject);
 
       if (this._assessmentObject.hasOwnProperty('user')) {
         let obj = <AssessmentModel>this._assessmentObject;
@@ -164,9 +168,6 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
       } else {
         (<IFormAnswer>this._assessmentObject).active = true;
       }
-
-      console.log('assessmentobj', this._assessmentObject);
-
     });
   }
 
@@ -260,13 +261,16 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
 
       if (list) {
         this._users = list.filter((assessment: AssessmentModel) => !!assessment.user);
-        this._surveys = list.find((assessment: AssessmentModel) => !assessment.user).forms;
+        this._surveys = list.find((assessment: AssessmentModel) => !assessment.user) ?
+          list.find((assessment: AssessmentModel) => !assessment.user).forms : null;
 
         this._users.sort((x, y) => {
           return !!x.user && !!y.user && (x.user.name < y.user.name) ? -1 : !!x.user && !!y.user && (x.user.name > y.user.name) ? 1 : 0;
         });
 
-        this._surveys.sort((x, y) => x.form.name < y.form.name ? -1 : 1);
+        if (this._surveys) {
+          this._surveys.sort((x, y) => x.form.name < y.form.name ? -1 : 1);
+        }
       }
 
       this._filteredUsers = this._list;
