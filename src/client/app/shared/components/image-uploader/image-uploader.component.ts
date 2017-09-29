@@ -100,14 +100,16 @@ export class ImageUploaderComponent {
 
   protected _createCropper(image: any) {
     this._cropper = new Cropper(image, {
-      minCanvasWidth: 300,
-      minContainerWidth: 300,
-      minCanvasHeight: 200,
-      minContainerHeight: 200,
+      minCanvasWidth: 400,
+      minContainerWidth: 400,
+      minCanvasHeight: 400,
+      minContainerHeight: 400,
       minCropBoxHeight: 10,
       minCropBoxWidth: 10,
+      zoomable: true,
+      toggleDragModeOnDblclick: true,
       viewMode: 2,
-      autoCropArea: 0.5,
+      autoCropArea: 0.8,
       aspectRatio: 1 / 1,
       crop: (e) =>
         this._cropped = this._cropper.getCroppedCanvas({
