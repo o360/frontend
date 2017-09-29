@@ -27,7 +27,7 @@ export class AssessmentObjectListComponent implements OnInit, OnDestroy {
   private _users: AssessmentModel[];
   private _filteredUsers: AssessmentModel[];
   private _selectedItem: AssessmentObject;
-  private _surveys: AssessmentModel[];
+  private _surveys: IFormAnswer[];
   private _selectedItemChange: EventEmitter<AssessmentObject> = new EventEmitter<AssessmentObject>();
 
   private static next() {
@@ -41,7 +41,6 @@ export class AssessmentObjectListComponent implements OnInit, OnDestroy {
   @Input()
   public set list(value: AssessmentModel[]) {
     this._list = value;
-    this._surveys = this._list.filter(x => !x.user);
     this._setUsers();
   }
 
@@ -52,7 +51,7 @@ export class AssessmentObjectListComponent implements OnInit, OnDestroy {
   }
 
   @Input()
-  public set surveys(value: AssessmentModel[]) {
+  public set surveys(value: IFormAnswer[]) {
     this._surveys = value;
   }
 
@@ -69,7 +68,7 @@ export class AssessmentObjectListComponent implements OnInit, OnDestroy {
     return this._filteredUsers;
   }
 
-  public get surveys(): AssessmentModel[] {
+  public get surveys(): IFormAnswer[] {
     return this._surveys;
   }
 

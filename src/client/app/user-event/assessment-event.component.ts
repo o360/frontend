@@ -35,7 +35,7 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
   protected _showNextProject: EventEmitter<any> = new EventEmitter<any>();
   protected _filteredUsers: AssessmentModel[];
   protected _users: AssessmentModel[];
-  protected _surveys: AssessmentModel[];
+  protected _surveys: IFormAnswer[];
 
   @Input()
   public set project(value: ProjectModel) {
@@ -109,7 +109,7 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
     return this._users;
   }
 
-  public get surveys(): AssessmentModel[] {
+  public get surveys(): IFormAnswer[] {
     return this._surveys;
   }
 
@@ -129,9 +129,13 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
 
     super.ngOnInit();
     this._update().subscribe(() => {
-      let notAnswered = Utils.getNext(this._list, undefined, _ => !_.isAnswered);
-      if (notAnswered) {
-        this.displayItem(notAnswered);
+      let notAnsweredUser = Utils.getNext(this._users, undefined, _ => !_.isAnswered);
+      let notAnsweredSurvey = Utils.getNext(this._surveys, undefined, _ => _.status === AssessmentFormStatus.New);
+
+      if (notAnsweredUser) {
+        this.displayItem(notAnsweredUser);
+      } else if (notAnsweredSurvey) {
+        this.displayItem(notAnsweredSurvey);
       } else {
         this._showNextProject.emit(this._list);
       }
@@ -151,6 +155,7 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
 
     setTimeout(() => {
       this._assessmentObject = item;
+      console.log(this._assessmentObject);
 
       if (this._assessmentObject.hasOwnProperty('user')) {
         let obj = <AssessmentModel>this._assessmentObject;
@@ -159,6 +164,8 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
       } else {
         (<IFormAnswer>this._assessmentObject).active = true;
       }
+
+      console.log('assessmentobj', this._assessmentObject);
 
     });
   }
@@ -178,8 +185,7 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
           if (nextUser) {
             this.displayItem(nextUser);
           } else if (!!this._surveys.length) {
-            let surveys = this._surveys[0].forms;
-            let nextSurvey = Utils.getNext(surveys, undefined, _ => _.status === AssessmentFormStatus.New);
+            let nextSurvey = Utils.getNext(this._surveys, undefined, _ => _.status === AssessmentFormStatus.New);
 
             if (nextSurvey) {
               this.displayItem(nextSurvey);
@@ -191,8 +197,7 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
           }
         }
       } else if (!!this._surveys.length) {
-        let surveys = this._surveys[0].forms;
-        let nextSurvey = Utils.getNext(surveys, _ => _.form.id === (<IFormAnswer>this._assessmentObject).form.id,
+        let nextSurvey = Utils.getNext(this._surveys, _ => _.form.id === (<IFormAnswer>this._assessmentObject).form.id,
           _ => _.status === AssessmentFormStatus.New);
         if (nextSurvey) {
           this.displayItem(nextSurvey);
@@ -255,15 +260,13 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
 
       if (list) {
         this._users = list.filter((assessment: AssessmentModel) => !!assessment.user);
-        this._surveys = list.filter((assessment: AssessmentModel) => !assessment.user);
+        this._surveys = list.find((assessment: AssessmentModel) => !assessment.user).forms;
 
         this._users.sort((x, y) => {
           return !!x.user && !!y.user && (x.user.name < y.user.name) ? -1 : !!x.user && !!y.user && (x.user.name > y.user.name) ? 1 : 0;
         });
 
-        this._surveys.forEach((surveys: AssessmentModel) => {
-          surveys.forms.sort((x,y) => x.form.name < y.form.name ? -1 : 1);
-        });
+        this._surveys.sort((x, y) => x.form.name < y.form.name ? -1 : 1);
       }
 
       this._filteredUsers = this._list;
@@ -285,7 +288,8 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
           assessment.isClassic = !!assessment.user;
           assessment.isAnswered = !assessment.forms.find(x => x.status === AssessmentFormStatus.New);
           assessment.forms
-            .sort((x: IFormAnswer, y: IFormAnswer) => x.form.name < y.form.name ? -1 : 1);
+            .sort((x: IFormAnswer, y: IFormAnswer) => x.form.name < y.form.name ? -1 : 1)
+            .forEach(form => form.active = false);
           if (assessment.user && assessment.user.hasPicture) {
             this._userPictureService.getPicture(assessment.user.id).subscribe(pic => assessment.user.picture = pic);
           }
