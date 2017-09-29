@@ -67,6 +67,8 @@
       <div class="col-md-4">
         <bs-assessment-object-list class="col-md-4"
                                    [list]="list"
+                                   [users]="users"
+                                   [surveys]="surveys"
                                    [selectedItem]="assessmentObject"
                                    (selectedItemChange)="displayItem($event)"></bs-assessment-object-list>
       </div>

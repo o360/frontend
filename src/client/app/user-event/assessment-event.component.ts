@@ -34,6 +34,8 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
   protected _isAnswered: boolean = false;
   protected _showNextProject: EventEmitter<any> = new EventEmitter<any>();
   protected _filteredUsers: AssessmentModel[];
+  protected _users: AssessmentModel[];
+  protected _surveys: AssessmentModel[];
 
   @Input()
   public set project(value: ProjectModel) {
@@ -103,6 +105,14 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
     return this._filteredUsers;
   }
 
+  public get users(): AssessmentModel[] {
+    return this._users;
+  }
+
+  public get surveys(): AssessmentModel[] {
+    return this._surveys;
+  }
+
   constructor(service: AssessmentService,
               activatedRoute: ActivatedRoute,
               router: Router,
@@ -163,12 +173,12 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
           obj.forms.forEach(_ => _.active = false);
           nextForm.active = true;
         } else {
-          let nextUser = Utils.getNext(this._list, _ => _.user.id === obj.user.id, _ => !!_.user && !_.isAnswered);
+          let nextUser = Utils.getNext(this._users, _ => _.user.id === obj.user.id, _ => !!_.user && !_.isAnswered);
 
           if (nextUser) {
             this.displayItem(nextUser);
-          } else if (this._list.find(_ => !_.user)) {
-            let surveys = this._list.find(_ => !_.user).forms;
+          } else if (!!this._surveys.length) {
+            let surveys = this._surveys[0].forms;
             let nextSurvey = Utils.getNext(surveys, undefined, _ => _.status === AssessmentFormStatus.New);
 
             if (nextSurvey) {
@@ -180,8 +190,8 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
             this._showNextProject.emit(this._list);
           }
         }
-      } else if (this._list.find(_ => !_.user)) {
-        let surveys = this._list.find(_ => !_.user).forms;
+      } else if (!!this._surveys.length) {
+        let surveys = this._surveys[0].forms;
         let nextSurvey = Utils.getNext(surveys, _ => _.form.id === (<IFormAnswer>this._assessmentObject).form.id,
           _ => _.status === AssessmentFormStatus.New);
         if (nextSurvey) {
@@ -242,6 +252,20 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
     this._answers = [];
     return this._fetch().map(list => {
       this._list = list;
+
+      if (list) {
+        this._users = list.filter((assessment: AssessmentModel) => !!assessment.user);
+        this._surveys = list.filter((assessment: AssessmentModel) => !assessment.user);
+
+        this._users.sort((x, y) => {
+          return !!x.user && !!y.user && (x.user.name < y.user.name) ? -1 : !!x.user && !!y.user && (x.user.name > y.user.name) ? 1 : 0;
+        });
+
+        this._surveys.forEach((surveys: AssessmentModel) => {
+          surveys.forms.sort((x,y) => x.form.name < y.form.name ? -1 : 1);
+        });
+      }
+
       this._filteredUsers = this._list;
 
       this._isAnswered = !list.find((item: AssessmentModel) => !item.isAnswered);
@@ -255,11 +279,7 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
   protected _fetch(): Observable<any> {
     let observable = new Observable((observer) => {
       this._fetching = this._service.list(this._queryParams).subscribe((res: IListResponse<AssessmentModel>) => {
-        let list = res.data
-          .sort((x, y) => {
-            return !!x.user && !!y.user && x.user.name < y.user.name ? -1 : 1;
-          })
-          .sort(assessment => !!assessment.user ? -1 : 1);
+        let list = res.data;
 
         list.forEach(assessment => {
           assessment.isClassic = !!assessment.user;
