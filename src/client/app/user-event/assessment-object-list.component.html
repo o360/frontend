@@ -37,16 +37,14 @@
 
   <!--Surveys-->
   <ul id="surveys" class="list-group assessment-object-list">
-    <ng-container *ngFor="let survey of surveys">
-      <li class="list-group-item custom-item assessment-survey-list-item"
-          [ngClass]="{ 'current': !!selectedItem && selectedItem === formObj }"
-          *ngFor="let formObj of survey.forms"
-          (click)="selectSurvey(formObj)">
-        <i [ngClass]="formObj.status === assessmentFormStatus.Answered ? 'answered' : 'not-answered'"
-           class="fa fa-check mr-1"></i>
-        <span class="name">{{ formObj.form.name }}</span>
-        <i *ngIf="!!selectedItem && selectedItem === formObj" class="current-arrow fa fa-angle-right"></i>
-      </li>
-    </ng-container>
+    <li class="list-group-item custom-item assessment-survey-list-item"
+        [ngClass]="{ 'current': !!selectedItem && selectedItem === survey }"
+        *ngFor="let survey of surveys"
+        (click)="selectSurvey(survey)">
+      <i [ngClass]="survey.status === assessmentFormStatus.Answered ? 'answered' : 'not-answered'"
+         class="fa fa-check mr-1"></i>
+      <span class="name">{{ survey.form.name }}</span>
+      <i *ngIf="!!selectedItem && selectedItem === survey" class="current-arrow fa fa-angle-right"></i>
+    </li>
   </ul>
 </div>

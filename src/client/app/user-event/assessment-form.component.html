@@ -58,7 +58,7 @@
 
       <!-- Checkbox -->
       <ng-template [ngSwitchCase]="FormElementType.Checkbox">
-        <div class="question form-group row mb-1"
+        <div class="question form-group mb-1"
              [ngClass]="{'has-success': checkbox.valid, 'has-danger': !checkbox.valid && checkbox.touched }">
           <div class="title">
             <button *ngIf="!element.tempComment && status === EventStatus.InProgress"
@@ -71,19 +71,21 @@
               <span class="text" [ngClass]="{ 'required': element.required }">{{ element.caption }}</span>
             </label>
           </div>
-          <label class="custom-control custom-checkbox">
-            <input name="{{ element.id }}"
-                   id="{{ element.id }}"
-                   class="custom-control-input"
-                   type="checkbox"
-                   value="true"
-                   #checkbox="ngModel"
-                   [ngModel]="element.tempValue"
-                   (ngModelChange)="element.tempValue = $event; onFormChange();"
-                   [required]="element.required" [disabled]="status !== EventStatus.InProgress"
-                   [disabled]="status !== EventStatus.InProgress || (!canRevote && isAnswered)">
-            <span class="custom-control-indicator"></span>
-          </label>
+          <div class="form-check">
+            <label class="custom-control custom-checkbox">
+              <input name="{{ element.id }}"
+                     id="{{ element.id }}"
+                     class="custom-control-input"
+                     type="checkbox"
+                     value="true"
+                     #checkbox="ngModel"
+                     [ngModel]="element.tempValue"
+                     (ngModelChange)="element.tempValue = $event; onFormChange();"
+                     [required]="element.required" [disabled]="status !== EventStatus.InProgress"
+                     [disabled]="status !== EventStatus.InProgress || (!canRevote && isAnswered)">
+              <span class="custom-control-indicator"></span>
+            </label>
+          </div>
 
           <div class="form-errors"
                *ngIf="checkbox.errors && checkbox.touched">
