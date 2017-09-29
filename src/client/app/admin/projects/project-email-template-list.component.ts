@@ -15,6 +15,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class AdminProjectEmailTemplatesListComponent extends ListComponent<ProjectModel> {
   private _model: ProjectModel;
   private _recipient: string = Recipient.auditor;
+  private _hasInProgressEvents: boolean;
 
   public get model(): ProjectModel {
     return this._model;
@@ -30,8 +31,17 @@ export class AdminProjectEmailTemplatesListComponent extends ListComponent<Proje
     this._recipient = value;
   }
 
+  @Input()
+  public set hasInProgressEvents(value: boolean) {
+    this._hasInProgressEvents = value;
+  }
+
   public get recipient(): string {
     return this._recipient;
+  }
+
+  public get hasInProgressEvents(): boolean {
+    return this._hasInProgressEvents;
   }
 
 

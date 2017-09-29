@@ -19,14 +19,15 @@ export class AdminProjectRelationListComponent extends ListComponent<RelationMod
     this._projectId = value;
   }
 
-  public get projectId() {
-    return this._projectId;
-  }
-
   @Input()
   public set hasInProgressEvents(value: boolean) {
     this._hasInProgressEvents = value;
   }
+
+  public get projectId() {
+    return this._projectId;
+  }
+
 
   public get hasInProgressEvents(): boolean {
     return this._hasInProgressEvents;

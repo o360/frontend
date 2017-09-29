@@ -1,15 +1,25 @@
 <div class="card">
   <div class="card-header"><b>{{ 'T_EMAIL_TEMPLATES_FOR_RESPONDENT' | translate }}</b></div>
   <div class="card-block">
-    <button
-      class="btn btn-primary"
-      type="button"
-      role="button"
-      [tooltip]="'T_ACTION_ADD' | translate"
-      placement="bottom"
-      (click)="modalForm.show()"
-      [disabled]="hasInProgressEvents"><i class="fa fa-plus"></i>
-    </button>
+    <div *ngIf="hasInProgressEvents"
+         class="d-inline-block"
+         [tooltip]="'T_DISABLE_RELATION_BUTTON' | translate"
+         placement="bottom">
+      <button class="btn btn-primary"
+              type="button"
+              role="button"
+              [disabled]="hasInProgressEvents">
+        <i class="fa fa-plus"></i>
+      </button>
+    </div>
+    <button *ngIf="!hasInProgressEvents"
+            class="btn btn-primary"
+            type="button"
+            role="button"
+            [tooltip]="'T_ACTION_ADD' | translate"
+            placement="bottom"
+            (click)="modalForm.show()"
+            [disabled]="hasInProgressEvents"><i class="fa fa-plus"></i></button>
 
     <table [id]="listName"
            *ngIf="model.templates"
@@ -35,7 +45,7 @@
               placement="bottom"
               bsConfirm
               *ngIf="!hasInProgressEvents"
-              (confirm)="removeTemplate(template.templateId)"><i class="fa fa-trash"></i>&nbsp;{{ 'T_ACTION_REMOVE' | translate }}
+              (confirm)="removeTemplate(template.templateId)"><i class="fa fa-remove"></i>
             </button>
           </td>
         </tr>

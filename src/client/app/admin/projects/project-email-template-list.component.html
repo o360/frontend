@@ -1,14 +1,23 @@
 <div class="card">
   <div class="card-header"><b>{{ 'T_EMAIL_TEMPLATES_FOR_AUDITOR' | translate }}</b></div>
   <div class="card-block">
-    <button
-      class="btn btn-primary"
-      type="button"
-      role="button"
-      [tooltip]="'T_ACTION_ADD' | translate"
-      placement="bottom"
-      (click)="modalForm.show()"><i class="fa fa-plus"></i>
-    </button>
+    <div *ngIf="hasInProgressEvents"
+         class="d-inline-block"
+         [tooltip]="'T_DISABLE_PROJECT_BUTTON' | translate"
+         placement="bottom">
+      <button class="btn btn-primary"
+              type="button"
+              role="button"
+              [disabled]="hasInProgressEvents"><i class="fa fa-plus"></i></button>
+    </div>
+    <button *ngIf="!hasInProgressEvents"
+            class="btn btn-primary"
+            type="button"
+            role="button"
+            [tooltip]="'T_ACTION_ADD' | translate"
+            placement="bottom"
+            (click)="modalForm.show()"><i class="fa fa-plus"></i></button>
+
 
     <table [id]="listName" *ngIf="model.templates" class="table table-striped mt-1">
       <thead>
