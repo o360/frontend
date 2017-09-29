@@ -60,7 +60,7 @@ export class AdminProjectRelationFormComponent extends FormComponent<RelationMod
   }
 
   public save() {
-    this._returnPath = ['/admin/projects/', this._projectId.toString(), '/relations'];
+    this._returnPath = [`/admin/projects/${this._projectId}/relations`];
     super.save();
   }
 

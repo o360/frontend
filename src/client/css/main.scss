@@ -338,3 +338,12 @@ header.navbar .navbar-brand {
 .assessment-wrapper .col-md-4 {
   min-height: 66vh;
 }
+
+.disabled-action .tooltip {
+  max-width: 153px;
+  width: 250px;
+}
+
+.disabled-action .tooltip-inner {
+  left: 129px;
+}

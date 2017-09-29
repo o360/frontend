@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { DetailsComponent } from '../../shared/components/details.component';
 import { RelationModel } from '../../core/models/relation-model';
 import { AdminRelationService } from '../../core/services/admin-relation.service';
@@ -21,12 +21,15 @@ export class AdminProjectRelationDetailsComponent extends DetailsComponent<Relat
               notificationService: NotificationService,
               protected _projectService: AdminProjectService) {
     super(service, route, router, breadcrumbService, notificationService);
+  }
 
-    this._returnPath = `/admin/projects`;
-
-    if (this._model) {
-      this._returnPath = `/admin/projects/${this._model.projectId}`;
-    }
+  public ngOnInit() {
+    let projectId;
+    this._route.params.subscribe((params: Params) => {
+      projectId = params['projectId'];
+      this._returnPath = `/admin/projects/${projectId}`;
+    });
+    super.ngOnInit();
   }
 
   protected _fillBreadcrumbs(model: RelationModel) {
