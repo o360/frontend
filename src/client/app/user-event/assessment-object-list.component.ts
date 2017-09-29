@@ -159,18 +159,19 @@ export class AssessmentObjectListComponent implements OnInit, OnDestroy {
   }
 
   private _recalculateLayout(index: number) {
+    let container = document.getElementById('assessment-object-list');
     let sidebars = document.getElementsByClassName('sidebar-container');
     let sidebar = sidebars.item(index);
 
     if (sidebar) {
-      let prettyOffsetTop = sidebar.scrollTop + 100;
+      let prettyOffsetTop = container.offsetTop;
       let scrollTop = (window.pageYOffset !== undefined) ?
         window.pageYOffset :
         (<Element>document.documentElement || <Element>document.body.parentNode || <Element>document.body).scrollTop;
       if (scrollTop > prettyOffsetTop) {
-        sidebar.className = 'sidebar-container sticky';
+        sidebar.classList.add('sticky');
       } else {
-        sidebar.className = 'sidebar-container';
+        sidebar.classList.remove('sticky');
       }
     }
   }
