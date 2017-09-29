@@ -173,9 +173,10 @@ export class RestService<T extends Model> {
     let paramsString = '';
 
     if (params) {
-      let param = Object.entries(params).map(([key, value]) => key + '=' + value);
+      let param = Object.entries(params).map(([key, value]) => key + '=' + encodeURIComponent(value.toString()));
       paramsString = '?' + param.join('&');
     }
+
     return path.join('/') + paramsString;
   }
 
