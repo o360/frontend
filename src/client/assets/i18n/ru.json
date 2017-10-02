@@ -183,7 +183,7 @@
   "T_SUCCESS_TITLE_DEFAULT": "Ура!",
   "T_SUCCESS_MESSAGE_DEFAULT": "Вы сделали это",
   "T_SUCCESS_DELETED": "Удалено!",
-  "T_SUCCESS_DELETED_USER_FROM_GROUPS": "Пользователь успешно удален из всех групп",
+  "T_SUCCESS_DELETED_USER_FROM_GROUPS": "Пользователь успешно удален",
   "T_SUCCESS_SAVED": "Сохранено!",
   "T_SUCCESS_NEW_USER_SAVED": "Пожалуйста, дождитесь подтверждения Вашего аккаунта от администратора",
   "T_SUCCESS_NEW_USER_BY_INVITE": "Ваш аккаунт успешно активирован",
@@ -333,5 +333,7 @@
   "T_INVITE_REQUEST_STATUS": "Статус запроса",
   "T_INVITE_STATUS": "Статус приглашения",
   "T_INVITE_UNACTIVATE": "Неактивировано",
-  "T_INVITE_ACTIVATE": "Активировано"
+  "T_INVITE_ACTIVATE": "Активировано",
+  "T_DISABLE_PROJECT_BUTTON": "Проект находится в активном событии",
+  "T_DISABLE_RELATION_BUTTON": "Отношение находится в активном событии"
 }

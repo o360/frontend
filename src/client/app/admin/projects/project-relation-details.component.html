@@ -18,7 +18,27 @@
           <div class="h6"><a [routerLink]="['/admin/forms', model.form.id]">{{ model.form.name }}</a></div>
         </div>
 
-        <div class="col-md-3 text-right"
+        <div *ngIf="model.hasInProgressEvents"
+             class="col-md-3 text-right"
+             [ngClass]="{'col-md-3': !!model.groupTo,
+                         'col-md-6': !model.groupTo}">
+          <div class="d-inline-block"
+               [tooltip]="'T_DISABLE_RELATION_BUTTON' | translate"
+               placement="bottom">
+            <button type="button"
+                    role="button"
+                    class="btn btn-md btn-primary"
+                    [disabled]="model.hasInProgressEvents"><i class="fa fa-pencil"></i></button>
+            <button type="button"
+                    role="button"
+                    class="btn btn-md btn-danger"
+                    bsConfirm
+                    [disabled]="model.hasInProgressEvents"><i class="fa fa-trash"></i></button>
+          </div>
+        </div>
+
+        <div *ngIf="!model.hasInProgressEvents"
+             class="col-md-3 text-right"
              [ngClass]="{'col-md-3': !!model.groupTo,
                          'col-md-6': !model.groupTo}">
           <button type="button"
@@ -26,20 +46,14 @@
                   [tooltip]="'T_ACTION_EDIT' | translate"
                   placement="bottom"
                   class="btn btn-md btn-primary"
-                  [disabled]="model.hasInProgressEvents"
-                  [routerLink]="['/admin/projects/', model.projectId, 'relations', model.id, 'edit']">
-            <i class="fa fa-pencil"></i>
-          </button>
+                  [routerLink]="['/admin/projects/', model.projectId, 'relations', model.id, 'edit']"><i class="fa fa-pencil"></i></button>
           <button type="button"
                   role="button"
                   class="btn btn-md btn-danger"
                   [tooltip]="'T_ACTION_DELETE' | translate"
                   placement="bottom"
                   bsConfirm
-                  (confirm)="delete(model.id)"
-                  *ngIf="!model.hasInProgressEvents">
-            <i class="fa fa-trash"></i>
-          </button>
+                  (confirm)="delete(model.id)"><i class="fa fa-trash"></i></button>
         </div>
       </div>
 

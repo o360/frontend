@@ -1,18 +1,26 @@
 <div class="card">
   <div class="card-header"><b>{{ 'T_PROJECT_RELATIONS' | translate }}</b></div>
   <div class="card-block" *ngIf="isLoaded">
-    <div class="d-inline-block"
-         [tooltip]="'T_ACTION_ADD' | translate"
+    <div *ngIf="hasInProgressEvents"
+         class="d-inline-block"
+         [tooltip]="'T_DISABLE_RELATION_BUTTON' | translate"
          placement="bottom">
       <button class="btn btn-primary"
               type="button"
               role="button"
-              placement="right"
-              [routerLink]="['/admin/projects/', projectId, 'relations', 'create']"
               [disabled]="hasInProgressEvents">
         <i class="fa fa-plus"></i>
       </button>
     </div>
+    <button *ngIf="!hasInProgressEvents"
+            class="btn btn-primary"
+            type="button"
+            role="button"
+            [tooltip]="'T_ACTION_ADD' | translate"
+            placement="bottom"
+            [routerLink]="['/admin/projects/', projectId, 'relations', 'create']">
+      <i class="fa fa-plus"></i>
+    </button>
 
     <table [id]="listName" class="table table-striped mt-1">
       <thead>

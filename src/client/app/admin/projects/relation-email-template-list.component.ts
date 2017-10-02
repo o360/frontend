@@ -16,17 +16,9 @@ export class AdminRelationEmailTemplatesListComponent {
   private _recipient: string = Recipient.respondent;
   private _hasInProgressEvents: boolean;
 
-  public get model(): RelationModel {
-    return this._model;
-  }
-
   @Input()
   public set hasInProgressEvents(value: boolean) {
     this._hasInProgressEvents = value;
-  }
-
-  public get hasInProgressEvents(): boolean {
-    return this._hasInProgressEvents;
   }
 
   @Input()
@@ -37,6 +29,14 @@ export class AdminRelationEmailTemplatesListComponent {
   @Input()
   public set recipient(value: string) {
     this._recipient = value;
+  }
+
+  public get hasInProgressEvents(): boolean {
+    return this._hasInProgressEvents;
+  }
+
+  public get model(): RelationModel {
+    return this._model;
   }
 
   public get recipient(): string {
