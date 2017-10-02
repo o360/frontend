@@ -31,8 +31,9 @@ export class ConfirmationDirective {
   @HostListener('click', ['$event'])
   public clickHandler() {
     this._confirmationService.setViewContainerRef(this._viewContainerRef);
+    this._confirmationService.loadTemplate(this._contentTemplate);
 
-    this._confirmationService.loadComponent(this._message, null, this._contentTemplate).subscribe(value => {
+    this._confirmationService.loadComponent(this._message, null).subscribe(value => {
       if (value) {
         this._confirm.emit();
       }
