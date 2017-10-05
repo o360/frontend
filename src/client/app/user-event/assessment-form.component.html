@@ -353,7 +353,7 @@
       <div class="form-submit-buttons"
            *ngIf="(status === EventStatus.InProgress && !inline) && (!(!canRevote && isAnswered) || canRevote)">
         <button type="button"
-                (click)="assessmentForm.reset()"
+                (click)="assessmentForm.reset(); clearComment()"
                 class="btn btn-default mr-1 mt-0"
                 [disabled]="assessmentForm.pristine">
           {{ 'T_ACTION_CLEAR' | translate }}
