@@ -247,6 +247,10 @@ export class AssessmentFormComponent implements OnInit, OnChanges {
     });
   }
 
+  public clearComment() {
+    this._form.elements.map(element => element.tempComment = undefined);
+  }
+
   protected _finish() {
     this._notificationService.success('T_SUCCESS_ASSESSMENT_FINISH');
   }
