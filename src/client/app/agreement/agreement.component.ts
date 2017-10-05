@@ -34,9 +34,9 @@ export class AgreementComponent {
   }
 
   public approve() {
-    this._auth.user.termsApproved = this._approved;
     this._accountService.save(this._auth.user).subscribe(() => {
       this._router.navigate(['']);
+      this._auth.user.termsApproved = this._approved;
       if (this._auth.user.status === UserStatus.New) {
         this._notificationService.success('T_SUCCESS_NEW_USER_SAVED');
       } else {
