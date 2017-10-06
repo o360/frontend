@@ -200,7 +200,7 @@
   "T_ERROR_CONFLICT_ASSESSMENT_2": "Revoting is forbidden",
   "T_ERROR_GENERAL_2": "Unexpected server error",
   "T_ERROR_CONFLICT_INVITE_1": "A user with this email already exists",
-  "T_ERROR_CONFLICT_INVITE_2": "User already approved",
+  "T_ERROR_CONFLICT_INVITE_2": "User was already approved",
   "T_ERROR_CONFLICT_INVITE_3":  "This invitation link was already used",
   "T_WARNING": "Warning!",
   "T_WARNING_ASSESSMENT_CANT_REVOTE": "You can not revote in this project. Please, check your answers.",
