@@ -2,7 +2,7 @@
   <h2 class="mb-2"> {{ 'T_TERMS_AND_CONDITIONS' | translate }} </h2>
   <bs-agreement-view></bs-agreement-view>
 
-  <div class="agreement-actions" [ngSwitch]="user.termsApproved">
+  <div class="agreement-actions" [ngSwitch]="approveState">
     <ng-template ngSwitchDefault>
       <label class="custom-control custom-checkbox">
         <input type="checkbox" class="custom-control-input" required
