@@ -332,7 +332,7 @@
     </ng-container>
 
     <ng-container *ngIf="!inline">
-      <div *ngIf="canBeAnonymous">
+      <div *ngIf="canBeAnonymous" class="mt-1">
         <label for="isAnonymous">
           {{ 'T_ACTION_VOTE_ANONYMOUS' | translate }}
         </label>
@@ -342,7 +342,7 @@
                  type="checkbox"
                  class="switch-input"
                  checked="true"
-                 [disabled]="status !== EventStatus.InProgress && (!(!canRevote && isAnswered) || canRevote)"
+                 [disabled]="status !== EventStatus.InProgress || ((!canRevote && isAnswered))"
                  #anonymous="ngModel"
                  [ngModel]="isAnonymous"
                  (ngModelChange)="isAnonymous = $event; onFormChange();">
