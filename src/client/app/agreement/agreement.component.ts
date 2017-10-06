@@ -14,6 +14,7 @@ import { UserStatus } from '../core/models/user-model';
 })
 export class AgreementComponent {
   protected _approved: boolean = false;
+  protected _approveState: boolean;
 
   public get approved(): boolean {
     return this._approved;
@@ -27,10 +28,15 @@ export class AgreementComponent {
     return this._auth.user;
   }
 
+  public get approveState(): boolean {
+    return this._approveState;
+  }
+
   constructor(protected _auth: AuthService,
               protected _accountService: AccountService,
               protected _router: Router,
               protected _notificationService: NotificationService) {
+    this._approveState =  this._auth.user.termsApproved;
   }
 
   public approve() {
