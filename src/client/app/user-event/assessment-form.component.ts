@@ -38,13 +38,13 @@ export class AssessmentFormComponent implements OnInit, OnChanges {
   protected _assessment: AssessmentModel;
   protected _cleared: number;
   protected _isLast: boolean;
+  protected _inlineAnonymous: boolean;
   protected _assessmentForm: any;
-  // @Output() isValideForm = new EventEmitter<boolean>();
-  //
-  // @ViewChild('assessmentForm')
-  // public set assessmentForm(value: any) {
-  //   this._assessmentForm = value;
-  // }
+
+  @ViewChild('assessmentForm')
+  public set assessmentForm(value: any) {
+    this._assessmentForm = value;
+  }
 
   public get id(): ModelId {
     return this._id;
@@ -103,6 +103,15 @@ export class AssessmentFormComponent implements OnInit, OnChanges {
   @Input()
   public set cleared(value: number) {
     this._cleared = value;
+  }
+
+  public get inlineAnonymous(): boolean {
+    return this._inlineAnonymous;
+  }
+
+  @Input()
+  public set inlineAnonymous(value: boolean) {
+    this._inlineAnonymous = value;
   }
 
   @Input()
@@ -180,13 +189,19 @@ export class AssessmentFormComponent implements OnInit, OnChanges {
     if (changes['cleared']) {
       this._clearInlineForm();
     }
+    if (changes['inlineAnonymous']) {
+      if (this._isAnonymous !== this._inlineAnonymous) {
+        this._isAnonymous = this._inlineAnonymous;
+        this.onFormChange();
+      }
+    }
   }
 
   public onCommentAdded(value: IComment) {
     this.onFormChange(value);
   }
 
-  public onFormChange(value?: IComment) {
+  public onFormChange(value?: IComment,) {
     let answers = this._form.elements.map((element: FormElement) => {
       let elementAnswer: IElementAnswer = { elementId: element.id };
       if (!RequireValue(element.kind) && element.tempValue) {
@@ -232,12 +247,19 @@ export class AssessmentFormComponent implements OnInit, OnChanges {
         isSkipped: false,
         status: AssessmentFormStatus.Answered //@TODO with skipping
       },
-      isAnswered: true
+      isAnswered: true,
+      isValid: this._assessmentForm.valid
     });
+
+    if (this._assessmentForm.valid) {
+      this._assessment.isValid = true;
+    }
 
     if (this._user && this._assessment) {
       this._assessment.userId = this._user.id;
     }
+
+
     this._formChange.emit(this._assessment);
   }
 
