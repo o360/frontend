@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { AssessmentFormStatus, AssessmentModel, IElementAnswer } from '../core/models/assessment-model';
 import { FormElement, FormElementType, FormModel } from '../core/models/form-model';
 import { ModelId } from '../core/models/model';
@@ -38,6 +38,13 @@ export class AssessmentFormComponent implements OnInit, OnChanges {
   protected _assessment: AssessmentModel;
   protected _cleared: number;
   protected _isLast: boolean;
+  protected _assessmentForm: any;
+  // @Output() isValideForm = new EventEmitter<boolean>();
+  //
+  // @ViewChild('assessmentForm')
+  // public set assessmentForm(value: any) {
+  //   this._assessmentForm = value;
+  // }
 
   public get id(): ModelId {
     return this._id;

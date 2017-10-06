@@ -38,6 +38,7 @@
                                        [cleared]="cleared"
                                        [formStatus]="formObj.status"
                                        [canRevote]="project.canRevote"
+                                       [canBeAnonymous]="project.isAnonymous"
                                        [queryParams]="queryParams"
                                        (formChange)="formChanged($event);"></bs-user-assessment-form>
             </div>
