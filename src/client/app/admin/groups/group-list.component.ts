@@ -5,7 +5,7 @@ import { AdminGroupService } from '../../core/services/admin-group.service';
 import { ListComponent } from '../../shared/components/list.component';
 import { NotificationService } from '../../core/services/notification.service';
 import { Filter, FilterType } from '../../core/models/filter';
-import { IListResponse } from '../../core/services/rest.service';
+import { IListResponse, IQueryParams } from '../../core/services/rest.service';
 import { Observable } from 'rxjs/Observable';
 
 @Component({
@@ -87,6 +87,21 @@ export class AdminGroupListComponent extends ListComponent<GroupModel> implement
         this._searchForParents(this._list);
       }
     });
+  }
+
+  public filterChange(value: IQueryParams) {
+    let queryParams = Object.assign({}, value);
+
+    queryParams.size = this._queryParams.size;
+    queryParams.number = this._queryParams.number;
+    if (Object.keys(value).length === 0) {
+      queryParams['parentId'] = this._parentId;
+      this._innerGroupState = false;
+    }
+    queryParams.sort = value.sort ? value.sort : this._queryParams.sort;
+    this._queryParams = queryParams;
+
+    this._update();
   }
 
   protected _searchForParents(list: GroupModel[]) {

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { ListComponent } from '../../shared/components/list.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NotificationService } from '../../core/services/notification.service';
@@ -11,7 +11,7 @@ import { AdminProjectService } from '../../core/services/admin-project.service';
   selector: 'bs-group-project-list',
   templateUrl: 'group-project-list.component.html'
 })
-export class AdminGroupProjectListComponent extends ListComponent<ProjectModel> implements OnInit {
+export class AdminGroupProjectListComponent extends ListComponent<ProjectModel> implements OnInit, OnChanges {
   protected _groupId: ModelId;
 
   @Input()
@@ -31,5 +31,12 @@ export class AdminGroupProjectListComponent extends ListComponent<ProjectModel> 
   public ngOnInit() {
     this._queryParams.groupId = this._groupId.toString();
     super.ngOnInit();
+  }
+
+  public ngOnChanges(changes: SimpleChanges) {
+    if (changes['groupId']) {
+      this._queryParams.groupId = this._groupId.toString();
+      this._update();
+    }
   }
 }
