@@ -20,19 +20,23 @@
   min-height: 65px;
 }
 
-:host .user-filter-label {
-  padding: 5px;
-  color: #b0bec5;
-  border: 1px solid transparent;
-}
+:host .users-filter-buttons {
+  font-size: 1vw;
 
-:host .user-filter-label:hover {
-  border: 1px solid #b0bec5;
-}
+  .user-filter-label {
+    padding: 5px;
+    color: #b0bec5;
+    border: 1px solid transparent;
 
-:host .user-filter-label.active {
-  background-color: #b0bec5;
-  color: #fff;
+    &:hover {
+      border: 1px solid #b0bec5;
+    }
+
+    &.active {
+      background-color: #b0bec5;
+      color: #fff;
+    }
+  }
 }
 
 .assessment-object-list {
@@ -91,13 +95,25 @@
   display: none;
 }
 
-@media (min-width: 772px) {
+@media (min-width: 768px) {
   :host {
     position: fixed;
   }
 
   .sidebar-container {
     width: 80%;
+  }
+}
+
+@media (min-width: 1200px) {
+  :host .users-filter-buttons {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  :host .users-filter-buttons {
+    font-size: 12px;
   }
 }
 
