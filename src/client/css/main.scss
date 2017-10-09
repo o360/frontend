@@ -29,6 +29,10 @@ header.navbar .navbar-brand {
   font-weight: normal;
 }
 
+.app-body {
+  overflow: hidden;
+}
+
 .sidebar {
   .nav {
     width: 220px;
@@ -165,13 +169,11 @@ header.navbar .navbar-brand {
 }
 
 .inline .inline-form {
-  padding: 0.75rem 1.5rem;
   border: 1px solid rgba(0, 0, 0, 0.125);
 }
 
-.inline .inline-like-dislikes {
-  padding: 0.28125rem 1.5rem;
-  border: 1px solid rgba(0, 0, 0, 0.125);
+.form-inline {
+  padding: 0.75rem 1.5rem;
 }
 
 .inline-anonymous {
@@ -323,6 +325,8 @@ header.navbar .navbar-brand {
 }
 
 .nav-tabs {
+  border-bottom: none;
+
   .nav-link:hover,
   .nav-link.active {
     border: none;
@@ -336,11 +340,47 @@ header.navbar .navbar-brand {
   .nav-item.active {
     border: 1px solid #cfd8dc;
     border-bottom-color: #fff;
+    z-index: 1;
   }
 }
 
 .assessment-wrapper .col-md-4 {
   min-height: 66vh;
+}
+
+@media(min-width: 772px) {
+  .sidebar-hidden .sidebar-container {
+    width: 80% !important;
+  }
+
+  #projectTabset > .tab-content {
+    width: calc(100vw - 285px);
+    height: calc(100vh - 240px);
+    overflow: hidden;
+
+    tab.inline {
+      max-height: calc(100vh - 240px);
+      overflow-y: auto;
+    }
+
+    .assessment-wrapper .tab-content tab {
+      max-height: calc(100vh - 385px);
+      overflow: auto;
+    }
+  }
+  .sidebar-hidden #projectTabset > .tab-content {
+    width: calc(100vw - 55px);
+  }
+
+  @media(max-width: 991px) {
+    #projectTabset > .tab-content {
+      width: calc(100vw - 55px);
+    }
+
+    .sidebar-mobile-show #projectTabset > .tab-content {
+      min-width: calc(100vw - 285px);
+    }
+  }
 }
 
 .disabled-action .tooltip {

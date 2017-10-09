@@ -14,6 +14,7 @@ import { EventService } from '../core/services/event.service';
 import { UserPictureService } from '../core/services/user-picture.service';
 import { Observable } from 'rxjs/Observable';
 import { Utils } from '../utils';
+import { AuthService } from '../core/services/auth.service';
 
 @Component({
   moduleId: module.id,
@@ -118,12 +119,17 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
     return this._inlineAnonymous;
   }
 
+  public get currentUserId(): ModelId {
+    return this._authService.user.id;
+  }
+
   constructor(service: AssessmentService,
               activatedRoute: ActivatedRoute,
               router: Router,
               notificationService: NotificationService,
               protected _eventService: EventService,
-              protected _userPictureService: UserPictureService) {
+              protected _userPictureService: UserPictureService,
+              protected _authService: AuthService) {
     super(service, activatedRoute, router, notificationService);
   }
 
@@ -191,7 +197,7 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
 
           if (nextUser) {
             this.displayItem(nextUser);
-          } else if (!!this._surveys.length) {
+          } else if (this.surveys && !!this._surveys.length) {
             let nextSurvey = Utils.getNext(this._surveys, undefined, _ => _.status === AssessmentFormStatus.New);
 
             if (nextSurvey) {
@@ -203,7 +209,7 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
             this._showNextProject.emit(this._list);
           }
         }
-      } else if (!!this._surveys.length) {
+      } else if (this.surveys && !!this._surveys.length) {
         let nextSurvey = Utils.getNext(this._surveys, _ => _.form.id === (<IFormAnswer>this._assessmentObject).form.id,
           _ => _.status === AssessmentFormStatus.New);
         if (nextSurvey) {

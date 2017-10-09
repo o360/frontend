@@ -1,4 +1,6 @@
-<div class="form-inline input-group" *ngIf="!!value">
+<div class="form-inline input-group"
+     [ngClass]="{ 'answered': !!value.valuesIds.length }"
+     *ngIf="!!value">
   <div class="like-dislike"
        *ngFor="let item of element.values; let j = index;">
     <button id="{{ element.id }}-{{ id }}"

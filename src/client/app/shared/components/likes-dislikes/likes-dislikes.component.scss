@@ -9,6 +9,16 @@
   font-style: normal;
 }
 
+:host .form-inline {
+  padding: 0.75rem 1.5rem;
+  line-height: 0.95;
+}
+
+:host .form-inline.answered {
+  padding: 0.28125rem 1.5rem;
+  line-height: 1.5;
+}
+
 .like-dislike button {
   margin: 0;
   padding: 0;
