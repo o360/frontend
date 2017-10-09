@@ -348,7 +348,13 @@ header.navbar .navbar-brand {
   min-height: 66vh;
 }
 
-@media(min-width: 772px) {
+@media (min-width: 991px) {
+  .sidebar-container {
+    width: 65% !important;
+  }
+}
+
+@media (min-width: 768px) {
   .sidebar-hidden .sidebar-container {
     width: 80% !important;
   }
