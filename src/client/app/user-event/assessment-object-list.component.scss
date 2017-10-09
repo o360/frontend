@@ -1,26 +1,19 @@
 :host .sidebar-container {
-  max-height: 73vh;
-  overflow: hidden;
-  transition-duration: 0.5s;
-  transition-property: margin-top;
-
   #users {
     overflow-y: auto;
+    min-height: 65px;
     max-height: 50vh;
   }
 
   #users.with-surveys {
-    max-height: calc(50vh - 5rem);
+    max-height: calc(40vh - 8rem);
   }
 
   #surveys {
     overflow-y: auto;
+    min-height: 65px;
     max-height: 5rem;
   }
-}
-
-:host .sidebar-container.sticky {
-  max-height: 80vh;
 }
 
 :host .list-group-item {
@@ -103,15 +96,24 @@
     position: fixed;
   }
 
-  :host .sidebar-container.sticky {
-    margin-top: -106px;
-  }
-
-  :host.with-warning .sticky {
-    margin-top: -166px;
-  }
-
-  :host .sidebar-container {
+  .sidebar-container {
     width: 80%;
   }
 }
+
+@media (max-height: 1200px) {
+  .sidebar-container {
+    max-height: 70vh !important;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+}
+
+@media (max-height: 700px) {
+  .sidebar-container {
+    max-height: 40vh !important;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+}
+
