@@ -51,7 +51,8 @@ export class AdminUserConfirmationComponent extends ListComponent<GroupModel> im
     this._groupService.removeUserFromAllGroup(requestData).subscribe(() => {
       this._userService.delete(this._userId).subscribe(() => {
         this._notificationService.success('T_SUCCESS_DELETED_USER_FROM_GROUPS');
-        this._router.navigate(['/admin/users']);
+        this._router.navigate(['/users'], {skipLocationChange: true}).then(()=>
+          this._router.navigate(['/admin/users']));
       });
     });
   }
