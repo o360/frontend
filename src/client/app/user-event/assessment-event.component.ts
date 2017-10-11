@@ -37,7 +37,6 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
   protected _users: AssessmentModel[];
   protected _surveys: IFormAnswer[];
   protected _inlineAnonymous: boolean = false;
-  protected _inlineValidation: boolean = true;
 
   @Input()
   public set project(value: ProjectModel) {
@@ -117,14 +116,6 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
 
   public get inlineAnonymous(): boolean {
     return this._inlineAnonymous;
-  }
-
-  public get inlineValidation(): boolean {
-    return this._inlineValidation;
-  }
-
-  public set inlineValidation(value: boolean) {
-    this._inlineValidation = value;
   }
 
   constructor(service: AssessmentService,
@@ -235,7 +226,6 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
     if (sameAnswer) {
       let index = this._answers.indexOf(sameAnswer);
       this._answers[index].form.answers = value.form.answers;
-      this._answers[index].isValid = value.isValid;
     } else {
       this._answers.push(value);
     }
@@ -254,7 +244,6 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
     });
     this._answers = validAnswer;
 
-    this._inlineValidation = validAnswer.every(item => item.isValid === true);
     this._isClear = !value.isAnswered;
   }
 
