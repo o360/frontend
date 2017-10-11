@@ -35,6 +35,7 @@ export class ProjectModel extends Model {
   public canRevote: boolean;
   public formsOnSamePage: boolean;
   public hasInProgressEvents: boolean;
+  public isAnonymous: boolean;
   @NotSerializable() public active?: boolean;
   @NotSerializable() public isLast?: boolean;
 

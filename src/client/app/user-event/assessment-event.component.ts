@@ -36,6 +36,7 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
   protected _filteredUsers: AssessmentModel[];
   protected _users: AssessmentModel[];
   protected _surveys: IFormAnswer[];
+  protected _inlineAnonymous: boolean = false;
 
   @Input()
   public set project(value: ProjectModel) {
@@ -113,6 +114,10 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
     return this._surveys;
   }
 
+  public get inlineAnonymous(): boolean {
+    return this._inlineAnonymous;
+  }
+
   constructor(service: AssessmentService,
               activatedRoute: ActivatedRoute,
               router: Router,
@@ -123,6 +128,7 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
   }
 
   public ngOnInit() {
+    this._inlineAnonymous = this._project.isAnonymous;
     this._queryParams.projectId = this._project.id.toString();
 
     this._eventService.get(this._eventId).subscribe(event => this._status = event.status);
@@ -217,13 +223,26 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
     if (value) {
       sameAnswer = this._answers.find(x => ((!x.userId || x.userId === value.userId) && x.form.formId === value.form.formId));
     }
-
     if (sameAnswer) {
       let index = this._answers.indexOf(sameAnswer);
       this._answers[index].form.answers = value.form.answers;
     } else {
       this._answers.push(value);
     }
+
+    this._answers.map(item => {
+      if (item.form.answers[0].valuesIds.length !== 0) {
+        item.form.isAnonymous = this._inlineAnonymous;
+      }
+    });
+
+    let validAnswer: AssessmentModel[] = [];
+    this._answers.map(item => {
+      if (item.form.answers[0].valuesIds.length !== 0) {
+        validAnswer.push(item);
+      }
+    });
+    this._answers = validAnswer;
 
     this._isClear = !value.isAnswered;
   }
@@ -252,6 +271,10 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
     } else {
       this._answers = [];
     }
+  }
+
+  public onChangeAnonymous() {
+    this._inlineAnonymous = !this._inlineAnonymous;
   }
 
   protected _update(): Observable<any> {
