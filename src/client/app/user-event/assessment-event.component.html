@@ -75,7 +75,7 @@
       <button type="submit"
               role="button"
               class="btn btn-primary mt-0"
-              [disabled]="!answers.length || (!project.canRevote && isAnswered) || (inline && !inlineValidation)"
+              [disabled]="!answers.length || (!project.canRevote && isAnswered)"
               (click)="save();">
         {{ 'T_ACTION_SAVE' | translate }}
       </button>

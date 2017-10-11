@@ -9,7 +9,6 @@ export class AssessmentModel extends Model {
   public forms?: IFormAnswer[];
   public isClassic?: boolean;
   @NotSerializable() public isAnswered?: boolean;
-  @NotSerializable() public isValid?: boolean;
 }
 
 export interface IFormAnswer {

@@ -39,12 +39,6 @@ export class AssessmentFormComponent implements OnInit, OnChanges {
   protected _cleared: number;
   protected _isLast: boolean;
   protected _inlineAnonymous: boolean;
-  protected _assessmentForm: any;
-
-  @ViewChild('assessmentForm')
-  public set assessmentForm(value: any) {
-    this._assessmentForm = value;
-  }
 
   public get id(): ModelId {
     return this._id;
@@ -248,12 +242,7 @@ export class AssessmentFormComponent implements OnInit, OnChanges {
         status: AssessmentFormStatus.Answered //@TODO with skipping
       },
       isAnswered: true,
-      isValid: this._assessmentForm.valid
     });
-
-    if (this._assessmentForm.valid) {
-      this._assessment.isValid = true;
-    }
 
     if (this._user && this._assessment) {
       this._assessment.userId = this._user.id;
