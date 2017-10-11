@@ -38,6 +38,8 @@
                                        [cleared]="cleared"
                                        [formStatus]="formObj.status"
                                        [canRevote]="project.canRevote"
+                                       [inlineAnonymous]="inlineAnonymous"
+                                       [canBeAnonymous]="project.isAnonymous"
                                        [queryParams]="queryParams"
                                        (formChange)="formChanged($event);"></bs-user-assessment-form>
             </div>
@@ -45,6 +47,24 @@
         </div>
       </li>
     </ul>
+    <div *ngIf="project.isAnonymous" class="mt-1 inline-anonymous">
+      <label for="isAnonymous">
+        {{ 'T_ACTION_VOTE_ANONYMOUS' | translate }}
+      </label>
+      <label class="switch switch-default switch-primary ml-h">
+        <input id="isAnonymous"
+               name="isAnonymous"
+               type="checkbox"
+               class="switch-input"
+               checked="true"
+               [disabled]="status !== EventStatus.InProgress || !project.canRevote"
+               #anonymous="ngModel"
+               [ngModel]="inlineAnonymous"
+               (ngModelChange)="onChangeAnonymous()">
+        <span class="switch-label"></span>
+        <span class="switch-handle"></span>
+      </label>
+    </div>
     <div class="text-right mt-1" *ngIf="status === EventStatus.InProgress">
       <button type="button"
               class="btn btn-default mt-0"
