@@ -20,6 +20,7 @@
             <div class="inline-user">
               <img [src]="!!item.user.picture ? item.user.picture : '../../assets/images/noUserImage.png'" [alt]=""/>
               {{ item.user.name }}
+              <small class="text-muted" *ngIf="item.user.id === currentUserId">({{ 'T_USERS_IS_YOU' | translate }})</small>
             </div>
           </ng-template>
           <ng-template ngSwitchDefault>
@@ -28,8 +29,7 @@
         </div>
         <div class="col-sm-8">
           <div *ngFor="let formObj of item.forms">
-            <div [ngClass]="{ 'inline-form': item.forms.length > 1,
-                              'inline-like-dislikes': item.forms.length === 1 }">
+            <div class="inline-form">
               <bs-user-assessment-form inline
                                        #formComponent
                                        [user]="!!item.user ? item.user : null"
