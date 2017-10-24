@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, NgZone, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { AssessmentFormStatus, AssessmentModel, IFormAnswer } from '../core/models/assessment-model';
 import { UserModel } from '../core/models/user-model';
 import { AuthService } from '../core/services/auth.service';
@@ -18,7 +18,7 @@ export class UserAssessmentFilters {
   templateUrl: 'assessment-object-list.component.html',
   styleUrls: ['assessment-object-list.component.css'],
 })
-export class AssessmentObjectListComponent implements OnInit, OnDestroy {
+export class AssessmentObjectListComponent {
   private static _idSeq = 0;
   private _index: number = AssessmentObjectListComponent.next();
   private _usersFilterType: string = UserAssessmentFilters.All;
@@ -102,18 +102,7 @@ export class AssessmentObjectListComponent implements OnInit, OnDestroy {
     return this._authService.user.id;
   }
 
-  constructor(private _ngZone: NgZone,
-              private _authService: AuthService) {
-  }
-
-  public ngOnInit() {
-    this._ngZone.runOutsideAngular(() => {
-      $(window).bind('resize scroll', () => this._recalculateLayout(this._index));
-    });
-  }
-
-  public ngOnDestroy() {
-    $(window).unbind('resize scroll', () => this._recalculateLayout(this._index));
+  constructor(private _authService: AuthService) {
   }
 
   public selectUser(user: AssessmentModel) {
@@ -158,23 +147,6 @@ export class AssessmentObjectListComponent implements OnInit, OnDestroy {
 
     if (this._users) {
       this._filteredUsers = this._users.filter(condition);
-    }
-  }
-
-  private _recalculateLayout(index: number) {
-    let sidebar = document.getElementById(`sidebar-container-${index}`);
-    let prettyOffsetTop = 106;
-
-    let scrollTop = (window.pageYOffset !== undefined) ?
-      window.pageYOffset :
-      (<Element>document.documentElement || <Element>document.body.parentNode || <Element>document.body).scrollTop;
-
-    if (sidebar) {
-      if (scrollTop > prettyOffsetTop) {
-        sidebar.className = 'sidebar-container sticky';
-      } else {
-        sidebar.className = 'sidebar-container';
-      }
     }
   }
 }

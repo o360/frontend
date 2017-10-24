@@ -1,45 +1,42 @@
 :host .sidebar-container {
-  max-height: 73vh;
-  overflow: hidden;
-  transition-duration: 0.5s;
-  transition-property: margin-top;
-
   #users {
     overflow-y: auto;
+    min-height: 65px;
     max-height: 50vh;
   }
 
   #users.with-surveys {
-    max-height: calc(50vh - 5rem);
+    max-height: calc(40vh - 8rem);
   }
 
   #surveys {
     overflow-y: auto;
+    min-height: 65px;
     max-height: 5rem;
   }
-}
-
-:host .sidebar-container.sticky {
-  max-height: 80vh;
 }
 
 :host .list-group-item {
   min-height: 65px;
 }
 
-:host .user-filter-label {
-  padding: 5px;
-  color: #b0bec5;
-  border: 1px solid transparent;
-}
+:host .users-filter-buttons {
+  font-size: 1vw;
 
-:host .user-filter-label:hover {
-  border: 1px solid #b0bec5;
-}
+  .user-filter-label {
+    padding: 5px;
+    color: #b0bec5;
+    border: 1px solid transparent;
 
-:host .user-filter-label.active {
-  background-color: #b0bec5;
-  color: #fff;
+    &:hover {
+      border: 1px solid #b0bec5;
+    }
+
+    &.active {
+      background-color: #b0bec5;
+      color: #fff;
+    }
+  }
 }
 
 .assessment-object-list {
@@ -98,20 +95,41 @@
   display: none;
 }
 
-@media (min-width: 772px) {
+@media (min-width: 768px) {
   :host {
     position: fixed;
   }
 
-  :host .sidebar-container.sticky {
-    margin-top: -106px;
-  }
-
-  :host.with-warning .sticky {
-    margin-top: -166px;
-  }
-
-  :host .sidebar-container {
+  .sidebar-container {
     width: 80%;
   }
 }
+
+@media (min-width: 1200px) {
+  :host .users-filter-buttons {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  :host .users-filter-buttons {
+    font-size: 12px;
+  }
+}
+
+@media (max-height: 1200px) {
+  .sidebar-container {
+    max-height: 70vh !important;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+}
+
+@media (max-height: 700px) {
+  .sidebar-container {
+    max-height: 40vh !important;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+}
+
