@@ -19,7 +19,8 @@ export interface IComment {
 @Component({
   moduleId: module.id,
   selector: 'bs-user-assessment-form',
-  templateUrl: 'assessment-form.component.html'
+  templateUrl: 'assessment-form.component.html',
+  styleUrls: ['assessment-form.component.css'],
 })
 export class AssessmentFormComponent implements OnInit, OnChanges {
   protected _id: ModelId;
@@ -212,6 +213,9 @@ export class AssessmentFormComponent implements OnInit, OnChanges {
           }
         } else {
           elementAnswer.text = element.tempValue;
+          if (element.kind === FormElementType.Checkbox) {
+            elementAnswer.text = elementAnswer.text.toString();
+          }
         }
       } else if (element.kind === FormElementType.Checkboxgroup) {
         elementAnswer.valuesIds = element.values.filter(x => x.tempValue).map(x => x.id);
@@ -229,7 +233,6 @@ export class AssessmentFormComponent implements OnInit, OnChanges {
           elementAnswer.comment = element.tempComment;
         }
       }
-
       return elementAnswer;
     });
 
@@ -253,6 +256,7 @@ export class AssessmentFormComponent implements OnInit, OnChanges {
   }
 
   public save() {
+    console.log('BEFORE SAVE', this.assessment);
     this._assessmentService.saveBulk([this._assessment], this._queryParams).subscribe(() => {
       this._formStatus = AssessmentFormStatus.Answered;
       this._formSave.emit(this._assessment);
