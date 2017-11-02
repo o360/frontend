@@ -1,7 +1,7 @@
 <bs-throbber *ngIf="!form"></bs-throbber>
 
 <div *ngIf="!!form"
-     [ngClass]="{ 'form-inline': inline && !(form.elements.length === 1 && (form.elements[0].kind === FormElementType.LikeDislike)) }">
+     [ngClass]="{'custom-form-inline': inline && !(form.elements.length === 1 && (form.elements[0].kind === FormElementType.LikeDislike))}">
   <form #assessmentForm="ngForm" class="form">
     <ng-container *ngFor="let element of form.elements; let i = index;"
                   [ngSwitch]="element.kind">
