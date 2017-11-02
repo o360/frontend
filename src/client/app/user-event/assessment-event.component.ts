@@ -237,14 +237,14 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
     }
 
     this._answers.map(item => {
-      if (item.form.answers[0].valuesIds.length !== 0) {
+      if (item.form.answers && item.form.answers[0].valuesIds && item.form.answers[0].valuesIds.length !== 0) {
         item.form.isAnonymous = this._inlineAnonymous;
       }
     });
 
     let validAnswer: AssessmentModel[] = [];
     this._answers.map(item => {
-      if (item.form.answers[0].valuesIds.length !== 0) {
+      if (item.form.answers && item.form.answers[0].valuesIds && item.form.answers[0].valuesIds.length !== 0) {
         validAnswer.push(item);
       }
     });
