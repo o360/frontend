@@ -4,6 +4,8 @@ stages:
   - packages
   - lint
   - test
+  - build
+  - deploy
 
 before_script:
   - ln -s /node_modules node_modules
@@ -20,3 +22,34 @@ test:
   stage: test
   script: "yarn run test"
   coverage: '/Statements\s*:\s*([^%]+)/'
+
+build:
+  only:
+    - develop
+  stage: build
+  tags: 
+    - open360-shell
+  before_script:
+    - ln -s /home/ci-user/frontend/node_modules node_modules # a bit hacky, rewrite later
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN git.bw-sw.com:5000
+  script: 
+    - yarn install
+    - yarn run build.prod.dev
+    - docker build --tag=git.bw-sw.com:5000/open360/frontend:${CI_COMMIT_REF_NAME}-${CI_PIPELINE_ID} --file=".docker/bw-assessment-ui.prod.dockerfile" .
+    - docker push git.bw-sw.com:5000/open360/frontend:${CI_COMMIT_REF_NAME}-${CI_PIPELINE_ID}
+
+
+deploy:
+  only:
+    - develop
+  stage: deploy
+  tags: 
+    - open360-shell
+  environment:
+    name: Development
+    url: http://vm-a834f9ac-1c23-40f2-9461-618361703efd.premium.cs2.netpoint-dc.com
+  before_script: 
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN git.bw-sw.com:5000
+  script: 
+    - docker rm -f public-bw-assessment-ui || true
+    - docker run  -d --restart=always -p  80:80 --name public-bw-assessment-ui git.bw-sw.com:5000/open360/frontend:${CI_COMMIT_REF_NAME}-${CI_PIPELINE_ID}
