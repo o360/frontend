@@ -1,0 +1,17 @@
+button {
+  outline: none;
+}
+
+.language-selector .dropdown-menu {
+  min-width: 0px;
+  width: 6rem;
+}
+
+.language-selector .dropdown-item {
+  min-width: 0px;
+  cursor: pointer;
+}
+
+.language-selector .dropdown-item:disabled {
+  cursor: not-allowed !important;
+}

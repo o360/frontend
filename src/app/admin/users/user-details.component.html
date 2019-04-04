@@ -1,0 +1,70 @@
+<ng-container *ngIf="model">
+  <div class="card">
+    <div class="card-header"><b>{{ 'T_DETAILS' | translate }}</b></div>
+    <div class="card-block">
+      <div class="row">
+        <div class="col-md-8 profile-header">
+          <div class="user-profile-image mr-1">
+            <img [src]="!!model.picture ? model.picture : '../../../assets/images/noUserImage.png'"
+                 [alt]="'T_USER_AVATAR' | translate"/>
+          </div>
+          <div class="align-self-center">
+            <h2 class="mb-0">{{ model.name }}</h2>
+          </div>
+        </div>
+        <div class="col-md-4 text-right">
+          <button type="button"
+                  role="button"
+                  class="btn btn-md btn-primary"
+                  [tooltip]="'T_ACTION_EDIT' | translate"
+                  placement="bottom"
+                  [routerLink]="['/admin/users/', model.id, 'edit']">
+            <i class="fa fa-pencil"></i>
+          </button>
+          <button type="button"
+                  role="button"
+                  class="btn btn-md btn-danger"
+                  [tooltip]="'T_ACTION_DELETE' | translate"
+                  placement="bottom"
+                  bsConfirm
+                  [contentTemplate]="contentTemplate"
+                  [message]="'T_CONFIRM_MESSAGE_DELETE_USER' | translate"
+                  (confirm)="delete(model.id)">
+            <i class="fa fa-trash"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="row mt-1">
+        <div class="col-md-3">
+          <small class="text-muted">{{ 'T_USER_EMAIL' | translate }}</small>
+          <div class="h6">{{ model.email }}</div>
+        </div>
+
+        <div class="col-md-3">
+          <small class="text-muted">{{ 'T_USER_ROLE' | translate }}</small>
+          <div class="h6">{{ 'T_USER_ROLE_' + model.role.toUpperCase() | translate }}</div>
+        </div>
+
+        <div class="col-md-3">
+          <small class="text-muted">{{ 'T_USER_STATUS' | translate }}</small>
+          <div class="h6">{{ 'T_USER_STATUS_' + model.status.toUpperCase() | translate }}</div>
+        </div>
+
+        <div class="col-md-3">
+          <small class="text-muted">{{ 'T_USER_GENDER' | translate }}</small>
+          <div *ngIf="model.gender" class="h6">{{ 'T_USER_GENDER_' + model.gender.toUpperCase() | translate }}</div>
+          <div *ngIf="!model.gender" class="h6">{{ 'T_NOT_SPECIFIED' | translate }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <bs-user-group-list embedded [userId]="model.id"></bs-user-group-list>
+
+  <ng-template #contentTemplate>
+    <bs-user-confirmation [userId]="model.id"></bs-user-confirmation>
+  </ng-template>
+
+</ng-container>
+

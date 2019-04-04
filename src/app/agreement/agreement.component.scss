@@ -1,0 +1,20 @@
+.agreement-wrapper {
+  display: block;
+  width: 70%;
+  position: relative;
+  top: 50px;
+  margin: 0 auto 65px auto;
+}
+
+bs-agreement-view {
+  height: 60vh;
+  overflow-y: scroll;
+  padding: 20px;
+  display: block;
+  background-color: #fff;
+}
+
+.agreement-actions {
+  margin-top: 20px;
+  text-align: right;
+}

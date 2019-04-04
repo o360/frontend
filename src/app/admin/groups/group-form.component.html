@@ -1,0 +1,75 @@
+<div class="card" *ngIf="isLoaded">
+  <div class="card-header">
+    <b [ngSwitch]="editMode">
+      <ng-template [ngSwitchCase]="true">{{ 'T_ACTION_EDIT' | translate }}
+        <span *ngIf="model">{{ model.name }}</span>
+      </ng-template>
+      <ng-template ngSwitchDefault>{{ 'T_ACTION_CREATE' | translate }}</ng-template>
+    </b>
+  </div>
+
+  <div class="card-block">
+    <form class="form form-horizontal"
+          (ngSubmit)="save()" #groupForm="ngForm">
+
+      <!-- Name -->
+      <div class="form-group row"
+           [ngClass]="{'has-success': name.valid, 'has-danger': !name.valid && name.touched }">
+
+        <label for="name" class="col-form-label col-md-3 required">{{ 'T_GROUP_NAME' | translate }}</label>
+        <div class="col-md-9">
+          <input type="text"
+                 class="form-control"
+                 id="name"
+                 name="name"
+                 #name="ngModel"
+                 required
+                 pattern=".*^[\S].*"
+                 placeholder="{{ 'T_FORM_ENTER_GROUP_NAME' | translate }}"
+                 [(ngModel)]="model.name">
+
+
+          <div class="form-errors"
+               *ngIf="name.errors && name.touched">
+            <div class="form-control-feedback" *ngIf="name.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}</div>
+            <div class="form-control-feedback" *ngIf="!!name.errors['pattern']">{{ 'T_ERROR_TEXT_PATTERN' | translate }}</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Parent -->
+      <div class="form-group row"
+           [ngClass]="{'has-success': parent.valid && parent.touched, 'has-danger': !parent.valid && parent.touched }">
+        <label for="parent" class="col-form-label col-md-3">{{ 'T_GROUP_PARENT' | translate }}</label>
+        <div class="col-md-9">
+          <select name="parent"
+                  id="parent"
+                  class="form-control custom-select"
+                  #parent="ngModel"
+                  [(ngModel)]="model.parentId"
+                  [disabled]="parentId">
+            <option value=""></option>
+            <option *ngFor="let parent of groups"
+                    [ngValue]="parent.id">
+              {{ parent.name }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <hr/>
+
+      <div class="text-right">
+        <button type="submit"
+                role="button"
+                class="btn btn-primary mt-0"
+                [disabled]="!groupForm.valid">
+          <span [ngSwitch]="editMode">
+            <ng-template [ngSwitchCase]="true">{{ 'T_ACTION_UPDATE' | translate }}</ng-template>
+            <ng-template ngSwitchDefault>{{ 'T_ACTION_CREATE' | translate }}</ng-template>
+          </span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

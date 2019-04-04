@@ -1,0 +1,113 @@
+<div bsModal #modal="bs-modal" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title" [ngSwitch]="index !== -1">
+          <ng-template [ngSwitchCase]="true">{{ 'T_ACTION_EDIT' | translate }}</ng-template>
+          <ng-template ngSwitchDefault>{{ 'T_ACTION_ADD_NEW_ASSESSMENT_EVENT_NOTIFICATIONS' | translate }}</ng-template>
+        </h5>
+        <button type="button"
+                role="button"
+                class="close"
+                aria-label="Close"
+                (click)="close()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form [formGroup]="notificationForm"
+            (submit)="addNotification(); modal.hide();">
+
+        <div class="modal-body">
+          <div class="form-group row mb-1"
+               [ngClass]="{'has-success': notificationForm.controls['time'].valid,
+                           'has-danger': !notificationForm.controls['time'].valid && notificationForm.controls['time'].touched }">
+            <label class="col-form-label col-4">{{ 'T_EVENT_NOTIFICATION_TIME' | translate }}</label>
+            <div class="col-8">
+              <bs-datetime #time
+                           name="notification-time"
+                           formControlName="time"></bs-datetime>
+              <div class="form-errors"
+                   *ngIf="notificationForm.controls['time'].errors && notificationForm.controls['time'].touched">
+                <div class="form-control-feedback" *ngIf="notificationForm.controls['time'].errors['required']">
+                  {{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}
+                </div>
+                <div class="form-control-feedback" *ngIf="notificationForm.controls['time'].errors['format']">
+                  {{ 'T_ERROR_INVALID_DATE' | translate }}
+                </div>
+                <div class="form-control-feedback" *ngIf="notificationForm.controls['time'].errors['dateInPast']">
+                  {{ 'T_ERROR_DATE_IN_PAST' | translate }}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row mb-1"
+               [ngClass]="{'has-success': notificationForm.controls['recipient'].valid,
+                           'has-danger': ! notificationForm.controls['recipient'].valid &&  notificationForm.controls['recipient'].touched }">
+            <label class="col-form-label col-4 " for="recipient">{{ 'T_EVENT_RECIPIENT' | translate }}</label>
+            <div class="col-8">
+              <select #recipient
+                      id="recipient"
+                      name="recipient"
+                      class="form-control"
+                      formControlName="recipient">
+                <option *ngFor="let item of recipients" [value]="item">{{ 'T_EVENT_RECIPIENT_' + item.toUpperCase() |
+                  translate }}
+                </option>
+              </select>
+              <div class="form-errors"
+                   *ngIf=" notificationForm.controls['recipient'].errors &&  notificationForm.controls['recipient'].touched">
+                <div class="form-control-feedback" *ngIf=" notificationForm.controls['recipient'].errors['required']">
+                  {{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row mb-1"
+               [ngClass]="{'has-success': notificationForm.controls['kind'].valid,
+                           'has-danger': !notificationForm.controls['kind'].valid && notificationForm.controls['kind'].touched }">
+            <label class="col-form-label col-4 " for="kind">{{ 'T_EVENT_NOTIFICATION_KIND' | translate }}</label>
+            <div class="col-8">
+              <select #kind
+                      id="kind"
+                      name="kind"
+                      class="form-control"
+                      formControlName="kind">
+                <option *ngFor="let item of kinds" [value]="item">{{ 'T_EVENT_NOTIFICATION_' + item.toUpperCase() |
+                  translate }}
+                </option>
+              </select>
+              <div class="form-errors"
+                   *ngIf=" notificationForm.controls['kind'].errors && notificationForm.controls['kind'].touched">
+                <div class="form-control-feedback" *ngIf="notificationForm.controls['kind'].errors['required']">
+                  {{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button"
+                  role="button"
+                  class="btn btn-secondary"
+                  (click)="close()">{{ 'T_ACTION_CLOSE' | translate }}
+          </button>
+
+          <button type="submit"
+                  role="button"
+                  class="btn btn-success"
+                  [disabled]="!notificationForm.valid">
+            <span [ngSwitch]="index !== -1">
+              <ng-template [ngSwitchCase]="true">
+                <i class="mr-h fa fa-check"></i> {{ 'T_ACTION_UPDATE' | translate }}</ng-template>
+              <ng-template ngSwitchDefault>
+                <i class="mr-h fa fa-plus"></i> {{ 'T_ACTION_ADD' | translate }}
+              </ng-template>
+             </span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
