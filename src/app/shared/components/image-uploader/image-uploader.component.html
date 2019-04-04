@@ -1,0 +1,37 @@
+<input #choosePictureInput
+       type="file"
+       class="input-file"
+       accept="image/jpeg,image/png"
+       (change)="onPictureUpload($event); cropperModal.show()"/>
+<button type="button"
+        class="btn btn-primary"
+        (click)="choosePictureInput.click();"> {{ 'T_USER_AVATAR_UPLOAD' | translate }}
+</button>
+
+<div class="modal" bsModal #cropperModal="bs-modal"
+     [config]="{ ignoreBackdropClick: true }"
+     tabindex="3" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">{{ 'T_USER_AVATAR' | translate }}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="cropperModal.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="user-profile-image-crop row">
+          <div class="col-lg-8"><img #image id="image" [src]="file" alt=""></div>
+          <div class="col-lg-4 mt-1 user-profile-image"><img *ngIf="cropped" [src]="cropped" alt=""></div>
+        </div>
+        <div class="modal-footer">
+          <button type="button"
+                  class="btn btn-primary"
+                  [disabled]="!cropped"
+                  (click)="savePicture()"> {{ 'T_ACTION_SAVE' | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,39 @@
+<div class="agreement-wrapper">
+  <h2 class="mb-2"> {{ 'T_TERMS_AND_CONDITIONS' | translate }} </h2>
+  <bs-agreement-view></bs-agreement-view>
+
+  <div class="agreement-actions" [ngSwitch]="approveState">
+    <ng-template ngSwitchDefault>
+      <label class="custom-control custom-checkbox">
+        <input type="checkbox" class="custom-control-input" required
+               [(ngModel)]="approved">
+        <span class="custom-control-indicator"></span>
+        <span class="custom-control-description">{{ 'T_AGREEMENT_APPROVEMENT_MESSAGE' | translate }}</span>
+      </label>
+
+      <button type="button"
+              class="btn btn-primary btn-sm"
+              [tooltip]="'T_ACTION_OK' | translate"
+              [disabled]="!approved"
+              placement="bottom"
+              (click)="approve()">
+        {{ 'T_ACTION_OK' | translate }}
+      </button>
+    </ng-template>
+    <ng-template [ngSwitchCase]="true">
+      <button type="button"
+              class="btn btn-primary btn-sm"
+              [tooltip]="'T_ACTION_GO_BACK' | translate"
+              placement="bottom"
+              [routerLink]="['']">
+        {{ 'T_ACTION_GO_BACK' | translate }}
+      </button>
+    </ng-template>
+  </div>
+</div>
+
+<footer class="app-footer ml-0">
+  <ul class="nav navbar-nav ml-auto">
+    <bs-language-selector></bs-language-selector>
+  </ul>
+</footer>

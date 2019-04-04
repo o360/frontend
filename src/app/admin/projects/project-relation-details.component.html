@@ -1,0 +1,81 @@
+<div *ngIf="model">
+  <div class="card">
+    <div class="card-header"><b>{{ 'T_DETAILS' | translate }}</b></div>
+    <div class="card-block">
+      <div class="row mt-1">
+        <div class="col-md-3">
+          <small class="text-muted">{{ 'T_PROJECT_RELATION_RATING_GROUP' | translate }}</small>
+          <div class="h6"><a [routerLink]="['/admin/groups', model.groupFrom.id]">{{ model.groupFrom.name }}</a></div>
+        </div>
+
+        <div class="col-md-3" *ngIf="!!model.groupTo">
+          <small class="text-muted">{{ 'T_PROJECT_RELATION_ASSESSMENT_GROUP' | translate }}</small>
+          <div class="h6"><a [routerLink]="['/admin/groups', model.groupTo.id]">{{ model.groupTo.name }}</a></div>
+        </div>
+
+        <div class="col-md-3">
+          <small class="text-muted">{{ 'T_PROJECT_RELATION_EVALUATION_FORM' | translate }}</small>
+          <div class="h6"><a [routerLink]="['/admin/forms', model.form.id]">{{ model.form.name }}</a></div>
+        </div>
+
+        <div *ngIf="model.hasInProgressEvents"
+             class="col-md-3 text-right"
+             [ngClass]="{'col-md-3': !!model.groupTo,
+                         'col-md-6': !model.groupTo}">
+          <div class="d-inline-block"
+               [tooltip]="'T_DISABLE_RELATION_BUTTON' | translate"
+               placement="bottom">
+            <button type="button"
+                    role="button"
+                    class="btn btn-md btn-primary"
+                    [disabled]="model.hasInProgressEvents"><i class="fa fa-pencil"></i></button>
+            <button type="button"
+                    role="button"
+                    class="btn btn-md btn-danger"
+                    bsConfirm
+                    [disabled]="model.hasInProgressEvents"><i class="fa fa-trash"></i></button>
+          </div>
+        </div>
+
+        <div *ngIf="!model.hasInProgressEvents"
+             class="col-md-3 text-right"
+             [ngClass]="{'col-md-3': !!model.groupTo,
+                         'col-md-6': !model.groupTo}">
+          <button type="button"
+                  role="button"
+                  [tooltip]="'T_ACTION_EDIT' | translate"
+                  placement="bottom"
+                  class="btn btn-md btn-primary"
+                  [routerLink]="['/admin/projects/', model.projectId, 'relations', model.id, 'edit']"><i class="fa fa-pencil"></i></button>
+          <button type="button"
+                  role="button"
+                  class="btn btn-md btn-danger"
+                  [tooltip]="'T_ACTION_DELETE' | translate"
+                  placement="bottom"
+                  bsConfirm
+                  (confirm)="delete(model.id)"><i class="fa fa-trash"></i></button>
+        </div>
+      </div>
+
+      <div class="row mt-1">
+        <div class="col-md-3">
+          <small class="text-muted">{{ 'T_PROJECT_RELATION_KIND' | translate }}</small>
+          <div class="h6">{{ 'T_PROJECT_RELATION_KIND_' + model.kind.toUpperCase() | translate }}</div>
+        </div>
+
+        <div class="col-md-3" *ngIf="!!model.groupTo">
+          <small class="text-muted">{{ 'T_PROJECT_RELATION_CAN_SELF_VOTE' | translate }}</small>
+          <div class="h6">
+            {{ (model.canSelfVote ? 'T_ACTION_YES' : 'T_ACTION_NO') | translate }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <bs-relation-email-template-list embedded [model]="model"
+                                   [hasInProgressEvents]="model.hasInProgressEvents"></bs-relation-email-template-list>
+</div>
+
+
+

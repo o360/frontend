@@ -1,0 +1,68 @@
+<div class="card" *ngIf="model">
+  <div class="card-header"><b>{{ 'T_DETAILS' | translate }}</b>
+ </div>
+  <div class="card-block">
+    <div class="row">
+      <div class="col-md-6">
+        <h2>{{ model.name }}</h2>
+      </div>
+      <div class="col-md-6 text-right">
+        <button type="button"
+                role="button"
+                [tooltip]="'T_ACTION_CLONE' | translate"
+                placement="bottom"
+                class="btn btn-warning"
+                bsConfirm
+                [message]="'T_FORM_CONFIRM_CLONE_MESSAGE' | translate"
+                (confirm)="clone(model);">
+          <i class="fa fa-copy"></i>
+        </button>
+        <button type="button"
+                role="button"
+                [tooltip]="'T_ACTION_EDIT' | translate"
+                placement="bottom"
+                class="btn btn-primary"
+                [routerLink]="['/admin/templates/', model.id, 'edit']">
+          <i class="fa fa-pencil"></i></button>
+        <button type="button"
+                [tooltip]="'T_ACTION_DELETE' | translate"
+                placement="bottom"
+                role="button"
+                class="btn btn-danger"
+                bsConfirm
+                [message]="'T_CONFIRM_MESSAGE_DELETE_TEMPLATE' | translate"
+                (confirm)="delete(model.id)">
+          <i class="fa fa-trash"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="row mt-1">
+      <div class="col-md-3">
+        <small class="text-muted">{{ 'T_EMAIL_TEMPLATE_SUBJECT' | translate }}</small>
+        <div class="h6">{{ model.subject }}</div>
+      </div>
+
+      <div class="col-md-3">
+        <small class="text-muted">{{ 'T_EMAIL_TEMPLATE_KIND' | translate }}</small>
+        <div class="h6">{{ 'T_EMAIL_TEMPLATE_KIND_' + model.kind.toUpperCase() | translate }}</div>
+      </div>
+
+      <div class="col-md-3">
+        <small class="text-muted">{{ 'T_EMAIL_TEMPLATE_RECIPIENT' | translate }}</small>
+        <div class="h6">{{ 'T_EMAIL_TEMPLATE_RECIPIENT_' + model.recipient.toUpperCase() | translate }}</div>
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col-12">
+        <span class="h6 pb-0">{{ 'T_EMAIL_TEMPLATE_MESSAGE' | translate }}</span>
+        <hr class="mt-h"/>
+        <div class="mt-1" [innerHtml]="model.body"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
