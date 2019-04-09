@@ -7,7 +7,6 @@ import { Recipient } from '../../core/models/email-template-model';
 import { NotificationService } from '../../core/services/notification.service';
 
 @Component({
-  moduleId: module.id,
   selector: 'bs-relation-email-template-list',
   templateUrl: 'relation-email-template-list.component.html'
 })

@@ -17,10 +17,9 @@ export const LanguagesTranslationMap = {
 
 
 @Component({
-  moduleId: module.id,
   selector: 'bs-language-selector',
   templateUrl: 'language-selector.component.html',
-  styleUrls: ['language-selector.component.css']
+  styleUrls: ['language-selector.component.scss']
 })
 export class LanguageSelectorComponent implements OnInit {
   private _languages: ILanguage[] = [];
@@ -48,9 +47,9 @@ export class LanguageSelectorComponent implements OnInit {
   }
 
   public ngOnInit() {
-    let lang = this._translate.currentLang;
-    this._selected = lang;
-    moment.locale(lang);
+    let language = this._translate.currentLang;
+    this._selected = language;
+    moment.locale(language);
     this._languages = Object.values(SupportedLanguages).map(lang => ({
       id: lang,
       name: LanguagesTranslationMap[lang],

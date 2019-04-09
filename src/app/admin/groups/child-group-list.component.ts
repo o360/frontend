@@ -6,7 +6,6 @@ import { ListComponent } from '../../shared/components/list.component';
 import { NotificationService } from '../../core/services/notification.service';
 
 @Component({
-  moduleId: module.id,
   selector: 'bs-child-group-list',
   templateUrl: 'child-group-list.component.html'
 })

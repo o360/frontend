@@ -45,15 +45,16 @@
       true,
       "ignore-params"
     ],
+    "no-input-rename": true,
     "no-non-null-assertion": true,
-    "no-redundant-jsdoc": true,
+    "no-redundant-jsdoc": false,
     "no-switch-case-fall-through": true,
     "no-use-before-declare": true,
     "no-var-requires": false,
-    "object-literal-key-quotes": [
-      true,
-      "as-needed"
-    ],
+    "no-output-on-prefix": true,
+    "no-output-rename": true,
+    "no-string-literal": false,
+    "object-literal-key-quotes": false,
     "object-literal-sort-keys": false,
     "ordered-imports": false,
     "quotemark": [
@@ -61,12 +62,9 @@
       "single"
     ],
     "trailing-comma": false,
-    "no-output-on-prefix": true,
     "use-input-property-decorator": true,
     "use-output-property-decorator": true,
     "use-host-property-decorator": true,
-    "no-input-rename": true,
-    "no-output-rename": true,
     "use-life-cycle-interface": true,
     "use-pipe-transform-interface": true,
     "component-class-suffix": true,

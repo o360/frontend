@@ -6,7 +6,6 @@ import { AdminEmailTemplateService } from '../../core/services/admin-email-templ
 import { NotificationService } from '../../core/services/notification.service';
 
 @Component({
-  moduleId: module.id,
   selector: 'bs-template-list',
   templateUrl: 'email-template-list.component.html'
 })

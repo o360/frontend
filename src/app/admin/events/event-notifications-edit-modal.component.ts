@@ -7,7 +7,6 @@ import { ValidatorFutureDate } from '../../shared/components/datetime/datetime-p
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
-  moduleId: module.id,
   selector: 'bs-assessment-event-notifications-edit-modal',
   templateUrl: 'event-notifications-edit-modal.component.html'
 })

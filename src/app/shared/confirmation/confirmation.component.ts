@@ -5,7 +5,6 @@ import { IConflicts } from '../../core/services/confirmation.service';
 
 
 @Component({
-  moduleId: module.id,
   selector: 'bs-confirmation-modal',
   templateUrl: 'confirmation.component.html'
 })

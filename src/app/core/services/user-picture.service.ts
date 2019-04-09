@@ -1,6 +1,5 @@
-
-import {mergeMap, map} from 'rxjs/operators';
-import { RequestOptions, Response, Headers, ResponseContentType } from '@angular/http';
+import { HttpHeaders } from '@angular/common/http';
+import { mergeMap, map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { RestServiceConfig } from '../decorators/rest-service-config.decorator';
 import { AccountModel } from '../models/account-model';
@@ -14,16 +13,16 @@ import { ModelId } from '../models/model';
 export class UserPictureService extends RestService<AccountModel> {
   public getPicture(id: ModelId): Observable<any> {
     let requestParams = `${this._getRequestParams(id)}/picture`;
-    let requestOptions = new RequestOptions({
-      responseType: ResponseContentType.Blob,
-      headers: new Headers({
+    let requestOptions = {
+      responseType: 'blob' as 'json',
+      headers: new HttpHeaders({
         'X-Auth-Token': this._authService.token
       })
-    });
+    };
 
     return this._http.get(requestParams, requestOptions).pipe(
-      map((response: Response) => response.blob()),
-      mergeMap((image: Blob) => this._createImageFromBlob(image)),);
+      map((response: any) => response),
+      mergeMap((image: Blob) => this._createImageFromBlob(image)));
   }
 
   protected _createImageFromBlob(image: Blob) {

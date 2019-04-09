@@ -7,7 +7,6 @@ import { ProjectModel } from '../../core/models/project-model';
 import { AdminProjectService } from '../../core/services/admin-project.service';
 
 @Component({
-  moduleId: module.id,
   selector: 'bs-group-project-list',
   templateUrl: 'group-project-list.component.html'
 })

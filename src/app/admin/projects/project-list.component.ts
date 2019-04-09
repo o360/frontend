@@ -6,7 +6,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NotificationService } from '../../core/services/notification.service';
 
 @Component({
-  moduleId: module.id,
   selector: 'bs-project-list',
   templateUrl: 'project-list.component.html'
 })

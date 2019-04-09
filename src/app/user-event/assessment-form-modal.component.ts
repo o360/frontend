@@ -4,7 +4,6 @@ import { FormElement } from '../core/models/form-model';
 import { IComment } from './assessment-form.component';
 
 @Component({
-  moduleId: module.id,
   selector: 'bs-assessment-form-modal',
   templateUrl: 'assessment-form-modal.component.html'
 })

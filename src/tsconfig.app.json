@@ -2,7 +2,13 @@
   "extends": "../tsconfig.json",
   "compilerOptions": {
     "outDir": "../out-tsc/app",
-    "types": []
+    "types": [
+      "node",
+      "jasmine",
+      "reflect-metadata",
+      "systemjs",
+      "jquery"
+    ]
   },
   "exclude": [
     "test.ts",

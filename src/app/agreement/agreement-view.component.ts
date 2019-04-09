@@ -1,14 +1,11 @@
-
-import {map} from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
 import { Converter } from 'showdown';
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
-import { Config } from '../shared/config/env.config';
-
+import { Config } from '../../environments/env.config';
 
 @Component({
-  moduleId: module.id,
   selector: 'bs-agreement-view',
   template: '<div [innerHTML]="agreement"></div>'
 })
@@ -20,7 +17,7 @@ export class AgreementViewComponent implements OnInit {
     return this._agreement;
   }
 
-  constructor(private _http: Http, private _translate: TranslateService) {
+  constructor(private _http: HttpClient, private _translate: TranslateService) {
   }
 
   public ngOnInit() {
@@ -35,11 +32,12 @@ export class AgreementViewComponent implements OnInit {
   protected _readFile() {
     let path = `${Config.AGREEMENTS}/${this._language}.md`;
     this._http.get(path).pipe(
-      map(response => response.text()),
+      // map(response => response.text()),
+      map(response => response.toString()),
       map(text => {
         const converter = new Converter();
         return converter.makeHtml(text);
-      }),)
+      }))
       .subscribe(agreement => this._agreement = agreement);
   }
 }

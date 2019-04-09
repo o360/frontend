@@ -1,0 +1,26 @@
+// Fonts
+$fa-font-path: "~font-awesome/fonts";
+
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700');
+@import "~font-awesome/scss/variables";
+@import "~font-awesome/scss/font-awesome";
+
+// Modules
+// if you'd like to use it without importing all of bootstrap it requires
+@import '../../node_modules/bootstrap/scss/functions';
+@import '../../node_modules/bootstrap/scss/variables';
+@import '../../node_modules/bootstrap/scss/mixins';
+@import '../../node_modules/ngx-toastr/toastr-bs4-alert';
+// bootstrap style toast
+// or import a bootstrap 4 alert styled design (SASS ONLY)
+// should be after your bootstrap imports, it uses bs4 variables, mixins, functions
+@import '../../node_modules/ngx-toastr/toastr-bs4-alert';
+
+// Components
+@import "../app/agreement/agreement.component";
+@import "../app/shared/language-selector/language-selector.component";
+@import "../app/agreement/agreement.component";
+@import "../app/user-event/assessment-form.component";
+@import "../app/user-event/assessment-object-list.component";
+@import "../app/shared/components/likes-dislikes/likes-dislikes.component";
+

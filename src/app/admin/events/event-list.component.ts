@@ -7,7 +7,6 @@ import { Filter, FilterType } from '../../core/models/filter';
 import { NotificationService } from '../../core/services/notification.service';
 
 @Component({
-  moduleId: module.id,
   selector: 'bs-assessment-event-list',
   templateUrl: 'event-list.component.html'
 })

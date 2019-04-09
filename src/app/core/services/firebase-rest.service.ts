@@ -1,10 +1,9 @@
-
-import {map, catchError} from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+import { map, catchError } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { Config } from '../../shared/config/env.config';
+import { Config } from '../../../environments/env.config';
 import { Model, ModelId } from '../models/model';
 import { AuthService } from './auth.service';
 import { IListResponse, RestService } from './rest.service';
@@ -16,7 +15,7 @@ export class FirebaseRestService<T extends Model> extends RestService<T> {
   protected _host: string = Config.FIREBASE_URL;
 
   /* @todo: Research: nested constructors works in angular 2.4.* */
-  constructor(http: Http,
+  constructor(http: HttpClient,
               authService: AuthService,
               router: Router,
               notificationService: NotificationService,
@@ -28,20 +27,21 @@ export class FirebaseRestService<T extends Model> extends RestService<T> {
     return this._http.get(this._getRequestParams(), this._getRequestOptions()).pipe(
       map((response: Response) => {
         let values: T[] = [];
-        for (let [key, value] of Object.entries(response.json())) {
+        for (let [key, value] of Object.entries(response)) {
           let item = this.createEntity(value);
           item.id = key;
           values.push(item);
         }
         return { data: values, meta: { number: 1, size: values.length, total: values.length } };
-      }),catchError((error: any) => this._handleErrors(error)),);
+      }),
+      catchError((error: any) => this._handleErrors(error))
+    );
   }
 
   public get(id: ModelId): Observable<T> {
     return this._http.get(this._getRequestParams(id), this._getRequestOptions()).pipe(
-      map((response: Response) => response.json()),
-      map((json: any) => this.createEntity(Object.assign(json, { id: id }))),
-      catchError((error: any) => this._handleErrors(error)),);
+      map((json: any) => this.createEntity(Object.assign(json, { id }))),
+      catchError((error: any) => this._handleErrors(error)));
   }
 
   protected _getRequestParams(id?: ModelId) {

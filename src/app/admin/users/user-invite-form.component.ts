@@ -13,7 +13,6 @@ import { Select2OptionData } from 'ng2-select2';
 import { Utils } from '../../utils';
 
 @Component({
-  moduleId: module.id,
   selector: 'bs-user-invite-form',
   templateUrl: 'user-invite-form.component.html'
 })

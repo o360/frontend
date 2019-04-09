@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { RestServiceConfig } from '../decorators/rest-service-config.decorator';
 import { RestService } from './rest.service';
@@ -5,7 +6,6 @@ import { EmailTemplateModel } from '../models/email-template-model';
 import { NotificationService } from './notification.service';
 import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
-import { Http } from '@angular/http';
 import { Observable } from 'rxjs';
 import { ConfirmationService } from './confirmation.service';
 
@@ -16,7 +16,7 @@ import { ConfirmationService } from './confirmation.service';
   entityConstructor: EmailTemplateModel
 })
 export class AdminEmailTemplateService extends RestService<EmailTemplateModel> {
-  constructor(http: Http,
+  constructor(http: HttpClient,
               authService: AuthService,
               router: Router,
               notificationService: NotificationService,

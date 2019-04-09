@@ -26,7 +26,6 @@ export const FormElementValidator = (control: AbstractControl): ValidationErrors
 };
 
 @Component({
-  moduleId: module.id,
   selector: 'bs-form-builder',
   templateUrl: 'form-builder.component.html'
 })

@@ -1,14 +1,11 @@
-
-import {from as observableFrom,  Observable ,  Subscription } from 'rxjs';
-
-import {switchMap, distinctUntilChanged} from 'rxjs/operators';
+import { from as observableFrom, Observable, Subscription } from 'rxjs';
+import { switchMap, distinctUntilChanged } from 'rxjs/operators';
 import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { AssessmentModel } from '../../../core/models/assessment-model';
 import { Utils } from '../../../utils';
 
 @Component({
-  moduleId: module.id,
   selector: 'bs-search',
   templateUrl: 'search.component.html'
 })

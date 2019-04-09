@@ -7,10 +7,9 @@ import { AccountModel } from '../core/models/account-model';
 import { UserStatus } from '../core/models/user-model';
 
 @Component({
-  moduleId: module.id,
   selector: 'bs-terms',
   templateUrl: 'agreement.component.html',
-  styleUrls: ['agreement.component.css']
+  styleUrls: ['agreement.component.scss']
 })
 export class AgreementComponent {
   protected _approved: boolean = false;

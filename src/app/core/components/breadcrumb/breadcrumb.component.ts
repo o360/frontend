@@ -1,5 +1,4 @@
-
-import {filter} from 'rxjs/operators';
+import { filter } from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRouteSnapshot, NavigationEnd, Router } from '@angular/router';
 import { AppRoute } from '../../models/app-routes.model';
@@ -11,7 +10,6 @@ export interface IBreadcrumb {
 }
 
 @Component({
-  moduleId: module.id,
   selector: 'bs-breadcrumb',
   templateUrl: 'breadcrumb.component.html'
 })
@@ -46,7 +44,7 @@ export class BreadcrumbComponent implements OnInit {
     let newState: IBreadcrumb[] = [];
 
     while (child) {
-      let routeConfig = <AppRoute>child.routeConfig;
+      let routeConfig = <AppRoute> child.routeConfig;
       let label = this._extractRouteName(child);
       let parts: string[] = child.url.map(x => x.path);
 
@@ -66,7 +64,7 @@ export class BreadcrumbComponent implements OnInit {
   }
 
   private _extractRouteName(route: ActivatedRouteSnapshot) {
-    let name = (<AppRoute>route.routeConfig).breadcrumb;
+    let name = (<AppRoute> route.routeConfig).breadcrumb;
     return name || this._prepareRouteName(route.url.join('/'));
   }
 

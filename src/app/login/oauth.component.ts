@@ -5,7 +5,6 @@ import { AuthService } from '../core/services/auth.service';
 import { InviteService } from '../core/services/invite.service';
 
 @Component({
-  moduleId: module.id,
   selector: 'bs-oauth',
   templateUrl: 'oauth.component.html'
 })

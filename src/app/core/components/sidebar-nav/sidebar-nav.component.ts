@@ -1,12 +1,10 @@
 import { Component } from '@angular/core';
 import { BsDropdownConfig } from 'ngx-bootstrap';
-import { AuthGuard } from '../../guards/auth.guard';
 import { AuthService } from '../../services/auth.service';
 /**
  * This class represents the navigation bar component.
  */
 @Component({
-  moduleId: module.id,
   selector: 'bs-sidebar-nav',
   templateUrl: 'sidebar-nav.component.html',
   providers: [{ provide: BsDropdownConfig, useValue: { autoClose: false } }]

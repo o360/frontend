@@ -1,10 +1,9 @@
-
-import {catchError, map} from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+import { catchError, map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { RestServiceConfig } from '../decorators/rest-service-config.decorator';
 import { UserModel } from '../models/user-model';
 import { IListResponse, RestService } from './rest.service';
-import { Http, Response } from '@angular/http';
 import { AuthService } from './auth.service';
 import { Router } from '@angular/router';
 import { NotificationService } from './notification.service';
@@ -19,7 +18,7 @@ import { GroupModel } from '../models/group-model';
   entityConstructor: UserModel
 })
 export class UserService extends RestService<UserModel> {
-  constructor(http: Http,
+  constructor(http: HttpClient,
               authService: AuthService,
               router: Router,
               notificationService: NotificationService,
@@ -32,7 +31,7 @@ export class UserService extends RestService<UserModel> {
     let requestOptions = this._getRequestOptions();
 
     return this._http.get(requestParams, requestOptions).pipe(
-      map((response: Response) => response.json()),
-      catchError((error: Response) => this._handleErrors(error)),);
+      map((response: any) => response),
+      catchError((error: Response) => this._handleErrors(error)));
   }
 }

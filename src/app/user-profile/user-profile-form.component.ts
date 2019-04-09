@@ -10,7 +10,6 @@ import { AccountService } from '../core/services/account.service';
 import { UserPictureService } from '../core/services/user-picture.service';
 
 @Component({
-  moduleId: module.id,
   selector: 'bs-user-profile-form',
   templateUrl: 'user-profile-form.component.html'
 })

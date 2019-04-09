@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { IQueryParams } from '../core/services/rest.service';
 import { BehaviorSubject } from 'rxjs';
-import { Toast } from 'ng2-toastr/ng2-toastr';
+// import { Toast } from 'ng2-toastr/ng2-toastr';
+import { Toast } from 'ngx-toastr';
 
 /* Notification service stub */
 export class NotificationServiceStub {
@@ -97,49 +98,49 @@ export class TranslateServiceStub {
 }
 
 export class ToastsManagerStub {
-  public show(toast: Toast): Promise<Toast> {
-    return new Promise((resolve) => {
-      resolve(this.setupToast(toast));
-    });
-  }
+  // public show(toast: Toast): Promise<Toast> {
+  //   return new Promise((resolve) => {
+  //     resolve(this.setupToast(toast));
+  //   });
+  // }
 
   public clearAllToasts() {
     return;
   }
 
-  public setupToast(toast: Toast): Toast {
-    toast.id = 1;
-    return toast;
-  }
-
-  public error(message: string, title?: string, options?: any): Promise<Toast> {
-    const data = options && options.data ? options.data : null;
-    const toast = new Toast('error', message, title, data);
-    return this.show(toast);
-  }
-
-  public info(message: string, title?: string, options?: any): Promise<Toast> {
-    const data = options && options.data ? options.data : null;
-    const toast = new Toast('info', message, title, data);
-    return this.show(toast);
-  }
-
-  public success(message: string, title?: string, options?: any): Promise<Toast> {
-    const data = options && options.data ? options.data : null;
-    const toast = new Toast('success', message, title, data);
-    return this.show(toast);
-  }
-
-  public warning(message: string, title?: string, options?: any): Promise<Toast> {
-    const data = options && options.data ? options.data : null;
-    const toast = new Toast('warning', message, title, data);
-    return this.show(toast);
-  }
-
-  // allow user define custom background color and image
-  public custom(message: string, title?: string, options?: any): Promise<Toast> {
-    const data = options && options.data ? options.data : null;
-    const toast = new Toast('custom', message, title, data);
-    return this.show(toast);
-  }
+  // public setupToast(toast: Toast): Toast {
+  //   toast.id = 1;
+  //   return toast;
+  // }
+  //
+  // public error(message: string, title?: string, options?: any): Promise<Toast> {
+  //   const data = options && options.data ? options.data : null;
+  //   const toast = new Toast('error', message, title, data);
+  //   return this.show(toast);
+  // }
+  //
+  // public info(message: string, title?: string, options?: any): Promise<Toast> {
+  //   const data = options && options.data ? options.data : null;
+  //   const toast = new Toast('info', message, title, data);
+  //   return this.show(toast);
+  // }
+  //
+  // public success(message: string, title?: string, options?: any): Promise<Toast> {
+  //   const data = options && options.data ? options.data : null;
+  //   const toast = new Toast('success', message, title, data);
+  //   return this.show(toast);
+  // }
+  //
+  // public warning(message: string, title?: string, options?: any): Promise<Toast> {
+  //   const data = options && options.data ? options.data : null;
+  //   const toast = new Toast('warning', message, title, data);
+  //   return this.show(toast);
+  // }
+  //
+  // // allow user define custom background color and image
+  // public custom(message: string, title?: string, options?: any): Promise<Toast> {
+  //   const data = options && options.data ? options.data : null;
+  //   const toast = new Toast('custom', message, title, data);
+  //   return this.show(toast);
+  // }
 }

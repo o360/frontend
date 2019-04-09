@@ -1,5 +1,4 @@
-
-import {catchError} from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { RestServiceConfig } from '../decorators/rest-service-config.decorator';
 import { GroupModel } from '../models/group-model';
@@ -19,7 +18,7 @@ export interface IDataRequestUserGroups {
   entityConstructor: GroupModel
 })
 export class AdminGroupService extends RestService<GroupModel> {
-  public addUser(groupId?: ModelId, userId?: ModelId): Observable<void> {
+  public addUser(groupId?: ModelId, userId?: ModelId): Observable<Object> {
     const requestParams = `${this._getRequestParams(groupId)}/users/${userId}`;
     const requestOptions = this._getRequestOptions();
 
@@ -27,7 +26,7 @@ export class AdminGroupService extends RestService<GroupModel> {
       catchError((error: any) => this._handleErrors(error)));
   }
 
-  public addUsers(data: IDataRequestUserGroups[]): Observable<void> {
+  public addUsers(data: IDataRequestUserGroups[]): Observable<Object> {
     const requestParams = `${this._getRequestParams()}-users/add`;
     const requestOptions = this._getRequestOptions();
 
@@ -35,7 +34,7 @@ export class AdminGroupService extends RestService<GroupModel> {
       catchError((error: any) => this._handleErrors(error)));
   }
 
-  public removeUser(groupId?: ModelId, userId?: ModelId): Observable<void> {
+  public removeUser(groupId?: ModelId, userId?: ModelId): Observable<Object> {
     const requestParams = `${this._getRequestParams(groupId)}/users/${userId}`;
     const requestOptions = this._getRequestOptions();
 
@@ -43,7 +42,7 @@ export class AdminGroupService extends RestService<GroupModel> {
       catchError((error: any) => this._handleErrors(error)));
   }
 
-  public removeUserFromAllGroup(data: IDataRequestUserGroups[]): Observable<void> {
+  public removeUserFromAllGroup(data: IDataRequestUserGroups[]): Observable<Object> {
     const requestParams = `${this._getRequestParams()}-users/remove`;
     const requestOptions = this._getRequestOptions();
 

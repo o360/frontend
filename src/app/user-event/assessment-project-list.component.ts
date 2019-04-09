@@ -11,7 +11,6 @@ import { Utils } from '../utils';
 import { IListResponse } from '../core/services/rest.service';
 
 @Component({
-  moduleId: module.id,
   selector: 'bs-assessment',
   templateUrl: 'assessment-project-list.component.html'
 })
@@ -45,7 +44,7 @@ export class AssessmentProjectListComponent extends ListComponent<ProjectModel> 
   }
 
   public loadNextProject(assessments: any) {
-    let nextProject = Utils.getNext(this._list, _ => _.active);
+    const nextProject = Utils.getNext(this._list, _ => _.active);
 
     if (nextProject) {
       this._list.forEach(_ => _.active = false);

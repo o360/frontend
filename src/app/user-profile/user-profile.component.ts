@@ -12,7 +12,6 @@ import { IListResponse } from '../core/services/rest.service';
 import { GroupModel } from '../core/models/group-model';
 
 @Component({
-  moduleId: module.id,
   selector: 'bs-user-profile',
   templateUrl: 'user-profile.component.html',
 })
@@ -64,7 +63,7 @@ export class UserProfileComponent extends DetailsComponent<AccountModel> impleme
   }
 
   protected _getUserGroups() {
-    (<AccountService>this._service).getGroups().subscribe((response: IListResponse<GroupModel>) => {
+    (<AccountService> this._service).getGroups().subscribe((response: IListResponse<GroupModel>) => {
       this._model.groups = response.data.map(_ => _.name).join(', ');
     });
   }

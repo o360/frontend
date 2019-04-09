@@ -7,7 +7,6 @@ import { NotificationService } from '../../core/services/notification.service';
 import { BreadcrumbService } from '../../core/services/breadcrumb.service';
 
 @Component({
-  moduleId: module.id,
   selector: 'bs-assessment-event-details',
   templateUrl: 'event-details.component.html'
 })

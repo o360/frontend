@@ -10,7 +10,6 @@ import { IListResponse } from '../core/services/rest.service';
 import { GroupModel } from '../core/models/group-model';
 
 @Component({
-  moduleId: module.id,
   selector: 'bs-public-user-profile',
   templateUrl: 'user-public-profile.component.html'
 })

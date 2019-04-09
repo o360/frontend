@@ -9,7 +9,6 @@ import { EventModel, EventStatus } from '../../core/models/event-model';
 import { NotificationService } from '../../core/services/notification.service';
 
 @Component({
-  moduleId: module.id,
   selector: 'bs-assessment-event-project-list',
   templateUrl: 'event-project-list.component.html'
 })

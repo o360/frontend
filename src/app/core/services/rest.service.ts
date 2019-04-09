@@ -1,9 +1,9 @@
 import { throwError as observableThrowError, Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { forwardRef, Inject, Injectable } from '@angular/core';
-import { Headers, Http, RequestOptions, Response } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Config } from '../../shared/config/env.config';
+import { Config } from '../../../environments/env.config';
 import { Model, ModelId } from '../models/model';
 import { AuthService } from './auth.service';
 import { NotificationService } from './notification.service';
@@ -56,7 +56,7 @@ export class RestService<T extends Model> {
   protected _entityName: string;
   protected _entityConstructor: ModelConstructor<T>;
 
-  constructor(protected _http: Http,
+  constructor(protected _http: HttpClient,
               protected _authService: AuthService,
               protected _router: Router,
               protected _notificationService: NotificationService,
@@ -78,9 +78,8 @@ export class RestService<T extends Model> {
    */
   public list(queryParams?: IQueryParams): Observable<IListResponse<T>> {
     return this._http.get(this._getRequestParams(undefined, queryParams), this._getRequestOptions()).pipe(
-      map((response: Response) => response.json()),
       map((json: any) => Object.assign(json, { data: json.data.map((x: any) => this.createEntity(x)) })),
-      catchError((error: any) => this._handleErrors(error)),);
+      catchError((error: Response) => this._handleErrors(error)));
   }
 
   /**
@@ -90,9 +89,8 @@ export class RestService<T extends Model> {
    */
   public get(id: ModelId, queryParams?: IQueryParams): Observable<T> {
     return this._http.get(this._getRequestParams(id, queryParams), this._getRequestOptions()).pipe(
-      map((response: Response) => response.json()),
       map((json: any) => this.createEntity(json)),
-      catchError((error: Response) => this._handleErrors(error)),);
+      catchError((error: any) => this._handleErrors(error)));
   }
 
   /**
@@ -111,11 +109,11 @@ export class RestService<T extends Model> {
   /**
    * Delete record of data by ID
    * @params {number} id of record
-   * @return {Observable<void>}
+   * @return {Observable<void | Object>}
    */
-  public delete(id: ModelId): Observable<void> {
-    let requestParams = this._getRequestParams(id);
-    let requestOptions = this._getRequestOptions();
+  public delete(id: ModelId): Observable<void | Object> {
+    const requestParams = this._getRequestParams(id);
+    const requestOptions = this._getRequestOptions();
 
     return this._http.delete(requestParams, requestOptions).pipe(
       catchError((error: Response) => this._handleErrors(error)));
@@ -127,14 +125,13 @@ export class RestService<T extends Model> {
    * @return {Observable<T>}
    */
   protected _update(model: T): Observable<T> {
-    let requestParams = this._getRequestParams(model.id);
-    let json = JSON.stringify(model.toJson());
-    let requestOptions = this._getRequestOptions();
+    const requestParams = this._getRequestParams(model.id);
+    const json = JSON.stringify(model.toJson());
+    const requestOptions = this._getRequestOptions();
 
     return this._http.put(requestParams, json, requestOptions).pipe(
-      map((res: Response) => res.json()),
-      map((json: any) => this.createEntity(json)),
-      catchError((error: Response) => this._handleErrors(error)),);
+      map((jsonData: any) => this.createEntity(jsonData)),
+      catchError((error: Response) => this._handleErrors(error)));
   }
 
   /**
@@ -143,14 +140,13 @@ export class RestService<T extends Model> {
    * @return {Observable<T>}
    */
   protected _create(model: T): Observable<T> {
-    let requestParams = this._getRequestParams();
-    let json = JSON.stringify(model.toJson());
-    let requestOptions = this._getRequestOptions();
+    const requestParams = this._getRequestParams();
+    const json = JSON.stringify(model.toJson());
+    const requestOptions = this._getRequestOptions();
 
     return this._http.post(requestParams, json, requestOptions).pipe(
-      map((res: Response) => res.json()),
-      map((json: any) => this.createEntity(json)),
-      catchError((error: Response) => this._handleErrors(error)),);
+      map((jsonData: any) => this.createEntity(jsonData)),
+      catchError((error: Response) => this._handleErrors(error)));
   }
 
   /**
@@ -174,7 +170,7 @@ export class RestService<T extends Model> {
     let paramsString = '';
 
     if (params) {
-      let param = Object.entries(params).map(([key, value]) => key + '=' + encodeURIComponent(value.toString()));
+      const param = Object.entries(params).map(([key, value]) => key + '=' + encodeURIComponent(value.toString()));
       paramsString = '?' + param.join('&');
     }
 
@@ -186,41 +182,37 @@ export class RestService<T extends Model> {
    * @return {object}
    */
   protected _getRequestOptions() {
-    let headers = new Headers({
+    let headers = new HttpHeaders({
       'Content-Type': 'application/json;charset=UTF-8',
       'Accept': 'application/json'
     });
 
     if (this._authService.isLoggedIn) {
-      headers.append('X-Auth-Token', this._authService.token);
+     headers = headers.append('X-Auth-Token', this._authService.token);
     }
 
-    return new RequestOptions({
-      headers: headers
-    });
+    return { headers };
   }
 
   /**
    * Handler of errors for the CRUD methods
    */
-  protected _handleErrors(error: Response) {
-    let err = error.json();
-
+  protected _handleErrors(error: any) {
     if (error.status === 400) {
-      this._notificationService.error(this._prepareErrorCodeTranslation(err.code));
+      this._notificationService.error(this._prepareErrorCodeTranslation(error.code));
       return observableThrowError(error);
     } else if (error.status === 401) {
       this._router.navigate(['/login']);
       return observableThrowError(error);
     } else if (error.status === 403) {
-      if (err.code === 'AUTHORIZATION-EVENT') {
-        this._notificationService.error(this._prepareErrorCodeTranslation(err.code));
+      if (error.code === 'AUTHORIZATION-EVENT') {
+        this._notificationService.error(this._prepareErrorCodeTranslation(error.code));
       } else {
-        this._notificationService.error(err.message, `${error.status} ${error.statusText}`);
+        this._notificationService.error(error.message, `${error.status} ${error.statusText}`);
       }
       return observableThrowError(error);
     } else if (error.status === 404) {
-      this._notificationService.error(this._prepareErrorCodeTranslation(err.code));
+      this._notificationService.error(this._prepareErrorCodeTranslation(error.code));
       return observableThrowError(error);
     } else if (error.status === 409) {
       let conflicts = [
@@ -231,14 +223,14 @@ export class RestService<T extends Model> {
         'CONFLICT-RELATION-GENERAL',
         'CONFLICT-TEMPLATE-GENERAL'
       ];
-      if (conflicts.indexOf(err.code) !== -1) {
-        this._confirmationService.loadComponent(null, err.conflicts);
+      if (conflicts.indexOf(error.code) !== -1) {
+        this._confirmationService.loadComponent(null, error.conflicts);
       } else {
-        this._notificationService.error(this._prepareErrorCodeTranslation(err.code));
+        this._notificationService.error(this._prepareErrorCodeTranslation(error.code));
       }
       return observableThrowError(error);
     } else {
-      this._notificationService.error(err.message, `${error.status} ${error.statusText}`);
+      this._notificationService.error(error.message, `${error.status} ${error.statusText}`);
       return observableThrowError(error);
     }
   }
@@ -248,12 +240,12 @@ export class RestService<T extends Model> {
   }
 
   protected _convertDataUriToBlob(dataUri: string) {
-    let byteString = atob(dataUri.split(',')[1]);
-    let ia = new Uint8Array(byteString.length);
+    const byteString = atob(dataUri.split(',')[1]);
+    const ia = new Uint8Array(byteString.length);
     for (let i = 0; i < byteString.length; i++) {
       ia[i] = byteString.charCodeAt(i);
     }
-    var mimeString = dataUri.split(',')[0].split(':')[1].split(';')[0];
+    const mimeString = dataUri.split(',')[0].split(':')[1].split(';')[0];
     return new Blob([ia], { type: mimeString });
   }
 }

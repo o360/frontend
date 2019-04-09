@@ -5,7 +5,6 @@ import { ActivatedRoute, Params } from '@angular/router';
 export const inviteCode = 'inviteCode';
 
 @Component({
-  moduleId: module.id,
   selector: 'bs-login',
   templateUrl: 'login.component.html'
 })

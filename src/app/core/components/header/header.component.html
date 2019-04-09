@@ -12,16 +12,20 @@
   <ul class="nav navbar-nav ml-auto">
     <bs-language-selector class="hidden-sm-down" directionDown></bs-language-selector>
 
-    <li class="nav-item dropdown pl-2 pr-1">
+    <li class="nav-item dropdown pl-2 pr-1" dropdown>
       <a class="nav-link dropdown-toggle nav-link"
          data-toggle="dropdown"
          role="button"
+         dropdownToggle
          aria-haspopup="true"
          aria-expanded="true">{{ user.name }}</a>
 
-      <div class="dropdown-menu dropdown-menu-right">
-        <a class="dropdown-item" routerLink="/profile"><i class="fa fa-user-o"></i>{{ 'T_PROFILE' | translate }}</a>
-        <a class="dropdown-item" (click)="logout()"><i class="fa fa-lock"></i>{{ 'T_LOG_OUT' | translate }}</a>
+      <div class="dropdown-menu dropdown-menu-right"
+        role="menu"
+        *dropdownMenu
+      >
+        <a role="menuitem" class="dropdown-item" routerLink="/profile"><i class="fa fa-user-o"></i>{{ 'T_PROFILE' | translate }}</a>
+        <a role="menuitem" class="dropdown-item" (click)="logout()"><i class="fa fa-lock"></i>{{ 'T_LOG_OUT' | translate }}</a>
       </div>
     </li>
   </ul>

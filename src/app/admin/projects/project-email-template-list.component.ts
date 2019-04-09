@@ -8,7 +8,6 @@ import { ListComponent } from '../../shared/components/list.component';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  moduleId: module.id,
   selector: 'bs-project-email-template-list',
   templateUrl: 'project-email-template-list.component.html'
 })

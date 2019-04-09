@@ -1,6 +1,8 @@
 import { Injector } from '@angular/core';
 import { getTestBed, TestBed } from '@angular/core/testing';
-import { HttpModule, XHRBackend } from '@angular/http';
+// import { HttpModule, XHRBackend } from '@angular/http';
+import { HttpClientModule, HttpXhrBackend } from '@angular/common/http';
+// import { MockBackend, MockConnection } from '@angular/http/testing';
 import { MockBackend, MockConnection } from '@angular/http/testing';
 import { NotificationService } from './notification.service';
 import { ToastsManagerStub, TranslateServiceStub } from '../../stubs/stubs.utils';
@@ -17,17 +19,20 @@ export function main() {
 
     beforeEach(() => {
       TestBed.configureTestingModule({
-        imports: [HttpModule],
+        imports: [HttpClientModule],
         providers: [
           NotificationService,
           ToastOptions,
-          { provide: ToastsManager, useClass: ToastsManagerStub },
-          { provide: TranslateService, useClass: TranslateServiceStub },
-          { provide: XHRBackend, useClass: MockBackend }
+          { provide: ToastsManager },
+          { provide: TranslateService },
+          { provide: HttpXhrBackend, useClass: MockBackend },
+          // { provide: ToastsManager, useClass: ToastsManagerStub },
+          // { provide: TranslateService, useClass: TranslateServiceStub },
+          // { provide: HttpXhrBackend, useClass: MockBackend }
         ]
       });
       injector = getTestBed();
-      mockBackend = <any>injector.get(XHRBackend);
+      mockBackend = <any>injector.get(HttpXhrBackend);
       testService = injector.get(NotificationService);
       toastsManager = injector.get(ToastsManager);
       mockBackend.connections.subscribe((c: MockConnection) => connection = c);

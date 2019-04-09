@@ -9,7 +9,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BreadcrumbService } from '../../core/services/breadcrumb.service';
 
 @Component({
-  moduleId: module.id,
   selector: 'bs-assessment-event-clone-form',
   templateUrl: 'event-clone-form.component.html'
 })
