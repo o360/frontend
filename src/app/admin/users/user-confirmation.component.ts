@@ -10,7 +10,6 @@ import { IEntity } from '../../core/services/confirmation.service';
 import { AdminUserService } from '../../core/services/admin-user.service';
 
 @Component({
-  moduleId: module.id,
   selector: 'bs-user-confirmation',
   templateUrl: 'user-confirmation.component.html'
 })

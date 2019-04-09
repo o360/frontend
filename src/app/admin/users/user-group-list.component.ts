@@ -7,7 +7,6 @@ import { NotificationService } from '../../core/services/notification.service';
 import { ModelId } from '../../core/models/model';
 
 @Component({
-  moduleId: module.id,
   selector: 'bs-user-group-list',
   templateUrl: 'user-group-list.component.html'
 })

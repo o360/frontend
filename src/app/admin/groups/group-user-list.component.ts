@@ -8,7 +8,6 @@ import { ListComponent } from '../../shared/components/list.component';
 import { NotificationService } from '../../core/services/notification.service';
 
 @Component({
-  moduleId: module.id,
   selector: 'bs-group-user-list',
   templateUrl: 'group-user-list.component.html'
 })

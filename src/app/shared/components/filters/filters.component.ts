@@ -2,7 +2,6 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Filter, FilterType } from '../../../core/models/filter';
 
 @Component({
-  moduleId: module.id,
   selector: 'bs-filters',
   templateUrl: 'filters.component.html'
 })

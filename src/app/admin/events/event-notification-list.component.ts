@@ -6,7 +6,6 @@ import { DateFormat } from '../../shared/components/datetime/datetime-picker.com
 import * as moment from 'moment';
 
 @Component({
-  moduleId: module.id,
   selector: 'bs-assessment-event-notification',
   templateUrl: 'event-notification-list.component.html'
 })

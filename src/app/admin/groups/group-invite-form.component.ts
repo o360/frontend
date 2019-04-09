@@ -1,5 +1,4 @@
-
-import {of as observableOf,  Observable } from 'rxjs';
+import { of as observableOf, Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FormComponent } from '../../shared/components/form.component';
@@ -17,7 +16,6 @@ import { ModelId } from '../../core/models/model';
 import { AdminGroupService } from '../../core/services/admin-group.service';
 
 @Component({
-  moduleId: module.id,
   selector: 'bs-group-invite-form',
   templateUrl: 'group-invite-form.component.html'
 })
@@ -93,7 +91,7 @@ export class AdminGroupInviteFormComponent extends FormComponent<InviteModel> im
   }
 
   public save() {
-    (<InviteService>this._service).createRequest(this._getModel()).subscribe(() => {
+    (<InviteService> this._service).createRequest(this._getModel()).subscribe(() => {
       if (this._groupModel.id) {
         this._returnPath = [`/admin/groups/${this._groupModel.id}`];
       }
@@ -103,7 +101,7 @@ export class AdminGroupInviteFormComponent extends FormComponent<InviteModel> im
   }
 
   private _getEmails() {
-    return this._emails.split(',').map(function (item) {
+    return this._emails.split(',').map(function(item) {
       return item.replace(/\s/g, '');
     });
   }

@@ -7,7 +7,6 @@ import { InviteService } from '../../core/services/invite.service';
 import { GroupModel } from '../../core/models/group-model';
 
 @Component({
-  moduleId: module.id,
   selector: 'bs-user-invite',
   templateUrl: 'user-invite-list.component.html'
 })

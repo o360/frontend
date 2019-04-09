@@ -17,10 +17,9 @@ export interface IComment {
 }
 
 @Component({
-  moduleId: module.id,
   selector: 'bs-user-assessment-form',
   templateUrl: 'assessment-form.component.html',
-  styleUrls: ['assessment-form.component.css'],
+  styleUrls: ['assessment-form.component.scss'],
 })
 export class AssessmentFormComponent implements OnInit, OnChanges {
   protected _id: ModelId;
@@ -196,9 +195,9 @@ export class AssessmentFormComponent implements OnInit, OnChanges {
     this.onFormChange(value);
   }
 
-  public onFormChange(value?: IComment,) {
-    let answers = this._form.elements.map((element: FormElement) => {
-      let elementAnswer: IElementAnswer = { elementId: element.id };
+  public onFormChange(value?: IComment) {
+    const answers = this._form.elements.map((element: FormElement) => {
+      const elementAnswer: IElementAnswer = { elementId: element.id };
       if (!RequireValue(element.kind) && element.tempValue) {
         if (element.kind === FormElementType.LikeDislike && element.tempValue.valuesIds) {
           if (!element.tempValue.valuesIds.length) {
@@ -242,7 +241,7 @@ export class AssessmentFormComponent implements OnInit, OnChanges {
         answers: answers.filter(x => (!!x.valuesIds || !!x.text)),
         isAnonymous: this._isAnonymous,
         isSkipped: false,
-        status: AssessmentFormStatus.Answered //@TODO with skipping
+        status: AssessmentFormStatus.Answered // @TODO with skipping
       },
       isAnswered: true,
     });
@@ -279,7 +278,7 @@ export class AssessmentFormComponent implements OnInit, OnChanges {
 
   protected _getAnswers() {
     this._assessmentService.list(this._queryParams).subscribe((res: IListResponse<AssessmentModel>) => {
-      let list = res.data;
+      const list = res.data;
       let currentForm;
 
       if (this._user) {
@@ -296,7 +295,7 @@ export class AssessmentFormComponent implements OnInit, OnChanges {
 
       if (this._answers) {
         this._answers.forEach(answer => {
-          let element = this._form.elements.find(x => x.id === answer.elementId);
+          const element = this._form.elements.find(x => x.id === answer.elementId);
 
           if (!RequireValue(element.kind)) {
             if (element.kind === FormElementType.LikeDislike) {
@@ -316,7 +315,7 @@ export class AssessmentFormComponent implements OnInit, OnChanges {
           } else if (element.kind === FormElementType.Checkboxgroup) {
             if (answer.valuesIds) {
               answer.valuesIds.forEach(id => {
-                let value = element.values.find(x => x.id === id);
+                const value = element.values.find(x => x.id === id);
                 value.tempValue = true;
               });
             }

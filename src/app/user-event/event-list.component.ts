@@ -7,7 +7,6 @@ import { IListResponse } from '../core/services/rest.service';
 import { EventService } from '../core/services/event.service';
 
 @Component({
-  moduleId: module.id,
   selector: 'bs-assessment-user-event-list',
   templateUrl: 'event-list.component.html'
 })
@@ -35,7 +34,7 @@ export class EventListComponent extends ListComponent<EventModel> {
   }
 
   protected _update() {
-    let queryParams = { status: this._status, sort: 'start', onlyAvailable: 'true' };
+    const queryParams = { status: this._status, sort: 'start', onlyAvailable: 'true' };
     if (this._status === EventStatus.Completed) {
       queryParams.sort = 'end';
     }

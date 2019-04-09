@@ -1,5 +1,4 @@
-
-import {forkJoin as observableForkJoin,  Observable } from 'rxjs';
+import { forkJoin as observableForkJoin, Observable } from 'rxjs';
 import { Component, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GroupModel } from '../../core/models/group-model';
@@ -10,7 +9,6 @@ import { Filter, FilterType } from '../../core/models/filter';
 import { IListResponse, IQueryParams } from '../../core/services/rest.service';
 
 @Component({
-  moduleId: module.id,
   selector: 'bs-group-list',
   templateUrl: 'group-list.component.html'
 })

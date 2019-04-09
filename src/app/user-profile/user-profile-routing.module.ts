@@ -6,7 +6,7 @@ import { AppRoutes } from '../core/models/app-routes.model';
 
 @NgModule({
   imports: [
-    RouterModule.forChild(<AppRoutes>[{
+    RouterModule.forChild(<AppRoutes> [{
       path: '',
       component: UserProfileComponent,
       breadcrumbIgnore: true,

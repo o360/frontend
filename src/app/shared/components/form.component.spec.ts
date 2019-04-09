@@ -16,7 +16,6 @@ import { FormComponent } from './form.component';
 import { BreadcrumbService } from '../../core/services/breadcrumb.service';
 
 @Component({
-  moduleId: module.id,
   selector: 'bs-test-list',
   template: ''
 })

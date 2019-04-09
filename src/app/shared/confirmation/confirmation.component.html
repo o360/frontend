@@ -29,7 +29,7 @@
         </div>
 
         <ng-template [ngTemplateOutlet]="contentTemplate"
-                     [ngOutletContext]="{isVisible: true}"></ng-template>
+                     [ngTemplateOutletContext]="{isVisible: true}"></ng-template>
 
         <ng-template [ngIf]="!contentTemplate">
           <div class="modal-body">

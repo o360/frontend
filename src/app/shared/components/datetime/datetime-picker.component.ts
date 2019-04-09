@@ -1,5 +1,4 @@
-
-import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { AfterViewInit, Component, ElementRef, forwardRef, Input, ViewChild } from '@angular/core';
 import { ControlValueAccessor, FormControl, NG_VALIDATORS, NG_VALUE_ACCESSOR, NgModel, ValidationErrors, Validator } from '@angular/forms';
 import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
@@ -22,7 +21,7 @@ export const ValidatorIsAfter = (otherDateName: string) => {
       if (!otherDate) {
         throw new Error('Other control is not found in parent group');
       }
-      otherDate.valueChanges.pipe(distinctUntilChanged(),debounceTime(100),).subscribe(() => {
+      otherDate.valueChanges.pipe(distinctUntilChanged(), debounceTime(100),).subscribe(() => {
         thisDate.updateValueAndValidity();
       });
     }
@@ -57,7 +56,7 @@ export const ValidatorIsBefore = (otherDateName: string) => {
       if (!otherDate) {
         throw new Error('Other control is not found in parent group');
       }
-      otherDate.valueChanges.pipe(distinctUntilChanged(),debounceTime(100),).subscribe(() => {
+      otherDate.valueChanges.pipe(distinctUntilChanged(), debounceTime(100),).subscribe(() => {
         thisDate.updateValueAndValidity();
       });
     }
@@ -91,7 +90,6 @@ export const ValidatorFutureDate = (control: FormControl) => {
 let id = 0;
 
 @Component({
-  moduleId: module.id,
   selector: 'bs-datetime',
   templateUrl: 'datetime-picker.component.html',
   providers: [{
@@ -110,7 +108,7 @@ export class DateTimeComponent implements ControlValueAccessor, AfterViewInit, V
   protected _onlyDateMode: boolean = false;
   protected _disable: boolean = false;
   protected _input: ElementRef;
-  protected _id = `picker-${ id++ }`;
+  protected _id = `picker-${id++}`;
 
   @ViewChild(NgModel)
   public model: NgModel;
@@ -182,7 +180,7 @@ export class DateTimeComponent implements ControlValueAccessor, AfterViewInit, V
   }
 
   public ngAfterViewInit() {
-    let $element = <any>$(this._input.nativeElement);
+    let $element = <any> $(this._input.nativeElement);
 
     let datepicker = $element.datepicker({
       timepicker: !this._onlyDateMode,

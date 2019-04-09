@@ -17,7 +17,6 @@ import { BreadcrumbService } from '../../core/services/breadcrumb.service';
 import { ModelId } from '../../core/models/model';
 
 @Component({
-  moduleId: module.id,
   selector: 'bs-test-list',
   template: ''
 })

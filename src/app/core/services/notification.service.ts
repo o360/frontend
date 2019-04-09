@@ -1,23 +1,29 @@
 import { Injectable } from '@angular/core';
-import { ToastsManager, ToastOptions } from 'ng2-toastr/ng2-toastr';
+// import { ToastsManager, ToastOptions } from 'ng2-toastr/ng2-toastr';
+import { ToastrService, GlobalConfig } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
 
 @Injectable()
 export class NotificationService {
-  private _customOptions: ToastOptions = {
-    toastLife: 5000,
+  private _customOptions: Partial<GlobalConfig> = {
+    // maxShown: 5,
+    // showCloseButton: true,
+    // animate: 'fade',
+    // toastLife: 5000,
+    // dismiss: ''
+    timeOut: 5000,
+    maxOpened: 5,
     newestOnTop: true,
-    maxShown: 5,
-    showCloseButton: true,
-    animate: 'fade',
+    closeButton: true,
     positionClass: 'toast-top-right',
     messageClass: null,
     titleClass: 'font-bold',
-    enableHTML: false,
-    dismiss: ''
+    enableHtml: false,
+    autoDismiss: false
   };
 
-  constructor(protected _toastsManager: ToastsManager,
+  // constructor(protected _toastsManager: ToastsManager,
+  constructor(protected _toastsManager: ToastrService,
               protected _translate: TranslateService) {
   }
 
@@ -46,7 +52,9 @@ export class NotificationService {
   }
 
   public clearAll() {
-    return this._toastsManager.clearAllToasts();
+    // return this._toastsManager.clearAllToasts();
+    // TODO need research for closing all opened toasts
+    return this._toastsManager.clear();
   }
 
   protected _translateText(text: string) {

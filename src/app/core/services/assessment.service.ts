@@ -1,11 +1,9 @@
-
-import {catchError, map} from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { RestServiceConfig } from '../decorators/rest-service-config.decorator';
 import { IQueryParams, RestService } from './rest.service';
 import { AssessmentModel } from '../models/assessment-model';
 import { Observable } from 'rxjs';
-import { Response } from '@angular/http';
 
 @Injectable()
 @RestServiceConfig({
@@ -19,8 +17,7 @@ export class AssessmentService extends RestService<AssessmentModel> {
     let requestOptions = this._getRequestOptions();
 
     return this._http.post(requestParams, json, requestOptions).pipe(
-      map((res: Response) => res.json()),
-      map((json: any) => this.createEntity(json)),
+      map((jsonData: any) => this.createEntity(jsonData)),
       catchError((error: Response) => this._handleErrors(error)),);
   }
 }

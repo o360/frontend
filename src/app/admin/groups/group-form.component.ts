@@ -10,7 +10,6 @@ import { IListResponse, IQueryParams } from '../../core/services/rest.service';
 import { FormComponent } from '../../shared/components/form.component';
 
 @Component({
-  moduleId: module.id,
   selector: 'bs-group-form',
   templateUrl: 'group-form.component.html'
 })

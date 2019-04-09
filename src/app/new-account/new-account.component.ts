@@ -12,7 +12,6 @@ import * as moment from 'moment-timezone';
 import { UserPictureService } from '../core/services/user-picture.service';
 
 @Component({
-  moduleId: module.id,
   selector: 'bs-new-user',
   templateUrl: 'new-account.component.html'
 })

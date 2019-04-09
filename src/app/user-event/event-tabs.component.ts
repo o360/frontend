@@ -4,7 +4,6 @@ import { AuthService } from '../core/services/auth.service';
 import { UserStatus } from '../core/models/user-model';
 
 @Component({
-  moduleId: module.id,
   selector: 'bs-assessment-user-event-tabs',
   templateUrl: 'event-tabs.component.html'
 })

@@ -1,5 +1,4 @@
-
-import {forkJoin as observableForkJoin,  Observable } from 'rxjs';
+import { forkJoin as observableForkJoin } from 'rxjs';
 import { Component } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FormComponent } from '../../shared/components/form.component';
@@ -16,9 +15,7 @@ import { BreadcrumbService } from '../../core/services/breadcrumb.service';
 import { ProjectModel } from '../../core/models/project-model';
 import { AdminProjectService } from '../../core/services/admin-project.service';
 
-
 @Component({
-  moduleId: module.id,
   selector: 'bs-project-relation-form',
   templateUrl: 'project-relation-form.component.html'
 })

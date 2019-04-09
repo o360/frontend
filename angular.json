@@ -8,7 +8,11 @@
       "sourceRoot": "src",
       "projectType": "application",
       "prefix": "app",
-      "schematics": {},
+      "schematics": {
+        "@schematics/angular:component": {
+          "styleext": "scss"
+        }
+      },
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -20,12 +24,14 @@
             "tsConfig": "src/tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/styles/fonts"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles/main.scss",
+              "node_modules/ngx-toastr/toastr.css"
             ],
-            "scripts": [],
+            "scripts": ["node_modules/jquery/dist/jquery.js"],
             "es5BrowserSupport": true
           },
           "configurations": {
@@ -58,7 +64,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "open360Updating:build"
+            "browserTarget": "open360Updating:build",
+            "port": 5555
           },
           "configurations": {
             "production": {
@@ -82,7 +89,7 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": [],
+            "scripts": ["node_modules/jquery/dist/jquery.js"],
             "assets": [
               "src/favicon.ico",
               "src/assets"

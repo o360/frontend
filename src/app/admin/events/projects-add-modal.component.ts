@@ -1,7 +1,5 @@
-
-import {forkJoin as observableForkJoin,  Observable } from 'rxjs';
-
-import {map} from 'rxjs/operators';
+import { forkJoin as observableForkJoin } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap';
 import { ModelId } from '../../core/models/model';
@@ -17,8 +15,8 @@ interface ISelectProject {
   id: ModelId;
   text: string;
 }
+
 @Component({
-  moduleId: module.id,
   selector: 'bs-projects-add-modal',
   templateUrl: 'projects-add-modal.component.html'
 })
@@ -113,9 +111,9 @@ export class AdminProjectsAddModalComponent implements OnChanges, OnInit {
     let eventQueryParams = { eventId: this._eventId.toString() };
 
     observableForkJoin(
-        this._projectService.list(),
-        this._projectService.list(eventQueryParams)
-      ).pipe(
+      this._projectService.list(),
+      this._projectService.list(eventQueryParams)
+    ).pipe(
       map(([allProjects, eventProjects]: IListResponse<ProjectModel>[]) => {
         return allProjects.data.filter(project => !eventProjects.data.find(x => x.id === project.id));
       }))

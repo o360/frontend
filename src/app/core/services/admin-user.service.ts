@@ -1,5 +1,5 @@
-
-import {catchError, map} from 'rxjs/operators';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { catchError, map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { RestServiceConfig } from '../decorators/rest-service-config.decorator';
 import { UserModel } from '../models/user-model';
@@ -8,7 +8,6 @@ import { ConfirmationService } from './confirmation.service';
 import { NotificationService } from './notification.service';
 import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
-import { Http, Response, RequestOptions, Headers } from '@angular/http';
 import { Observable } from 'rxjs';
 import { ModelId } from '../models/model';
 
@@ -19,7 +18,7 @@ import { ModelId } from '../models/model';
   entityConstructor: UserModel
 })
 export class AdminUserService extends RestService<UserModel> {
-  constructor(http: Http,
+  constructor(http: HttpClient,
               authService: AuthService,
               router: Router,
               notificationService: NotificationService,
@@ -29,17 +28,17 @@ export class AdminUserService extends RestService<UserModel> {
 
   public setPicture(id: ModelId, file: string): Observable<any> {
     let requestParams = `${this._getRequestParams(id)}/picture`;
-    let requestOptions = new RequestOptions({
-      headers: new Headers({
+    let requestOptions = {
+      headers: new HttpHeaders({
         'X-Auth-Token': this._authService.token
       })
-    });
+    };
 
     let formData = new FormData();
     formData.append('picture', this._convertDataUriToBlob(file), 'pic.jpg');
 
     return this._http.post(requestParams, formData, requestOptions).pipe(
-      map((res: Response) => res.json()),
-      catchError((error: Response) => this._handleErrors(error)),);
+      map((res: Response) => res),
+      catchError((error: Response) => this._handleErrors(error)));
   }
 }

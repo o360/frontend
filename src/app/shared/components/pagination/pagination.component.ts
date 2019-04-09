@@ -5,7 +5,6 @@ export const supportedSizes: number[] = [10, 50, 100];
 export const defaultPage: number = 1;
 
 @Component({
-  moduleId: module.id,
   selector: 'bs-pagination',
   templateUrl: 'pagination.component.html'
 })

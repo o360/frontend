@@ -1,7 +1,5 @@
-
-import {forkJoin as observableForkJoin,  Observable } from 'rxjs';
-
-import {map} from 'rxjs/operators';
+import { forkJoin as observableForkJoin } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap';
 import { ModelId } from '../../core/models/model';
@@ -15,7 +13,6 @@ import { TranslateService } from '@ngx-translate/core';
 import { Select2OptionData, Select2Component } from 'ng2-select2/ng2-select2';
 
 @Component({
-  moduleId: module.id,
   selector: 'bs-users-add-modal',
   templateUrl: 'users-add-modal.component.html'
 })
@@ -111,7 +108,7 @@ export class AdminUsersAddModalComponent implements OnInit {
 
   public addAll() {
     this._selectedUsers = this._availableUsers.map(_ => String(_.id));
-    //@TODO THIS IS DAMN BAD PLUGIN
+    // @TODO THIS IS DAMN BAD PLUGIN
     $(this._users.selector.nativeElement).val(this._selectedUsers);
     $(this._users.selector.nativeElement).trigger('change.select2');
   }
@@ -122,9 +119,9 @@ export class AdminUsersAddModalComponent implements OnInit {
     this._selectedUsers = [];
 
     observableForkJoin(
-        this._userService.list(allQueryParams),
-        this._userService.list(groupQueryParams)
-      ).pipe(
+      this._userService.list(allQueryParams),
+      this._userService.list(groupQueryParams)
+    ).pipe(
       map(([allUsers, groupUsers]: [IListResponse<UserModel>, IListResponse<UserModel>]) => {
         return allUsers.data.filter(user => !groupUsers.data.find(groupUser => groupUser.id === user.id));
       }))

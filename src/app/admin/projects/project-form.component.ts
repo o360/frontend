@@ -9,9 +9,7 @@ import { IListResponse } from '../../core/services/rest.service';
 import { NotificationService } from '../../core/services/notification.service';
 import { BreadcrumbService } from '../../core/services/breadcrumb.service';
 
-
 @Component({
-  moduleId: module.id,
   selector: 'bs-project-form',
   templateUrl: 'project-form.component.html'
 })

@@ -9,7 +9,6 @@ import { ValidatorFutureDate, ValidatorIsAfter, ValidatorIsBefore } from '../../
 import { BreadcrumbService } from '../../core/services/breadcrumb.service';
 
 @Component({
-  moduleId: module.id,
   selector: 'bs-assessment-event-form',
   templateUrl: 'event-form.component.html'
 })

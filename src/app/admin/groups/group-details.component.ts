@@ -9,7 +9,6 @@ import { NotificationService } from '../../core/services/notification.service';
 import { ModelId } from '../../core/models/model';
 
 @Component({
-  moduleId: module.id,
   selector: 'bs-group-details',
   templateUrl: 'group-details.component.html'
 })

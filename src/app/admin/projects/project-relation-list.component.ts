@@ -6,7 +6,6 @@ import { AdminRelationService } from '../../core/services/admin-relation.service
 import { NotificationService } from '../../core/services/notification.service';
 
 @Component({
-  moduleId: module.id,
   selector: 'bs-project-relation-list',
   templateUrl: 'project-relation-list.component.html'
 })

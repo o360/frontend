@@ -7,7 +7,6 @@ import { UserModel } from '../../../core/models/user-model';
 let id = 0;
 
 @Component({
-  moduleId: module.id,
   selector: 'bs-likes-dislikes',
   templateUrl: 'likes-dislikes.component.html',
   providers: [{
@@ -15,7 +14,7 @@ let id = 0;
     useExisting: forwardRef(() => LikesDislikesComponent),
     multi: true
   }],
-  styleUrls: ['likes-dislikes.component.css']
+  styleUrls: ['likes-dislikes.component.scss']
 })
 export class LikesDislikesComponent implements ControlValueAccessor {
   protected _element: FormElement;

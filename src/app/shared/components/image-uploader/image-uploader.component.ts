@@ -2,10 +2,10 @@ import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@
 import { ModalDirective } from 'ngx-bootstrap';
 import { Observable } from 'rxjs';
 
-import Cropper = require('cropperjs');
+// import Cropper = require('cropperjs');
+import Cropper from 'cropperjs';
 
 @Component({
-  moduleId: module.id,
   selector: 'bs-image-uploader',
   templateUrl: 'image-uploader.component.html'
 })

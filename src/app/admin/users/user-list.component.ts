@@ -7,7 +7,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NotificationService } from '../../core/services/notification.service';
 
 @Component({
-  moduleId: module.id,
   selector: 'bs-user-list',
   templateUrl: 'user-list.component.html'
 })

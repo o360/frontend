@@ -1,5 +1,4 @@
-
-import {map} from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AssessmentFormStatus, AssessmentModel, IFormAnswer } from '../core/models/assessment-model';
@@ -19,7 +18,6 @@ import { Utils } from '../utils';
 import { AuthService } from '../core/services/auth.service';
 
 @Component({
-  moduleId: module.id,
   selector: 'bs-user-assessment-event',
   templateUrl: 'assessment-event.component.html'
 })
@@ -176,11 +174,11 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
       this._assessmentObject = item;
 
       if (this._assessmentObject.hasOwnProperty('user')) {
-        let obj = <AssessmentModel>this._assessmentObject;
+        let obj = <AssessmentModel> this._assessmentObject;
         obj.forms.forEach(_ => _.active = false);
         obj.forms[0].active = true;
       } else {
-        (<IFormAnswer>this._assessmentObject).active = true;
+        (<IFormAnswer> this._assessmentObject).active = true;
       }
     });
   }
@@ -188,7 +186,7 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
   public showNext(assessment: AssessmentModel) {
     this._update().subscribe(() => {
       if (this._assessmentObject.hasOwnProperty('user')) {
-        let obj = <AssessmentModel>this._assessmentObject;
+        let obj = <AssessmentModel> this._assessmentObject;
         let nextForm = Utils.getNext(obj.forms, _ => _.active, _ => _.status === AssessmentFormStatus.New);
 
         if (nextForm) {
@@ -212,7 +210,7 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
           }
         }
       } else if (this.surveys && !!this._surveys.length) {
-        let nextSurvey = Utils.getNext(this._surveys, _ => _.form.id === (<IFormAnswer>this._assessmentObject).form.id,
+        let nextSurvey = Utils.getNext(this._surveys, _ => _.form.id === (<IFormAnswer> this._assessmentObject).form.id,
           _ => _.status === AssessmentFormStatus.New);
         if (nextSurvey) {
           this.displayItem(nextSurvey);
@@ -261,7 +259,7 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
 
     };
 
-    (<AssessmentService>this._service).saveBulk(this._answers, postQueryParams).subscribe(() => {
+    (<AssessmentService> this._service).saveBulk(this._answers, postQueryParams).subscribe(() => {
       this._notificationService.success('T_SUCCESS_SAVED');
       this._isAnswered = !this._list.find(x => !x.isAnswered);
       this._showNextProject.emit(this._list);

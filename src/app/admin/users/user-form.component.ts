@@ -7,9 +7,7 @@ import { NotificationService } from '../../core/services/notification.service';
 import { BreadcrumbService } from '../../core/services/breadcrumb.service';
 import { UserPictureService } from '../../core/services/user-picture.service';
 
-
 @Component({
-  moduleId: module.id,
   selector: 'bs-user-form',
   templateUrl: 'user-form.component.html'
 })

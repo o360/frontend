@@ -1,7 +1,5 @@
-
-import {from as observableFrom, of as observableOf,  Observable } from 'rxjs';
-
-import {share, map} from 'rxjs/operators';
+import { from as observableFrom, of as observableOf, Observable } from 'rxjs';
+import { share, map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 import { AccountModel } from '../models/account-model';
@@ -38,7 +36,7 @@ export class AuthServiceLoader implements CanActivate {
           this._authService.user = user;
           this._isLoading = null;
           return true;
-        }),share(),);
+        }), share());
     }
 
     return this._isLoading;

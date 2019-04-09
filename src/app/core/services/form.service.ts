@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { RestServiceConfig } from '../decorators/rest-service-config.decorator';
@@ -16,7 +16,7 @@ import { ConfirmationService } from './confirmation.service';
 })
 export class FormService extends RestService<FormModel> {
 
-  constructor(http: Http,
+  constructor(http: HttpClient,
               authService: AuthService,
               router: Router,
               notificationService: NotificationService,

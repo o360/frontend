@@ -10,7 +10,6 @@ import { BreadcrumbService } from '../../core/services/breadcrumb.service';
 
 
 @Component({
-  moduleId: module.id,
   selector: 'bs-template-form',
   templateUrl: 'email-template-form.component.html'
 })

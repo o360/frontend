@@ -15,7 +15,7 @@ import { UsersModule } from './users/users.module';
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(<AppRoutes>[{
+    RouterModule.forRoot(<AppRoutes> [{
       path: '',
       canActivate: [AuthServiceLoader],
       canActivateChild: [AuthGuard],

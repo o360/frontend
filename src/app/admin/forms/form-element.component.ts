@@ -5,7 +5,6 @@ import { FormElementType, IFormElementValue } from '../../core/models/form-model
 
 
 @Component({
-  moduleId: module.id,
   selector: 'bs-form-builder-element',
   templateUrl: 'form-element.component.html'
 })

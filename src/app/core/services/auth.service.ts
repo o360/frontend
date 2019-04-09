@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Config } from '../../shared/config/env.config';
+import { Config } from '../../../environments/env.config';
 import { AccountModel } from '../models/account-model';
 import { UserRole } from '../models/user-model';
 
@@ -51,7 +51,7 @@ export class AuthService {
   public login(oauthProvider: string) {
     let providerConfig = Config.PROVIDERS[oauthProvider];
     let urlParams = Object.entries(providerConfig.getParams).map(([key, value]) => {
-      return `${key}=${encodeURIComponent(value)}`;
+      return `${key}=${encodeURIComponent(value.toString())}`;
     });
     window.location.href = `${providerConfig.authorizationUrlBase}?${urlParams.join('&')}`;
   }

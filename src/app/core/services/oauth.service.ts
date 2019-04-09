@@ -1,8 +1,5 @@
-
-import {throwError as observableThrowError,  Observable } from 'rxjs';
-
-import {catchError, map} from 'rxjs/operators';
-import { Response } from '@angular/http';
+import { throwError as observableThrowError, Observable } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { RestServiceConfig } from '../decorators/rest-service-config.decorator';
 import { AccountModel } from '../models/account-model';
 import { RestService } from './rest.service';
@@ -18,9 +15,8 @@ export class OAuthService extends RestService<AccountModel> {
     let options = this._getRequestOptions();
 
     return this._http.post(params, body, options).pipe(
-      map((response: Response) => response.json()),
-      map((json: any) => <string>json['token']),
-      catchError((error: Response) => this._handleErrors(error)),);
+      map((json: any) => <string> json['token']),
+      catchError((error: Response) => this._handleErrors(error)));
   }
 
   public list() {

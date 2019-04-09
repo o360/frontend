@@ -10,11 +10,12 @@ import {
   PaginationModule,
   TabsModule,
   TooltipModule,
-  AlertModule
+  AlertModule, BsDropdownModule
 } from 'ngx-bootstrap';
 import { FiltersComponent } from './components/filters/filters.component';
 import { ConfirmationDirective } from './directives/confirmation.directive';
-import { ToastModule } from 'ng2-toastr/ng2-toastr';
+// import { ToastModule } from 'ng2-toastr/ng2-toastr';
+import { ToastrModule } from 'ngx-toastr';
 import { PaginationComponent } from './components/pagination/pagination.component';
 import { CKEditorModule } from 'ng2-ckeditor';
 import { DateTimeComponent } from './components/datetime/datetime-picker.component';
@@ -42,7 +43,7 @@ import { TimeLeftPipe } from './pipes/time-left.pipe';
     ReactiveFormsModule,
     RouterModule,
     TranslateModule,
-    ToastModule,
+    ToastrModule,
     AccordionModule,
     CollapseModule,
     PaginationModule,
@@ -52,7 +53,8 @@ import { TimeLeftPipe } from './pipes/time-left.pipe';
     AlertModule,
     TooltipModule,
     DndModule,
-    Select2Module
+    Select2Module,
+    BsDropdownModule
   ],
   declarations: [
     ConfirmationDirective,
@@ -80,7 +82,7 @@ import { TimeLeftPipe } from './pipes/time-left.pipe';
     CollapseModule,
     FiltersComponent,
     SearchComponent,
-    ToastModule,
+    ToastrModule,
     AccordionModule,
     PaginationModule,
     PaginationComponent,

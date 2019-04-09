@@ -8,7 +8,6 @@ import { NotificationService } from '../../core/services/notification.service';
 import { UserPictureService } from '../../core/services/user-picture.service';
 
 @Component({
-  moduleId: module.id,
   selector: 'bs-user-details',
   templateUrl: `user-details.component.html`
 })

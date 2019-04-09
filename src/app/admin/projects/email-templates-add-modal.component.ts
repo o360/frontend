@@ -5,7 +5,6 @@ import { IEmailTemplate } from '../../core/models/project-model';
 import { AdminEmailTemplateService } from '../../core/services/admin-email-template.service';
 
 @Component({
-  moduleId: module.id,
   selector: 'bs-email-templates-add-modal',
   templateUrl: 'email-templates-add-modal.component.html'
 })

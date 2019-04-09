@@ -7,7 +7,6 @@ import { EventModel, EventStatus } from '../../core/models/event-model';
 import { AdminEventService } from '../../core/services/admin-event.service';
 
 @Component({
-  moduleId: module.id,
   selector: 'bs-project-event-list',
   templateUrl: 'project-event-list.component.html'
 })

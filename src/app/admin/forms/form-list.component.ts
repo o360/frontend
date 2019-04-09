@@ -6,7 +6,6 @@ import { NotificationService } from '../../core/services/notification.service';
 import { ListComponent } from '../../shared/components/list.component';
 
 @Component({
-  moduleId: module.id,
   selector: 'bs-form-list',
   templateUrl: 'form-list.component.html'
 })

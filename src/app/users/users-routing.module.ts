@@ -6,7 +6,7 @@ import { UserPublicProfileComponent } from './user-public-profile.component';
 
 @NgModule({
   imports: [
-    RouterModule.forChild(<AppRoutes>[{
+    RouterModule.forChild(<AppRoutes> [{
       path: '',
       component: UserListComponent,
       breadcrumbIgnore: true,

@@ -16,7 +16,6 @@ import { ActivatedRouteStub, NotificationServiceStub, AuthServiceStub, RouterStu
 import { ConfirmationService } from '../../core/services/confirmation.service';
 
 @Component({
-  moduleId: module.id,
   selector: 'bs-test-list',
   template: ``
 })

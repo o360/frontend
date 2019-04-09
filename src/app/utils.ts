@@ -135,18 +135,18 @@ export class Utils {
    * @returns {string}
    */
   public static generateId() {
-      'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-        let r = Math.random()*16|0, v = c === 'x' ? r : (r&0x3|0x8);
-        return v.toString(16);
-      });
-    }
+    'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+      let r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+      return v.toString(16);
+    });
+  }
 
   /**
    * Transliterate a string
    * @returns {string}
    */
   public static transliterate(value: string) {
-    this._keys = Object.keys(this._transliterationHashMap).sort(function (a, b) {
+    this._keys = Object.keys(this._transliterationHashMap).sort(function(a, b) {
       return b.length - a.length;
     });
     let out: string = '';
@@ -165,14 +165,18 @@ export class Utils {
 
   protected static _peek(str: string) {
     for (let i = 0; i < this._keys.length; i++) {
-      if (this._startsWith(this._keys[i], str)) return this._keys[i];
+      if (this._startsWith(this._keys[i], str)) {
+        return this._keys[i];
+      }
     }
     return '';
   }
 
   protected static _startsWith(start: string, str: string) {
     for (let i = 0; i < start.length; i++) {
-      if (start[i] !== str[i]) return false;
+      if (start[i] !== str[i]) {
+        return false;
+      }
     }
     return true;
   }

@@ -1,10 +1,9 @@
 import { AfterViewInit, Component } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { AccountModel } from '../../models/account-model';
-import { Config } from '../../../shared/config/env.config';
+import { Config } from '../../../../environments/env.config';
 
 @Component({
-  moduleId: module.id,
   selector: 'bs-header',
   templateUrl: 'header.component.html'
 })
@@ -32,7 +31,7 @@ export class HeaderComponent implements AfterViewInit {
 // @todo: Rewrite scripts from theme
   public ngAfterViewInit() {
     let self = this;
-    $('.navbar-toggler').click(function (e) {
+    $('.navbar-toggler').click(function(e) {
       e.preventDefault();
 
       if ($(this).hasClass('sidebar-toggler')) {
@@ -51,7 +50,7 @@ export class HeaderComponent implements AfterViewInit {
       }
     });
 
-    $('.sidebar-close').click(function () {
+    $('.sidebar-close').click(function() {
       $('body').toggleClass('sidebar-opened').parent().toggleClass('sidebar-opened');
     });
   }
