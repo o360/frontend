@@ -34,7 +34,7 @@ build:
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN git.bw-sw.com:5000
   script: 
     - yarn install
-    - yarn run build.prod.dev
+    - yarn build
     - docker build --tag=git.bw-sw.com:5000/open360/frontend:${CI_COMMIT_REF_NAME}-${CI_PIPELINE_ID} --file=".docker/bw-assessment-ui.prod.dockerfile" .
     - docker push git.bw-sw.com:5000/open360/frontend:${CI_COMMIT_REF_NAME}-${CI_PIPELINE_ID}
 
