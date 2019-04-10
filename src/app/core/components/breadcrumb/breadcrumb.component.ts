@@ -52,7 +52,7 @@ export class BreadcrumbComponent implements OnInit {
 
       if (!routeConfig.breadcrumbIgnore) {
         newState.push({
-          label: label,
+          label,
           url: '/' + path.join('/')
         });
       }

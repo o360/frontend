@@ -116,7 +116,7 @@ export class AdminGroupInviteFormComponent extends FormComponent<InviteModel> im
     let resultModel: IDataRequestInvite[] = [];
 
     this._getEmails().forEach(email => {
-      resultModel.push({ email: email, groups: this._groupModel.id ? [this._groupModel.id] : this._getGroups() });
+      resultModel.push({ email, groups: this._groupModel.id ? [this._groupModel.id] : this._getGroups() });
     });
 
     return resultModel;

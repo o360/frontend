@@ -82,10 +82,10 @@ export class AdminUserInviteFormComponent extends FormComponent<InviteModel> imp
   public save() {
     let resultModel: IDataRequestInvite[] = [];
     this._getEmails().forEach(email => {
-      resultModel.push({ email: email, groups: this._getGroups() });
+      resultModel.push({ email, groups: this._getGroups() });
     });
 
-    (<InviteService>this._service).createRequest(resultModel).subscribe(model => {
+    (<InviteService> this._service).createRequest(resultModel).subscribe(model => {
       if (this._returnPath) {
         this._router.navigate([this._returnPath]);
       }
@@ -94,7 +94,7 @@ export class AdminUserInviteFormComponent extends FormComponent<InviteModel> imp
   }
 
   private _getEmails() {
-    return this._emails.split(',').map(function (item) {
+    return this._emails.split(',').map(function(item) {
       return item.replace(/\s/g, '');
     });
   }

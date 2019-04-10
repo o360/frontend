@@ -1,5 +1,4 @@
-
-import {of as observableOf,  Observable } from 'rxjs';
+import { of as observableOf, Observable } from 'rxjs';
 import { OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Model, ModelId } from '../../core/models/model';
@@ -74,8 +73,8 @@ export abstract class FormComponent<T extends Model> implements OnInit {
   }
 
   protected _fillBreadcrumbs(model: T) {
-    if (model.hasOwnProperty('name') && (<any>model).name !== '' ) {
-      this._breadcrumbService.overrideBreadcrumb([{ label: (<any>model).name }]);
+    if (model.hasOwnProperty('name') && (<any> model).name !== '') {
+      this._breadcrumbService.overrideBreadcrumb([{ label: (<any> model).name }]);
     }
   }
 }
