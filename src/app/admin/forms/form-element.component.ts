@@ -32,9 +32,7 @@ export class AdminFormBuilderElementComponent {
   }
 
   public addValue(caption: string) {
-    let newValue: IFormElementValue = {
-      caption: caption
-    };
+    let newValue: IFormElementValue = { caption };
     this._element.value.values.push(newValue);
     this._element.controls['valueCaption'].reset();
   }

@@ -73,7 +73,7 @@ export function main() {
     });
 
     it('should compare two date inputs and validate them', () => {
-      let formBuilder: FormBuilder = new FormBuilder;
+      let formBuilder: FormBuilder = new FormBuilder();
       let form = formBuilder.group({
         start: ['', [ValidatorIsBefore('end')]],
         end: ['', [ValidatorIsAfter('start')]],

@@ -86,7 +86,7 @@ export class AdminFormBuilderComponent extends FormComponent<FormModel> implemen
 
   public addElement(kind: string) {
     let element: FormElement = new FormElement({
-      kind: kind,
+      kind,
       caption: null,
       required: false,
     });
