@@ -1,6 +1,6 @@
 import { Injector } from '@angular/core';
 import { getTestBed, TestBed } from '@angular/core/testing';
-import { HttpModule, XHRBackend } from '@angular/http';
+import { HttpClientModule, HttpXhrBackend } from '@angular/common/http';
 import { MockBackend, MockConnection } from '@angular/http/testing';
 import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
@@ -26,18 +26,18 @@ export function main() {
 
     beforeEach(() => {
       TestBed.configureTestingModule({
-        imports: [HttpModule],
+        imports: [HttpClientModule],
         providers: [
           AdminEventService,
           { provide: NotificationService, useClass: NotificationServiceStub },
           { provide: AuthService, useClass: AuthServiceStub },
-          { provide: XHRBackend, useClass: MockBackend },
+          { provide: HttpXhrBackend, useClass: MockBackend },
           { provide: Router, useClass: RouterStub },
           { provide: ConfirmationService, useClass: ConfirmationStub}
         ]
       });
       injector = getTestBed();
-      mockBackend = <any>injector.get(XHRBackend);
+      mockBackend = <any>injector.get(HttpXhrBackend);
       testService = injector.get(AdminEventService);
       mockBackend.connections.subscribe((c: MockConnection) => connection = c);
     });

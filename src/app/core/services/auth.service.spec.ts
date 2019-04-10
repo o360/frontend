@@ -1,6 +1,6 @@
 import { Injector } from '@angular/core';
 import { getTestBed, TestBed } from '@angular/core/testing';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { AuthService, tokenLsKey } from './auth.service';
 import { RouterStub } from '../../stubs/stubs.utils';
 import { Router } from '@angular/router';
@@ -13,7 +13,7 @@ export function main() {
 
     beforeEach(() => {
       TestBed.configureTestingModule({
-        imports: [HttpModule],
+        imports: [HttpClientModule],
         providers: [AuthService,
           {provide: Router, useClass: RouterStub},
         ]

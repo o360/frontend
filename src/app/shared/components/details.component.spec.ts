@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { HttpModule, XHRBackend } from '@angular/http';
+import { HttpClientModule, HttpXhrBackend } from '@angular/common/http';
 import { MockBackend } from '@angular/http/testing';
 import { TestService } from '../../core/services/rest.service.spec';
 import { TestModel } from '../../core/models/model.spec';
@@ -52,13 +52,13 @@ export function main() {
 
     beforeEach(() => {
       TestBed.configureTestingModule({
-        imports: [HttpModule],
+        imports: [HttpClientModule],
         declarations: [TestDetailsComponent],
         providers: [
           TestService,
           { provide: NotificationService, useClass: NotificationServiceStub },
           { provide: AuthService, useClass: AuthServiceStub },
-          { provide: XHRBackend, useClass: MockBackend },
+          { provide: HttpXhrBackend, useClass: MockBackend },
           { provide: ActivatedRoute, useClass: ActivatedRouteStub },
           { provide: Router, useClass: RouterStub },
           { provide: ConfirmationService, useClass: ConfirmationStub },
