@@ -1,8 +1,6 @@
 import { Injector } from '@angular/core';
 import { getTestBed, TestBed } from '@angular/core/testing';
-// import { HttpModule, XHRBackend } from '@angular/http';
 import { HttpClientModule, HttpXhrBackend } from '@angular/common/http';
-// import { MockBackend, MockConnection } from '@angular/http/testing';
 import { MockBackend, MockConnection } from '@angular/http/testing';
 import { NotificationService } from './notification.service';
 import { ToastsManagerStub, TranslateServiceStub } from '../../stubs/stubs.utils';
