@@ -1,9 +1,4 @@
 {
-<<<<<<< HEAD
-  "extends": "./tools/config/seed.tslint.json",
-  "rules": {
-    "no-access-missing-member": false,
-=======
   "extends": "tslint:recommended",
   "rulesDirectory": [
     "codelyzer"
@@ -25,23 +20,10 @@
       140
     ],
     "member-access": false,
->>>>>>> f2b0b810d17a20a3fdb6425f0049d243e05a6653
     "member-ordering": [
       true,
       {
         "order": [
-<<<<<<< HEAD
-          "private-instance-field",
-          "protected-instance-field",
-          "public-instance-field",
-          "public-constructor",
-          "public-instance-method",
-          "private-instance-method",
-          "protected-instance-method"
-        ]
-      }
-    ]
-=======
           "static-field",
           "instance-field",
           "static-method",
@@ -85,6 +67,5 @@
     "component-class-suffix": true,
     "directive-class-suffix": true,
     "interface-over-type-literal": false
->>>>>>> f2b0b810d17a20a3fdb6425f0049d243e05a6653
   }
 }
