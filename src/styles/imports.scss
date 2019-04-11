@@ -16,6 +16,10 @@ $fa-font-path: "~font-awesome/fonts";
 @import '../../node_modules/ngx-toastr/toastr-bs4-alert';
 @import '../../node_modules/ngx-toastr/toastr.css';
 @import "~@beyerleinf/ngx-dnd/styles.css";
+@import "../../node_modules/simple-line-icons/css/simple-line-icons.css";
+@import "../../node_modules/animate.css/animate.min.css";
+@import "../../node_modules/air-datepicker/dist/css/datepicker.min.css";
+@import "../../node_modules/cropperjs/dist/cropper.css";
 
 // Components
 @import "../app/agreement/agreement.component";
