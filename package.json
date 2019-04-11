@@ -10,7 +10,7 @@
     "start": "ng serve --poll=2000",
     "build": "ng build",
     "test": "ng test --browsers=Chrome",
-    "test.prod": "ng test --browsers=ChromeHeadlessNoSandbox",
+    "test.prod": "ng test --browsers=ChromeHeadlessNoSandbox --watch=false",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
