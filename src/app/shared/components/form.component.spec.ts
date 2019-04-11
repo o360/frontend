@@ -52,7 +52,6 @@ describe('Form Component', () => {
     fixture = TestBed.createComponent(TestFormComponent);
 
     comp = fixture.componentInstance;
-    comp.ngOnInit();
   });
 
   it('should be edit or create mode form and save updated model', () => {
