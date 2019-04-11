@@ -12,7 +12,7 @@ before_script:
 
 packages:
   stage: packages
-  script: "yarn install && npm rebuild node-sass"
+  script: "yarn install"
 
 lint:
   stage: lint
