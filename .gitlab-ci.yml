@@ -1,4 +1,4 @@
-image: weltn24/up-docker-node-chrome-headless
+image: canvadev/ci-docker-node-yarn-chrome-xvfb
 
 stages:
   - packages
