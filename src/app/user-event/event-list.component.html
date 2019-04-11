@@ -1,0 +1,55 @@
+<div *ngIf="isLoaded">
+  <table class="table table-striped mt-1">
+    <thead>
+      <tr>
+        <th><p class="mb-0 text-left id-column">#</p></th>
+        <th class="w-25">{{ 'T_EVENT_DESCRIPTION' | translate }}</th>
+        <th class="w-25">{{ 'T_EVENT_START' | translate }}</th>
+        <th class="w-25">{{ 'T_EVENT_END' | translate }}</th>
+        <th *ngIf="status === EventStatus.InProgress" class="w-25">{{ 'T_TIME_LEFT' | translate }}</th>
+        <th class="actions-column w-25">
+          {{ 'T_ACTION' | translate }}
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let model of list">
+        <td>{{ model.id }}</td>
+        <td>{{ model.description }}</td>
+        <td>{{ model.start | localizedDate:'medium' }}</td>
+        <td>{{ model.end | localizedDate:'medium' }}</td>
+        <td *ngIf="status === EventStatus.InProgress">{{ model.end | timeLeft }}</td>
+        <td class="actions-column" [ngSwitch]="status">
+          <ng-template [ngSwitchCase]="EventStatus.InProgress">
+            <button type="button"
+                    class="btn btn-sm btn-success ml-1"
+                    title="{{ 'T_ACTION_ASSESS_' + model.state.toUpperCase() | translate }}"
+                    [routerLink]="['/events', model.id]">
+              <i class="fa fa-hand-pointer-o"></i>
+              {{ 'T_ACTION_ASSESS_' + model.state.toUpperCase() | translate }}
+            </button>
+          </ng-template>
+          <ng-template [ngSwitchCase]="EventStatus.Completed">
+            <button type="button"
+                    class="btn btn-sm btn-success ml-1"
+                    title="{{ 'T_ACTION_VIEW_ASSESSMENT' | translate }}"
+                    [routerLink]="['/events', model.id]">
+              <i class="fa fa-hand-pointer-o"></i> {{ 'T_ACTION_VIEW_ASSESSMENT' | translate }}
+            </button>
+          </ng-template>
+          <ng-template [ngSwitchCase]="EventStatus.NotStarted">
+          </ng-template>
+        </td>
+      </tr>
+
+      <tr *ngIf="!list.length">
+        <td colspan="25" class="text-center">{{ 'T_EMPTY' | translate }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <bs-pagination [meta]="meta"
+                 (queryParamsChange)="pageQueryParamsChanged($event)"></bs-pagination>
+</div>
+
+

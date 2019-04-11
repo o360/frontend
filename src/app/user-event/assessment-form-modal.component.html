@@ -1,0 +1,46 @@
+<div bsModal #commentModal="bs-modal" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title" [ngSwitch]="currentComment !== ''">
+          <ng-template [ngSwitchCase]="true">
+            {{ 'T_ACTION_EDIT_COMMENT' | translate }}
+          </ng-template>
+          <ng-template ngSwitchDefault>
+            {{ 'T_ACTION_ADD_COMMENT' | translate }}
+          </ng-template>
+        </h5>
+        <button type="button"
+                class="close"
+                aria-label="Close"
+                (click)="commentModal.hide(); commentForm.reset()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <form #commentForm="ngForm"
+              class="form-group ml-1 mr-1 mt-1"
+              (submit)="addComment(); commentModal.hide(); commentForm.reset()">
+            <textarea type="text"
+                      row="6"
+                      class="form-control mb-1 mt-1"
+                      name="comment"
+                      id="name"
+                      #comment="ngModel"
+                      [(ngModel)]="commentItem.text"></textarea>
+          <div class="text-right">
+            <button type="button"
+                    class="btn btn-danger"
+                    (click)="commentModal.hide(); commentForm.reset()">{{ 'T_ACTION_CANCEL' | translate }}
+            </button>
+            <button type="submit"
+                    class="btn btn-primary">{{ 'T_ACTION_SAVE' | translate }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

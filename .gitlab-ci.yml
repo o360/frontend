@@ -1,4 +1,4 @@
-image: node:6.11.2-wheezy
+image: node:10.15.3-jessie
 
 stages:
   - packages
@@ -9,6 +9,11 @@ stages:
 
 before_script:
   - ln -s /node_modules node_modules
+  # Installs Chrome
+  - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub |  apt-key add -
+  - echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' |  tee /etc/apt/sources.list.d/google-chrome.list
+  - apt-get update
+  - apt-get install google-chrome-stable -y
 
 packages:
   stage: packages
@@ -20,7 +25,8 @@ lint:
 
 test:
   stage: test
-  script: "yarn run test"
+  script:
+    - yarn run test.prod
   coverage: '/Statements\s*:\s*([^%]+)/'
 
 build:
@@ -33,8 +39,8 @@ build:
     - ln -s /home/ci-user/frontend/node_modules node_modules # a bit hacky, rewrite later
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN git:5000
   script: 
-    - yarn install
-    - yarn run build.prod.dev
+    - yarn install --ignore-engines
+    - yarn build
     - docker build --tag=git:5000/open360/frontend:${CI_COMMIT_REF_NAME}-${CI_PIPELINE_ID} --file=".docker/bw-assessment-ui.prod.dockerfile" .
     - docker push git:5000/open360/frontend:${CI_COMMIT_REF_NAME}-${CI_PIPELINE_ID}
 
