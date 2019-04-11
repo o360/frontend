@@ -9,7 +9,8 @@
     "ng": "ng",
     "start": "ng serve --poll=2000",
     "build": "ng build",
-    "test": "ng test",
+    "test": "ng test --browsers=Chrome",
+    "test.prod": "ng test --browsers=ChromeHeadless",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
