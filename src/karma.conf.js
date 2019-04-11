@@ -1,3 +1,5 @@
+process.env.CHROME_BIN = require('puppeteer').executablePath();
+
 // Karma configuration file, see link for more information
 // https://karma-runner.github.io/1.0/config/configuration-file.html
 
@@ -12,7 +14,7 @@ module.exports = function(config) {
       require('karma-coverage-istanbul-reporter'),
       require('@angular-devkit/build-angular/plugins/karma')
     ],
-    browsers: ['Chrome', 'ChromeHeadless'],
+    browsers: ['Chrome', 'ChromeHeadlessNoSandbox'],
     client: {
       clearContext: false, // leave Jasmine Spec Runner output visible in browser
       captureConsole: true,
@@ -24,14 +26,9 @@ module.exports = function(config) {
       fixWebpackSourcePaths: true
     },
     customLaunchers: {
-      ChromeHeadless: {
-        base: 'Chrome',
-        flags: [
-          '--headless',
-          '--disable-gpu',
-          '--no-sandbox',
-          '--remote-debugging-port=9222',
-        ]
+      ChromeHeadlessNoSandbox: {
+        base: 'ChromeHeadless',
+        flags: ['--no-sandbox']
       }
     },
     reporters: ['progress', 'kjhtml'],
