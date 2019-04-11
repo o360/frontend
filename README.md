@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-# Open360 Frontend Project
-
-Single page application based on Angular 2 framework.
-=======
 # Open360Updating
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.8.
@@ -30,4 +25,3 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
->>>>>>> f2b0b810d17a20a3fdb6425f0049d243e05a6653
