@@ -1,15 +1,14 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { HttpClientModule, HttpXhrBackend } from '@angular/common/http';
-import { MockBackend } from '@angular/http/testing';
+import { HttpClientModule } from '@angular/common/http';
 import { TestService } from '../../core/services/rest.service.spec';
 import { TestModel } from '../../core/models/model.spec';
 import { NotificationService } from '../../core/services/notification.service';
 import { AuthService } from '../../core/services/auth.service';
 import { DetailsComponent } from './details.component';
 import {
-  ActivatedRouteStub, AuthServiceStub, BreadcrumbServiceStub, ConfirmationStub, NotificationServiceStub,
+  ActivatedRouteStub, AuthServiceStub, BreadcrumbServiceStub, ConfirmationStub, NotificationServiceStub, RestServiceStub,
   RouterStub
 } from '../../stubs/stubs.utils';
 import { ConfirmationService } from '../../core/services/confirmation.service';
@@ -45,49 +44,40 @@ export class TestDetailsComponent extends DetailsComponent<TestModel> implements
   }
 }
 
-export function main() {
-  describe('Details Component', () => {
-    let comp: TestDetailsComponent;
-    let fixture: ComponentFixture<TestDetailsComponent>;
+describe('Details Component', () => {
+  let comp: TestDetailsComponent;
+  let fixture: ComponentFixture<TestDetailsComponent>;
 
-    beforeEach(() => {
-      TestBed.configureTestingModule({
-        imports: [HttpClientModule],
-        declarations: [TestDetailsComponent],
-        providers: [
-          TestService,
-          { provide: NotificationService, useClass: NotificationServiceStub },
-          { provide: AuthService, useClass: AuthServiceStub },
-          { provide: HttpXhrBackend, useClass: MockBackend },
-          { provide: ActivatedRoute, useClass: ActivatedRouteStub },
-          { provide: Router, useClass: RouterStub },
-          { provide: ConfirmationService, useClass: ConfirmationStub },
-          { provide: BreadcrumbService, useClass: BreadcrumbServiceStub },
-        ]
-      });
-
-      fixture = TestBed.createComponent(TestDetailsComponent);
-
-      comp = fixture.componentInstance;
-      comp.ngOnInit();
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [HttpClientModule],
+      declarations: [TestDetailsComponent],
+      providers: [
+        { provide: TestService, useClass: RestServiceStub },
+        { provide: NotificationService, useClass: NotificationServiceStub },
+        { provide: AuthService, useClass: AuthServiceStub },
+        { provide: ActivatedRoute, useClass: ActivatedRouteStub },
+        { provide: Router, useClass: RouterStub },
+        { provide: ConfirmationService, useClass: ConfirmationStub },
+        { provide: BreadcrumbService, useClass: BreadcrumbServiceStub },
+      ]
     });
 
-    it('should define a model', () => {
-      expect(comp.model).toBeDefined();
-      expect(comp.model instanceof TestModel).toBeTruthy();
-    });
+    fixture = TestBed.createComponent(TestDetailsComponent);
 
-    it('should call update', () => {
-      const testUpdate = spyOn(comp, 'update');
-
-      comp.ngOnInit();
-      expect(testUpdate).toHaveBeenCalled();
-    });
-
-    it('should delete an element', () => {
-      comp.delete(comp.model.id);
-
-      expect(comp.model.id).toBeUndefined();
-    });
+    comp = fixture.componentInstance;
+    comp.ngOnInit();
   });
-}
+
+  it('should define a model', () => {
+    expect(comp.model).toBeDefined();
+    expect(comp.model instanceof TestModel).toBeTruthy();
+  });
+
+  it('should call update', () => {
+    const testUpdate = spyOn(comp, 'update');
+
+    comp.ngOnInit();
+    expect(testUpdate).toHaveBeenCalled();
+  });
+});

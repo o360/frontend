@@ -1,7 +1,6 @@
 import { Injector } from '@angular/core';
 import { getTestBed, TestBed } from '@angular/core/testing';
-import { HttpClientModule, HttpXhrBackend } from '@angular/common/http';
-import { MockBackend, MockConnection } from '@angular/http/testing';
+import { HttpClientModule } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
 import { NotificationService } from './notification.service';
@@ -11,61 +10,51 @@ import { Observable } from 'rxjs/Observable';
 import { FormModel } from '../models/form-model';
 import { AdminFormService } from './admin-form.service';
 
+describe('AdminFormService Service', () => {
+  let testService: AdminFormService;
+  let injector: Injector;
+  let model: FormModel;
 
-export function main() {
-  describe('AdminFormService Service', () => {
-    let testService: AdminFormService;
-    let injector: Injector;
-    let mockBackend: MockBackend;
-    let connection: MockConnection;
-    let model: FormModel;
-
-    beforeEach(() => {
-      model = new FormModel();
-    });
-
-    beforeEach(() => {
-      TestBed.configureTestingModule({
-        imports: [HttpClientModule],
-        providers: [
-          AdminFormService,
-          { provide: NotificationService, useClass: NotificationServiceStub },
-          { provide: AuthService, useClass: AuthServiceStub },
-          { provide: HttpXhrBackend, useClass: MockBackend },
-          { provide: Router, useClass: RouterStub },
-          { provide: ConfirmationService, useClass: ConfirmationStub}
-        ]
-      });
-      injector = getTestBed();
-      mockBackend = <any>injector.get(HttpXhrBackend);
-      testService = injector.get(AdminFormService);
-      mockBackend.connections.subscribe((c: MockConnection) => connection = c);
-    });
-
-    afterEach(() => {
-      injector = undefined;
-      mockBackend = undefined;
-      testService = undefined;
-      connection = undefined;
-    });
-
-    it('should be defined', () => {
-      expect(AdminFormService).toBeDefined();
-      expect(testService).toBeDefined();
-      expect(testService instanceof AdminFormService).toBeTruthy();
-    });
-
-    it('should return an Observable when clone() called', () => {
-      let getResponse = testService.clone(model);
-
-      expect(getResponse).toEqual(jasmine.any(Observable));
-    });
-
-    it('should call load', () => {
-      const testSave = spyOn(testService, 'save');
-
-      testService.clone(model);
-      expect(testSave).toHaveBeenCalled();
-    });
+  beforeEach(() => {
+    model = new FormModel();
   });
-}
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [HttpClientModule],
+      providers: [
+        AdminFormService,
+        { provide: NotificationService, useClass: NotificationServiceStub },
+        { provide: AuthService, useClass: AuthServiceStub },
+        { provide: Router, useClass: RouterStub },
+        { provide: ConfirmationService, useClass: ConfirmationStub}
+      ]
+    });
+    injector = getTestBed();
+    testService = injector.get(AdminFormService);
+  });
+
+  afterEach(() => {
+    injector = undefined;
+    testService = undefined;
+  });
+
+  it('should be defined', () => {
+    expect(AdminFormService).toBeDefined();
+    expect(testService).toBeDefined();
+    expect(testService instanceof AdminFormService).toBeTruthy();
+  });
+
+  it('should return an Observable when clone() called', () => {
+    let getResponse = testService.clone(model);
+
+    expect(getResponse).toEqual(jasmine.any(Observable));
+  });
+
+  it('should call load', () => {
+    const testSave = spyOn(testService, 'save');
+
+    testService.clone(model);
+    expect(testSave).toHaveBeenCalled();
+  });
+});
