@@ -20,7 +20,7 @@ import { CKEditorModule } from 'ng2-ckeditor';
 import { DateTimeComponent } from './components/datetime/datetime-picker.component';
 import { LanguageSelectorComponent } from './language-selector/language-selector.component';
 import { DateFormatPipe } from './pipes/date.pipe';
-import { DndModule } from 'ng2-dnd';
+import { DndModule } from '@beyerleinf/ngx-dnd';
 import { LikesDislikesComponent } from './components/likes-dislikes/likes-dislikes.component';
 import { ConfirmationModalComponent } from './confirmation/confirmation.component';
 import { SearchComponent } from './components/search/search.component';
