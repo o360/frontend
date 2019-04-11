@@ -1,8 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { HttpClientModule, HttpXhrBackend } from '@angular/common/http';
-import { MockBackend } from '@angular/http/testing';
+import { HttpClientModule } from '@angular/common/http';
 
 import { TestService } from '../../core/services/rest.service.spec';
 import { ListComponent } from './list.component';
@@ -12,7 +11,14 @@ import { AuthService } from '../../core/services/auth.service';
 import { IListResponse, IQueryParams } from '../../core/services/rest.service';
 import { FilterType } from '../../core/models/filter';
 import { ModelId } from '../../core/models/model';
-import { ActivatedRouteStub, NotificationServiceStub, AuthServiceStub, RouterStub, ConfirmationStub } from '../../stubs/stubs.utils';
+import {
+  ActivatedRouteStub,
+  NotificationServiceStub,
+  AuthServiceStub,
+  RouterStub,
+  ConfirmationStub,
+  RestServiceStub
+} from '../../stubs/stubs.utils';
 import { ConfirmationService } from '../../core/services/confirmation.service';
 
 @Component({
@@ -62,94 +68,90 @@ export class TestListComponent extends ListComponent<TestModel> implements OnIni
   }
 }
 
-export function main() {
-  describe('List Component', () => {
-    let comp: TestListComponent;
-    let fixture: ComponentFixture<TestListComponent>;
+describe('List Component', () => {
+  let comp: TestListComponent;
+  let fixture: ComponentFixture<TestListComponent>;
 
-    beforeEach(() => {
-      TestBed.configureTestingModule({
-        imports: [HttpClientModule],
-        declarations: [TestListComponent], // declare the test component
-        providers: [
-          TestService,
-          { provide: NotificationService, useClass: NotificationServiceStub },
-          { provide: AuthService, useClass: AuthServiceStub },
-          { provide: HttpXhrBackend, useClass: MockBackend },
-          { provide: ActivatedRoute, useClass: ActivatedRouteStub },
-          { provide: Router, useClass: RouterStub },
-          { provide: ConfirmationService, useClass: ConfirmationStub }
-
-        ]
-      });
-
-      fixture = TestBed.createComponent(TestListComponent);
-
-      comp = fixture.componentInstance;
-      comp.ngOnInit();
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [HttpClientModule],
+      declarations: [TestListComponent], // declare the test component
+      providers: [
+        { provide: TestService, useClass: RestServiceStub },
+        { provide: NotificationService, useClass: NotificationServiceStub },
+        { provide: AuthService, useClass: AuthServiceStub },
+        { provide: ActivatedRoute, useClass: ActivatedRouteStub },
+        { provide: Router, useClass: RouterStub },
+        { provide: ConfirmationService, useClass: ConfirmationStub }
+      ]
     });
 
-    it('should define the list', () => {
-      expect(comp.list).toBeDefined();
-      expect(comp.isLoaded).toBeTruthy();
-    });
+    fixture = TestBed.createComponent(TestListComponent);
 
-    it('should have query parameters', () => {
-      expect(comp.queryParams).toBeDefined();
-      let oldQueryParams = comp.queryParams;
-      let newQueryParams: IQueryParams = {
-        number: '1',
-        size: '1'
-      };
-      comp.filterChange(newQueryParams);
-
-      expect(oldQueryParams === newQueryParams).toBeFalsy();
-    });
-
-
-    it('should have meta data of the list', () => {
-      expect(comp.meta).toBeDefined();
-    });
-
-    it('should have filter settings', () => {
-      expect(comp.filters).toBeDefined();
-    });
-
-    it('can setup filters', () => {
-      comp.filters = [{
-        name: 'T_NAME',
-        field: 'name',
-        type: FilterType.String,
-        values: Object.values(TestModel.name).map(x => ({ value: x }))
-      }];
-      expect(comp.filters.length).toEqual(1);
-    });
-
-    it('should manage list filters by pagination', () => {
-      comp.embedded = true;
-      let oldQueryParams = comp.queryParams;
-      comp.processRequestParams();
-      expect(oldQueryParams).toEqual(comp.queryParams);
-    });
-
-    it('should not manage list filters by URL if it is embedded', () => {
-      comp.embedded = true;
-      let oldQueryParams = comp.queryParams;
-      let newQueryParams: IQueryParams = {
-        size: '1'
-      };
-      comp.pageQueryParamsChanged(newQueryParams);
-      expect(oldQueryParams).toEqual(comp.queryParams);
-    });
-
-    it('can have a readonly option', () => {
-      comp.readonly = true;
-      expect(comp.readonly).toBeTruthy();
-    });
-
-    it('can delete an element from the list', () => {
-      comp.delete(1);
-      expect(comp.list.length).toEqual(1);
-    });
+    comp = fixture.componentInstance;
+    comp.ngOnInit();
   });
-}
+
+  it('should define the list', () => {
+    expect(comp.list).toBeDefined();
+    expect(comp.isLoaded).toBeTruthy();
+  });
+
+  it('should have query parameters', () => {
+    expect(comp.queryParams).toBeDefined();
+    let oldQueryParams = comp.queryParams;
+    let newQueryParams: IQueryParams = {
+      number: '1',
+      size: '1'
+    };
+    comp.filterChange(newQueryParams);
+
+    expect(oldQueryParams === newQueryParams).toBeFalsy();
+  });
+
+
+  it('should have meta data of the list', () => {
+    expect(comp.meta).toBeDefined();
+  });
+
+  it('should have filter settings', () => {
+    expect(comp.filters).toBeDefined();
+  });
+
+  it('can setup filters', () => {
+    comp.filters = [{
+      name: 'T_NAME',
+      field: 'name',
+      type: FilterType.String,
+      values: Object.values(TestModel.name).map(x => ({ value: x }))
+    }];
+    expect(comp.filters.length).toEqual(1);
+  });
+
+  it('should manage list filters by pagination', () => {
+    comp.embedded = true;
+    let oldQueryParams = comp.queryParams;
+    comp.processRequestParams();
+    expect(oldQueryParams).toEqual(comp.queryParams);
+  });
+
+  it('should not manage list filters by URL if it is embedded', () => {
+    comp.embedded = true;
+    let oldQueryParams = comp.queryParams;
+    let newQueryParams: IQueryParams = {
+      size: '1'
+    };
+    comp.pageQueryParamsChanged(newQueryParams);
+    expect(oldQueryParams).toEqual(comp.queryParams);
+  });
+
+  it('can have a readonly option', () => {
+    comp.readonly = true;
+    expect(comp.readonly).toBeTruthy();
+  });
+
+  it('can delete an element from the list', () => {
+    comp.delete(1);
+    expect(comp.list.length).toEqual(1);
+  });
+});

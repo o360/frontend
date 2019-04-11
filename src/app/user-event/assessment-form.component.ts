@@ -255,7 +255,6 @@ export class AssessmentFormComponent implements OnInit, OnChanges {
   }
 
   public save() {
-    console.log('BEFORE SAVE', this.assessment);
     this._assessmentService.saveBulk([this._assessment], this._queryParams).subscribe(() => {
       this._formStatus = AssessmentFormStatus.Answered;
       this._formSave.emit(this._assessment);

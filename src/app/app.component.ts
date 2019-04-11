@@ -1,11 +1,9 @@
-// import { Component, ViewContainerRef } from '@angular/core';
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import './operators';
 import { Config } from '../environments/env.config';
 import { SupportedLanguages } from './shared/config/translate-loader.config';
-// import { ToastsManager } from 'ng2-toastr/ng2-toastr';
-// import { ToastrService } from 'ngx-toastr';
+import { ToastrService } from 'ngx-toastr';
 
 /**
  * This class represents the main application component.
@@ -16,11 +14,9 @@ import { SupportedLanguages } from './shared/config/translate-loader.config';
 })
 export class AppComponent {
   constructor(protected _translate: TranslateService,
-              // protected _toastsManager: ToastrService,
-              // public viewContainerRef: ViewContainerRef) {
+              protected _toastsManager: ToastrService,
               ) {
     this._translateConfig();
-    // this._toastsManager.setRootViewContainerRef(viewContainerRef);
   }
 
   protected _translateConfig() {

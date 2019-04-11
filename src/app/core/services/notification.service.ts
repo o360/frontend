@@ -1,16 +1,10 @@
 import { Injectable } from '@angular/core';
-// import { ToastsManager, ToastOptions } from 'ng2-toastr/ng2-toastr';
 import { ToastrService, GlobalConfig } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
 
 @Injectable()
 export class NotificationService {
   private _customOptions: Partial<GlobalConfig> = {
-    // maxShown: 5,
-    // showCloseButton: true,
-    // animate: 'fade',
-    // toastLife: 5000,
-    // dismiss: ''
     timeOut: 5000,
     maxOpened: 5,
     newestOnTop: true,
@@ -22,7 +16,6 @@ export class NotificationService {
     autoDismiss: false
   };
 
-  // constructor(protected _toastsManager: ToastsManager,
   constructor(protected _toastsManager: ToastrService,
               protected _translate: TranslateService) {
   }

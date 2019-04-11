@@ -1,8 +1,46 @@
 import { Injectable } from '@angular/core';
-import { IQueryParams } from '../core/services/rest.service';
-import { BehaviorSubject } from 'rxjs';
-// import { Toast } from 'ng2-toastr/ng2-toastr';
-import { Toast } from 'ngx-toastr';
+import { IQueryParams, ModelConstructor } from '../core/services/rest.service';
+import { BehaviorSubject, Observable, of } from 'rxjs';
+import { Model, ModelId } from '../core/models/model';
+import { TestModel } from '../core/models/model.spec';
+
+/* RestServiceStub stub */
+@Injectable()
+export class RestServiceStub<T extends Model> {
+  public _entityConstructor: ModelConstructor<T>;
+
+  public createEntity(json?: Object): T {
+    return new this._entityConstructor(json);
+  }
+
+  public list(queryParams?: IQueryParams): Observable<any> {
+    return of({ data: [new TestModel()] });
+  }
+
+  public get(id: ModelId, queryParams?: IQueryParams): Observable<any> {
+    return of(new TestModel());
+  }
+
+  public save(model: T): Observable<T> {
+    if (model.id !== undefined) {
+      return this._update(model);
+    } else {
+      return this._create(model);
+    }
+  }
+
+  public delete(id: ModelId): Observable<void | Object> {
+    return of({});
+  }
+
+  protected _update(model: T): Observable<T> {
+    return of(model);
+  }
+
+  protected _create(model: T): Observable<T> {
+    return of(model);
+  }
+}
 
 /* Notification service stub */
 export class NotificationServiceStub {
@@ -97,6 +135,7 @@ export class TranslateServiceStub {
   }
 }
 
+/* ToastServiceStub stub */
 export class ToastsManagerStub {
   // public show(toast: Toast): Promise<Toast> {
   //   return new Promise((resolve) => {
