@@ -28,7 +28,7 @@ test:
     - apt-get update
     - apt-get install google-chrome-stable -y
     # Runs the tests.
-    - yarn run test.prod --watch-false
+    - yarn run test.prod --watch=false
   coverage: '/Statements\s*:\s*([^%]+)/'
 
 build:
