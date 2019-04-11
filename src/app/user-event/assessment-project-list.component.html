@@ -1,0 +1,19 @@
+<!--Projects-->
+<bs-throbber *ngIf="!isLoaded"></bs-throbber>
+
+<tabset *ngIf="isLoaded" id="projectTabset">
+  <tab *ngFor="let project of list;"
+       (select)="project.active = true"
+       (deselect)="project.active = false"
+       [active]="project.active"
+       heading="{{ project.name }}"
+       [ngSwitch]="project.formsOnSamePage"
+       [ngClass]="{ 'with-warning': !project.canRevote,
+                    'inline': project.formsOnSamePage }">
+
+    <bs-user-assessment-event [inline]="project.formsOnSamePage"
+                              [project]="project"
+                              [eventId]="eventId"
+                              (showNextProject)="loadNextProject($event)"></bs-user-assessment-event>
+  </tab>
+</tabset>

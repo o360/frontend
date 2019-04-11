@@ -1,0 +1,150 @@
+<alert *ngIf="!project.canRevote && status === EventStatus.InProgress">
+  <b>{{ 'T_WARNING' | translate }}</b> {{ 'T_WARNING_ASSESSMENT_CANT_REVOTE' | translate }}
+</alert>
+
+<div *ngIf="isLoaded" [ngSwitch]="inline">
+  <!--Inline forms-->
+  <ng-template [ngSwitchCase]="true">
+    <div class="row">
+      <div class="col-4">
+        <bs-search [items]="list"
+                   (itemsSearch)="userSearch($event)"></bs-search>
+      </div>
+    </div>
+    <ul class="list-group list-unstyled">
+      <li class="row inline assessment-user-inline-list-item"
+          *ngFor="let item of filteredUsers"
+          [ngClass]="{ 'mb-1 align-items-baseline': item.forms.length > 1 }">
+        <div class="col-sm-4" [ngSwitch]="!!item.user">
+          <ng-template [ngSwitchCase]="true">
+            <div class="inline-user">
+              <img [src]="!!item.user.picture ? item.user.picture : '../../assets/images/noUserImage.png'" [alt]=""/>
+              {{ item.user.name }}
+              <small class="text-muted" *ngIf="item.user.id === currentUserId">({{ 'T_USERS_IS_YOU' | translate }})</small>
+            </div>
+          </ng-template>
+          <ng-template ngSwitchDefault>
+            <b class="pl-1">{{ 'T_SURVEYS' | translate }}</b>
+          </ng-template>
+        </div>
+        <div class="col-sm-8">
+          <div *ngFor="let formObj of item.forms">
+            <div class="inline-form">
+              <bs-user-assessment-form inline
+                                       #formComponent
+                                       [user]="!!item.user ? item.user : null"
+                                       [id]="formObj.form.id"
+                                       [status]="status"
+                                       [cleared]="cleared"
+                                       [formStatus]="formObj.status"
+                                       [canRevote]="project.canRevote"
+                                       [inlineAnonymous]="inlineAnonymous"
+                                       [canBeAnonymous]="project.isAnonymous"
+                                       [queryParams]="queryParams"
+                                       (formChange)="formChanged($event);"></bs-user-assessment-form>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+    <div *ngIf="project.isAnonymous" class="mt-1 inline-anonymous">
+      <label for="isAnonymous">
+        {{ 'T_ACTION_VOTE_ANONYMOUS' | translate }}
+      </label>
+      <label class="switch switch-default switch-primary ml-h">
+        <input id="isAnonymous"
+               name="isAnonymous"
+               type="checkbox"
+               class="switch-input"
+               checked="true"
+               [disabled]="status !== EventStatus.InProgress || !project.canRevote"
+               #anonymous="ngModel"
+               [ngModel]="inlineAnonymous"
+               (ngModelChange)="onChangeAnonymous()">
+        <span class="switch-label"></span>
+        <span class="switch-handle"></span>
+      </label>
+    </div>
+    <div class="text-right mt-1" *ngIf="status === EventStatus.InProgress">
+      <button type="button"
+              class="btn btn-default mt-0"
+              [disabled]="!answers.length || isClear || (!project.canRevote && isAnswered)"
+              (click)="clear();">
+        {{ 'T_ACTION_CLEAR_ALL' | translate }}
+      </button>
+      <button type="submit"
+              role="button"
+              class="btn btn-primary mt-0"
+              [disabled]="!answers.length || (!project.canRevote && isAnswered)"
+              (click)="save();">
+        {{ 'T_ACTION_SAVE' | translate }}
+      </button>
+    </div>
+  </ng-template>
+  <ng-template ngSwitchDefault>
+    <!--Classic-->
+    <div class="row assessment-wrapper">
+      <div class="col-md-4">
+        <bs-assessment-object-list class="col-md-4"
+                                   id="assessment-object-list"
+                                   [ngClass]="{ 'with-warning': !project.canRevote && status === EventStatus.InProgress }"
+                                   [list]="list"
+                                   [users]="users"
+                                   [surveys]="surveys"
+                                   [selectedItem]="assessmentObject"
+                                   (selectedItemChange)="displayItem($event)"></bs-assessment-object-list>
+      </div>
+
+      <div class="col-md-8"
+           *ngIf="assessmentObject"
+           [ngSwitch]="assessmentObject.hasOwnProperty('forms')">
+        <ng-template [ngSwitchCase]="true">
+          <tabset #formsTabset>
+            <tab *ngFor="let formObj of assessmentObject.forms; let i = index"
+                 [active]="formObj.active"
+                 (select)="formObj.active = true"
+                 (deselect)="formObj.active = false">
+              <ng-template tabHeading>{{ formObj.form.name }}</ng-template>
+
+              <bs-user-assessment-form [user]="assessmentObject.user"
+                                       #formComponent
+                                       [id]="formObj.form.id"
+                                       [status]="status"
+                                       [canRevote]="project.canRevote"
+                                       [formStatus]="formObj.status"
+                                       [isLast]="formObj.isLast"
+                                       [canBeAnonymous]="project.isAnonymous"
+                                       [queryParams]="queryParams"
+                                       (formChange)="formChanged($event);"
+                                       (formSave)="showNext($event)"></bs-user-assessment-form>
+            </tab>
+          </tabset>
+        </ng-template>
+        <!--Survey-->
+        <ng-template [ngSwitchCase]="false">
+          <tabset>
+            <tab [active]="assessmentObject.active"
+                 (select)="assessmentObject.active = true"
+                 (deselect)="assessmentObject.active = false">
+              <ng-template tabHeading>
+                {{ assessmentObject.form.name }}
+              </ng-template>
+
+              <bs-user-assessment-form [id]="assessmentObject.form.id"
+                                       #formComponent
+                                       [status]="status"
+                                       [formStatus]="assessmentObject.status"
+                                       [isLast]="assessmentObject.isLast"
+                                       [canRevote]="project.canRevote"
+                                       [canBeAnonymous]="project.isAnonymous"
+                                       [queryParams]="queryParams"
+                                       (formChange)="formChanged($event);"
+                                       (formSave)="showNext($event)"></bs-user-assessment-form>
+            </tab>
+          </tabset>
+        </ng-template>
+      </div>
+    </div>
+  </ng-template>
+</div>
+

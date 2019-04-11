@@ -1,0 +1,55 @@
+<div *ngIf="isLoaded">
+  <button class="btn btn-primary mb-1"
+          type="button"
+          role="button"
+          [tooltip]="'T_ACTION_ADD' | translate"
+          placement="right"
+          [disabled]="event.status === EventStatus.InProgress"
+          (click)="modalForm.show()">
+    <i class="fa fa-plus"></i>
+  </button>
+
+  <!--Event project list-->
+  <table [id]="listName" class="table table-striped">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>{{ 'T_PROJECT_NAME' | translate }}</th>
+        <th class="actions-column"
+            *ngIf="event.status !== EventStatus.InProgress">
+          {{ 'T_ACTION' | translate }}
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let project of list">
+        <td>{{ project.id }}</td>
+        <td><a [routerLink]="['/admin/projects', project.id]">{{ project.name }}</a></td>
+        <td class="actions-column" *ngIf="event.status !== EventStatus.InProgress">
+          <button type="button"
+                  role="button"
+                  [tooltip]="'T_ACTION_REMOVE' | translate"
+                  placement="bottom"
+                  class="btn btn-sm btn-danger ml-1"
+                  bsConfirm
+                  (confirm)="delete(project.id)">
+            <i class="fa fa-remove"></i></button>
+        </td>
+      </tr>
+
+      <tr *ngIf="!list.length">
+        <td colspan="25" class="text-center">{{ 'T_EMPTY' | translate }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <bs-pagination [meta]="meta"
+                 (queryParamsChange)="pageQueryParamsChanged($event)"></bs-pagination>
+</div>
+
+<!-- Adding projects to event modal-->
+<bs-projects-add-modal #modalForm
+                       [eventId]="event.id"
+                       (projectsAdded)="projectsAdded()"></bs-projects-add-modal>
+
+
