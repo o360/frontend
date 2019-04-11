@@ -9,6 +9,11 @@ stages:
 
 before_script:
   - ln -s /node_modules node_modules
+  # Installs Chrome
+  - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub |  apt-key add -
+  - echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' |  tee /etc/apt/sources.list.d/google-chrome.list
+  - apt-get update
+  - apt-get install google-chrome-stable -y
 
 packages:
   stage: packages
@@ -20,16 +25,8 @@ lint:
 
 test:
   stage: test
-  before_script:
-    - yarn install
-    # Installs Chrome
-    - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub |  apt-key add -
-    - echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' |  tee /etc/apt/sources.list.d/google-chrome.list
-    - apt-get update
-    - apt-get install google-chrome-stable -y
   script:
-    # Runs the tests.
-    - yarn run test.prod --watch=false
+    - yarn run test.prod
   coverage: '/Statements\s*:\s*([^%]+)/'
 
 build:
