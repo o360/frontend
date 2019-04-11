@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "open360Updating": {
+    "open360": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/open360Updating",
+            "outputPath": "dist/open360",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -64,19 +64,19 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "open360Updating:build",
+            "browserTarget": "open360:build",
             "port": 5555
           },
           "configurations": {
             "production": {
-              "browserTarget": "open360Updating:build:production"
+              "browserTarget": "open360:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "open360Updating:build"
+            "browserTarget": "open360:build"
           }
         },
         "test": {
@@ -107,7 +107,7 @@
         }
       }
     },
-    "open360Updating-e2e": {
+    "open360-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "prefix": "",
@@ -116,11 +116,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "open360Updating:serve"
+            "devServerTarget": "open360:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "open360Updating:serve:production"
+              "devServerTarget": "open360:serve:production"
             }
           }
         },
@@ -136,5 +136,5 @@
       }
     }
   },
-  "defaultProject": "open360Updating"
+  "defaultProject": "open360"
 }

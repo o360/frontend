@@ -1,9 +1,11 @@
 {
   "extends": "../tslint.json",
+  "rulesDirectory": [
+    "codelyzer"
+  ],
   "rules": {
     "adjacent-overload-signatures": false,
     "angular-whitespace": [false, "check-semicolon", "check-interpolation"],
-    "banana-in-box": true,
     "ban-types": false,
     "directive-selector": [true, ["attribute"], [], "camelCase"],
     "directive-class-suffix": true,
@@ -15,7 +17,6 @@
     "import-destructuring-spacing": true,
     "eofline": true,
     "indent": [true, "spaces"],
-    "invoke-injectable": true,
     "forin": false,
     "prefer-for-of": false,
     "jsdoc-format": false,
@@ -34,7 +35,6 @@
     "no-input-rename": true,
     "no-output-rename": true,
     "no-string-literal": false,
-    "no-access-missing-member": true,
     "one-line": [true,
       "check-open-brace",
       "check-catch",
@@ -48,12 +48,7 @@
     "semicolon": [true, "always"],
     "trailing-comma": true,
     "triple-equals": true,
-    "templates-use-public": true,
     "prefer-const": false,
-    "rxjs-collapse-imports": true,
-    "rxjs-pipeable-operators-only": true,
-    "rxjs-no-static-observable-methods": true,
-    "rxjs-proper-imports": true,
     "use-pipe-transform-interface": true,
     "variable-name": false,
     "whitespace": false

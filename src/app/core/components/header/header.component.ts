@@ -31,7 +31,7 @@ export class HeaderComponent implements AfterViewInit {
 // @todo: Rewrite scripts from theme
   public ngAfterViewInit() {
     let self = this;
-    $('.navbar-toggler').click(function(e) {
+    $('.navbar-toggler').on('click', function(e) {
       e.preventDefault();
 
       if ($(this).hasClass('sidebar-toggler')) {
@@ -50,7 +50,7 @@ export class HeaderComponent implements AfterViewInit {
       }
     });
 
-    $('.sidebar-close').click(function() {
+    $('.sidebar-close').on('click',function() {
       $('body').toggleClass('sidebar-opened').parent().toggleClass('sidebar-opened');
     });
   }

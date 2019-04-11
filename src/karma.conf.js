@@ -21,7 +21,7 @@ module.exports = function(config) {
       random: false
     },
     coverageIstanbulReporter: {
-      dir: require('path').join(__dirname, '../coverage/open360Updating'),
+      dir: require('path').join(__dirname, '../coverage/open360'),
       reports: ['html', 'lcovonly', 'text-summary'],
       fixWebpackSourcePaths: true
     },
