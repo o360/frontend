@@ -33,8 +33,7 @@ build:
   before_script:
     - ln -s /home/ci-user/frontend/node_modules node_modules # a bit hacky, rewrite later
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN git.bw-sw.com:5000
-  script: 
-    - yarn install --ignore-engines
+  script:
     - yarn build
     - docker build --tag=git.bw-sw.com:5000/open360/frontend:${CI_COMMIT_REF_NAME}-${CI_PIPELINE_ID} --file=".docker/bw-assessment-ui.prod.dockerfile" .
     - docker push git.bw-sw.com:5000/open360/frontend:${CI_COMMIT_REF_NAME}-${CI_PIPELINE_ID}
