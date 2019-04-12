@@ -30,24 +30,30 @@ export class AdminEventService extends RestService<EventModel> {
     let requestParams = `${this._getRequestParams(eventId)}/projects/${projectId}`;
     let json = { 'eventId': eventId, 'projectId': projectId };
     let requestOptions = this._getRequestOptions();
-    return this._http.post(requestParams, json, requestOptions).pipe(
-      map((jsonData: any) => this.createEntity(jsonData)),
-      catchError((error: Response) => this._handleErrors(error)));
+    return this._http.post(requestParams, json, requestOptions)
+      .pipe(
+        map((jsonData: any) => this.createEntity(jsonData)),
+        catchError((error: Response) => this._handleErrors(error))
+      );
   }
 
   public removeProject(eventId?: ModelId, projectId?: ModelId): Observable<any> {
     let requestParams = `${this._getRequestParams(eventId)}/projects/${projectId}`;
     let requestOptions = this._getRequestOptions();
-    return this._http.delete(requestParams, requestOptions).pipe(
-      catchError((error: Response) => this._handleErrors(error)));
+    return this._http.delete(requestParams, requestOptions)
+      .pipe(
+        catchError((error: Response) => this._handleErrors(error))
+      );
   }
 
   public clone(model: EventModel): Observable<EventModel> {
     let requestParams = `${this._getRequestParams(model.id)}/clone`;
     let requestOptions = this._getRequestOptions();
     let clone = new EventModel(model.toJson());
-    return this._http.post(requestParams, clone, requestOptions).pipe(
-      map((json: any) => this.createEntity(json)),
-      catchError((error: Response) => this._handleErrors(error)));
+    return this._http.post(requestParams, clone, requestOptions)
+      .pipe(
+        map((json: any) => this.createEntity(json)),
+        catchError((error: Response) => this._handleErrors(error))
+      );
   }
 }

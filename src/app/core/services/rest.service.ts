@@ -77,9 +77,11 @@ export class RestService<T extends Model> {
    * @return {Observable<IListResponse<T>>}
    */
   public list(queryParams?: IQueryParams): Observable<IListResponse<T>> {
-    return this._http.get(this._getRequestParams(undefined, queryParams), this._getRequestOptions()).pipe(
-      map((json: any) => Object.assign(json, { data: json.data.map((x: any) => this.createEntity(x)) })),
-      catchError((error: Response) => this._handleErrors(error)));
+    return this._http.get(this._getRequestParams(undefined, queryParams), this._getRequestOptions())
+      .pipe(
+        map((json: any) => Object.assign(json, { data: json.data.map((x: any) => this.createEntity(x)) })),
+        catchError((error: Response) => this._handleErrors(error))
+      );
   }
 
   /**
@@ -88,9 +90,11 @@ export class RestService<T extends Model> {
    * @return {Observable<T>}
    */
   public get(id: ModelId, queryParams?: IQueryParams): Observable<T> {
-    return this._http.get(this._getRequestParams(id, queryParams), this._getRequestOptions()).pipe(
-      map((json: any) => this.createEntity(json)),
-      catchError((error: any) => this._handleErrors(error)));
+    return this._http.get(this._getRequestParams(id, queryParams), this._getRequestOptions())
+      .pipe(
+        map((json: any) => this.createEntity(json)),
+        catchError((error: any) => this._handleErrors(error))
+      );
   }
 
   /**
@@ -115,8 +119,10 @@ export class RestService<T extends Model> {
     const requestParams = this._getRequestParams(id);
     const requestOptions = this._getRequestOptions();
 
-    return this._http.delete(requestParams, requestOptions).pipe(
-      catchError((error: Response) => this._handleErrors(error)));
+    return this._http.delete(requestParams, requestOptions)
+      .pipe(
+        catchError((error: Response) => this._handleErrors(error))
+      );
   }
 
   /**
@@ -129,9 +135,11 @@ export class RestService<T extends Model> {
     const json = JSON.stringify(model.toJson());
     const requestOptions = this._getRequestOptions();
 
-    return this._http.put(requestParams, json, requestOptions).pipe(
-      map((jsonData: any) => this.createEntity(jsonData)),
-      catchError((error: Response) => this._handleErrors(error)));
+    return this._http.put(requestParams, json, requestOptions)
+      .pipe(
+        map((jsonData: any) => this.createEntity(jsonData)),
+        catchError((error: Response) => this._handleErrors(error))
+      );
   }
 
   /**
@@ -144,9 +152,11 @@ export class RestService<T extends Model> {
     const json = JSON.stringify(model.toJson());
     const requestOptions = this._getRequestOptions();
 
-    return this._http.post(requestParams, json, requestOptions).pipe(
-      map((jsonData: any) => this.createEntity(jsonData)),
-      catchError((error: Response) => this._handleErrors(error)));
+    return this._http.post(requestParams, json, requestOptions)
+      .pipe(
+        map((jsonData: any) => this.createEntity(jsonData)),
+        catchError((error: Response) => this._handleErrors(error))
+      );
   }
 
   /**
@@ -188,7 +198,7 @@ export class RestService<T extends Model> {
     });
 
     if (this._authService.isLoggedIn) {
-     headers = headers.append('X-Auth-Token', this._authService.token);
+      headers = headers.append('X-Auth-Token', this._authService.token);
     }
 
     return { headers };

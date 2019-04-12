@@ -30,8 +30,10 @@ export class UserService extends RestService<UserModel> {
     let requestParams = `${this._getRequestParams(id)}/groups`;
     let requestOptions = this._getRequestOptions();
 
-    return this._http.get(requestParams, requestOptions).pipe(
-      map((response: any) => response),
-      catchError((error: Response) => this._handleErrors(error)));
+    return this._http.get(requestParams, requestOptions)
+      .pipe(
+        map((response: any) => response),
+        catchError((error: Response) => this._handleErrors(error))
+      );
   }
 }

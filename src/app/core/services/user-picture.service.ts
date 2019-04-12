@@ -20,9 +20,11 @@ export class UserPictureService extends RestService<AccountModel> {
       })
     };
 
-    return this._http.get(requestParams, requestOptions).pipe(
-      map((response: any) => response),
-      mergeMap((image: Blob) => this._createImageFromBlob(image)));
+    return this._http.get(requestParams, requestOptions)
+      .pipe(
+        map((response: any) => response),
+        mergeMap((image: Blob) => this._createImageFromBlob(image))
+      );
   }
 
   protected _createImageFromBlob(image: Blob) {

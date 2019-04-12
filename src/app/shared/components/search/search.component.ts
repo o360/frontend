@@ -33,12 +33,14 @@ export class SearchComponent implements OnInit, OnChanges, OnDestroy {
 
   public ngOnInit() {
     this._list = this._items;
-    this._searchSubscription = this._searchControl.valueChanges.pipe(
-      distinctUntilChanged(),
-      switchMap((term: string) => {
-        this._searchList = [];
-        return this.update(term);
-      }),)
+    this._searchSubscription = this._searchControl.valueChanges
+      .pipe(
+        distinctUntilChanged(),
+        switchMap((term: string) => {
+          this._searchList = [];
+          return this.update(term);
+        })
+      )
       .subscribe((item: AssessmentModel) => {
         this._searchList.push(item);
       });

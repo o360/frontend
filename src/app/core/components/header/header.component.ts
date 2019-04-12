@@ -50,7 +50,7 @@ export class HeaderComponent implements AfterViewInit {
       }
     });
 
-    $('.sidebar-close').on('click',function() {
+    $('.sidebar-close').on('click', function() {
       $('body').toggleClass('sidebar-opened').parent().toggleClass('sidebar-opened');
     });
   }

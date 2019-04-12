@@ -30,7 +30,6 @@ import { ThrobberComponent } from './components/throbber/throbber.component';
 import { ImageUploaderComponent } from './components/image-uploader/image-uploader.component';
 import { TimeLeftPipe } from './pipes/time-left.pipe';
 
-
 /**
  * Do not specify providers for modules that might be imported by a lazy loaded module.
  */

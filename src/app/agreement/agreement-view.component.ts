@@ -31,12 +31,14 @@ export class AgreementViewComponent implements OnInit {
 
   protected _readFile() {
     let path = `${Config.AGREEMENTS}/${this._language}.md`;
-    this._http.get(path).pipe(
-      map(response => response.toString()),
-      map(text => {
-        const converter = new Converter();
-        return converter.makeHtml(text);
-      }))
+    this._http.get(path)
+      .pipe(
+        map(response => response.toString()),
+        map(text => {
+          const converter = new Converter();
+          return converter.makeHtml(text);
+        })
+      )
       .subscribe(agreement => this._agreement = agreement);
   }
 }

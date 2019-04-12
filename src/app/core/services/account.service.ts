@@ -16,9 +16,11 @@ export class AccountService extends RestService<AccountModel> {
     let params = this._getRequestParams();
     let options = this._getRequestOptions();
 
-    return this._http.get(params, options).pipe(
-      map((json: Object) => this.createEntity(json)),
-      catchError((error: any) => this._handleErrors(error)));
+    return this._http.get(params, options)
+      .pipe(
+        map((json: Object) => this.createEntity(json)),
+        catchError((error: any) => this._handleErrors(error))
+      );
   }
 
   public setPicture(file: string): Observable<AccountModel> {
@@ -32,18 +34,22 @@ export class AccountService extends RestService<AccountModel> {
     let formData = new FormData();
     formData.append('picture', this._convertDataUriToBlob(file), 'pic.jpg');
 
-    return this._http.post(requestParams, formData, requestOptions).pipe(
-      map((res: any) => res),
-      catchError((error: Response) => this._handleErrors(error)));
+    return this._http.post(requestParams, formData, requestOptions)
+      .pipe(
+        map((res: any) => res),
+        catchError((error: Response) => this._handleErrors(error))
+      );
   }
 
   public getGroups(): Observable<IListResponse<GroupModel>> {
     let requestParams = `${this._getRequestParams()}/groups`;
     let requestOptions = this._getRequestOptions();
 
-    return this._http.get(requestParams, requestOptions).pipe(
-      map((res: any) => res),
-      catchError((error: Response) => this._handleErrors(error)));
+    return this._http.get(requestParams, requestOptions)
+      .pipe(
+        map((res: any) => res),
+        catchError((error: Response) => this._handleErrors(error))
+      );
   }
 
   public list() {
@@ -59,8 +65,10 @@ export class AccountService extends RestService<AccountModel> {
     let json = JSON.stringify(model.toJson());
     let requestOptions = this._getRequestOptions();
 
-    return this._http.put(requestParams, json, requestOptions).pipe(
-      map((jsonData: any) => this.createEntity(jsonData)),
-      catchError((error: Response) => this._handleErrors(error)));
+    return this._http.put(requestParams, json, requestOptions)
+      .pipe(
+        map((jsonData: any) => this.createEntity(jsonData)),
+        catchError((error: Response) => this._handleErrors(error))
+      );
   }
 }

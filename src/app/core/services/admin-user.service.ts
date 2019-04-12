@@ -37,8 +37,10 @@ export class AdminUserService extends RestService<UserModel> {
     let formData = new FormData();
     formData.append('picture', this._convertDataUriToBlob(file), 'pic.jpg');
 
-    return this._http.post(requestParams, formData, requestOptions).pipe(
-      map((res: Response) => res),
-      catchError((error: Response) => this._handleErrors(error)));
+    return this._http.post(requestParams, formData, requestOptions)
+      .pipe(
+        map((res: Response) => res),
+        catchError((error: Response) => this._handleErrors(error))
+      );
   }
 }

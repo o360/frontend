@@ -28,8 +28,10 @@ export class BreadcrumbComponent implements OnInit {
   public ngOnInit() {
     this._updateBreadcrumbs();
 
-    this._router.events.pipe(
-      filter(event => event instanceof NavigationEnd))
+    this._router.events
+      .pipe(
+        filter(event => event instanceof NavigationEnd)
+      )
       .subscribe(() => this._updateBreadcrumbs());
 
     this._breadcrumbService.override.subscribe((breadcrumbs: IBreadcrumb[]) => {

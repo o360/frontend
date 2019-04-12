@@ -13,24 +13,25 @@ export class AuthGuard implements CanActivate, CanActivateChild {
   }
 
   public canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    return this._authServiceLoader.canActivate().pipe(
-      map(() => {
-        if (this._authService.isLoggedIn) {
-          if (this._authService.user.status === UserStatus.New && !this._authService.user.isFilled) {
-            this._router.navigate(['/new']);
-            return false;
-          } else if (!this._authService.user.termsApproved) {
-            this._router.navigate(['/agreement']);
-            return false;
+    return this._authServiceLoader.canActivate()
+      .pipe(
+        map(() => {
+          if (this._authService.isLoggedIn) {
+            if (this._authService.user.status === UserStatus.New && !this._authService.user.isFilled) {
+              this._router.navigate(['/new']);
+              return false;
+            } else if (!this._authService.user.termsApproved) {
+              this._router.navigate(['/agreement']);
+              return false;
+            } else {
+              return true;
+            }
           } else {
-            return true;
+            this._router.navigate(['/login']);
+            return false;
           }
-        } else {
-          this._router.navigate(['/login']);
-          return false;
-        }
-      })
-    );
+        })
+      );
   }
 
   public canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
