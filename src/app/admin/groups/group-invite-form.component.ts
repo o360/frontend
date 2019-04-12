@@ -1,6 +1,6 @@
-import { of as observableOf, Observable } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormComponent } from '../../shared/components/form.component';
 import { NotificationService } from '../../core/services/notification.service';
 import { BreadcrumbService } from '../../core/services/breadcrumb.service';

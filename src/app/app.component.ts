@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import './operators';
 import { Config } from '../environments/env.config';
 import { SupportedLanguages } from './shared/config/translate-loader.config';
-import { ToastrService } from 'ngx-toastr';
 
 /**
  * This class represents the main application component.
@@ -13,9 +11,7 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: 'app.component.html'
 })
 export class AppComponent {
-  constructor(protected _translate: TranslateService,
-              protected _toastsManager: ToastrService,
-              ) {
+  constructor(protected _translate: TranslateService) {
     this._translateConfig();
   }
 

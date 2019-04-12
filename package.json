@@ -7,10 +7,10 @@
   },
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --poll=2000",
+    "start": "ng serve",
     "build": "ng build",
-    "test": "ng test --browsers=Chrome",
-    "test.prod": "ng test --browsers=ChromeHeadlessNoSandbox --watch=false",
+    "test": "ng test",
+    "test.prod": "ng test --browsers=ChromeHeadlessNoSandbox",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
@@ -46,7 +46,6 @@
     "ngx-toastr": "^10.0.2",
     "pace-progress": "^1.0.2",
     "popper.js": "^1.14.7",
-    "puppeteer": "^1.14.0",
     "reflect-metadata": "^0.1.10",
     "rxjs": "~6.4.0",
     "select2": "^4.0.6-rc.1",

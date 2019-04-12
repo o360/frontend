@@ -62,7 +62,8 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
             "browserTarget": "open360:build",
-            "port": 5555
+            "port": 5555,
+            "watch": true
           },
           "configurations": {
             "production": {
@@ -87,7 +88,8 @@
             "assets": [
               "src/favicon.ico",
               "src/assets"
-            ]
+            ],
+            "browsers": "Chrome"
           }
         },
         "lint": {
