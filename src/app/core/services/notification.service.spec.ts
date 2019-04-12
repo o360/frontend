@@ -1,6 +1,6 @@
 import { Injector } from '@angular/core';
 import { getTestBed, TestBed } from '@angular/core/testing';
-import { HttpClientModule, HttpXhrBackend } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { NotificationService } from './notification.service';
 import { TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';

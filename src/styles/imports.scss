@@ -13,7 +13,6 @@ $fa-font-path: "~font-awesome/fonts";
 // bootstrap style toast
 // or import a bootstrap 4 alert styled design (SASS ONLY)
 // should be after your bootstrap imports, it uses bs4 variables, mixins, functions
-@import '../../node_modules/ngx-toastr/toastr-bs4-alert';
 @import '../../node_modules/ngx-toastr/toastr.css';
 @import "~@beyerleinf/ngx-dnd/styles.css";
 @import "../../node_modules/simple-line-icons/css/simple-line-icons.css";

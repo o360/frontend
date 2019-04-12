@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { HttpClientModule, HttpXhrBackend } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { TestService } from '../../core/services/rest.service.spec';
 import { TestModel } from '../../core/models/model.spec';
 import { NotificationService } from '../../core/services/notification.service';
