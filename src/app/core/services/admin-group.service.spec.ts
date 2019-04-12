@@ -8,7 +8,7 @@ import { ConfirmationService } from './confirmation.service';
 import { AuthServiceStub, ConfirmationStub, NotificationServiceStub, RouterStub } from '../../stubs/stubs.utils';
 import { AdminGroupService } from './admin-group.service';
 import { GroupModel } from '../models/group-model';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 
 describe('AdminEventService Service', () => {
