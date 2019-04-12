@@ -23,9 +23,11 @@ export class InviteService extends RestService<InviteModel> {
     let json = JSON.stringify(model);
     let requestOptions = this._getRequestOptions();
 
-    return this._http.post(requestParams, json, requestOptions).pipe(
-      map((jsonData: any) => this.createEntity(jsonData)),
-      catchError((error: any) => this._handleErrors(error)));
+    return this._http.post(requestParams, json, requestOptions)
+      .pipe(
+        map((jsonData: any) => this.createEntity(jsonData)),
+        catchError((error: any) => this._handleErrors(error))
+      );
   }
 
   public asseptInvite(model: any): Observable<any> {
@@ -34,8 +36,10 @@ export class InviteService extends RestService<InviteModel> {
     let json = JSON.stringify(model);
     let requestOptions = this._getRequestOptions();
 
-    return this._http.post(requestParams, json, requestOptions).pipe(
-      map((jsonData: any) => this.createEntity(jsonData)),
-      catchError((error: any) => this._handleErrors(error)));
+    return this._http.post(requestParams, json, requestOptions)
+      .pipe(
+        map((jsonData: any) => this.createEntity(jsonData)),
+        catchError((error: any) => this._handleErrors(error))
+      );
   }
 }

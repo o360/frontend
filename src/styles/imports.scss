@@ -1,31 +1,18 @@
-// Fonts
-$fa-font-path: "~font-awesome/fonts";
-
-@import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700');
+// Modules
 @import "~font-awesome/scss/variables";
 @import "~font-awesome/scss/font-awesome";
-
-// Modules
 // if you'd like to use it without importing all of bootstrap it requires
-@import '../../node_modules/bootstrap/scss/functions';
-@import '../../node_modules/bootstrap/scss/variables';
-@import '../../node_modules/bootstrap/scss/mixins';
+@import '~bootstrap/dist/css/bootstrap.min.css';
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~bootstrap/scss/mixins';
 // bootstrap style toast
 // or import a bootstrap 4 alert styled design (SASS ONLY)
 // should be after your bootstrap imports, it uses bs4 variables, mixins, functions
-@import '../../node_modules/ngx-toastr/toastr.css';
+@import '~ngx-toastr/toastr.css';
 @import "~@beyerleinf/ngx-dnd/styles.css";
-@import "../../node_modules/simple-line-icons/css/simple-line-icons.css";
-@import "../../node_modules/animate.css/animate.min.css";
-@import "../../node_modules/air-datepicker/dist/css/datepicker.min.css";
-@import "../../node_modules/cropperjs/dist/cropper.css";
-@import "../../node_modules/select2/dist/css/select2.min.css";
-
-// Components
-@import "../app/agreement/agreement.component";
-@import "../app/shared/language-selector/language-selector.component";
-@import "../app/agreement/agreement.component";
-@import "../app/user-event/assessment-form.component";
-@import "../app/user-event/assessment-object-list.component";
-@import "../app/shared/components/likes-dislikes/likes-dislikes.component";
-
+@import "~simple-line-icons/css/simple-line-icons.css";
+@import "~animate.css/animate.min.css";
+@import "~air-datepicker/dist/css/datepicker.min.css";
+@import "~cropperjs/dist/cropper.css";
+@import "~select2/dist/css/select2.min.css";

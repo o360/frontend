@@ -121,10 +121,12 @@ export class AdminUsersAddModalComponent implements OnInit {
     observableForkJoin(
       this._userService.list(allQueryParams),
       this._userService.list(groupQueryParams)
-    ).pipe(
-      map(([allUsers, groupUsers]: [IListResponse<UserModel>, IListResponse<UserModel>]) => {
-        return allUsers.data.filter(user => !groupUsers.data.find(groupUser => groupUser.id === user.id));
-      }))
+    )
+      .pipe(
+        map(([allUsers, groupUsers]: [IListResponse<UserModel>, IListResponse<UserModel>]) => {
+          return allUsers.data.filter(user => !groupUsers.data.find(groupUser => groupUser.id === user.id));
+        })
+      )
       .subscribe((availableUsers: UserModel[]) => {
         this._availableUsers = availableUsers.map(user => {
           return { id: String(user.id), text: `${user.name} (${user.email})` };

@@ -113,10 +113,12 @@ export class AdminProjectsAddModalComponent implements OnChanges, OnInit {
     observableForkJoin(
       this._projectService.list(),
       this._projectService.list(eventQueryParams)
-    ).pipe(
-      map(([allProjects, eventProjects]: IListResponse<ProjectModel>[]) => {
-        return allProjects.data.filter(project => !eventProjects.data.find(x => x.id === project.id));
-      }))
+    )
+      .pipe(
+        map(([allProjects, eventProjects]: IListResponse<ProjectModel>[]) => {
+          return allProjects.data.filter(project => !eventProjects.data.find(x => x.id === project.id));
+        })
+      )
       .subscribe((availableProjects: ProjectModel[]) => {
         let availableForSelectionProjects: ISelectProject[] = [];
         availableProjects.map((project: ProjectModel) => {

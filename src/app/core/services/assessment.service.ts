@@ -16,9 +16,11 @@ export class AssessmentService extends RestService<AssessmentModel> {
     let json = JSON.stringify(model);
     let requestOptions = this._getRequestOptions();
 
-    return this._http.post(requestParams, json, requestOptions).pipe(
-      map((jsonData: any) => this.createEntity(jsonData)),
-      catchError((error: Response) => this._handleErrors(error)),);
+    return this._http.post(requestParams, json, requestOptions)
+      .pipe(
+        map((jsonData: any) => this.createEntity(jsonData)),
+        catchError((error: Response) => this._handleErrors(error))
+      );
   }
 }
 

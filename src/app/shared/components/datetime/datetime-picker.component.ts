@@ -21,9 +21,14 @@ export const ValidatorIsAfter = (otherDateName: string) => {
       if (!otherDate) {
         throw new Error('Other control is not found in parent group');
       }
-      otherDate.valueChanges.pipe(distinctUntilChanged(), debounceTime(100),).subscribe(() => {
-        thisDate.updateValueAndValidity();
-      });
+      otherDate.valueChanges
+        .pipe(
+          distinctUntilChanged(),
+          debounceTime(100)
+        )
+        .subscribe(() => {
+          thisDate.updateValueAndValidity();
+        });
     }
 
     if (!otherDate) {
@@ -56,9 +61,14 @@ export const ValidatorIsBefore = (otherDateName: string) => {
       if (!otherDate) {
         throw new Error('Other control is not found in parent group');
       }
-      otherDate.valueChanges.pipe(distinctUntilChanged(), debounceTime(100),).subscribe(() => {
-        thisDate.updateValueAndValidity();
-      });
+      otherDate.valueChanges
+        .pipe(
+          distinctUntilChanged(),
+          debounceTime(100)
+        )
+        .subscribe(() => {
+          thisDate.updateValueAndValidity();
+        });
     }
 
     if (!otherDate) {

@@ -285,31 +285,34 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
 
   protected _update(): Observable<any> {
     this._answers = [];
-    return this._fetch().pipe(map(list => {
-      this._list = list;
+    return this._fetch()
+      .pipe(
+        map(list => {
+          this._list = list;
 
-      if (list) {
-        this._users = list.filter((assessment: AssessmentModel) => !!assessment.user);
-        this._surveys = list.find((assessment: AssessmentModel) => !assessment.user) ?
-          list.find((assessment: AssessmentModel) => !assessment.user).forms : null;
+          if (list) {
+            this._users = list.filter((assessment: AssessmentModel) => !!assessment.user);
+            this._surveys = list.find((assessment: AssessmentModel) => !assessment.user) ?
+              list.find((assessment: AssessmentModel) => !assessment.user).forms : null;
 
-        this._users.sort((x, y) => {
-          return !!x.user && !!y.user && (x.user.name < y.user.name) ? -1 : !!x.user && !!y.user && (x.user.name > y.user.name) ? 1 : 0;
-        });
+            this._users.sort((x, y) => {
+              return !!x.user && !!y.user && (x.user.name < y.user.name) ? -1 : !!x.user && !!y.user && (x.user.name > y.user.name) ? 1 : 0;
+            });
 
-        if (this._surveys) {
-          this._surveys.sort((x, y) => x.form.name < y.form.name ? -1 : 1);
-        }
-      }
+            if (this._surveys) {
+              this._surveys.sort((x, y) => x.form.name < y.form.name ? -1 : 1);
+            }
+          }
 
-      this._filteredUsers = this._list;
+          this._filteredUsers = this._list;
 
-      this._isAnswered = !list.find((item: AssessmentModel) => !item.isAnswered);
+          this._isAnswered = !list.find((item: AssessmentModel) => !item.isAnswered);
 
-      if (this._assessmentObject && this._assessmentObject.userId) {
-        this._assessmentObject = list.find((item: AssessmentModel) => item.user.id === this._assessmentObject.userId);
-      }
-    }));
+          if (this._assessmentObject && this._assessmentObject.userId) {
+            this._assessmentObject = list.find((item: AssessmentModel) => item.user.id === this._assessmentObject.userId);
+          }
+        })
+      );
   }
 
   protected _fetch(): Observable<any> {

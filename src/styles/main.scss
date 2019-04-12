@@ -1,5 +1,8 @@
-@import "./imports";
-@import "./_theme";
+// Fonts
+$fa-font-path: "~font-awesome/fonts";
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700');
+@import "imports";
+@import "_theme";
 
 /**
  * Override of theme styles

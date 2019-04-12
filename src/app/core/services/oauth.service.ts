@@ -14,9 +14,11 @@ export class OAuthService extends RestService<AccountModel> {
     let params = `${this._getRequestParams()}/${provider}`;
     let options = this._getRequestOptions();
 
-    return this._http.post(params, body, options).pipe(
-      map((json: any) => <string> json['token']),
-      catchError((error: Response) => this._handleErrors(error)));
+    return this._http.post(params, body, options)
+      .pipe(
+        map((json: any) => <string> json['token']),
+        catchError((error: Response) => this._handleErrors(error))
+      );
   }
 
   public list() {

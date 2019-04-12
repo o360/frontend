@@ -31,12 +31,15 @@ export class AuthServiceLoader implements CanActivate {
 
   private _load() {
     if (!this._isLoading) {
-      this._isLoading = this._accountService.get(this._authService.token).pipe(
-        map((user: AccountModel) => {
-          this._authService.user = user;
-          this._isLoading = null;
-          return true;
-        }), share());
+      this._isLoading = this._accountService.get(this._authService.token)
+        .pipe(
+          map((user: AccountModel) => {
+            this._authService.user = user;
+            this._isLoading = null;
+            return true;
+          }),
+          share()
+        );
     }
 
     return this._isLoading;

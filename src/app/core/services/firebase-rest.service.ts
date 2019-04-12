@@ -24,24 +24,27 @@ export class FirebaseRestService<T extends Model> extends RestService<T> {
   }
 
   public list(): Observable<IListResponse<T>> {
-    return this._http.get(this._getRequestParams(), this._getRequestOptions()).pipe(
-      map((response: Response) => {
-        let values: T[] = [];
-        for (let [key, value] of Object.entries(response)) {
-          let item = this.createEntity(value);
-          item.id = key;
-          values.push(item);
-        }
-        return { data: values, meta: { number: 1, size: values.length, total: values.length } };
-      }),
-      catchError((error: any) => this._handleErrors(error))
-    );
+    return this._http.get(this._getRequestParams(), this._getRequestOptions())
+      .pipe(
+        map((response: Response) => {
+          let values: T[] = [];
+          for (let [key, value] of Object.entries(response)) {
+            let item = this.createEntity(value);
+            item.id = key;
+            values.push(item);
+          }
+          return { data: values, meta: { number: 1, size: values.length, total: values.length } };
+        }),
+        catchError((error: any) => this._handleErrors(error))
+      );
   }
 
   public get(id: ModelId): Observable<T> {
-    return this._http.get(this._getRequestParams(id), this._getRequestOptions()).pipe(
-      map((json: any) => this.createEntity(Object.assign(json, { id }))),
-      catchError((error: any) => this._handleErrors(error)));
+    return this._http.get(this._getRequestParams(id), this._getRequestOptions())
+      .pipe(
+        map((json: any) => this.createEntity(Object.assign(json, { id }))),
+        catchError((error: any) => this._handleErrors(error))
+      );
   }
 
   protected _getRequestParams(id?: ModelId) {
