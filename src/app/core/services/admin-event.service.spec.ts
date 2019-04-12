@@ -6,7 +6,7 @@ import { AuthService } from './auth.service';
 import { NotificationService } from './notification.service';
 import { ConfirmationService } from './confirmation.service';
 import { AuthServiceStub, ConfirmationStub, NotificationServiceStub, RouterStub } from '../../stubs/stubs.utils';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { AdminEventService } from './admin-event.service';
 import { EventModel } from '../models/event-model';
 

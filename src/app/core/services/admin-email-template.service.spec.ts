@@ -7,7 +7,7 @@ import { NotificationService } from './notification.service';
 import { ConfirmationService } from './confirmation.service';
 import { AuthServiceStub, ConfirmationStub, NotificationServiceStub, RouterStub } from '../../stubs/stubs.utils';
 import { AdminEmailTemplateService } from './admin-email-template.service';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { EmailTemplateModel } from '../models/email-template-model';
 
 
