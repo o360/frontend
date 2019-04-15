@@ -4,7 +4,6 @@ import { AppRoutes } from '../core/models/app-routes.model';
 import { EventTabsComponent } from './event-tabs.component';
 import { AssessmentProjectListComponent } from './assessment-project-list.component';
 
-
 @NgModule({
   imports: [
     RouterModule.forChild(<AppRoutes>[{

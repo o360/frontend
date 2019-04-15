@@ -78,14 +78,13 @@ export class AdminUserInviteFormComponent extends FormComponent<InviteModel> imp
     this._selectedGroups = [...value.value] || [];
   }
 
-
   public save() {
     let resultModel: IDataRequestInvite[] = [];
-    this._getEmails().forEach(email => {
+    this._getEmails().forEach((email) => {
       resultModel.push({ email, groups: this._getGroups() });
     });
 
-    (<InviteService> this._service).createRequest(resultModel).subscribe(model => {
+    (<InviteService> this._service).createRequest(resultModel).subscribe((model) => {
       if (this._returnPath) {
         this._router.navigate([this._returnPath]);
       }
@@ -94,13 +93,13 @@ export class AdminUserInviteFormComponent extends FormComponent<InviteModel> imp
   }
 
   private _getEmails() {
-    return this._emails.split(',').map(function(item) {
+    return this._emails.split(',').map((item) => {
       return item.replace(/\s/g, '');
     });
   }
 
   private _getGroups() {
-    return this._selectedGroups.map(item => {
+    return this._selectedGroups.map((item) => {
       return parseInt(item, 10);
     });
   }
@@ -108,7 +107,7 @@ export class AdminUserInviteFormComponent extends FormComponent<InviteModel> imp
   private _loadGroups() {
     this._selectedGroups = [];
     this._groupService.list().subscribe((res: IListResponse<GroupModel>) => {
-      return this._availableGroups = res.data.map(group => {
+      return this._availableGroups = res.data.map((group) => {
         return { id: String(group.id), text: `${group.name}` };
       });
     });
@@ -123,4 +122,3 @@ export class AdminUserInviteFormComponent extends FormComponent<InviteModel> imp
     }]);
   }
 }
-

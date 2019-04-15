@@ -35,4 +35,3 @@ import { AdminUserConfirmationComponent } from './user-confirmation.component';
 })
 export class AdminUsersModule {
 }
-

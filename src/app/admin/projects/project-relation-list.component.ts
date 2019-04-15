@@ -27,7 +27,6 @@ export class AdminProjectRelationListComponent extends ListComponent<RelationMod
     return this._projectId;
   }
 
-
   public get hasInProgressEvents(): boolean {
     return this._hasInProgressEvents;
   }

@@ -3,7 +3,6 @@ import { ModalDirective } from 'ngx-bootstrap';
 import { Subject } from 'rxjs';
 import { IConflicts } from '../../core/services/confirmation.service';
 
-
 @Component({
   selector: 'bs-confirmation-modal',
   templateUrl: 'confirmation.component.html'

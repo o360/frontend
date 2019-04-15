@@ -55,7 +55,7 @@ export class BreadcrumbComponent implements OnInit {
       if (!routeConfig.breadcrumbIgnore) {
         newState.push({
           label,
-          url: '/' + path.join('/')
+          url: `/${path.join('/')}`
         });
       }
 
@@ -71,11 +71,12 @@ export class BreadcrumbComponent implements OnInit {
   }
 
   private _prepareRouteName(name: string) {
+    let firstSplit, secondSplit: string;
     if (name.length > 0) {
-      name = name.split(' ').map(this._capitalizeFirstLetter).join('');
-      name = name.split(/(?=[A-Z])/).join(' ');
+      firstSplit = name.split(' ').map(this._capitalizeFirstLetter).join('');
+      secondSplit = firstSplit.split(/(?=[A-Z])/).join(' ');
     }
-    return name;
+    return secondSplit || name;
   }
 
   private _capitalizeFirstLetter(str: string) {

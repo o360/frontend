@@ -42,7 +42,6 @@ export class AdminRelationEmailTemplatesListComponent {
     return this._recipient;
   }
 
-
   constructor(private _service: AdminRelationService,
               private _notificationService: NotificationService) {
   }
@@ -51,7 +50,7 @@ export class AdminRelationEmailTemplatesListComponent {
     let model = new RelationModel(this._model.toJson());
     model.templates.push(template);
 
-    this._service.save(model).subscribe(model => {
+    this._service.save(model).subscribe((model) => {
       this._model.templates = model.templates;
       this._notificationService.success('T_EMAIL_TEMPLATE_ADDED_TO_PROJECT');
     });
@@ -60,7 +59,7 @@ export class AdminRelationEmailTemplatesListComponent {
   public removeTemplate(templateId: ModelId) {
     this._model.templates = this._model.templates.filter(x => x.templateId !== templateId);
 
-    this._service.save(this._model).subscribe(model => {
+    this._service.save(this._model).subscribe((model) => {
       this._model.templates = model.templates;
       this._notificationService.success('T_EMAIL_TEMPLATE_REMOVE_FROM_PROJECT');
     });

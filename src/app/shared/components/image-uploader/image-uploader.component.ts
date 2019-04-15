@@ -1,9 +1,7 @@
 import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap';
 import { Observable } from 'rxjs';
-
-// import Cropper = require('cropperjs');
-import Cropper from 'cropperjs';
+import cropperjs from 'cropperjs';
 
 @Component({
   selector: 'bs-image-uploader',
@@ -12,7 +10,7 @@ import Cropper from 'cropperjs';
 export class ImageUploaderComponent {
   protected _file: any;
   protected _cropperModal: ModalDirective;
-  protected _cropper: Cropper;
+  protected _cropper: cropperjs;
   protected _cropped: any;
   protected _imageUploaded: EventEmitter<any> = new EventEmitter<any>();
   protected _inputFile: any;
@@ -111,7 +109,7 @@ export class ImageUploaderComponent {
       viewMode: 2,
       autoCropArea: 0.8,
       aspectRatio: 1 / 1,
-      crop: (e) =>
+      crop: e =>
         this._cropped = this._cropper.getCroppedCanvas({
           fillColor: '#ffffff'
         }).toDataURL('image/jpeg')

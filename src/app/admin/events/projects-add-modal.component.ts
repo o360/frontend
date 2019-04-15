@@ -98,10 +98,10 @@ export class AdminProjectsAddModalComponent implements OnChanges, OnInit {
     }
   }
 
-  public selectProject(value: { value: string[] }) {
+  public selectProject(value) {
     this._selectedProjects = [];
     if (value.value) {
-      value.value.forEach((id => {
+      value.value.forEach(((id) => {
         this._selectedProjects.push(id);
       }));
     }

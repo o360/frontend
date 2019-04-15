@@ -14,7 +14,7 @@ describe('Auth Service', () => {
     TestBed.configureTestingModule({
       imports: [HttpClientModule],
       providers: [AuthService,
-        {provide: Router, useClass: RouterStub},
+        { provide: Router, useClass: RouterStub },
       ]
     });
     injector = getTestBed();

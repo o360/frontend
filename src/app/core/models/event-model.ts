@@ -44,10 +44,7 @@ export class EventState {
   public static readonly FullFilled: string = 'fullfilled';
 }
 
-
-@Defaults({
-  notifications: []
-})
+@Defaults({ notifications: [] })
 export class EventModel extends Model {
   public description?: string;
   public start: any;
@@ -64,12 +61,13 @@ export class EventModel extends Model {
 
       if (answeredForms === 0) {
         return EventState.NotStarted;
-      } else if (totalForms === answeredForms) {
-        return EventState.FullFilled;
-      } else {
-        return EventState.PartiallyFilled;
       }
-    } else return null;
+      if (totalForms === answeredForms) {
+        return EventState.FullFilled;
+      }
+      return EventState.PartiallyFilled;
+    }
+    return null;
   }
 
   constructor(json?: Object) {

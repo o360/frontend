@@ -10,7 +10,6 @@ import { ModelId } from '../core/models/model';
 import { UserPictureService } from '../core/services/user-picture.service';
 import { IListResponse } from '../core/services/rest.service';
 
-
 @Component({
   selector: 'bs-users-list',
   templateUrl: 'user-list.component.html'
@@ -55,7 +54,7 @@ export class UserListComponent extends ListComponent<UserModel> {
 
   protected _fillProfile(user: UserModel): UserModel {
     (<UserService> this._service).getGroups(user.id)
-      .subscribe((response) => user.groups = response.data.map(_ => _.name).join(', '));
+      .subscribe(response => user.groups = response.data.map(_ => _.name).join(', '));
 
     if (user.hasPicture) {
       this._userPictureService.getPicture(user.id)

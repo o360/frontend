@@ -6,7 +6,6 @@ import { AccountModel } from '../models/account-model';
 import { AuthService } from '../services/auth.service';
 import { AccountService } from '../services/account.service';
 
-
 @Injectable()
 export class AuthServiceLoader implements CanActivate {
   private _isLoading: Observable<boolean>;
@@ -24,9 +23,8 @@ export class AuthServiceLoader implements CanActivate {
 
     if (this._authService.user) {
       return observableFrom([true]);
-    } else {
-      return this._load();
     }
+    return this._load();
   }
 
   private _load() {

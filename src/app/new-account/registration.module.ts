@@ -17,4 +17,3 @@ import { RegistrationRoutingModule } from './registration-routing.module';
 })
 export class RegistrationModule {
 }
-
