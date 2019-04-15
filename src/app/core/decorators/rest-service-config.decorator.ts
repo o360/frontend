@@ -25,7 +25,7 @@ interface IRestServiceParams {
  *
  */
 export function RestServiceConfig(params: IRestServiceParams): ClassDecorator {
-  return function(target: any) {
+  return function (target: any) {
     if (params.endpoint && params.endpoint !== '') {
       target.prototype._endpoint = params.endpoint;
     }

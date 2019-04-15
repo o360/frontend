@@ -23,4 +23,3 @@ export class AssessmentService extends RestService<AssessmentModel> {
       );
   }
 }
-

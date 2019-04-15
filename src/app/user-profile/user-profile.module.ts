@@ -20,4 +20,3 @@ import { UserProfileComponent } from './user-profile.component';
 })
 export class UserProfileModule {
 }
-

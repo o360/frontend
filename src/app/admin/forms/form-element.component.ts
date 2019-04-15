@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { RequireValue } from './form-builder.component';
 import { FormElementType, IFormElementValue } from '../../core/models/form-model';
 
-
 @Component({
   selector: 'bs-form-builder-element',
   templateUrl: 'form-element.component.html'

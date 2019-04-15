@@ -15,12 +15,12 @@ export class AdminUserListComponent extends ListComponent<UserModel> {
     name: 'T_USER_STATUS',
     field: 'status',
     type: FilterType.Select,
-    values: Object.values(UserStatus).map(x => ({ name: 'T_USER_STATUS_' + x.toUpperCase(), value: x }))
+    values: Object.values(UserStatus).map(x => ({ name: `T_USER_STATUS_${x.toUpperCase()}`, value: x }))
   }, {
     name: 'T_USER_ROLE',
     field: 'role',
     type: FilterType.Select,
-    values: Object.values(UserRole).map(x => ({ name: 'T_USER_ROLE_' + x.toUpperCase(), value: x }))
+    values: Object.values(UserRole).map(x => ({ name: `T_USER_ROLE_${x.toUpperCase()}`, value: x }))
   }, {
     name: 'T_USER_NAME',
     field: 'name',
@@ -44,9 +44,9 @@ export class AdminUserListComponent extends ListComponent<UserModel> {
   public approve(user: UserModel) {
     user.status = UserStatus.Approved;
     this._service.save(user).subscribe(() => {
-        this._update();
-        this._notificationService.success('T_SUCCESS_SAVED');
-      },
+      this._update();
+      this._notificationService.success('T_SUCCESS_SAVED');
+    },
       error => this._update()
     );
   }

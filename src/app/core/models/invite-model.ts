@@ -16,4 +16,3 @@ export class InviteModel extends Model {
   public creationTime?: string;
   public activationTime?: string;
 }
-

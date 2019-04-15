@@ -24,7 +24,7 @@ export class LikesDislikesComponent implements ControlValueAccessor {
   protected _propagateTouch: Function;
   protected _disabled: boolean;
 
-  protected _id = `like-dislike-${ id++ }`;
+  protected _id = `like-dislike-${id++}`;
 
   @ViewChild(NgModel)
   public model: NgModel;
@@ -79,7 +79,7 @@ export class LikesDislikesComponent implements ControlValueAccessor {
     if (value) {
       this._innerValue = value;
     } else {
-      this._innerValue = {valuesIds: []};
+      this._innerValue = { valuesIds: [] };
     }
   }
 

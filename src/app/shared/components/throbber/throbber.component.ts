@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 
-
 @Component({
   selector: 'bs-throbber',
   templateUrl: 'throbber.component.html',
@@ -8,4 +7,3 @@ import { Component } from '@angular/core';
 })
 export class ThrobberComponent {
 }
-

@@ -91,7 +91,7 @@ export class AdminUsersAddModalComponent implements OnInit {
   }
 
   public submit() {
-    let transaction = this._selectedUsers.map(user => {
+    let transaction = this._selectedUsers.map((user) => {
       return { groupId: this._groupId, userId: +user };
     });
 
@@ -128,7 +128,7 @@ export class AdminUsersAddModalComponent implements OnInit {
         })
       )
       .subscribe((availableUsers: UserModel[]) => {
-        this._availableUsers = availableUsers.map(user => {
+        this._availableUsers = availableUsers.map((user) => {
           return { id: String(user.id), text: `${user.name} (${user.email})` };
         });
       });

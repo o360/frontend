@@ -59,7 +59,7 @@ export class UserProfileFormComponent extends FormComponent<UserModel> implement
   }
 
   public save() {
-    this._service.save(this._model).subscribe(model => {
+    this._service.save(this._model).subscribe((model) => {
       if (this._returnPath) {
         this._router.navigate([this._returnPath]);
       }
@@ -72,7 +72,7 @@ export class UserProfileFormComponent extends FormComponent<UserModel> implement
   }
 
   public savePicture(image: any) {
-    (<AccountService>this._service).setPicture(image).subscribe(picture => {
+    (<AccountService>this._service).setPicture(image).subscribe((picture) => {
       this._getUserPicture();
     }, error => this._notificationService.error(error));
   }

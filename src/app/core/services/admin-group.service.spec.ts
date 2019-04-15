@@ -10,7 +10,6 @@ import { AdminGroupService } from './admin-group.service';
 import { GroupModel } from '../models/group-model';
 import { Observable } from 'rxjs';
 
-
 describe('AdminEventService Service', () => {
   let testService: AdminGroupService;
   let injector: Injector;
@@ -28,7 +27,7 @@ describe('AdminEventService Service', () => {
         { provide: NotificationService, useClass: NotificationServiceStub },
         { provide: AuthService, useClass: AuthServiceStub },
         { provide: Router, useClass: RouterStub },
-        { provide: ConfirmationService, useClass: ConfirmationStub}
+        { provide: ConfirmationService, useClass: ConfirmationStub }
       ]
     });
     injector = getTestBed();

@@ -10,7 +10,6 @@ import { Observable } from 'rxjs';
 import { FormModel } from '../models/form-model';
 import { FormService } from './form.service';
 
-
 describe('FormService Service', () => {
   let testService: FormService;
   let injector: Injector;
@@ -28,7 +27,7 @@ describe('FormService Service', () => {
         { provide: NotificationService, useClass: NotificationServiceStub },
         { provide: AuthService, useClass: AuthServiceStub },
         { provide: Router, useClass: RouterStub },
-        { provide: ConfirmationService, useClass: ConfirmationStub}
+        { provide: ConfirmationService, useClass: ConfirmationStub }
       ]
     });
     injector = getTestBed();

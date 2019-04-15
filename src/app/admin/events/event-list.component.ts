@@ -15,12 +15,12 @@ export class AdminEventListComponent extends ListComponent<EventModel> {
     name: 'T_EVENT_STATUS',
     field: 'status',
     type: FilterType.Select,
-    values: Object.values(EventStatus).map(x => ({ name: 'T_EVENT_STATUS_' + x.toUpperCase(), value: x }))
+    values: Object.values(EventStatus).map(x => ({ name: `T_EVENT_STATUS_${x.toUpperCase()}`, value: x }))
   }, {
     name: 'T_EVENT_SORT',
     field: 'sort',
     type: FilterType.Select,
-    values: Object.values(EventSortField).map(x => ({ name: 'T_EVENT_' + x.toUpperCase(), value: x }))
+    values: Object.values(EventSortField).map(x => ({ name: `T_EVENT_${x.toUpperCase()}`, value: x }))
   }];
 
   public get EventStatus() {

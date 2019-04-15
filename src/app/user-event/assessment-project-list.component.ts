@@ -32,7 +32,7 @@ export class AssessmentProjectListComponent extends ListComponent<ProjectModel> 
   public ngOnInit() {
     this._activatedRoute.params.subscribe((params: Params) => {
       this._eventId = params['id'];
-      this._eventService.get(this._eventId).subscribe(event => {
+      this._eventService.get(this._eventId).subscribe((event) => {
         if (event.status === EventStatus.NotStarted) {
           this._router.navigate(['events']);
         } else {

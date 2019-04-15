@@ -34,4 +34,3 @@ describe('PaginationComponent', () => {
     expect(comp.queryParamsChange).toEqual(jasmine.any(EventEmitter));
   });
 });
-
