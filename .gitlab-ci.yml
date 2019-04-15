@@ -1,4 +1,4 @@
-image: mrniket/node-karma-protractor-chrome-yarn
+image: canvadev/ci-docker-node-yarn-chrome-xvfb
 
 stages:
   - packages
