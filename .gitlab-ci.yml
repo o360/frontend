@@ -1,4 +1,4 @@
-image: gordlea/node-chromeheadless
+image: catsoss/node-headless-chrome
 
 stages:
   - packages
