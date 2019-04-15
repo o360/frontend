@@ -1,4 +1,4 @@
-image: catsoss/node-headless-chrome
+image: mrniket/node-karma-protractor-chrome-yarn
 
 stages:
   - packages
