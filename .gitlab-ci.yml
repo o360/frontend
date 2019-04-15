@@ -8,7 +8,7 @@ stages:
   - deploy
 
 before_script:
-  - ln -s /builds node_modules
+  - ln -s /node_modules node_modules
 
 packages:
   stage: packages
