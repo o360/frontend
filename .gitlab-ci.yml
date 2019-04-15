@@ -1,4 +1,4 @@
-image: weboaks/node-karma-protractor-chrome
+image: canvadev/ci-docker-node-yarn-chrome-xvfb
 
 stages:
   - packages
