@@ -61,4 +61,8 @@ export class AdminEventNotificationComponent {
       this._event = event;
     });
   }
+
+  private _formatData({time}: IEventNotification) {
+     return moment(time);
+  }
 }
