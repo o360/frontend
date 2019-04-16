@@ -9,7 +9,7 @@ stages:
 
 before_script:
   - ln -s /home/ci-user/frontend/node_modules node_modules # a bit hacky, rewrite later
-    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN git.bw-sw.com:5000
+  - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN git.bw-sw.com:5000
 
 packages:
   stage: packages
