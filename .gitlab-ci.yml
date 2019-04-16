@@ -8,20 +8,27 @@ stages:
   - deploy
 
 before_script:
-  - ln -s /node_modules node_modules
+  - ln -s /home/ci-user/frontend/node_modules node_modules # a bit hacky, rewrite later
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN git:5000
 
 packages:
   stage: packages
+  tags:
+    - open360-shell
   script: "yarn install"
 
 lint:
   stage: lint
+  tags:
+    - open360-shell
   script: "yarn run lint"
 
 test:
   stage: test
   script:
     - yarn run test.prod
+  tags:
+    - open360-shell
   coverage: '/Statements\s*:\s*([^%]+)/'
 
 build:
