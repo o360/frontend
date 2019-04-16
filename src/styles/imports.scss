@@ -1,10 +1,12 @@
 // Modules
 @import "~font-awesome/scss/variables";
 @import "~font-awesome/scss/font-awesome";
+
 // if you'd like to use it without importing all of bootstrap it requires
 @import '~bootstrap/scss/functions';
 @import '~bootstrap/scss/variables';
 @import '~bootstrap/scss/mixins';
+
 // bootstrap style toast
 // or import a bootstrap 4 alert styled design (SASS ONLY)
 // should be after your bootstrap imports, it uses bs4 variables, mixins, functions
