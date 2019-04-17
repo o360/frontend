@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
@@ -26,7 +26,7 @@ export class FirebaseRestService<T extends Model> extends RestService<T> {
   public list(): Observable<IListResponse<T>> {
     return this._http.get(this._getRequestParams(), this._getRequestOptions())
       .pipe(
-        map((response: Response) => {
+        map((response: any) => {
           let values: T[] = [];
           for (let [key, value] of Object.entries(response)) {
             let item = this.createEntity(value);
@@ -35,7 +35,7 @@ export class FirebaseRestService<T extends Model> extends RestService<T> {
           }
           return { data: values, meta: { number: 1, size: values.length, total: values.length } };
         }),
-        catchError((error: any) => this._handleErrors(error))
+        catchError((error: HttpErrorResponse) => this._handleErrors(error))
       );
   }
 
@@ -43,7 +43,7 @@ export class FirebaseRestService<T extends Model> extends RestService<T> {
     return this._http.get(this._getRequestParams(id), this._getRequestOptions())
       .pipe(
         map((json: any) => this.createEntity(Object.assign(json, { id }))),
-        catchError((error: any) => this._handleErrors(error))
+        catchError((error: HttpErrorResponse) => this._handleErrors(error))
       );
   }
 
