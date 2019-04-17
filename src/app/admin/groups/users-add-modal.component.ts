@@ -128,7 +128,7 @@ export class AdminUsersAddModalComponent implements OnInit {
       })
     )
     .subscribe((availableUsers: UserModel[]) => {
-      this._availableUsers = availableUsers.map(user => {
+      this._availableUsers = availableUsers.map((user) => {
         return { id: String(user.id), text: `${user.name} (${user.email})` };
       });
     });
