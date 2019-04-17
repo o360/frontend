@@ -1,4 +1,4 @@
-image: node:6.11.2-wheezy
+image: canvadev/ci-docker-node-yarn-chrome-xvfb
 
 stages:
   - packages
@@ -7,12 +7,15 @@ stages:
   - build
   - deploy
 
-before_script:
-  - ln -s /node_modules node_modules
+# Cache modules in between jobs
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - node_modules/
 
 packages:
   stage: packages
-  script: "yarn install && npm rebuild node-sass"
+  script: "yarn install"
 
 lint:
   stage: lint
@@ -20,7 +23,8 @@ lint:
 
 test:
   stage: test
-  script: "yarn run test"
+  script:
+    - yarn run test
   coverage: '/Statements\s*:\s*([^%]+)/'
 
 build:
@@ -32,9 +36,8 @@ build:
   before_script:
     - ln -s /home/ci-user/frontend/node_modules node_modules # a bit hacky, rewrite later
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN git:5000
-  script: 
-    - yarn install
-    - yarn run build.prod.dev
+  script:
+    - yarn build
     - docker build --tag=git:5000/open360/frontend:${CI_COMMIT_REF_NAME}-${CI_PIPELINE_ID} --file=".docker/bw-assessment-ui.prod.dockerfile" .
     - docker push git:5000/open360/frontend:${CI_COMMIT_REF_NAME}-${CI_PIPELINE_ID}
 
