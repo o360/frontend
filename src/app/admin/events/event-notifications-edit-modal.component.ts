@@ -77,7 +77,7 @@ export class AdminEventNotificationsEditModalComponent {
     this.close();
   }
 
-  public show(item: IEventNotification) {
+  public show(item?: IEventNotification) {
     this._index = this._model.notifications.indexOf(item);
 
     if (item) {
