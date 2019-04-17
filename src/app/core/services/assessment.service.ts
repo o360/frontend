@@ -4,6 +4,7 @@ import { RestServiceConfig } from '../decorators/rest-service-config.decorator';
 import { IQueryParams, RestService } from './rest.service';
 import { AssessmentModel } from '../models/assessment-model';
 import { Observable } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable()
 @RestServiceConfig({
@@ -19,7 +20,7 @@ export class AssessmentService extends RestService<AssessmentModel> {
     return this._http.post(requestParams, json, requestOptions)
       .pipe(
         map((jsonData: any) => this.createEntity(jsonData)),
-        catchError((error: Response) => this._handleErrors(error))
+        catchError((error: HttpErrorResponse) => this._handleErrors(error))
       );
   }
 }
