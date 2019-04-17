@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { RestServiceConfig } from '../decorators/rest-service-config.decorator';
@@ -33,7 +33,7 @@ export class UserService extends RestService<UserModel> {
     return this._http.get(requestParams, requestOptions)
       .pipe(
         map((response: any) => response),
-        catchError((error: Response) => this._handleErrors(error))
+        catchError((error: HttpErrorResponse) => this._handleErrors(error))
       );
   }
 }
