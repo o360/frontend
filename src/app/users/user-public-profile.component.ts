@@ -45,7 +45,7 @@ export class UserPublicProfileComponent extends DetailsComponent<UserModel> {
   }
 
   protected _getUserGroups() {
-    (<UserService>this._service).getGroups(this._id)
+    (<UserService> this._service).getGroups(this._id)
       .subscribe((response: IListResponse<GroupModel>) => this._model.groups = response.data
         .map(_ => _.name).join(', '));
   }

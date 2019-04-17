@@ -27,7 +27,7 @@ export class AdminFormDetailsComponent extends DetailsComponent<FormModel> {
   }
 
   public clone(model: FormModel) {
-    (<AdminFormService>this._service).clone(model).subscribe((model) => {
+    (<AdminFormService> this._service).clone(model).subscribe(model => {
       this._router.navigate([this._returnPath, model.id, 'edit']);
       this._notificationService.success('T_SUCCESS_CLONED');
     });

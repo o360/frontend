@@ -22,9 +22,10 @@ export class AdminEmailTemplateDetailsComponent extends DetailsComponent<EmailTe
   }
 
   public clone(model: EmailTemplateModel) {
-    (<AdminEmailTemplateService>this._service).clone(model).subscribe((model) => {
+    (<AdminEmailTemplateService> this._service).clone(model).subscribe(model => {
       this._router.navigate([this._returnPath, model.id, 'edit']);
       this._notificationService.success('T_SUCCESS_CLONED');
     });
   }
 }
+
