@@ -32,7 +32,7 @@ export class AdminUserGroupListComponent extends ListComponent<GroupModel> imple
   }
 
   public delete(id?: ModelId) {
-    (<AdminGroupService>this._service).removeUser(id, this._userId).subscribe(() => {
+    (<AdminGroupService> this._service).removeUser(id, this._userId).subscribe(() => {
       this._update();
       this._notificationService.success('T_SUCCESS_DELETED');
     });

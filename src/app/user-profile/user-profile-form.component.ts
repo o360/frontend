@@ -72,7 +72,7 @@ export class UserProfileFormComponent extends FormComponent<UserModel> implement
   }
 
   public savePicture(image: any) {
-    (<AccountService>this._service).setPicture(image).subscribe(picture => {
+    (<AccountService> this._service).setPicture(image).subscribe(picture => {
       this._getUserPicture();
     }, error => this._notificationService.error(error));
   }
