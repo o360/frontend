@@ -24,7 +24,7 @@ lint:
 test:
   stage: test
   script:
-    - yarn run test.prod
+    - yarn run test
   coverage: '/Statements\s*:\s*([^%]+)/'
 
 build:
