@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { RestServiceConfig } from '../decorators/rest-service-config.decorator';
@@ -39,8 +39,8 @@ export class AdminUserService extends RestService<UserModel> {
 
     return this._http.post(requestParams, formData, requestOptions)
       .pipe(
-        map((res: Response) => res),
-        catchError((error: Response) => this._handleErrors(error))
+        map((res: any) => res),
+        catchError((error: HttpErrorResponse) => this._handleErrors(error))
       );
   }
 }

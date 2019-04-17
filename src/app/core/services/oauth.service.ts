@@ -3,6 +3,7 @@ import { catchError, map } from 'rxjs/operators';
 import { RestServiceConfig } from '../decorators/rest-service-config.decorator';
 import { AccountModel } from '../models/account-model';
 import { RestService } from './rest.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @RestServiceConfig({
   entityName: 'auth',
@@ -17,7 +18,7 @@ export class OAuthService extends RestService<AccountModel> {
     return this._http.post(params, body, options)
       .pipe(
         map((json: any) => <string> json['token']),
-        catchError((error: Response) => this._handleErrors(error))
+        catchError((error: HttpErrorResponse) => this._handleErrors(error))
       );
   }
 
