@@ -14,6 +14,9 @@ export class UserPictureService extends RestService<AccountModel> {
   public getPicture(id: ModelId): Observable<any> {
     let requestParams = `${this._getRequestParams(id)}/picture`;
     let requestOptions = {
+      // ResponseType: blob known angular issue
+      // (https://github.com/angular/angular/issues/19888)
+      // Current solution it's hacky but works.
       responseType: 'blob' as 'json',
       headers: new HttpHeaders({
         'X-Auth-Token': this._authService.token
