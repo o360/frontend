@@ -35,7 +35,7 @@ export class AdminUserFormComponent extends FormComponent<UserModel> implements 
   }
 
   public savePicture(image: any) {
-    (<AdminUserService>this._service).setPicture(this._id, image).subscribe(picture => {
+    (<AdminUserService> this._service).setPicture(this._id, image).subscribe(picture => {
       this._getUserPicture();
     }, error => this._notificationService.error(error));
   }

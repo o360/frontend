@@ -13,9 +13,9 @@ import { TranslateService } from '@ngx-translate/core';
 import { Select2OptionData, Select2Component } from 'ng2-select2/ng2-select2';
 
 @Component({
-  selector: 'bs-users-add-modal',
-  templateUrl: 'users-add-modal.component.html'
-})
+             selector: 'bs-users-add-modal',
+             templateUrl: 'users-add-modal.component.html'
+           })
 export class AdminUsersAddModalComponent implements OnInit {
   private _groupId: ModelId = null;
   private _selectedUsers: string[] = [];
@@ -122,15 +122,15 @@ export class AdminUsersAddModalComponent implements OnInit {
       this._userService.list(allQueryParams),
       this._userService.list(groupQueryParams)
     )
-      .pipe(
-        map(([allUsers, groupUsers]: [IListResponse<UserModel>, IListResponse<UserModel>]) => {
-          return allUsers.data.filter(user => !groupUsers.data.find(groupUser => groupUser.id === user.id));
-        })
-      )
-      .subscribe((availableUsers: UserModel[]) => {
-        this._availableUsers = availableUsers.map(user => {
-          return { id: String(user.id), text: `${user.name} (${user.email})` };
-        });
+    .pipe(
+      map(([allUsers, groupUsers]: [IListResponse<UserModel>, IListResponse<UserModel>]) => {
+        return allUsers.data.filter(user => !groupUsers.data.find(groupUser => groupUser.id === user.id));
+      })
+    )
+    .subscribe((availableUsers: UserModel[]) => {
+      this._availableUsers = availableUsers.map(user => {
+        return { id: String(user.id), text: `${user.name} (${user.email})` };
       });
+    });
   }
 }
