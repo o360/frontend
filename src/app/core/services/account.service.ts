@@ -1,6 +1,6 @@
 import { throwError as observableThrowError, Observable } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
-import { HttpHeaders } from '@angular/common/http';
+import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { RestServiceConfig } from '../decorators/rest-service-config.decorator';
 import { AccountModel } from '../models/account-model';
 import { IListResponse, RestService } from './rest.service';
@@ -19,7 +19,7 @@ export class AccountService extends RestService<AccountModel> {
     return this._http.get(params, options)
       .pipe(
         map((json: Object) => this.createEntity(json)),
-        catchError((error: any) => this._handleErrors(error))
+        catchError((error: HttpErrorResponse) => this._handleErrors(error))
       );
   }
 
@@ -37,7 +37,7 @@ export class AccountService extends RestService<AccountModel> {
     return this._http.post(requestParams, formData, requestOptions)
       .pipe(
         map((res: any) => res),
-        catchError((error: Response) => this._handleErrors(error))
+        catchError((error: HttpErrorResponse) => this._handleErrors(error))
       );
   }
 
@@ -48,7 +48,7 @@ export class AccountService extends RestService<AccountModel> {
     return this._http.get(requestParams, requestOptions)
       .pipe(
         map((res: any) => res),
-        catchError((error: Response) => this._handleErrors(error))
+        catchError((error: HttpErrorResponse) => this._handleErrors(error))
       );
   }
 
@@ -68,7 +68,7 @@ export class AccountService extends RestService<AccountModel> {
     return this._http.put(requestParams, json, requestOptions)
       .pipe(
         map((jsonData: any) => this.createEntity(jsonData)),
-        catchError((error: Response) => this._handleErrors(error))
+        catchError((error: HttpErrorResponse) => this._handleErrors(error))
       );
   }
 }
