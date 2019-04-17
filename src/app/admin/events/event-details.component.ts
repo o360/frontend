@@ -26,7 +26,7 @@ export class AdminEventDetailsComponent extends DetailsComponent<EventModel> {
   }
 
   public clone(model: EventModel) {
-    (<AdminEventService>this._service).clone(model).subscribe(clone => {
+    (<AdminEventService> this._service).clone(model).subscribe(clone => {
       this._router.navigate([this._returnPath, clone.id, 'clone']);
       this._notificationService.success('T_SUCCESS_CLONED_EVENT');
     });

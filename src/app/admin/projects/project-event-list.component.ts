@@ -36,6 +36,6 @@ export class AdminProjectEventListComponent extends ListComponent<EventModel> im
   }
 
   public remove(eventId?: ModelId) {
-    (<AdminEventService>this._service).removeProject(eventId, this._projectId).subscribe(() => this._update());
+    (<AdminEventService> this._service).removeProject(eventId, this._projectId).subscribe(() => this._update());
   }
 }
