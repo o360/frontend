@@ -1,7 +1,7 @@
 import { throwError as observableThrowError, Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { forwardRef, Inject, Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Config } from '../../../environments/env.config';
 import { Model, ModelId } from '../models/model';
@@ -80,7 +80,7 @@ export class RestService<T extends Model> {
     return this._http.get(this._getRequestParams(undefined, queryParams), this._getRequestOptions())
       .pipe(
         map((json: any) => Object.assign(json, { data: json.data.map((x: any) => this.createEntity(x)) })),
-        catchError((error: Response) => this._handleErrors(error))
+        catchError((error: HttpErrorResponse) => this._handleErrors(error))
       );
   }
 
@@ -121,7 +121,7 @@ export class RestService<T extends Model> {
 
     return this._http.delete(requestParams, requestOptions)
       .pipe(
-        catchError((error: Response) => this._handleErrors(error))
+        catchError((error: HttpErrorResponse) => this._handleErrors(error))
       );
   }
 
@@ -138,7 +138,7 @@ export class RestService<T extends Model> {
     return this._http.put(requestParams, json, requestOptions)
       .pipe(
         map((jsonData: any) => this.createEntity(jsonData)),
-        catchError((error: Response) => this._handleErrors(error))
+        catchError((error: HttpErrorResponse) => this._handleErrors(error))
       );
   }
 
@@ -155,7 +155,7 @@ export class RestService<T extends Model> {
     return this._http.post(requestParams, json, requestOptions)
       .pipe(
         map((jsonData: any) => this.createEntity(jsonData)),
-        catchError((error: Response) => this._handleErrors(error))
+        catchError((error: HttpErrorResponse) => this._handleErrors(error))
       );
   }
 
@@ -207,22 +207,23 @@ export class RestService<T extends Model> {
   /**
    * Handler of errors for the CRUD methods
    */
-  protected _handleErrors(error: any) {
+  protected _handleErrors(error: HttpErrorResponse) {
+    const err = error.error;
     if (error.status === 400) {
-      this._notificationService.error(this._prepareErrorCodeTranslation(error.code));
+      this._notificationService.error(this._prepareErrorCodeTranslation(err.code));
       return observableThrowError(error);
     } else if (error.status === 401) {
       this._router.navigate(['/login']);
       return observableThrowError(error);
     } else if (error.status === 403) {
-      if (error.code === 'AUTHORIZATION-EVENT') {
-        this._notificationService.error(this._prepareErrorCodeTranslation(error.code));
+      if (err.code === 'AUTHORIZATION-EVENT') {
+        this._notificationService.error(this._prepareErrorCodeTranslation(err.code));
       } else {
         this._notificationService.error(error.message, `${error.status} ${error.statusText}`);
       }
       return observableThrowError(error);
     } else if (error.status === 404) {
-      this._notificationService.error(this._prepareErrorCodeTranslation(error.code));
+      this._notificationService.error(this._prepareErrorCodeTranslation(err.code));
       return observableThrowError(error);
     } else if (error.status === 409) {
       let conflicts = [
@@ -233,10 +234,10 @@ export class RestService<T extends Model> {
         'CONFLICT-RELATION-GENERAL',
         'CONFLICT-TEMPLATE-GENERAL'
       ];
-      if (conflicts.indexOf(error.code) !== -1) {
-        this._confirmationService.loadComponent(null, error.conflicts);
+      if (conflicts.indexOf(err.code) !== -1) {
+        this._confirmationService.loadComponent(null, err.conflicts);
       } else {
-        this._notificationService.error(this._prepareErrorCodeTranslation(error.code));
+        this._notificationService.error(this._prepareErrorCodeTranslation(err.code));
       }
       return observableThrowError(error);
     } else {
