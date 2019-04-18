@@ -34,7 +34,6 @@ build:
   tags: 
     - open360-shell
   before_script:
-    - ln -s /home/ci-user/frontend/node_modules node_modules # a bit hacky, rewrite later
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN git:5000
   script:
     - yarn build
