@@ -31,7 +31,7 @@ export const DevConfig: EnvConfig = {
         response_type: 'code',
         client_id: '183984693644-rrf60igolgdvtmdq5oue0opi3jvq4vl8.apps.googleusercontent.com',
         scope: 'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email',
-        redirect_uri: 'http://localhost:5555/login/google'
+        redirect_uri: 'http://vm-a834f9ac-1c23-40f2-9461-618361703efd.premium.cs2.netpoint-dc.com/login/google'
       }
     }
   }
