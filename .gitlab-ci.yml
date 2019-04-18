@@ -56,3 +56,20 @@ deploy:
     - docker run -d --restart=always -p  80:80 --name public-bw-assessment-ui \
                  git:5000/open360/frontend:${CI_COMMIT_REF_NAME}-${CI_PIPELINE_ID} \
                  -v /src/deploy-configs/dev.json:/dist/prod/assets/config.json
+
+#deploy_prod:
+  #  only:
+  #    - master
+  #  stage: deploy
+  #  tags:
+  #    - open360-shell
+  #  environment:
+  #    name: production
+  #    url: https://open360.bw-sw.com
+  #  before_script:
+  #    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN git:5000
+  #  script:
+  #    - docker rm -f public-bw-assessment-ui || true
+  #    - docker run -d --restart=always -p  80:80 --name public-bw-assessment-ui \
+  #                 git:5000/open360/frontend:${CI_COMMIT_REF_NAME}-${CI_PIPELINE_ID} \
+  #                 -v /src/deploy-configs/prod.json:/dist/prod/assets/config.json
