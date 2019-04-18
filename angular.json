@@ -54,10 +54,8 @@
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
-              "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
-              "buildOptimizer": true,
               "budgets": [
                 {
                   "type": "initial",
@@ -65,6 +63,15 @@
                   "maximumError": "5mb"
                 }
               ]
+            },
+            "local": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/env.config.ts",
+                  "with": "src/environments/env.config.local.ts"
+                }
+              ],
+              "poll": 2000
             }
           }
         },
@@ -78,13 +85,10 @@
           "configurations": {
             "production": {
               "browserTarget": "open360:build:production"
+            },
+            "local": {
+              "browserTarget": "open360:build:local"
             }
-          }
-        },
-        "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
-          "options": {
-            "browserTarget": "open360:build"
           }
         },
         "test": {
