@@ -16,8 +16,7 @@ const ProdConfig: EnvConfig = {
         redirect_uri: 'https://open360.bw-sw.com/login/google'
       }
     }
-  },
-  AGREEMENTS: '/assets/agreement'
+  }
 };
 
 const DevConfig: EnvConfig = {
@@ -35,14 +34,13 @@ const DevConfig: EnvConfig = {
         redirect_uri: 'http://vm-a834f9ac-1c23-40f2-9461-618361703efd.premium.cs2.netpoint-dc.com/login/google'
       }
     }
-  },
-  AGREEMENTS: '/assets/agreement'
+  }
 };
 
 const BaseConfig: EnvConfig = {
   FIREBASE_URL: 'https://model-service-51554.firebaseio.com',
   DEFAULT_LANG: 'en',
-  AGREEMENTS: '/assets/agreement'
+  AGREEMENTS: '/agreement'
 };
 
 const tempConfig: EnvConfig = environment.production ? ProdConfig : DevConfig;
