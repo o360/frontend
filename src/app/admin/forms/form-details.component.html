@@ -57,6 +57,9 @@
         <!--For likes and dislikes-->
         <ng-template [ngSwitchCase]="FormElementType.LikeDislike">
           <bs-likes-dislikes [element]="element"></bs-likes-dislikes>
+
+          <label class="col-form-label col-sm-3">Tooltip hint</label>
+          <label class="col-form-label col-sm-9">{{ element.hint }}</label>
         </ng-template>
 
         <!--For checkbox groups-->
@@ -75,6 +78,9 @@
               </label>
             </div>
           </div>
+
+          <label class="col-form-label col-sm-3">Tooltip hint</label>
+          <label class="col-form-label col-sm-9">{{ element.hint }}</label>
         </ng-template>
 
         <!--For checkbox-->
@@ -93,6 +99,9 @@
               <span class="custom-control-indicator"></span>
             </label>
           </div>
+
+          <label class="col-form-label col-sm-3">Tooltip hint</label>
+          <label class="col-form-label col-sm-9">{{ element.hint }}</label>
         </ng-template>
 
         <!--For select-->
@@ -108,7 +117,11 @@
                       [value]="item.id">
                 {{ item.caption }}
               </option>
-            </select></div>
+            </select>
+          </div>
+
+          <label class="col-form-label col-sm-3">Tooltip hint</label>
+          <label class="col-form-label col-sm-9">{{ element.hint }}</label>
         </ng-template>
 
         <!--For radio-->
@@ -128,6 +141,9 @@
               </label>
             </div>
           </div>
+
+          <label class="col-form-label col-sm-3">Tooltip hint</label>
+          <label class="col-form-label col-sm-9">{{ element.hint }}</label>
         </ng-template>
 
         <!--For textarea-->
@@ -144,6 +160,9 @@
                     [required]="element.required">
           </textarea>
           </div>
+
+          <label class="col-form-label col-sm-3">Tooltip hint</label>
+          <label class="col-form-label col-sm-9">{{ element.hint }}</label>
         </ng-template>
 
         <!--For textfield-->
@@ -158,6 +177,9 @@
                    id="{{ element.id }}"
                    [required]="element.required">
           </div>
+
+          <label class="col-form-label col-sm-3">Tooltip hint</label>
+          <label class="col-form-label col-sm-9">{{ element.hint }}</label>
         </ng-template>
 
         <!--For another types-->
@@ -174,6 +196,9 @@
                    [required]="element.required"
                    id="{{ element.id }}">
           </div>
+
+          <label class="col-form-label col-sm-3">Tooltip hint</label>
+          <label class="col-form-label col-sm-9">{{ element.hint }}</label>
         </ng-template>
       </div>
     </form>

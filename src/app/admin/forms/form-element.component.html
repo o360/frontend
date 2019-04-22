@@ -1,8 +1,10 @@
 <div [formGroup]="element">
+
+  <!-- Caption field -->
   <div class="form-group row"
        [ngClass]="{ 'has-success': element.controls['caption'].valid,
                     'has-danger': !element.controls['caption'].valid && element.controls['caption'].touched}">
-    <label for="caption-{{ index }}" class="col-form-label col-4  required">{{ 'T_FORM_CAPTION' |
+    <label for="caption-{{ index }}" class="col-form-label col-4 required">{{ 'T_FORM_CAPTION' |
       translate
       }}</label>
     <div class="col-8">
@@ -20,6 +22,30 @@
           {{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}
         </div>
         <div class="form-control-feedback" *ngIf="!!element.controls['caption'].errors['pattern']">
+          {{ 'T_ERROR_TEXT_PATTERN' | translate }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Clarification field -->
+  <div class="form-group row"
+       [ngClass]="{ 'has-success': element.controls['hint'].valid && !element.controls['hint'].pristine,
+                    'has-danger': !element.controls['hint'].valid && element.controls['hint'].touched}">
+    <label for="hint-{{ index }}" class="col-form-label col-4">{{ 'T_FORM_CLARIFICATION' |
+      translate
+      }}</label>
+    <div class="col-8">
+      <input type="text"
+             class="form-control"
+             id="hint-{{ index }}"
+             name="hint-{{ index }}"
+             placeholder="{{ 'T_FORM_ENTER_CLARIFICATION' | translate }}"
+             formControlName="hint">
+
+      <div class="form-errors"
+           *ngIf="!!element.controls['hint'].errors && element.controls['hint'].touched">
+        <div class="form-control-feedback" *ngIf="!!element.controls['hint'].errors['pattern']">
           {{ 'T_ERROR_TEXT_PATTERN' | translate }}
         </div>
       </div>
