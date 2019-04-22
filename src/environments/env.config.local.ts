@@ -15,5 +15,8 @@ export const Config: EnvConfig = {
         redirect_uri: '<REDIRECT_URI>'
       }
     }
-  }
+  },
+  FIREBASE_URL: '<FIREBASE_URL>',
+  DEFAULT_LANG: 'en',
+  AGREEMENTS: '/assets/agreement'
 };

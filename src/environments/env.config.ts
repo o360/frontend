@@ -16,7 +16,10 @@ const ProdConfig: EnvConfig = {
         redirect_uri: '<REDIRECT_URI>'
       }
     }
-  }
+  },
+  FIREBASE_URL: '<FIREBASE_URL>',
+  DEFAULT_LANG: 'en',
+  AGREEMENTS: '/assets/agreement'
 };
 
 const DevConfig: EnvConfig = {
@@ -34,7 +37,10 @@ const DevConfig: EnvConfig = {
         redirect_uri: '<REDIRECT_URI>'
       }
     }
-  }
+  },
+  FIREBASE_URL: '<FIREBASE_URL>',
+  DEFAULT_LANG: 'en',
+  AGREEMENTS: '/assets/agreement'
 };
 
 export const Config: EnvConfig = environment.production ? ProdConfig : DevConfig;
