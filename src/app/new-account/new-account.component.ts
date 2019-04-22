@@ -57,10 +57,11 @@ export class NewAccountComponent {
       (user) => {
         this._authService.user = user;
         if (code) {
-          this._inviteService.asseptInvite({ code }).subscribe(() => {
+          this._inviteService
+            .asseptInvite({ code })
+            .subscribe(() => {
               this._authService.user.status = UserStatus.Approved;
-            }
-          );
+            });
         }
         this._router.navigate(['/profile']);
       },
@@ -73,7 +74,7 @@ export class NewAccountComponent {
   }
 
   public savePicture(image: any) {
-    this._accountService.setPicture(image).subscribe(picture => {
+    this._accountService.setPicture(image).subscribe((picture) => {
       this._getUserPicture();
     }, error => this._notificationService.error(error));
   }

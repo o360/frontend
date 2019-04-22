@@ -13,9 +13,9 @@ import { TranslateService } from '@ngx-translate/core';
 import { Select2OptionData, Select2Component } from 'ng2-select2/ng2-select2';
 
 @Component({
-             selector: 'bs-users-add-modal',
-             templateUrl: 'users-add-modal.component.html'
-           })
+  selector: 'bs-users-add-modal',
+  templateUrl: 'users-add-modal.component.html'
+})
 export class AdminUsersAddModalComponent implements OnInit {
   private _groupId: ModelId = null;
   private _selectedUsers: string[] = [];
@@ -91,7 +91,7 @@ export class AdminUsersAddModalComponent implements OnInit {
   }
 
   public submit() {
-    let transaction = this._selectedUsers.map(user => {
+    let transaction = this._selectedUsers.map((user) => {
       return { groupId: this._groupId, userId: +user };
     });
 
@@ -128,7 +128,7 @@ export class AdminUsersAddModalComponent implements OnInit {
       })
     )
     .subscribe((availableUsers: UserModel[]) => {
-      this._availableUsers = availableUsers.map(user => {
+      this._availableUsers = availableUsers.map((user) => {
         return { id: String(user.id), text: `${user.name} (${user.email})` };
       });
     });

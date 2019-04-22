@@ -28,6 +28,7 @@ import { Select2Module } from 'ng2-select2/ng2-select2';
 import { LocalizedDatePipe } from './pipes/localized-date.pipe';
 import { ThrobberComponent } from './components/throbber/throbber.component';
 import { ImageUploaderComponent } from './components/image-uploader/image-uploader.component';
+import { TestListComponent } from './components/test-list.component';
 import { TimeLeftPipe } from './pipes/time-left.pipe';
 
 /**
@@ -68,7 +69,8 @@ import { TimeLeftPipe } from './pipes/time-left.pipe';
     LikesDislikesComponent,
     ConfirmationModalComponent,
     SearchComponent,
-    ImageUploaderComponent
+    ImageUploaderComponent,
+    TestListComponent
   ],
   exports: [
     CommonModule,

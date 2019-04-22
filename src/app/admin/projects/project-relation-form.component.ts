@@ -102,5 +102,3 @@ export class AdminProjectRelationFormComponent extends FormComponent<RelationMod
     });
   }
 }
-
-

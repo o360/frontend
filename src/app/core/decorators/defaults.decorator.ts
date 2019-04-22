@@ -13,7 +13,7 @@
  *
  */
 export function Defaults(obj: Object): ClassDecorator {
-  return function(target: any) {
+  return function (target: any) {
     target.prototype._defaults = obj;
 
     return target;

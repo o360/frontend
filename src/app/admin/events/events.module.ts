@@ -10,7 +10,6 @@ import { AdminProjectsAddModalComponent } from './projects-add-modal.component';
 import { AdminEventNotificationsEditModalComponent } from './event-notifications-edit-modal.component';
 import { AdminEventCloneFormComponent } from './event-clone-form.component';
 
-
 @NgModule({
   imports: [
     SharedModule,

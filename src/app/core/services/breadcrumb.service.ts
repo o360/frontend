@@ -14,4 +14,3 @@ export class BreadcrumbService {
     this._override.next(breadcrumbs);
   }
 }
-

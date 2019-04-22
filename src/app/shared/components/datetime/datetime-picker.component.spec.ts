@@ -43,7 +43,6 @@ describe('Date and time picker', () => {
     expect(comp.date).toEqual(moment(date).format(DateFormat.Date));
   });
 
-
   it('should update the value inside the picker when it is changed', () => {
     let date = new Date(2001, 1, 10);
 

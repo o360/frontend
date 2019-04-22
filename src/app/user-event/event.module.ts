@@ -9,7 +9,6 @@ import { AssessmentFormComponent } from './assessment-form.component';
 import { AssessmentObjectListComponent } from './assessment-object-list.component';
 import { AssessmentFormModalComponent } from './assessment-form-modal.component';
 
-
 @NgModule({
   imports: [
     SharedModule,

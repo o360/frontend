@@ -79,8 +79,6 @@ export class AdminFormBuilderComponent extends FormComponent<FormModel> implemen
 
   public save() {
     this._model = this._prepareSaveForm();
-
-
     super.save();
   }
 
@@ -104,12 +102,11 @@ export class AdminFormBuilderComponent extends FormComponent<FormModel> implemen
 
   protected _createForm() {
     this._form = this._formBuilder.group({
-        name: ['', Validators.pattern(/.*^[\S].*/)],
-        machineName: ['', Validators.pattern(/^[a-zA-Z0-9-_:.]+$/)],
-        elements: this._formBuilder.array([]),
-        showInAggregation: true
-      },
-      { validator: FormBuilderValidator });
+      name: ['', Validators.pattern(/.*^[\S].*/)],
+      machineName: ['', Validators.pattern(/^[a-zA-Z0-9-_:.]+$/)],
+      elements: this._formBuilder.array([]),
+      showInAggregation: true
+    }, { validator: FormBuilderValidator });
   }
 
   protected _processModel(model: FormModel) {
