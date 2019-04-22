@@ -31,8 +31,8 @@
               <span
                 class="text"
                 [ngClass]="{ 'required': element.required }"
-                tooltip="{{ !!element.hint ? element.hint : null }}"
-                tooltipPlacement="bottom"
+                [tooltip]="element.hint || null"
+                placement="bottom"
               >
                 {{ element.caption }}
               </span>
@@ -80,7 +80,7 @@
                 class="text"
                 [ngClass]="{ 'required': element.required }"
                 [tooltip]="element.hint || null"
-                tooltipPlacement="bottom"
+                placement="bottom"
               >
                 {{ element.caption }}
               </span>
@@ -135,8 +135,8 @@
               <span
                 class="text"
                 [ngClass]="{ 'required': element.required }"
-                tooltip="{{ !!element.hint ? element.hint : null }}"
-                tooltipPlacement="bottom"
+                [tooltip]="element.hint || null"
+                placement="bottom"
               >
                 {{ element.caption }}
               </span>
@@ -188,8 +188,8 @@
               <span
                 class="text"
                 [ngClass]="{ 'required': element.required }"
-                tooltip="{{ !!element.hint ? element.hint : null }}"
-                tooltipPlacement="bottom"
+                [tooltip]="element.hint || null"
+                placement="bottom"
               >
                 {{ element.caption }}
               </span>
@@ -240,8 +240,8 @@
               <span
                 class="text"
                 [ngClass]="{ 'required': element.required }"
-                tooltip="{{ !!element.hint ? element.hint : null }}"
-                tooltipPlacement="bottom"
+                [tooltip]="element.hint || null"
+                placement="bottom"
               >
                 {{ element.caption }}
               </span>
@@ -291,8 +291,8 @@
               <span
                 class="text"
                 [ngClass]="{ 'required': element.required }"
-                tooltip="{{ !!element.hint ? element.hint : null }}"
-                tooltipPlacement="bottom"
+                [tooltip]="element.hint || null"
+                placement="bottom"
               >
                 {{ element.caption }}
               </span>
@@ -341,8 +341,8 @@
               <span
                 class="text"
                 [ngClass]="{ 'required': element.required }"
-                tooltip="{{ !!element.hint ? element.hint : null }}"
-                tooltipPlacement="bottom"
+                [tooltip]="element.hint || null"
+                placement="bottom"
               >
                 {{ element.caption }}
               </span>
