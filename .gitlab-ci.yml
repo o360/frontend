@@ -37,6 +37,7 @@ build:
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN git:5000
   script:
     - yarn build
+    - cp -R src/assets/agreement/* agreement/
     - docker build --tag=git:5000/open360/frontend:${CI_COMMIT_REF_NAME}-${CI_PIPELINE_ID} --file=".docker/bw-assessment-ui.prod.dockerfile" .
     - docker push git:5000/open360/frontend:${CI_COMMIT_REF_NAME}-${CI_PIPELINE_ID}
 
@@ -54,6 +55,4 @@ deploy:
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN git:5000
   script: 
     - docker rm -f public-bw-assessment-ui || true
-    - docker run -d --restart=always -p  80:80 --name public-bw-assessment-ui \
-      git:5000/open360/frontend:${CI_COMMIT_REF_NAME}-${CI_PIPELINE_ID} \
-      -v /src/assets/agreement:/dist/prod/agreement
+    - docker run  -d --restart=always -p  80:80 --name public-bw-assessment-ui git:5000/open360/frontend:${CI_COMMIT_REF_NAME}-${CI_PIPELINE_ID}
