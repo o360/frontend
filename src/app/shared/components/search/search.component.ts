@@ -57,18 +57,18 @@ export class SearchComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   public update(term: string) {
-    term = term.replace(/\\/g, '')
+    let currentTerm: string;
+    currentTerm = term.replace(/\\/g, '')
       .replace(/\//g, '');
 
     this._itemsSearch.emit(this._searchList);
 
     let items = this._list.filter((e: AssessmentModel) => {
       if (e.user) {
-        return new RegExp(term, 'gi').test(e.user.name) ||
-          new RegExp(term, 'gi').test(Utils.transliterate(e.user.name));
-      } else {
-        return null;
+        return new RegExp(currentTerm, 'gi').test(e.user.name) ||
+          new RegExp(currentTerm, 'gi').test(Utils.transliterate(e.user.name));
       }
+      return null;
     });
     return observableFrom(items);
   }

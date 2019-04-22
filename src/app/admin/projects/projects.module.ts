@@ -14,7 +14,6 @@ import { AdminProjectEmailTemplatesListComponent } from './project-email-templat
 import { AdminRelationEmailTemplatesListComponent } from './relation-email-template-list.component';
 import { AdminProjectEventListComponent } from './project-event-list.component';
 
-
 @NgModule({
   imports: [
     SharedModule,

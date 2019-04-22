@@ -11,4 +11,3 @@ export class Filter {
   public values?: any[];
   public value?: any;
 }
-

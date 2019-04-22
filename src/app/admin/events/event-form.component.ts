@@ -16,7 +16,6 @@ export class AdminEventFormComponent extends FormComponent<EventModel> {
   protected _returnPath = ['/admin/events'];
   protected _eventForm: FormGroup;
 
-
   public get eventForm(): FormGroup {
     return this._eventForm;
   }

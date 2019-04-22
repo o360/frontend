@@ -42,7 +42,7 @@ export class ProjectModel extends Model {
   constructor(json: any) {
     super(json);
 
-    this.templates.forEach(item => {
+    this.templates.forEach((item) => {
       if (item.template) {
         item.templateId = item.template.id;
       }

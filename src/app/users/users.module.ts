@@ -22,4 +22,3 @@ import { UserProfileModule } from '../user-profile/user-profile.module';
 })
 export class UsersModule {
 }
-

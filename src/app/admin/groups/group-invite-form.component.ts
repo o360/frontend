@@ -101,13 +101,13 @@ export class AdminGroupInviteFormComponent extends FormComponent<InviteModel> im
   }
 
   private _getEmails() {
-    return this._emails.split(',').map(function(item) {
+    return this._emails.split(',').map((item) => {
       return item.replace(/\s/g, '');
     });
   }
 
   private _getGroups(): ModelId[] {
-    return this._selectedGroups.map(item => {
+    return this._selectedGroups.map((item) => {
       return parseInt(item, 10);
     });
   }
@@ -115,7 +115,7 @@ export class AdminGroupInviteFormComponent extends FormComponent<InviteModel> im
   private _getModel(): IDataRequestInvite[] {
     let resultModel: IDataRequestInvite[] = [];
 
-    this._getEmails().forEach(email => {
+    this._getEmails().forEach((email) => {
       resultModel.push({ email, groups: this._groupModel.id ? [this._groupModel.id] : this._getGroups() });
     });
 
@@ -126,7 +126,7 @@ export class AdminGroupInviteFormComponent extends FormComponent<InviteModel> im
     this._selectedGroups = [];
 
     this._groupService.list().subscribe((res: IListResponse<GroupModel>) => {
-      return this._availableGroups = res.data.map(group => {
+      return this._availableGroups = res.data.map((group) => {
         return { id: String(group.id), text: `${group.name}` };
       });
     });
@@ -140,9 +140,8 @@ export class AdminGroupInviteFormComponent extends FormComponent<InviteModel> im
     if (this._id) {
       this._isMultipleGroups = false;
       return this._groupService.get(this._id);
-    } else {
-      return observableOf(this._groupService.createEntity());
     }
+    return observableOf(this._groupService.createEntity());
   }
 
   protected _processModelGroup(model: GroupModel) {
@@ -169,4 +168,3 @@ export class AdminGroupInviteFormComponent extends FormComponent<InviteModel> im
     this._breadcrumbService.overrideBreadcrumb(breadcrumbs);
   }
 }
-

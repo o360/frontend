@@ -27,7 +27,7 @@ describe('Admin Event Service', () => {
         { provide: NotificationService, useClass: NotificationServiceStub },
         { provide: AuthService, useClass: AuthServiceStub },
         { provide: Router, useClass: RouterStub },
-        { provide: ConfirmationService, useClass: ConfirmationStub}
+        { provide: ConfirmationService, useClass: ConfirmationStub }
       ]
     });
     injector = getTestBed();
