@@ -37,12 +37,4 @@ const DevConfig: EnvConfig = {
   }
 };
 
-const BaseConfig: EnvConfig = {
-  FIREBASE_URL: '<FIREBASE_URL>',
-  DEFAULT_LANG: 'en',
-  AGREEMENTS: '/agreement'
-};
-
-const tempConfig: EnvConfig = environment.production ? ProdConfig : DevConfig;
-
-export const Config: EnvConfig = { ...BaseConfig, ...tempConfig };
+export const Config: EnvConfig = environment.production ? ProdConfig : DevConfig;

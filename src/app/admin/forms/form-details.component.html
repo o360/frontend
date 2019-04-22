@@ -66,9 +66,9 @@
         <!--For checkbox groups-->
         <ng-template [ngSwitchCase]="FormElementType.Checkboxgroup">
           <label class="col-sm-3" [ngClass]="{'required': element.required === true}">
-            <div [tooltip]="element.hint || null" placement="bottom">
+            <span [tooltip]="element.hint || null" placement="bottom">
               {{ element.caption }}
-            </div>
+            </span>
           </label>
           <div class="col-sm-9">
             <div class="form-check" *ngFor="let item of element.values; let j = index;">
@@ -88,9 +88,9 @@
         <!--For checkbox-->
         <ng-template [ngSwitchCase]="FormElementType.Checkbox">
           <label class="col-sm-3" [ngClass]="{'required': element.required === true}">
-            <div [tooltip]="element.hint || null" placement="bottom">
+            <span [tooltip]="element.hint || null" placement="bottom">
               {{ element.caption }}
-            </div>
+            </span>
           </label>
           <div class="col-sm-9">
             <label class="custom-control custom-checkbox">

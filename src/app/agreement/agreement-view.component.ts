@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { Converter } from 'showdown';
 import { HttpClient } from '@angular/common/http';
 import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
-import { Config } from '../../environments/env.config';
 
 @Component({
   selector: 'bs-agreement-view',
@@ -30,7 +29,7 @@ export class AgreementViewComponent implements OnInit {
   }
 
   protected _readFile() {
-    let path = `${Config.AGREEMENTS}/${this._language}.md`;
+    let path = `/${this._language}.md`;
     this._http.get(path)
       .pipe(
         map(response => response.toString()),
