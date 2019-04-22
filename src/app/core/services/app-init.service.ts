@@ -10,6 +10,6 @@ export class AppInitService {
    * Initialize app by downloading configuration file
    */
   public init(): Promise<any> {
-     return this._http.get('/assets/config.json').toPromise();
+    return this._http.get('/assets/config.json').toPromise();
   }
 }
