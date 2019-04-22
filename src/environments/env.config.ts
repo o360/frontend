@@ -37,12 +37,4 @@ const DevConfig: EnvConfig = {
   }
 };
 
-const BaseConfig: EnvConfig = {
-  FIREBASE_URL: 'https://model-service-51554.firebaseio.com',
-  DEFAULT_LANG: 'en',
-  AGREEMENTS: '/agreement'
-};
-
-const tempConfig: EnvConfig = environment.production ? ProdConfig : DevConfig;
-
-export const Config: EnvConfig = { ...BaseConfig, ...tempConfig };
+export const Config: EnvConfig = environment.production ? ProdConfig : DevConfig;
