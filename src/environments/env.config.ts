@@ -1,7 +1,7 @@
 import { EnvConfig } from './env-config.interface';
 import { environment } from './environment';
 
-export const ProdConfig: EnvConfig = {
+const ProdConfig: EnvConfig = {
   ENV: 'PROD',
   API: 'https://open360.bw-sw.com/api/v1.0',
   TITLE_MAIN: 'Open360',
@@ -16,10 +16,11 @@ export const ProdConfig: EnvConfig = {
         redirect_uri: 'https://open360.bw-sw.com/login/google'
       }
     }
-  }
+  },
+  AGREEMENTS: '/assets/agreement'
 };
 
-export const DevConfig: EnvConfig = {
+const DevConfig: EnvConfig = {
   ENV: 'DEV',
   API: 'http://vm-a834f9ac-1c23-40f2-9461-618361703efd.premium.cs2.netpoint-dc.com:9000/api/v1.0',
   TITLE_MAIN: 'Open360',
@@ -34,7 +35,16 @@ export const DevConfig: EnvConfig = {
         redirect_uri: 'http://vm-a834f9ac-1c23-40f2-9461-618361703efd.premium.cs2.netpoint-dc.com/login/google'
       }
     }
-  }
+  },
+  AGREEMENTS: '/assets/agreement'
 };
 
-export const Config: EnvConfig = environment.production ? ProdConfig : DevConfig;
+const BaseConfig: EnvConfig = {
+  FIREBASE_URL: 'https://model-service-51554.firebaseio.com',
+  DEFAULT_LANG: 'en',
+  AGREEMENTS: '/assets/agreement'
+};
+
+const tempConfig: EnvConfig = environment.production ? ProdConfig : DevConfig;
+
+export const Config: EnvConfig = { ...BaseConfig, ...tempConfig };
