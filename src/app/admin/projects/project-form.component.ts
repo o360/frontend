@@ -37,4 +37,3 @@ export class AdminProjectFormComponent extends FormComponent<ProjectModel> {
     });
   }
 }
-

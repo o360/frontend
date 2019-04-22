@@ -6,7 +6,6 @@ import { AdminEventDetailsComponent } from './event-details.component';
 import { AppRoutes } from '../../core/models/app-routes.model';
 import { AdminEventCloneFormComponent } from './event-clone-form.component';
 
-
 @NgModule({
   imports: [
     RouterModule.forChild(<AppRoutes>[{

@@ -20,4 +20,3 @@ import { AgreementViewComponent } from './agreement-view.component';
 })
 export class AgreementModule {
 }
-

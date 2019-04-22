@@ -68,7 +68,7 @@ import { TimeLeftPipe } from './pipes/time-left.pipe';
     LikesDislikesComponent,
     ConfirmationModalComponent,
     SearchComponent,
-    ImageUploaderComponent
+    ImageUploaderComponent,
   ],
   exports: [
     CommonModule,

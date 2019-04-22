@@ -39,9 +39,9 @@ export abstract class FormComponent<T extends Model> implements OnInit {
   }
 
   public save() {
-    this._service.save(this._model).subscribe(model => {
+    this._service.save(this._model).subscribe((model) => {
       if (this._returnPath) {
-        this._router.navigate([this._returnPath + '/' + model.id]);
+        this._router.navigate([`${this._returnPath}/${model.id}`]);
       }
       this._notificationService.success('T_SUCCESS_SAVED');
     });
@@ -62,9 +62,8 @@ export abstract class FormComponent<T extends Model> implements OnInit {
   protected _loadModel() {
     if (this._id) {
       return this._service.get(this._id);
-    } else {
-      return observableOf(this._service.createEntity());
     }
+    return observableOf(this._service.createEntity());
   }
 
   protected _processModel(model: T) {
@@ -78,4 +77,3 @@ export abstract class FormComponent<T extends Model> implements OnInit {
     }
   }
 }
-

@@ -79,8 +79,6 @@ export class AdminFormBuilderComponent extends FormComponent<FormModel> implemen
 
   public save() {
     this._model = this._prepareSaveForm();
-
-
     super.save();
   }
 
@@ -88,6 +86,7 @@ export class AdminFormBuilderComponent extends FormComponent<FormModel> implemen
     let element: FormElement = new FormElement({
       kind,
       caption: null,
+      hint: null,
       required: false,
     });
 
@@ -104,12 +103,11 @@ export class AdminFormBuilderComponent extends FormComponent<FormModel> implemen
 
   protected _createForm() {
     this._form = this._formBuilder.group({
-        name: ['', Validators.pattern(/.*^[\S].*/)],
-        machineName: ['', Validators.pattern(/^[a-zA-Z0-9-_:.]+$/)],
-        elements: this._formBuilder.array([]),
-        showInAggregation: true
-      },
-      { validator: FormBuilderValidator });
+      name: ['', Validators.pattern(/.*^[\S].*/)],
+      machineName: ['', Validators.pattern(/^[a-zA-Z0-9-_:.]+$/)],
+      elements: this._formBuilder.array([]),
+      showInAggregation: true
+    }, { validator: FormBuilderValidator });
   }
 
   protected _processModel(model: FormModel) {
@@ -152,7 +150,21 @@ export class AdminFormBuilderComponent extends FormComponent<FormModel> implemen
 
     if (RequireValue(element.kind)) {
       form = this._formBuilder.group({
-        caption: [element.caption, [Validators.required, Validators.pattern(/.*^[\S].*/)]],
+        caption: [
+          element.caption,
+          [
+            Validators.required,
+            Validators.pattern(/.*^[\S].*/),
+            Validators.maxLength(255)
+          ]
+        ],
+        hint: [
+          element.hint,
+          [
+            Validators.pattern(/.*^[\S].*/),
+            Validators.maxLength(255)
+          ]
+        ],
         required: element.required,
         valueCaption: ['', Validators.pattern(/.*^[\S].*/)],
         values: this._formBuilder.array(element.values),
@@ -161,6 +173,13 @@ export class AdminFormBuilderComponent extends FormComponent<FormModel> implemen
     } else if (element.kind === FormElementType.LikeDislike) {
       form = this._formBuilder.group({
         caption: 'like-dislike',
+        hint: [
+          element.hint,
+          [
+            Validators.pattern(/.*^[\S].*/),
+            Validators.maxLength(255)
+          ]
+        ],
         required: false,
         values: this._formBuilder.array([{
           caption: 'like'
@@ -171,7 +190,15 @@ export class AdminFormBuilderComponent extends FormComponent<FormModel> implemen
       }, { validator: FormElementValidator });
     } else {
       form = this._formBuilder.group({
-        caption: [element.caption, [Validators.required, Validators.pattern(/.*^[\S].*/)]],
+        caption: [
+          element.caption,
+          [
+            Validators.required,
+            Validators.pattern(/.*^[\S].*/),
+            Validators.maxLength(255)
+          ]
+        ],
+        hint: [element.hint, [Validators.pattern(/.*^[\S].*/)]],
         required: element.required,
         kind: element.kind
       });

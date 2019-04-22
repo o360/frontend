@@ -236,14 +236,14 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
       this._answers.push(value);
     }
 
-    this._answers.map(item => {
+    this._answers.map((item) => {
       if (item.form.answers && item.form.answers[0].valuesIds && item.form.answers[0].valuesIds.length !== 0) {
         item.form.isAnonymous = this._inlineAnonymous;
       }
     });
 
     let validAnswer: AssessmentModel[] = [];
-    this._answers.map(item => {
+    this._answers.map((item) => {
       if (item.form.answers && item.form.answers[0].valuesIds && item.form.answers[0].valuesIds.length !== 0) {
         validAnswer.push(item);
       }
@@ -287,7 +287,7 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
     this._answers = [];
     return this._fetch()
       .pipe(
-        map(list => {
+        map((list) => {
           this._list = list;
 
           if (list) {
@@ -320,7 +320,7 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
       this._fetching = this._service.list(this._queryParams).subscribe((res: IListResponse<AssessmentModel>) => {
         let list = res.data;
 
-        list.forEach(assessment => {
+        list.forEach((assessment) => {
           assessment.isClassic = !!assessment.user;
           assessment.isAnswered = !assessment.forms.find(x => x.status === AssessmentFormStatus.New);
           assessment.forms
@@ -332,7 +332,6 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
 
           this._isClear = !assessment.isAnswered;
         });
-
 
         if (this._project.isLast) {
           let forms = list[list.length - 1].forms;

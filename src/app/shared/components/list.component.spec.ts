@@ -1,25 +1,25 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 
 import { TestService } from '../../core/services/rest.service.spec';
-import { ListComponent } from './list.component';
 import { TestModel } from '../../core/models/model.spec';
 import { NotificationService } from '../../core/services/notification.service';
 import { AuthService } from '../../core/services/auth.service';
 import { IListResponse, IQueryParams } from '../../core/services/rest.service';
 import { FilterType } from '../../core/models/filter';
-import { ModelId } from '../../core/models/model';
 import {
   ActivatedRouteStub,
-  NotificationServiceStub,
   AuthServiceStub,
-  RouterStub,
   ConfirmationStub,
-  RestServiceStub
+  NotificationServiceStub,
+  RestServiceStub,
+  RouterStub
 } from '../../stubs/stubs.utils';
 import { ConfirmationService } from '../../core/services/confirmation.service';
+import { Component, OnInit } from '@angular/core';
+import { ListComponent } from './list.component';
+import { ModelId } from '../../core/models/model';
 
 @Component({
   selector: 'bs-test-list',
@@ -108,7 +108,6 @@ describe('List Component', () => {
 
     expect(oldQueryParams === newQueryParams).toBeFalsy();
   });
-
 
   it('should have meta data of the list', () => {
     expect(comp.meta).toBeDefined();

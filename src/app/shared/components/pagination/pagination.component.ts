@@ -56,4 +56,3 @@ export class PaginationComponent implements OnChanges {
     });
   }
 }
-

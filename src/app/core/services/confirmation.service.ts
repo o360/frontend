@@ -54,8 +54,7 @@ export class ConfirmationService {
   protected _translateMessage(message?: string) {
     if (message) {
       return this._translateService.instant(message);
-    } else {
-      return this._translateService.instant(this._message);
     }
+    return this._translateService.instant(this._message);
   }
 }

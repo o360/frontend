@@ -24,9 +24,8 @@ export class RestServiceStub<T extends Model> {
   public save(model: T): Observable<T> {
     if (model.id !== undefined) {
       return this._update(model);
-    } else {
-      return this._create(model);
     }
+    return this._create(model);
   }
 
   public delete(id: ModelId): Observable<void | Object> {
@@ -130,56 +129,7 @@ export class TranslateServiceStub {
     return;
   }
 
-  public instant(key: string | Array<string>, interpolateParams?: Object): string | any {
+  public instant(key: string | string[], interpolateParams?: Object): string | any {
     return 'translate';
   }
-}
-
-/* ToastServiceStub stub */
-export class ToastsManagerStub {
-  // public show(toast: Toast): Promise<Toast> {
-  //   return new Promise((resolve) => {
-  //     resolve(this.setupToast(toast));
-  //   });
-  // }
-
-  public clearAllToasts() {
-    return;
-  }
-
-  // public setupToast(toast: Toast): Toast {
-  //   toast.id = 1;
-  //   return toast;
-  // }
-  //
-  // public error(message: string, title?: string, options?: any): Promise<Toast> {
-  //   const data = options && options.data ? options.data : null;
-  //   const toast = new Toast('error', message, title, data);
-  //   return this.show(toast);
-  // }
-  //
-  // public info(message: string, title?: string, options?: any): Promise<Toast> {
-  //   const data = options && options.data ? options.data : null;
-  //   const toast = new Toast('info', message, title, data);
-  //   return this.show(toast);
-  // }
-  //
-  // public success(message: string, title?: string, options?: any): Promise<Toast> {
-  //   const data = options && options.data ? options.data : null;
-  //   const toast = new Toast('success', message, title, data);
-  //   return this.show(toast);
-  // }
-  //
-  // public warning(message: string, title?: string, options?: any): Promise<Toast> {
-  //   const data = options && options.data ? options.data : null;
-  //   const toast = new Toast('warning', message, title, data);
-  //   return this.show(toast);
-  // }
-  //
-  // // allow user define custom background color and image
-  // public custom(message: string, title?: string, options?: any): Promise<Toast> {
-  //   const data = options && options.data ? options.data : null;
-  //   const toast = new Toast('custom', message, title, data);
-  //   return this.show(toast);
-  // }
 }

@@ -77,7 +77,7 @@ export class AdminGroupListComponent extends ListComponent<GroupModel> implement
 
       this._hasChildren = false;
       for (let i = 0; i < this._list.length; i++) {
-        if (this._list[i].hasChildren === true) {
+        if (this._list[i].hasChildren) {
           this._hasChildren = true;
           break;
         }
@@ -114,7 +114,7 @@ export class AdminGroupListComponent extends ListComponent<GroupModel> implement
           list.filter((group, i) => list.findIndex(listGroup => listGroup.id === group.id) === i)
             .filter(group => !this._list.find(listGroup => listGroup.id === group.id))
             .forEach((group: GroupModel) => {
-              this._list = this._list.filter((listGroup) => listGroup.parentId !== group.id);
+              this._list = this._list.filter(listGroup => listGroup.parentId !== group.id);
               this._list.push(group);
             });
           this._searchForParents(list);
@@ -124,5 +124,3 @@ export class AdminGroupListComponent extends ListComponent<GroupModel> implement
     }
   }
 }
-
-

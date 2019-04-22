@@ -7,12 +7,12 @@ import * as moment from 'moment';
 })
 export class TimeLeftPipe implements PipeTransform {
   public transform(endDate: any, startDate?: any): any {
-    endDate = moment(endDate).format('DD.MM.YYYY HH:mm');
+    let tempEndDate, tempStartDate: string;
+    tempEndDate = moment(endDate).format('DD.MM.YYYY HH:mm');
     if (startDate) {
-      startDate = moment(startDate).format('DD.MM.YYYY HH:mm');
-      return moment(endDate, 'DD.MM.YYYY HH:mm').from(moment(startDate, 'DD.MM.YYYY HH:mm'));
-    } else {
-      return moment(endDate, 'DD.MM.YYYY HH:mm').fromNow();
+      tempStartDate = moment(startDate).format('DD.MM.YYYY HH:mm');
+      return moment(tempEndDate, 'DD.MM.YYYY HH:mm').from(moment(tempStartDate, 'DD.MM.YYYY HH:mm'));
     }
+    return moment(tempEndDate, 'DD.MM.YYYY HH:mm').fromNow();
   }
 }

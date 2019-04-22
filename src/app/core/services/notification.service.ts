@@ -54,4 +54,3 @@ export class NotificationService {
     return this._translate.instant(text);
   }
 }
-

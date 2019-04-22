@@ -56,12 +56,22 @@
 
         <!--For likes and dislikes-->
         <ng-template [ngSwitchCase]="FormElementType.LikeDislike">
-          <bs-likes-dislikes [element]="element"></bs-likes-dislikes>
+          <bs-likes-dislikes
+            [element]="element"
+            [tooltip]="element.hint || null"
+            placement="bottom"
+          ></bs-likes-dislikes>
         </ng-template>
 
         <!--For checkbox groups-->
         <ng-template [ngSwitchCase]="FormElementType.Checkboxgroup">
-          <label class="col-sm-3" [ngClass]="{'required': element.required === true}">{{ element.caption }}</label>
+          <label
+            class="col-sm-3" [ngClass]="{'required': element.required === true}"
+            [tooltip]="element.hint || null"
+            placement="bottom"
+          >
+            {{ element.caption }}
+          </label>
           <div class="col-sm-9">
             <div class="form-check" *ngFor="let item of element.values; let j = index;">
               <label class="custom-control custom-checkbox">
@@ -79,7 +89,11 @@
 
         <!--For checkbox-->
         <ng-template [ngSwitchCase]="FormElementType.Checkbox">
-          <label class="col-sm-3" [ngClass]="{'required': element.required === true}">
+          <label
+            class="col-sm-3" [ngClass]="{'required': element.required === true}"
+            [tooltip]="element.hint || null"
+            placement="bottom"
+          >
             {{ element.caption }}
           </label>
           <div class="col-sm-9">
@@ -97,8 +111,14 @@
 
         <!--For select-->
         <ng-template [ngSwitchCase]="FormElementType.Select">
-          <label class="col-form-label col-sm-3" [ngClass]="{'required': element.required === true}">{{ element.caption
-            }}</label>
+          <label
+            class="col-form-label col-sm-3"
+            [ngClass]="{'required': element.required === true}"
+            [tooltip]="element.hint || null"
+            placement="bottom"
+          >
+            {{ element.caption}}
+          </label>
           <div class="col-sm-9">
             <select name="{{ element.id }}"
                     id="{{ element.id }}"
@@ -108,7 +128,8 @@
                       [value]="item.id">
                 {{ item.caption }}
               </option>
-            </select></div>
+            </select>
+          </div>
         </ng-template>
 
         <!--For radio-->
@@ -116,7 +137,11 @@
           <label class=" col-sm-3" [ngClass]="{'required': element.required === true}">{{ element.caption }}</label>
           <div class="col-sm-9">
             <div class="form-check form-check-inline ml-0 mr-1" *ngFor="let item of element.values; let j = index;">
-              <label class="custom-control custom-radio">
+              <label
+                class="custom-control custom-radio"
+                [tooltip]="element.hint || null"
+                placement="bottom"
+              >
                 <input id="{{ element.id }}"
                        name="{{ element.id }}"
                        type="radio"
@@ -132,8 +157,13 @@
 
         <!--For textarea-->
         <ng-template [ngSwitchCase]="FormElementType.Textarea">
-          <label class="col-form-label col-sm-3" for="{{ element.id }}"
-                 [ngClass]="{'required': element.required === true}">
+          <label
+            class="col-form-label col-sm-3"
+            for="{{ element.id }}"
+            [ngClass]="{'required': element.required === true}"
+            [tooltip]="element.hint || null"
+            placement="bottom"
+          >
             {{ element.caption }}
           </label>
           <div class="col-sm-9">
@@ -148,8 +178,13 @@
 
         <!--For textfield-->
         <ng-template [ngSwitchCase]="FormElementType.Textfield">
-          <label class="col-form-label col-sm-3" for="{{ element.id }}"
-                 [ngClass]="{'required': element.required === true}">
+          <label
+            class="col-form-label col-sm-3"
+            for="{{ element.id }}"
+            [ngClass]="{'required': element.required === true}"
+            [tooltip]="element.hint || null"
+            placement="bottom"
+          >
             {{ element.caption }}</label>
           <div class="col-sm-9">
             <input name="{{ element.id }}"
@@ -162,8 +197,13 @@
 
         <!--For another types-->
         <ng-template ngSwitchDefault>
-          <label for="{{ element.id }}" class="col-form-label col-sm-3"
-                 [ngClass]="{'required': element.required === true}">
+          <label
+            for="{{ element.id }}"
+            class="col-form-label col-sm-3"
+            [ngClass]="{'required': element.required === true}"
+            [tooltip]="element.hint || null"
+            placement="bottom"
+          >
             {{ element.caption }}</label>
           <div class="col-sm-9">
             <input class="form-control"

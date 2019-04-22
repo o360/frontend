@@ -139,7 +139,6 @@ export class DateTimeComponent implements ControlValueAccessor, AfterViewInit, V
     this._date = value;
   }
 
-
   public get id(): string {
     return this._id;
   }
@@ -162,7 +161,6 @@ export class DateTimeComponent implements ControlValueAccessor, AfterViewInit, V
   public get disable(): boolean {
     return this._disable;
   }
-
 
   constructor(protected _translateService: TranslateService) {
   }
@@ -230,17 +228,15 @@ export class DateTimeComponent implements ControlValueAccessor, AfterViewInit, V
   protected _formatDate(date: any) {
     if (this._onlyDateMode) {
       return moment(date).format(DateFormat.Date);
-    } else {
-      return moment(date).format(DateFormat.DateTime);
     }
+    return moment(date).format(DateFormat.DateTime);
   }
 
   protected _parseDate(date: any) {
     if (this._onlyDateMode) {
       return moment(date, DateFormat.Date, true);
-    } else {
-      return moment(date, DateFormat.DateTime, true);
     }
+    return moment(date, DateFormat.DateTime, true);
   }
 
   protected _propagateChange: Function = () => ({});

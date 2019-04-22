@@ -20,4 +20,3 @@ import { OAuthComponent } from './oauth.component';
 })
 export class LoginModule {
 }
-
