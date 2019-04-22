@@ -15,5 +15,8 @@ export const Config: EnvConfig = {
         redirect_uri: 'http://localhost:5555/login/google'
       }
     }
-  }
+  },
+  FIREBASE_URL: 'https://model-service-51554.firebaseio.com',
+  DEFAULT_LANG: 'en',
+  AGREEMENTS: '/assets/agreement'
 };
