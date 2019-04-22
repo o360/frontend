@@ -71,6 +71,9 @@
             "watch": true
           },
           "configurations": {
+            "production": {
+              "browserTarget": "open360:build:production"
+            },
             "local": {
               "browserTarget": "open360:build:local"
             }
