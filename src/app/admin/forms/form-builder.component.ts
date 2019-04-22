@@ -155,14 +155,14 @@ export class AdminFormBuilderComponent extends FormComponent<FormModel> implemen
           [
             Validators.required,
             Validators.pattern(/.*^[\S].*/),
-            Validators.maxLength(255)
+            Validators.maxLength(128)
           ]
         ],
         hint: [
           element.hint,
           [
             Validators.pattern(/.*^[\S].*/),
-            Validators.maxLength(255)
+            Validators.maxLength(128)
           ]
         ],
         required: element.required,
@@ -177,7 +177,7 @@ export class AdminFormBuilderComponent extends FormComponent<FormModel> implemen
           element.hint,
           [
             Validators.pattern(/.*^[\S].*/),
-            Validators.maxLength(255)
+            Validators.maxLength(128)
           ]
         ],
         required: false,
@@ -195,7 +195,7 @@ export class AdminFormBuilderComponent extends FormComponent<FormModel> implemen
           [
             Validators.required,
             Validators.pattern(/.*^[\S].*/),
-            Validators.maxLength(255)
+            Validators.maxLength(128)
           ]
         ],
         hint: [element.hint, [Validators.pattern(/.*^[\S].*/)]],

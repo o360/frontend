@@ -65,12 +65,10 @@
 
         <!--For checkbox groups-->
         <ng-template [ngSwitchCase]="FormElementType.Checkboxgroup">
-          <label
-            class="col-sm-3" [ngClass]="{'required': element.required === true}"
-            [tooltip]="element.hint || null"
-            placement="bottom"
-          >
-            {{ element.caption }}
+          <label class="col-sm-3" [ngClass]="{'required': element.required === true}">
+            <div [tooltip]="element.hint || null" placement="bottom">
+              {{ element.caption }}
+            </div>
           </label>
           <div class="col-sm-9">
             <div class="form-check" *ngFor="let item of element.values; let j = index;">
@@ -89,12 +87,10 @@
 
         <!--For checkbox-->
         <ng-template [ngSwitchCase]="FormElementType.Checkbox">
-          <label
-            class="col-sm-3" [ngClass]="{'required': element.required === true}"
-            [tooltip]="element.hint || null"
-            placement="bottom"
-          >
-            {{ element.caption }}
+          <label class="col-sm-3" [ngClass]="{'required': element.required === true}">
+            <div [tooltip]="element.hint || null" placement="bottom">
+              {{ element.caption }}
+            </div>
           </label>
           <div class="col-sm-9">
             <label class="custom-control custom-checkbox">
@@ -114,10 +110,10 @@
           <label
             class="col-form-label col-sm-3"
             [ngClass]="{'required': element.required === true}"
-            [tooltip]="element.hint || null"
-            placement="bottom"
           >
-            {{ element.caption}}
+            <span [tooltip]="element.hint || null" placement="bottom">
+              {{ element.caption }}
+            </span>
           </label>
           <div class="col-sm-9">
             <select name="{{ element.id }}"
@@ -134,14 +130,14 @@
 
         <!--For radio-->
         <ng-template [ngSwitchCase]="FormElementType.Radio">
-          <label class=" col-sm-3" [ngClass]="{'required': element.required === true}">{{ element.caption }}</label>
+          <label class=" col-sm-3" [ngClass]="{'required': element.required === true}">
+            <span [tooltip]="element.hint || null" placement="bottom">
+              {{ element.caption }}
+            </span>
+          </label>
           <div class="col-sm-9">
             <div class="form-check form-check-inline ml-0 mr-1" *ngFor="let item of element.values; let j = index;">
-              <label
-                class="custom-control custom-radio"
-                [tooltip]="element.hint || null"
-                placement="bottom"
-              >
+              <label class="custom-control custom-radio">
                 <input id="{{ element.id }}"
                        name="{{ element.id }}"
                        type="radio"
@@ -161,10 +157,10 @@
             class="col-form-label col-sm-3"
             for="{{ element.id }}"
             [ngClass]="{'required': element.required === true}"
-            [tooltip]="element.hint || null"
-            placement="bottom"
           >
-            {{ element.caption }}
+            <span [tooltip]="element.hint || null" placement="bottom">
+              {{ element.caption }}
+            </span>
           </label>
           <div class="col-sm-9">
           <textarea name="{{ element.id }}"
@@ -182,10 +178,11 @@
             class="col-form-label col-sm-3"
             for="{{ element.id }}"
             [ngClass]="{'required': element.required === true}"
-            [tooltip]="element.hint || null"
-            placement="bottom"
           >
-            {{ element.caption }}</label>
+            <span [tooltip]="element.hint || null" placement="bottom">
+              {{ element.caption }}
+            </span>
+          </label>
           <div class="col-sm-9">
             <input name="{{ element.id }}"
                    type="text"
@@ -201,10 +198,11 @@
             for="{{ element.id }}"
             class="col-form-label col-sm-3"
             [ngClass]="{'required': element.required === true}"
-            [tooltip]="element.hint || null"
-            placement="bottom"
           >
-            {{ element.caption }}</label>
+            <span [tooltip]="element.hint || null" placement="bottom">
+              {{ element.caption }}
+            </span>
+          </label>
           <div class="col-sm-9">
             <input class="form-control"
                    name="{{ element.id }}"
