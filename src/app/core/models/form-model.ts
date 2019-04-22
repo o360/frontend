@@ -17,6 +17,7 @@ export class FormElement extends Model {
   kind: string;
   caption: string;
   required: boolean;
+  hint?: string;
   values?: IFormElementValue[];
   tempValue?: any;
   tempComment?: string;
@@ -25,6 +26,7 @@ export class FormElement extends Model {
 export interface IFormElementValue {
   id?: ModelId;
   caption: string;
+  hint?: string;
   tempValue?: any;
 }
 
