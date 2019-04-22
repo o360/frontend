@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class AppInitService {
+
   constructor(protected _http: HttpClient) {
   }
 
