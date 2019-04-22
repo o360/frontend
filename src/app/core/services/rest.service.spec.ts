@@ -26,86 +26,88 @@ export interface IListResponse<TestModel extends Model> {
 })
 export class TestService extends RestService<TestModel> {}
 
-describe('RestService Service', () => {
-  let testService: RestService<TestModel>;
-  let injector: Injector;
-  let httpClient: HttpClient;
-  let httpTestingController: HttpTestingController;
-  let model: TestModel;
+export function main() {
+  describe('RestService Service', () => {
+    let testService: RestService<TestModel>;
+    let injector: Injector;
+    let httpClient: HttpClient;
+    let httpTestingController: HttpTestingController;
+    let model: TestModel;
 
-  beforeEach(() => {
-    model = new TestModel();
-  });
-
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      providers: [
-        { provide: RestService, useClass: RestServiceStub },
-        { provide: NotificationService, useClass: NotificationServiceStub },
-        { provide: AuthService, useClass: AuthServiceStub },
-        { provide: Router, useClass: RouterStub },
-        { provide: ConfirmationService, useClass: ConfirmationStub }
-      ]
+    beforeEach(() => {
+      model = new TestModel();
     });
-    injector = getTestBed();
-    testService = <any>injector.get(RestService);
-    httpClient = TestBed.get(HttpClient);
-    httpTestingController = TestBed.get(HttpTestingController);
-  });
 
-  afterEach(() => {
-    injector = undefined;
-    testService = undefined;
-  });
+    beforeEach(() => {
+      TestBed.configureTestingModule({
+        imports: [HttpClientTestingModule],
+        providers: [
+          { provide: RestService, useClass: RestServiceStub },
+          { provide: NotificationService, useClass: NotificationServiceStub },
+          { provide: AuthService, useClass: AuthServiceStub },
+          { provide: Router, useClass: RouterStub },
+          { provide: ConfirmationService, useClass: ConfirmationStub }
+        ]
+      });
+      injector = getTestBed();
+      testService = <any>injector.get(RestService);
+      httpClient = TestBed.get(HttpClient);
+      httpTestingController = TestBed.get(HttpTestingController);
+    });
 
-  it('should be defined', () => {
-    expect(RestService).toBeDefined();
-    expect(testService).toBeDefined();
-  });
+    afterEach(() => {
+      injector = undefined;
+      testService = undefined;
+    });
 
-  it('should return an Observable when get() called', () => {
-    let getResponse = testService.get(1);
+    it('should be defined', () => {
+      expect(RestService).toBeDefined();
+      expect(testService).toBeDefined();
+    });
 
-    expect(getResponse).toEqual(jasmine.any(Observable));
-  });
+    it('should return an Observable when get() called', () => {
+      let getResponse = testService.get(1);
 
-  it('should return correct model on get() without params', () => {
-    testService.get(1).subscribe((model: TestModel) => {
-      expect(model.id).toEqual(1);
+      expect(getResponse).toEqual(jasmine.any(Observable));
+    });
+
+    it('should return correct model on get() without params', () => {
+      testService.get(1).subscribe((model: TestModel) => {
+        expect(model.id).toEqual(1);
+      });
+    });
+
+    it('should return an Observable when save() called with new model', () => {
+      let getResponse = testService.save(model);
+
+      expect(getResponse).toEqual(jasmine.any(Observable));
+    });
+
+    it('should return an Observable when save() called with new model without params', () => {
+      testService.save(model).subscribe((model: TestModel) => {
+        expect(model).toEqual(model);
+      });
+    });
+
+    it('should return correct model on list() without params', () => {
+      let modelList: IListResponse<TestModel> = { data: [model] };
+      testService.list().subscribe((model: IListResponse<TestModel>) => {
+        expect(model).toEqual(modelList);
+      });
+    });
+
+    it('should return correct model on list() with query params', () => {
+      let queryParams = { sort: 'data1' };
+      let modelList: IListResponse<TestModel> = { data: [model] };
+      testService.list(queryParams).subscribe((model: IListResponse<TestModel>) => {
+        expect(model).toEqual(modelList);
+      });
+    });
+
+    it('should return an Observable when delete() called', () => {
+      let getResponse = testService.delete(1);
+
+      expect(getResponse).toEqual(jasmine.any(Observable));
     });
   });
-
-  it('should return an Observable when save() called with new model', () => {
-    let getResponse = testService.save(model);
-
-    expect(getResponse).toEqual(jasmine.any(Observable));
-  });
-
-  it('should return an Observable when save() called with new model without params', () => {
-    testService.save(model).subscribe((model: TestModel) => {
-      expect(model).toEqual(model);
-    });
-  });
-
-  it('should return correct model on list() without params', () => {
-    let modelList: IListResponse<TestModel> = { data: [model] };
-    testService.list().subscribe((model: IListResponse<TestModel>) => {
-      expect(model).toEqual(modelList);
-    });
-  });
-
-  it('should return correct model on list() with query params', () => {
-    let queryParams = { sort: 'data1' };
-    let modelList: IListResponse<TestModel> = { data: [model] };
-    testService.list(queryParams).subscribe((model: IListResponse<TestModel>) => {
-      expect(model).toEqual(modelList);
-    });
-  });
-
-  it('should return an Observable when delete() called', () => {
-    let getResponse = testService.delete(1);
-
-    expect(getResponse).toEqual(jasmine.any(Observable));
-  });
-});
+}
