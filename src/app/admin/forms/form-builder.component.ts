@@ -198,7 +198,13 @@ export class AdminFormBuilderComponent extends FormComponent<FormModel> implemen
             Validators.maxLength(128)
           ]
         ],
-        hint: [element.hint, [Validators.pattern(/.*^[\S].*/)]],
+        hint: [
+          element.hint,
+          [
+            Validators.pattern(/.*^[\S].*/),
+            Validators.maxLength(128)
+          ]
+        ],
         required: element.required,
         kind: element.kind
       });
