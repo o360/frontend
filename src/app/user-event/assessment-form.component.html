@@ -79,7 +79,7 @@
               <span
                 class="text"
                 [ngClass]="{ 'required': element.required }"
-                tooltip="{{ !!element.hint ? element.hint : null }}"
+                [tooltip]="element.hint || null"
                 tooltipPlacement="bottom"
               >
                 {{ element.caption }}
