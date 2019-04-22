@@ -1,7 +1,7 @@
 import { EnvConfig } from './env-config.interface';
 import { environment } from './environment';
 
-export const ProdConfig: EnvConfig = {
+const ProdConfig: EnvConfig = {
   ENV: 'PROD',
   API: '<API_ENDPOINT>',
   TITLE_MAIN: 'Open360',
@@ -16,10 +16,11 @@ export const ProdConfig: EnvConfig = {
         redirect_uri: '<REDIRECT_URI>'
       }
     }
-  }
+  },
+  AGREEMENTS: '/assets/agreement'
 };
 
-export const DevConfig: EnvConfig = {
+const DevConfig: EnvConfig = {
   ENV: 'DEV',
   API: '<API_ENDPOINT>',
   TITLE_MAIN: 'Open360',
@@ -34,7 +35,16 @@ export const DevConfig: EnvConfig = {
         redirect_uri: '<REDIRECT_URI>'
       }
     }
-  }
+  },
+  AGREEMENTS: '/assets/agreement'
 };
 
-export const Config: EnvConfig = environment.production ? ProdConfig : DevConfig;
+const BaseConfig: EnvConfig = {
+  FIREBASE_URL: '<FIREBASE_URL>',
+  DEFAULT_LANG: 'en',
+  AGREEMENTS: '/assets/agreement'
+};
+
+const tempConfig: EnvConfig = environment.production ? ProdConfig : DevConfig;
+
+export const Config: EnvConfig = { ...BaseConfig, ...tempConfig };
