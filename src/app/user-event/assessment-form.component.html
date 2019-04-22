@@ -28,7 +28,14 @@
             </button>
             <label>
               <span class="number">{{ i + 1 }}.</span>
-              <span class="text" [ngClass]="{ 'required': element.required }">{{ element.caption }}</span>
+              <span
+                class="text"
+                [ngClass]="{ 'required': element.required }"
+                [tooltip]="element.hint || null"
+                placement="bottom"
+              >
+                {{ element.caption }}
+              </span>
             </label>
           </div>
           <div class="form-check">
@@ -69,7 +76,14 @@
             </button>
             <label>
               <span class="number">{{ i + 1 }}.</span>
-              <span class="text" [ngClass]="{ 'required': element.required }">{{ element.caption }}</span>
+              <span
+                class="text"
+                [ngClass]="{ 'required': element.required }"
+                [tooltip]="element.hint || null"
+                placement="bottom"
+              >
+                {{ element.caption }}
+              </span>
             </label>
           </div>
           <div class="form-check">
@@ -118,7 +132,14 @@
             </button>
             <label>
               <span class="number">{{ i + 1 }}.</span>
-              <span class="text" [ngClass]="{ 'required': element.required }">{{ element.caption }}</span>
+              <span
+                class="text"
+                [ngClass]="{ 'required': element.required }"
+                [tooltip]="element.hint || null"
+                placement="bottom"
+              >
+                {{ element.caption }}
+              </span>
             </label>
           </div>
           <select name="{{ element.id }}"
@@ -164,7 +185,14 @@
             </button>
             <label>
               <span class="number">{{ i + 1 }}.</span>
-              <span class="text" [ngClass]="{ 'required': element.required }">{{ element.caption }}</span>
+              <span
+                class="text"
+                [ngClass]="{ 'required': element.required }"
+                [tooltip]="element.hint || null"
+                placement="bottom"
+              >
+                {{ element.caption }}
+              </span>
             </label>
           </div>
           <div class="form-check form-check-inline ml-0 mr-1"
@@ -209,7 +237,14 @@
             <label for="{{ element.id }}"
                    [ngClass]="{'required': element.required === true}">
               <span class="number">{{ i + 1 }}.</span>
-              <span class="text">{{ element.caption }}</span>
+              <span
+                class="text"
+                [ngClass]="{ 'required': element.required }"
+                [tooltip]="element.hint || null"
+                placement="bottom"
+              >
+                {{ element.caption }}
+              </span>
             </label>
           </div>
           <textarea name="{{ element.id }}"
@@ -253,8 +288,14 @@
             </button>
             <label for="{{ element.id }}">
               <span class="number">{{ i + 1 }}.</span>
-              <span class="text"
-                    [ngClass]="{ 'required': element.required }">{{ element.caption }}</span>
+              <span
+                class="text"
+                [ngClass]="{ 'required': element.required }"
+                [tooltip]="element.hint || null"
+                placement="bottom"
+              >
+                {{ element.caption }}
+              </span>
             </label>
           </div>
           <input name="{{ element.id }}"
@@ -297,8 +338,14 @@
             </button>
             <label for="{{ element.id }}">
               <span class="number">{{ i + 1 }}.</span>
-              <span class="text"
-                    [ngClass]="{'required': element.required }">{{ element.caption }}</span>
+              <span
+                class="text"
+                [ngClass]="{ 'required': element.required }"
+                [tooltip]="element.hint || null"
+                placement="bottom"
+              >
+                {{ element.caption }}
+              </span>
             </label>
           </div>
           <input class="form-control"

@@ -48,6 +48,6 @@ export class FirebaseRestService<T extends Model> extends RestService<T> {
   }
 
   protected _getRequestParams(id?: ModelId) {
-    return super._getRequestParams(id) + '.json';
+    return `${super._getRequestParams(id)}.json`;
   }
 }

@@ -91,4 +91,3 @@ export class AdminGroupFormComponent extends FormComponent<GroupModel> {
     this._breadcrumbService.overrideBreadcrumb(breadcrumbs);
   }
 }
-

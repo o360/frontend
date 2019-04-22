@@ -30,27 +30,28 @@ export class HeaderComponent implements AfterViewInit {
 
 // @todo: Rewrite scripts from theme
   public ngAfterViewInit() {
-    let self = this;
-    $('.navbar-toggler').on('click', function(e) {
+    // tslint:disable-next-line:no-this-assignment
+    let _self = this;
+    $('.navbar-toggler').on('click', function (e) {
       e.preventDefault();
 
       if ($(this).hasClass('sidebar-toggler')) {
         $('body').toggleClass('sidebar-hidden');
-        self.resizeBroadcast();
+        _self.resizeBroadcast();
       }
 
       if ($(this).hasClass('aside-menu-toggler')) {
         $('body').toggleClass('aside-menu-hidden');
-        self.resizeBroadcast();
+        _self.resizeBroadcast();
       }
 
       if ($(this).hasClass('mobile-sidebar-toggler')) {
         $('body').toggleClass('sidebar-mobile-show');
-        self.resizeBroadcast();
+        _self.resizeBroadcast();
       }
     });
 
-    $('.sidebar-close').on('click', function() {
+    $('.sidebar-close').on('click', () => {
       $('body').toggleClass('sidebar-opened').parent().toggleClass('sidebar-opened');
     });
   }

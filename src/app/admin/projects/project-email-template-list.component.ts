@@ -43,7 +43,6 @@ export class AdminProjectEmailTemplatesListComponent extends ListComponent<Proje
     return this._hasInProgressEvents;
   }
 
-
   constructor(service: AdminProjectService,
               activatedRoute: ActivatedRoute,
               router: Router,
@@ -57,7 +56,7 @@ export class AdminProjectEmailTemplatesListComponent extends ListComponent<Proje
     let model = new ProjectModel(this._model.toJson());
     model.templates.push(template);
 
-    this._service.save(model).subscribe(model => {
+    this._service.save(model).subscribe((model) => {
       this._model.templates = model.templates;
       this._notificationService.success('T_EMAIL_TEMPLATE_ADDED_TO_PROJECT');
     });
@@ -65,7 +64,7 @@ export class AdminProjectEmailTemplatesListComponent extends ListComponent<Proje
 
   public removeTemplate(templateId: ModelId) {
     this._model.templates = this._model.templates.filter(x => x.templateId !== templateId);
-    this._service.save(this._model).subscribe(model => {
+    this._service.save(this._model).subscribe((model) => {
       this._model.templates = model.templates;
       this._notificationService.success('T_EMAIL_TEMPLATE_REMOVE_FROM_PROJECT');
     });

@@ -8,7 +8,6 @@ import { NotificationService } from '../../core/services/notification.service';
 import { FormComponent } from '../../shared/components/form.component';
 import { BreadcrumbService } from '../../core/services/breadcrumb.service';
 
-
 @Component({
   selector: 'bs-template-form',
   templateUrl: 'email-template-form.component.html'
@@ -49,7 +48,6 @@ export class AdminEmailTemplateFormComponent extends FormComponent<EmailTemplate
     command: 'addEventDescription'
   }];
 
-
   public get kinds(): string[] {
     return this._kinds;
   }
@@ -81,6 +79,6 @@ export class AdminEmailTemplateFormComponent extends FormComponent<EmailTemplate
   }
 
   public addText(editorArea: CKEditorComponent, text: string) {
-    editorArea.instance.insertText('{{ ' + text + ' }}');
+    editorArea.instance.insertText(`{{ ' ${text} ' }}`);
   }
 }

@@ -67,7 +67,7 @@ export class AdminEmailTemplateAddModalComponent {
   }
 
   public updateTemplatesList() {
-    this._availableTemplates = this._emailTemplates.filter(template => {
+    this._availableTemplates = this._emailTemplates.filter((template) => {
       return template.kind === this._model.kind &&
         template.recipient === this._recipient &&
         !this._usedEmailTemplates.find(x => x.templateId === template.id);
@@ -80,7 +80,7 @@ export class AdminEmailTemplateAddModalComponent {
   }
 
   private _load() {
-    this._emailTemplateService.list().subscribe(res => {
+    this._emailTemplateService.list().subscribe((res) => {
       this._emailTemplates = res.data;
     });
   }

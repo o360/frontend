@@ -10,7 +10,6 @@ import { AdminEmailTemplateService } from './admin-email-template.service';
 import { Observable } from 'rxjs';
 import { EmailTemplateModel } from '../models/email-template-model';
 
-
 describe('AdminEmailTemplateService Service', () => {
   let testService: AdminEmailTemplateService;
   let injector: Injector;
@@ -28,7 +27,7 @@ describe('AdminEmailTemplateService Service', () => {
         { provide: NotificationService, useClass: NotificationServiceStub },
         { provide: AuthService, useClass: AuthServiceStub },
         { provide: Router, useClass: RouterStub },
-        { provide: ConfirmationService, useClass: ConfirmationStub}
+        { provide: ConfirmationService, useClass: ConfirmationStub }
       ]
     });
     injector = getTestBed();

@@ -33,11 +33,10 @@ export class ConfirmationDirective {
     this._confirmationService.setViewContainerRef(this._viewContainerRef);
     this._confirmationService.loadTemplate(this._contentTemplate);
 
-    this._confirmationService.loadComponent(this._message, null).subscribe(value => {
+    this._confirmationService.loadComponent(this._message, null).subscribe((value) => {
       if (value) {
         this._confirm.emit();
       }
     });
-
   }
 }

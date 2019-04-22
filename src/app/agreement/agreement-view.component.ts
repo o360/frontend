@@ -34,7 +34,7 @@ export class AgreementViewComponent implements OnInit {
     this._http.get(path)
       .pipe(
         map(response => response.toString()),
-        map(text => {
+        map((text) => {
           const converter = new Converter();
           return converter.makeHtml(text);
         })

@@ -278,6 +278,8 @@
   "T_FORM_NAME": "Name",
   "T_FORM_CAPTION": "Caption",
   "T_FORM_ENTER_CAPTION": "Enter a caption...",
+  "T_FORM_CLARIFICATION": "Clarification",
+  "T_FORM_ENTER_CLARIFICATION": "Enter a clarification...",
   "T_FORM_ENTER_VALUE": "Enter a value...",
   "T_FORM_VALUE": "Value",
   "T_FORM_REQUIRED": "Required",

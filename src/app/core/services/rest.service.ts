@@ -105,9 +105,8 @@ export class RestService<T extends Model> {
   public save(model: T): Observable<T> {
     if (model.id !== undefined) {
       return this._update(model);
-    } else {
-      return this._create(model);
     }
+    return this._create(model);
   }
 
   /**
@@ -180,8 +179,8 @@ export class RestService<T extends Model> {
     let paramsString = '';
 
     if (params) {
-      const param = Object.entries(params).map(([key, value]) => key + '=' + encodeURIComponent(value.toString()));
-      paramsString = '?' + param.join('&');
+      const param = Object.entries(params).map(([key, value]) => `${key}=${encodeURIComponent(value.toString())}`);
+      paramsString = `?${param.join('&')}`;
     }
 
     return path.join('/') + paramsString;
@@ -212,20 +211,20 @@ export class RestService<T extends Model> {
     if (error.status === 400) {
       this._notificationService.error(this._prepareErrorCodeTranslation(err.code));
       return observableThrowError(error);
-    } else if (error.status === 401) {
+    }  if (error.status === 401) {
       this._router.navigate(['/login']);
       return observableThrowError(error);
-    } else if (error.status === 403) {
+    }  if (error.status === 403) {
       if (err.code === 'AUTHORIZATION-EVENT') {
         this._notificationService.error(this._prepareErrorCodeTranslation(err.code));
       } else {
         this._notificationService.error(error.message, `${error.status} ${error.statusText}`);
       }
       return observableThrowError(error);
-    } else if (error.status === 404) {
+    }  if (error.status === 404) {
       this._notificationService.error(this._prepareErrorCodeTranslation(err.code));
       return observableThrowError(error);
-    } else if (error.status === 409) {
+    }  if (error.status === 409) {
       let conflicts = [
         'CONFLICT-GROUP-GENERAL',
         'CONFLICT-USER-GENERAL',
@@ -240,14 +239,13 @@ export class RestService<T extends Model> {
         this._notificationService.error(this._prepareErrorCodeTranslation(err.code));
       }
       return observableThrowError(error);
-    } else {
-      this._notificationService.error(error.message, `${error.status} ${error.statusText}`);
-      return observableThrowError(error);
     }
+    this._notificationService.error(error.message, `${error.status} ${error.statusText}`);
+    return observableThrowError(error);
   }
 
   protected _prepareErrorCodeTranslation(code: string) {
-    return 'T_ERROR_' + code.replace(/-/g, '_');
+    return `T_ERROR_${code.replace(/-/g, '_')}`;
   }
 
   protected _convertDataUriToBlob(dataUri: string) {
@@ -260,4 +258,3 @@ export class RestService<T extends Model> {
     return new Blob([ia], { type: mimeString });
   }
 }
-

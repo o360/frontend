@@ -15,7 +15,6 @@ export const LanguagesTranslationMap = {
   [SupportedLanguages.RU]: 'T_LANG_RU'
 };
 
-
 @Component({
   selector: 'bs-language-selector',
   templateUrl: 'language-selector.component.html',
@@ -59,7 +58,7 @@ export class LanguageSelectorComponent implements OnInit {
 
   public changeLanguage(id: string) {
     moment.locale(id);
-    this._languages.forEach(language => {
+    this._languages.forEach((language) => {
       if (language.id === id) {
         language.selected = true;
         localStorage.language = id;
