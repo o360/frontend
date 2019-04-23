@@ -153,6 +153,7 @@
   "T_SUCCESS_SAVED": "Saved!",
   "T_SUCCESS_DELETED_USER_FROM_GROUPS": "User successfully deleted",
   "T_ERROR_TEXT_PATTERN": "Value should contain visible symbols",
+  "T_ERROR_TEXT_LENGTH": "Value should be no longer than 128 symbols",
   "T_ERROR_EMAIL_PATTERN": "Enter correct email address",
   "T_SUCCESS_NEW_USER_SAVED": "You have been signed up successfully",
   "T_SUCCESS_NEW_USER_BY_INVITE": "Your account has been activated successfully",

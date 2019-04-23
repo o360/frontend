@@ -1,7 +1,7 @@
 import { AfterViewInit, Component } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { AccountModel } from '../../models/account-model';
-import { Config } from '../../../../environments/env.config';
+import { ConfigurationService } from '../../services/configuration.service';
 
 @Component({
   selector: 'bs-header',
@@ -19,9 +19,10 @@ export class HeaderComponent implements AfterViewInit {
     return this._titleNav;
   }
 
-  constructor(private _authService: AuthService) {
+  constructor(private _authService: AuthService,
+              private _configService: ConfigurationService) {
     this._user = this._authService.user;
-    this._titleNav = Config.TITLE_NAV || 'BW Assessment';
+    this._titleNav = this._configService.config.TITLE_NAV || 'BW Assessment';
   }
 
   public logout() {

@@ -13,6 +13,9 @@
         "redirect_uri": "https://open360.bw-sw.com/login/google"
       }
     }
-  }
+  },
+  "FIREBASE_URL": "https://model-service-51554.firebaseio.com",
+  "DEFAULT_LANG": "en",
+  "AGREEMENTS": "/assets/agreement"
 }
 

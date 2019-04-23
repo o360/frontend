@@ -10,6 +10,8 @@
       <ng-template [ngSwitchCase]="FormElementType.LikeDislike">
         <bs-likes-dislikes name="{{ element.id }}"
                            #likeDislike="ngModel"
+                           [tooltip]="element.hint || null"
+                           placement="bottom"
                            [user]="user"
                            [element]="element"
                            [disabled]="status !== EventStatus.InProgress || (!canRevote && isAnswered)"
@@ -28,13 +30,10 @@
             </button>
             <label>
               <span class="number">{{ i + 1 }}.</span>
-              <span
-                class="text"
-                [ngClass]="{ 'required': element.required }"
-                [tooltip]="element.hint || null"
-                placement="bottom"
-              >
-                {{ element.caption }}
+              <span class="text" [ngClass]="{ 'required': element.required }">
+                <span [tooltip]="element.hint || null" placement="bottom">
+                  {{ element.caption }}
+                </span>
               </span>
             </label>
           </div>
@@ -76,13 +75,10 @@
             </button>
             <label>
               <span class="number">{{ i + 1 }}.</span>
-              <span
-                class="text"
-                [ngClass]="{ 'required': element.required }"
-                [tooltip]="element.hint || null"
-                placement="bottom"
-              >
-                {{ element.caption }}
+              <span class="text" [ngClass]="{ 'required': element.required }">
+                <span [tooltip]="element.hint || null" placement="bottom">
+                  {{ element.caption }}
+                </span>
               </span>
             </label>
           </div>
@@ -132,13 +128,10 @@
             </button>
             <label>
               <span class="number">{{ i + 1 }}.</span>
-              <span
-                class="text"
-                [ngClass]="{ 'required': element.required }"
-                [tooltip]="element.hint || null"
-                placement="bottom"
-              >
-                {{ element.caption }}
+              <span class="text" [ngClass]="{ 'required': element.required }">
+                <span [tooltip]="element.hint || null" placement="bottom">
+                  {{ element.caption }}
+                </span>
               </span>
             </label>
           </div>
@@ -185,13 +178,10 @@
             </button>
             <label>
               <span class="number">{{ i + 1 }}.</span>
-              <span
-                class="text"
-                [ngClass]="{ 'required': element.required }"
-                [tooltip]="element.hint || null"
-                placement="bottom"
-              >
-                {{ element.caption }}
+              <span class="text" [ngClass]="{ 'required': element.required }">
+                <span [tooltip]="element.hint || null" placement="bottom">
+                  {{ element.caption }}
+                </span>
               </span>
             </label>
           </div>
@@ -237,13 +227,10 @@
             <label for="{{ element.id }}"
                    [ngClass]="{'required': element.required === true}">
               <span class="number">{{ i + 1 }}.</span>
-              <span
-                class="text"
-                [ngClass]="{ 'required': element.required }"
-                [tooltip]="element.hint || null"
-                placement="bottom"
-              >
-                {{ element.caption }}
+              <span class="text" [ngClass]="{ 'required': element.required }">
+                <span [tooltip]="element.hint || null" placement="bottom">
+                  {{ element.caption }}
+                </span>
               </span>
             </label>
           </div>
@@ -288,13 +275,10 @@
             </button>
             <label for="{{ element.id }}">
               <span class="number">{{ i + 1 }}.</span>
-              <span
-                class="text"
-                [ngClass]="{ 'required': element.required }"
-                [tooltip]="element.hint || null"
-                placement="bottom"
-              >
-                {{ element.caption }}
+              <span class="text" [ngClass]="{ 'required': element.required }">
+                <span [tooltip]="element.hint || null" placement="bottom">
+                  {{ element.caption }}
+                </span>
               </span>
             </label>
           </div>
@@ -338,13 +322,10 @@
             </button>
             <label for="{{ element.id }}">
               <span class="number">{{ i + 1 }}.</span>
-              <span
-                class="text"
-                [ngClass]="{ 'required': element.required }"
-                [tooltip]="element.hint || null"
-                placement="bottom"
-              >
-                {{ element.caption }}
+              <span class="text" [ngClass]="{ 'required': element.required }">
+                <span [tooltip]="element.hint || null" placement="bottom">
+                  {{ element.caption }}
+                </span>
               </span>
             </label>
           </div>

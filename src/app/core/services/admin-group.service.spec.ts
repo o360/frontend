@@ -5,10 +5,11 @@ import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
 import { NotificationService } from './notification.service';
 import { ConfirmationService } from './confirmation.service';
-import { AuthServiceStub, ConfirmationStub, NotificationServiceStub, RouterStub } from '../../stubs/stubs.utils';
+import { AuthServiceStub, ConfigurationServiceStub, ConfirmationStub, NotificationServiceStub, RouterStub } from '../../stubs/stubs.utils';
 import { AdminGroupService } from './admin-group.service';
 import { GroupModel } from '../models/group-model';
 import { Observable } from 'rxjs';
+import { ConfigurationService } from './configuration.service';
 
 describe('AdminEventService Service', () => {
   let testService: AdminGroupService;
@@ -27,7 +28,8 @@ describe('AdminEventService Service', () => {
         { provide: NotificationService, useClass: NotificationServiceStub },
         { provide: AuthService, useClass: AuthServiceStub },
         { provide: Router, useClass: RouterStub },
-        { provide: ConfirmationService, useClass: ConfirmationStub }
+        { provide: ConfirmationService, useClass: ConfirmationStub },
+        { provide: ConfigurationService, useClass: ConfigurationServiceStub }
       ]
     });
     injector = getTestBed();
