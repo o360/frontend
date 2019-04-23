@@ -3,24 +3,25 @@ import { map, catchError } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { Config } from '../../../environments/env.config';
 import { Model, ModelId } from '../models/model';
 import { AuthService } from './auth.service';
 import { IListResponse, RestService } from './rest.service';
 import { NotificationService } from './notification.service';
 import { ConfirmationService } from './confirmation.service';
+import { ConfigurationService } from './configuration.service';
 
 @Injectable()
 export class FirebaseRestService<T extends Model> extends RestService<T> {
-  protected _host: string = Config.FIREBASE_URL;
+  protected _host: string;
 
   /* @todo: Research: nested constructors works in angular 2.4.* */
   constructor(http: HttpClient,
               authService: AuthService,
               router: Router,
               notificationService: NotificationService,
-              confirmationService: ConfirmationService) {
-    super(http, authService, router, notificationService, confirmationService);
+              confirmationService: ConfirmationService,
+              configService: ConfigurationService) {
+    super(http, authService, router, notificationService, confirmationService, configService);
   }
 
   public list(): Observable<IListResponse<T>> {

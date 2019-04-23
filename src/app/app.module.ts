@@ -10,8 +10,7 @@ import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { createTranslateLoader } from './shared/config/translate-loader.config';
 import { SharedModule } from './shared/shared.module';
-import { AppInitService } from './core/services/app-init.service';
-import { initializeApp } from '../environments/env.config';
+import { ConfigurationService } from './core/services/configuration.service';
 
 @NgModule({
   imports: [
@@ -42,8 +41,13 @@ import { initializeApp } from '../environments/env.config';
     AppComponent
   ],
   providers: [
-    AppInitService,
-    { provide: APP_INITIALIZER, useFactory: initializeApp, deps: [AppInitService], multi: true }
+    ConfigurationService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: (configService: ConfigurationService) => () => configService.loadConfigurationData(),
+      deps: [ConfigurationService],
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

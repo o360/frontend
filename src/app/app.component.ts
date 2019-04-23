@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { Config } from '../environments/env.config';
 import { SupportedLanguages } from './shared/config/translate-loader.config';
 import { registerLocaleData } from '@angular/common';
 import ru from '@angular/common/locales/ru';
+import { ConfigurationService } from './core/services/configuration.service';
 
 /**
  * This class represents the main application component.
@@ -13,7 +13,8 @@ import ru from '@angular/common/locales/ru';
   templateUrl: 'app.component.html'
 })
 export class AppComponent {
-  constructor(protected _translate: TranslateService) {
+  constructor(protected _translate: TranslateService,
+              private _configService: ConfigurationService) {
     this._translateConfig();
   }
 
@@ -30,6 +31,6 @@ export class AppComponent {
     const browserLang = this._translate.getBrowserLang();
     const lang = Object.values(SupportedLanguages).find(x => x === browserLang);
 
-    return lang || Config.DEFAULT_LANG;
+    return lang || this._configService.config.DEFAULT_LANG;
   }
 }

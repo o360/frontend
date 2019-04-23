@@ -8,6 +8,7 @@ import { AuthService } from './auth.service';
 import { NotificationService } from './notification.service';
 import { RestService } from './rest.service';
 import { ConfirmationService } from './confirmation.service';
+import { ConfigurationService } from './configuration.service';
 
 @Injectable()
 @RestServiceConfig({
@@ -20,8 +21,9 @@ export class FormService extends RestService<FormModel> {
               authService: AuthService,
               router: Router,
               notificationService: NotificationService,
-              confirmationService: ConfirmationService) {
-    super(http, authService, router, notificationService, confirmationService);
+              confirmationService: ConfirmationService,
+              configService: ConfigurationService) {
+    super(http, authService, router, notificationService, confirmationService, configService);
   }
 
   public clone(model: FormModel): Observable<FormModel> {

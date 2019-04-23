@@ -24,6 +24,9 @@
         <div class="form-control-feedback" *ngIf="!!element.controls['caption'].errors['pattern']">
           {{ 'T_ERROR_TEXT_PATTERN' | translate }}
         </div>
+        <div class="form-control-feedback" *ngIf="!element.controls['caption'].errors['length']">
+          {{ 'T_ERROR_TEXT_LENGTH' | translate }}
+        </div>
       </div>
     </div>
   </div>
@@ -43,10 +46,12 @@
              placeholder="{{ 'T_FORM_ENTER_CLARIFICATION' | translate }}"
              formControlName="hint">
 
-      <div class="form-errors"
-           *ngIf="!!element.controls['hint'].errors && element.controls['hint'].touched">
+      <div class="form-errors" *ngIf="!!element.controls['hint'].errors && element.controls['hint'].touched">
         <div class="form-control-feedback" *ngIf="!!element.controls['hint'].errors['pattern']">
           {{ 'T_ERROR_TEXT_PATTERN' | translate }}
+        </div>
+        <div class="form-control-feedback" *ngIf="!element.controls['hint'].errors['length']">
+          {{ 'T_ERROR_TEXT_LENGTH' | translate }}
         </div>
       </div>
     </div>

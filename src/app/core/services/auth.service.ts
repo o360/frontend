@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Config } from '../../../environments/env.config';
 import { AccountModel } from '../models/account-model';
 import { UserRole } from '../models/user-model';
+import { ConfigurationService } from './configuration.service';
 
 export const tokenLsKey = 'token';
 
@@ -35,7 +35,8 @@ export class AuthService {
     return this._user.role === UserRole.Admin;
   }
 
-  constructor(protected _router: Router) {
+  constructor(protected _router: Router,
+              private _configService: ConfigurationService) {
     this.updateToken();
   }
 
@@ -49,7 +50,7 @@ export class AuthService {
   }
 
   public login(oauthProvider: string) {
-    let providerConfig = Config.PROVIDERS[oauthProvider];
+    let providerConfig = this._configService.config.PROVIDERS[oauthProvider];
     let urlParams = Object.entries(providerConfig.getParams).map(([key, value]) => {
       return `${key}=${encodeURIComponent(value.toString())}`;
     });

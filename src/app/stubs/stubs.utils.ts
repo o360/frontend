@@ -3,6 +3,7 @@ import { IQueryParams, ModelConstructor } from '../core/services/rest.service';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { Model, ModelId } from '../core/models/model';
 import { TestModel } from '../core/models/model.spec';
+import { EnvConfig } from '../../environments/env-config.interface';
 
 /* RestServiceStub stub */
 @Injectable()
@@ -131,5 +132,34 @@ export class TranslateServiceStub {
 
   public instant(key: string | string[], interpolateParams?: Object): string | any {
     return 'translate';
+  }
+}
+
+/* ConfigurationService stub */
+export class ConfigurationServiceStub {
+  private _configData: EnvConfig = {
+    ENV: 'test',
+    API: 'http://test/api',
+    TITLE_MAIN: 'test',
+    TITLE_NAV: 'test',
+    PROVIDERS: {
+      'google': {
+        authorizationUrlBase: 'https://accounts.google.com/o/oauth2/auth',
+        getParams: {
+          response_type: 'code',
+          client_id: '183984693644',
+          scope: 'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email',
+          redirect_uri: 'http://localhost:5555/login/google'
+        }
+      }
+    }
+  };
+
+  public loadConfigurationData() {
+    return Promise.resolve();
+  }
+
+  public get config(): EnvConfig {
+    return this._configData;
   }
 }
