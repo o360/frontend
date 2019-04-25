@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { AssessmentFormStatus, AssessmentModel, IElementAnswer } from '../core/models/assessment-model';
 import { FormElement, FormElementType, FormModel } from '../core/models/form-model';
 import { ModelId } from '../core/models/model';
@@ -10,6 +10,10 @@ import { EventStatus } from '../core/models/event-model';
 import { RequireValue } from '../admin/forms/form-builder.component';
 import { UserModel } from '../core/models/user-model';
 import { Router } from '@angular/router';
+import { AssessmentFormService } from '../core/services/assessment-form.service';
+import { Observable } from 'rxjs';
+import { DialogService } from '../core/services/dialog.service';
+import { CanDeactivateGuard } from '../core/guards/deactivate.guard';
 
 export interface IComment {
   formElementId: ModelId;
@@ -21,7 +25,7 @@ export interface IComment {
   templateUrl: 'assessment-form.component.html',
   styleUrls: ['assessment-form.component.scss'],
 })
-export class AssessmentFormComponent implements OnInit, OnChanges {
+export class AssessmentFormComponent implements OnInit, OnChanges, CanDeactivateGuard {
   protected _id: ModelId;
   protected _user: UserModel;
   protected _form: FormModel;
@@ -169,10 +173,16 @@ export class AssessmentFormComponent implements OnInit, OnChanges {
     }
   }
 
+  public get answers(): IElementAnswer[] {
+    return this._answers;
+  }
+
   constructor(protected _assessmentService: AssessmentService,
               protected _formUsersService: FormService,
               protected _notificationService: NotificationService,
-              protected _router: Router) {
+              protected _router: Router,
+              protected _assessmentFormService: AssessmentFormService,
+              protected _dialogService: DialogService) {
   }
 
   public ngOnInit() {
@@ -251,12 +261,24 @@ export class AssessmentFormComponent implements OnInit, OnChanges {
     }
 
     this._formChange.emit(this._assessment);
+    this._assessmentFormService.equals(this.answers, this.assessment.form.answers);
+    console.log(this.status);
+  }
+
+  public canDeactivate(): boolean | Observable <boolean> {
+    console.log('CALLL');
+    if(this.status && this.status === 'inProgress') {
+      console.log('SURE');
+      return this._dialogService.confirm('SURE WANT DIS!?');
+    }
+    return true;
   }
 
   public save() {
     this._assessmentService.saveBulk([this._assessment], this._queryParams).subscribe(() => {
       this._formStatus = AssessmentFormStatus.Answered;
       this._formSave.emit(this._assessment);
+      this._assessmentFormService.reset();
 
       if (this._isLast) {
         this._finish();
