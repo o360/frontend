@@ -107,7 +107,6 @@ export class AssessmentObjectListComponent {
   }
 
   public selectUser(user: AssessmentModel) {
-    console.log('before', this._assessmentFormService.answersAreEqual);
     if (this._selectedItem !== user) {
       if (!this._assessmentFormService.answersAreEqual) {
         this._assessmentFormService.reset();
@@ -115,7 +114,6 @@ export class AssessmentObjectListComponent {
       this._selectedItem = user;
       this._selectedItemChange.emit(user);
     }
-    console.log('after',this._assessmentFormService.answersAreEqual);
   }
 
   public selectSurvey(survey: IFormAnswer) {
