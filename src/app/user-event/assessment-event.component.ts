@@ -194,9 +194,11 @@ export class AssessmentEventComponent extends ListComponent<AssessmentModel> imp
           nextForm.active = true;
         } else {
           let nextUser = Utils.getNext(this._users, _ => _.user.id === obj.user.id, _ => !!_.user && !_.isAnswered);
-
+          let notAnsweredUser = Utils.getNext(this._users, undefined, _ => !_.isAnswered);
           if (nextUser) {
             this.displayItem(nextUser);
+          } else if (notAnsweredUser) {
+            this.displayItem(notAnsweredUser);
           } else if (this.surveys && !!this._surveys.length) {
             let nextSurvey = Utils.getNext(this._surveys, undefined, _ => _.status === AssessmentFormStatus.New);
 
