@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, OnDestroy } from '@angular/core';
 import { AssessmentFormStatus, AssessmentModel, IElementAnswer } from '../core/models/assessment-model';
 import { FormElement, FormElementType, FormModel } from '../core/models/form-model';
 import { ModelId } from '../core/models/model';
@@ -12,8 +12,6 @@ import { UserModel } from '../core/models/user-model';
 import { Router } from '@angular/router';
 import { AssessmentFormService } from '../core/services/assessment-form.service';
 import { Observable } from 'rxjs';
-import { DialogService } from '../core/services/dialog.service';
-import { CanDeactivateGuard } from '../core/guards/deactivate.guard';
 
 export interface IComment {
   formElementId: ModelId;
@@ -25,7 +23,7 @@ export interface IComment {
   templateUrl: 'assessment-form.component.html',
   styleUrls: ['assessment-form.component.scss'],
 })
-export class AssessmentFormComponent implements OnInit, OnChanges, CanDeactivateGuard {
+export class AssessmentFormComponent implements OnInit, OnChanges, OnDestroy {
   protected _id: ModelId;
   protected _user: UserModel;
   protected _form: FormModel;
@@ -181,8 +179,7 @@ export class AssessmentFormComponent implements OnInit, OnChanges, CanDeactivate
               protected _formUsersService: FormService,
               protected _notificationService: NotificationService,
               protected _router: Router,
-              protected _assessmentFormService: AssessmentFormService,
-              protected _dialogService: DialogService) {
+              protected _assessmentFormService: AssessmentFormService) {
   }
 
   public ngOnInit() {
@@ -198,6 +195,12 @@ export class AssessmentFormComponent implements OnInit, OnChanges, CanDeactivate
         this._isAnonymous = this._inlineAnonymous;
         this.onFormChange();
       }
+    }
+  }
+
+  public ngOnDestroy() {
+    if (this.status && this.status.includes('inProgress')) {
+      // localStorage.setItem(this.user.id)
     }
   }
 
@@ -262,16 +265,7 @@ export class AssessmentFormComponent implements OnInit, OnChanges, CanDeactivate
 
     this._formChange.emit(this._assessment);
     this._assessmentFormService.equals(this.answers, this.assessment.form.answers);
-    console.log(this.status);
-  }
-
-  public canDeactivate(): boolean | Observable <boolean> {
-    console.log('CALLL');
-    if(this.status && this.status === 'inProgress') {
-      console.log('SURE');
-      return this._dialogService.confirm('SURE WANT DIS!?');
-    }
-    return true;
+    console.log(this.user.id, this.assessment.form.answers);
   }
 
   public save() {

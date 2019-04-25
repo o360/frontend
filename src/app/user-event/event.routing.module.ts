@@ -3,7 +3,6 @@ import { RouterModule } from '@angular/router';
 import { AppRoutes } from '../core/models/app-routes.model';
 import { EventTabsComponent } from './event-tabs.component';
 import { AssessmentProjectListComponent } from './assessment-project-list.component';
-import { CanDeactivateGuard } from '../core/guards/deactivate.guard';
 
 @NgModule({
   imports: [
@@ -15,7 +14,6 @@ import { CanDeactivateGuard } from '../core/guards/deactivate.guard';
       path: ':id',
       component: AssessmentProjectListComponent,
       breadcrumb: 'T_ASSESSMENT_EVENT',
-      canDeactivate: [CanDeactivateGuard]
     }])
   ],
   exports: [RouterModule]

@@ -30,8 +30,6 @@ import { ProjectService } from './services/project.service';
 import { UserPictureService } from './services/user-picture.service';
 import { InviteService } from './services/invite.service';
 import { AssessmentFormService } from './services/assessment-form.service';
-import { CanDeactivateGuard } from './guards/deactivate.guard';
-import { DialogService } from './services/dialog.service';
 
 @NgModule({
   imports: [
@@ -69,9 +67,7 @@ import { DialogService } from './services/dialog.service';
     ConfirmationService,
     BreadcrumbService,
     UserPictureService,
-    AssessmentFormService,
-    CanDeactivateGuard,
-    DialogService
+    AssessmentFormService
   ],
   exports: [
     HeaderComponent,
