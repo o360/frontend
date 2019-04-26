@@ -345,7 +345,7 @@ export class AssessmentFormComponent implements OnInit, OnChanges {
 
       if (!!unsavedAnswers) {
         const parsedAnswers = JSON.parse(unsavedAnswers);
-        if (parsedAnswers.length > 0) {
+        if (!!parsedAnswers.length) {
           this.answers = parsedAnswers;
           this.hasUnsavedAnswers = true;
           this.assessment = new AssessmentModel({
