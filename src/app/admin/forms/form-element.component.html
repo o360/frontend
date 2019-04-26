@@ -35,9 +35,7 @@
   <div class="form-group row"
        [ngClass]="{ 'has-success': element.controls['hint'].valid && !element.controls['hint'].pristine,
                     'has-danger': !element.controls['hint'].valid && element.controls['hint'].touched}">
-    <label for="hint-{{ index }}" class="col-form-label col-4">{{ 'T_FORM_CLARIFICATION' |
-      translate
-      }}</label>
+    <label for="hint-{{ index }}" class="col-form-label col-4">{{ 'T_FORM_CLARIFICATION' | translate }}</label>
     <div class="col-8">
       <input type="text"
              class="form-control"
@@ -79,8 +77,7 @@
     <h6 class="mt-2">{{ 'T_FORM_EDIT_VALUES' | translate }}</h6>
     <hr/>
     <div class="form-group row mb-1">
-      <label class="col-form-label col-4 " for="value-caption-{{ index }}">{{ 'T_FORM_VALUE' |
-        translate}}</label>
+      <label class="col-form-label col-4 " for="value-caption-{{ index }}">{{ 'T_FORM_VALUE' | translate}}</label>
       <div class="col-8">
         <input #newCaption
                id="value-caption-{{ index }}"
