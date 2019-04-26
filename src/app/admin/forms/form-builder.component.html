@@ -142,7 +142,7 @@
                   </i>
 
                   {{ 'T_FORM_ELEMENT_TYPE_' + item.value.kind.toUpperCase() | translate }}
-                  <b *ngIf="item.value.kind !== FormElementType.LikeDislike"> {{ item.value.caption }} </b>
+                  <b class="break-word" *ngIf="item.value.kind !== FormElementType.LikeDislike"> {{ item.value.caption }} </b>
                 </div>
                 <div class="col-4 text-right">
                   <div class="btn-group" role="group">
