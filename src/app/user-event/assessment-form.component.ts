@@ -40,8 +40,8 @@ export class AssessmentFormComponent implements OnInit, OnChanges {
   protected _isLast: boolean;
   protected _inlineAnonymous: boolean;
   /**
-   * Unique answers ID for saving in LocalStorage that
-   * includes projectId, userId, formId
+   * Unique answersId for saving in LocalStorage that
+   * include projectId, userId, formId
    */
   private _userAnswersId: string;
   private _hasUnsavedAnswers: boolean = false;
@@ -71,6 +71,10 @@ export class AssessmentFormComponent implements OnInit, OnChanges {
 
   public get form(): FormModel {
     return this._form;
+  }
+
+  public set form(value: FormModel) {
+    this._form = value;
   }
 
   public get FormElementType() {
@@ -316,7 +320,7 @@ export class AssessmentFormComponent implements OnInit, OnChanges {
     this._form.elements.map(element => element.tempComment = undefined);
   }
 
-  protected clearUnsavedAnswers() {
+  public clearUnsavedAnswers() {
     localStorage.removeItem(this.userAnswersId);
     this.hasUnsavedAnswers = false;
   }
@@ -438,7 +442,7 @@ export class AssessmentFormComponent implements OnInit, OnChanges {
   protected _update(): void {
     this._formUsersService.get(this._id, this._queryParams).subscribe((form: FormModel) => {
       this._form = form;
-
+      console.log(form);
       this._getAnswers();
     });
   }
