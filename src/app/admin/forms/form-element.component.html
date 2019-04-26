@@ -55,9 +55,8 @@
     </div>
   </div>
 
-  <div class="form-group row checkbox mb-1" *ngIf="element.value.kind !== FormElementType.Checkbox">
-    <label class="col-form-label col-4 " for="required-{{ index }}">{{ 'T_FORM_REQUIRED' |
-      translate}}</label>
+  <div class="form-group row checkbox mb-1" *ngIf="(element.value.kind !== FormElementType.Checkbox) && (element.value.kind !== FormElementType.Checkboxgroup)">
+    <label class="col-form-label col-4 " for="required-{{ index }}">{{ 'T_FORM_REQUIRED' | translate}}</label>
     <div class="col-8">
       <label class="switch switch-icon switch-primary">
         <input type="checkbox"
