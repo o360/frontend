@@ -3,7 +3,6 @@ import { AssessmentFormStatus, AssessmentModel, IFormAnswer } from '../core/mode
 import { UserModel } from '../core/models/user-model';
 import { AuthService } from '../core/services/auth.service';
 import { ModelId } from '../core/models/model';
-import { AssessmentFormService } from '../core/services/assessment-form.service';
 
 export declare type AssessmentObject = AssessmentModel | IFormAnswer;
 
@@ -102,15 +101,11 @@ export class AssessmentObjectListComponent {
     return this._authService.user.id;
   }
 
-  constructor(private _authService: AuthService,
-              private _assessmentFormService: AssessmentFormService) {
+  constructor(private _authService: AuthService) {
   }
 
   public selectUser(user: AssessmentModel) {
     if (this._selectedItem !== user) {
-      if (!this._assessmentFormService.answersAreEqual) {
-        this._assessmentFormService.reset();
-      }
       this._selectedItem = user;
       this._selectedItemChange.emit(user);
     }

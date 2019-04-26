@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, OnDestroy } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { AssessmentFormStatus, AssessmentModel, IElementAnswer } from '../core/models/assessment-model';
 import { FormElement, FormElementType, FormModel } from '../core/models/form-model';
 import { ModelId } from '../core/models/model';
@@ -10,8 +10,6 @@ import { EventStatus } from '../core/models/event-model';
 import { RequireValue } from '../admin/forms/form-builder.component';
 import { UserModel } from '../core/models/user-model';
 import { Router } from '@angular/router';
-import { AssessmentFormService } from '../core/services/assessment-form.service';
-import { Observable } from 'rxjs';
 
 export interface IComment {
   formElementId: ModelId;
@@ -23,7 +21,7 @@ export interface IComment {
   templateUrl: 'assessment-form.component.html',
   styleUrls: ['assessment-form.component.scss'],
 })
-export class AssessmentFormComponent implements OnInit, OnChanges, OnDestroy {
+export class AssessmentFormComponent implements OnInit, OnChanges {
   protected _id: ModelId;
   protected _user: UserModel;
   protected _form: FormModel;
@@ -41,6 +39,12 @@ export class AssessmentFormComponent implements OnInit, OnChanges, OnDestroy {
   protected _cleared: number;
   protected _isLast: boolean;
   protected _inlineAnonymous: boolean;
+  /**
+   * Unique answers ID for saving in LocalStorage that
+   * includes projectId, userId, formId
+   */
+  private _userAnswersId: string;
+  private _hasUnsavedAnswers: boolean = false;
 
   public get id(): ModelId {
     return this._id;
@@ -175,14 +179,42 @@ export class AssessmentFormComponent implements OnInit, OnChanges, OnDestroy {
     return this._answers;
   }
 
+  public set answers(value: IElementAnswer[]) {
+    this._answers = value;
+  }
+
+  public get userAnswersId(): string {
+    return this._userAnswersId;
+  }
+
+  public set userAnswersId(value: string) {
+    this._userAnswersId = value;
+  }
+
+  public get queryParams(): IQueryParams {
+    return this._queryParams;
+  }
+
+  public get hasUnsavedAnswers(): boolean {
+    return this._hasUnsavedAnswers;
+  }
+
+  public set hasUnsavedAnswers(value: boolean) {
+    this._hasUnsavedAnswers = value;
+  }
+
+  public set assessment(value: AssessmentModel) {
+    this._assessment = value;
+  }
+
   constructor(protected _assessmentService: AssessmentService,
               protected _formUsersService: FormService,
               protected _notificationService: NotificationService,
-              protected _router: Router,
-              protected _assessmentFormService: AssessmentFormService) {
+              protected _router: Router) {
   }
 
   public ngOnInit() {
+    this.userAnswersId = `${this.queryParams.projectId}/${this.user.id}/${this.id}`;
     this._update();
   }
 
@@ -195,12 +227,6 @@ export class AssessmentFormComponent implements OnInit, OnChanges, OnDestroy {
         this._isAnonymous = this._inlineAnonymous;
         this.onFormChange();
       }
-    }
-  }
-
-  public ngOnDestroy() {
-    if (this.status && this.status.includes('inProgress')) {
-      // localStorage.setItem(this.user.id)
     }
   }
 
@@ -264,15 +290,16 @@ export class AssessmentFormComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     this._formChange.emit(this._assessment);
-    this._assessmentFormService.equals(this.answers, this.assessment.form.answers);
-    console.log(this.user.id, this.assessment.form.answers);
+    localStorage.setItem(this.userAnswersId, JSON.stringify(this.assessment.form.answers));
   }
 
   public save() {
     this._assessmentService.saveBulk([this._assessment], this._queryParams).subscribe(() => {
+      if (this.hasUnsavedAnswers) {
+        this.clearUnsavedAnswers();
+      }
       this._formStatus = AssessmentFormStatus.Answered;
       this._formSave.emit(this._assessment);
-      this._assessmentFormService.reset();
 
       if (this._isLast) {
         this._finish();
@@ -283,7 +310,15 @@ export class AssessmentFormComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   public clearComment() {
+    if (this.hasUnsavedAnswers) {
+      this.clearUnsavedAnswers();
+    }
     this._form.elements.map(element => element.tempComment = undefined);
+  }
+
+  protected clearUnsavedAnswers() {
+    localStorage.removeItem(this.userAnswersId);
+    this.hasUnsavedAnswers = false;
   }
 
   protected _finish() {
@@ -293,6 +328,7 @@ export class AssessmentFormComponent implements OnInit, OnChanges, OnDestroy {
   protected _getAnswers() {
     this._assessmentService.list(this._queryParams).subscribe((res: IListResponse<AssessmentModel>) => {
       const list = res.data;
+      const unsavedAnswers: string | null = localStorage.getItem(this.userAnswersId);
       let currentForm;
 
       if (this._user) {
@@ -307,8 +343,24 @@ export class AssessmentFormComponent implements OnInit, OnChanges, OnDestroy {
         this._answers = currentForm.answers;
       }
 
-      if (this._answers) {
-        this._answers.forEach((answer) => {
+      if (!!unsavedAnswers && JSON.parse(unsavedAnswers).length > 0) {
+        this.answers = JSON.parse(unsavedAnswers);
+        this.hasUnsavedAnswers = true;
+        this.assessment = new AssessmentModel({
+          form: {
+            formId: this._id,
+            answers: this.answers,
+            isAnonymous: this._isAnonymous,
+            isSkipped: false,
+            status: AssessmentFormStatus.Answered
+          },
+          isAnswered: true,
+          userId: this.user.id
+        });
+      }
+
+      if (this.answers) {
+        this.answers.forEach((answer) => {
           const element = this._form.elements.find(x => x.id === answer.elementId);
 
           if (!RequireValue(element.kind)) {

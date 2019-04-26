@@ -384,7 +384,7 @@
         <button type="button"
                 (click)="assessmentForm.reset(); clearComment()"
                 class="btn btn-default mr-1 mt-0"
-                [disabled]="assessmentForm.pristine">
+                [disabled]="hasUnsavedAnswers ? false : assessmentForm.pristine">
           {{ 'T_ACTION_CLEAR' | translate }}
         </button>
 
@@ -393,7 +393,7 @@
             <button type="button"
                     (click)="save()"
                     class="btn btn-primary mt-0"
-                    [disabled]="!assessmentForm.valid || !assessment">
+                    [disabled]="hasUnsavedAnswers ? false : !assessmentForm.valid || !assessment">
               {{ 'T_ACTION_SAVE_AND_FINISH' | translate }}
             </button>
           </ng-template>
@@ -401,7 +401,7 @@
             <button type="button"
                     (click)="save()"
                     class="btn btn-primary mt-0"
-                    [disabled]="!assessmentForm.valid || !assessment">
+                    [disabled]="hasUnsavedAnswers ? false : !assessmentForm.valid || !assessment">
               {{ 'T_ACTION_SAVE_AND_SHOW_NEXT' | translate }}
             </button>
           </ng-template>
