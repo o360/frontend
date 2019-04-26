@@ -343,20 +343,23 @@ export class AssessmentFormComponent implements OnInit, OnChanges {
         this._answers = currentForm.answers;
       }
 
-      if (!!unsavedAnswers && JSON.parse(unsavedAnswers).length > 0) {
-        this.answers = JSON.parse(unsavedAnswers);
-        this.hasUnsavedAnswers = true;
-        this.assessment = new AssessmentModel({
-          form: {
-            formId: this._id,
-            answers: this.answers,
-            isAnonymous: this._isAnonymous,
-            isSkipped: false,
-            status: AssessmentFormStatus.Answered
-          },
-          isAnswered: true,
-          userId: this.user.id
-        });
+      if (!!unsavedAnswers) {
+        const parsedAnswers = JSON.parse(unsavedAnswers);
+        if (parsedAnswers.length > 0) {
+          this.answers = parsedAnswers;
+          this.hasUnsavedAnswers = true;
+          this.assessment = new AssessmentModel({
+            form: {
+              formId: this._id,
+              answers: this.answers,
+              isAnonymous: this._isAnonymous,
+              isSkipped: false,
+              status: AssessmentFormStatus.Answered
+            },
+            isAnswered: true,
+            userId: this.user.id
+          });
+        }
       }
 
       if (this.answers) {
