@@ -29,7 +29,6 @@ import { UserService } from './services/user.service';
 import { ProjectService } from './services/project.service';
 import { UserPictureService } from './services/user-picture.service';
 import { InviteService } from './services/invite.service';
-import { AssessmentFormService } from './services/assessment-form.service';
 
 @NgModule({
   imports: [
@@ -66,8 +65,7 @@ import { AssessmentFormService } from './services/assessment-form.service';
     AssessmentService,
     ConfirmationService,
     BreadcrumbService,
-    UserPictureService,
-    AssessmentFormService
+    UserPictureService
   ],
   exports: [
     HeaderComponent,
