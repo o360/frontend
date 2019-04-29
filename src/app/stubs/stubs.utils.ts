@@ -222,11 +222,3 @@ export class ConfigurationServiceStub {
     return this._configData;
   }
 }
-
-/* FormServiceStub stub */
-@Injectable()
-export class FormServiceStub {
-  public clone(model: any): Observable<any> {
-    return of(model);
-  }
-}
