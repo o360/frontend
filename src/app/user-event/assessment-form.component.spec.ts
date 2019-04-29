@@ -1,5 +1,5 @@
-import { ComponentFixture, getTestBed, TestBed } from '@angular/core/testing';
-import { Component, Injector, OnInit } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { TestService } from '../core/services/rest.service.spec';
@@ -33,7 +33,6 @@ export class TestAssessmentFormComponent extends AssessmentFormComponent impleme
 describe('Assessment Form Component', () => {
   let comp: TestAssessmentFormComponent;
   let fixture: ComponentFixture<TestAssessmentFormComponent>;
-  let injector: Injector;
   let store = {};
   let assessmentService: AssessmentService;
 
@@ -83,4 +82,12 @@ describe('Assessment Form Component', () => {
     localStorage.setItem('someKey', 'test');
     expect(localStorage.getItem('someKey')).toEqual('test');
   });
+
+  it('should be defined', () => {
+    expect(comp).toBeDefined();
+  });
+
+  // it('should be call Te', () => {
+  //   expect(comp).toBeDefined();
+  // });
 });
