@@ -19,7 +19,7 @@ export class ConfigurationService {
       return this._http.get<EnvConfig>(`${this._configUrlPath}`, { responseType: 'json' })
         .pipe(
           tap((result: EnvConfig) => {
-            console.log('config.json: ', result);
+            alert(result);
             this._configData = result;
           }),
           catchError((error: HttpErrorResponse) => observableThrowError(error))
