@@ -3,6 +3,7 @@ import { IQueryParams, ModelConstructor } from '../core/services/rest.service';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { Model, ModelId } from '../core/models/model';
 import { TestModel } from '../core/models/model.spec';
+import { AssessmentModel } from '../core/models/assessment-model';
 
 /* RestServiceStub stub */
 @Injectable()
@@ -131,5 +132,63 @@ export class TranslateServiceStub {
 
   public instant(key: string | string[], interpolateParams?: Object): string | any {
     return 'translate';
+  }
+}
+
+/* AssessmentServiceStub stub */
+@Injectable()
+export class AssessmentServiceStub {
+  private mockData: any = {
+    forms: [
+      {
+        answers: [
+          { elementId: 5895, text: 'sd' }, { elementId: 5823, text: '2323' }
+        ],
+        isSkipped: false,
+        form: { id: 1025, name: 'Игра престолов: Кто завладеет Железным троном?' },
+        isAnonymous: true,
+        status: 'answered'
+      }
+    ],
+    isAnswered: true,
+    isClassic: false,
+    user: {
+      id: 89,
+      name: 'Test',
+      gender: 'male',
+      hasPicture: false,
+      email: 'test@test.rr',
+      status: '',
+      role: '',
+      timezone: 'Z',
+      termsApproved: false,
+    }
+  };
+
+  private mockInputModel: any = {
+    elements: [{
+      caption: 'Test CAPTION',
+      hint: '0007',
+      id: 5897,
+      kind: 'textfield',
+      required: true,
+      machineName: '53281fe6-c777-49e4-99e3-d3a1f2758748'
+    }],
+    id: 1026,
+    machineName: '30250150-95b6-4056-be79-c27265fec66b',
+    name: 'Test survey',
+    showInAggregation: true
+  };
+
+  public saveBulk (model?: AssessmentModel[], queryParams?: IQueryParams): Observable<AssessmentModel> {
+    return of(this.mockData);
+  }
+}
+
+/* FormServiceStub stub */
+@Injectable()
+export class FormServiceStub {
+  public clone(model: any): Observable<any> {
+    return of(model);
   }
 }
