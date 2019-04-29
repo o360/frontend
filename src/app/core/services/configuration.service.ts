@@ -8,7 +8,7 @@ import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class ConfigurationService {
-  private readonly _configUrlPath: string = '/assets/config.json';
+  private readonly _configUrlPath: string = '/config.json';
   private _configData: EnvConfig = Config;
 
   constructor(private _http: HttpClient) {
