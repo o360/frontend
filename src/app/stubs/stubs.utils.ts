@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable, of } from 'rxjs';
 import { Model, ModelId } from '../core/models/model';
 import { TestModel } from '../core/models/model.spec';
 import { AssessmentModel } from '../core/models/assessment-model';
+import { EnvConfig } from '../../environments/env-config.interface';
 
 /* RestServiceStub stub */
 @Injectable()
@@ -182,6 +183,43 @@ export class AssessmentServiceStub {
 
   public saveBulk (model?: AssessmentModel[], queryParams?: IQueryParams): Observable<AssessmentModel> {
     return of(this.mockData);
+  }
+}
+
+/* FormServiceStub stub */
+@Injectable()
+export class FormServiceStub {
+  public clone(model: any): Observable<any> {
+    return of(model);
+  }
+}
+
+/* ConfigurationService stub */
+export class ConfigurationServiceStub {
+  private _configData: EnvConfig = {
+    ENV: 'test',
+    API: 'http://test/api',
+    TITLE_MAIN: 'test',
+    TITLE_NAV: 'test',
+    PROVIDERS: {
+      'google': {
+        authorizationUrlBase: 'https://accounts.google.com/o/oauth2/auth',
+        getParams: {
+          response_type: 'code',
+          client_id: '183984693644',
+          scope: 'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email',
+          redirect_uri: 'http://localhost:5555/login/google'
+        }
+      }
+    }
+  };
+
+  public loadConfigurationData() {
+    return Promise.resolve();
+  }
+
+  public get config(): EnvConfig {
+    return this._configData;
   }
 }
 

@@ -5,10 +5,11 @@ import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
 import { NotificationService } from './notification.service';
 import { ConfirmationService } from './confirmation.service';
-import { AuthServiceStub, ConfirmationStub, NotificationServiceStub, RouterStub } from '../../stubs/stubs.utils';
+import { AuthServiceStub, ConfigurationServiceStub, ConfirmationStub, NotificationServiceStub, RouterStub } from '../../stubs/stubs.utils';
 import { Observable } from 'rxjs';
 import { FormModel } from '../models/form-model';
 import { FormService } from './form.service';
+import { ConfigurationService } from './configuration.service';
 
 describe('FormService Service', () => {
   let testService: FormService;
@@ -27,7 +28,8 @@ describe('FormService Service', () => {
         { provide: NotificationService, useClass: NotificationServiceStub },
         { provide: AuthService, useClass: AuthServiceStub },
         { provide: Router, useClass: RouterStub },
-        { provide: ConfirmationService, useClass: ConfirmationStub }
+        { provide: ConfirmationService, useClass: ConfirmationStub },
+        { provide: ConfigurationService, useClass: ConfigurationServiceStub }
       ]
     });
     injector = getTestBed();

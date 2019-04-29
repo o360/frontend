@@ -7,6 +7,7 @@ import { AuthService } from './auth.service';
 import { NotificationService } from './notification.service';
 import { Router } from '@angular/router';
 import { ConfirmationService } from './confirmation.service';
+import { ConfigurationService } from './configuration.service';
 
 @Injectable()
 @RestServiceConfig({
@@ -18,7 +19,8 @@ export class EventService extends RestService<EventModel> {
               authService: AuthService,
               router: Router,
               notificationService: NotificationService,
-              confirmationService: ConfirmationService) {
-    super(http, authService, router, notificationService, confirmationService);
+              confirmationService: ConfirmationService,
+              configService: ConfigurationService) {
+    super(http, authService, router, notificationService, confirmationService, configService);
   }
 }

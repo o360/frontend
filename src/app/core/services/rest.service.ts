@@ -3,11 +3,11 @@ import { catchError, map } from 'rxjs/operators';
 import { forwardRef, Inject, Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Config } from '../../../environments/env.config';
 import { Model, ModelId } from '../models/model';
 import { AuthService } from './auth.service';
 import { NotificationService } from './notification.service';
 import { ConfirmationService } from './confirmation.service';
+import { ConfigurationService } from './configuration.service';
 
 export interface IQueryParams {
   [key: string]: string | ModelId;
@@ -51,7 +51,7 @@ export declare type ModelConstructor<T> = { new(json: Object): T };
  * */
 @Injectable()
 export class RestService<T extends Model> {
-  protected _host: string = Config.API;
+  protected _host: string;
   protected _endpoint: string;
   protected _entityName: string;
   protected _entityConstructor: ModelConstructor<T>;
@@ -60,7 +60,9 @@ export class RestService<T extends Model> {
               protected _authService: AuthService,
               protected _router: Router,
               protected _notificationService: NotificationService,
-              @Inject(forwardRef(() => ConfirmationService)) protected _confirmationService: ConfirmationService) {
+              @Inject(forwardRef(() => ConfirmationService)) protected _confirmationService: ConfirmationService,
+              protected _configService: ConfigurationService) {
+    this._host = this._configService.config.API;
   }
 
   /**
@@ -166,7 +168,7 @@ export class RestService<T extends Model> {
   protected _getRequestParams(id?: ModelId, params?: IQueryParams) {
     let path: string[] = [];
 
-    path.push(this._host);
+    path.push(this._configService.config.API);
     path.push(this._endpoint);
     path.push(this._entityName);
 

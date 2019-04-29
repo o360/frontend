@@ -8,10 +8,18 @@ import { NotificationService } from './notification.service';
 import { RestService } from './rest.service';
 import { Model } from '../models/model';
 import { ConfirmationService } from './confirmation.service';
-import { AuthServiceStub, ConfirmationStub, NotificationServiceStub, RouterStub, RestServiceStub } from '../../stubs/stubs.utils';
+import {
+  AuthServiceStub,
+  ConfirmationStub,
+  NotificationServiceStub,
+  RouterStub,
+  RestServiceStub,
+  ConfigurationServiceStub
+} from '../../stubs/stubs.utils';
 import { HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { Observable } from 'rxjs';
+import { ConfigurationService } from './configuration.service';
 
 export interface IListResponse<TestModel extends Model> {
   data: TestModel[];
@@ -45,7 +53,8 @@ describe('RestService Service', () => {
         { provide: NotificationService, useClass: NotificationServiceStub },
         { provide: AuthService, useClass: AuthServiceStub },
         { provide: Router, useClass: RouterStub },
-        { provide: ConfirmationService, useClass: ConfirmationStub }
+        { provide: ConfirmationService, useClass: ConfirmationStub },
+        { provide: ConfigurationService, useClass: ConfigurationServiceStub }
       ]
     });
     injector = getTestBed();
