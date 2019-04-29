@@ -1,7 +1,7 @@
 import { EnvConfig } from '../../../environments/env-config.interface';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { tap, catchError, share } from 'rxjs/operators';
+import { tap, catchError } from 'rxjs/operators';
 import { throwError as observableThrowError } from 'rxjs';
 import { Config } from '../../../environments/env.config';
 import { environment } from '../../../environments/environment';
@@ -16,9 +16,12 @@ export class ConfigurationService {
 
   public loadConfigurationData(): Promise<EnvConfig> | Promise<void> {
     if (environment.production) {
-      return this._http.get<EnvConfig>(`${this._configUrlPath}`)
+      return this._http.get<EnvConfig>(`${this._configUrlPath}`, { responseType: 'json' })
         .pipe(
-          tap((result: EnvConfig) => this._configData = result),
+          tap((result: EnvConfig) => {
+            console.log('config.json: ', result);
+            this._configData = result;
+          }),
           catchError((error: HttpErrorResponse) => observableThrowError(error))
         )
         .toPromise();
