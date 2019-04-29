@@ -13,7 +13,7 @@ import { AssessmentProjectListComponent } from './assessment-project-list.compon
     }, {
       path: ':id',
       component: AssessmentProjectListComponent,
-      breadcrumb: 'T_ASSESSMENT_EVENT'
+      breadcrumb: 'T_ASSESSMENT_EVENT',
     }])
   ],
   exports: [RouterModule]
