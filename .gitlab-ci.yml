@@ -54,5 +54,5 @@ deploy:
   script:
     - docker rm -f public-bw-assessment-ui || true
     - docker run  -d --restart=always -p  80:80 --name public-bw-assessment-ui git.bw-sw.com:5000/open360/frontend:${CI_COMMIT_REF_NAME}-${CI_PIPELINE_ID}
-    - docker cp ./src/deploy-configs/dev.json public-bw-assessment-ui:/config.json
+    - docker cp ./src/deploy-configs/dev.json public-bw-assessment-ui:./config.json
 
