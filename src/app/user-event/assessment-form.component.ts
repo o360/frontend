@@ -10,6 +10,7 @@ import { EventStatus } from '../core/models/event-model';
 import { RequireValue } from '../admin/forms/form-builder.component';
 import { UserModel } from '../core/models/user-model';
 import { Router } from '@angular/router';
+import { catchError } from 'rxjs/operators';
 
 export interface IComment {
   formElementId: ModelId;
@@ -390,21 +391,25 @@ export class AssessmentFormComponent implements OnInit, OnChanges {
   }
 
   protected _parseUnsavedAnswers(unsavedAnswers: string) {
-    const parsedAnswers = JSON.parse(unsavedAnswers);
-    if (!!parsedAnswers.length) {
-      this.answers = parsedAnswers;
-      this.hasUnsavedAnswers = true;
-      this.assessment = new AssessmentModel({
-        form: {
-          formId: this._id,
-          answers: this.answers,
-          isAnonymous: this._isAnonymous,
-          isSkipped: false,
-          status: AssessmentFormStatus.Answered
-        },
-        isAnswered: true,
-        userId: this.user.id
-      });
+    try {
+      const parsedAnswers = JSON.parse(unsavedAnswers);
+      if (!!parsedAnswers.length) {
+        this.answers = parsedAnswers;
+        this.hasUnsavedAnswers = true;
+        this.assessment = new AssessmentModel({
+          form: {
+            formId: this._id,
+            answers: this.answers,
+            isAnonymous: this._isAnonymous,
+            isSkipped: false,
+            status: AssessmentFormStatus.Answered
+          },
+          isAnswered: true,
+          userId: this.user.id
+        });
+      }
+    } catch (e) {
+      catchError(e);
     }
   }
 
