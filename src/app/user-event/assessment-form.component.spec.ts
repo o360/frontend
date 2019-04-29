@@ -87,7 +87,8 @@ describe('Assessment Form Component', () => {
     expect(comp).toBeDefined();
   });
 
-  // it('should be call Te', () => {
-  //   expect(comp).toBeDefined();
-  // });
+  it('should be call method', () => {
+    spyOn(assessmentService, 'saveBulk').and.callFake(assessmentService.saveBulk);
+    expect(comp.answers).toBeDefined();
+  });
 });
