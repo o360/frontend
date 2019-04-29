@@ -2,9 +2,10 @@ import { Injector } from '@angular/core';
 import { getTestBed, TestBed } from '@angular/core/testing';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthService, tokenLsKey } from './auth.service';
-import { RouterStub } from '../../stubs/stubs.utils';
+import { ConfigurationServiceStub, RouterStub } from '../../stubs/stubs.utils';
 import { Router } from '@angular/router';
 import { AccountModel } from '../models/account-model';
+import { ConfigurationService } from './configuration.service';
 
 describe('Auth Service', () => {
   let authService: AuthService;
@@ -15,6 +16,7 @@ describe('Auth Service', () => {
       imports: [HttpClientModule],
       providers: [AuthService,
         { provide: Router, useClass: RouterStub },
+        { provide: ConfigurationService, useClass: ConfigurationServiceStub }
       ]
     });
     injector = getTestBed();

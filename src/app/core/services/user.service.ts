@@ -11,6 +11,7 @@ import { ConfirmationService } from './confirmation.service';
 import { ModelId } from '../models/model';
 import { Observable } from 'rxjs';
 import { GroupModel } from '../models/group-model';
+import { ConfigurationService } from './configuration.service';
 
 @Injectable()
 @RestServiceConfig({
@@ -22,8 +23,9 @@ export class UserService extends RestService<UserModel> {
               authService: AuthService,
               router: Router,
               notificationService: NotificationService,
-              confirmationService: ConfirmationService) {
-    super(http, authService, router, notificationService, confirmationService);
+              confirmationService: ConfirmationService,
+              configService: ConfigurationService) {
+    super(http, authService, router, notificationService, confirmationService, configService);
   }
 
   public getGroups(id: ModelId): Observable<IListResponse<GroupModel>> {

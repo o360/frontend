@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
 import { Observable } from 'rxjs';
 import { ModelId } from '../models/model';
+import { ConfigurationService } from './configuration.service';
 
 @Injectable()
 @RestServiceConfig({
@@ -22,8 +23,9 @@ export class AdminUserService extends RestService<UserModel> {
               authService: AuthService,
               router: Router,
               notificationService: NotificationService,
-              confirmationService: ConfirmationService) {
-    super(http, authService, router, notificationService, confirmationService);
+              confirmationService: ConfirmationService,
+              configService: ConfigurationService) {
+    super(http, authService, router, notificationService, confirmationService, configService);
   }
 
   public setPicture(id: ModelId, file: string): Observable<any> {

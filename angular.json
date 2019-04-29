@@ -65,12 +65,6 @@
               ]
             },
             "local": {
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/env.config.ts",
-                  "with": "src/environments/env.config.local.ts"
-                }
-              ],
               "poll": 2000
             }
           }

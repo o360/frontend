@@ -29,6 +29,7 @@ import { UserService } from './services/user.service';
 import { ProjectService } from './services/project.service';
 import { UserPictureService } from './services/user-picture.service';
 import { InviteService } from './services/invite.service';
+import { ConfigurationService } from './services/configuration.service';
 
 @NgModule({
   imports: [
@@ -65,7 +66,8 @@ import { InviteService } from './services/invite.service';
     AssessmentService,
     ConfirmationService,
     BreadcrumbService,
-    UserPictureService
+    UserPictureService,
+    ConfigurationService
   ],
   exports: [
     HeaderComponent,

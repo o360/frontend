@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Converter } from 'showdown';
 import { HttpClient } from '@angular/common/http';
 import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
-import { Config } from '../../environments/env.config';
+import { ConfigurationService } from '../core/services/configuration.service';
 
 @Component({
   selector: 'bs-agreement-view',
@@ -17,7 +17,9 @@ export class AgreementViewComponent implements OnInit {
     return this._agreement;
   }
 
-  constructor(private _http: HttpClient, private _translate: TranslateService) {
+  constructor(private _http: HttpClient,
+              private _translate: TranslateService,
+              private _configService: ConfigurationService) {
   }
 
   public ngOnInit() {
@@ -30,7 +32,7 @@ export class AgreementViewComponent implements OnInit {
   }
 
   protected _readFile() {
-    let path = `${Config.AGREEMENTS}/${this._language}.md`;
+    let path = `${this._configService.config.AGREEMENTS}/${this._language}.md`;
 
     this._http.get(path, { responseType: 'text' })
       .pipe(

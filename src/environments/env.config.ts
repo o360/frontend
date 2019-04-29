@@ -1,29 +1,7 @@
 import { EnvConfig } from './env-config.interface';
-import { environment } from './environment';
 
-const ProdConfig: EnvConfig = {
-  ENV: 'PROD',
-  API: 'https://open360.bw-sw.com/api/v1.0',
-  TITLE_MAIN: 'Open360',
-  TITLE_NAV: 'Open360',
-  PROVIDERS: {
-    'google': {
-      authorizationUrlBase: 'https://accounts.google.com/o/oauth2/auth',
-      getParams: {
-        response_type: 'code',
-        client_id: '127600832093-e6ka9ie7hvmp6ji8k1t3mp1l2uk9vgpl.apps.googleusercontent.com',
-        scope: 'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email',
-        redirect_uri: 'https://open360.bw-sw.com/login/google'
-      }
-    }
-  },
-  FIREBASE_URL: 'https://model-service-51554.firebaseio.com',
-  DEFAULT_LANG: 'en',
-  AGREEMENTS: '/assets/agreement'
-};
-
-const DevConfig: EnvConfig = {
-  ENV: 'DEV',
+export const Config: EnvConfig = {
+  ENV: 'LOCAL',
   API: 'http://vm-a834f9ac-1c23-40f2-9461-618361703efd.premium.cs2.netpoint-dc.com:9000/api/v1.0',
   TITLE_MAIN: 'Open360',
   TITLE_NAV: 'Open360',
@@ -34,7 +12,7 @@ const DevConfig: EnvConfig = {
         response_type: 'code',
         client_id: '183984693644-rrf60igolgdvtmdq5oue0opi3jvq4vl8.apps.googleusercontent.com',
         scope: 'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email',
-        redirect_uri: 'http://vm-a834f9ac-1c23-40f2-9461-618361703efd.premium.cs2.netpoint-dc.com/login/google'
+        redirect_uri: 'http://localhost:5555/login/google'
       }
     }
   },
@@ -42,5 +20,3 @@ const DevConfig: EnvConfig = {
   DEFAULT_LANG: 'en',
   AGREEMENTS: '/assets/agreement'
 };
-
-export const Config: EnvConfig = environment.production ? ProdConfig : DevConfig;
