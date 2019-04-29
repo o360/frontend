@@ -65,10 +65,9 @@ describe('Assessment Form Component', () => {
         store = {};
       }
     };
-    injector = getTestBed();
     fixture = TestBed.createComponent(TestAssessmentFormComponent);
     comp = fixture.componentInstance;
-    assessmentService = injector.get(AssessmentService);
+    assessmentService = TestBed.get(AssessmentService);
 
     spyOn(localStorage, 'getItem')
       .and.callFake(mockLocalStorage.getItem);
@@ -78,10 +77,6 @@ describe('Assessment Form Component', () => {
       .and.callFake(mockLocalStorage.removeItem);
     spyOn(localStorage, 'clear')
       .and.callFake(mockLocalStorage.clear);
-  });
-
-  it('should define', () => {
-    expect(comp).toBeDefined();
   });
 
   it('should store the value in localStorage', () => {
