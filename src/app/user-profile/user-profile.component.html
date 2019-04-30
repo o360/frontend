@@ -16,7 +16,10 @@
         <button *ngIf="model.status === UserStatus.Approved"
                 type="button"
                 class="btn btn-primary"
-                [routerLink]="['edit']">{{ 'T_PROFILE_EDIT' | translate }}
+                [tooltip]="'T_PROFILE_EDIT' | translate"
+                placement="bottom"
+                [routerLink]="['edit']">
+          <i class="fa fa-pencil"></i>
         </button>
       </div>
     </div>
