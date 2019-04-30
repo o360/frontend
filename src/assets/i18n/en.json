@@ -113,6 +113,7 @@
   "T_USER_SEARCH": "Search",
   "T_USERS_GROUPS": "Groups that user participates in",
   "T_FILTER_APPLY": "Apply",
+  "T_FILTER_RESET": "Reset",
   "T_USER_FILTER_TITLE": "Filter users",
   "T_USER_FILTER_TEXT": "You can set up the filter for users",
   "T_STATUS_NAME": "Status",
