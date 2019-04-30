@@ -29,7 +29,9 @@
                       role="button"
                       [disabled]="!filter.value"
                       class="btn btn-sm"
-                      (click)="resetFilter(filter)">
+                      (click)="resetFilter(filter)"
+                      [tooltip]="'T_FILTER_RESET' | translate"
+                      placement="bottom">
                 <i class="icon-reload"></i>
               </button>
             </div>
@@ -43,7 +45,9 @@
                       role="button"
                       [disabled]="!filter.value"
                       class="btn btn-sm"
-                      (click)="resetFilter(filter)">
+                      (click)="resetFilter(filter)"
+                      [tooltip]="'T_FILTER_RESET' | translate"
+                      placement="bottom">
                 <i class="icon-reload"></i>
               </button>
             </div>
@@ -62,7 +66,9 @@
                       role="button"
                       [disabled]="!filter.value"
                       class="btn btn-sm"
-                      (click)="resetFilter(filter)">
+                      (click)="resetFilter(filter)"
+                      [tooltip]="'T_FILTER_RESET' | translate"
+                      placement="bottom">
                 <i class="icon-reload"></i>
               </button>
             </div>

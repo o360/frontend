@@ -41,7 +41,9 @@
               <i class="fa fa-hand-pointer-o"></i>
             </button>
 
-            <button type="button"
+            <button
+                    *ngIf="model.status !== EventStatus.InProgress"
+                    type="button"
                     class="btn btn-sm btn-danger ml-1"
                     [tooltip]="'T_ACTION_REMOVE' | translate"
                     placement="bottom"
