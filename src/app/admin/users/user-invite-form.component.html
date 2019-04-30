@@ -19,10 +19,11 @@
                  id="email"
                  name="email"
                  #email="ngModel"
-                 pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
                  required
                  placeholder="{{ 'T_FORM_ENTER_EMAIL' | translate }}"
-                 [(ngModel)]="emails">
+                 ngModel
+                 [email]="true"
+          >
           <div class="form-errors"
                *ngIf="email.errors && email.touched">
             <div class="form-control-feedback" *ngIf="email.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}</div>
