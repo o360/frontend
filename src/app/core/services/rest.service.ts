@@ -220,7 +220,7 @@ export class RestService<T extends Model> {
       if (err.code === 'AUTHORIZATION-EVENT') {
         this._notificationService.error(this._prepareErrorCodeTranslation(err.code));
       } else {
-        this._notificationService.error(error.message, `${error.status} ${error.statusText}`);
+        this._notificationService.error(err.message, `${error.status} ${error.statusText}`);
       }
       return observableThrowError(error);
     }  if (error.status === 404) {
@@ -242,7 +242,7 @@ export class RestService<T extends Model> {
       }
       return observableThrowError(error);
     }
-    this._notificationService.error(error.message, `${error.status} ${error.statusText}`);
+    this._notificationService.error(err.message, `${error.status} ${error.statusText}`);
     return observableThrowError(error);
   }
 
