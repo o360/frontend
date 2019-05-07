@@ -93,7 +93,7 @@ export class AdminUserInviteFormComponent extends FormComponent<InviteModel> imp
   }
 
   private _getEmails() {
-    return this._emails.split(',').map((item) => {
+    return this.emails.split(',').map((item) => {
       return item.replace(/\s/g, '');
     });
   }
