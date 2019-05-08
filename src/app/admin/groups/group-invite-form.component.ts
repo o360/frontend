@@ -35,6 +35,10 @@ export class AdminGroupInviteFormComponent extends FormComponent<InviteModel> im
     this._emails = value;
   }
 
+  public get emails(): string {
+    return this._emails;
+  }
+
   public get isMultipleGroups(): boolean {
     return this._isMultipleGroups;
   }
@@ -101,7 +105,7 @@ export class AdminGroupInviteFormComponent extends FormComponent<InviteModel> im
   }
 
   private _getEmails() {
-    return this._emails.split(',').map((item) => {
+    return this.emails.split(',').map((item) => {
       return item.replace(/\s/g, '');
     });
   }
