@@ -145,7 +145,7 @@
                   <b class="break-word" *ngIf="item.value.kind !== FormElementType.LikeDislike"> {{ item.value.caption }} </b>
                 </div>
                 <div class="col-4 text-right">
-                  <div class="btn-group" role="group">
+                  <div class="btn-group button-container" role="group">
                     <button *ngIf="item.value.kind !== FormElementType.LikeDislike"
                             type="button" role="button" class="btn btn-link btn-sm">
                       <i class="fa"
@@ -153,7 +153,7 @@
                     </button>
                     <button type="button"
                             role="button"
-                            class="btn btn-link btn-sm margin-left-15"
+                            class="btn btn-link btn-sm"
                             (click)="deleteElement(i);">
                       <i class="fa fa-trash"></i>
                     </button>

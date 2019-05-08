@@ -7,7 +7,7 @@
       <div class="col-md-6">
         <h2>{{ model.name }}</h2>
       </div>
-      <div class="col-md-6 text-right">
+      <div class="col-md-6 text-right button-container">
         <button type="button"
                 role="button"
                 class="btn btn-warning"
@@ -20,7 +20,7 @@
         </button>
         <button type="button"
                 role="button"
-                class="btn btn-primary margin-left-15"
+                class="btn btn-primary"
                 [tooltip]="'T_ACTION_EDIT' | translate"
                 placement="bottom"
                 [routerLink]="['/admin/forms/', model.id, 'edit']">
@@ -28,7 +28,7 @@
         </button>
         <button type="button"
                 role="button"
-                class="btn btn-danger margin-left-15"
+                class="btn btn-danger"
                 [tooltip]="'T_ACTION_DELETE' | translate"
                 placement="bottom"
                 bsConfirm

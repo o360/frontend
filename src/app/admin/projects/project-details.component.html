@@ -8,7 +8,7 @@
         </div>
         <div *ngIf="model.hasInProgressEvents"
              class="col-md-4 text-right">
-          <div class="d-inline-block"
+          <div class="d-inline-block button-container"
                [tooltip]="'T_DISABLE_PROJECT_BUTTON' | translate"
                placement="bottom">
             <button type="button"
@@ -20,7 +20,7 @@
             </button>
             <button type="button"
                     role="button"
-                    class="btn btn-danger margin-left-15"
+                    class="btn btn-danger"
                     [disabled]="model.hasInProgressEvents"
                     placement="bottom">
               <i class="fa fa-trash"></i>
@@ -28,7 +28,7 @@
           </div>
         </div>
         <div *ngIf="!model.hasInProgressEvents"
-             class="col-md-4 text-right">
+             class="col-md-4 text-right button-container">
           <button type="button"
                   role="button"
                   class="btn btn-md btn-primary"
@@ -39,7 +39,7 @@
           </button>
           <button type="button"
                   role="button"
-                  class="btn btn-danger margin-left-15"
+                  class="btn btn-danger"
                   [tooltip]="'T_ACTION_DELETE' | translate"
                   bsConfirm
                   [message]="'T_CONFIRM_MESSAGE_DELETE_PROJECT' | translate"

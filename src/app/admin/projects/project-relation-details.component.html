@@ -22,7 +22,7 @@
              class="col-md-3 text-right"
              [ngClass]="{'col-md-3': !!model.groupTo,
                          'col-md-6': !model.groupTo}">
-          <div class="d-inline-block"
+          <div class="d-inline-block button-container"
                [tooltip]="'T_DISABLE_RELATION_BUTTON' | translate"
                placement="bottom">
             <button type="button"
@@ -31,14 +31,14 @@
                     [disabled]="model.hasInProgressEvents"><i class="fa fa-pencil"></i></button>
             <button type="button"
                     role="button"
-                    class="btn btn-md btn-danger margin-left-15"
+                    class="btn btn-md btn-danger"
                     bsConfirm
                     [disabled]="model.hasInProgressEvents"><i class="fa fa-trash"></i></button>
           </div>
         </div>
 
         <div *ngIf="!model.hasInProgressEvents"
-             class="col-md-3 text-right"
+             class="col-md-3 text-right button-container"
              [ngClass]="{'col-md-3': !!model.groupTo,
                          'col-md-6': !model.groupTo}">
           <button type="button"
@@ -49,7 +49,7 @@
                   [routerLink]="['/admin/projects/', model.projectId, 'relations', model.id, 'edit']"><i class="fa fa-pencil"></i></button>
           <button type="button"
                   role="button"
-                  class="btn btn-md btn-danger margin-left-15"
+                  class="btn btn-md btn-danger"
                   [tooltip]="'T_ACTION_DELETE' | translate"
                   placement="bottom"
                   bsConfirm

@@ -6,7 +6,7 @@
         <div class="col-md-8">
           <h2>{{ model.name }}</h2>
         </div>
-        <div class="col-md-4 text-right">
+        <div class="col-md-4 text-right button-container">
           <button type="button"
                   role="button"
                   [tooltip]="'T_ACTION_EDIT' | translate"
@@ -17,7 +17,7 @@
           </button>
           <button type="button"
                   role="button"
-                  class="btn btn-danger margin-left-15"
+                  class="btn btn-danger"
                   bsConfirm
                   [tooltip]="'T_ACTION_DELETE' | translate"
                   placement="bottom"
