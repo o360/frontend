@@ -21,14 +21,14 @@
                 role="button"
                 [tooltip]="'T_ACTION_EDIT' | translate"
                 placement="bottom"
-                class="btn btn-primary"
+                class="btn btn-primary margin-left-15"
                 [routerLink]="['/admin/templates/', model.id, 'edit']">
           <i class="fa fa-pencil"></i></button>
         <button type="button"
                 [tooltip]="'T_ACTION_DELETE' | translate"
                 placement="bottom"
                 role="button"
-                class="btn btn-danger"
+                class="btn btn-danger margin-left-15"
                 bsConfirm
                 [message]="'T_CONFIRM_MESSAGE_DELETE_TEMPLATE' | translate"
                 (confirm)="delete(model.id)">
