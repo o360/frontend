@@ -8,7 +8,7 @@
         </div>
         <div *ngIf="model.hasInProgressEvents"
              class="col-md-4 text-right">
-          <div class="d-inline-block"
+          <div class="d-inline-block button-container"
                [tooltip]="'T_DISABLE_PROJECT_BUTTON' | translate"
                placement="bottom">
             <button type="button"
@@ -28,7 +28,7 @@
           </div>
         </div>
         <div *ngIf="!model.hasInProgressEvents"
-             class="col-md-4 text-right">
+             class="col-md-4 text-right button-container">
           <button type="button"
                   role="button"
                   class="btn btn-md btn-primary"

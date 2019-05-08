@@ -421,3 +421,9 @@ footer {
 .break-word {
   word-wrap: break-word;
 }
+
+.button-container{
+  button:not(:first-child) {
+    margin-left: 15px;
+  }
+}
