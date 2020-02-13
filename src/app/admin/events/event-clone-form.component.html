@@ -1,0 +1,133 @@
+<!--
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<div class="card" *ngIf="isLoaded">
+  <div class="card-header">
+    <b [ngSwitch]="editMode">
+      <ng-template [ngSwitchCase]="true">{{ 'T_ACTION_EDIT' | translate }}
+        <span *ngIf="model">{{ model.name }}</span>
+      </ng-template>
+      <ng-template ngSwitchDefault>{{ 'T_ACTION_CREATE' | translate }}</ng-template>
+    </b>
+  </div>
+
+  <div class="card-block">
+    <form class="form form-horizontal"
+          (ngSubmit)="save();"
+          [formGroup]="eventForm">
+
+      <!-- Description -->
+      <div class="form-group row"
+           [ngClass]="{ 'has-success': !!eventForm.value.description,
+                        'has-danger': !eventForm.value.description && eventForm.controls['description'].touched }">
+        <label for="description" class="col-form-label col-md-3 required">{{ 'T_EVENT_DESCRIPTION' | translate
+          }}</label>
+        <div class="col-md-9">
+          <textarea type="text"
+                    class="form-control"
+                    id="description"
+                    name="description"
+                    placeholder="{{ 'T_EVENT_ENTER_DESCRIPTION' | translate }}"
+                    formControlName="description">
+          </textarea>
+          <div class="form-errors"
+               *ngIf="eventForm.controls['description'].errors && eventForm.controls['description'].touched">
+            <div class="form-control-feedback" *ngIf="eventForm.controls['description'].errors['required']">{{
+              'T_FORM_FIELD_IS_REQUIRED' |
+              translate }}
+            </div>
+            <div class="form-control-feedback" *ngIf="!!eventForm.controls['description'].errors['pattern']">{{
+              'T_ERROR_TEXT_PATTERN' |
+              translate }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Period of event  -->
+
+      <!-- Begin -->
+      <div class="form-group row"
+           [ngClass]="{ 'has-success':  !!eventForm.value.start && eventForm.controls['start'].valid,
+                        'has-danger': !eventForm.controls['start'].valid || !!eventForm.errors }">
+        <label class="col-form-label col-md-3 required">{{ 'T_EVENT_START' | translate }}</label>
+        <div class="col-md-9">
+          <bs-datetime name="start"
+                       [disable]="model.status === EventStatus.InProgress || model.status === EventStatus.Completed"
+                       formControlName="start"></bs-datetime>
+
+          <div class="form-errors"
+               *ngIf="eventForm.controls['start'].errors && eventForm.controls['start'].touched">
+            <div class="form-control-feedback" *ngIf="eventForm.controls['start'].errors['required']">
+              {{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}
+            </div>
+            <div class="form-control-feedback" *ngIf="eventForm.controls['start'].errors['format']">
+              {{ 'T_ERROR_INVALID_DATE' | translate }}
+            </div>
+            <div class="form-control-feedback" *ngIf="eventForm.controls['start'].errors['maxDate']">
+              {{ 'T_ERROR_MIN_DATE' | translate }}
+            </div>
+            <div class="form-control-feedback" *ngIf="eventForm.controls['start'].errors['dateInPast']">
+              {{ 'T_ERROR_DATE_IN_PAST' | translate }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- End -->
+      <div class="form-group row"
+           [ngClass]="{ 'has-success':  !!eventForm.value.end && eventForm.controls['end'].valid,
+                        'has-danger': !eventForm.controls['end'].valid || !!eventForm.errors }">
+        <label class="col-form-label col-md-3 required">{{ 'T_EVENT_END' | translate }}</label>
+        <div class="col-md-9">
+          <bs-datetime name="end"
+                       [disable]="model.status === EventStatus.Completed"
+                       formControlName="end">
+          </bs-datetime>
+          <div class="form-errors"
+               *ngIf="eventForm.controls['end'].errors && eventForm.controls['end'].touched">
+            <div class="form-control-feedback" *ngIf="eventForm.controls['end'].errors['required']">{{
+              'T_FORM_FIELD_IS_REQUIRED' |
+              translate }}
+            </div>
+            <div class="form-control-feedback" *ngIf="eventForm.controls['end'].errors['format']"> {{
+              'T_ERROR_INVALID_DATE' | translate
+              }}
+            </div>
+            <div class="form-control-feedback" *ngIf="eventForm.controls['end'].errors['minDate']">
+              {{ 'T_ERROR_MAX_DATE' | translate }}
+            </div>
+            <div class="form-control-feedback" *ngIf="eventForm.controls['end'].errors['dateInPast']">
+              {{ 'T_ERROR_DATE_IN_PAST' | translate }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <hr/>
+
+      <div class="text-right mt-1">
+        <button type="submit"
+                class="btn btn-primary mt-0"
+                [disabled]="!eventForm.valid">
+          <span [ngSwitch]="editMode">
+            <ng-template [ngSwitchCase]="true">{{ 'T_ACTION_UPDATE' | translate }}</ng-template>
+            <ng-template ngSwitchDefault>{{ 'T_ACTION_CREATE' | translate }}</ng-template>
+          </span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+

@@ -1,0 +1,64 @@
+<!--
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<div #stickySidebar id="sidebar-container-{{ index }}" class="sidebar-container">
+  <!--Search-->
+  <bs-search [items]="users"
+             (itemsSearch)="userSearch($event)"></bs-search>
+
+  <div class="btn-group users-filter-buttons">
+    <label class="user-filter-label mb-1"
+           *ngFor="let filter of filters"
+           [ngClass]="{ 'active': usersFilterType === filter }">
+      <input type="radio"
+             name="usersFilterType"
+             [(ngModel)]="usersFilterType"
+             [value]="filter"> {{ 'T_USERS_' + filter.toUpperCase() | translate }}
+    </label>
+  </div>
+
+  <ul id="users" class="list-group assessment-object-list mb-2" [ngClass]="{ 'with-surveys': !!surveys }">
+    <li class="list-group-item custom-item assessment-user-list-item"
+        *ngFor="let userObj of filteredUsers"
+        (click)="selectUser(userObj)"
+        [ngClass]="{ 'current' : isCurrent(userObj.user) }">
+      <i [ngClass]="{ 'fa-check answered' : userObj.isAnswered }"
+         class="fa"></i>
+      <img [src]="!!userObj.user.picture ? userObj.user.picture : '../../assets/images/noUserImage.png'" [alt]=""/>
+      <span class="name pl-1"> {{ userObj.user.name }}
+        <small class="text-muted" *ngIf="userObj.user.id === currentUserId">({{ 'T_USERS_IS_YOU' | translate }})</small>
+      </span>
+      <i *ngIf="isCurrent(userObj.user)"
+         class="current-arrow fa fa-angle-right"></i>
+    </li>
+  </ul>
+
+  <li *ngIf="!!surveys"
+      class="mb-h list-unstyled">
+    <b>{{ 'T_SURVEYS' | translate }}</b>
+  </li>
+
+  <!--Surveys-->
+  <ul id="surveys" class="list-group assessment-object-list">
+    <li class="list-group-item custom-item assessment-survey-list-item"
+        [ngClass]="{ 'current': !!selectedItem && selectedItem === survey }"
+        *ngFor="let survey of surveys"
+        (click)="selectSurvey(survey)">
+      <i [ngClass]="survey.status === assessmentFormStatus.Answered ? 'answered' : 'not-answered'"
+         class="fa fa-check mr-1"></i>
+      <span class="name">{{ survey.form.name }}</span>
+      <i *ngIf="!!selectedItem && selectedItem === survey" class="current-arrow fa fa-angle-right"></i>
+    </li>
+  </ul>
+</div>

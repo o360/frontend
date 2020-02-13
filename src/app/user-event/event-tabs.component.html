@@ -1,0 +1,38 @@
+<!--
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<div [ngSwitch]="newUser">
+  <ng-template ngSwitchDefault>
+    <tabset>
+      <tab>
+        <ng-template tabHeading>{{ 'T_EVENT_STATUS_INPROGRESS' | translate }}</ng-template>
+        <bs-assessment-user-event-list embedded [status]="EventStatus.InProgress"></bs-assessment-user-event-list>
+      </tab>
+      <tab>
+        <ng-template tabHeading>{{ 'T_EVENT_STATUS_NOTSTARTED' | translate }}</ng-template>
+        <bs-assessment-user-event-list embedded [status]="EventStatus.NotStarted"></bs-assessment-user-event-list>
+      </tab>
+      <tab>
+        <ng-template tabHeading>{{ 'T_EVENT_STATUS_COMPLETED' | translate }}</ng-template>
+        <bs-assessment-user-event-list embedded [status]="EventStatus.Completed"></bs-assessment-user-event-list>
+      </tab>
+    </tabset>
+  </ng-template>
+
+  <ng-template [ngSwitchCase]="true">
+    <div class="alert alert-warning fade show" role="alert">
+      {{ 'T_WAIT_APPROVAL_MESSAGE' | translate }}
+    </div>
+  </ng-template>
+</div>

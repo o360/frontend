@@ -1,0 +1,145 @@
+<!--
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<div [formGroup]="element">
+
+  <!-- Caption field -->
+  <div class="form-group row"
+       [ngClass]="{ 'has-success': element.controls['caption'].valid,
+                    'has-danger': !element.controls['caption'].valid && element.controls['caption'].touched}">
+    <label for="caption-{{ index }}" class="col-form-label col-4 required">{{ 'T_FORM_CAPTION' |
+      translate
+      }}</label>
+    <div class="col-8">
+      <input type="text"
+             class="form-control"
+             id="caption-{{ index }}"
+             name="caption-{{ index }}"
+             required
+             placeholder="{{ 'T_FORM_ENTER_CAPTION' | translate }}"
+             formControlName="caption">
+
+      <div class="form-errors"
+           *ngIf="!!element.controls['caption'].errors && element.controls['caption'].touched">
+        <div class="form-control-feedback" *ngIf="element.controls['caption'].errors['required']">
+          {{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}
+        </div>
+        <div class="form-control-feedback" *ngIf="!!element.controls['caption'].errors['pattern']">
+          {{ 'T_ERROR_TEXT_PATTERN' | translate }}
+        </div>
+        <div class="form-control-feedback" *ngIf="!element.controls['caption'].errors['length']">
+          {{ 'T_ERROR_TEXT_LENGTH' | translate }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Clarification field -->
+  <div class="form-group row"
+       [ngClass]="{ 'has-success': element.controls['hint'].valid && !element.controls['hint'].pristine,
+                    'has-danger': !element.controls['hint'].valid && element.controls['hint'].touched}">
+    <label for="hint-{{ index }}" class="col-form-label col-4">{{ 'T_FORM_CLARIFICATION' | translate }}</label>
+    <div class="col-8">
+      <input type="text"
+             class="form-control"
+             id="hint-{{ index }}"
+             name="hint-{{ index }}"
+             placeholder="{{ 'T_FORM_ENTER_CLARIFICATION' | translate }}"
+             formControlName="hint">
+
+      <div class="form-errors" *ngIf="!!element.controls['hint'].errors && element.controls['hint'].touched">
+        <div class="form-control-feedback" *ngIf="!!element.controls['hint'].errors['pattern']">
+          {{ 'T_ERROR_TEXT_PATTERN' | translate }}
+        </div>
+        <div class="form-control-feedback" *ngIf="!element.controls['hint'].errors['length']">
+          {{ 'T_ERROR_TEXT_LENGTH' | translate }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group row checkbox mb-1" *ngIf="(element.value.kind !== FormElementType.Checkbox) && (element.value.kind !== FormElementType.Checkboxgroup)">
+    <label class="col-form-label col-4 " for="required-{{ index }}">{{ 'T_FORM_REQUIRED' | translate}}</label>
+    <div class="col-8">
+      <label class="switch switch-icon switch-primary">
+        <input type="checkbox"
+               id="required-{{ index }}"
+               name="required-{{ index }}"
+               class="switch-input"
+               checked="true"
+               formControlName="required">
+        <span class="switch-label"></span>
+        <span class="switch-handle"></span>
+      </label>
+    </div>
+  </div>
+
+  <!-- Values are required -->
+  <div *ngIf="requireValue(element.value.kind)">
+    <h6 class="mt-2">{{ 'T_FORM_EDIT_VALUES' | translate }}</h6>
+    <hr/>
+    <div class="form-group row mb-1">
+      <label class="col-form-label col-4 " for="value-caption-{{ index }}">{{ 'T_FORM_VALUE' | translate}}</label>
+      <div class="col-8">
+        <input #newCaption
+               id="value-caption-{{ index }}"
+               name="value-caption-{{ index }}"
+               type="text"
+               placeholder="{{ 'T_FORM_ENTER_VALUE' | translate }}"
+               class="form-control"
+               formControlName="valueCaption">
+      </div>
+    </div>
+    <div class="text-right">
+      <button type="button" role="button" class="btn btn-sm btn-success"
+              [disabled]="!element.value.valueCaption || !element.controls['valueCaption'].valid"
+              (click)="addValue(element.value.valueCaption);">
+        <i class="mr-h fa fa-plus"></i> {{ 'T_ACTION_ADD' | translate }}
+      </button>
+    </div>
+    <table formArrayName="values" class="table table-striped mt-2"
+           dnd-sortable-container
+           [sortableData]="element.values"
+           [dropZones]="['element-dropZone']">
+      <th>{{ 'T_FORM_VALUE' | translate }}</th>
+      <th class="actions-column">{{ 'T_ACTION' | translate }}</th>
+      <tbody>
+      <tr *ngFor="let value of element.value.values; let J = index;"
+          dnd-sortable
+          [sortableIndex]="j">
+        <td>{{ value.caption }}</td>
+        <td class="actions-column">
+          <button type="button"
+                  role="button"
+                  class="btn btn-danger btn-sm"
+                  (click)="deleteValue(value)">
+            <i class="mr-h fa fa-remove"></i>
+            {{ 'T_ACTION_DELETE' | translate }}
+          </button>
+        </td>
+      </tr>
+      <tr *ngIf="!element.value.values.length">
+        <td colspan="25" class="text-center">{{ 'T_EMPTY' | translate }}</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div *ngIf="!element.value.values.length">
+      <div class="alert alert-danger">
+        {{ 'T_FORM_VALUES_ARE_REQUIRED' | translate }}
+      </div>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,55 @@
+<!--
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<div class="card" *ngIf="isLoaded">
+  <div class="card-header">
+    <b>{{ 'T_USERS_GROUPS' | translate }}</b>
+  </div>
+  <div class="card-block">
+
+    <table [id]="listName" class="table table-striped mt-1">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>{{ 'T_GROUP_NAME' | translate }}</th>
+          <th class="actions-column">{{ 'T_ACTION' | translate }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let group of list">
+          <td>{{ group.id }}</td>
+          <td><a [routerLink]="['/admin/groups', group.id]">{{ group.name }}</a></td>
+          <td class="actions-column">
+            <button type="button"
+                    role="button"
+                    class="btn btn-sm btn-danger"
+                    [tooltip]="'T_ACTION_REMOVE' | translate"
+                    placement="bottom"
+                    bsConfirm
+                    (confirm)="delete(group.id)">
+              <i class="fa fa-remove"></i>
+            </button>
+          </td>
+        </tr>
+
+        <tr *ngIf="!list.length">
+          <td colspan="25" class="text-center">{{ 'T_EMPTY' | translate }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <bs-pagination [meta]="meta"
+                   (queryParamsChange)="pageQueryParamsChanged($event)"></bs-pagination>
+  </div>
+</div>

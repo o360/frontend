@@ -1,0 +1,125 @@
+<!--
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<div *ngIf="model">
+  <div class="card">
+    <div class="card-header"><b>{{ 'T_DETAILS' | translate }}</b></div>
+    <div class="card-block">
+      <div class="row">
+        <div class="col-md-8">
+          <h2>{{ model.name }}</h2>
+        </div>
+        <div *ngIf="model.hasInProgressEvents"
+             class="col-md-4 text-right">
+          <div class="d-inline-block button-container"
+               [tooltip]="'T_DISABLE_PROJECT_BUTTON' | translate"
+               placement="bottom">
+            <button type="button"
+                    role="button"
+                    class="btn btn-md btn-primary"
+                    [disabled]="model.hasInProgressEvents"
+                    placement="right">
+              <i class="fa fa-pencil"></i>
+            </button>
+            <button type="button"
+                    role="button"
+                    class="btn btn-danger"
+                    [disabled]="model.hasInProgressEvents"
+                    placement="bottom">
+              <i class="fa fa-trash"></i>
+            </button>
+          </div>
+        </div>
+        <div *ngIf="!model.hasInProgressEvents"
+             class="col-md-4 text-right button-container">
+          <button type="button"
+                  role="button"
+                  class="btn btn-md btn-primary"
+                  [tooltip]="'T_ACTION_EDIT' | translate"
+                  [routerLink]="['/admin/projects/', model.id, 'edit']"
+                  placement="bottom">
+            <i class="fa fa-pencil"></i>
+          </button>
+          <button type="button"
+                  role="button"
+                  class="btn btn-danger"
+                  [tooltip]="'T_ACTION_DELETE' | translate"
+                  bsConfirm
+                  [message]="'T_CONFIRM_MESSAGE_DELETE_PROJECT' | translate"
+                  (confirm)="delete(model.id)"
+                  placement="bottom">
+            <i class="fa fa-trash"></i>
+          </button>
+        </div>
+      </div>
+
+      <!--Machine Name-->
+      <div class="row mt-1">
+        <div class="col-md-3">
+          <small class="text-muted">{{ 'T_MACHINE_NAME' | translate }}</small>
+          <div class="h6">{{ model.machineName }}</div>
+        </div>
+      </div>
+
+      <!--Auditor Group-->
+      <div class="row mt-1">
+        <div class="col-md-3">
+          <small class="text-muted">{{ 'T_PROJECT_AUDITOR' | translate }}</small>
+          <div class="h6"><a [routerLink]="['/admin/groups/', model.groupAuditor.id]">{{ model.groupAuditor.name }}</a></div>
+        </div>
+      </div>
+
+      <!--Description-->
+      <div class="row mt-1">
+        <div class="col-md-6" *ngIf="model.description">
+          <small class="text-muted">{{ 'T_PROJECT_DESCRIPTION' | translate }}</small>
+          <div class="h6">{{ model.description }}</div>
+        </div>
+      </div>
+
+      <div class="row mt-1">
+        <!--Can Revote-->
+        <div class="col-md-4">
+          <small class="text-muted">{{ 'T_PROJECT_CAN_REVOTE' | translate }}</small>
+          <div class="h6">
+            {{ (model.canRevote ? 'T_ACTION_YES' : 'T_ACTION_NO') | translate }}
+          </div>
+        </div>
+
+        <!--Is Anonymous-->
+        <div class="col-md-4">
+          <small class="text-muted">{{ 'T_PROJECT_ANONYMOUS' | translate }}</small>
+          <div class="h6">
+            {{ (model.isAnonymous ? 'T_ACTION_YES' : 'T_ACTION_NO') | translate }}
+          </div>
+        </div>
+
+        <!--Forms On The Same Page-->
+        <div class="col-md-4">
+          <small class="text-muted">{{ 'T_PROJECT_FORMS_ON_THE_SAME_PAGE' | translate }}</small>
+          <div class="h6">
+            {{ (model.formsOnSamePage ? 'T_ACTION_YES' : 'T_ACTION_NO') | translate }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <bs-project-relation-list embedded [projectId]="model.id" [hasInProgressEvents]="model.hasInProgressEvents"></bs-project-relation-list>
+  <bs-project-email-template-list embedded [model]="model" [hasInProgressEvents]="model.hasInProgressEvents"></bs-project-email-template-list>
+  <bs-project-event-list embedded [projectId]="model.id"></bs-project-event-list>
+</div>
+
+
+

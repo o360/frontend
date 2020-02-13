@@ -1,0 +1,38 @@
+<!--
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<div #pagination class="row mt-2">
+  <div class="col-md-6 offset-md-3">
+    <pagination class="justify-content-center"
+                [previousText]="'&laquo;'"
+                [nextText]="'&raquo;'"
+                [totalItems]="meta.total"
+                [ngModel]="meta.number"
+                [itemsPerPage]="meta.size"
+                (pageChanged)="pageChanged($event)"></pagination>
+  </div>
+
+  <div class="col-md-3 text-right">
+    <div class="btn-group">
+      <button ngDefaultControl
+              class="btn btn-secondary"
+              type="button"
+              role="button"
+              *ngFor="let item of sizes"
+              [ngClass]="{ 'active' : item === meta.size }"
+              (click)="sizeChanged(item)"> {{ item }}
+      </button>
+    </div>
+  </div>
+</div>
