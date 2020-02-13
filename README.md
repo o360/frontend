@@ -1,4 +1,7 @@
 # Welcome to Open360
+
+[![Build Status](https://travis-ci.org/o360/frontend.svg?branch=master)](https://travis-ci.org/o360/frontend)
+
 ## General Information
 
 The root of this folder contains the following files:
