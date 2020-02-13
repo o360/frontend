@@ -1,0 +1,93 @@
+<!--
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<div class="card">
+  <div class="card-header"><b>{{ 'T_GROUPS_USERS' | translate }}</b></div>
+  <div class="card-block" *ngIf="isLoaded">
+    <button class="btn btn-primary mr-1"
+            type="button"
+            role="button"
+            [tooltip]="'T_ACTION_ADD' | translate"
+            placement="right"
+            (click)="modalForm.show()">
+      <i class="fa fa-plus"></i>
+    </button>
+
+    <button class="btn btn-primary"
+            type="button"
+            role="button"
+            [tooltip]="'T_ACTION_INVITE' | translate"
+            placement="bottom"
+            [routerLink]="['/admin/groups/', groupId, 'invite' ]">
+      <i class="fa fa-paper-plane"></i>
+    </button>
+
+    <!--Group user list-->
+    <table [id]="listName" class="table table-striped mt-1">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>{{ 'T_USER_NAME' | translate }}</th>
+          <th>{{ 'T_USER_EMAIL' | translate }}</th>
+          <th>{{ 'T_USER_ROLE' | translate }}</th>
+          <th>{{ 'T_USER_STATUS' | translate }}</th>
+          <th class="actions-column">{{ 'T_ACTION' | translate }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let model of list">
+          <td>{{ model.id }}</td>
+          <td><a [routerLink]="['/admin/users', model.id]">{{ model.name }}</a></td>
+          <td>{{ model.email }}</td>
+          <td>
+            <span class="badge badge-md badge-pill"
+                  [ngClass]="{ 'badge-danger': model.role === 'admin',
+                               'badge-default': model.role === 'user' }">
+            {{ 'T_USER_ROLE_' + model.role.toUpperCase() | translate }}</span>
+          </td>
+          <td>
+            <span class="badge badge-md badge-pill"
+                  [ngClass]="{ 'badge-primary': model.status === 'new',
+                               'badge-success': model.status === 'approved' }">
+              {{ 'T_USER_STATUS_' + model.status.toUpperCase() | translate }}</span>
+          </td>
+          <td class="actions-column">
+            <button type="button"
+                    role="button"
+                    class="btn btn-sm btn-danger ml-1"
+                    [tooltip]="'T_ACTION_REMOVE' | translate"
+                    placement="bottom"
+                    bsConfirm
+                    (confirm)="delete(model.id)">
+              <i class="fa fa-remove"></i>
+            </button>
+          </td>
+        </tr>
+
+        <tr *ngIf="!list.length">
+          <td colspan="25" class="text-center">{{ 'T_EMPTY' | translate }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <bs-pagination [meta]="meta"
+                   (queryParamsChange)="pageQueryParamsChanged($event)"></bs-pagination>
+
+  </div>
+</div>
+
+<!-- Adding user to group modal-->
+<bs-users-add-modal #modalForm
+                    [groupId]="groupId"
+                    (usersAdded)="usersAdded()"></bs-users-add-modal>

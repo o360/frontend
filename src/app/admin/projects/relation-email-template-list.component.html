@@ -1,0 +1,79 @@
+<!--
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<div class="card">
+  <div class="card-header"><b>{{ 'T_EMAIL_TEMPLATES_FOR_RESPONDENT' | translate }}</b></div>
+  <div class="card-block">
+    <div *ngIf="hasInProgressEvents"
+         class="d-inline-block"
+         [tooltip]="'T_DISABLE_RELATION_BUTTON' | translate"
+         placement="bottom">
+      <button class="btn btn-primary"
+              type="button"
+              role="button"
+              [disabled]="hasInProgressEvents">
+        <i class="fa fa-plus"></i>
+      </button>
+    </div>
+    <button *ngIf="!hasInProgressEvents"
+            class="btn btn-primary"
+            type="button"
+            role="button"
+            [tooltip]="'T_ACTION_ADD' | translate"
+            placement="bottom"
+            (click)="modalForm.show()"
+            [disabled]="hasInProgressEvents"><i class="fa fa-plus"></i></button>
+
+    <table [id]="listName"
+           *ngIf="model.templates"
+           class="table table-striped mt-1">
+      <thead>
+        <tr>
+          <th>{{ 'T_EMAIL_TEMPLATE_KIND' | translate }}</th>
+          <th>{{ 'T_EMAIL_TEMPLATE' | translate }}</th>
+          <th class="actions-column">{{ 'T_ACTIONS' | translate }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let template of model.templates">
+          <td>{{ 'T_PROJECT_EMAIL_TEMPLATE_KIND_' + template.kind.toUpperCase() | translate }}</td>
+          <td><a *ngIf="!!template.template"
+                 [routerLink]="['/admin/templates', template.template.id]">{{ template.template.name }}</a></td>
+          <td class="actions-column">
+            <button
+              type="button"
+              role="button"
+              class="btn btn-sm btn-danger ml-1"
+              [tooltip]="'T_ACTION_REMOVE' | translate"
+              placement="bottom"
+              bsConfirm
+              *ngIf="!hasInProgressEvents"
+              (confirm)="removeTemplate(template.templateId)"><i class="fa fa-remove"></i>
+            </button>
+          </td>
+        </tr>
+
+        <tr *ngIf="!model.templates.length">
+          <td colspan="25" class="text-center">{{ 'T_EMPTY' | translate }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Adding email template to group modal-->
+<bs-email-templates-add-modal #modalForm
+                              [usedEmailTemplate]="model.templates"
+                              [recipient]="recipient"
+                              (templateAdded)="emailTemplateAdded($event)"></bs-email-templates-add-modal>
