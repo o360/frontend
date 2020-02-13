@@ -1,0 +1,234 @@
+<!--
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<div class="card" *ngIf="model">
+  <div class="card-header">
+    <b>{{ 'T_FORM_DETAILS' | translate }}</b>
+  </div>
+  <div class="card-block">
+    <div class="row">
+      <div class="col-md-6">
+        <h2>{{ model.name }}</h2>
+      </div>
+      <div class="col-md-6 text-right button-container">
+        <button type="button"
+                role="button"
+                class="btn btn-warning"
+                [tooltip]="'T_ACTION_CLONE' | translate"
+                placement="bottom"
+                bsConfirm
+                [message]="'T_FORM_CONFIRM_CLONE_MESSAGE' | translate"
+                (confirm)="clone(model);">
+          <i class="fa fa-copy"></i>
+        </button>
+        <button type="button"
+                role="button"
+                class="btn btn-primary"
+                [tooltip]="'T_ACTION_EDIT' | translate"
+                placement="bottom"
+                [routerLink]="['/admin/forms/', model.id, 'edit']">
+          <i class="fa fa-pencil"></i>
+        </button>
+        <button type="button"
+                role="button"
+                class="btn btn-danger"
+                [tooltip]="'T_ACTION_DELETE' | translate"
+                placement="bottom"
+                bsConfirm
+                [message]="'T_CONFIRM_MESSAGE_DELETE_FORM' | translate"
+                (confirm)="delete(model.id)">
+          <i class="fa fa-trash"></i>
+        </button>
+      </div>
+    </div>
+    <div class="row">
+      <!--Machine Name-->
+      <div class="col-md-6 mt-1">
+        <small class="text-muted">{{ 'T_MACHINE_NAME' | translate }}</small>
+        <div class="h6">{{ model.machineName }}</div>
+      </div>
+    </div>
+    <hr/>
+    <form #assessmentForm="ngForm"
+          class="mt-2"
+          (ngSubmit)="save()">
+
+      <div class="form-group row mb-1"
+           *ngFor="let element of model.elements;"
+           [ngSwitch]="element.kind">
+
+        <!--For likes and dislikes-->
+        <ng-template [ngSwitchCase]="FormElementType.LikeDislike">
+          <bs-likes-dislikes
+            [element]="element"
+            [tooltip]="element.hint || null"
+            placement="bottom"
+          ></bs-likes-dislikes>
+        </ng-template>
+
+        <!--For checkbox groups-->
+        <ng-template [ngSwitchCase]="FormElementType.Checkboxgroup">
+          <label class="col-sm-3" [ngClass]="{'required': element.required === true}">
+            <span class="break-word" [tooltip]="element.hint || null" placement="bottom">
+              {{ element.caption }}
+            </span>
+          </label>
+          <div class="col-sm-9">
+            <div class="form-check" *ngFor="let item of element.values; let j = index;">
+              <label class="custom-control custom-checkbox">
+                <input name="{{ item.id }}"
+                       id="{{ item.id }}"
+                       type="checkbox"
+                       class="custom-control-input"
+                       [required]="element.required">
+                <span class="custom-control-indicator"></span>
+                <span class="custom-control-description"> {{ item.caption }}</span>
+              </label>
+            </div>
+          </div>
+        </ng-template>
+
+        <!--For checkbox-->
+        <ng-template [ngSwitchCase]="FormElementType.Checkbox">
+          <label class="col-sm-3" [ngClass]="{'required': element.required === true}">
+            <span class="break-word" [tooltip]="element.hint || null" placement="bottom">
+              {{ element.caption }}
+            </span>
+          </label>
+          <div class="col-sm-9">
+            <label class="custom-control custom-checkbox">
+              <input name="{{ element.id }}"
+                     id="{{ element.id }}"
+                     class="custom-control-input"
+                     type="checkbox"
+                     value="true"
+                     [required]="element.required">
+              <span class="custom-control-indicator"></span>
+            </label>
+          </div>
+        </ng-template>
+
+        <!--For select-->
+        <ng-template [ngSwitchCase]="FormElementType.Select">
+          <label
+            class="col-form-label col-sm-3"
+            [ngClass]="{'required': element.required === true}"
+          >
+            <span class="break-word" [tooltip]="element.hint || null" placement="bottom">
+              {{ element.caption }}
+            </span>
+          </label>
+          <div class="col-sm-9">
+            <select name="{{ element.id }}"
+                    id="{{ element.id }}"
+                    class="form-control custom-select"
+                    [required]="element.required">
+              <option *ngFor="let item of element.values"
+                      [value]="item.id">
+                {{ item.caption }}
+              </option>
+            </select>
+          </div>
+        </ng-template>
+
+        <!--For radio-->
+        <ng-template [ngSwitchCase]="FormElementType.Radio">
+          <label class=" col-sm-3" [ngClass]="{'required': element.required === true}">
+            <span class="break-word" [tooltip]="element.hint || null" placement="bottom">
+              {{ element.caption }}
+            </span>
+          </label>
+          <div class="col-sm-9">
+            <div class="form-check form-check-inline ml-0 mr-1" *ngFor="let item of element.values; let j = index;">
+              <label class="custom-control custom-radio">
+                <input id="{{ element.id }}"
+                       name="{{ element.id }}"
+                       type="radio"
+                       class="custom-control-input"
+                       [value]="item.id"
+                       [required]="element.required">
+                <span class="custom-control-indicator"></span>
+                <span class="custom-control-description"> {{ item.caption }} </span>
+              </label>
+            </div>
+          </div>
+        </ng-template>
+
+        <!--For textarea-->
+        <ng-template [ngSwitchCase]="FormElementType.Textarea">
+          <label
+            class="col-form-label col-sm-3"
+            for="{{ element.id }}"
+            [ngClass]="{'required': element.required === true}"
+          >
+            <span class="break-word" [tooltip]="element.hint || null" placement="bottom">
+              {{ element.caption }}
+            </span>
+          </label>
+          <div class="col-sm-9">
+          <textarea name="{{ element.id }}"
+                    class="form-control"
+                    id="{{ element.id }}"
+                    rows="3"
+                    [required]="element.required">
+          </textarea>
+          </div>
+        </ng-template>
+
+        <!--For textfield-->
+        <ng-template [ngSwitchCase]="FormElementType.Textfield">
+          <label
+            class="col-form-label col-sm-3"
+            for="{{ element.id }}"
+            [ngClass]="{'required': element.required === true}"
+          >
+            <span class="break-word" [tooltip]="element.hint || null" placement="bottom">
+              {{ element.caption }}
+            </span>
+          </label>
+          <div class="col-sm-9">
+            <input name="{{ element.id }}"
+                   type="text"
+                   class="form-control"
+                   id="{{ element.id }}"
+                   [required]="element.required">
+          </div>
+        </ng-template>
+
+        <!--For another types-->
+        <ng-template ngSwitchDefault>
+          <label
+            for="{{ element.id }}"
+            class="col-form-label col-sm-3"
+            [ngClass]="{'required': element.required === true}"
+          >
+            <span class="break-word" [tooltip]="element.hint || null" placement="bottom">
+              {{ element.caption }}
+            </span>
+          </label>
+          <div class="col-sm-9">
+            <input class="form-control"
+                   name="{{ element.id }}"
+                   type="{{ element.kind }}"
+                   placeholder="{{ element.value }}"
+                   value="{{ element.value }}"
+                   [required]="element.required"
+                   id="{{ element.id }}">
+          </div>
+        </ng-template>
+      </div>
+    </form>
+
+  </div>
+</div>

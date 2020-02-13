@@ -1,0 +1,200 @@
+<!--
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<form class="form form-horizontal" *ngIf="isLoaded"
+      (ngSubmit)="save();" [formGroup]="form">
+  <div class="card mb-1">
+    <div class="card-header">
+      <b [ngSwitch]="editMode">
+        <ng-template [ngSwitchCase]="true">{{ 'T_ACTION_EDIT' | translate }}
+          <span *ngIf="model">{{ model.name }}</span>
+        </ng-template>
+        <ng-template ngSwitchDefault>{{ 'T_ACTION_CREATE' | translate }}</ng-template>
+      </b>
+    </div>
+    <div class="card-block">
+      <!-- Machine name -->
+      <div *ngIf="editMode"
+           class="form-group row"
+           [ngClass]="{ 'has-success': form.controls['machineName'].valid  && form.controls['machineName'].touched,
+                        'has-danger': !form.controls['machineName'].valid && form.controls['machineName'].touched }">
+        <label for="name" class="col-form-label col-md-3 required">{{ 'T_MACHINE_NAME' | translate }}</label>
+        <div class="col-md-9">
+          <input type="text"
+                 class="form-control"
+                 id="machineName"
+                 name="machineName"
+                 required
+                 placeholder="{{ 'T_FORM_ENTER_MACHINE_NAME' | translate }}"
+                 formControlName="machineName">
+
+
+          <div class="form-errors"
+               *ngIf="!!form.controls['machineName'].errors && form.controls['machineName'].touched">
+            <div class="form-control-feedback" *ngIf="form.controls['machineName'].errors['required']">
+              {{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}
+            </div>
+            <div class="form-control-feedback" *ngIf="!!form.controls['machineName'].errors['pattern']">
+              {{ 'T_ERROR_MACHINE_NAME_PATTERN' | translate }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Name -->
+      <div class="form-group row"
+           [ngClass]="{ 'has-success': form.controls['name'].valid && form.controls['name'].touched,
+                        'has-danger': !form.controls['name'].valid && form.controls['name'].touched }">
+        <label for="name" class="col-form-label col-md-3 required">{{ 'T_FORM_NAME' | translate }}</label>
+        <div class="col-md-9">
+          <input type="text"
+                 class="form-control"
+                 id="name"
+                 name="name"
+                 required
+                 placeholder="{{ 'T_FORM_BUILDER_ENTER_NAME' | translate }}"
+                 formControlName="name">
+
+          <div class="form-errors"
+               *ngIf="!!form.controls['name'].errors && form.controls['name'].touched">
+            <div class="form-control-feedback" *ngIf="form.controls['name'].errors['required']">
+              {{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}
+            </div>
+            <div class="form-control-feedback" *ngIf="!!form.controls['name'].errors['pattern']">
+              {{ 'T_ERROR_TEXT_PATTERN' | translate }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Show in aggregation -->
+      <div class="form-group row">
+        <label for="showInAggregation" class="col-form-label col-md-3">
+          {{ 'T_FORM_SHOW_IN_AGGREGATION' | translate }}
+        </label>
+        <div class="col-md-9">
+          <label class="switch switch-default switch-primary">
+            <input id="showInAggregation"
+                   name="showInAggregation"
+                   type="checkbox"
+                   class="switch-input"
+                   checked="true"
+                   formControlName="showInAggregation">
+            <span class="switch-label"></span>
+            <span class="switch-handle"></span>
+          </label>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Form builder -->
+  <div class="card card-default">
+    <div class="card-header">
+      {{ 'T_FORM_BUILDER_TITLE' | translate }}
+    </div>
+
+    <div class="card-block">
+      <div class="row">
+        <div class="col-md-4 col-lg-3">
+          <div *ngFor="let kind of elementTypes;">
+              <button *ngIf="kind !== FormElementType.LikeDislike"
+                      type="button"
+                      role="button"
+                      [disabled]="((isLikesDislikesForm) ||
+                                  (kind === FormElementType.LikeDislike && !isLikesDislikesForm && !!elements.controls.length))"
+                      class="btn btn-primary btn-block mb-1 text-left"
+                      (click)="addElement(kind)">
+                <i class="mr-h fa fa-plus"></i>{{ 'T_FORM_ELEMENT_TYPE_' + kind.toUpperCase() | translate }}
+              </button>
+            <div *ngIf="kind === FormElementType.LikeDislike"
+                 [tooltip]="'T_FORM_ELEMENT_TYPE_LIKEDISLIKE_DISABLED' | translate"
+                 placement="bottom">
+              <button
+                      type="button"
+                      role="button"
+                      [disabled]="((isLikesDislikesForm) ||
+                                  (kind === FormElementType.LikeDislike && !isLikesDislikesForm && !!elements.controls.length))"
+                      class="btn btn-primary btn-block mb-1 text-left"
+                      (click)="addElement(kind)">
+                <i class="mr-h fa fa-plus"></i>{{ 'T_FORM_ELEMENT_TYPE_' + kind.toUpperCase() | translate }}
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-8 col-lg-9">
+          <accordion class="list-group"
+                     dnd-sortable-container
+                     [sortableData]="elements.controls"
+                     [closeOthers]="true"
+                     [dropZones]="['container-dropZone']"
+                     #accordion>
+            <accordion-group *ngFor="let item of elements.controls; let i = index"
+                             dnd-sortable
+                             [sortableIndex]="i"
+                             [dragEnabled]="!accordionGroup.isOpen"
+                             [isDisabled]="item.value.kind === FormElementType.LikeDislike"
+                             #accordionGroup>
+              <div class="accordion-heading row" accordion-heading>
+                <div class="col-8">
+                  <i class="mr-h fa"
+                     [ngClass]="{ 'fa-check text-success':  item.valid,
+                                  'fa-close text-danger': !item.valid
+                                 }">
+                  </i>
+
+                  {{ 'T_FORM_ELEMENT_TYPE_' + item.value.kind.toUpperCase() | translate }}
+                  <b class="break-word" *ngIf="item.value.kind !== FormElementType.LikeDislike"> {{ item.value.caption }} </b>
+                </div>
+                <div class="col-4 text-right">
+                  <div class="btn-group button-container" role="group">
+                    <button *ngIf="item.value.kind !== FormElementType.LikeDislike"
+                            type="button" role="button" class="btn btn-link btn-sm">
+                      <i class="fa"
+                         [ngClass]="{'fa-chevron-up': accordionGroup?.isOpen, 'fa-chevron-down': !accordionGroup?.isOpen }"></i>
+                    </button>
+                    <button type="button"
+                            role="button"
+                            class="btn btn-link btn-sm"
+                            (click)="deleteElement(i);">
+                      <i class="fa fa-trash"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <bs-form-builder-element *ngIf="item.value.kind !== FormElementType.LikeDislike"
+                                       #elementBuilder
+                                       [element]="item"></bs-form-builder-element>
+
+            </accordion-group>
+          </accordion>
+        </div>
+      </div>
+      <hr/>
+
+      <div class="text-right">
+        <button type="submit"
+                role="button"
+                class="btn btn-primary mt-0"
+                [disabled]="!form.valid">
+          <span [ngSwitch]="editMode">
+            <ng-template [ngSwitchCase]="true">{{ 'T_ACTION_UPDATE' | translate }}</ng-template>
+            <ng-template ngSwitchDefault>{{ 'T_ACTION_CREATE' | translate }}</ng-template>
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+</form>

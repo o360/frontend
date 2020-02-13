@@ -1,0 +1,167 @@
+<!--
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<div class="card" *ngIf="isLoaded">
+  <div class="card-header">
+    <b [ngSwitch]="editMode">
+      <ng-template [ngSwitchCase]="true">{{ 'T_ACTION_EDIT' | translate }}
+        <span *ngIf="model">{{ model.name }}</span>
+      </ng-template>
+      <ng-template ngSwitchDefault>{{ 'T_ACTION_CREATE' | translate }}</ng-template>
+    </b>
+  </div>
+
+  <div class="card-block">
+    <form class="form form-horizontal"
+          (ngSubmit)="save(); groupForm.reset()" #groupForm="ngForm">
+
+      <!-- Name -->
+      <div class="form-group row"
+           [ngClass]="{'has-success': name.valid, 'has-danger': !name.valid && name.touched }">
+
+        <label for="subject" class="col-form-label col-md-3 required">{{ 'T_EMAIL_TEMPLATE_NAME' | translate }}</label>
+        <div class="col-md-9">
+          <input type="text"
+                 class="form-control"
+                 id="name"
+                 name="name"
+                 #name="ngModel"
+                 required
+                 pattern=".*^[\S].*"
+                 placeholder="{{ 'T_EMAIL_TEMPLATE_ENTER_NAME' | translate }}"
+                 [(ngModel)]="model.name">
+
+          <div class="form-errors"
+               *ngIf="name.errors && name.touched">
+            <div class="form-control-feedback" *ngIf="name.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}</div>
+            <div class="form-control-feedback" *ngIf="!!name.errors['pattern']">{{ 'T_ERROR_TEXT_PATTERN' | translate }}</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Kind -->
+      <div class="form-group row"
+           [ngClass]="{'has-success': kind.valid, 'has-danger': !kind.valid && kind.touched }">
+        <label for="kind" class="col-form-label col-md-3 required">{{ 'T_EMAIL_TEMPLATE_KIND' | translate }}</label>
+        <div class="col-md-9">
+          <select name="kind"
+                  id="kind"
+                  class="form-control custom-select col-xs-6"
+                  #kind="ngModel"
+                  required
+                  [(ngModel)]="model.kind">
+            <option *ngFor="let kind of kinds"
+                    [ngValue]="kind">
+              {{ 'T_EMAIL_TEMPLATE_KIND_' + kind.toUpperCase() | translate }}
+            </option>
+          </select>
+
+          <div class="form-errors"
+               *ngIf="kind.errors && kind.touched">
+            <div class="form-control-feedback" *ngIf="kind.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recipient -->
+      <div class="form-group row"
+           [ngClass]="{'has-success': recipient.valid, 'has-danger': !recipient.valid && recipient.touched }">
+        <label for="kind" class="col-form-label col-md-3 required">{{ 'T_EMAIL_TEMPLATE_RECIPIENT' | translate }}</label>
+        <div class="col-md-9">
+          <select name="recipient"
+                  id="recipient"
+                  class="form-control custom-select col-xs-6"
+                  #recipient="ngModel"
+                  required
+                  [(ngModel)]="model.recipient">
+            <option *ngFor="let recipient of recipients"
+                    [ngValue]="recipient">
+              {{ 'T_EMAIL_TEMPLATE_RECIPIENT_' + recipient.toUpperCase() | translate }}
+            </option>
+          </select>
+
+          <div class="form-errors"
+               *ngIf="recipient.errors && recipient.touched">
+            <div class="form-control-feedback" *ngIf="recipient.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Subject -->
+      <div class="form-group row"
+           [ngClass]="{'has-success': subject.valid, 'has-danger': !subject.valid && subject.touched }">
+
+        <label for="subject" class="col-form-label col-md-3 required">{{ 'T_EMAIL_TEMPLATE_SUBJECT' | translate }}</label>
+        <div class="col-md-9">
+          <input type="text"
+                 class="form-control"
+                 id="subject"
+                 name="subject"
+                 #subject="ngModel"
+                 required
+                 pattern=".*^[\S].*"
+                 placeholder="{{ 'T_EMAIL_TEMPLATE_ENTER_SUBJECT' | translate }}"
+                 [(ngModel)]="model.subject">
+
+          <div class="form-errors"
+               *ngIf="subject.errors && subject.touched">
+            <div class="form-control-feedback" *ngIf="subject.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}</div>
+            <div class="form-control-feedback" *ngIf="!!subject.errors['pattern']">{{ 'T_ERROR_TEXT_PATTERN' | translate }}</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Editor -->
+      <div class="form-group"
+           [ngClass]="{'has-success': editor.valid, 'has-danger': !editor.valid && editor.touched }">
+        <ckeditor id="editor"
+                  name="editor"
+                  #editor
+                  [(ngModel)]="model.body"
+                  [ngModelOptions]="{ standalone: true }"
+                  [config]="ckEditorConfig"
+                  required>
+          <ckgroup [name]="'textConstants'"
+                   *ngFor="let param of emailParameters">
+            <ckbutton [name]="param.name"
+                      type="button"
+                      role="button"
+                      (click)="addText(editor, param.click)"
+                      [label]="param.label | translate"
+                      [command]="param.command">
+            </ckbutton>
+          </ckgroup>
+        </ckeditor>
+        <div class="form-errors"
+             *ngIf="editor.errors && editor.touched">
+          <div class="form-control-feedback" *ngIf="editor.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}</div>
+        </div>
+
+      </div>
+
+      <hr/>
+
+      <div class="text-right">
+        <button type="submit"
+                class="btn btn-primary mt-0"
+                [disabled]="!groupForm.valid">
+          <span [ngSwitch]="editMode">
+            <ng-template [ngSwitchCase]="true">{{ 'T_ACTION_UPDATE' | translate }}</ng-template>
+            <ng-template ngSwitchDefault>{{ 'T_ACTION_CREATE' | translate }}</ng-template>
+          </span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

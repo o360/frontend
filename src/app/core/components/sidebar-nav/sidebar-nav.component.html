@@ -1,0 +1,73 @@
+<!--
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<nav class="sidebar-nav">
+  <ul class="nav">
+    <li class="nav-item">
+      <a class="nav-link"
+         routerLink="/events"
+         routerLinkActive="active"
+         [routerLinkActiveOptions]="{ exact: true }"><i class="icon-clock"></i> {{ 'T_EVENTS' | translate }}</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link"
+         routerLink="/users"
+         routerLinkActive="active"
+         [routerLinkActiveOptions]="{ exact: true }"><i class="icon-user"></i> {{ 'T_USERS' | translate }}</a>
+    </li>
+
+    <li class="nav-item nav-dropdown nav-dropdown-toggle"
+        dropdown
+        [isOpen]="rla.isActive"
+        #rla="routerLinkActive"
+        routerLinkActive="open"
+        *ngIf="isAdmin">
+      <a dropdownToggle class="nav-link nav-dropdown-toggle">
+        <i class="icon-grid"></i> {{ 'T_ADMINISTRATION' | translate }} <span class="caret"></span>
+      </a>
+      <ul *dropdownMenu class="nav-dropdown-items" role="menu">
+        <li role="menuitem" class="nav-item">
+          <a class="nav-link" routerLink="/admin/users" routerLinkActive="active">
+            <i class="icon-user"></i>
+            {{ 'T_USERS' | translate }}</a>
+        </li>
+        <li role="menuitem" class="nav-item">
+          <a class="nav-link" routerLink="/admin/groups" routerLinkActive="active">
+            <i class="icon-people"></i>
+            {{ 'T_GROUPS' | translate }}</a>
+        </li>
+        <li role="menuitem" class="nav-item">
+          <a class="nav-link" routerLink="/admin/forms" routerLinkActive="active">
+            <i class="icon-doc"></i>
+            {{ 'T_FORMS' | translate }}</a>
+        </li>
+        <li role="menuitem" class="nav-item">
+          <a class="nav-link" routerLink="/admin/templates" routerLinkActive="active">
+            <i class="icon-note"></i>
+            {{ 'T_EMAIL_TEMPLATES' | translate }}</a>
+        </li>
+        <li role="menuitem" class="nav-item">
+          <a class="nav-link" routerLink="/admin/projects" routerLinkActive="active">
+            <i class="icon-folder"></i>
+            {{ 'T_PROJECTS' | translate }}</a>
+        </li>
+        <li role="menuitem" class="nav-item">
+          <a class="nav-link" routerLink="/admin/events" routerLinkActive="active">
+            <i class="icon-clock"></i>
+            {{ 'T_EVENTS' | translate }}</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>

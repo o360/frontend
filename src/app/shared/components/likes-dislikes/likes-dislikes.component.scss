@@ -1,0 +1,94 @@
+/*!
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+@font-face {
+  font-family: 'mfg_labs_iconsetregular';
+  src: url('/styles/fonts/mfglabsiconset-webfont.eot');
+  src: url('/styles/fonts/mfglabsiconset-webfont.eot?#iefix') format('embedded-opentype'),
+  url('/styles/fonts/mfglabsiconset-webfont.woff') format('woff'),
+  url('/styles/fonts/mfglabsiconset-webfont.ttf') format('truetype'),
+  url('/styles/fonts/mfglabsiconset-webfont.svg#mfg_labs_iconsetregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+:host .form-inline {
+  padding: 0.75rem 1.5rem;
+  line-height: 0.95;
+}
+
+:host .form-inline.answered {
+  padding: 0.28125rem 1.5rem;
+  line-height: 1.5;
+}
+
+.like-dislike button {
+  margin: 0;
+  padding: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  outline: none;
+  border: none;
+  background-color: transparent;
+}
+
+.like {
+  position: relative;
+}
+
+.dislike {
+  position: relative;
+}
+
+.like:before {
+  content: "\f08a";
+  font-family: FontAwesome;
+  font-style: normal;
+  font-weight: normal;
+  text-decoration: inherit;
+  font-size: 1.5rem;
+}
+
+.dislike.female:before {
+  content: "\f028";
+  font-family: 'mfg_labs_iconsetregular';
+  font-style: normal;
+  font-weight: normal;
+  text-decoration: inherit;
+  font-size: 1.5rem;
+}
+
+.dislike.male:before {
+  content: "\f119";
+  font-family: FontAwesome;
+  font-style: normal;
+  font-weight: normal;
+  text-decoration: inherit;
+  font-size: 1.5rem;
+}
+
+.like-dislike .like:enabled:hover:before,
+.like-dislike .selected .like:before {
+  content: "\f004" !important;
+}
+
+.like-dislike button:enabled:hover,
+.like-dislike .selected {
+  color: #20a8d8;
+}
+
+.like-dislike button:disabled:hover {
+  cursor: not-allowed;
+}
