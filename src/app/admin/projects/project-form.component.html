@@ -1,0 +1,217 @@
+<!--
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<div class="card" *ngIf="isLoaded">
+  <div class="card-header">
+    <b [ngSwitch]="editMode">
+      <ng-template [ngSwitchCase]="true">{{ 'T_ACTION_EDIT' | translate }}
+        <span *ngIf="model">{{ model.name }}</span>
+      </ng-template>
+      <ng-template ngSwitchDefault>{{ 'T_ACTION_CREATE' | translate }}</ng-template>
+    </b>
+  </div>
+
+  <div class="card-block">
+    <form class="form form-horizontal"
+          (ngSubmit)="save(); userForm.reset()" #userForm="ngForm">
+
+      <!-- Machine name -->
+      <div *ngIf="editMode"
+           class="form-group row"
+           [ngClass]="{'has-success': machineName.valid, 'has-danger': !machineName.valid && machineName.touched }">
+
+        <label for="name" class="col-form-label col-md-3 required">{{ 'T_MACHINE_NAME' | translate }}</label>
+        <div class="col-md-9">
+          <input type="text"
+                 class="form-control"
+                 id="machineName"
+                 name="machineName"
+                 #machineName="ngModel"
+                 pattern="^[a-zA-Z0-9-_:.]+$"
+                 required
+                 placeholder="{{ 'T_FORM_ENTER_MACHINE_NAME' | translate }}"
+                 [(ngModel)]="model.machineName">
+
+
+          <div class="form-errors"
+               *ngIf="machineName.errors && machineName.touched">
+            <div class="form-control-feedback" *ngIf="machineName.errors['required']">
+              {{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}
+            </div>
+            <div class="form-control-feedback" *ngIf="!!machineName.errors['pattern']">
+              {{ 'T_ERROR_MACHINE_NAME_PATTERN' | translate }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Name -->
+      <div class="form-group row"
+           [ngClass]="{'has-success': name.valid, 'has-danger': !name.valid && name.touched }">
+
+        <label for="name" class="col-form-label col-md-3 required">{{ 'T_NAME' | translate }}</label>
+        <div class="col-md-9">
+          <input type="text"
+                 class="form-control"
+                 id="name"
+                 name="name"
+                 #name="ngModel"
+                 pattern=".*^[\S].*"
+                 required
+                 placeholder="{{ 'T_FORM_ENTER_NAME' | translate }}"
+                 [(ngModel)]="model.name">
+
+
+          <div class="form-errors"
+               *ngIf="name.errors && name.touched">
+            <div class="form-control-feedback" *ngIf="name.errors['required']">
+              {{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}
+            </div>
+            <div class="form-control-feedback" *ngIf="!!name.errors['pattern']">
+              {{ 'T_ERROR_TEXT_PATTERN' | translate }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Description -->
+      <div class="form-group row"
+           [ngClass]="{'has-success': description.valid, 'has-danger': !description.valid && description.touched }">
+
+        <label for="description" class="col-form-label col-md-3">
+          {{ 'T_PROJECT_DESCRIPTION' | translate }}
+        </label>
+        <div class="col-md-9">
+          <textarea type="description"
+                    class="form-control"
+                    id="description"
+                    name="description"
+                    #description="ngModel"
+                    pattern=".*^[\S].*"
+                    placeholder="{{ 'T_FORM_ENTER_DESCRIPTION' | translate }}"
+                    [(ngModel)]="model.description"
+                    rows="10"> </textarea>
+          <div class="form-errors"
+               *ngIf="description.errors && description.touched">
+            <div class="form-control-feedback" *ngIf="!!description.errors['pattern']">{{ 'T_ERROR_TEXT_PATTERN' |
+              translate }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Auditor -->
+      <div class="form-group row"
+           [ngClass]="{'has-success': auditor.valid, 'has-danger': !auditor.valid && auditor.touched }">
+
+        <label for="auditor" class="col-form-label col-md-3 required">
+          {{ 'T_PROJECT_AUDITOR' | translate }}
+        </label>
+        <div class="col-md-9">
+          <select name="auditor"
+                  id="auditor"
+                  class="form-control custom-select"
+                  #auditor="ngModel"
+                  [(ngModel)]="model.groupAuditorId"
+                  required>
+            <option *ngFor="let auditor of auditors"
+                    [ngValue]="auditor.id">
+              {{ auditor.name }}
+            </option>
+          </select>
+
+          <div class="form-errors"
+               *ngIf="auditor.errors && auditor.touched">
+            <div class="form-control-feedback" *ngIf="auditor.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' |
+              translate }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- Can Revote -->
+      <div class="form-group row">
+        <label for="canRevote" class="col-form-label col-md-3">{{ 'T_PROJECT_CAN_REVOTE' | translate }}</label>
+        <div class="col-md-9">
+          <label class="switch switch-default switch-primary">
+            <input id="canRevote"
+                   name="canRevote"
+                   type="checkbox"
+                   class="switch-input"
+                   checked="true"
+                   #canRevote="ngModel"
+                   [(ngModel)]="model.canRevote">
+            <span class="switch-label"></span>
+            <span class="switch-handle"></span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Forms On Same Page -->
+      <div class="form-group row">
+        <label for="formsOnSamePage" class="col-form-label col-md-3">
+          {{ 'T_PROJECT_FORMS_ON_THE_SAME_PAGE' | translate }}
+        </label>
+        <div class="col-md-9">
+          <label class="switch switch-default switch-primary">
+            <input id="formsOnSamePage"
+                   name="formsOnSamePage"
+                   type="checkbox"
+                   class="switch-input"
+                   checked="true"
+                   #formsOnSamePage="ngModel"
+                   [(ngModel)]="model.formsOnSamePage">
+            <span class="switch-label"></span>
+            <span class="switch-handle"></span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Is Anonymous -->
+      <div class="form-group row">
+        <label for="isAnonymous" class="col-form-label col-md-3">
+          {{ 'T_PROJECT_ANONYMOUS' | translate }}
+        </label>
+        <div class="col-md-9">
+          <label class="switch switch-default switch-primary">
+            <input id="isAnonymous"
+                   name="isAnonymous"
+                   type="checkbox"
+                   class="switch-input"
+                   checked="true"
+                   #isAnonymous="ngModel"
+                   [(ngModel)]="model.isAnonymous">
+            <span class="switch-label"></span>
+            <span class="switch-handle"></span>
+          </label>
+        </div>
+      </div>
+      <hr/>
+
+      <div class="text-right">
+
+        <button type="submit"
+                role="button"
+                class="btn btn-primary mt-0"
+                [disabled]="!userForm.valid">
+          <span [ngSwitch]="editMode">
+            <ng-template [ngSwitchCase]="true">{{ 'T_ACTION_UPDATE' | translate }}</ng-template>
+            <ng-template ngSwitchDefault>{{ 'T_ACTION_CREATE' | translate }}</ng-template>
+          </span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

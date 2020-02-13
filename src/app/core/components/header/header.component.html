@@ -1,0 +1,46 @@
+<!--
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<header class="app-header navbar">
+  <button class="navbar-toggler mobile-sidebar-toggler hidden-lg-up" type="button">☰</button>
+
+  <a class="navbar-brand" routerLink="/">{{ titleNav }}</a>
+
+  <ul class="nav navbar-nav hidden-md-down">
+    <li class="nav-item">
+      <a class="nav-link navbar-toggler sidebar-toggler" href="#">☰</a>
+    </li>
+  </ul>
+
+  <ul class="nav navbar-nav ml-auto">
+    <bs-language-selector class="hidden-sm-down" directionDown></bs-language-selector>
+
+    <li class="nav-item dropdown pl-2 pr-1" dropdown>
+      <a class="nav-link dropdown-toggle nav-link"
+         data-toggle="dropdown"
+         role="button"
+         dropdownToggle
+         aria-haspopup="true"
+         aria-expanded="true">{{ user.name }}</a>
+
+      <div class="dropdown-menu dropdown-menu-right"
+        role="menu"
+        *dropdownMenu
+      >
+        <a role="menuitem" class="dropdown-item" routerLink="/profile"><i class="fa fa-user-o"></i>{{ 'T_PROFILE' | translate }}</a>
+        <a role="menuitem" class="dropdown-item" (click)="logout()"><i class="fa fa-lock"></i>{{ 'T_LOG_OUT' | translate }}</a>
+      </div>
+    </li>
+  </ul>
+</header>

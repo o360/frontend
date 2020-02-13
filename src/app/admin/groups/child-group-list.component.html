@@ -1,0 +1,51 @@
+<!--
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<accordion class="group-inner-accordion">
+  <accordion-group *ngFor="let group of list"
+                   class="accordion-inner-group"
+                   #accordionGroup
+                   [isOpen]="innerGroupState">
+    <div accordion-heading>
+      <ul class="list-group">
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <p class="col-md-1 mr-0 mt-1">{{ group.id }}</p>
+          <div class="col-md-6 inner-element">
+            <a [routerLink]="['/admin/groups/', group.id]">{{ group.name }}</a>
+            <button *ngIf="group.hasChildren"
+                    type="button"
+                    role="button"
+                    class="btn btn-link btn-sm">
+              <i class="fa"
+                 [ngClass]="{'fa-chevron-up': accordionGroup?.isOpen, 'fa-chevron-down': !accordionGroup?.isOpen }"></i>
+            </button>
+          </div>
+          <div class="col-md-5 text-right actions-column">
+            <button type="button"
+                    role="button"
+                    class="btn btn-sm btn-danger ml-1"
+                    [tooltip]="'T_ACTION_DELETE' | translate"
+                    placement="bottom"
+                    title="{{ 'T_ACTION_DELETE' | translate }}"
+                    bsConfirm
+                    [message]="'T_CONFIRM_MESSAGE_DELETE_GROUP' | translate"
+                    (confirm)="delete(group.id)"><i class="fa fa-trash"></i>
+            </button>
+          </div>
+        </li>
+      </ul>
+    </div>
+      <bs-child-group-list *ngIf="group.hasChildren" embedded [parentId]="group.id"></bs-child-group-list>
+  </accordion-group>
+</accordion>

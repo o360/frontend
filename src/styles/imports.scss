@@ -1,0 +1,33 @@
+/*!
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+// Modules
+@import "~font-awesome/scss/variables";
+@import "~font-awesome/scss/font-awesome";
+
+// if you'd like to use it without importing all of bootstrap it requires
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~bootstrap/scss/mixins';
+
+// bootstrap style toast
+// or import a bootstrap 4 alert styled design (SASS ONLY)
+// should be after your bootstrap imports, it uses bs4 variables, mixins, functions
+@import '~ngx-toastr/toastr.css';
+@import "~@beyerleinf/ngx-dnd/styles.css";
+@import "~simple-line-icons/css/simple-line-icons.css";
+@import "~animate.css/animate.min.css";
+@import "~air-datepicker/dist/css/datepicker.min.css";
+@import "~cropperjs/dist/cropper.css";
+@import "~select2/dist/css/select2.min.css";
