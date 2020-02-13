@@ -1,0 +1,19 @@
+language: node_js
+
+node_js:
+  - 12.14.0
+
+cache:
+  npm: true
+  yarn: true
+
+addons:
+  chrome: stable
+
+install:
+  - npm install node-sass
+  - yarn install
+
+script:
+  - yarn run lint
+  - yarn run test
