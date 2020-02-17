@@ -29,12 +29,12 @@ export class ImageUploaderComponent {
   protected _imageUploaded: EventEmitter<any> = new EventEmitter<any>();
   protected _inputFile: any;
 
-  @ViewChild('cropperModal')
+  @ViewChild('cropperModal', { static: true })
   public set cropperModal(value: ModalDirective) {
     this._cropperModal = value;
   }
 
-  @ViewChild('choosePictureInput')
+  @ViewChild('choosePictureInput', { static: true })
   public set inputFile(value: any) {
     this._inputFile = value;
   }

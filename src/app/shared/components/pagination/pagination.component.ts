@@ -29,7 +29,7 @@ export class PaginationComponent implements OnChanges {
 
   protected _queryParamsChange: EventEmitter<IQueryParams> = new EventEmitter<IQueryParams>();
 
-  @ViewChild('pagination')
+  @ViewChild('pagination', { static: true })
   public set pagination(value: ElementRef) {
     this._pagination = value;
   }

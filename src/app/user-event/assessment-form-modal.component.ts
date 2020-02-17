@@ -27,7 +27,7 @@ export class AssessmentFormModalComponent {
   protected _onCommentAdded: EventEmitter<IComment> = new EventEmitter<IComment>();
   protected _currentComment: string;
 
-  @ViewChild('commentModal')
+  @ViewChild('commentModal', { static: true })
   public set modal(value: ModalDirective) {
     this._modal = value;
   }

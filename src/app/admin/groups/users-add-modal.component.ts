@@ -65,12 +65,12 @@ export class AdminUsersAddModalComponent implements OnInit {
     return this._usersAdded;
   }
 
-  @ViewChild('modal')
+  @ViewChild('modal', { static: true })
   public set modal(value: ModalDirective) {
     this._modal = value;
   }
 
-  @ViewChild('users')
+  @ViewChild('users', { static: true })
   public set users(value: Select2Component) {
     this._users = value;
   }
