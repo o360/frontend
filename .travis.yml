@@ -1,20 +1,24 @@
 language: node_js
-
-node_js:
-  - 12.14.0
-
+node_js: 12.14.0
+services: docker
 cache:
   npm: true
   yarn: true
-
 addons:
   chrome: stable
-
 install:
   - yarn install
-
 script:
   - yarn run lint
   - yarn run test
 after_success:
   - yarn coveralls
+before_deploy:
+  - yarn build.prod
+  - docker build --tag="$DOCKER_REPOSITORY_NAME:$([ "$TRAVIS_TAG" == "" ] && echo "latest" || echo "$TRAVIS_TAG")" --file=".docker/bw-assessment-ui.prod.dockerfile" .
+  - echo "$DOCKER_TOKEN" | docker login -u "$DOCKER_USERNAME" --password-stdin
+deploy:
+  provider: script
+  script: docker push "$DOCKER_REPOSITORY_NAME:$([ "$TRAVIS_TAG" == "" ] && echo "latest" || echo "$TRAVIS_TAG")"
+  on:
+    branch: master
