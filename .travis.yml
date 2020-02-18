@@ -16,3 +16,5 @@ install:
 script:
   - yarn run lint
   - yarn run test
+after_success:
+  - yarn coveralls
