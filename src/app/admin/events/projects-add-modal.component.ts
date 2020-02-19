@@ -107,10 +107,10 @@ export class AdminProjectsAddModalComponent implements OnChanges {
   protected _load() {
     let eventQueryParams = { eventId: this._eventId.toString() };
 
-    observableForkJoin(
+    observableForkJoin([
       this._projectService.list(),
       this._projectService.list(eventQueryParams)
-    )
+    ])
       .pipe(
         map(([allProjects, eventProjects]: IListResponse<ProjectModel>[]) => {
           return allProjects.data.filter(project => !eventProjects.data.find(x => x.id === project.id));

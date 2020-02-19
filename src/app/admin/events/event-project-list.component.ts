@@ -13,7 +13,7 @@
  */
 
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { ListComponent } from '../../shared/components/list.component';
+import { ListComponentDirective } from '../../shared/components/list-component.directive';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ModelId } from '../../core/models/model';
 import { ProjectModel } from '../../core/models/project-model';
@@ -26,7 +26,7 @@ import { NotificationService } from '../../core/services/notification.service';
   selector: 'bs-assessment-event-project-list',
   templateUrl: 'event-project-list.component.html'
 })
-export class AdminEventProjectListComponent extends ListComponent<ProjectModel> implements OnChanges, OnInit {
+export class AdminEventProjectListComponent extends ListComponentDirective<ProjectModel> implements OnChanges, OnInit {
   private _event: EventModel;
 
   public get event(): EventModel {

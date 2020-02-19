@@ -13,7 +13,7 @@
  */
 
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { ListComponent } from '../../shared/components/list.component';
+import { ListComponentDirective } from '../../shared/components/list-component.directive';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NotificationService } from '../../core/services/notification.service';
 import { ModelId } from '../../core/models/model';
@@ -24,7 +24,7 @@ import { AdminProjectService } from '../../core/services/admin-project.service';
   selector: 'bs-group-project-list',
   templateUrl: 'group-project-list.component.html'
 })
-export class AdminGroupProjectListComponent extends ListComponent<ProjectModel> implements OnInit, OnChanges {
+export class AdminGroupProjectListComponent extends ListComponentDirective<ProjectModel> implements OnInit, OnChanges {
   protected _groupId: ModelId;
 
   @Input()

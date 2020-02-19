@@ -21,7 +21,7 @@ import { ModelId } from '../core/models/model';
 import { AssessmentService } from '../core/services/assessment.service';
 import { NotificationService } from '../core/services/notification.service';
 import { IListResponse, IQueryParams } from '../core/services/rest.service';
-import { ListComponent } from '../shared/components/list.component';
+import { ListComponentDirective } from '../shared/components/list-component.directive';
 import { AssessmentObject } from './assessment-object-list.component';
 import { EventStatus } from '../core/models/event-model';
 import { ProjectModel } from '../core/models/project-model';
@@ -35,7 +35,7 @@ import { AuthService } from '../core/services/auth.service';
   selector: 'bs-user-assessment-event',
   templateUrl: 'assessment-event.component.html'
 })
-export class AssessmentEventComponent extends ListComponent<AssessmentModel> implements OnInit, OnChanges {
+export class AssessmentEventComponent extends ListComponentDirective<AssessmentModel> implements OnInit, OnChanges {
   protected _project: ProjectModel;
   protected _eventId: ModelId;
   protected _forms: FormModel[];

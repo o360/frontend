@@ -17,7 +17,7 @@ import { Component, Input, OnChanges, OnInit, Output, SimpleChanges } from '@ang
 import { ActivatedRoute, Router } from '@angular/router';
 import { GroupModel } from '../../core/models/group-model';
 import { AdminGroupService } from '../../core/services/admin-group.service';
-import { ListComponent } from '../../shared/components/list.component';
+import { ListComponentDirective } from '../../shared/components/list-component.directive';
 import { NotificationService } from '../../core/services/notification.service';
 import { Filter, FilterType } from '../../core/models/filter';
 import { IListResponse, IQueryParams } from '../../core/services/rest.service';
@@ -26,7 +26,7 @@ import { IListResponse, IQueryParams } from '../../core/services/rest.service';
   selector: 'bs-group-list',
   templateUrl: 'group-list.component.html'
 })
-export class AdminGroupListComponent extends ListComponent<GroupModel> implements OnInit, OnChanges {
+export class AdminGroupListComponent extends ListComponentDirective<GroupModel> implements OnInit, OnChanges {
   protected _filters: Filter[] = [{
     name: 'T_GROUP_NAME',
     field: 'name',

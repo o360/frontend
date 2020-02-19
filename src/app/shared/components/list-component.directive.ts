@@ -22,7 +22,7 @@ import { NotificationService } from '../../core/services/notification.service';
 import { Subscription } from 'rxjs';
 
 @Directive()
-export abstract class ListComponent<T extends Model> implements OnInit {
+export abstract class ListComponentDirective<T extends Model> implements OnInit {
   protected _list: T[];
   protected _listName: string = 'table';
   protected _filters: Filter[] = [];

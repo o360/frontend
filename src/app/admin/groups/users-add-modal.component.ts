@@ -149,10 +149,10 @@ export class AdminUsersAddModalComponent implements OnInit {
     this._selectedUsersIds = [];
     this.selectedUsers = [];
 
-    observableForkJoin(
+    observableForkJoin([
       this._userService.list(allQueryParams),
       this._userService.list(groupQueryParams)
-    )
+    ])
     .pipe(
       map(([allUsers, groupUsers]: [IListResponse<UserModel>, IListResponse<UserModel>]) => {
         return allUsers.data.filter(user => !groupUsers.data.find(groupUser => groupUser.id === user.id));
