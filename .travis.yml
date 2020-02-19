@@ -20,7 +20,7 @@ before_deploy:
   - echo "$DOCKER_TOKEN" | docker login -u "$DOCKER_USERNAME" --password-stdin
 deploy:
   provider: script
-  script: docker push "$DOCKER_REPOSITORY_NAME:$([ "$TRAVIS_BRANCH" == "master" ] && echo "latest" || echo "$TRAVIS_BRANCH")"
+  script: docker push "$DOCKER_REPOSITORY:$([ "$TRAVIS_BRANCH" == "master" ] && echo "latest" || echo "$TRAVIS_BRANCH")"
   on:
     all_branches: true
     condition: $TRAVIS_PULL_REQUEST = false
