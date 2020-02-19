@@ -1009,6 +1009,13 @@
   resolved "https://registry.yarnpkg.com/@istanbuljs/schema/-/schema-0.1.2.tgz#26520bf09abe4a5644cd5414e37125a8954241dd"
   integrity sha512-tsAQNx32a8CoFhjhijUIhI4kccIAgmGhy8LZMZgGfmXcpMbPRUqn5LWmgRttILi6yeGmBJd2xsPkFMs0PzgPCw==
 
+"@ng-select/ng-select@^3.7.2":
+  version "3.7.2"
+  resolved "https://registry.yarnpkg.com/@ng-select/ng-select/-/ng-select-3.7.2.tgz#0cb8b64c778a9a22c4c14b1c68b2b50b76c840d1"
+  integrity sha512-hbus2lRIJVPYm8g/z1b8T/iGpYaRQZpzGvfYzdeteguhQOly8pkC8gsSRCLVBv5wyJzDAuOKsKmHKdzakdRisA==
+  dependencies:
+    tslib "^1.9.0"
+
 "@ngtools/webpack@9.0.2":
   version "9.0.2"
   resolved "https://registry.yarnpkg.com/@ngtools/webpack/-/webpack-9.0.2.tgz#5f2d79f612dec21d471ca862889d3c4a80e0cb4a"
@@ -1085,18 +1092,6 @@
   resolved "https://registry.yarnpkg.com/@types/jasmine/-/jasmine-3.3.12.tgz#bf282cb540e9ad7a0a04b742082c073b655eab39"
   integrity sha512-lXvr2xFQEVQLkIhuGaR3GC1L9lMU1IxeWnAF/wNY5ZWpC4p9dgxkKkzMp7pntpAdv9pZSnYqgsBkCg32MXSZMg==
 
-"@types/jquery@*":
-  version "3.3.32"
-  resolved "https://registry.yarnpkg.com/@types/jquery/-/jquery-3.3.32.tgz#93e27fdc45dd38ee07f2f0acf34b59c1ccee036f"
-  integrity sha512-UKoof2mnV/X1/Ix2g+V2Ny5sgHjV8nK/UJbiYxuo4zPwzGyFlZ/mp4KaePb2VqQrqJctmcDQNA57buU84/2uIw==
-  dependencies:
-    "@types/sizzle" "*"
-
-"@types/jquery@^2.0.39":
-  version "2.0.54"
-  resolved "https://registry.yarnpkg.com/@types/jquery/-/jquery-2.0.54.tgz#d7999245f77c3fab5d84e7d32b8a6c20bfd1f072"
-  integrity sha512-D/PomKwNkDfSKD13DEVQT/pq2TUjN54c6uB341fEZanIzkjfGe7UaFuuaLZbpEiS5j7Wk2MUHAZqZIoECw29lg==
-
 "@types/jquery@^3.3.29":
   version "3.3.29"
   resolved "https://registry.yarnpkg.com/@types/jquery/-/jquery-3.3.29.tgz#680a2219ce3c9250483722fccf5570d1e2d08abd"
@@ -1125,13 +1120,6 @@
   version "1.5.2"
   resolved "https://registry.yarnpkg.com/@types/q/-/q-1.5.2.tgz#690a1475b84f2a884fd07cd797c00f5f31356ea8"
   integrity sha512-ce5d3q03Ex0sy4R14722Rmt6MT07Ua+k4FwDfdcToYJcMKNtRVQvJ6JCAPdAmAnbRb6CsX6aYb9m96NGod9uTw==
-
-"@types/select2@4.0.42":
-  version "4.0.42"
-  resolved "https://registry.yarnpkg.com/@types/select2/-/select2-4.0.42.tgz#798e69ebf3455d2c692a1b8be2977c3a4ba79c4e"
-  integrity sha512-RsbJa95gWRKSLqAvduMPpfmxh/9rM94DB7fdvsXD1eLh2KlJMyEKQaEbntUpkSiz4FYoeQohADWMSswN3Qesvw==
-  dependencies:
-    "@types/jquery" "*"
 
 "@types/showdown@^1.7.1":
   version "1.9.2"
@@ -1447,11 +1435,6 @@ ajv@^6.10.2:
     fast-json-stable-stringify "^2.0.0"
     json-schema-traverse "^0.4.1"
     uri-js "^4.2.2"
-
-almond@~0.3.1:
-  version "0.3.3"
-  resolved "https://registry.yarnpkg.com/almond/-/almond-0.3.3.tgz#a0e7c95ac7624d6417b4494b1e68bff693168a20"
-  integrity sha1-oOfJWsdiTWQXtElLHmi/9pMWiiA=
 
 alphanum-sort@^1.0.0:
   version "1.0.2"
@@ -5173,11 +5156,6 @@ jest-worker@^25.1.0:
     merge-stream "^2.0.0"
     supports-color "^7.0.0"
 
-jquery-mousewheel@~3.1.13:
-  version "3.1.13"
-  resolved "https://registry.yarnpkg.com/jquery-mousewheel/-/jquery-mousewheel-3.1.13.tgz#06f0335f16e353a695e7206bf50503cb523a6ee5"
-  integrity sha1-BvAzXxbjU6aV5yBr9QUDy1I6buU=
-
 "jquery@>=2.0.0 <4.0.0", jquery@^3.2.1:
   version "3.4.0"
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.4.0.tgz#8de513fa0fa4b2c7d2e48a530e26f0596936efdf"
@@ -6045,14 +6023,6 @@ ng2-ckeditor@^1.2.2:
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/ng2-ckeditor/-/ng2-ckeditor-1.2.2.tgz#b2f55c3e929a72c15336106950df0bf5ad31b806"
   integrity sha512-4md+hLpELy1ni0SbUYDD0XPpwjn9PUT+Loq8AyXzJutwg3xBQB7K4P2TxDr6wTiYZX+ZVSqmUOFwTL25LW129A==
-
-ng2-select2@^1.0.0-beta.16:
-  version "1.0.0-beta.16"
-  resolved "https://registry.yarnpkg.com/ng2-select2/-/ng2-select2-1.0.0-beta.16.tgz#3f36cb33ea7939b5ae50302c036e0f78f15789a4"
-  integrity sha512-0a+/paD491mqlGXlB1SQ4XqmANTUtl6nOVzFUl/nUS1dwGWZoBY5FVYvUEBaJpIWO3hBFtSazq7lAe8rslEUjA==
-  dependencies:
-    "@types/jquery" "^2.0.39"
-    "@types/select2" "4.0.42"
 
 ngx-bootstrap@4.1.1:
   version "4.1.1"
@@ -7951,14 +7921,6 @@ select-hose@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/select-hose/-/select-hose-2.0.0.tgz#625d8658f865af43ec962bfc376a37359a4994ca"
   integrity sha1-Yl2GWPhlr0Psliv8N2o3NZpJlMo=
-
-select2@^4.0.6-rc.1:
-  version "4.0.6-rc.1"
-  resolved "https://registry.yarnpkg.com/select2/-/select2-4.0.6-rc.1.tgz#aa6c3038a7f0f2e91ffade38f0a21c15e1813276"
-  integrity sha1-qmwwOKfw8ukf+t448KIcFeGBMnY=
-  dependencies:
-    almond "~0.3.1"
-    jquery-mousewheel "~3.1.13"
 
 selfsigned@^1.10.7:
   version "1.10.7"

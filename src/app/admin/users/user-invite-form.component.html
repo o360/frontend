@@ -51,11 +51,20 @@
       <div class="form-group row">
         <label class="col-form-label col-md-3">{{ 'T_INVITE_GROUPS' | translate }}</label>
         <div class="col-md-8">
-          <select2 id="groups"
-                   #groups
-                   [data]="availableGroups"
-                   [options]="options"
-                   (valueChanged)="valueChanged($event)"></select2>
+          <ng-select
+            id="groups"
+            bindLabel="name"
+            multiple="true"
+            notFoundText="{{ 'T_EMPTY' | translate }}"
+            [searchFn]="searchFn"
+            [(ngModel)]="selectedGroups"
+            (change)="valueChanged($event)"
+            name="projects"
+            required>
+            <ng-option [value]="item" *ngFor="let item of availableGroups">
+              {{item.name}}
+            </ng-option>
+          </ng-select>
           <span class="text-muted">{{ 'T_ACTION_MULTIPLE_SELECT_GROUPS' | translate }}</span>
         </div>
       </div>

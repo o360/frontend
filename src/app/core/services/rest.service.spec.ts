@@ -72,9 +72,9 @@ describe('RestService Service', () => {
       ]
     });
     injector = getTestBed();
-    testService = <any>injector.get(RestService);
-    httpClient = TestBed.get(HttpClient);
-    httpTestingController = TestBed.get(HttpTestingController);
+    testService = <any>TestBed.inject(RestService);
+    httpClient =  TestBed.inject(HttpClient);
+    httpTestingController = TestBed.inject(HttpTestingController);
   });
 
   afterEach(() => {

@@ -43,6 +43,7 @@ import { LocalizedDatePipe } from './pipes/localized-date.pipe';
 import { ThrobberComponent } from './components/throbber/throbber.component';
 import { ImageUploaderComponent } from './components/image-uploader/image-uploader.component';
 import { TimeLeftPipe } from './pipes/time-left.pipe';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 /**
  * Do not specify providers for modules that might be imported by a lazy loaded module.
@@ -111,6 +112,8 @@ import { TimeLeftPipe } from './pipes/time-left.pipe';
     TimeLeftPipe,
     DndModule,
     // Select2Module,
+    NgSelectModule,
+    FormsModule,
     ConfirmationModalComponent,
     LikesDislikesComponent,
     ImageUploaderComponent
