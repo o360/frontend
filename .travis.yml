@@ -15,10 +15,11 @@ after_success:
   - yarn coveralls
 before_deploy:
   - yarn build.prod
-  - docker build --tag="$DOCKER_REPOSITORY_NAME:$([ "$TRAVIS_TAG" == "" ] && echo "latest" || echo "$TRAVIS_TAG")" --file=".docker/bw-assessment-ui.prod.dockerfile" .
+  - docker build --tag="$DOCKER_REPOSITORY:$([ "$TRAVIS_BRANCH" == "master" ] && echo "latest" || echo "$TRAVIS_BRANCH")" --file=".docker/bw-assessment-ui.prod.dockerfile" .
   - echo "$DOCKER_TOKEN" | docker login -u "$DOCKER_USERNAME" --password-stdin
 deploy:
   provider: script
-  script: docker push "$DOCKER_REPOSITORY_NAME:$([ "$TRAVIS_TAG" == "" ] && echo "latest" || echo "$TRAVIS_TAG")"
+  script: docker push "$DOCKER_REPOSITORY_NAME:$([ "$TRAVIS_BRANCH" == "master" ] && echo "latest" || echo "$TRAVIS_BRANCH")"
   on:
-    branch: master
+    all_branches: true
+    condition: $TRAVIS_PULL_REQUEST = false
