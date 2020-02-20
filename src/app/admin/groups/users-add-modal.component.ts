@@ -16,7 +16,10 @@ import { forkJoin as observableForkJoin } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap';
-import { ModelId } from '../../core/models/model';
+import {
+  Model,
+  ModelId
+} from '../../core/models/model';
 import { UserModel, UserStatus } from '../../core/models/user-model';
 import { AdminGroupService } from '../../core/services/admin-group.service';
 import { NotificationService } from '../../core/services/notification.service';
@@ -24,7 +27,11 @@ import { IListResponse } from '../../core/services/rest.service';
 import { AdminUserService } from '../../core/services/admin-user.service';
 import { Utils } from '../../utils';
 import { TranslateService } from '@ngx-translate/core';
-import { Select2OptionData, Select2Component } from 'ng2-select2/ng2-select2';
+
+interface ISelectUser {
+  id: ModelId;
+  name: string;
+}
 
 @Component({
   selector: 'bs-users-add-modal',
@@ -32,19 +39,20 @@ import { Select2OptionData, Select2Component } from 'ng2-select2/ng2-select2';
 })
 export class AdminUsersAddModalComponent implements OnInit {
   private _groupId: ModelId = null;
-  private _selectedUsers: string[] = [];
+  private _selectedUsersIds: ModelId[] = [];
   private _modal: ModalDirective;
   private _usersAdded: EventEmitter<ModelId[]> = new EventEmitter<ModelId[]>();
-  private _availableUsers: Select2OptionData[] = [];
-  private _options: Select2Options;
-  private _users: Select2Component;
+  private _availableUsers: any[] = [];
+  private _options: any;
+  private _users: any;
+  public selectedUsers: ISelectUser[] = [];
 
   @Input()
   public set groupId(value: string) {
     this._groupId = value;
   }
 
-  public get availableUsers(): Select2OptionData[] {
+  public get availableUsers(): any[] {
     return this._availableUsers;
   }
 
@@ -52,12 +60,12 @@ export class AdminUsersAddModalComponent implements OnInit {
     return this._options;
   }
 
-  public get selectedUsers(): string[] {
-    return this._selectedUsers;
+  public get selectedUsersIds(): ModelId[] {
+    return this._selectedUsersIds;
   }
 
-  public set selectedUsers(value: string[]) {
-    this._selectedUsers = value;
+  public set selectedUsersIds(value: ModelId[]) {
+    this._selectedUsersIds = value;
   }
 
   @Output()
@@ -65,13 +73,13 @@ export class AdminUsersAddModalComponent implements OnInit {
     return this._usersAdded;
   }
 
-  @ViewChild('modal')
+  @ViewChild('modal', { static: true })
   public set modal(value: ModalDirective) {
     this._modal = value;
   }
 
-  @ViewChild('users')
-  public set users(value: Select2Component) {
+  @ViewChild('users', { static: true })
+  public set users(value: any) {
     this._users = value;
   }
 
@@ -82,21 +90,21 @@ export class AdminUsersAddModalComponent implements OnInit {
   }
 
   public ngOnInit() {
-    this._options = {
-      allowClear: true,
-      placeholder: '',
-      multiple: true,
-      openOnEnter: true,
-      closeOnSelect: true,
-      dropdownAutoWidth: true,
-      escapeMarkup: (term: any) => {
-        return (term === 'No results found') ? this._translate.instant('T_EMPTY') : term;
-      },
-      matcher: (term: string, text: string) => {
-        return new RegExp(term, 'gi').test(text) ||
-          new RegExp(term, 'gi').test(Utils.transliterate(text));
-      }
-    };
+    // this._options = {
+    //   allowClear: true,
+    //   placeholder: '',
+    //   multiple: true,
+    //   openOnEnter: true,
+    //   closeOnSelect: true,
+    //   dropdownAutoWidth: true,
+    //   escapeMarkup: (term: any) => {
+    //     return (term === 'No results found') ? this._translate.instant('T_EMPTY') : term;
+    //   },
+    //   matcher: (term: string, text: string) => {
+    //     return new RegExp(term, 'gi').test(text) ||
+    //       new RegExp(term, 'gi').test(Utils.transliterate(text));
+    //   }
+    // };
   }
 
   public show() {
@@ -105,37 +113,46 @@ export class AdminUsersAddModalComponent implements OnInit {
   }
 
   public submit() {
-    let transaction = this._selectedUsers.map((user) => {
+    let transaction = this._selectedUsersIds.map((user) => {
       return { groupId: this._groupId, userId: +user };
     });
 
     this._groupService.addUsers(transaction).subscribe(() => {
       this._modal.hide();
-      this._usersAdded.emit(this._selectedUsers);
+      this._usersAdded.emit(this._selectedUsersIds);
       this._notificationService.success('T_USERS_ADDED_TO_GROUP');
     });
   }
 
-  public valueChanged(value: { value: string[] }) {
-    this._selectedUsers = [...value.value] || [];
+  public searchFn = (term: string, item: ISelectUser) => {
+    return new RegExp(term, 'gi').test(item.name) ||
+      new RegExp(term, 'gi').test(Utils.transliterate(item.name));
+  }
+
+  public valueChanged(value) {
+    this._selectedUsersIds = [];
+    if (value) {
+      value.forEach((item) => {
+        this._selectedUsersIds.push(item.id);
+      });
+    }
   }
 
   public addAll() {
-    this._selectedUsers = this._availableUsers.map(_ => String(_.id));
-    // @TODO THIS IS DAMN BAD PLUGIN
-    $(this._users.selector.nativeElement).val(this._selectedUsers);
-    $(this._users.selector.nativeElement).trigger('change.select2');
+    this._selectedUsersIds = this._availableUsers.map(_ => String(_.id));
+    this.selectedUsers = this.availableUsers;
   }
 
   private _load() {
     let allQueryParams = { status: UserStatus.Approved };
     let groupQueryParams = { status: UserStatus.Approved, groupId: this._groupId };
-    this._selectedUsers = [];
+    this._selectedUsersIds = [];
+    this.selectedUsers = [];
 
-    observableForkJoin(
+    observableForkJoin([
       this._userService.list(allQueryParams),
       this._userService.list(groupQueryParams)
-    )
+    ])
     .pipe(
       map(([allUsers, groupUsers]: [IListResponse<UserModel>, IListResponse<UserModel>]) => {
         return allUsers.data.filter(user => !groupUsers.data.find(groupUser => groupUser.id === user.id));
@@ -143,7 +160,7 @@ export class AdminUsersAddModalComponent implements OnInit {
     )
     .subscribe((availableUsers: UserModel[]) => {
       this._availableUsers = availableUsers.map((user) => {
-        return { id: String(user.id), text: `${user.name} (${user.email})` };
+        return { id: String(user.id), name: `${user.name} (${user.email})` };
       });
     });
   }

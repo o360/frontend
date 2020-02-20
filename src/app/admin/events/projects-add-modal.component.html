@@ -27,16 +27,23 @@
         <form class="form form-horizontal"
               (ngSubmit)="submit(); eventProjectsForm.reset()"
               #eventProjectsForm="ngForm">
-          <div class="form-group row"
-               [ngClass]="{'has-success': projects.valid, 'has-danger': !projects.valid && projects.touched }">
+          <div class="form-group row">
             <label for="projects" class="col-form-label col-md-3 required">{{ 'T_PROJECTS' | translate }}</label>
             <div class="col-md-8">
-              <select2 id="projects"
-                       #projects
-                       [data]="selectItems"
-                       [width]="570"
-                       [options]="options"
-                       (valueChanged)="selectProject($event)"></select2>
+              <ng-select
+                id="projects"
+                bindLabel="name"
+                multiple="true"
+                notFoundText="{{ 'T_EMPTY' | translate }}"
+                [searchFn]="searchFn"
+                [(ngModel)]="selectedProjects"
+                (change)="selectProject($event)"
+                name="projects"
+                required>
+                <ng-option [value]="item" *ngFor="let item of selectItems">
+                  {{item.name}}
+                </ng-option>
+              </ng-select>
               <span class="text-muted">{{ 'T_ACTION_MULTIPLE_SELECT' | translate }}</span>
             </div>
           </div>

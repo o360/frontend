@@ -16,14 +16,14 @@ import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/cor
 import { ActivatedRoute, Router } from '@angular/router';
 import { GroupModel } from '../../core/models/group-model';
 import { AdminGroupService } from '../../core/services/admin-group.service';
-import { ListComponent } from '../../shared/components/list.component';
+import { ListComponentDirective } from '../../shared/components/list-component.directive';
 import { NotificationService } from '../../core/services/notification.service';
 
 @Component({
   selector: 'bs-child-group-list',
   templateUrl: 'child-group-list.component.html'
 })
-export class AdminChildGroupListComponent extends ListComponent<GroupModel> implements OnInit, OnChanges {
+export class AdminChildGroupListComponent extends ListComponentDirective<GroupModel> implements OnInit, OnChanges {
   private _innerGroupState: boolean = false;
   protected _parentId: string = 'null';
 

@@ -80,7 +80,7 @@ describe('Assessment Form Component', () => {
     };
     fixture = TestBed.createComponent(TestAssessmentFormComponent);
     comp = fixture.componentInstance;
-    assessmentService = TestBed.get(AssessmentService);
+    assessmentService = TestBed.inject(AssessmentService);
 
     spyOn(localStorage, 'getItem')
       .and.callFake(mockLocalStorage.getItem);

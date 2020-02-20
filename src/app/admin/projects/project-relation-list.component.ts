@@ -14,7 +14,7 @@
 
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ListComponent } from '../../shared/components/list.component';
+import { ListComponentDirective } from '../../shared/components/list-component.directive';
 import { RelationModel } from '../../core/models/relation-model';
 import { AdminRelationService } from '../../core/services/admin-relation.service';
 import { NotificationService } from '../../core/services/notification.service';
@@ -23,7 +23,7 @@ import { NotificationService } from '../../core/services/notification.service';
   selector: 'bs-project-relation-list',
   templateUrl: 'project-relation-list.component.html'
 })
-export class AdminProjectRelationListComponent extends ListComponent<RelationModel> implements OnInit, OnChanges {
+export class AdminProjectRelationListComponent extends ListComponentDirective<RelationModel> implements OnInit, OnChanges {
   private _hasInProgressEvents: boolean;
   protected _projectId: string = 'null';
 
