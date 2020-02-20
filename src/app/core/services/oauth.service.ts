@@ -18,7 +18,9 @@ import { RestServiceConfig } from '../decorators/rest-service-config.decorator';
 import { AccountModel } from '../models/account-model';
 import { RestService } from './rest.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 
+@Injectable()
 @RestServiceConfig({
   entityName: 'auth',
   entityConstructor: AccountModel

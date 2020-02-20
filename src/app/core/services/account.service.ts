@@ -19,7 +19,9 @@ import { RestServiceConfig } from '../decorators/rest-service-config.decorator';
 import { AccountModel } from '../models/account-model';
 import { IListResponse, RestService } from './rest.service';
 import { GroupModel } from '../models/group-model';
+import { Injectable } from '@angular/core';
 
+@Injectable()
 @RestServiceConfig({
   endpoint: 'users',
   entityName: 'current',

@@ -13,7 +13,7 @@
  */
 
 import { Component, Input, OnInit } from '@angular/core';
-import { ListComponent } from '../../shared/components/list.component';
+import { ListComponentDirective } from '../../shared/components/list-component.directive';
 import { GroupModel } from '../../core/models/group-model';
 import { AdminGroupService } from '../../core/services/admin-group.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -24,7 +24,7 @@ import { ModelId } from '../../core/models/model';
   selector: 'bs-user-group-list',
   templateUrl: 'user-group-list.component.html'
 })
-export class AdminUserGroupListComponent extends ListComponent<GroupModel> implements OnInit {
+export class AdminUserGroupListComponent extends ListComponentDirective<GroupModel> implements OnInit {
   protected _userId: ModelId;
 
   @Input()

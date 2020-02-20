@@ -32,14 +32,14 @@ import {
 } from '../../stubs/stubs.utils';
 import { ConfirmationService } from '../../core/services/confirmation.service';
 import { Component, OnInit } from '@angular/core';
-import { ListComponent } from './list.component';
+import { ListComponentDirective } from './list-component.directive';
 import { ModelId } from '../../core/models/model';
 
 @Component({
   selector: 'bs-test-list',
   template: ``
 })
-export class TestListComponent extends ListComponent<TestModel> implements OnInit {
+export class TestListComponent extends ListComponentDirective<TestModel> implements OnInit {
   protected _testResponse: IListResponse<TestModel> = {
     data: [new TestModel({ 'id': 1, 'name': 'test' }), new TestModel({ 'id': 2, 'name': 'test2' })],
     meta: {

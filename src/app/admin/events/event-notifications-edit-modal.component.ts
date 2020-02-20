@@ -51,7 +51,7 @@ export class AdminEventNotificationsEditModalComponent {
     return this._index;
   }
 
-  @ViewChild('modal')
+  @ViewChild('modal', { static: true })
   public set modal(value: ModalDirective) {
     this._modal = value;
   }

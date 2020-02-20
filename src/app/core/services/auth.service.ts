@@ -64,6 +64,7 @@ export class AuthService {
   }
 
   public login(oauthProvider: string) {
+    console.log('LOGIN');
     let providerConfig = this._configService.config.PROVIDERS[oauthProvider];
     let urlParams = Object.entries(providerConfig.getParams).map(([key, value]) => {
       return `${key}=${encodeURIComponent(value.toString())}`;

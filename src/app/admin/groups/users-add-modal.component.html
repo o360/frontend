@@ -30,16 +30,23 @@
       <div class="modal-body">
         <form class="form form-horizontal"
               (ngSubmit)="submit();">
-          <div class="form-group row"
-               [ngClass]="{'has-success': users.valid, 'has-danger': !users.valid && users.touched }">
+          <div class="form-group row">
             <label class="col-form-label col-md-3 required">{{ 'T_USERS' | translate }}</label>
             <div class="col-md-8">
-              <select2 id="users"
-                       #users
-                       [data]="availableUsers"
-                       [width]="570"
-                       [options]="options"
-                       (valueChanged)="valueChanged($event)"></select2>
+              <ng-select
+                id="projects"
+                bindLabel="name"
+                multiple="true"
+                notFoundText="{{ 'T_EMPTY' | translate }}"
+                [searchFn]="searchFn"
+                [(ngModel)]="selectedUsers"
+                (change)="valueChanged($event)"
+                name="projects"
+                required>
+                <ng-option [value]="item" *ngFor="let item of availableUsers">
+                  {{item.name}}
+                </ng-option>
+              </ng-select>
               <span class="text-muted">{{ 'T_ACTION_MULTIPLE_SELECT' | translate }}</span>
             </div>
           </div>
@@ -57,7 +64,7 @@
                 role="button"
                 class="btn btn-primary"
                 (click)="addAll()"
-                [disabled]="!availableUsers.length || selectedUsers.length === availableUsers.length">
+                [disabled]="!availableUsers.length || selectedUsersIds.length === availableUsers.length">
           {{ 'T_ACTION_SELECT_ALL_USERS_TO_GROUP' | translate }}
         </button>
 
@@ -65,7 +72,7 @@
                 role="button"
                 class="btn btn-primary"
                 (click)="submit();"
-                [disabled]="!selectedUsers.length">
+                [disabled]="!selectedUsersIds.length">
           {{ 'T_ACTION_ADD_SELECTED_USERS_TO_GROUP' | translate }}
         </button>
       </div>

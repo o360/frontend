@@ -27,28 +27,24 @@ import { Utils } from '../../utils';
 
 interface ISelectProject {
   id: ModelId;
-  text: string;
+  name: string;
 }
 
 @Component({
   selector: 'bs-projects-add-modal',
   templateUrl: 'projects-add-modal.component.html'
 })
-export class AdminProjectsAddModalComponent implements OnChanges, OnInit {
+export class AdminProjectsAddModalComponent implements OnChanges {
   private _eventId: ModelId;
-  private _selectedProjects: ModelId[] = [];
+  private _selectedProjectsIds: ModelId[] = [];
   private _modal: ModalDirective;
   private _projectsAdded: EventEmitter<ModelId[]> = new EventEmitter<ModelId[]>();
-  private _options: Select2Options;
   private _selectItems: ISelectProject[] = [];
+  public selectedProjects: ISelectProject[];
 
   @Input()
   public set eventId(value: ModelId) {
     this._eventId = value;
-  }
-
-  public get options(): Select2Options {
-    return this._options;
   }
 
   public get selectItems(): ISelectProject[] {
@@ -60,7 +56,7 @@ export class AdminProjectsAddModalComponent implements OnChanges, OnInit {
     return this._projectsAdded;
   }
 
-  @ViewChild('modal')
+  @ViewChild('modal', { static: true })
   public set modal(value: ModalDirective) {
     this._modal = value;
   }
@@ -71,28 +67,15 @@ export class AdminProjectsAddModalComponent implements OnChanges, OnInit {
               protected _translate: TranslateService) {
   }
 
-  public ngOnInit() {
-    this._options = {
-      allowClear: true,
-      placeholder: '',
-      multiple: true,
-      openOnEnter: true,
-      closeOnSelect: true,
-      dropdownAutoWidth: true,
-      escapeMarkup: (term: any) => {
-        return (term === 'No results found') ? this._translate.instant('T_EMPTY') : term;
-      },
-      matcher: (term: string, text: string) => {
-        return new RegExp(term, 'gi').test(text) ||
-          new RegExp(term, 'gi').test(Utils.transliterate(text));
-      }
-    };
-  }
-
   public ngOnChanges(changes: SimpleChanges) {
     if (changes['groupId']) {
       this._load();
     }
+  }
+
+  public searchFn = (term: string, item: ISelectProject) => {
+    return new RegExp(term, 'gi').test(item.name) ||
+      new RegExp(term, 'gi').test(Utils.transliterate(item.name));
   }
 
   public show() {
@@ -101,33 +84,33 @@ export class AdminProjectsAddModalComponent implements OnChanges, OnInit {
   }
 
   public submit() {
-    if (this._selectedProjects.length > 0) {
-      let transaction = this._selectedProjects.map(projectId => this._eventService.addProject(this._eventId, projectId));
+    if (this._selectedProjectsIds.length > 0) {
+      let transaction = this._selectedProjectsIds.map(projectId => this._eventService.addProject(this._eventId, projectId));
 
       observableForkJoin(transaction).subscribe(() => {
         this._modal.hide();
-        this._projectsAdded.emit(this._selectedProjects);
+        this._projectsAdded.emit(this._selectedProjectsIds);
         this._notificationService.success('T_PROJECTS_ADDED_TO_EVENT');
       });
     }
   }
 
   public selectProject(value) {
-    this._selectedProjects = [];
-    if (value.value) {
-      value.value.forEach(((id) => {
-        this._selectedProjects.push(id);
-      }));
+    this._selectedProjectsIds = [];
+    if (value) {
+      value.forEach((item) => {
+        this._selectedProjectsIds.push(item.id);
+      });
     }
   }
 
   protected _load() {
     let eventQueryParams = { eventId: this._eventId.toString() };
 
-    observableForkJoin(
+    observableForkJoin([
       this._projectService.list(),
       this._projectService.list(eventQueryParams)
-    )
+    ])
       .pipe(
         map(([allProjects, eventProjects]: IListResponse<ProjectModel>[]) => {
           return allProjects.data.filter(project => !eventProjects.data.find(x => x.id === project.id));
@@ -136,10 +119,11 @@ export class AdminProjectsAddModalComponent implements OnChanges, OnInit {
       .subscribe((availableProjects: ProjectModel[]) => {
         let availableForSelectionProjects: ISelectProject[] = [];
         availableProjects.map((project: ProjectModel) => {
-          availableForSelectionProjects.push({ id: project.id, text: project.name });
+          availableForSelectionProjects.push({ id: project.id, name: project.name });
         });
         this._selectItems = availableForSelectionProjects;
       });
-    this._selectedProjects = [];
+    this._selectedProjectsIds = [];
+    this.selectedProjects = [];
   }
 }

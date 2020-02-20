@@ -19,7 +19,9 @@ import { RestServiceConfig } from '../decorators/rest-service-config.decorator';
 import { AccountModel } from '../models/account-model';
 import { RestService } from './rest.service';
 import { ModelId } from '../models/model';
+import { Injectable } from '@angular/core';
 
+@Injectable()
 @RestServiceConfig({
   entityName: 'users',
   entityConstructor: AccountModel

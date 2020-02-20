@@ -28,8 +28,8 @@ describe('Notification Service', () => {
       imports: [HttpClientModule],
       providers: [
         NotificationService,
-        { provide: ToastrService },
-        { provide: TranslateService },
+        { provide: ToastrService, useValue: {} },
+        { provide: TranslateService, useValue: {} },
       ]
     });
     injector = getTestBed();

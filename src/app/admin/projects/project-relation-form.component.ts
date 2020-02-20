@@ -77,10 +77,10 @@ export class AdminProjectRelationFormComponent extends FormComponent<RelationMod
   }
 
   protected _load() {
-    observableForkJoin(
+    observableForkJoin([
       this._groupService.list(),
       this._formService.list()
-    ).subscribe(([groups, forms]: [IListResponse<GroupModel>, IListResponse<FormModel>]) => {
+    ]).subscribe(([groups, forms]: [IListResponse<GroupModel>, IListResponse<FormModel>]) => {
       this._groups = groups.data;
       this._forms = forms.data;
 

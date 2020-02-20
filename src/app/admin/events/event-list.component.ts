@@ -13,7 +13,7 @@
  */
 
 import { Component } from '@angular/core';
-import { ListComponent } from '../../shared/components/list.component';
+import { ListComponentDirective } from '../../shared/components/list-component.directive';
 import { EventModel, EventSortField, EventStatus } from '../../core/models/event-model';
 import { AdminEventService } from '../../core/services/admin-event.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -24,7 +24,7 @@ import { NotificationService } from '../../core/services/notification.service';
   selector: 'bs-assessment-event-list',
   templateUrl: 'event-list.component.html'
 })
-export class AdminEventListComponent extends ListComponent<EventModel> {
+export class AdminEventListComponent extends ListComponentDirective<EventModel> {
   protected _filters: Filter[] = [{
     name: 'T_EVENT_STATUS',
     field: 'status',

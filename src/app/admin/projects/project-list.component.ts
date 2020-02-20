@@ -15,7 +15,7 @@
 import { Component } from '@angular/core';
 import { ProjectModel } from '../../core/models/project-model';
 import { AdminProjectService } from '../../core/services/admin-project.service';
-import { ListComponent } from '../../shared/components/list.component';
+import { ListComponentDirective } from '../../shared/components/list-component.directive';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NotificationService } from '../../core/services/notification.service';
 
@@ -23,7 +23,7 @@ import { NotificationService } from '../../core/services/notification.service';
   selector: 'bs-project-list',
   templateUrl: 'project-list.component.html'
 })
-export class AdminProjectListComponent extends ListComponent<ProjectModel> {
+export class AdminProjectListComponent extends ListComponentDirective<ProjectModel> {
   constructor(service: AdminProjectService,
               activatedRoute: ActivatedRoute,
               router: Router,
