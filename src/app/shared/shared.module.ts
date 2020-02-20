@@ -38,11 +38,12 @@ import { DndModule } from '@beyerleinf/ngx-dnd';
 import { LikesDislikesComponent } from './components/likes-dislikes/likes-dislikes.component';
 import { ConfirmationModalComponent } from './confirmation/confirmation.component';
 import { SearchComponent } from './components/search/search.component';
-import { Select2Module } from 'ng2-select2/ng2-select2';
+// import { Select2Module } from 'ng2-select2/ng2-select2';
 import { LocalizedDatePipe } from './pipes/localized-date.pipe';
 import { ThrobberComponent } from './components/throbber/throbber.component';
 import { ImageUploaderComponent } from './components/image-uploader/image-uploader.component';
 import { TimeLeftPipe } from './pipes/time-left.pipe';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 /**
  * Do not specify providers for modules that might be imported by a lazy loaded module.
@@ -65,7 +66,7 @@ import { TimeLeftPipe } from './pipes/time-left.pipe';
     AlertModule,
     TooltipModule,
     DndModule,
-    Select2Module,
+    // Select2Module,
     BsDropdownModule
   ],
   declarations: [
@@ -110,7 +111,9 @@ import { TimeLeftPipe } from './pipes/time-left.pipe';
     LocalizedDatePipe,
     TimeLeftPipe,
     DndModule,
-    Select2Module,
+    // Select2Module,
+    NgSelectModule,
+    FormsModule,
     ConfirmationModalComponent,
     LikesDislikesComponent,
     ImageUploaderComponent
@@ -118,7 +121,7 @@ import { TimeLeftPipe } from './pipes/time-left.pipe';
   entryComponents: [ConfirmationModalComponent]
 })
 export class SharedModule {
-  public static forRoot(): ModuleWithProviders {
+  public static forRoot(): ModuleWithProviders<SharedModule> {
     return {
       ngModule: SharedModule,
       providers: []

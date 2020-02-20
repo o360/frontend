@@ -14,7 +14,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { ListComponent } from '../shared/components/list.component';
+import { ListComponentDirective } from '../shared/components/list-component.directive';
 import { ProjectModel } from '../core/models/project-model';
 import { ModelId } from '../core/models/model';
 import { NotificationService } from '../core/services/notification.service';
@@ -28,7 +28,7 @@ import { IListResponse } from '../core/services/rest.service';
   selector: 'bs-assessment',
   templateUrl: 'assessment-project-list.component.html'
 })
-export class AssessmentProjectListComponent extends ListComponent<ProjectModel> implements OnInit {
+export class AssessmentProjectListComponent extends ListComponentDirective<ProjectModel> implements OnInit {
   protected _eventId: ModelId;
 
   public get eventId(): ModelId {

@@ -13,7 +13,7 @@
  */
 
 import { Component } from '@angular/core';
-import { ListComponent } from '../shared/components/list.component';
+import { ListComponentDirective } from '../shared/components/list-component.directive';
 import { UserModel, UserStatus } from '../core/models/user-model';
 import { Filter, FilterType } from '../core/models/filter';
 import { UserService } from '../core/services/user.service';
@@ -28,7 +28,7 @@ import { IListResponse } from '../core/services/rest.service';
   selector: 'bs-users-list',
   templateUrl: 'user-list.component.html'
 })
-export class UserListComponent extends ListComponent<UserModel> {
+export class UserListComponent extends ListComponentDirective<UserModel> {
   protected _filters: Filter[] = [{
     name: 'T_USER_NAME',
     field: 'name',

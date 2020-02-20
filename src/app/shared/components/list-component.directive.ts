@@ -12,7 +12,7 @@
  * limitations under the License.
  */
 
-import { Input, OnInit } from '@angular/core';
+import { Input, OnInit, Directive } from '@angular/core';
 import { Model, ModelId } from '../../core/models/model';
 import { IListResponse, IQueryParams, IResponseMeta, RestService } from '../../core/services/rest.service';
 import { Filter } from '../../core/models/filter';
@@ -21,7 +21,8 @@ import { defaultPage, supportedSizes } from './pagination/pagination.component';
 import { NotificationService } from '../../core/services/notification.service';
 import { Subscription } from 'rxjs';
 
-export abstract class ListComponent<T extends Model> implements OnInit {
+@Directive()
+export abstract class ListComponentDirective<T extends Model> implements OnInit {
   protected _list: T[];
   protected _listName: string = 'table';
   protected _filters: Filter[] = [];

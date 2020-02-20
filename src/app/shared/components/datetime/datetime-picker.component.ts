@@ -134,7 +134,7 @@ export class DateTimeComponent implements ControlValueAccessor, AfterViewInit, V
   protected _input: ElementRef;
   protected _id = `picker-${id++}`;
 
-  @ViewChild(NgModel)
+  @ViewChild(NgModel, { static: true })
   public model: NgModel;
 
   public get value(): any {
@@ -157,7 +157,7 @@ export class DateTimeComponent implements ControlValueAccessor, AfterViewInit, V
     return this._id;
   }
 
-  @ViewChild('input')
+  @ViewChild('input', { static: true })
   public set input(value: ElementRef) {
     this._input = value;
   }

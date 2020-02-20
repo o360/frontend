@@ -13,7 +13,7 @@
  */
 
 import { Component, Input, OnInit } from '@angular/core';
-import { ListComponent } from '../../shared/components/list.component';
+import { ListComponentDirective } from '../../shared/components/list-component.directive';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NotificationService } from '../../core/services/notification.service';
 import { ModelId } from '../../core/models/model';
@@ -24,7 +24,7 @@ import { AdminEventService } from '../../core/services/admin-event.service';
   selector: 'bs-project-event-list',
   templateUrl: 'project-event-list.component.html'
 })
-export class AdminProjectEventListComponent extends ListComponent<EventModel> implements OnInit {
+export class AdminProjectEventListComponent extends ListComponentDirective<EventModel> implements OnInit {
   protected _projectId: ModelId;
 
   @Input()

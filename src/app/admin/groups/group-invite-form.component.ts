@@ -23,27 +23,27 @@ import { IDataRequestInvite, InviteService } from '../../core/services/invite.se
 import { TranslateService } from '@ngx-translate/core';
 import { IListResponse } from '../../core/services/rest.service';
 import { GroupModel } from '../../core/models/group-model';
-import { Select2OptionData } from 'ng2-select2';
 import { Utils } from '../../utils';
 import { IBreadcrumb } from '../../core/components/breadcrumb/breadcrumb.component';
 import { ModelId } from '../../core/models/model';
 import { AdminGroupService } from '../../core/services/admin-group.service';
+
+interface ISelectGroup {
+  id: ModelId;
+  name: string;
+}
 
 @Component({
   selector: 'bs-group-invite-form',
   templateUrl: 'group-invite-form.component.html'
 })
 export class AdminGroupInviteFormComponent extends FormComponent<InviteModel> implements OnInit {
-  private _availableGroups: Select2OptionData[] = [];
-  private _options: Select2Options;
+  private _availableGroups: any[] = [];
   private _emails: string;
-  private _selectedGroups: string[] = [];
+  private _selectedGroupsIds: ModelId[] = [];
   private _groupModel: GroupModel;
   private _isMultipleGroups: boolean = true;
-
-  public set options(value: Select2Options) {
-    this._options = value;
-  }
+  public selectedGroups: ISelectGroup[];
 
   public set emails(value: string) {
     this._emails = value;
@@ -61,12 +61,8 @@ export class AdminGroupInviteFormComponent extends FormComponent<InviteModel> im
     return this._groupModel;
   }
 
-  public get availableGroups(): Select2OptionData[] {
+  public get availableGroups(): ISelectGroup[] {
     return this._availableGroups;
-  }
-
-  public get options(): Select2Options {
-    return this._options;
   }
 
   constructor(service: InviteService,
@@ -83,29 +79,19 @@ export class AdminGroupInviteFormComponent extends FormComponent<InviteModel> im
 
   public ngOnInit() {
     this._loadGroups();
-    this._options = {
-      allowClear: true,
-      placeholder: '',
-      multiple: true,
-      openOnEnter: true,
-      closeOnSelect: true,
-      dropdownAutoWidth: true,
-      escapeMarkup: (term: any) => {
-        return (term === 'No results found') ? this._translate.instant('T_EMPTY') : term;
-      },
-      matcher: (term: string, text: string) => {
-        return new RegExp(term, 'gi').test(text) ||
-          new RegExp(term, 'gi').test(Utils.transliterate(text));
-      }
-    };
     this._model = new InviteModel();
     this._groupModel = new GroupModel();
 
     super.ngOnInit();
   }
 
-  public valueChanged(value: { value: string[] }) {
-    this._selectedGroups = [...value.value] || [];
+  public valueChanged(value) {
+    this._selectedGroupsIds = [];
+    if (value) {
+      value.forEach((item) => {
+        this._selectedGroupsIds.push(item.id);
+      });
+    }
   }
 
   public save() {
@@ -118,6 +104,11 @@ export class AdminGroupInviteFormComponent extends FormComponent<InviteModel> im
     });
   }
 
+  public searchFn = (term: string, item: ISelectGroup) => {
+    return new RegExp(term, 'gi').test(item.name) ||
+      new RegExp(term, 'gi').test(Utils.transliterate(item.name));
+  }
+
   private _getEmails() {
     return this.emails.split(',').map((item) => {
       return item.replace(/\s/g, '');
@@ -125,7 +116,7 @@ export class AdminGroupInviteFormComponent extends FormComponent<InviteModel> im
   }
 
   private _getGroups(): ModelId[] {
-    return this._selectedGroups.map((item) => {
+    return this._selectedGroupsIds.map((item: any) => {
       return parseInt(item, 10);
     });
   }
@@ -141,11 +132,12 @@ export class AdminGroupInviteFormComponent extends FormComponent<InviteModel> im
   }
 
   private _loadGroups() {
-    this._selectedGroups = [];
+    this._selectedGroupsIds = [];
+    this.selectedGroups = [];
 
     this._groupService.list().subscribe((res: IListResponse<GroupModel>) => {
       return this._availableGroups = res.data.map((group) => {
-        return { id: String(group.id), text: `${group.name}` };
+        return { id: String(group.id), name: `${group.name}` };
       });
     });
   }

@@ -13,7 +13,7 @@
  */
 
 import { Component, OnInit } from '@angular/core';
-import { ListComponent } from '../../shared/components/list.component';
+import { ListComponentDirective } from '../../shared/components/list-component.directive';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NotificationService } from '../../core/services/notification.service';
 import { InviteModel } from '../../core/models/invite-model';
@@ -24,7 +24,7 @@ import { GroupModel } from '../../core/models/group-model';
   selector: 'bs-user-invite',
   templateUrl: 'user-invite-list.component.html'
 })
-export class AdminUserInviteListComponent extends ListComponent<InviteModel> implements OnInit {
+export class AdminUserInviteListComponent extends ListComponentDirective<InviteModel> implements OnInit {
   private _groups: GroupModel[];
 
   public get groups(): GroupModel[] {

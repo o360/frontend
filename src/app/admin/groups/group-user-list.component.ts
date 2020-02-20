@@ -18,14 +18,14 @@ import { ModelId } from '../../core/models/model';
 import { UserModel } from '../../core/models/user-model';
 import { AdminGroupService } from '../../core/services/admin-group.service';
 import { AdminUserService } from '../../core/services/admin-user.service';
-import { ListComponent } from '../../shared/components/list.component';
+import { ListComponentDirective } from '../../shared/components/list-component.directive';
 import { NotificationService } from '../../core/services/notification.service';
 
 @Component({
   selector: 'bs-group-user-list',
   templateUrl: 'group-user-list.component.html'
 })
-export class AdminGroupUserListComponent extends ListComponent<UserModel> implements OnInit, OnChanges {
+export class AdminGroupUserListComponent extends ListComponentDirective<UserModel> implements OnInit, OnChanges {
   private _groupId: string = 'null';
 
   @Input()

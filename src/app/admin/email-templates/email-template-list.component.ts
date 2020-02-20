@@ -13,7 +13,7 @@
  */
 
 import { Component } from '@angular/core';
-import { ListComponent } from '../../shared/components/list.component';
+import { ListComponentDirective } from '../../shared/components/list-component.directive';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EmailTemplateModel } from '../../core/models/email-template-model';
 import { AdminEmailTemplateService } from '../../core/services/admin-email-template.service';
@@ -23,7 +23,7 @@ import { NotificationService } from '../../core/services/notification.service';
   selector: 'bs-template-list',
   templateUrl: 'email-template-list.component.html'
 })
-export class AdminEmailTemplateListComponent extends ListComponent<EmailTemplateModel> {
+export class AdminEmailTemplateListComponent extends ListComponentDirective<EmailTemplateModel> {
   constructor(service: AdminEmailTemplateService,
               activatedRoute: ActivatedRoute,
               router: Router,

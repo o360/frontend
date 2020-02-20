@@ -15,7 +15,7 @@
 import { Component } from '@angular/core';
 import { UserModel, UserRole, UserStatus } from '../../core/models/user-model';
 import { AdminUserService } from '../../core/services/admin-user.service';
-import { ListComponent } from '../../shared/components/list.component';
+import { ListComponentDirective } from '../../shared/components/list-component.directive';
 import { Filter, FilterType } from '../../core/models/filter';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NotificationService } from '../../core/services/notification.service';
@@ -24,7 +24,7 @@ import { NotificationService } from '../../core/services/notification.service';
   selector: 'bs-user-list',
   templateUrl: 'user-list.component.html'
 })
-export class AdminUserListComponent extends ListComponent<UserModel> {
+export class AdminUserListComponent extends ListComponentDirective<UserModel> {
   protected _filters: Filter[] = [{
     name: 'T_USER_STATUS',
     field: 'status',

@@ -23,37 +23,34 @@ import { TranslateService } from '@ngx-translate/core';
 import { AdminGroupService } from '../../core/services/admin-group.service';
 import { IListResponse } from '../../core/services/rest.service';
 import { GroupModel } from '../../core/models/group-model';
-import { Select2OptionData } from 'ng2-select2';
 import { Utils } from '../../utils';
+import { ModelId } from '../../core/models/model';
+
+interface ISelectGroup {
+  id: ModelId;
+  name: string;
+}
 
 @Component({
   selector: 'bs-user-invite-form',
   templateUrl: 'user-invite-form.component.html'
 })
 export class AdminUserInviteFormComponent extends FormComponent<InviteModel> implements OnInit {
-  private _availableGroups: Select2OptionData[] = [];
-  private _options: Select2Options;
+  private _availableGroups: any[] = [];
   private _emails: string;
-  private _selectedGroups: string[] = [];
+  private _selectedGroupsIds: ModelId[] = [];
+  public selectedGroups: ISelectGroup[] =[];
 
   public set emails(value: string) {
     this._emails = value;
-  }
-
-  public set options(value: Select2Options) {
-    this._options = value;
   }
 
   public get emails(): string {
     return this._emails;
   }
 
-  public get availableGroups(): Select2OptionData[] {
+  public get availableGroups(): any[] {
     return this._availableGroups;
-  }
-
-  public get options(): Select2Options {
-    return this._options;
   }
 
   constructor(service: InviteService,
@@ -70,26 +67,21 @@ export class AdminUserInviteFormComponent extends FormComponent<InviteModel> imp
 
   public ngOnInit() {
     this._loadGroups();
-    this._options = {
-      allowClear: true,
-      placeholder: '',
-      multiple: true,
-      openOnEnter: true,
-      closeOnSelect: true,
-      dropdownAutoWidth: true,
-      escapeMarkup: (term: any) => {
-        return (term === 'No results found') ? this._translate.instant('T_EMPTY') : term;
-      },
-      matcher: (term: string, text: string) => {
-        return new RegExp(term, 'gi').test(text) ||
-          new RegExp(term, 'gi').test(Utils.transliterate(text));
-      }
-    };
     super.ngOnInit();
   }
 
-  public valueChanged(value: { value: string[] }) {
-    this._selectedGroups = [...value.value] || [];
+  public valueChanged(value) {
+    this._selectedGroupsIds = [];
+    if (value) {
+      value.forEach((item) => {
+        this._selectedGroupsIds.push(item.id);
+      });
+    }
+  }
+
+  public searchFn = (term: string, item: ISelectGroup) => {
+    return new RegExp(term, 'gi').test(item.name) ||
+      new RegExp(term, 'gi').test(Utils.transliterate(item.name));
   }
 
   public save() {
@@ -113,16 +105,17 @@ export class AdminUserInviteFormComponent extends FormComponent<InviteModel> imp
   }
 
   private _getGroups() {
-    return this._selectedGroups.map((item) => {
-      return parseInt(item, 10);
+    return this._selectedGroupsIds.map((item) => {
+      return parseInt(item.toString(), 10);
     });
   }
 
   private _loadGroups() {
-    this._selectedGroups = [];
+    this._selectedGroupsIds = [];
+    this.selectedGroups = [];
     this._groupService.list().subscribe((res: IListResponse<GroupModel>) => {
       return this._availableGroups = res.data.map((group) => {
-        return { id: String(group.id), text: `${group.name}` };
+        return { id: String(group.id), name: `${group.name}` };
       });
     });
   }

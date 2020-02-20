@@ -5,6 +5,7 @@
     "types": [
       "jasmine",
       "node",
+      "jquery",
       "reflect-metadata"
     ]
   },

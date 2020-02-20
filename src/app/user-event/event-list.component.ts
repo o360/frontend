@@ -13,7 +13,7 @@
  */
 
 import { Component, Input } from '@angular/core';
-import { ListComponent } from '../shared/components/list.component';
+import { ListComponentDirective } from '../shared/components/list-component.directive';
 import { EventModel, EventStatus } from '../core/models/event-model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NotificationService } from '../core/services/notification.service';
@@ -24,7 +24,7 @@ import { EventService } from '../core/services/event.service';
   selector: 'bs-assessment-user-event-list',
   templateUrl: 'event-list.component.html'
 })
-export class EventListComponent extends ListComponent<EventModel> {
+export class EventListComponent extends ListComponentDirective<EventModel> {
   protected _status: string = 'null';
 
   @Input()

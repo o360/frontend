@@ -18,14 +18,14 @@ import { IEmailTemplate, ProjectModel } from '../../core/models/project-model';
 import { AdminProjectService } from '../../core/services/admin-project.service';
 import { NotificationService } from '../../core/services/notification.service';
 import { Recipient } from '../../core/models/email-template-model';
-import { ListComponent } from '../../shared/components/list.component';
+import { ListComponentDirective } from '../../shared/components/list-component.directive';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'bs-project-email-template-list',
   templateUrl: 'project-email-template-list.component.html'
 })
-export class AdminProjectEmailTemplatesListComponent extends ListComponent<ProjectModel> {
+export class AdminProjectEmailTemplatesListComponent extends ListComponentDirective<ProjectModel> {
   private _model: ProjectModel;
   private _recipient: string = Recipient.auditor;
   private _hasInProgressEvents: boolean;
