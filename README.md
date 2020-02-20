@@ -1,6 +1,6 @@
 # Welcome to Open360
 
-[![Build Status](https://travis-ci.com/o360/frontend.svg?branch=master)](https://travis-ci.com/o360/frontend)
+[![Build Status](https://travis-ci.org/o360/frontend.svg?branch=master)](https://travis-ci.org/o360/frontend)
 [![Coverage Status](https://coveralls.io/repos/github/o360/frontend/badge.svg?branch=master)](https://coveralls.io/github/o360/frontend?branch=master)
 
 ## General Information
