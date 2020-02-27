@@ -1,6 +1,7 @@
 {
   "T_OPEN360": "Open360",
   "T_EMAIL": "Email",
+  "T_LOGIN": "Логин",
   "T_PASSWORD": "Пароль",
   "T_OR": "Или",
   "T_INVALID_CREDENTIALS": "Неверный логин/пароль",
