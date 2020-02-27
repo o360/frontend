@@ -1,12 +1,13 @@
 # Open360
-[![Build Status](https://travis-ci.com/o360/frontend.svg?branch=master)](https://travis-ci.com/o360/frontend)
+[![Build Status](https://travis-ci.org/o360/frontend.svg?branch=master)](https://travis-ci.org/o360/frontend)
 [![Coverage Status](https://coveralls.io/repos/github/o360/frontend/badge.svg?branch=master)](https://coveralls.io/github/o360/frontend?branch=master)
 
 * [General info](#general-info)
-* [Local Development](#local-development)
+* [Development](#development)
     * [Prerequisites](#prerequisites)
     * [Installation](#installation)
     * [Environment Configuration](#environment-configuration)
+        * [Social login](#social-login)
     * [Development server](#development-server)
     * [Build](#build)
     * [Testing](#testing)
@@ -64,6 +65,7 @@ The configuration file has the following properties:
 | `TITLE_NAV` | Title of website in shown in navbar |
 | `AGREEMENTS` | Path to agreements .md files |
 
+### Social login
 To configure login via social providers the following object need to be provided in the config file in `providers` field:
 ```
 '<provider_name>': {
@@ -80,6 +82,11 @@ For required params follow the links:
 Facebook: https://developers.facebook.com/docs/facebook-login/manually-build-a-login-flow/  
 VK: https://vk.com/dev/auth_sites  
 Google: https://developers.google.com/identity/protocols/OAuth2WebServer  
+
+To correctly set up user the following scopes should be requested from providers:  
+Facebook: `scope: "email,user_gender""`  
+VK: `scope: "email"`  
+Google: `scope: "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email"`  
  
 ## Development server
 
