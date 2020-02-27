@@ -1,0 +1,60 @@
+form {
+  margin-top: 20px;
+  margin-bottom: 35px;
+  display: inline-block;
+  width: 80%;
+
+  button {
+    border-radius: 4px;
+  }
+}
+
+.social-button {
+  height: 60px;
+  width: 60px;
+  border-radius: 50%;
+  text-align: center;
+  margin: 0 15px;
+
+  i {
+    color: white;
+    font-size: 35px;
+    line-height: 60px;
+  }
+
+  &.button-facebook {
+    background-color: #3b5997;
+  }
+
+  &.button-google {
+    background-color: #d83a39;
+  }
+
+  &.button-vk {
+    background-color: #3b5b97;
+  }
+}
+
+#login-card {
+  border-radius: 4px;
+  overflow: hidden;
+
+  .card-header {
+    color: white;
+    font-size: 35px;
+    background-color: #33b5e5;
+  }
+
+  .card-body {
+    text-align: center;
+    padding: 20px;
+  }
+}
+
+.unsuccessful-login {
+  height: 10px;
+
+  span {
+    color: red;
+  }
+}

@@ -16,16 +16,66 @@
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-md-8">
-        <div class="card mb-0 mx-2">
-          <div class="card-block p-2">
-            <h1>{{ 'T_LOG_IN' | translate }}</h1>
-            <p class="text-muted">{{ 'T_LOGIN_TEXT' | translate }}</p>
-            <button type="button"
-                    class="btn btn-google-plus"
-                    (click)="login('google')">
-              <span>Google</span>
-            </button>
+
+        <div class="card" id="login-card">
+
+          <h5 class="card-header text-center">
+            <strong>{{ 'T_LOG_IN' | translate }}</strong>
+          </h5>
+
+          <!--Card content-->
+          <div class="card-body">
+            <ng-container *ngIf="credentialsLoginAvailable">
+
+              <div class="unsuccessful-login">
+                <ng-container *ngIf="loginUnsuccessful">
+                  <span>{{ 'T_INVALID_CREDENTIALS' | translate }}</span>
+                </ng-container>
+              </div>
+
+              <!-- Login/Password form -->
+              <form>
+                <div class="form-group"
+                     [ngClass]="{'has-danger': loginUnsuccessful}">
+                  <input [(ngModel)]="username"
+                         [ngModelOptions]="{standalone: true}"
+                         type="text"
+                         [required]="true"
+                         (ngModelChange)="resetFormValidity()"
+                         class="form-control"
+                         placeholder="{{ 'T_LOGIN' | translate }}">
+                </div>
+                <div class="form-group"
+                     [ngClass]="{'has-danger': loginUnsuccessful}">
+                  <input [(ngModel)]="password"
+                         (ngModelChange)="resetFormValidity()"
+                         [ngModelOptions]="{standalone: true}"
+                         type="password" class="form-control" placeholder="{{ 'T_PASSWORD' | translate }}">
+                </div>
+
+                <button
+                  [disabled]="!username || !password"
+                  class="btn btn-outline-info btn-block" type="submit"
+                  (click)="loginWithCredentials()">{{ 'T_LOG_IN' | translate }}</button>
+
+              </form>
+            </ng-container>
+
+            <ng-container *ngIf="availableSocialProviders.length > 0">
+              <p class="text-muted"><span *ngIf="credentialsLoginAvailable">{{ 'T_OR' | translate }} </span>{{ 'T_LOGIN_TEXT' | translate }}</p>
+            </ng-container>
+
+            <!-- Social login -->
+            <ng-container *ngFor="let provider of availableSocialProviders">
+              <a type="button"
+                 class="social-button {{ provider.buttonClass }}"
+                 (click)="login(provider.key)">
+                <i class="fa {{ provider.icon }}"></i>
+              </a>
+            </ng-container>
+
           </div>
+
         </div>
       </div>
     </div>

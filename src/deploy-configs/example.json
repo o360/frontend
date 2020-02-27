@@ -1,0 +1,37 @@
+{
+  "ENV": "PROD",
+  "API": "https://website.api.url/api/v1.0",
+  "TITLE_MAIN": "Title",
+  "TITLE_NAV": "Navigation title",
+  "DEFAULT_LANG": "en",
+  "AGREEMENTS": "/assets/agreement",
+  "PROVIDERS": {
+    "GOOGLE": {
+      "authorizationUrlBase": "https://accounts.google.com/o/oauth2/auth",
+      "getParams": {
+        "response_type": "code",
+        "client_id": "982984793699-rrf65igolgdvtmdq5oue0opi3jvq4vl8.apps.googleusercontent.com",
+        "scope": "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email",
+        "redirect_uri": "http://localhost:5555/login/google"
+      }
+    },
+    "FACEBOOK": {
+      "authorizationUrlBase": "https://www.facebook.com/v6.0/dialog/oauth",
+      "getParams": {
+        "client_id": "943026769900796",
+        "redirect_uri": "http://localhost:5555/login/facebook",
+        "state": "true"
+      }
+    },
+    "VK": {
+      "authorizationUrlBase": "https://oauth.vk.com/authorize",
+      "getParams": {
+        "client_id": "7437410",
+        "scope": "status",
+        "redirect_uri": "http://localhost:5555/login/vk",
+        "v": "5.103",
+        "response_type": "code"
+      }
+    }
+  }
+}
