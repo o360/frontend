@@ -12,13 +12,24 @@
  * limitations under the License.
  */
 
-import { throwError as observableThrowError, Observable } from 'rxjs';
+import {
+  throwError as observableThrowError,
+  Observable,
+  of
+} from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { RestServiceConfig } from '../decorators/rest-service-config.decorator';
 import { AccountModel } from '../models/account-model';
 import { RestService } from './rest.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+
+export enum authProvider {
+  'CREDENTIALS' = 'CREDENTIALS',
+  'FACEBOOK' = 'FACEBOOK',
+  'GOOGLE' = 'GOOGLE',
+  'VK' = 'VK',
+}
 
 @Injectable()
 @RestServiceConfig({
@@ -40,6 +51,13 @@ export class OAuthService extends RestService<AccountModel> {
 
   public list() {
     return observableThrowError('Method not allowed!');
+  }
+
+  public listAvailableProviders() {
+    return this._http.get(`${this._configService.config.API}/auth-providers`)
+      .pipe(
+        catchError((error: HttpErrorResponse) => this._handleErrors(error))
+      );
   }
 
   public delete() {

@@ -15,10 +15,20 @@
 // Feel free to extend this interface
 // depending on your app specific config.
 export interface EnvConfig {
+  // API address
   API?: string;
+  /** Configurations for social auth providers
+   * for more info follow the links
+   * facebook: https://developers.facebook.com/docs/facebook-login/manually-build-a-login-flow/
+   * vk: https://vk.com/dev/auth_sites
+   * google: https://developers.google.com/identity/protocols/OAuth2WebServer
+   * See /src/deploy-configs/example.json for example
+   */
   PROVIDERS?: any;
   FIREBASE_URL?: string;
+  // Environment name
   ENV?: string;
+  // Language code to be used by default
   DEFAULT_LANG?: string;
   TITLE_MAIN?: string;
   TITLE_NAV?: string;
