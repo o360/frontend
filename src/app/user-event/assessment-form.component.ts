@@ -233,7 +233,7 @@ export class AssessmentFormComponent implements OnInit, OnChanges {
   }
 
   public ngOnInit() {
-    this.userAnswersId = `${this.queryParams.projectId}/${this.user.id}/${this.id}`;
+    this.userAnswersId = `${this.queryParams.projectId}/${this.user?.id}/${this.id}`;
     this._update();
   }
 
@@ -419,7 +419,7 @@ export class AssessmentFormComponent implements OnInit, OnChanges {
             status: AssessmentFormStatus.Answered
           },
           isAnswered: true,
-          userId: this.user.id
+          userId: this.user?.id
         });
       }
     } catch (e) {
