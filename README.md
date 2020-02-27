@@ -23,7 +23,7 @@ Frontend project for Open360. The Open360 is a system to create, manage and run 
 [Open360 Backend](https://github.com/o360/backend)
 
 
-# Local Development
+#Development
 ## Prerequisites
 
 Node.js - v12.x and yarn
@@ -46,9 +46,40 @@ To get started locally, follow these instructions:
 
 ## Environment Configuration
 
-The environment configuration files in `/src/environments/` provide a way for you to set and override configuration settings based on a given environment.
-The `/tools/env/env.config.ts` configuration is set up in base `LOCAL` environment, whereas the `/src/deploy-configs/dev.json` is specific the development environment,
- as is `/src/deploy-configs/prod.json` specific to the prod environment.
+To set up all necessary variables config file should be provided.
+Example config file can be found at `/src/deploy-configs/example.json`
+
+While running the project locally (without `--prod` flag) the `/tools/env/env.config.ts` configuration will be used to set up `LOCAL` environment.
+In case of production build and run the system will be looking for configuration file at `/assets/config.json`.
+
+The configuration file has the following properties:
+
+| Field     | Description |
+| :----------- | :---------- |
+| `API` | API address |
+| `ENV` | Environment name |
+| `PROVIDERS` | Configurations for social auth providers |
+| `DEFAULT_LANG` | Language code for translations to be used by default |
+| `TITLE_MAIN` | Main title of website |
+| `TITLE_NAV` | Title of website in shown in navbar |
+| `AGREEMENTS` | Path to agreements .md files |
+
+To configure login via social providers the following object need to be provided in the config file in `providers` field:
+```
+'<provider_name>': {
+      authorizationUrlBase: '<provider_auth_url>',
+      getParams: {
+        client_id: '<client_id>',
+        // other params required by the provider
+      }
+    }
+```
+
+Currently available providers: "FACEBOOK", "GOOGLE", "VK".
+For required params follow the links:  
+Facebook: https://developers.facebook.com/docs/facebook-login/manually-build-a-login-flow/  
+VK: https://vk.com/dev/auth_sites  
+Google: https://developers.google.com/identity/protocols/OAuth2WebServer  
  
 ## Development server
 

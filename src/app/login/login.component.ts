@@ -12,19 +12,60 @@
  * limitations under the License.
  */
 
-import { Component } from '@angular/core';
-import { AuthService } from '../core/services/auth.service';
-import { ActivatedRoute, Params } from '@angular/router';
+import {
+  Component,
+  OnInit
+} from '@angular/core';
+import { AuthService, } from '../core/services/auth.service';
+import {
+  ActivatedRoute,
+  Params,
+  Router
+} from '@angular/router';
+import {
+  authProvider,
+  OAuthService
+} from '../core/services/oauth.service';
 
 export const inviteCode = 'inviteCode';
 
 @Component({
   selector: 'bs-login',
-  templateUrl: 'login.component.html'
+  templateUrl: 'login.component.html',
+  styleUrls: ['login.component.scss']
 })
-export class LoginComponent {
-  constructor(protected _authService: AuthService,
-              protected _activatedRoute: ActivatedRoute) {
+export class LoginComponent implements OnInit {
+  public socialProviders = [
+    {
+      key: authProvider.GOOGLE,
+      name: 'Google',
+      icon: 'fa-google',
+      buttonClass: 'button-google',
+    },
+    {
+      key: authProvider.FACEBOOK,
+      name: 'Facebook',
+      icon: 'fa-facebook-f',
+      buttonClass: 'button-facebook',
+    },
+    {
+      key: authProvider.VK,
+      name: 'VK',
+      icon: 'fa-vk',
+      buttonClass: 'button-vk',
+
+    },
+  ];
+  public availableSocialProviders = [];
+  public credentialsLoginAvailable = false;
+  public username: string;
+  public password: string;
+  public loginUnsuccessful = false;
+
+  constructor(private _authService: AuthService,
+              private _oAuthService: OAuthService,
+              private _router: Router,
+              private _activatedRoute: ActivatedRoute) {
     this._activatedRoute.queryParams.forEach((params: Params) => {
       let code = params['code'];
       if (code) {
@@ -34,7 +75,37 @@ export class LoginComponent {
     this._authService.logout();
   }
 
-  public login(provider: string) {
+  ngOnInit(): void {
+    this._oAuthService.listAvailableProviders().subscribe(
+      (providers: authProvider[]) => {
+        this.credentialsLoginAvailable = providers.includes(authProvider.CREDENTIALS);
+        this.availableSocialProviders = this.socialProviders.filter(provider => providers.includes(provider.key));
+      }
+    );
+  }
+
+  public loginWithCredentials() {
+
+    this._authService.loginWithCredentials(this.username, this.password).subscribe(
+      (token) => {
+        if (token) {
+          this._authService.saveToken(token);
+          this._router.navigate(['/']);
+        }
+      },
+      (error) => {
+        if (error.status === 401) {
+          this.loginUnsuccessful = true;
+        }
+      }
+      );
+  }
+
+  public resetFormValidity() {
+    this.loginUnsuccessful = false;
+  }
+
+  public login(provider: authProvider) {
     this._authService.login(provider);
   }
 }

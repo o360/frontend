@@ -12,11 +12,26 @@
  * limitations under the License.
  */
 
-import { Injectable } from '@angular/core';
+import {
+  Injectable,
+  OnInit
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { AccountModel } from '../models/account-model';
 import { UserRole } from '../models/user-model';
 import { ConfigurationService } from './configuration.service';
+import { authProvider } from './oauth.service';
+import { RestService } from './rest.service';
+import {
+  catchError,
+  map
+} from 'rxjs/operators';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHeaders
+} from '@angular/common/http';
+import { of } from 'rxjs';
 
 export const tokenLsKey = 'token';
 
@@ -50,6 +65,7 @@ export class AuthService {
   }
 
   constructor(protected _router: Router,
+              private _http: HttpClient,
               private _configService: ConfigurationService) {
     this.updateToken();
   }
@@ -63,13 +79,29 @@ export class AuthService {
     this._token = localStorage[tokenLsKey];
   }
 
-  public login(oauthProvider: string) {
-    console.log('LOGIN');
+  public login(oauthProvider: authProvider) {
     let providerConfig = this._configService.config.PROVIDERS[oauthProvider];
     let urlParams = Object.entries(providerConfig.getParams).map(([key, value]) => {
       return `${key}=${encodeURIComponent(value.toString())}`;
     });
     window.location.href = `${providerConfig.authorizationUrlBase}?${urlParams.join('&')}`;
+  }
+
+  public loginWithCredentials(username: string, password: string) {
+    let body = JSON.stringify({
+      username,
+      password,
+    });
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json;charset=UTF-8',
+      'Accept': 'application/json'
+    });
+    let url = `${this._configService.config.API}/auth-creds`;
+
+    return this._http.post(url, body, { headers })
+      .pipe(
+        map((json: any) => <string> json['token'])
+      );
   }
 
   public logout() {
