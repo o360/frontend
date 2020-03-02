@@ -14,9 +14,8 @@ script:
 after_success:
   - yarn coveralls
 before_deploy:
-  - yarn build.prod
   # Note: On tag builds $TRAVIS_BRANCH contains tag name, not branch name
-  - docker build --tag="$DOCKER_REPOSITORY:$([ "$TRAVIS_BRANCH" == "master" ] && echo "latest" || echo "$TRAVIS_BRANCH")" --file=".docker/bw-assessment-ui.prod.dockerfile" .
+  - docker build --tag="$DOCKER_REPOSITORY:$([ "$TRAVIS_BRANCH" == "master" ] && echo "latest" || echo "$TRAVIS_BRANCH")" --file=".docker/Dockerfile" .
   - echo "$DOCKER_TOKEN" | docker login -u "$DOCKER_USERNAME" --password-stdin
 deploy:
   provider: script
