@@ -87,7 +87,8 @@ export abstract class ListComponentDirective<T extends Model> implements OnInit 
   }
 
   public ngOnInit() {
-    this._activatedRoute.queryParams.forEach(this._processRequestParams.bind(this));
+    this._activatedRoute.queryParams
+      .subscribe((params: Params) => this._processRequestParams(params));
   }
 
   public delete(id: ModelId) {
