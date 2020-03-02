@@ -20,14 +20,15 @@
       "getParams": {
         "client_id": "943026769900796",
         "redirect_uri": "http://localhost:5555/login/facebook",
-        "state": "true"
+        "state": "true",
+        "scope": "email,user_gender"
       }
     },
     "VK": {
       "authorizationUrlBase": "https://oauth.vk.com/authorize",
       "getParams": {
         "client_id": "7437410",
-        "scope": "status",
+        "scope": "email",
         "redirect_uri": "http://localhost:5555/login/vk",
         "v": "5.103",
         "response_type": "code"
