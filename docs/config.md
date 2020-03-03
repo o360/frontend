@@ -1,4 +1,4 @@
-# Open360 config guide
+# Open360 configuration guide
 
 ### Environment Configuration
 
