@@ -25,12 +25,12 @@ export interface EnvConfig {
    * See /src/deploy-configs/example.json for example
    */
   PROVIDERS?: any;
-  FIREBASE_URL?: string;
   // Environment name
   ENV?: string;
   // Language code to be used by default
   DEFAULT_LANG?: string;
   TITLE_MAIN?: string;
   TITLE_NAV?: string;
+  // Path to folder with agreements .md files
   AGREEMENTS?: string;
 }
