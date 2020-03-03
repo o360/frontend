@@ -343,5 +343,6 @@
   "T_INVITE_UNACTIVATE": "Unactivate",
   "T_INVITE_ACTIVATE": "Activate",
   "T_DISABLE_PROJECT_BUTTON": "It is used in active events",
-  "T_DISABLE_RELATION_BUTTON": "It is used in active events"
+  "T_DISABLE_RELATION_BUTTON": "It is used in active events",
+  "T_LOADING_GROUPS": "Loading information about groups"
 }

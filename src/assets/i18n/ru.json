@@ -345,5 +345,6 @@
   "T_INVITE_UNACTIVATE": "Неактивировано",
   "T_INVITE_ACTIVATE": "Активировано",
   "T_DISABLE_PROJECT_BUTTON": "Проект находится в активном событии",
-  "T_DISABLE_RELATION_BUTTON": "Отношение находится в активном событии"
+  "T_DISABLE_RELATION_BUTTON": "Отношение находится в активном событии",
+  "T_LOADING_GROUPS": "Загрузка информации о группах"
 }
