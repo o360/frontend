@@ -1,8 +1,8 @@
-# Open360
+# Open360 Frontend
 [![Build Status](https://travis-ci.org/o360/frontend.svg?branch=master)](https://travis-ci.org/o360/frontend)
 [![Coverage Status](https://coveralls.io/repos/github/o360/frontend/badge.svg?branch=master)](https://coveralls.io/github/o360/frontend?branch=master)
 
-Frontend project for Open360. The Open360 is a system to create, manage and run surveys in a convenient way for both employees and employers.
+Frontend project for Open360. Open360 is a system to create, manage and run surveys in a convenient way for both employees and employers.
 
 
 #### Related project
