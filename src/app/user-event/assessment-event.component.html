@@ -27,12 +27,19 @@
     </div>
     <ul class="list-group list-unstyled">
       <li class="row inline assessment-user-inline-list-item"
-          *ngFor="let item of filteredUsers"
+          *ngFor="let item of filteredUsers; trackBy: trackByUserIdentity"
           [ngClass]="{ 'mb-1 align-items-baseline': item.forms.length > 1 }">
         <div class="col-sm-4" [ngSwitch]="!!item.user">
           <ng-template [ngSwitchCase]="true">
             <div class="inline-user">
-              <img [src]="!!item.user.picture ? item.user.picture : '../../assets/images/noUserImage.png'" [alt]=""/>
+              <ng-container *ngIf="item.user.picture; else defaultImage">
+                <img lazyImage [src]="item.user.picture" [alt]="'T_USER_AVATAR' | translate" />
+              </ng-container>
+
+              <ng-template #defaultImage>
+                <img src="../../assets/images/noUserImage.png" [alt]="'T_USER_AVATAR' | translate" />
+              </ng-template>
+
               {{ item.user.name }}
               <small class="text-muted" *ngIf="item.user.id === currentUserId">({{ 'T_USERS_IS_YOU' | translate }})</small>
             </div>

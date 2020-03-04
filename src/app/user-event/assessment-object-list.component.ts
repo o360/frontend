@@ -141,6 +141,10 @@ export class AssessmentObjectListComponent {
       && (<AssessmentModel> this._selectedItem).user.id === userObj.id;
   }
 
+  public trackByUserIdentity(index: number, item: AssessmentModel): ModelId {
+    return item.user.id;
+  }
+
   private _setUsers() {
     let condition;
     switch (this._usersFilterType) {

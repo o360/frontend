@@ -12,12 +12,23 @@
  * limitations under the License.
  */
 
-import { map } from 'rxjs/operators';
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { from, Observable, of, Subscription } from 'rxjs';
+import { catchError, map, mergeMap, switchMap, tap, toArray } from 'rxjs/operators';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges
+} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AssessmentFormStatus, AssessmentModel, IFormAnswer } from '../core/models/assessment-model';
 import { FormModel } from '../core/models/form-model';
 import { ModelId } from '../core/models/model';
+import { UserModel } from '../core/models/user-model';
 import { AssessmentService } from '../core/services/assessment.service';
 import { NotificationService } from '../core/services/notification.service';
 import { IListResponse, IQueryParams } from '../core/services/rest.service';
@@ -27,7 +38,6 @@ import { EventStatus } from '../core/models/event-model';
 import { ProjectModel } from '../core/models/project-model';
 import { EventService } from '../core/services/event.service';
 import { UserPictureService } from '../core/services/user-picture.service';
-import { Observable } from 'rxjs';
 import { Utils } from '../utils';
 import { AuthService } from '../core/services/auth.service';
 
@@ -36,6 +46,8 @@ import { AuthService } from '../core/services/auth.service';
   templateUrl: 'assessment-event.component.html'
 })
 export class AssessmentEventComponent extends ListComponentDirective<AssessmentModel> implements OnInit, OnChanges {
+  private readonly _maxConcurrency = 5;
+
   protected _project: ProjectModel;
   protected _eventId: ModelId;
   protected _forms: FormModel[];
@@ -143,33 +155,32 @@ export class AssessmentEventComponent extends ListComponentDirective<AssessmentM
               notificationService: NotificationService,
               protected _eventService: EventService,
               protected _userPictureService: UserPictureService,
-              protected _authService: AuthService) {
+              protected _authService: AuthService,
+              protected _cdr: ChangeDetectorRef) {
     super(service, activatedRoute, router, notificationService);
   }
 
   public ngOnInit() {
     this._inlineAnonymous = this._project.isAnonymous;
     this._queryParams.projectId = this._project.id.toString();
-
     this._eventService.get(this._eventId).subscribe(event => this._status = event.status);
 
     super.ngOnInit();
-    this._update().subscribe(() => {
-      if (this._users) {
-        let notAnsweredUser = Utils.getNext(this._users, undefined, _ => !_.isAnswered);
-        if (notAnsweredUser) {
-          this.displayItem(notAnsweredUser);
-        } else {
-          if (this._surveys) {
-            let notAnsweredSurvey = Utils.getNext(this._surveys, undefined, _ => _.status === AssessmentFormStatus.New);
-            if (notAnsweredSurvey) {
-              this.displayItem(notAnsweredSurvey);
-            } else {
-              this._showNextProject.emit(this._list);
-            }
-          }
-        }
+
+    this._fetching = this._update().subscribe(() => {
+      if (!Array.isArray(this._users)) {
+        return;
       }
+
+      if (this._goToNextUnansweredUser()) {
+        return;
+      }
+
+      if (this._goToNextNewSurvey()) {
+        return;
+      }
+
+      this._goToNextProject();
     });
   }
 
@@ -181,90 +192,71 @@ export class AssessmentEventComponent extends ListComponentDirective<AssessmentM
     }
   }
 
-  public displayItem(item: AssessmentObject, index?: number) {
-    this._assessmentObject = null;
+  public displayItem(item: AssessmentObject) {
+    this._assessmentObject = item;
 
-    setTimeout(() => {
-      this._assessmentObject = item;
+    if (this._assessmentObject instanceof AssessmentModel) {
+      this._assessmentObject.forms.forEach((form: IFormAnswer, index: number) => form.active = index === 0);
+    } else {
+      this._assessmentObject.active = true;
+    }
 
-      if (this._assessmentObject.hasOwnProperty('user')) {
-        let obj = <AssessmentModel> this._assessmentObject;
-        obj.forms.forEach(_ => _.active = false);
-        obj.forms[0].active = true;
-      } else {
-        (<IFormAnswer> this._assessmentObject).active = true;
-      }
-    });
+    this._cdr.detectChanges();
   }
 
   public showNext(assessment: AssessmentModel) {
-    this._update().subscribe(() => {
-      if (this._assessmentObject.hasOwnProperty('user')) {
-        let obj = <AssessmentModel> this._assessmentObject;
-        let nextForm = Utils.getNext(obj.forms, _ => _.active, _ => _.status === AssessmentFormStatus.New);
+    if (this._fetching instanceof Subscription && !this._fetching.closed) {
+      this._fetching.unsubscribe();
+    }
 
-        if (nextForm) {
-          obj.forms.forEach(_ => _.active = false);
-          nextForm.active = true;
-        } else {
-          let nextUser = Utils.getNext(this._users, _ => _.user.id === obj.user.id, _ => !!_.user && !_.isAnswered);
-          let notAnsweredUser = Utils.getNext(this._users, undefined, _ => !_.isAnswered);
-          if (nextUser) {
-            this.displayItem(nextUser);
-          } else if (notAnsweredUser) {
-            this.displayItem(notAnsweredUser);
-          } else if (this.surveys && !!this._surveys.length) {
-            let nextSurvey = Utils.getNext(this._surveys, undefined, _ => _.status === AssessmentFormStatus.New);
+    this._fetching = this._update(false).subscribe(() => {
+      const hasSurveys = Array.isArray(this._surveys) && this._surveys.length > 0;
 
-            if (nextSurvey) {
-              this.displayItem(nextSurvey);
-            } else {
-              this._showNextProject.emit(this._list);
-            }
-          } else {
-            this._showNextProject.emit(this._list);
+      if (this._assessmentObject instanceof AssessmentModel) {
+        const switchTo = [
+          () => this._goToNextActiveNewForm((<AssessmentModel>this._assessmentObject).forms),
+          () => this._goToNextUnansweredUser((<AssessmentModel>this._assessmentObject).user),
+          () => this._goToNextNewSurvey(),
+          () => this._goToNextProject(),
+        ];
+
+        for (const fn of switchTo) {
+          const canGoToNextEntity = fn();
+
+          if (canGoToNextEntity) {
+            return;
           }
         }
-      } else if (this.surveys && !!this._surveys.length) {
-        let nextSurvey = Utils.getNext(this._surveys, _ => _.form.id === (<IFormAnswer> this._assessmentObject).form.id,
-          _ => _.status === AssessmentFormStatus.New);
-        if (nextSurvey) {
-          this.displayItem(nextSurvey);
-        } else {
-          this._showNextProject.emit(this._list);
-        }
-      } else {
-        this._showNextProject.emit(this._list);
       }
+
+      if (hasSurveys && this._goToNextNewSurvey(<IFormAnswer>this._assessmentObject)) {
+        return;
+      }
+
+      this._goToNextProject();
     });
   }
 
   public formChanged(value: any) {
-    let sameAnswer;
+    const answerIndex = value && this._answers.findIndex(
+      x => (!x.userId || x.userId === value.userId) && x.form.formId === value.form.formId
+    );
+    const hasAnswer = answerIndex !== undefined && answerIndex > -1;
 
-    if (value) {
-      sameAnswer = this._answers.find(x => ((!x.userId || x.userId === value.userId) && x.form.formId === value.form.formId));
-    }
-    if (sameAnswer) {
-      let index = this._answers.indexOf(sameAnswer);
-      this._answers[index].form.answers = value.form.answers;
+    if (hasAnswer) {
+      this._answers[answerIndex].form.answers = value.form.answers;
     } else {
       this._answers.push(value);
     }
 
-    this._answers.map((item) => {
-      if (item.form.answers && item.form.answers[0].valuesIds && item.form.answers[0].valuesIds.length !== 0) {
-        item.form.isAnonymous = this._inlineAnonymous;
-      }
-    });
+    this._answers = this._answers.filter(
+      (item: AssessmentModel) => Array.isArray(item.form.answers)
+        && item.form.answers.length > 0
+        && item.form.answers[0].valuesIds
+        && item.form.answers[0].valuesIds.length !== 0
+    );
 
-    let validAnswer: AssessmentModel[] = [];
-    this._answers.map((item) => {
-      if (item.form.answers && item.form.answers[0].valuesIds && item.form.answers[0].valuesIds.length !== 0) {
-        validAnswer.push(item);
-      }
-    });
-    this._answers = validAnswer;
+    this._answers.forEach((item: AssessmentModel) => item.form.isAnonymous = this._inlineAnonymous);
 
     this._isClear = !value.isAnswered;
   }
@@ -299,65 +291,165 @@ export class AssessmentEventComponent extends ListComponentDirective<AssessmentM
     this._inlineAnonymous = !this._inlineAnonymous;
   }
 
-  protected _update(): Observable<any> {
+  public trackByUserIdentity(index: number, item: AssessmentModel): ModelId {
+    return item.user.id;
+  }
+
+  protected _update(loadLinkedData: boolean = true): Observable<any> {
     this._answers = [];
-    return this._fetch()
+
+    return this._fetch(loadLinkedData)
       .pipe(
-        map((list) => {
-          this._list = list;
-
-          if (list) {
-            this._users = list.filter((assessment: AssessmentModel) => !!assessment.user);
-            this._surveys = list.find((assessment: AssessmentModel) => !assessment.user) ?
-              list.find((assessment: AssessmentModel) => !assessment.user).forms : null;
-
-            this._users.sort((x, y) => {
-              return !!x.user && !!y.user && (x.user.name < y.user.name) ? -1 : !!x.user && !!y.user && (x.user.name > y.user.name) ? 1 : 0;
-            });
-
-            if (this._surveys) {
-              this._surveys.sort((x, y) => x.form.name < y.form.name ? -1 : 1);
-            }
-          }
-
-          this._filteredUsers = this._list;
-
-          this._isAnswered = !list.find((item: AssessmentModel) => !item.isAnswered);
-
-          if (this._assessmentObject && this._assessmentObject.userId) {
-            this._assessmentObject = list.find((item: AssessmentModel) => item.user.id === this._assessmentObject.userId);
-          }
-        })
+        tap((list: AssessmentModel[]) => this._list = list),
+        tap((list: AssessmentModel[]) => this._updateStateOnDataFetched(list)),
       );
   }
 
-  protected _fetch(): Observable<any> {
-    let observable = new Observable((observer) => {
-      this._fetching = this._service.list(this._queryParams).subscribe((res: IListResponse<AssessmentModel>) => {
-        let list = res.data;
+  protected _updateStateOnDataFetched(list: AssessmentModel[]): void {
+    this._filteredUsers = list;
 
-        list.forEach((assessment) => {
-          assessment.isClassic = !!assessment.user;
-          assessment.isAnswered = !assessment.forms.find(x => x.status === AssessmentFormStatus.New);
-          assessment.forms
-            .sort((x: IFormAnswer, y: IFormAnswer) => x.form.name < y.form.name ? -1 : 1)
-            .forEach(form => form.active = false);
-          if (assessment.user && assessment.user.hasPicture) {
-            this._userPictureService.getPicture(assessment.user.id).subscribe(pic => assessment.user.picture = pic);
+    if (list.length > 0) {
+      this._isClear = !list[list.length - 1].isAnswered;
+    }
+
+    this._users = list.filter(({ user }) => !!user);
+
+    const assessmentModelWithoutUser = list.find(({ user }) => !user);
+    this._surveys = !!assessmentModelWithoutUser ? assessmentModelWithoutUser.forms : null;
+
+    this._users.sort((x, y) => x.user.name < y.user.name ? -1 : 1);
+
+    this._isAnswered = !list.some((item: AssessmentModel) => !item.isAnswered);
+
+    if (this._assessmentObject instanceof AssessmentModel && this._assessmentObject.user) {
+      this._assessmentObject = list.find(
+        (item: AssessmentModel) => item.user.id === (<AssessmentModel>this._assessmentObject).user.id
+      );
+    }
+  }
+
+  protected _fetch(loadLinkedData: boolean): Observable<any> {
+    return this._service.list(this._queryParams)
+      .pipe(
+        map((res: IListResponse<AssessmentModel>) => {
+          const items = res.data;
+          this._meta = res.meta;
+
+          for (const item of items) {
+            item.setFormsActive(false);
           }
 
-          this._isClear = !assessment.isAnswered;
-        });
+          if (this._project.isLast) {
+            let forms = items[items.length - 1].forms;
+            forms[forms.length - 1].isLast = true;
+          }
 
-        if (this._project.isLast) {
-          let forms = list[list.length - 1].forms;
-          forms[forms.length - 1].isLast = true;
-        }
+          return items;
+        }),
+        switchMap((items: AssessmentModel[]) => from(items).pipe(
+          mergeMap((item: AssessmentModel) => loadLinkedData
+            ? this._fetchItemLinkedData(item)
+            : this._getItemLinkedDataFromCache(item),
+            this._maxConcurrency
+          ),
+          toArray()
+        ))
+      );
+  }
 
-        observer.next(list);
-        observer.complete();
-      }, error => observer.error(error));
-    });
-    return observable;
+  protected _fetchItemLinkedData(item: AssessmentModel): Observable<AssessmentModel> {
+    if (!item.user || !item.user.hasPicture) {
+      return of(item);
+    }
+
+    const resultItem = new AssessmentModel(item.toJson());
+
+    return this._userPictureService.getPicture(item.user.id)
+      .pipe(
+        map((picture: string) => {
+          resultItem.user.picture = picture;
+
+          return resultItem;
+        }),
+        catchError(() => of(resultItem)),
+      );
+  }
+
+  protected _getItemLinkedDataFromCache(item: AssessmentModel): Observable<AssessmentModel> {
+    if (!item.user || !item.user.hasPicture) {
+      return of(item);
+    }
+
+    const resultItem = new AssessmentModel(item.toJson());
+    const cacheItem = this._list.find(({ id, user }) => item.id === id && item.user.id === user.id);
+
+    if (cacheItem) {
+      resultItem.user.picture = cacheItem.user.picture;
+    }
+
+    return of(resultItem);
+  }
+
+  protected _goToNextActiveNewForm(forms: IFormAnswer[]): boolean {
+    const nextForm = Utils.getNext(
+      forms,
+      ({ active }) => active,
+      ({ status }) => status === AssessmentFormStatus.New
+    );
+
+    if (!nextForm) {
+      return false;
+    }
+
+    forms.forEach(form => form.active = false);
+    nextForm.active = true;
+
+    return true;
+  }
+
+  protected _goToNextUnansweredUser(user?: UserModel): boolean {
+    const nextUser = user && Utils.getNext(
+      this._users,
+        _ => _.user.id === user.id,
+        _ => !!_.user && !_.isAnswered
+    );
+
+    const nextUnansweredUser = Utils.getNext(
+      this._users,
+      undefined,
+      _ => !_.isAnswered
+    );
+
+    if (!nextUser && !nextUnansweredUser) {
+      return false;
+    }
+
+    this.displayItem(nextUser || nextUnansweredUser);
+
+    return true;
+  }
+
+  protected _goToNextNewSurvey(formAnswer?: IFormAnswer): boolean {
+    const nextSurvey = Utils.getNext(
+      this._surveys,
+      formAnswer
+        ? _ => _.form.id === formAnswer.form.id
+        : undefined,
+      ({ status }) => status === AssessmentFormStatus.New
+    );
+
+    if (!nextSurvey) {
+      return false;
+    }
+
+    this.displayItem(nextSurvey);
+
+    return true;
+  }
+
+  protected _goToNextProject(): boolean {
+    this._showNextProject.emit(this._list);
+
+    return true;
   }
 }

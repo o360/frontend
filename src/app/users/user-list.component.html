@@ -30,8 +30,12 @@
           <tbody>
             <tr *ngFor="let model of list">
               <td class="images-column">
-                <img [src]="model.hasPicture && !!model.picture ? model.picture : '../../assets/images/noUserImage.png'"
-                     alt=""/>
+                <ng-container *ngIf="model.picture; else defaultImage">
+                  <img lazyImage [src]="model.picture" [alt]="'T_USER_AVATAR' | translate" />
+                </ng-container>
+                <ng-template #defaultImage>
+                  <img src="../../assets/images/noUserImage.png" [alt]="'T_USER_AVATAR' | translate" />
+                </ng-template>
               </td>
               <td><a [routerLink]="['/users', model.id]">{{ model.name }}</a>
                 <small class="text-muted" *ngIf="model.id === currentUserId">({{ 'T_USERS_IS_YOU' | translate }})</small>

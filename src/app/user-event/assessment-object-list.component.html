@@ -30,12 +30,19 @@
 
   <ul id="users" class="list-group assessment-object-list mb-2" [ngClass]="{ 'with-surveys': !!surveys }">
     <li class="list-group-item custom-item assessment-user-list-item"
-        *ngFor="let userObj of filteredUsers"
+        *ngFor="let userObj of filteredUsers; trackBy: trackByUserIdentity"
         (click)="selectUser(userObj)"
         [ngClass]="{ 'current' : isCurrent(userObj.user) }">
-      <i [ngClass]="{ 'fa-check answered' : userObj.isAnswered }"
-         class="fa"></i>
-      <img [src]="!!userObj.user.picture ? userObj.user.picture : '../../assets/images/noUserImage.png'" [alt]=""/>
+      <i [ngClass]="{ 'fa-check answered' : userObj.isAnswered }" class="fa"></i>
+
+      <ng-container *ngIf="userObj.user.picture; else defaultImage">
+        <img lazyImage [src]="userObj.user.picture" [alt]="'T_USER_AVATAR' | translate" />
+      </ng-container>
+
+      <ng-template #defaultImage>
+        <img src="../../assets/images/noUserImage.png" [alt]="'T_USER_AVATAR' | translate" />
+      </ng-template>
+
       <span class="name pl-1"> {{ userObj.user.name }}
         <small class="text-muted" *ngIf="userObj.user.id === currentUserId">({{ 'T_USERS_IS_YOU' | translate }})</small>
       </span>

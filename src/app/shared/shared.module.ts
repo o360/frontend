@@ -32,6 +32,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { PaginationComponent } from './components/pagination/pagination.component';
 import { CKEditorModule } from 'ng2-ckeditor';
 import { DateTimeComponent } from './components/datetime/datetime-picker.component';
+import { LazyImageDirective } from './directives/lazy-image.directive';
 import { LanguageSelectorComponent } from './language-selector/language-selector.component';
 import { DateFormatPipe } from './pipes/date.pipe';
 import { DndModule } from '@beyerleinf/ngx-dnd';
@@ -71,6 +72,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
   ],
   declarations: [
     ConfirmationDirective,
+    LazyImageDirective,
     FiltersComponent,
     PaginationComponent,
     DateTimeComponent,
@@ -92,6 +94,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
     RouterModule,
     TranslateModule,
     ConfirmationDirective,
+    LazyImageDirective,
     CollapseModule,
     FiltersComponent,
     SearchComponent,

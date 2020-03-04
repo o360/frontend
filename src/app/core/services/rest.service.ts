@@ -95,7 +95,7 @@ export class RestService<T extends Model> {
   public list(queryParams?: IQueryParams): Observable<IListResponse<T>> {
     return this._http.get(this._getRequestParams(undefined, queryParams), this._getRequestOptions())
       .pipe(
-        map((json: any) => Object.assign(json, { data: json.data.map((x: any) => this.createEntity(x)) })),
+        map((json: any) => Object.assign(json, { data: (json.data || []).map((x: any) => this.createEntity(x)) })),
         catchError((error: HttpErrorResponse) => this._handleErrors(error))
       );
   }
