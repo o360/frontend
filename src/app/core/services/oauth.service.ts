@@ -13,9 +13,9 @@
  */
 
 import {
-  throwError as observableThrowError,
   Observable,
-  of
+  of,
+  throwError as observableThrowError
 } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { RestServiceConfig } from '../decorators/rest-service-config.decorator';

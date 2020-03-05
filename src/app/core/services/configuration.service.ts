@@ -12,10 +12,10 @@
  * limitations under the License.
  */
 
-import { EnvConfig } from '../../../environments/env-config.interface';
+import { IEnvConfig } from '../../../environments/env-config.interface';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { tap, catchError } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 import { throwError as observableThrowError } from 'rxjs';
 import { Config } from '../../../environments/env.config';
 import { environment } from '../../../environments/environment';
@@ -23,24 +23,25 @@ import { environment } from '../../../environments/environment';
 @Injectable()
 export class ConfigurationService {
   private readonly _configUrlPath: string = '/assets/config.json';
-  private _configData: EnvConfig = Config;
+  private _configData: IEnvConfig = Config;
 
   constructor(private _http: HttpClient) {
   }
 
-  public loadConfigurationData(): Promise<EnvConfig> | Promise<void> {
+  public loadConfigurationData(): Promise<IEnvConfig> | Promise<void> {
     if (environment.production) {
-      return this._http.get<EnvConfig>(`${this._configUrlPath}`, { responseType: 'json' })
+      return this._http.get<IEnvConfig>(`${this._configUrlPath}`, { responseType: 'json' })
         .pipe(
-          tap((result: EnvConfig) => this._configData = result),
+          tap((result: IEnvConfig) => this._configData = result),
           catchError((error: HttpErrorResponse) => observableThrowError(error))
         )
         .toPromise();
     }
+
     return Promise.resolve();
   }
 
-  public get config(): EnvConfig {
+  public get config(): IEnvConfig {
     return this._configData;
   }
 }

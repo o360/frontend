@@ -108,6 +108,7 @@ export const DateFormat = {
 
 export const ValidatorFutureDate = (control: FormControl) => {
   let isFuture = moment(control.value).isAfter(moment.now());
+
   return isFuture ? null : { dateInPast: 'T_ERROR_DATE_IN_PAST' };
 };
 
@@ -127,15 +128,15 @@ let id = 0;
   }]
 })
 export class DateTimeComponent implements ControlValueAccessor, AfterViewInit, Validator {
+  @ViewChild(NgModel, { static: true })
+  public model: NgModel;
+
   protected _innerValue: any;
   protected _date: any;
   protected _onlyDateMode: boolean = false;
   protected _disable: boolean = false;
   protected _input: ElementRef;
   protected _id = `picker-${id++}`;
-
-  @ViewChild(NgModel, { static: true })
-  public model: NgModel;
 
   public get value(): any {
     return this._innerValue;
@@ -243,6 +244,7 @@ export class DateTimeComponent implements ControlValueAccessor, AfterViewInit, V
     if (this._onlyDateMode) {
       return moment(date).format(DateFormat.Date);
     }
+
     return moment(date).format(DateFormat.DateTime);
   }
 
@@ -250,6 +252,7 @@ export class DateTimeComponent implements ControlValueAccessor, AfterViewInit, V
     if (this._onlyDateMode) {
       return moment(date, DateFormat.Date, true);
     }
+
     return moment(date, DateFormat.DateTime, true);
   }
 

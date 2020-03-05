@@ -28,13 +28,13 @@ export class FormModel extends Model {
 }
 
 export class FormElement extends Model {
-  kind: string;
-  caption: string;
-  required: boolean;
-  hint?: string;
-  values?: IFormElementValue[];
-  tempValue?: any;
-  tempComment?: string;
+  public kind: string;
+  public caption: string;
+  public required: boolean;
+  public hint?: string;
+  public values?: IFormElementValue[];
+  public tempValue?: any;
+  public tempComment?: string;
 }
 
 export interface IFormElementValue {

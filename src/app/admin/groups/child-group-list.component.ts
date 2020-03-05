@@ -24,8 +24,9 @@ import { NotificationService } from '../../core/services/notification.service';
   templateUrl: 'child-group-list.component.html'
 })
 export class AdminChildGroupListComponent extends ListComponentDirective<GroupModel> implements OnInit, OnChanges {
-  private _innerGroupState: boolean = false;
   protected _parentId: string = 'null';
+
+  private _innerGroupState: boolean = false;
 
   @Input()
   public set parentId(value: string) {

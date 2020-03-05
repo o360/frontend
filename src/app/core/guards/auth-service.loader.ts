@@ -12,8 +12,8 @@
  * limitations under the License.
  */
 
-import { from as observableFrom, of as observableOf, Observable } from 'rxjs';
-import { share, map } from 'rxjs/operators';
+import { from as observableFrom, Observable, of as observableOf } from 'rxjs';
+import { map, share } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 import { AccountModel } from '../models/account-model';
@@ -32,12 +32,14 @@ export class AuthServiceLoader implements CanActivate {
   public canActivate(): any {
     if (!this._authService.isLoggedIn) {
       this._router.navigate(['/login']);
+
       return observableOf(false);
     }
 
     if (this._authService.user) {
       return observableFrom([true]);
     }
+
     return this._load();
   }
 
@@ -48,6 +50,7 @@ export class AuthServiceLoader implements CanActivate {
           map((user: AccountModel) => {
             this._authService.user = user;
             this._isLoading = null;
+
             return true;
           }),
           share()

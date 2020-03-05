@@ -12,7 +12,7 @@
  * limitations under the License.
  */
 
-import { of as observableOf, Observable } from 'rxjs';
+import { Observable, of as observableOf } from 'rxjs';
 import { OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Model, ModelId } from '../../core/models/model';
@@ -77,6 +77,7 @@ export abstract class FormComponent<T extends Model> implements OnInit {
     if (this._id) {
       return this._service.get(this._id);
     }
+
     return observableOf(this._service.createEntity());
   }
 

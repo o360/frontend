@@ -12,9 +12,9 @@
  * limitations under the License.
  */
 
-import { EnvConfig } from './env-config.interface';
+import { IEnvConfig } from './env-config.interface';
 
-export const Config: EnvConfig = {
+export const Config: IEnvConfig = {
   ENV: 'LOCAL',
   API: '',
   TITLE_MAIN: 'Open360',

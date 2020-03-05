@@ -38,12 +38,13 @@ interface ISelectGroup {
   templateUrl: 'group-invite-form.component.html'
 })
 export class AdminGroupInviteFormComponent extends FormComponent<InviteModel> implements OnInit {
+  public selectedGroups: ISelectGroup[];
+
   private _availableGroups: any[] = [];
   private _emails: string;
   private _selectedGroupsIds: ModelId[] = [];
   private _groupModel: GroupModel;
   private _isMultipleGroups: boolean = true;
-  public selectedGroups: ISelectGroup[];
 
   public set emails(value: string) {
     this._emails = value;
@@ -109,6 +110,44 @@ export class AdminGroupInviteFormComponent extends FormComponent<InviteModel> im
       new RegExp(term, 'gi').test(Utils.transliterate(item.name));
   }
 
+  protected _load() {
+    this._loadModelGroup().subscribe(this._processModelGroup.bind(this));
+  }
+
+  protected _loadModelGroup() {
+    if (this._id) {
+      this._isMultipleGroups = false;
+
+      return this._groupService.get(this._id);
+    }
+
+    return observableOf(this._groupService.createEntity());
+  }
+
+  protected _processModelGroup(model: GroupModel) {
+    this._groupModel = model;
+
+    this._fillBreadcrumbsGroup(model);
+  }
+
+  protected async _fillBreadcrumbsGroup(model: GroupModel) {
+    let breadcrumbs: IBreadcrumb[] = [];
+    let item = model;
+
+    if (item.name) {
+      breadcrumbs.push({ label: item.name, url: `/admin/groups/${item.id}` });
+      while (item.parentId) {
+        item = await this._groupService.get(item.parentId).toPromise();
+        breadcrumbs.push({ label: item.name, url: `/admin/groups/${item.id}` });
+        breadcrumbs.reverse();
+      }
+    }
+
+    breadcrumbs.push({ label: 'T_ACTION_SEND_INVITE' });
+
+    this._breadcrumbService.overrideBreadcrumb(breadcrumbs);
+  }
+
   private _getEmails() {
     return this.emails.split(',').map((item) => {
       return item.replace(/\s/g, '');
@@ -140,41 +179,5 @@ export class AdminGroupInviteFormComponent extends FormComponent<InviteModel> im
         return { id: String(group.id), name: `${group.name}` };
       });
     });
-  }
-
-  protected _load() {
-    this._loadModelGroup().subscribe(this._processModelGroup.bind(this));
-  }
-
-  protected _loadModelGroup() {
-    if (this._id) {
-      this._isMultipleGroups = false;
-      return this._groupService.get(this._id);
-    }
-    return observableOf(this._groupService.createEntity());
-  }
-
-  protected _processModelGroup(model: GroupModel) {
-    this._groupModel = model;
-
-    this._fillBreadcrumbsGroup(model);
-  }
-
-  protected async _fillBreadcrumbsGroup(model: GroupModel) {
-    let breadcrumbs: IBreadcrumb[] = [];
-    let item = model;
-
-    if (item.name) {
-      breadcrumbs.push({ label: item.name, url: `/admin/groups/${item.id}` });
-      while (item.parentId) {
-        item = await this._groupService.get(item.parentId).toPromise();
-        breadcrumbs.push({ label: item.name, url: `/admin/groups/${item.id}` });
-        breadcrumbs.reverse();
-      }
-    }
-
-    breadcrumbs.push({ label: 'T_ACTION_SEND_INVITE' });
-
-    this._breadcrumbService.overrideBreadcrumb(breadcrumbs);
   }
 }

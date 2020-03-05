@@ -27,16 +27,6 @@ import { BreadcrumbService } from '../../core/services/breadcrumb.service';
   templateUrl: 'email-template-form.component.html'
 })
 export class AdminEmailTemplateFormComponent extends FormComponent<EmailTemplateModel> implements OnInit {
-  private _ckEditorConfig: any = {
-    toolbarGroups: [
-      { name: 'basicstyles' },
-      { name: 'paragraph', groups: ['list', 'indent', 'blocks', 'align', 'bidi'] },
-      { name: 'colors' },
-      { name: 'styles', groups: ['Styles', 'Format'] },
-      '/',
-      { name: 'textConstants' },
-    ],
-  };
   protected _kinds: string[] = Object.values(EmailKind);
   protected _recipients: string[] = Object.values(Recipient);
   protected _returnPath: any[] = ['/admin/templates'];
@@ -61,6 +51,17 @@ export class AdminEmailTemplateFormComponent extends FormComponent<EmailTemplate
     click: 'event_description',
     command: 'addEventDescription'
   }];
+
+  private _ckEditorConfig: any = {
+    toolbarGroups: [
+      { name: 'basicstyles' },
+      { name: 'paragraph', groups: ['list', 'indent', 'blocks', 'align', 'bidi'] },
+      { name: 'colors' },
+      { name: 'styles', groups: ['Styles', 'Format'] },
+      '/',
+      { name: 'textConstants' },
+    ],
+  };
 
   public get kinds(): string[] {
     return this._kinds;

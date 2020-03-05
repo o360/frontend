@@ -31,11 +31,13 @@ export const RequireValue = (kind: string): boolean => {
 
 export const FormBuilderValidator = (control: AbstractControl): ValidationErrors => {
   const elements = (control.get('elements') as FormArray).value;
+
   return elements.length ? null : { noElements: true };
 };
 
 export const FormElementValidator = (control: AbstractControl): ValidationErrors => {
   const values = (control.get('values') as FormArray).value;
+
   return (!!values.length) ? null : { noValues: 'T_FORM_VALUES_ARE_REQUIRED' };
 };
 
@@ -44,17 +46,16 @@ export const FormElementValidator = (control: AbstractControl): ValidationErrors
   templateUrl: 'form-builder.component.html'
 })
 export class AdminFormBuilderComponent extends FormComponent<FormModel> implements OnInit {
+  public static next() {
+    return AdminFormBuilderComponent._idSeq++;
+  }
+
   protected static _idSeq = 0;
 
   protected _returnPath = ['/admin/forms'];
   protected _elementTypes: string[] = Object.values(FormElementType);
   protected _form: FormGroup;
-
   protected _index: number = AdminFormBuilderComponent.next();
-
-  protected static next() {
-    return AdminFormBuilderComponent._idSeq++;
-  }
 
   public get index(): number {
     return this._index;
@@ -223,6 +224,7 @@ export class AdminFormBuilderComponent extends FormComponent<FormModel> implemen
         kind: element.kind
       });
     }
+
     return form;
   }
 }

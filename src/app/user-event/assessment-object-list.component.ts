@@ -33,6 +33,10 @@ export class UserAssessmentFilters {
 })
 export class AssessmentObjectListComponent {
   private static _idSeq = 0;
+  private static next() {
+    return AssessmentObjectListComponent._idSeq++;
+  }
+
   private _index: number = AssessmentObjectListComponent.next();
   private _usersFilterType: string = UserAssessmentFilters.All;
   private _filters = Object.values(UserAssessmentFilters);
@@ -42,10 +46,6 @@ export class AssessmentObjectListComponent {
   private _selectedItem: AssessmentObject;
   private _surveys: IFormAnswer[];
   private _selectedItemChange: EventEmitter<AssessmentObject> = new EventEmitter<AssessmentObject>();
-
-  private static next() {
-    return AssessmentObjectListComponent._idSeq++;
-  }
 
   public get index(): number {
     return this._index;

@@ -33,15 +33,19 @@ export class AuthGuard implements CanActivate, CanActivateChild {
           if (this._authService.isLoggedIn) {
             if (this._authService.user.status === UserStatus.New && !this._authService.user.isFilled) {
               this._router.navigate(['/new']);
+
               return false;
             }
             if (!this._authService.user.termsApproved) {
               this._router.navigate(['/agreement']);
+
               return false;
             }
+
             return true;
           }
           this._router.navigate(['/login']);
+
           return false;
         })
       );
