@@ -14,6 +14,7 @@
 
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { RouterHistoryService } from './core/services/router-history.service';
 import { SupportedLanguages } from './shared/config/translate-loader.config';
 import { registerLocaleData } from '@angular/common';
 import ru from '@angular/common/locales/ru';
@@ -28,7 +29,9 @@ import { ConfigurationService } from './core/services/configuration.service';
 })
 export class AppComponent {
   constructor(protected _translate: TranslateService,
-              private _configService: ConfigurationService) {
+              private _configService: ConfigurationService,
+              private _routerHistoryService: RouterHistoryService) {
+    this._routerHistoryService.subscribe();
     this._translateConfig();
   }
 

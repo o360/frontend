@@ -19,6 +19,7 @@ import { NotificationService } from '../core/services/notification.service';
 import { AccountService } from '../core/services/account.service';
 import { AccountModel } from '../core/models/account-model';
 import { UserStatus } from '../core/models/user-model';
+import { RouterHistoryService } from '../core/services/router-history.service';
 
 @Component({
   selector: 'bs-terms',
@@ -48,6 +49,7 @@ export class AgreementComponent {
   constructor(protected _auth: AuthService,
               protected _accountService: AccountService,
               protected _router: Router,
+              protected _routerHistoryService: RouterHistoryService,
               protected _notificationService: NotificationService) {
     this._approveState =  this._auth.user.termsApproved;
   }
@@ -63,5 +65,9 @@ export class AgreementComponent {
         this._notificationService.success('T_SUCCESS_NEW_USER_BY_INVITE');
       }
     }, error => this._notificationService.error('T_ERROR_AGREEMENT'));
+  }
+
+  public goBack(): void {
+    this._router.navigateByUrl(this._routerHistoryService.previousUrl);
   }
 }
