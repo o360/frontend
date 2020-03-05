@@ -19,9 +19,10 @@ import { ConfirmationService } from '../../core/services/confirmation.service';
   selector: '[bsConfirm]'
 })
 export class ConfirmationDirective {
+  protected _contentTemplate: TemplateRef<any>;
+
   private _message: string = 'T_CONFIRM_MESSAGE';
   private _confirm: EventEmitter<any> = new EventEmitter<any>();
-  protected _contentTemplate: TemplateRef<any>;
 
   @Input()
   public set message(value: string) {

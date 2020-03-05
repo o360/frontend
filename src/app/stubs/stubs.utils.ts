@@ -18,7 +18,7 @@ import { BehaviorSubject, Observable, of } from 'rxjs';
 import { Model, ModelId } from '../core/models/model';
 import { TestModel } from '../core/models/model.spec';
 import { AssessmentModel } from '../core/models/assessment-model';
-import { EnvConfig } from '../../environments/env-config.interface';
+import { IEnvConfig } from '../../environments/env-config.interface';
 
 /* RestServiceStub stub */
 @Injectable()
@@ -41,6 +41,7 @@ export class RestServiceStub<T extends Model> {
     if (model.id !== undefined) {
       return this._update(model);
     }
+
     return this._create(model);
   }
 
@@ -114,6 +115,8 @@ export class ConfirmationStub {
 export class ActivatedRouteStub {
   protected _testParams: IQueryParams = { number: '2' };
   protected _subject = new BehaviorSubject(this.testParams);
+
+  // tslint:disable-next-line:member-ordering
   public params = this._subject.asObservable();
 
   get testParams() {
@@ -141,7 +144,7 @@ export class BreadcrumbServiceStub {
 /* TranslateServiceStub stub */
 @Injectable()
 export class TranslateServiceStub {
-  setDefaultLang() {
+  public setDefaultLang() {
     return;
   }
 
@@ -210,7 +213,7 @@ export class FormServiceStub {
 
 /* ConfigurationService stub */
 export class ConfigurationServiceStub {
-  private _configData: EnvConfig = {
+  private _configData: IEnvConfig = {
     ENV: 'test',
     API: 'http://test/api',
     TITLE_MAIN: 'test',
@@ -232,7 +235,7 @@ export class ConfigurationServiceStub {
     return Promise.resolve();
   }
 
-  public get config(): EnvConfig {
+  public get config(): IEnvConfig {
     return this._configData;
   }
 }

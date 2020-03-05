@@ -301,6 +301,7 @@ export class AssessmentEventComponent extends ListComponentDirective<AssessmentM
 
   protected _update(): Observable<any> {
     this._answers = [];
+
     return this._fetch()
       .pipe(
         map((list) => {
@@ -358,6 +359,7 @@ export class AssessmentEventComponent extends ListComponentDirective<AssessmentM
         observer.complete();
       }, error => observer.error(error));
     });
+
     return observable;
   }
 }

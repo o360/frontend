@@ -14,7 +14,7 @@
 
 // Feel free to extend this interface
 // depending on your app specific config.
-export interface EnvConfig {
+export interface IEnvConfig {
   // API address
   API?: string;
   /** Configurations for social auth providers

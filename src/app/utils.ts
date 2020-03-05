@@ -14,6 +14,81 @@
 
 /* tslint:disable:no-parameter-reassignment */
 export class Utils {
+  /**
+   * Generate
+   * @returns {string}
+   */
+  public static generateId() {
+    'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+      let r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+
+      return v.toString(16);
+    });
+  }
+
+  /**
+   * Transliterate a string
+   * @returns {string}
+   */
+  public static transliterate(value: string) {
+    this._keys = Object.keys(this._transliterationHashMap).sort((a, b) => b.length - a.length);
+    let out: string = '';
+    while (value) {
+      let key: string = this._peek(value);
+      if (key) {
+        out += Object.keys(this._transliterationHashMap)[Object.values(this._transliterationHashMap).indexOf(key)];
+        // TODO for what asignation here?
+        value = value.slice(key.length);
+      } else {
+        out += value[0];
+        // TODO and there ?
+        value = value.slice(1);
+      }
+    }
+
+    return out;
+  }
+
+  public static getNext<T>(arr: T[], start?: (value: T) => boolean, predicate?: (value: T) => boolean): T {
+    let tempArr = arr;
+
+    if (start) {
+      tempArr = tempArr.slice(arr.findIndex(start) + 1, arr.length);
+
+    }
+    if (predicate) {
+      tempArr = tempArr.filter(predicate);
+    }
+
+    return tempArr[0];
+  }
+
+  public static isFunction(value: any): boolean {
+    let getType = {};
+
+    return value && getType.toString.call(value) === '[object Function]';
+  }
+
+  protected static _peek(str: string) {
+    for (let i = 0; i < this._keys.length; i++) {
+      if (this._startsWith(this._keys[i], str)) {
+        return this._keys[i];
+      }
+    }
+
+    return '';
+  }
+
+  protected static _startsWith(start: string, str: string) {
+    for (let i = 0; i < start.length; i++) {
+      if (start[i] !== str[i]) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
   private static _keys: string[];
 
   private static _transliterationHashMap: object = {
@@ -144,74 +219,4 @@ export class Utils {
     'Kh': 'Х',
     'kh': 'х'
   };
-
-  /**
-   * Generate
-   * @returns {string}
-   */
-  public static generateId() {
-    'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
-      let r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
-      return v.toString(16);
-    });
-  }
-
-  /**
-   * Transliterate a string
-   * @returns {string}
-   */
-  public static transliterate(value: string) {
-    this._keys = Object.keys(this._transliterationHashMap).sort((a, b) => b.length - a.length);
-    let out: string = '';
-    while (value) {
-      let key: string = this._peek(value);
-      if (key) {
-        out += Object.keys(this._transliterationHashMap)[Object.values(this._transliterationHashMap).indexOf(key)];
-        // TODO for what asignation here?
-        value = value.slice(key.length);
-      } else {
-        out += value[0];
-        // TODO and there ?
-        value = value.slice(1);
-      }
-    }
-    return out;
-  }
-
-  protected static _peek(str: string) {
-    for (let i = 0; i < this._keys.length; i++) {
-      if (this._startsWith(this._keys[i], str)) {
-        return this._keys[i];
-      }
-    }
-    return '';
-  }
-
-  protected static _startsWith(start: string, str: string) {
-    for (let i = 0; i < start.length; i++) {
-      if (start[i] !== str[i]) {
-        return false;
-      }
-    }
-    return true;
-  }
-
-  public static getNext<T>(arr: T[], start?: (value: T) => boolean, predicate?: (value: T) => boolean): T {
-    let tempArr = arr;
-
-    if (start) {
-      tempArr = tempArr.slice(arr.findIndex(start) + 1, arr.length);
-
-    }
-    if (predicate) {
-      tempArr = tempArr.filter(predicate);
-    }
-
-    return tempArr[0];
-  }
-
-  public static isFunction(value: any): boolean {
-    let getType = {};
-    return value && getType.toString.call(value) === '[object Function]';
-  }
 }

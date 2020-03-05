@@ -24,9 +24,9 @@ export declare type ModelId = string | number;
  *
  */
 export abstract class Model {
-  @NotSerializable() protected _defaults: Object;
-
   public id: ModelId;
+
+  @NotSerializable() protected _defaults: Object;
 
   constructor(json?: Object) {
     Object.assign(this, this._defaults, json);
@@ -51,6 +51,7 @@ export abstract class Model {
         object[prop] = model[prop];
       }
     }
+
     return object;
   }
 }

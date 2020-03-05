@@ -50,6 +50,7 @@ export class ConfirmationService {
     this._componentRef.instance.message = this._translateMessage(message);
     this._componentRef.instance.conflicts = conflicts;
     this._componentRef.instance.contentTemplate = this._contentTemplate;
+
     return this._componentRef.instance.confirmed;
   }
 
@@ -69,6 +70,7 @@ export class ConfirmationService {
     if (message) {
       return this._translateService.instant(message);
     }
+
     return this._translateService.instant(this._message);
   }
 }

@@ -290,6 +290,7 @@ export class AssessmentFormComponent implements OnInit, OnChanges {
           elementAnswer.comment = element.tempComment;
         }
       }
+
       return elementAnswer;
     });
 

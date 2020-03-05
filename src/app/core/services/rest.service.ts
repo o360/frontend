@@ -12,7 +12,7 @@
  * limitations under the License.
  */
 
-import { throwError as observableThrowError, Observable } from 'rxjs';
+import { Observable, throwError as observableThrowError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { forwardRef, Inject, Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
@@ -122,6 +122,7 @@ export class RestService<T extends Model> {
     if (model.id !== undefined) {
       return this._update(model);
     }
+
     return this._create(model);
   }
 
@@ -226,9 +227,11 @@ export class RestService<T extends Model> {
     const err = error.error;
     if (error.status === 400) {
       this._notificationService.error(this._prepareErrorCodeTranslation(err.code));
+
       return observableThrowError(error);
     }  if (error.status === 401) {
       this._router.navigate(['/login']);
+
       return observableThrowError(error);
     }  if (error.status === 403) {
       if (err.code === 'AUTHORIZATION-EVENT') {
@@ -236,9 +239,11 @@ export class RestService<T extends Model> {
       } else {
         this._notificationService.error(err.message, `${error.status} ${error.statusText}`);
       }
+
       return observableThrowError(error);
     }  if (error.status === 404) {
       this._notificationService.error(this._prepareErrorCodeTranslation(err.code));
+
       return observableThrowError(error);
     }  if (error.status === 409) {
       let conflicts = [
@@ -254,9 +259,11 @@ export class RestService<T extends Model> {
       } else {
         this._notificationService.error(this._prepareErrorCodeTranslation(err.code));
       }
+
       return observableThrowError(error);
     }
     this._notificationService.error(err.message, `${error.status} ${error.statusText}`);
+
     return observableThrowError(error);
   }
 
@@ -271,6 +278,7 @@ export class RestService<T extends Model> {
       ia[i] = byteString.charCodeAt(i);
     }
     const mimeString = dataUri.split(',')[0].split(':')[1].split(';')[0];
+
     return new Blob([ia], { type: mimeString });
   }
 }

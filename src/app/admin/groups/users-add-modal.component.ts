@@ -16,10 +16,7 @@ import { forkJoin as observableForkJoin } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap';
-import {
-  Model,
-  ModelId
-} from '../../core/models/model';
+import { ModelId } from '../../core/models/model';
 import { UserModel, UserStatus } from '../../core/models/user-model';
 import { AdminGroupService } from '../../core/services/admin-group.service';
 import { NotificationService } from '../../core/services/notification.service';
@@ -38,6 +35,8 @@ interface ISelectUser {
   templateUrl: 'users-add-modal.component.html'
 })
 export class AdminUsersAddModalComponent implements OnInit {
+  public selectedUsers: ISelectUser[] = [];
+
   private _groupId: ModelId = null;
   private _selectedUsersIds: ModelId[] = [];
   private _modal: ModalDirective;
@@ -45,7 +44,6 @@ export class AdminUsersAddModalComponent implements OnInit {
   private _availableUsers: any[] = [];
   private _options: any;
   private _users: any;
-  public selectedUsers: ISelectUser[] = [];
 
   @Input()
   public set groupId(value: string) {

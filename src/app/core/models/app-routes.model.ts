@@ -14,10 +14,10 @@
 
 import { Route } from '@angular/router';
 
-export interface AppRoute extends Route {
+export interface IAppRoute extends Route {
   breadcrumb?: string;
   breadcrumbIgnore?: boolean;
   children: AppRoutes;
 }
 
-export declare type AppRoutes = AppRoute[];
+export declare type AppRoutes = IAppRoute[];
