@@ -70,13 +70,13 @@ export class AdminEventNotificationComponent {
     );
   }
 
+  public formatData({ time }: IEventNotification) {
+    return moment(time);
+  }
+
   protected _update() {
     this._eventService.get(this._event.id).subscribe((event: EventModel) => {
       this._event = event;
     });
-  }
-
-  public formatData({ time }: IEventNotification) {
-    return moment(time);
   }
 }

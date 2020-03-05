@@ -53,6 +53,7 @@ export class AgreementViewComponent implements OnInit {
         map(response => response.toString()),
         map((text) => {
           const converter = new Converter();
+
           return converter.makeHtml(text);
         })
       )

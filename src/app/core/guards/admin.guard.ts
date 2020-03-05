@@ -35,10 +35,12 @@ export class AdminGuard implements CanActivate {
               return true;
             }
             this._router.navigate(['/']);
+
             return false;
 
           }
           this._router.navigate(['/login']);
+
           return false;
         })
       );

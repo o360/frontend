@@ -366,6 +366,7 @@ export class AssessmentEventComponent extends ListComponentDirective<AssessmentM
         observer.complete();
       }, error => observer.error(error));
     });
+
     return observable;
   }
 }

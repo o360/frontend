@@ -31,6 +31,9 @@ let id = 0;
   styleUrls: ['likes-dislikes.component.scss']
 })
 export class LikesDislikesComponent implements ControlValueAccessor {
+  @ViewChild(NgModel)
+  public model: NgModel;
+
   protected _element: FormElement;
   protected _user: UserModel;
   protected _innerValue: any;
@@ -39,9 +42,6 @@ export class LikesDislikesComponent implements ControlValueAccessor {
   protected _disabled: boolean;
 
   protected _id = `like-dislike-${id++}`;
-
-  @ViewChild(NgModel)
-  public model: NgModel;
 
   public get value(): any {
     return this._innerValue;

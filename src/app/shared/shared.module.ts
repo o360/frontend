@@ -12,26 +12,26 @@
  * limitations under the License.
  */
 
+import { DateTimeComponent } from './components/datetime/datetime-picker.component';
 import { CommonModule } from '@angular/common';
-import { ModuleWithProviders, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   AccordionModule,
+  AlertModule,
+  BsDropdownModule,
   CollapseModule,
   ModalModule,
   PaginationModule,
-  TabsModule,
-  TooltipModule,
-  AlertModule, BsDropdownModule
+  TabsModule, TooltipModule
 } from 'ngx-bootstrap';
 import { FiltersComponent } from './components/filters/filters.component';
 import { ConfirmationDirective } from './directives/confirmation.directive';
 import { ToastrModule } from 'ngx-toastr';
 import { PaginationComponent } from './components/pagination/pagination.component';
 import { CKEditorModule } from 'ng2-ckeditor';
-import { DateTimeComponent } from './components/datetime/datetime-picker.component';
+import { ModuleWithProviders, NgModule } from '@angular/core';
 import { LanguageSelectorComponent } from './language-selector/language-selector.component';
 import { DateFormatPipe } from './pipes/date.pipe';
 import { DndModule } from '@beyerleinf/ngx-dnd';

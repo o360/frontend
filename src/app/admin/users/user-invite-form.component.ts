@@ -36,10 +36,11 @@ interface ISelectGroup {
   templateUrl: 'user-invite-form.component.html'
 })
 export class AdminUserInviteFormComponent extends FormComponent<InviteModel> implements OnInit {
+  public selectedGroups: ISelectGroup[] =[];
+
   private _availableGroups: any[] = [];
   private _emails: string;
   private _selectedGroupsIds: ModelId[] = [];
-  public selectedGroups: ISelectGroup[] =[];
 
   public set emails(value: string) {
     this._emails = value;
@@ -98,6 +99,15 @@ export class AdminUserInviteFormComponent extends FormComponent<InviteModel> imp
     });
   }
 
+  protected _fillBreadcrumbs() {
+    this._breadcrumbService.overrideBreadcrumb([{
+      label: 'T_INVITES',
+      url: `/admin/users/invites`
+    }, {
+      label: 'T_ACTION_SEND_INVITE'
+    }]);
+  }
+
   private _getEmails() {
     return this.emails.split(',').map((item) => {
       return item.replace(/\s/g, '');
@@ -118,14 +128,5 @@ export class AdminUserInviteFormComponent extends FormComponent<InviteModel> imp
         return { id: String(group.id), name: `${group.name}` };
       });
     });
-  }
-
-  protected _fillBreadcrumbs() {
-    this._breadcrumbService.overrideBreadcrumb([{
-      label: 'T_INVITES',
-      url: `/admin/users/invites`
-    }, {
-      label: 'T_ACTION_SEND_INVITE'
-    }]);
   }
 }

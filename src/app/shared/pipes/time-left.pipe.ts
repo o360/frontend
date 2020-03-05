@@ -25,8 +25,10 @@ export class TimeLeftPipe implements PipeTransform {
     tempEndDate = moment(endDate).format('DD.MM.YYYY HH:mm');
     if (startDate) {
       tempStartDate = moment(startDate).format('DD.MM.YYYY HH:mm');
+
       return moment(tempEndDate, 'DD.MM.YYYY HH:mm').from(moment(tempStartDate, 'DD.MM.YYYY HH:mm'));
     }
+
     return moment(tempEndDate, 'DD.MM.YYYY HH:mm').fromNow();
   }
 }

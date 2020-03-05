@@ -12,7 +12,7 @@
  * limitations under the License.
  */
 
-import { Input, OnInit, Directive } from '@angular/core';
+import { Directive, Input, OnInit } from '@angular/core';
 import { Model, ModelId } from '../../core/models/model';
 import { IListResponse, IQueryParams, IResponseMeta, RestService } from '../../core/services/rest.service';
 import { Filter } from '../../core/models/filter';

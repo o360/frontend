@@ -14,7 +14,7 @@
 
 // Feel free to extend this interface
 // depending on your app specific config.
-export interface EnvConfig {
+export interface IEnvConfig {
   // API address
   API?: string;
   /** Configurations for social auth providers
@@ -25,12 +25,12 @@ export interface EnvConfig {
    * See /src/deploy-configs/example.json for example
    */
   PROVIDERS?: any;
-  FIREBASE_URL?: string;
   // Environment name
   ENV?: string;
   // Language code to be used by default
   DEFAULT_LANG?: string;
   TITLE_MAIN?: string;
   TITLE_NAV?: string;
+  // Path to folder with agreements .md files
   AGREEMENTS?: string;
 }

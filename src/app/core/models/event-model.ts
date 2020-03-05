@@ -79,8 +79,10 @@ export class EventModel extends Model {
       if (totalForms === answeredForms) {
         return EventState.FullFilled;
       }
+
       return EventState.PartiallyFilled;
     }
+
     return null;
   }
 
@@ -97,6 +99,7 @@ export class EventModel extends Model {
   public toJson(): Object {
     this.start = moment(this.start).format(DateFormat.Backend);
     this.end = moment(this.end).format(DateFormat.Backend);
+
     return super.toJson();
   }
 }
