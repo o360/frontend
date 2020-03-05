@@ -16,12 +16,6 @@ import { Model, ModelId } from './model';
 import { UserModel } from './user-model';
 import { NotSerializable } from '../decorators/not-serializable.decorator';
 
-export class AssessmentFormStatus {
-  public static readonly New: string = 'new';
-  public static readonly Answered: string = 'answered';
-  public static readonly Skipped: string = 'skipped';
-}
-
 export class AssessmentModel extends Model {
   public user?: UserModel;
   public userId?: ModelId;
@@ -29,22 +23,6 @@ export class AssessmentModel extends Model {
   public forms?: IFormAnswer[];
   public isClassic?: boolean;
   @NotSerializable() public isAnswered?: boolean;
-
-  constructor(json?: Object) {
-    super(json);
-
-    this.isClassic = !!this.user;
-    if (Array.isArray(this.forms)) {
-      this.isAnswered = !this.forms.some(({ status }) => status === AssessmentFormStatus.New);
-      this.forms.sort((x: IFormAnswer, y: IFormAnswer) => x.form.name < y.form.name ? -1 : 1);
-    }
-  }
-
-  public setFormsActive(state: boolean): void {
-    for (const form of this.forms) {
-      form.active = state;
-    }
-  }
 }
 
 export interface IFormAnswer {
@@ -69,4 +47,10 @@ export interface IElementAnswer {
   text?: string;
   valuesIds?: ModelId[];
   comment?: string;
+}
+
+export class AssessmentFormStatus {
+  public static readonly New: string = 'new';
+  public static readonly Answered: string = 'answered';
+  public static readonly Skipped: string = 'skipped';
 }
