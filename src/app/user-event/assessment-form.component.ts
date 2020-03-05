@@ -310,7 +310,7 @@ export class AssessmentFormComponent implements OnInit, OnChanges {
     }
 
     this._formChange.emit(this._assessment);
-    localStorage.setItem(this.userAnswersId, JSON.stringify(this.assessment.form.answers));
+    localStorage.setItem(this.userAnswersId, JSON.stringify(this.assessment));
   }
 
   public save() {
@@ -348,7 +348,7 @@ export class AssessmentFormComponent implements OnInit, OnChanges {
   protected _getAnswers() {
     this._assessmentService.list(this._queryParams).subscribe((res: IListResponse<AssessmentModel>) => {
       const list = res.data;
-      const unsavedAnswers: string | null = localStorage.getItem(this.userAnswersId);
+      const unsavedAssessment: string | null = localStorage.getItem(this.userAnswersId);
       let currentForm;
 
       if (this._user) {
@@ -359,12 +359,15 @@ export class AssessmentFormComponent implements OnInit, OnChanges {
           .find(x => x.form.id === this._form.id);
       }
 
+      // Got form from the server
       if (currentForm) {
         this._answers = currentForm.answers;
+        this.isAnonymous = currentForm.isAnonymous;
       }
 
-      if (!!unsavedAnswers) {
-        this._parseUnsavedAnswers(unsavedAnswers);
+      // Got form from localStorage
+      if (!!unsavedAssessment) {
+        this._parseUnsavedAssessment(unsavedAssessment);
       }
 
       if (this.answers) {
@@ -405,12 +408,14 @@ export class AssessmentFormComponent implements OnInit, OnChanges {
     });
   }
 
-  protected _parseUnsavedAnswers(unsavedAnswers: string) {
+  protected _parseUnsavedAssessment(unsavedAssessment: string) {
     try {
-      const parsedAnswers = JSON.parse(unsavedAnswers);
-      if (!!parsedAnswers.length) {
-        this.answers = parsedAnswers;
+      const parsedAssessment: AssessmentModel = JSON.parse(unsavedAssessment);
+
+      if (!!parsedAssessment.form.answers.length) {
+        this.answers = parsedAssessment.form.answers;
         this.hasUnsavedAnswers = true;
+        this._isAnonymous = parsedAssessment.form.isAnonymous;
         this.assessment = new AssessmentModel({
           form: {
             formId: this._id,

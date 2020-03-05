@@ -29,6 +29,46 @@ import {
 import { AssessmentFormComponent } from './assessment-form.component';
 import { AssessmentService } from '../core/services/assessment.service';
 import { FormService } from '../core/services/form.service';
+import { of } from 'rxjs';
+import { AssessmentModel } from '../core/models/assessment-model';
+import { UserModel } from '../core/models/user-model';
+import { FormModel } from '../core/models/form-model';
+
+const testAssessment = new AssessmentModel({
+  forms: [
+    {
+      answers: [
+        { elementId: 5895, text: 'sd' }, { elementId: 5823, text: '2323' }
+      ],
+      isSkipped: false,
+      form: { id: 1025, name: 'Игра престолов: Кто завладеет Железным троном?' },
+      isAnonymous: false,
+      status: 'answered'
+    }
+  ],
+  form: {
+    answers: [
+      { elementId: 5895, text: 'sd' }, { elementId: 5823, text: '2323' }
+    ],
+    isSkipped: false,
+    form: { id: 1025, name: 'Игра престолов: Кто завладеет Железным троном?' },
+    isAnonymous: false,
+    status: 'answered'
+  },
+  isAnswered: true,
+  isClassic: false,
+  user: {
+    id: 89,
+    name: 'Test',
+    gender: 'male',
+    hasPicture: false,
+    email: 'test@test.rr',
+    status: '',
+    role: '',
+    timezone: 'Z',
+    termsApproved: false,
+  }
+});
 
 @Component({
   selector: 'bs-assessment-form-tests',
@@ -49,6 +89,7 @@ describe('Assessment Form Component', () => {
   let fixture: ComponentFixture<TestAssessmentFormComponent>;
   let store = {};
   let assessmentService: AssessmentService;
+  let formService: FormServiceStub;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -64,40 +105,32 @@ describe('Assessment Form Component', () => {
       ]
     });
 
-    const mockLocalStorage = {
-      getItem: (key: string): string => {
-        return key in store ? store[key] : null;
-      },
-      setItem: (key: string, value: string) => {
-        store[key] = `${value}`;
-      },
-      removeItem: (key: string) => {
-        delete store[key];
-      },
-      clear: () => {
-        store = {};
-      }
-    };
     fixture = TestBed.createComponent(TestAssessmentFormComponent);
     comp = fixture.componentInstance;
     assessmentService = TestBed.inject(AssessmentService);
-
-    spyOn(localStorage, 'getItem')
-      .and.callFake(mockLocalStorage.getItem);
-    spyOn(localStorage, 'setItem')
-      .and.callFake(mockLocalStorage.setItem);
-    spyOn(localStorage, 'removeItem')
-      .and.callFake(mockLocalStorage.removeItem);
-    spyOn(localStorage, 'clear')
-      .and.callFake(mockLocalStorage.clear);
-  });
-
-  it('should store the value in localStorage', () => {
-    localStorage.setItem('someKey', 'test');
-    expect(localStorage.getItem('someKey')).toEqual('test');
+    formService = TestBed.inject(FormService);
   });
 
   it('should be defined', () => {
     expect(comp).toBeDefined();
+  });
+
+  it('should get is form anonymous from server response', () => {
+    spyOn(assessmentService, 'list').and.returnValue(of({ data: [testAssessment], meta: null }));
+    spyOn(formService, 'get').and.returnValue(of(new FormModel({ id: 1025 })));
+    comp.isAnonymous = true;
+    comp.user = new UserModel({ id: 89 });
+    expect(comp.isAnonymous).toBeTruthy();
+    fixture.detectChanges();
+    expect(comp.isAnonymous).toBeFalsy();
+  });
+
+  it('should get is form anonymous from localStorage', () => {
+    spyOn(localStorage.__proto__, 'getItem').and.returnValue(JSON.stringify(testAssessment));
+    spyOn(formService, 'get').and.returnValue(of(new FormModel({ id: 1025 })));
+    comp.isAnonymous = true;
+    expect(comp.isAnonymous).toBeTruthy();
+    fixture.detectChanges();
+    expect(comp.isAnonymous).toBeFalsy();
   });
 });
