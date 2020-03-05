@@ -198,7 +198,7 @@ export class AssessmentEventComponent extends ListComponentDirective<AssessmentM
   }
 
   public showNext(assessment: AssessmentModel) {
-    this._update().subscribe(() => {
+    this._update(false).subscribe(() => {
       if (this._assessmentObject.hasOwnProperty('user')) {
         let obj = <AssessmentModel> this._assessmentObject;
         let nextForm = Utils.getNext(obj.forms, _ => _.active, _ => _.status === AssessmentFormStatus.New);
@@ -299,10 +299,10 @@ export class AssessmentEventComponent extends ListComponentDirective<AssessmentM
     this._inlineAnonymous = !this._inlineAnonymous;
   }
 
-  protected _update(): Observable<any> {
+  protected _update(fetchLinkedData: boolean = true): Observable<any> {
     this._answers = [];
 
-    return this._fetch()
+    return this._fetch(fetchLinkedData)
       .pipe(
         map((list) => {
           this._list = list;
@@ -332,7 +332,7 @@ export class AssessmentEventComponent extends ListComponentDirective<AssessmentM
       );
   }
 
-  protected _fetch(): Observable<any> {
+  protected _fetch(fetchLinkedData: boolean): Observable<any> {
     let observable = new Observable((observer) => {
       this._fetching = this._service.list(this._queryParams).subscribe((res: IListResponse<AssessmentModel>) => {
         let list = res.data;
@@ -344,7 +344,14 @@ export class AssessmentEventComponent extends ListComponentDirective<AssessmentM
             .sort((x: IFormAnswer, y: IFormAnswer) => x.form.name < y.form.name ? -1 : 1)
             .forEach(form => form.active = false);
           if (assessment.user && assessment.user.hasPicture) {
-            this._userPictureService.getPicture(assessment.user.id).subscribe(pic => assessment.user.picture = pic);
+            if (fetchLinkedData) {
+              this._userPictureService.getPicture(assessment.user.id).subscribe(pic => assessment.user.picture = pic);
+            } else {
+              const previousAssessment = this._list.find(({ id, user }) => id === assessment.id && user.id === assessment.user.id);
+              if (previousAssessment) {
+                assessment.user.picture = previousAssessment.user.picture;
+              }
+            }
           }
 
           this._isClear = !assessment.isAnswered;
