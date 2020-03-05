@@ -12,8 +12,8 @@
  * limitations under the License.
  */
 
-import { throwError as observableThrowError, Observable } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
+import { Observable, throwError as observableThrowError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { RestServiceConfig } from '../decorators/rest-service-config.decorator';
 import { AccountModel } from '../models/account-model';

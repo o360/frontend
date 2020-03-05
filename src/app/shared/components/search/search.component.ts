@@ -13,7 +13,7 @@
  */
 
 import { from as observableFrom, Subscription } from 'rxjs';
-import { switchMap, distinctUntilChanged } from 'rxjs/operators';
+import { distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { AssessmentModel } from '../../../core/models/assessment-model';
@@ -24,12 +24,13 @@ import { Utils } from '../../../utils';
   templateUrl: 'search.component.html'
 })
 export class SearchComponent implements OnInit, OnChanges, OnDestroy {
+  protected _list: AssessmentModel[];
+  protected _searchSubscription: Subscription;
+
   private _searchControl: FormControl = new FormControl();
   private _itemsSearch: EventEmitter<AssessmentModel[]> = new EventEmitter<AssessmentModel[]>();
   private _items: AssessmentModel[] = [];
   private _searchList: AssessmentModel[] = [];
-  protected _list: AssessmentModel[];
-  protected _searchSubscription: Subscription;
 
   @Input()
   public set items(value: AssessmentModel[]) {
@@ -52,6 +53,7 @@ export class SearchComponent implements OnInit, OnChanges, OnDestroy {
         distinctUntilChanged(),
         switchMap((term: string) => {
           this._searchList = [];
+
           return this.update(term);
         })
       )
@@ -82,8 +84,10 @@ export class SearchComponent implements OnInit, OnChanges, OnDestroy {
         return new RegExp(currentTerm, 'gi').test(e.user.name) ||
           new RegExp(currentTerm, 'gi').test(Utils.transliterate(e.user.name));
       }
+
       return null;
     });
+
     return observableFrom(items);
   }
 }

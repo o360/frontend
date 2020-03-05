@@ -35,12 +35,13 @@ interface ISelectProject {
   templateUrl: 'projects-add-modal.component.html'
 })
 export class AdminProjectsAddModalComponent implements OnChanges {
+  public selectedProjects: ISelectProject[];
+
   private _eventId: ModelId;
   private _selectedProjectsIds: ModelId[] = [];
   private _modal: ModalDirective;
   private _projectsAdded: EventEmitter<ModelId[]> = new EventEmitter<ModelId[]>();
   private _selectItems: ISelectProject[] = [];
-  public selectedProjects: ISelectProject[];
 
   @Input()
   public set eventId(value: ModelId) {

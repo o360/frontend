@@ -12,23 +12,23 @@
  * limitations under the License.
  */
 
+import { RestService } from './rest.service';
 import { Injectable, Injector } from '@angular/core';
-import { getTestBed, TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { RestServiceConfig } from '../decorators/rest-service-config.decorator';
 import { TestModel } from '../models/model.spec';
 import { AuthService } from './auth.service';
 import { NotificationService } from './notification.service';
-import { RestService } from './rest.service';
+import { getTestBed, TestBed } from '@angular/core/testing';
 import { Model } from '../models/model';
 import { ConfirmationService } from './confirmation.service';
 import {
   AuthServiceStub,
+  ConfigurationServiceStub,
   ConfirmationStub,
   NotificationServiceStub,
-  RouterStub,
   RestServiceStub,
-  ConfigurationServiceStub
+  RouterStub
 } from '../../stubs/stubs.utils';
 import { HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';

@@ -15,7 +15,7 @@
 import { filter } from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRouteSnapshot, NavigationEnd, Router } from '@angular/router';
-import { AppRoute } from '../../models/app-routes.model';
+import { IAppRoute } from '../../models/app-routes.model';
 import { BreadcrumbService } from '../../services/breadcrumb.service';
 
 export interface IBreadcrumb {
@@ -60,7 +60,7 @@ export class BreadcrumbComponent implements OnInit {
     let newState: IBreadcrumb[] = [];
 
     while (child) {
-      let routeConfig = <AppRoute> child.routeConfig;
+      let routeConfig = <IAppRoute> child.routeConfig;
       let label = this._extractRouteName(child);
       let parts: string[] = child.url.map(x => x.path);
 
@@ -80,7 +80,8 @@ export class BreadcrumbComponent implements OnInit {
   }
 
   private _extractRouteName(route: ActivatedRouteSnapshot) {
-    let name = (<AppRoute> route.routeConfig).breadcrumb;
+    let name = (<IAppRoute> route.routeConfig).breadcrumb;
+
     return name || this._prepareRouteName(route.url.join('/'));
   }
 
@@ -90,6 +91,7 @@ export class BreadcrumbComponent implements OnInit {
       firstSplit = name.split(' ').map(this._capitalizeFirstLetter).join('');
       secondSplit = firstSplit.split(/(?=[A-Z])/).join(' ');
     }
+
     return secondSplit || name;
   }
 

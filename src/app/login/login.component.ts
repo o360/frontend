@@ -75,7 +75,7 @@ export class LoginComponent implements OnInit {
     this._authService.logout();
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this._oAuthService.listAvailableProviders().subscribe(
       (providers: authProvider[]) => {
         this.credentialsLoginAvailable = providers.includes(authProvider.CREDENTIALS);
