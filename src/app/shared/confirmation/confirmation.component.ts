@@ -13,9 +13,9 @@
  */
 
 import { Component, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
 import { Subject } from 'rxjs';
 import { IConflicts } from '../../core/services/confirmation.service';
+import { ModalDirective } from '../components/modal/modal.directive';
 
 @Component({
   selector: 'bs-confirmation-modal',

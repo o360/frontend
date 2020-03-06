@@ -27,6 +27,7 @@ import {
   TabsModule, TooltipModule
 } from 'ngx-bootstrap';
 import { FiltersComponent } from './components/filters/filters.component';
+import { ModalDirective } from './components/modal/modal.directive';
 import { ConfirmationDirective } from './directives/confirmation.directive';
 import { ToastrModule } from 'ngx-toastr';
 import { PaginationComponent } from './components/pagination/pagination.component';
@@ -71,6 +72,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
   ],
   declarations: [
     ConfirmationDirective,
+    ModalDirective,
     FiltersComponent,
     PaginationComponent,
     DateTimeComponent,
@@ -116,7 +118,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
     FormsModule,
     ConfirmationModalComponent,
     LikesDislikesComponent,
-    ImageUploaderComponent
+    ImageUploaderComponent,
+    ModalDirective,
   ],
   entryComponents: [ConfirmationModalComponent]
 })

@@ -13,10 +13,10 @@
  */
 
 import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
 import { EmailKind, EmailTemplateModel } from '../../core/models/email-template-model';
 import { IEmailTemplate } from '../../core/models/project-model';
 import { AdminEmailTemplateService } from '../../core/services/admin-email-template.service';
+import { ModalDirective } from '../../shared/components/modal/modal.directive';
 
 @Component({
   selector: 'bs-email-templates-add-modal',

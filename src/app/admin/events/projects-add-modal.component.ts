@@ -15,7 +15,6 @@
 import { forkJoin as observableForkJoin } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
 import { ModelId } from '../../core/models/model';
 import { NotificationService } from '../../core/services/notification.service';
 import { IListResponse } from '../../core/services/rest.service';
@@ -23,6 +22,7 @@ import { ProjectModel } from '../../core/models/project-model';
 import { AdminProjectService } from '../../core/services/admin-project.service';
 import { AdminEventService } from '../../core/services/admin-event.service';
 import { TranslateService } from '@ngx-translate/core';
+import { ModalDirective } from '../../shared/components/modal/modal.directive';
 import { Utils } from '../../utils';
 
 interface ISelectProject {
