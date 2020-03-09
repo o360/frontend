@@ -32,7 +32,24 @@ import { FormService } from '../core/services/form.service';
 import { of } from 'rxjs';
 import { AssessmentModel } from '../core/models/assessment-model';
 import { UserModel } from '../core/models/user-model';
-import { FormModel } from '../core/models/form-model';
+import {
+  FormElementType,
+  FormModel
+} from '../core/models/form-model';
+
+const testForm = new FormModel({
+  id: 1025,
+  elements: [
+    {
+      id: 5895,
+      kind: FormElementType.Textfield,
+    },
+    {
+      id: 5823,
+      kind: FormElementType.Textfield,
+    }
+  ],
+});
 
 const testAssessment = new AssessmentModel({
   forms: [
@@ -117,7 +134,7 @@ describe('Assessment Form Component', () => {
 
   it('should get is form anonymous from server response', () => {
     spyOn(assessmentService, 'list').and.returnValue(of({ data: [testAssessment], meta: null }));
-    spyOn(formService, 'get').and.returnValue(of(new FormModel({ id: 1025 })));
+    spyOn(formService, 'get').and.returnValue(of(testForm));
     comp.isAnonymous = true;
     comp.user = new UserModel({ id: 89 });
     expect(comp.isAnonymous).toBeTruthy();
@@ -127,7 +144,7 @@ describe('Assessment Form Component', () => {
 
   it('should get is form anonymous from localStorage', () => {
     spyOn(localStorage.__proto__, 'getItem').and.returnValue(JSON.stringify(testAssessment));
-    spyOn(formService, 'get').and.returnValue(of(new FormModel({ id: 1025 })));
+    spyOn(formService, 'get').and.returnValue(of(testForm));
     comp.isAnonymous = true;
     expect(comp.isAnonymous).toBeTruthy();
     fixture.detectChanges();
