@@ -14,11 +14,11 @@
 
 import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { EventModel, EventNotificationKind, EventRecipient, IEventNotification } from '../../core/models/event-model';
-import { ModalDirective } from 'ngx-bootstrap';
 import { AdminEventService } from '../../core/services/admin-event.service';
 import * as moment from 'moment';
 import { ValidatorFutureDate } from '../../shared/components/datetime/datetime-picker.component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ModalDirective } from '../../shared/components/modal/modal.directive';
 
 @Component({
   selector: 'bs-assessment-event-notifications-edit-modal',

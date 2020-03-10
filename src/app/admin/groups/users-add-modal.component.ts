@@ -15,13 +15,13 @@
 import { forkJoin as observableForkJoin } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
 import { ModelId } from '../../core/models/model';
 import { UserModel, UserStatus } from '../../core/models/user-model';
 import { AdminGroupService } from '../../core/services/admin-group.service';
 import { NotificationService } from '../../core/services/notification.service';
 import { IListResponse } from '../../core/services/rest.service';
 import { AdminUserService } from '../../core/services/admin-user.service';
+import { ModalDirective } from '../../shared/components/modal/modal.directive';
 import { Utils } from '../../utils';
 import { TranslateService } from '@ngx-translate/core';
 
