@@ -13,8 +13,8 @@
  */
 
 import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
 import { FormElement } from '../core/models/form-model';
+import { ModalDirective } from '../shared/components/modal/modal.directive';
 import { IComment } from './assessment-form.component';
 
 @Component({

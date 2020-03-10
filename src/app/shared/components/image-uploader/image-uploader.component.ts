@@ -13,9 +13,9 @@
  */
 
 import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
 import { Observable } from 'rxjs';
 import cropperjs from 'cropperjs';
+import { ModalDirective } from '../modal/modal.directive';
 
 @Component({
   selector: 'bs-image-uploader',
