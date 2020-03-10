@@ -22,6 +22,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
+import { RouterHistoryService } from './core/services/router-history.service';
 import { createTranslateLoader } from './shared/config/translate-loader.config';
 import { SharedModule } from './shared/shared.module';
 import { ConfigurationService } from './core/services/configuration.service';
@@ -56,6 +57,7 @@ import { ConfigurationService } from './core/services/configuration.service';
   ],
   providers: [
     ConfigurationService,
+    RouterHistoryService,
     {
       provide: APP_INITIALIZER,
       useFactory: (configService: ConfigurationService) => () => configService.loadConfigurationData(),
