@@ -239,7 +239,7 @@ export class AssessmentEventComponent extends ListComponentDirective<AssessmentM
     });
   }
 
-  public formChanged(value: any) {
+  public formChanged(value: AssessmentModel) {
     let sameAnswer;
 
     if (value) {
@@ -253,14 +253,14 @@ export class AssessmentEventComponent extends ListComponentDirective<AssessmentM
     }
 
     this._answers.map((item) => {
-      if (item.form.answers && item.form.answers[0].valuesIds && item.form.answers[0].valuesIds.length !== 0) {
-        item.form.isAnonymous = this._inlineAnonymous;
+      if (item.form.answers && item.form.answers[0]?.valuesIds && item.form.answers[0].valuesIds.length !== 0) {
+        item.form.isAnonymous = value.form.isAnonymous;
       }
     });
 
     let validAnswer: AssessmentModel[] = [];
     this._answers.map((item) => {
-      if (item.form.answers && item.form.answers[0].valuesIds && item.form.answers[0].valuesIds.length !== 0) {
+      if (item.form.answers && item.form.answers[0]?.valuesIds && item.form.answers[0].valuesIds.length !== 0) {
         validAnswer.push(item);
       }
     });

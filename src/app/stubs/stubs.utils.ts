@@ -19,6 +19,7 @@ import { Model, ModelId } from '../core/models/model';
 import { TestModel } from '../core/models/model.spec';
 import { AssessmentModel } from '../core/models/assessment-model';
 import { IEnvConfig } from '../../environments/env-config.interface';
+import { FormModel } from '../core/models/form-model';
 
 /* RestServiceStub stub */
 @Injectable()
@@ -201,6 +202,10 @@ export class AssessmentServiceStub {
   public saveBulk (model?: AssessmentModel[], queryParams?: IQueryParams): Observable<AssessmentModel> {
     return of(this.mockData);
   }
+
+  public list() {
+    return of({ data: [], meta: null });
+  }
 }
 
 /* FormServiceStub stub */
@@ -208,6 +213,10 @@ export class AssessmentServiceStub {
 export class FormServiceStub {
   public clone(model: any): Observable<any> {
     return of(model);
+  }
+
+  public get(id, params): Observable<FormModel> {
+    return of(new FormModel());
   }
 }
 
