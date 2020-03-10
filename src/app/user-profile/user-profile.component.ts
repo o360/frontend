@@ -71,9 +71,7 @@ export class UserProfileComponent extends DetailsComponent<AccountModel> impleme
   }
 
   protected _loadUserPicture() {
-    if (this._auth.user.hasPicture) {
-      this._userPictureService.getPicture(this._id).subscribe(pic => this._model.picture = pic);
-    }
+    this._userPictureService.getPicture(this._id).subscribe(pic => this._model.picture = pic);
   }
 
   protected _getUserGroups() {
