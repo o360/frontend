@@ -27,7 +27,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let model of list">
+      <tr *ngFor="let model of list; trackBy: trackById">
         <td>{{ model.id }}</td>
         <td>{{ model.description }}</td>
         <td>{{ model.start | localizedDate:'medium' }}</td>
