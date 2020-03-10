@@ -69,6 +69,14 @@ export class Utils {
     return value && getType.toString.call(value) === '[object Function]';
   }
 
+  public static seconds(value: number): number {
+    return value * 1000;
+  }
+
+  public static minutes(value: number): number {
+    return Utils.seconds(value * 60);
+  }
+
   protected static _peek(str: string) {
     for (let i = 0; i < this._keys.length; i++) {
       if (this._startsWith(this._keys[i], str)) {
