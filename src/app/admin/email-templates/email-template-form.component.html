@@ -123,15 +123,14 @@
       </div>
 
       <!-- Editor -->
-      <div class="form-group"
-           [ngClass]="{'has-success': editor.valid, 'has-danger': !editor.valid && editor.touched }">
-        <ckeditor id="editor"
+      <div class="form-group">
+        <ckeditor *ngIf="editorConfigReady"
+                  id="editor"
                   name="editor"
                   #editor
                   [(ngModel)]="model.body"
                   [ngModelOptions]="{ standalone: true }"
-                  [config]="ckEditorConfig"
-                  required>
+                  [config]="ckEditorConfig">
           <ckgroup [name]="'textConstants'"
                    *ngFor="let param of emailParameters">
             <ckbutton [name]="param.name"
@@ -143,11 +142,6 @@
             </ckbutton>
           </ckgroup>
         </ckeditor>
-        <div class="form-errors"
-             *ngIf="editor.errors && editor.touched">
-          <div class="form-control-feedback" *ngIf="editor.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}</div>
-        </div>
-
       </div>
 
       <hr/>

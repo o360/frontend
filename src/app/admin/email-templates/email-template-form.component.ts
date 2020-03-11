@@ -12,10 +12,17 @@
  * limitations under the License.
  */
 
-import { Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
+  OnInit
+} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
-import { CKEditorComponent } from 'ng2-ckeditor';
+import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
+import { ɵa as CKEditorComponent } from 'ng2-ckeditor';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { EmailKind, EmailTemplateModel, Recipient } from '../../core/models/email-template-model';
 import { AdminEmailTemplateService } from '../../core/services/admin-email-template.service';
 import { NotificationService } from '../../core/services/notification.service';
@@ -26,11 +33,12 @@ import { BreadcrumbService } from '../../core/services/breadcrumb.service';
   selector: 'bs-template-form',
   templateUrl: 'email-template-form.component.html'
 })
-export class AdminEmailTemplateFormComponent extends FormComponent<EmailTemplateModel> implements OnInit {
-  protected _kinds: string[] = Object.values(EmailKind);
-  protected _recipients: string[] = Object.values(Recipient);
+export class AdminEmailTemplateFormComponent extends FormComponent<EmailTemplateModel> implements OnInit, OnDestroy {
   protected _returnPath: any[] = ['/admin/templates'];
-  protected _emailParameters = [{
+
+  private _kinds: string[] = Object.values(EmailKind);
+  private _recipients: string[] = Object.values(Recipient);
+  private _emailParameters = [{
     label: 'T_EMAIL_TEMPLATE_ADD_RECIPIENT',
     name: 'addRecipient',
     click: 'user_name',
@@ -51,7 +59,6 @@ export class AdminEmailTemplateFormComponent extends FormComponent<EmailTemplate
     click: 'event_description',
     command: 'addEventDescription'
   }];
-
   private _ckEditorConfig: any = {
     toolbarGroups: [
       { name: 'basicstyles' },
@@ -62,6 +69,8 @@ export class AdminEmailTemplateFormComponent extends FormComponent<EmailTemplate
       { name: 'textConstants' },
     ],
   };
+  private _destroy$: Subject<boolean> = new Subject();
+  private _editorConfigReady: boolean = false;
 
   public get kinds(): string[] {
     return this._kinds;
@@ -79,21 +88,47 @@ export class AdminEmailTemplateFormComponent extends FormComponent<EmailTemplate
     return this._ckEditorConfig;
   }
 
+  public get editorConfigReady(): boolean {
+    return this._editorConfigReady;
+  }
+
   constructor(service: AdminEmailTemplateService,
               router: Router,
               route: ActivatedRoute,
               notificationService: NotificationService,
               breadcrumbService: BreadcrumbService,
-              protected _translateService: TranslateService) {
+              private _translateService: TranslateService,
+              private _cdr: ChangeDetectorRef) {
     super(service, router, route, notificationService, breadcrumbService);
   }
 
   public ngOnInit() {
-    this._ckEditorConfig.language = this._translateService.currentLang;
+    this._setCkEditorLanguage(this._translateService.currentLang);
+    this._initLanguageChangeWatch();
+
     super.ngOnInit();
+  }
+
+  public ngOnDestroy() {
+    this._destroy$.next(true);
+    this._destroy$.complete();
   }
 
   public addText(editorArea: CKEditorComponent, text: string) {
     editorArea.instance.insertText(`{{ ' ${text} ' }}`);
+  }
+
+  private _initLanguageChangeWatch(): void {
+    this._translateService.onLangChange
+      .pipe(takeUntil(this._destroy$))
+      .subscribe(({ lang }: LangChangeEvent) => this._setCkEditorLanguage(lang));
+  }
+
+  private _setCkEditorLanguage(lang: string) {
+    this._editorConfigReady = false;
+    this._cdr.detectChanges();
+    this._ckEditorConfig.language = lang;
+    this._editorConfigReady = true;
+    this._cdr.markForCheck();
   }
 }
