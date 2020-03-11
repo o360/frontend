@@ -29,8 +29,7 @@ The application will be served at `http://localhost:<port>`.
 #### Installation and configuration
 
 1. Make sure that you have Node 12 or later installed. See instructions [here](https://nodejs.org/en/download/).
-1. Make sure that you have `yarn` installed. See instructions [here](https://yarnpkg.com/lang/en/docs/install/).
-1. Run `yarn` (no arguments) from the root of your clone of this project to install dependencies.
+1. Run `npm install` from the root of your clone of this project to install dependencies.
 1. Set up configuration in `/tools/env/env.config.ts` file. See more at [configuration guide](/docs/config.md).
 
 #### Development server
@@ -43,7 +42,7 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 
 #### Testing
 
-Run `yarn test` to run tests.
+Run `npm run test` to run tests.
 
 When debugging a specific test, change `describe()` or `it()` to `fdescribe()`
 and `fit()` to focus execution to just that one test. This will keep the output clean and speed up execution by not running irrelevant tests.
