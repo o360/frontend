@@ -353,7 +353,6 @@
   "T_TIME_LEFT": "Событие завершится",
   "T_INVITES": "Приглашения",
   "T_INVITE_EMAIL": "Email",
-  "T_INVITE_GROUPS": "Группы, в которые будут добавлены пользователи",
   "T_INVITE_CREATION_TIME": "Дата отправки запроса",
   "T_INVITE_REQUEST_STATUS": "Статус запроса",
   "T_INVITE_STATUS": "Статус приглашения",
