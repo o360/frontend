@@ -388,11 +388,13 @@
                  [disabled]="status !== EventStatus.InProgress || ((!canRevote && isAnswered))"
                  #anonymous="ngModel"
                  [ngModel]="isAnonymous"
+                 [ngModelOptions]="{standalone: true}"
                  (ngModelChange)="isAnonymous = $event; onFormChange();">
           <span class="switch-label"></span>
           <span class="switch-handle"></span>
         </label>
       </div>
+
       <div class="form-submit-buttons"
            *ngIf="(status === EventStatus.InProgress && !inline) && (!(!canRevote && isAnswered) || canRevote)">
         <button type="button"
