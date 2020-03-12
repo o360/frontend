@@ -225,27 +225,19 @@ export class RestService<T extends Model> {
    */
   protected _handleErrors(error: HttpErrorResponse) {
     const err = error.error;
-    if (error.status === 400) {
+    if (error.status === 400 || error.status === 403 || error.status === 404) {
       this._notificationService.error(this._prepareErrorCodeTranslation(err.code));
 
       return observableThrowError(error);
-    }  if (error.status === 401) {
+    }
+
+    if (error.status === 401) {
       this._router.navigate(['/login']);
 
       return observableThrowError(error);
-    }  if (error.status === 403) {
-      if (err.code === 'AUTHORIZATION-EVENT') {
-        this._notificationService.error(this._prepareErrorCodeTranslation(err.code));
-      } else {
-        this._notificationService.error(err.message, `${error.status} ${error.statusText}`);
-      }
+    }
 
-      return observableThrowError(error);
-    }  if (error.status === 404) {
-      this._notificationService.error(this._prepareErrorCodeTranslation(err.code));
-
-      return observableThrowError(error);
-    }  if (error.status === 409) {
+    if (error.status === 409) {
       let conflicts = [
         'CONFLICT-GROUP-GENERAL',
         'CONFLICT-USER-GENERAL',
@@ -262,6 +254,7 @@ export class RestService<T extends Model> {
 
       return observableThrowError(error);
     }
+
     this._notificationService.error(err.message, `${error.status} ${error.statusText}`);
 
     return observableThrowError(error);
