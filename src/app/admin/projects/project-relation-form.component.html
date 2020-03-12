@@ -14,12 +14,7 @@
 
 <div class="card" *ngIf="isLoaded">
   <div class="card-header">
-    <b [ngSwitch]="editMode">
-      <ng-template [ngSwitchCase]="true">{{ 'T_ACTION_EDIT' | translate }}
-        <span *ngIf="model">{{ model.name }}</span>
-      </ng-template>
-      <ng-template ngSwitchDefault>{{ 'T_ACTION_CREATE' | translate }}</ng-template>
-    </b>
+    <b>{{ (editMode ? 'T_ACTION_EDIT' : 'T_ACTION_CREATE') | translate }}</b>
   </div>
 
   <div class="card-block">

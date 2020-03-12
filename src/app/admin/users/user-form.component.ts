@@ -62,6 +62,10 @@ export class AdminUserFormComponent extends FormComponent<UserModel> implements 
     }
   }
 
+  protected _setModelName(model: UserModel) {
+    this._modelName = model.name;
+  }
+
   protected _getUserPicture() {
     this._userPictureService.getPicture(this._id).subscribe(picture => this._model.picture = picture);
   }

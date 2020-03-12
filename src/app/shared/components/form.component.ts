@@ -23,6 +23,7 @@ import { BreadcrumbService } from '../../core/services/breadcrumb.service';
 export abstract class FormComponent<T extends Model> implements OnInit {
   protected _id: ModelId;
   protected _model: T;
+  protected _modelName: string;
   protected _returnPath: any[];
 
   public get model(): T {
@@ -39,6 +40,10 @@ export abstract class FormComponent<T extends Model> implements OnInit {
 
   public get editMode(): boolean {
     return !!this._id;
+  }
+
+  public get modelName(): string {
+    return this._modelName;
   }
 
   constructor(protected _service: RestService<T>,
@@ -83,7 +88,12 @@ export abstract class FormComponent<T extends Model> implements OnInit {
 
   protected _processModel(model: T) {
     this._model = model;
+    this._setModelName(model);
     this._fillBreadcrumbs(model);
+  }
+
+  protected _setModelName(model: T) {
+    this._modelName = model?.id?.toString();
   }
 
   protected _fillBreadcrumbs(model: T) {
