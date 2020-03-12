@@ -44,7 +44,9 @@ export class ConfirmationDirective {
   }
 
   @HostListener('click', ['$event'])
-  public clickHandler() {
+  public clickHandler(event: UIEvent): void {
+    event.stopPropagation();
+
     this._confirmationService.setViewContainerRef(this._viewContainerRef);
     this._confirmationService.loadTemplate(this._contentTemplate);
 

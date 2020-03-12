@@ -30,7 +30,7 @@ export const DISMISS_REASONS: IDismissReasons = {
  */
 @Directive({
   selector: '[bwsModal]',
-  exportAs: 'bws-modal'
+  exportAs: 'bws-modal',
 })
 export class ModalDirective extends BootstrapModalDirective {
   /** This event fires immediately when the `show` instance method is called. */
@@ -96,6 +96,6 @@ export class ModalDirective extends BootstrapModalDirective {
 
   @HostListener('click', ['$event'])
   public onClick(event: MouseEvent): void {
-    return;
+    event.stopPropagation();
   }
 }
