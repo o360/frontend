@@ -28,17 +28,17 @@ export class AdminUserListComponent extends ListComponentDirective<UserModel> {
   protected _filters: Filter[] = [{
     name: 'T_USER_STATUS',
     field: 'status',
-    type: FilterType.Select,
+    type: FilterType.SELECT,
     values: Object.values(UserStatus).map(x => ({ name: `T_USER_STATUS_${x.toUpperCase()}`, value: x }))
   }, {
     name: 'T_USER_ROLE',
     field: 'role',
-    type: FilterType.Select,
+    type: FilterType.SELECT,
     values: Object.values(UserRole).map(x => ({ name: `T_USER_ROLE_${x.toUpperCase()}`, value: x }))
   }, {
     name: 'T_USER_NAME',
     field: 'name',
-    type: FilterType.String,
+    type: FilterType.STRING,
     values: Object.values(UserModel.name).map(x => ({ value: x }))
   }];
 

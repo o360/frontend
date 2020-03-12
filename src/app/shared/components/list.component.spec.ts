@@ -135,7 +135,7 @@ describe('List Component', () => {
     comp.filters = [{
       name: 'T_NAME',
       field: 'name',
-      type: FilterType.String,
+      type: FilterType.STRING,
       values: Object.values(TestModel.name).map(x => ({ value: x }))
     }];
     expect(comp.filters.length).toEqual(1);

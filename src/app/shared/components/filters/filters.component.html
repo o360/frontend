@@ -36,9 +36,14 @@
 
         <div class="col-md-9" [ngSwitch]="filter.type">
           <!-- String -->
-          <ng-template [ngSwitchCase]="FilterType.String">
+          <ng-template [ngSwitchCase]="FilterType.STRING">
             <div class="input-group">
-              <input type="text" [(ngModel)]="filter.value" name="{{ filter.field }}" class="form-control" id="{{ filter.field }}">
+              <input type="text"
+                     [(ngModel)]="filter.value"
+                     (ngModelChange)="checkFiltersChange()"
+                     name="{{ filter.field }}"
+                     class="form-control"
+                     id="{{ filter.field }}">
               <button type="button"
                       role="button"
                       [disabled]="!filter.value"
@@ -52,9 +57,13 @@
           </ng-template>
 
           <!-- Number -->
-          <ng-template [ngSwitchCase]="FilterType.Number">
+          <ng-template [ngSwitchCase]="FilterType.NUMBER">
             <div class="input-group">
-              <input type="text" [(ngModel)]="filter.value" name="{{ filter.field }}" class="form-control" id="{{ filter.field }}">
+              <input type="text"
+                     [(ngModel)]="filter.value"
+                     name="{{ filter.field }}"
+                     class="form-control"
+                     id="{{ filter.field }}">
               <button type="button"
                       role="button"
                       [disabled]="!filter.value"
@@ -68,7 +77,7 @@
           </ng-template>
 
           <!-- Select -->
-          <ng-template [ngSwitchCase]="FilterType.Select">
+          <ng-template [ngSwitchCase]="FilterType.SELECT">
             <div class="input-group">
               <select [(ngModel)]="filter.value"
                       name="{{ filter.field }}"
@@ -94,13 +103,13 @@
         <button type="button"
                 role="button"
                 class="btn btn-sm btn-secondary"
-                [disabled]="!isFiltered"
+                [disabled]="!isFilterNotEmpty"
                 (click)="reset();">
           {{ 'T_ACTION_RESET' | translate }}
         </button>
         <button type="submit"
                 class="btn btn-sm btn-primary ml-1"
-                [disabled]="!isFiltered"
+                [disabled]="!areFiltersChangedSinceLastApply"
                 role="button">
           {{ 'T_FILTER_APPLY' | translate }}
         </button>

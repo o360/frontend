@@ -32,7 +32,7 @@ export class UserListComponent extends ListComponentDirective<UserModel> {
   protected _filters: Filter[] = [{
     name: 'T_USER_NAME',
     field: 'name',
-    type: FilterType.String,
+    type: FilterType.STRING,
     values: Object.values(UserModel.name).map(x => ({ value: x }))
   }];
 

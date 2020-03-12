@@ -28,12 +28,12 @@ export class AdminEventListComponent extends ListComponentDirective<EventModel> 
   protected _filters: Filter[] = [{
     name: 'T_EVENT_STATUS',
     field: 'status',
-    type: FilterType.Select,
+    type: FilterType.SELECT,
     values: Object.values(EventStatus).map(x => ({ name: `T_EVENT_STATUS_${x.toUpperCase()}`, value: x }))
   }, {
     name: 'T_EVENT_SORT',
     field: 'sort',
-    type: FilterType.Select,
+    type: FilterType.SELECT,
     values: Object.values(EventSortField).map(x => ({ name: `T_EVENT_${x.toUpperCase()}`, value: x }))
   }];
 

@@ -12,17 +12,27 @@
  * limitations under the License.
  */
 
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChanges
+} from '@angular/core';
 import { Filter, FilterType } from '../../../core/models/filter';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'bs-filters',
   templateUrl: 'filters.component.html'
 })
-export class FiltersComponent {
+export class FiltersComponent implements OnChanges {
+  private _appliedFilters: Filter[] = [];
   private _filters: Filter[] = [];
   private _filterChange: EventEmitter<any> = new EventEmitter<any>();
   private _isCollapsed: boolean;
+  private _areFiltersChangedSinceLastApply: boolean = false;
 
   public get isCollapsed(): boolean {
     return this._isCollapsed;
@@ -50,16 +60,32 @@ export class FiltersComponent {
     return FilterType;
   }
 
-  public get isFiltered() {
+  public get areFiltersChangedSinceLastApply(): boolean {
+    return this._areFiltersChangedSinceLastApply;
+  }
+
+  public get isFilterNotEmpty() {
     return !!this._filters.find(f => f.value);
   }
 
+  public ngOnChanges(changes: SimpleChanges): void {
+    if ('filters' in changes) {
+      this._syncAppliedFilters();
+    }
+  }
+
   public apply() {
+    this._syncAppliedFilters();
+
     let params: object = this._filters
       .filter(x => x.value !== undefined && x.value !== null)
       .reduce<object>((acc: object, filter: Filter) => Object.assign(acc, { [filter.field]: filter.value.toString() }), {});
 
     this._filterChange.emit(params);
+  }
+
+  public checkFiltersChange() {
+    this._areFiltersChangedSinceLastApply = !_.isEqual(this._appliedFilters, this._filters);
   }
 
   public reset() {
@@ -70,5 +96,10 @@ export class FiltersComponent {
   public resetFilter(filter: Filter) {
     filter.value = null;
     this.apply();
+  }
+
+  private _syncAppliedFilters() {
+    this._appliedFilters = _.cloneDeep(this._filters);
+    this.checkFiltersChange();
   }
 }
