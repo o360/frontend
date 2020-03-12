@@ -47,7 +47,13 @@ header.navbar .navbar-brand {
 }
 
 .app-body {
-  overflow: hidden;
+  overflow-x: unset;
+}
+
+.sidebar-fixed {
+  .sidebar {
+    z-index: $zindex-fixed;
+  }
 }
 
 .sidebar {
@@ -84,6 +90,7 @@ header.navbar .navbar-brand {
   right: 0px;
   left: 0px;
   margin-right: 0px;
+  z-index: $zindex-fixed + 1;
 }
 
 .fade.in {
