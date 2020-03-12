@@ -50,10 +50,8 @@ header.navbar .navbar-brand {
   overflow-x: unset;
 }
 
-.sidebar-fixed {
-  .sidebar {
-    z-index: $zindex-fixed;
-  }
+.sidebar-fixed .sidebar {
+  z-index: $zindex-fixed;
 }
 
 .sidebar {
@@ -113,6 +111,11 @@ header.navbar .navbar-brand {
 .cke_button__addeventend_label,
 .cke_button__addeventdescription_label {
   display: block !important;
+}
+
+.cke_combo .cke_combo_button .cke_combo_text {
+  width: auto;
+  max-width: 200px;
 }
 
 .group-list-accordion {
