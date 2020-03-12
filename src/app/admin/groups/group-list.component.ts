@@ -30,7 +30,7 @@ export class AdminGroupListComponent extends ListComponentDirective<GroupModel> 
   protected _filters: Filter[] = [{
     name: 'T_GROUP_NAME',
     field: 'name',
-    type: FilterType.String,
+    type: FilterType.STRING,
     values: Object.values(GroupModel.name).map(x => ({ value: x }))
   }];
 

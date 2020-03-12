@@ -12,12 +12,15 @@
  * limitations under the License.
  */
 
+import {
+  Filter,
+  FilterType
+} from '../../../core/models/filter';
 import { FiltersComponent } from './filters.component';
-import { Filter } from '../../../core/models/filter';
 
 describe('FiltersComponent', () => {
   let comp: FiltersComponent;
-  let testFilter: Filter = { name: 'test', field: 'test', type: 'test', value: ['first', 'second'] };
+  let testFilter: Filter = { name: 'test', field: 'test', type: FilterType.STRING, value: 'test string' };
 
   beforeEach(() => {
     comp = new FiltersComponent();
@@ -39,8 +42,8 @@ describe('FiltersComponent', () => {
     expect(comp.FilterType).toBeDefined();
   });
 
-  it('should have a isFiltered property', () => {
-    expect(comp.isFiltered).toBeDefined();
+  it('should have a isFilterNotEmpty property', () => {
+    expect(comp.isFilterNotEmpty).toBeDefined();
   });
 
   it('should have a isCollapsed property', () => {
@@ -67,7 +70,7 @@ describe('FiltersComponent', () => {
 
   it('should call apply() when resetFilter() called', () => {
     let testApply = spyOn(comp, 'apply');
-    let filter: Filter = { name: 'test', field: 'test', type: 'test' };
+    let filter: Filter = { name: 'test', field: 'test', type: FilterType.STRING };
 
     comp.resetFilter(filter);
     expect(testApply).toHaveBeenCalled();
@@ -76,5 +79,24 @@ describe('FiltersComponent', () => {
   it('should clear filter value when resetFilter() called', () => {
     comp.resetFilter(testFilter);
     expect(testFilter.value).toBeNull();
+  });
+
+  it('should save previously applied filters', () => {
+    comp.filters = [testFilter, testFilter];
+    comp.filters[0].value = 'new string';
+    comp.checkFiltersChange();
+    expect(comp.areFiltersChangedSinceLastApply).toBeTruthy();
+    comp.apply();
+    expect(comp.areFiltersChangedSinceLastApply).toBeFalsy();
+  });
+
+  it('should watch are filters changed since last apply', () => {
+    comp.filters = [testFilter, testFilter];
+    comp.apply();
+    expect(comp.areFiltersChangedSinceLastApply).toBeFalsy();
+
+    comp.filters[0].value = 'new value';
+    comp.checkFiltersChange();
+    expect(comp.areFiltersChangedSinceLastApply).toBeTruthy();
   });
 });
