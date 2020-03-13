@@ -61,7 +61,7 @@
                 role="button"
                 class="btn btn-primary"
                 (click)="submit(); eventProjectsForm.reset()"
-                [disabled]="!eventProjectsForm.valid">
+                [disabled]="!eventProjectsForm.valid || isEventFreezed">
           {{ 'T_ACTION_ADD_PROJECTS_TO_EVENT' | translate }}
         </button>
       </div>

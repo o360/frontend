@@ -13,7 +13,13 @@
  */
 
 import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
-import { EventModel, EventNotificationKind, EventRecipient, IEventNotification } from '../../core/models/event-model';
+import {
+  EventModel,
+  EventNotificationKind,
+  EventRecipient,
+  EventStatus,
+  IEventNotification
+} from '../../core/models/event-model';
 import { AdminEventService } from '../../core/services/admin-event.service';
 import * as moment from 'moment';
 import { ValidatorFutureDate } from '../../shared/components/datetime/datetime-picker.component';
@@ -31,7 +37,6 @@ export class AdminEventNotificationsEditModalComponent {
   protected _modal: ModalDirective;
   protected _index: number = null;
   protected _notificationForm: FormGroup;
-
   protected _onNotificationAdded: EventEmitter<IEventNotification> = new EventEmitter<IEventNotification>();
 
   public get notificationForm(): FormGroup {
@@ -69,12 +74,20 @@ export class AdminEventNotificationsEditModalComponent {
     return this._recipients;
   }
 
+  public get EventStatus() {
+    return EventStatus;
+  }
+
   constructor(protected _eventService: AdminEventService,
               protected _formBuilder: FormBuilder) {
     this._createForm();
   }
 
   public addNotification() {
+    if (this._model.status === EventStatus.Completed) {
+      return;
+    }
+
     let notification: IEventNotification = this._notificationForm.value;
 
     if (!notification.kind || !notification.recipient) {

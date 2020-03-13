@@ -38,6 +38,10 @@ export class AdminEventProjectListComponent extends ListComponentDirective<Proje
     this._event = value;
   }
 
+  public get isEventFreezed(): boolean {
+    return [EventStatus.Completed, EventStatus.InProgress].includes(this._event.status);
+  }
+
   public get EventStatus() {
     return EventStatus;
   }
@@ -67,6 +71,10 @@ export class AdminEventProjectListComponent extends ListComponentDirective<Proje
   }
 
   public delete(projectId?: ModelId) {
+    if (this.isEventFreezed) {
+      return;
+    }
+
     this._eventService.removeProject(this._event.id, projectId).subscribe(() => this._update());
   }
 
