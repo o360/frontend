@@ -63,20 +63,20 @@
         <div class="col-md-9">
           <bs-datetime name="start"
                        [disable]="model.status === EventStatus.InProgress || model.status === EventStatus.Completed"
-                       formControlName="start"></bs-datetime>
+                       formControlName="start">
+          </bs-datetime>
 
-          <div class="form-errors"
-               *ngIf="eventForm.controls['start'].errors && eventForm.controls['start'].touched">
+          <div class="form-errors" *ngIf="eventForm.controls['start'].errors && eventForm.controls['start'].touched">
             <div class="form-control-feedback" *ngIf="eventForm.controls['start'].errors['required']">
               {{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}
             </div>
-            <div class="form-control-feedback" *ngIf="eventForm.controls['start'].errors['format']">
+            <div class="form-control-feedback" *ngIf="!eventForm.controls['start'].errors['required'] && eventForm.controls['start'].errors['format']">
               {{ 'T_ERROR_INVALID_DATE' | translate }}
             </div>
-            <div class="form-control-feedback" *ngIf="eventForm.controls['start'].errors['maxDate']">
+            <div class="form-control-feedback" *ngIf="!eventForm.controls['start'].errors['format'] && eventForm.controls['start'].errors['maxDate']">
               {{ 'T_ERROR_MIN_DATE' | translate }}
             </div>
-            <div class="form-control-feedback" *ngIf="eventForm.controls['start'].errors['dateInPast']">
+            <div class="form-control-feedback" *ngIf="!eventForm.controls['start'].errors['format'] && eventForm.controls['start'].errors['dateInPast']">
               {{ 'T_ERROR_DATE_IN_PAST' | translate }}
             </div>
           </div>
@@ -93,20 +93,18 @@
                        [disable]="model.status === EventStatus.Completed"
                        formControlName="end">
           </bs-datetime>
-          <div class="form-errors"
-               *ngIf="eventForm.controls['end'].errors && eventForm.controls['end'].touched">
-            <div class="form-control-feedback" *ngIf="eventForm.controls['end'].errors['required']">{{
-              'T_FORM_FIELD_IS_REQUIRED' |
-              translate }}
+
+          <div class="form-errors" *ngIf="eventForm.controls['end'].errors && eventForm.controls['end'].touched">
+            <div class="form-control-feedback" *ngIf="eventForm.controls['end'].errors['required']">
+              {{'T_FORM_FIELD_IS_REQUIRED' | translate }}
             </div>
-            <div class="form-control-feedback" *ngIf="eventForm.controls['end'].errors['format']"> {{
-              'T_ERROR_INVALID_DATE' | translate
-              }}
+            <div class="form-control-feedback" *ngIf="!eventForm.controls['end'].errors['required'] && eventForm.controls['end'].errors['format']">
+              {{ 'T_ERROR_INVALID_DATE' | translate }}
             </div>
-            <div class="form-control-feedback" *ngIf="eventForm.controls['end'].errors['minDate']">
+            <div class="form-control-feedback" *ngIf="!eventForm.controls['end'].errors['format'] && eventForm.controls['end'].errors['minDate']">
               {{ 'T_ERROR_MAX_DATE' | translate }}
             </div>
-            <div class="form-control-feedback" *ngIf="eventForm.controls['end'].errors['dateInPast']">
+            <div class="form-control-feedback" *ngIf="!eventForm.controls['end'].errors['format'] && eventForm.controls['end'].errors['dateInPast']">
               {{ 'T_ERROR_DATE_IN_PAST' | translate }}
             </div>
           </div>

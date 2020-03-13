@@ -40,16 +40,17 @@
             <div class="col-8">
               <bs-datetime #time
                            name="notification-time"
-                           formControlName="time"></bs-datetime>
-              <div class="form-errors"
-                   *ngIf="notificationForm.controls['time'].errors && notificationForm.controls['time'].touched">
+                           formControlName="time">
+              </bs-datetime>
+
+              <div class="form-errors" *ngIf="notificationForm.controls['time'].errors && notificationForm.controls['time'].touched">
                 <div class="form-control-feedback" *ngIf="notificationForm.controls['time'].errors['required']">
                   {{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}
                 </div>
-                <div class="form-control-feedback" *ngIf="notificationForm.controls['time'].errors['format']">
+                <div class="form-control-feedback" *ngIf="!notificationForm.controls['time'].errors['required'] && notificationForm.controls['time'].errors['format']">
                   {{ 'T_ERROR_INVALID_DATE' | translate }}
                 </div>
-                <div class="form-control-feedback" *ngIf="notificationForm.controls['time'].errors['dateInPast']">
+                <div class="form-control-feedback" *ngIf="!notificationForm.controls['time'].errors['format'] && notificationForm.controls['time'].errors['dateInPast']">
                   {{ 'T_ERROR_DATE_IN_PAST' | translate }}
                 </div>
               </div>

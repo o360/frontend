@@ -12,6 +12,7 @@
  * limitations under the License.
  */
 
+import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { AfterViewInit, Component, ElementRef, forwardRef, Input, ViewChild } from '@angular/core';
 import { ControlValueAccessor, FormControl, NG_VALIDATORS, NG_VALUE_ACCESSOR, NgModel, ValidationErrors, Validator } from '@angular/forms';
@@ -100,23 +101,30 @@ export const ValidatorIsBefore = (otherDateName: string) => {
   };
 };
 
-export const DateFormat = {
-  Date: 'DD.MM.YYYY',
-  DateTime: 'DD.MM.YYYY HH:mm',
-  Backend: 'YYYY-MM-DDTHH:mm:ss'
-};
-
 export const ValidatorFutureDate = (control: FormControl) => {
   let isFuture = moment(control.value).isAfter(moment.now());
 
   return isFuture ? null : { dateInPast: 'T_ERROR_DATE_IN_PAST' };
 };
 
+export enum DateFormat {
+  Date = 'DD.MM.YYYY',
+  Time = 'HH:mm',
+  DateTime = 'DD.MM.YYYY HH:mm',
+  Backend = 'YYYY-MM-DDTHH:mm:ss',
+}
+
+export enum AirPickerDateFormat {
+  Date = 'dd.mm.yyyy',
+  Time = 'hh:ii'
+}
+
 let id = 0;
 
 @Component({
   selector: 'bs-datetime',
   templateUrl: 'datetime-picker.component.html',
+  styleUrls: ['datetime-picker.component.scss'],
   providers: [{
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => DateTimeComponent),
@@ -137,6 +145,11 @@ export class DateTimeComponent implements ControlValueAccessor, AfterViewInit, V
   protected _disable: boolean = false;
   protected _input: ElementRef;
   protected _id = `picker-${id++}`;
+
+  private _mapDateFormatToAirDateFormat: object = {
+    [DateFormat.Date]: AirPickerDateFormat.Date,
+    [DateFormat.Time]: AirPickerDateFormat.Time,
+  };
 
   public get value(): any {
     return this._innerValue;
@@ -209,12 +222,10 @@ export class DateTimeComponent implements ControlValueAccessor, AfterViewInit, V
       timepicker: !this._onlyDateMode,
       language: this._translateService.currentLang,
       startDate: new Date(this._innerValue),
-      dateFormat: 'dd.mm.yyyy',
-      timeFormat: 'hh:ii',
+      dateFormat: this._mapDateFormatToAirDateFormat[DateFormat.Date],
+      timeFormat: this._mapDateFormatToAirDateFormat[DateFormat.Time],
       firstDay: 0,
-      onSelect: (formattedDate: any) => {
-        this.onChange(formattedDate);
-      }
+      onSelect: (formattedDate: any) => this.onChange(formattedDate),
     }).data('datepicker');
 
     this._translateService.onLangChange.forEach((e: LangChangeEvent) => {
@@ -223,17 +234,15 @@ export class DateTimeComponent implements ControlValueAccessor, AfterViewInit, V
   }
 
   public validate(c: FormControl): ValidationErrors {
-    let errors: ValidationErrors = {};
-    if (c.value) {
-      let date = this._parseDate(c.value);
-      if (!date.isValid()) {
-        Object.assign(errors, { format: 'T_ERROR_INVALID_DATE' });
-      }
-    } else {
-      Object.assign(errors, { required: 'T_FORM_FIELD_IS_REQUIRED' });
+    if (!c.value) {
+      return { required: 'T_FORM_FIELD_IS_REQUIRED' };
     }
 
-    return errors;
+    if (!this._parseDate(c.value).isValid()) {
+      return { format: 'T_ERROR_INVALID_DATE' };
+    }
+
+    return {};
   }
 
   public onBlur() {
@@ -241,21 +250,18 @@ export class DateTimeComponent implements ControlValueAccessor, AfterViewInit, V
   }
 
   protected _formatDate(date: any) {
-    if (this._onlyDateMode) {
-      return moment(date).format(DateFormat.Date);
-    }
+    const format = this._onlyDateMode ? DateFormat.Date : DateFormat.DateTime;
 
-    return moment(date).format(DateFormat.DateTime);
+    return moment(date).format(format);
   }
 
   protected _parseDate(date: any) {
-    if (this._onlyDateMode) {
-      return moment(date, DateFormat.Date, true);
-    }
+    const format = this._onlyDateMode ? DateFormat.Date : DateFormat.DateTime;
 
-    return moment(date, DateFormat.DateTime, true);
+    return moment(date, format, true);
   }
 
   protected _propagateChange: Function = () => ({});
+
   protected _propagateTouch: Function = () => ({});
 }
