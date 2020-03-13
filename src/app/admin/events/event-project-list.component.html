@@ -13,12 +13,12 @@
   -->
 
 <div *ngIf="isLoaded">
-  <button class="btn btn-primary mb-1"
+  <button *ngIf="!isEventFreezed"
+          class="btn btn-primary mb-1"
           type="button"
           role="button"
           [tooltip]="'T_ACTION_ADD' | translate"
           placement="right"
-          [disabled]="event.status === EventStatus.InProgress"
           (click)="modalForm.show()">
     <i class="fa fa-plus"></i>
   </button>
@@ -29,8 +29,7 @@
       <tr>
         <th>#</th>
         <th>{{ 'T_PROJECT_NAME' | translate }}</th>
-        <th class="actions-column"
-            *ngIf="event.status !== EventStatus.InProgress">
+        <th *ngIf="!isEventFreezed" class="actions-column">
           {{ 'T_ACTION' | translate }}
         </th>
       </tr>
@@ -39,7 +38,7 @@
       <tr *ngFor="let project of list">
         <td>{{ project.id }}</td>
         <td><a [routerLink]="['/admin/projects', project.id]">{{ project.name }}</a></td>
-        <td class="actions-column" *ngIf="event.status !== EventStatus.InProgress">
+        <td *ngIf="!isEventFreezed" class="actions-column">
           <button type="button"
                   role="button"
                   [tooltip]="'T_ACTION_REMOVE' | translate"
@@ -64,6 +63,8 @@
 <!-- Adding projects to event modal-->
 <bs-projects-add-modal #modalForm
                        [eventId]="event.id"
-                       (projectsAdded)="projectsAdded()"></bs-projects-add-modal>
+                       [eventStatus]="event.status"
+                       (projectsAdded)="projectsAdded()">
+</bs-projects-add-modal>
 
 

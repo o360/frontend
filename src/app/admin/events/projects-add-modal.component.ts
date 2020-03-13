@@ -15,6 +15,7 @@
 import { forkJoin as observableForkJoin } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { EventStatus } from '../../core/models/event-model';
 import { ModelId } from '../../core/models/model';
 import { NotificationService } from '../../core/services/notification.service';
 import { IListResponse } from '../../core/services/rest.service';
@@ -38,6 +39,7 @@ export class AdminProjectsAddModalComponent implements OnChanges {
   public selectedProjects: ISelectProject[];
 
   private _eventId: ModelId;
+  private _eventStatus: string;
   private _selectedProjectsIds: ModelId[] = [];
   private _modal: ModalDirective;
   private _projectsAdded: EventEmitter<ModelId[]> = new EventEmitter<ModelId[]>();
@@ -46,6 +48,11 @@ export class AdminProjectsAddModalComponent implements OnChanges {
   @Input()
   public set eventId(value: ModelId) {
     this._eventId = value;
+  }
+
+  @Input()
+  public set eventStatus(value: string) {
+    this._eventStatus = value;
   }
 
   public get selectItems(): ISelectProject[] {
@@ -60,6 +67,10 @@ export class AdminProjectsAddModalComponent implements OnChanges {
   @ViewChild('modal', { static: true })
   public set modal(value: ModalDirective) {
     this._modal = value;
+  }
+
+  public get isEventFreezed(): boolean {
+    return [EventStatus.Completed, EventStatus.InProgress].includes(this._eventStatus);
   }
 
   constructor(protected _projectService: AdminProjectService,
@@ -85,7 +96,7 @@ export class AdminProjectsAddModalComponent implements OnChanges {
   }
 
   public submit() {
-    if (this._selectedProjectsIds.length > 0) {
+    if (this._selectedProjectsIds.length > 0 && !this.isEventFreezed) {
       let transaction = this._selectedProjectsIds.map(projectId => this._eventService.addProject(this._eventId, projectId));
 
       observableForkJoin(transaction).subscribe(() => {
