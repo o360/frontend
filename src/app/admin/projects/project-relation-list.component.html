@@ -54,7 +54,8 @@
           <td><a *ngIf="!!model.groupTo" [routerLink]="['/admin/groups', model.groupTo.id]">{{ model.groupTo.name }}</a></td>
           <td><a [routerLink]="['/admin/forms', model.form.id]">{{ model.form.name }}</a></td>
           <td>{{ 'T_PROJECT_RELATION_KIND_' + model.kind.toUpperCase() | translate }}</td>
-          <td class="actions-column">
+          <td class="actions-column"
+              [class.disabled-action]="model.hasInProgressEvents">
             <button type="button"
                     role="button"
                     class="btn btn-sm btn-success ml-1"
@@ -64,16 +65,18 @@
               <i class="fa fa-hand-pointer-o"></i>
             </button>
 
-            <button type="button"
-                    role="button"
-                    class="btn btn-sm btn-danger ml-1"
-                    [tooltip]="'T_ACTION_DELETE' | translate"
-                    placement="bottom"
-                    bsConfirm
-                    (confirm)="delete(model.id)"
-                    *ngIf="!model.hasInProgressEvents">
-              <i class="fa fa-trash"></i>
-            </button>
+            <div class="d-inline-block"
+                 [tooltip]="(model.hasInProgressEvents ? 'T_DISABLE_RELATION_BUTTON' : 'T_ACTION_DELETE') | translate"
+                 placement="bottom">
+              <button type="button"
+                      role="button"
+                      class="btn btn-sm btn-danger ml-1"
+                      [disabled]="model.hasInProgressEvents"
+                      bsConfirm
+                      (confirm)="delete(model.id)">
+                <i class="fa fa-trash"></i>
+              </button>
+            </div>
           </td>
         </tr>
 
