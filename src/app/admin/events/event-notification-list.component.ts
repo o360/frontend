@@ -44,6 +44,10 @@ export class AdminEventNotificationComponent {
   }
 
   public deleteNotification(notification: IEventNotification) {
+    if (this._event.status === EventStatus.Completed) {
+      return;
+    }
+
     let index: number = this._event.notifications.indexOf(notification);
     if (index !== -1) {
       this._event.notifications.splice(index, 1);

@@ -111,7 +111,7 @@
           <button type="submit"
                   role="button"
                   class="btn btn-success"
-                  [disabled]="!notificationForm.valid">
+                  [disabled]="!notificationForm.valid || model.status === EventStatus.Completed">
             <span [ngSwitch]="index !== -1">
               <ng-template [ngSwitchCase]="true">
                 <i class="mr-h fa fa-check"></i> {{ 'T_ACTION_UPDATE' | translate }}</ng-template>
