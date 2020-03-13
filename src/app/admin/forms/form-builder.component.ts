@@ -136,6 +136,10 @@ export class AdminFormBuilderComponent extends FormComponent<FormModel> implemen
     this._setElements(this._model.elements);
   }
 
+  protected _setModelName(model: FormModel) {
+    this._modelName = model.name;
+  }
+
   protected _setElements(elements: FormElement[]) {
     let elementFGs = elements.map(element => this._prepareFormGroup(element));
     let elementFormArray = this._formBuilder.array(elementFGs);
