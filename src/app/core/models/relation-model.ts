@@ -48,6 +48,7 @@ export class RelationModel extends Model {
   public canSelfVote: boolean;
   public canSkip: boolean;
   public templates: IEmailTemplate[];
+  public hasInProgressEvents: boolean;
 
   constructor(json: any) {
     super(json);
