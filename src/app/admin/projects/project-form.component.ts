@@ -50,4 +50,8 @@ export class AdminProjectFormComponent extends FormComponent<ProjectModel> {
       super._load();
     });
   }
+
+  protected _setModelName(model: ProjectModel) {
+    this._modelName = model.name;
+  }
 }

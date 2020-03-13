@@ -14,11 +14,13 @@
 
 <div class="card" *ngIf="isLoaded">
   <div class="card-header">
-    <b [ngSwitch]="editMode">
-      <ng-template [ngSwitchCase]="true">{{ 'T_ACTION_EDIT' | translate }}
-        <span *ngIf="model">{{ model.name }}</span>
-      </ng-template>
-      <ng-template ngSwitchDefault>{{ 'T_ACTION_CREATE' | translate }}</ng-template>
+    <b>
+      <ng-container *ngIf="editMode; else createTitle">
+        {{ 'T_ACTION_EDIT' | translate }}
+        <ng-container *ngIf="modelName">"{{ modelName }}"</ng-container>
+      </ng-container>
+
+      <ng-template #createTitle>{{ 'T_ACTION_CREATE' | translate }}</ng-template>
     </b>
   </div>
 

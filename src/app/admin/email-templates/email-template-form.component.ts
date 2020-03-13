@@ -118,6 +118,10 @@ export class AdminEmailTemplateFormComponent extends FormComponent<EmailTemplate
     editorArea.instance.insertText(`{{ ' ${text} ' }}`);
   }
 
+  protected _setModelName(model: EmailTemplateModel) {
+    this._modelName = model.name;
+  }
+
   private _initLanguageChangeWatch(): void {
     this._translateService.onLangChange
       .pipe(takeUntil(this._destroy$))

@@ -28,10 +28,11 @@ import { FormComponent } from '../../shared/components/form.component';
   templateUrl: 'group-form.component.html'
 })
 export class AdminGroupFormComponent extends FormComponent<GroupModel> {
-  protected _groups: GroupModel[];
-  protected _parentId: ModelId = null;
   protected _returnPath: any[] = ['/admin/groups'];
-  protected _queryParams: IQueryParams = {};
+
+  private _groups: GroupModel[];
+  private _parentId: ModelId = null;
+  private _queryParams: IQueryParams = {};
 
   public get groups(): GroupModel[] {
     return this._groups;
@@ -84,6 +85,10 @@ export class AdminGroupFormComponent extends FormComponent<GroupModel> {
     }
 
     super._processModel(model);
+  }
+
+  protected _setModelName(model: GroupModel) {
+    this._modelName = model.name;
   }
 
   protected async _fillBreadcrumbs(model: GroupModel) {
