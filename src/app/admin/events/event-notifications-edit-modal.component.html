@@ -17,7 +17,7 @@
     <div class="modal-content">
 
       <div class="modal-header">
-        <h5 class="modal-title" [ngSwitch]="index !== -1">
+        <h5 class="modal-title" [ngSwitch]="isEditMode">
           <ng-template [ngSwitchCase]="true">{{ 'T_ACTION_EDIT' | translate }}</ng-template>
           <ng-template ngSwitchDefault>{{ 'T_ACTION_ADD_NEW_ASSESSMENT_EVENT_NOTIFICATIONS' | translate }}</ng-template>
         </h5>
@@ -35,7 +35,7 @@
         <div class="modal-body">
           <div class="form-group row mb-1"
                [ngClass]="{'has-success': notificationForm.controls['time'].valid,
-                           'has-danger': !notificationForm.controls['time'].valid && notificationForm.controls['time'].touched }">
+                           'has-danger': notificationForm.controls['time'].invalid && notificationForm.controls['time'].touched }">
             <label class="col-form-label col-4">{{ 'T_EVENT_NOTIFICATION_TIME' | translate }}</label>
             <div class="col-8">
               <bs-datetime #time
@@ -58,7 +58,7 @@
           </div>
           <div class="form-group row mb-1"
                [ngClass]="{'has-success': notificationForm.controls['recipient'].valid,
-                           'has-danger': ! notificationForm.controls['recipient'].valid &&  notificationForm.controls['recipient'].touched }">
+                           'has-danger': notificationForm.controls['recipient'].invalid &&  notificationForm.controls['recipient'].touched }">
             <label class="col-form-label col-4 " for="recipient">{{ 'T_EVENT_RECIPIENT' | translate }}</label>
             <div class="col-8">
               <select #recipient
@@ -80,7 +80,7 @@
           </div>
           <div class="form-group row mb-1"
                [ngClass]="{'has-success': notificationForm.controls['kind'].valid,
-                           'has-danger': !notificationForm.controls['kind'].valid && notificationForm.controls['kind'].touched }">
+                           'has-danger': notificationForm.controls['kind'].invalid && notificationForm.controls['kind'].touched }">
             <label class="col-form-label col-4 " for="kind">{{ 'T_EVENT_NOTIFICATION_KIND' | translate }}</label>
             <div class="col-8">
               <select #kind
@@ -112,8 +112,8 @@
           <button type="submit"
                   role="button"
                   class="btn btn-success"
-                  [disabled]="!notificationForm.valid || model.status === EventStatus.Completed">
-            <span [ngSwitch]="index !== -1">
+                  [disabled]="notificationForm.invalid || model.status === EventStatus.Completed">
+            <span [ngSwitch]="isEditMode">
               <ng-template [ngSwitchCase]="true">
                 <i class="mr-h fa fa-check"></i> {{ 'T_ACTION_UPDATE' | translate }}</ng-template>
               <ng-template ngSwitchDefault>
