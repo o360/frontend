@@ -3130,6 +3130,7 @@ tbody.collapse.show {
 .input-group {
   position: relative;
   display: flex;
+  align-items: stretch;
   width: 100%;
 }
 
@@ -3149,12 +3150,13 @@ tbody.collapse.show {
 .input-group-btn,
 .input-group .form-control {
   display: flex;
-  flex-direction: column;
   justify-content: center;
+  align-items: center;
 }
 
 .input-group-addon,
 .input-group-btn {
+  min-width: 40px;
   white-space: nowrap;
   vertical-align: middle;
 }
@@ -3233,13 +3235,6 @@ tbody.collapse.show {
 .input-group-btn:not(:first-child) > .btn-group:active,
 .input-group-btn:not(:first-child) > .btn-group:hover {
   z-index: 3;
-}
-
-.input-group-addon,
-.input-group-btn {
-  min-width: 40px;
-  white-space: nowrap;
-  vertical-align: middle;
 }
 
 .nav {
