@@ -30,11 +30,13 @@
       <div class="modal-body">
         <form class="form form-horizontal"
               (ngSubmit)="submit();">
-          <div class="form-group row">
+          <div class="form-group row"
+               [ngClass]="{'has-success': users.valid, 'has-danger': users.invalid && users.touched }">
             <label class="col-form-label col-md-3 required">{{ 'T_USERS' | translate }}</label>
             <div class="col-md-8">
               <ng-select
-                id="projects"
+                id="users"
+                #users="ngModel"
                 bindLabel="name"
                 multiple="true"
                 notFoundText="{{ 'T_EMPTY' | translate }}"
@@ -47,6 +49,10 @@
                   {{item.name}}
                 </ng-option>
               </ng-select>
+              <div class="form-errors"
+                   *ngIf="users.errors && users.touched">
+                <div class="form-control-feedback" *ngIf="users.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}</div>
+              </div>
               <span class="text-muted">{{ 'T_ACTION_MULTIPLE_SELECT' | translate }}</span>
             </div>
           </div>
