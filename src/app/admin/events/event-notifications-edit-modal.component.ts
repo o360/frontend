@@ -12,7 +12,13 @@
  * limitations under the License.
  */
 
-import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  ViewChild
+} from '@angular/core';
 import {
   EventModel,
   EventNotificationKind,
@@ -35,7 +41,7 @@ export class AdminEventNotificationsEditModalComponent {
   protected _recipients: string[] = Object.values(EventRecipient);
   protected _model: EventModel;
   protected _modal: ModalDirective;
-  protected _index: number = null;
+  protected _index: number = -1;
   protected _notificationForm: FormGroup;
   protected _onNotificationAdded: EventEmitter<IEventNotification> = new EventEmitter<IEventNotification>();
 
@@ -74,6 +80,10 @@ export class AdminEventNotificationsEditModalComponent {
     return this._recipients;
   }
 
+  public get isEditMode(): boolean {
+    return this._index !== -1;
+  }
+
   public get EventStatus() {
     return EventStatus;
   }
@@ -105,11 +115,14 @@ export class AdminEventNotificationsEditModalComponent {
   }
 
   public show(item?: IEventNotification) {
-    this._index = this._model.notifications.indexOf(item);
+    this._notificationForm.reset(item || this._getDefaultFormValues());
 
-    if (item) {
-      this._notificationForm.reset(item);
-    }
+    this._index = this._model.notifications.findIndex(
+      ({ kind, recipient, time }: IEventNotification) => kind === item?.kind
+        && recipient === item?.recipient
+        && time === item?.time
+    );
+
     if (this._index !== -1) {
       this._notificationForm.controls['recipient'].disable();
       this._notificationForm.controls['kind'].disable();
@@ -117,6 +130,7 @@ export class AdminEventNotificationsEditModalComponent {
       this._notificationForm.controls['recipient'].enable();
       this._notificationForm.controls['kind'].enable();
     }
+
     this._modal.show();
   }
 
@@ -127,9 +141,19 @@ export class AdminEventNotificationsEditModalComponent {
 
   protected _createForm() {
     this._notificationForm = this._formBuilder.group({
-      time: [moment().add(1, 'hour'), [Validators.required, ValidatorFutureDate]],
+      time: ['', [Validators.required, ValidatorFutureDate]],
       recipient: ['', Validators.required],
       kind: ['', Validators.required]
     });
+
+    this._notificationForm.setValue(this._getDefaultFormValues());
+  }
+
+  private _getDefaultFormValues(): object {
+    return {
+      time: moment().add(1, 'hour'),
+      recipient: '',
+      kind: '',
+    };
   }
 }
