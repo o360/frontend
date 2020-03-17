@@ -34,7 +34,7 @@ interface ISelectUser {
   selector: 'bs-users-add-modal',
   templateUrl: 'users-add-modal.component.html'
 })
-export class AdminUsersAddModalComponent implements OnInit {
+export class AdminUsersAddModalComponent {
   public selectedUsers: ISelectUser[] = [];
 
   private _groupId: ModelId = null;
@@ -85,24 +85,6 @@ export class AdminUsersAddModalComponent implements OnInit {
               private _groupService: AdminGroupService,
               private _notificationService: NotificationService,
               private _translate: TranslateService) {
-  }
-
-  public ngOnInit() {
-    // this._options = {
-    //   allowClear: true,
-    //   placeholder: '',
-    //   multiple: true,
-    //   openOnEnter: true,
-    //   closeOnSelect: true,
-    //   dropdownAutoWidth: true,
-    //   escapeMarkup: (term: any) => {
-    //     return (term === 'No results found') ? this._translate.instant('T_EMPTY') : term;
-    //   },
-    //   matcher: (term: string, text: string) => {
-    //     return new RegExp(term, 'gi').test(text) ||
-    //       new RegExp(term, 'gi').test(Utils.transliterate(text));
-    //   }
-    // };
   }
 
   public show() {
