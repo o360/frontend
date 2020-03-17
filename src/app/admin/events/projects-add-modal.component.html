@@ -12,7 +12,8 @@
   ~ limitations under the License.
   -->
 
-<div bwsModal #modal="bws-modal" class="modal" tabindex="-1" role="dialog">
+<div bwsModal #modal="bws-modal" class="modal" tabindex="-1" role="dialog"
+     (onHide)="eventProjectsForm.resetForm()">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
 
