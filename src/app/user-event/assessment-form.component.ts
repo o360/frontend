@@ -244,7 +244,9 @@ export class AssessmentFormComponent implements OnInit, OnChanges {
     if (changes['inlineAnonymous']) {
       if (this._isAnonymous !== this._inlineAnonymous) {
         this._isAnonymous = this._inlineAnonymous;
-        this.onFormChange();
+        if (this._form) {
+          this.onFormChange();
+        }
       }
     }
   }

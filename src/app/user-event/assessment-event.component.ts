@@ -170,6 +170,10 @@ export class AssessmentEventComponent extends ListComponentDirective<AssessmentM
           }
         }
       }
+
+      if (this._project.formsOnSamePage && this._project.isAnonymous) {
+        this._checkInlineAnonymity();
+      }
     });
   }
 
@@ -368,5 +372,18 @@ export class AssessmentEventComponent extends ListComponentDirective<AssessmentM
     });
 
     return observable;
+  }
+
+  // Get anonymity from saved answers in case of inline style. Anonymity will be refactored in #92.
+  private _checkInlineAnonymity() {
+    for (const assessment of this._list) {
+      const answeredForm = assessment.forms.find(form => form.status === AssessmentFormStatus.Answered);
+
+      if (answeredForm) {
+        this._inlineAnonymous = answeredForm.isAnonymous;
+
+        break;
+      }
+    }
   }
 }
