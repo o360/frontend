@@ -377,6 +377,11 @@ header.navbar .navbar-brand {
   }
 }
 
+// Custom styles for ng-select validation
+ng-select.ng-invalid.ng-touched .ng-select-container {
+  border-color: #f86c6b;
+}
+
 .assessment-wrapper .col-md-4 {
   min-height: 66vh;
 }

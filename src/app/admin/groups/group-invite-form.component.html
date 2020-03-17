@@ -61,8 +61,7 @@
               [searchFn]="searchFn"
               [(ngModel)]="selectedGroups"
               (change)="valueChanged($event)"
-              name="projects"
-              required>
+              name="projects">
               <ng-option [value]="item" *ngFor="let item of availableGroups">
                 {{item.name}}
               </ng-option>
