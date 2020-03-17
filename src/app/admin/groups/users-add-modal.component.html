@@ -12,7 +12,8 @@
   ~ limitations under the License.
   -->
 
-<div bwsModal #modal="bws-modal" class="modal" tabindex="-1" role="dialog">
+<div bwsModal #modal="bws-modal" class="modal" tabindex="-1" role="dialog"
+     (onHide)="addForm.resetForm()">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
 
@@ -29,6 +30,7 @@
 
       <div class="modal-body">
         <form class="form form-horizontal"
+              #addForm="ngForm"
               (ngSubmit)="submit();">
           <div class="form-group row"
                [ngClass]="{'has-success': users.valid, 'has-danger': users.invalid && users.touched }">
