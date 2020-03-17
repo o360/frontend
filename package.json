@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "description": "Open360",
   "repository": {
-    "url": "https://git/open360/frontend.git"
+    "url": "https://github.com/o360/frontend.git"
   },
   "private": true,
   "author": "Bitworks Software",
