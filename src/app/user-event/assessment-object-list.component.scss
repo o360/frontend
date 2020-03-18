@@ -12,11 +12,13 @@
  * limitations under the License.
  */
 
-:host .sidebar-container {
-  #users {
-    overflow-y: auto;
-    min-height: 65px;
-    max-height: 50vh;
+.sidebar-container {
+  display: flex;
+  flex-direction: column;
+
+  #questions-container {
+    flex: 1 1 auto;
+    overflow: scroll;
   }
 
   #users.with-surveys {
