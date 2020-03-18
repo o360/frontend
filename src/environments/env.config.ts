@@ -26,7 +26,7 @@ export const Config: IEnvConfig = {
         response_type: 'code',
         client_id: '',
         scope: 'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email',
-        redirect_uri: '<REDIRECT_URI>'
+        redirect_uri: 'http://localhost:5555/login/google'
       }
     }
   },
