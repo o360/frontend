@@ -351,7 +351,7 @@ export class AssessmentEventComponent extends ListComponentDirective<AssessmentM
             if (fetchLinkedData) {
               this._userPictureService.getPicture(assessment.user.id).subscribe(pic => assessment.user.picture = pic);
             } else {
-              const previousAssessment = this._list.find(({ id, user }) => id === assessment.id && user.id === assessment.user.id);
+              const previousAssessment = this._list.find(({ id, user }) => id === assessment.id && user?.id === assessment.user?.id);
               if (previousAssessment) {
                 assessment.user.picture = previousAssessment.user.picture;
               }
