@@ -55,6 +55,7 @@ export class UserModel extends Model {
   @NotSerializable() public picture?: any;
   @NotSerializable() public groups?: string;
 
+  @NotSerializable()
   public get name(): string {
     return `${this.lastName} ${this.firstName}`.trim();
   }

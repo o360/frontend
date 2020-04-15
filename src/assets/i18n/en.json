@@ -362,5 +362,7 @@
   "T_USER_FIRST_NAME": "First Name",
   "T_FORM_ENTER_FIRST_NAME": "Enter first name...",
   "T_USER_LAST_NAME": "Last Name",
-  "T_FORM_ENTER_LAST_NAME": "Enter last name..."
+  "T_FORM_ENTER_LAST_NAME": "Enter last name...",
+  "T_NEW_ACCOUNT_FIRST_NAME": "First name",
+  "T_NEW_ACCOUNT_LAST_NAME": "Last name"
 }
