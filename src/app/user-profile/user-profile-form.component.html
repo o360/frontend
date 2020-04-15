@@ -19,24 +19,48 @@
     <form (ngSubmit)="save(); userForm.reset()" #userForm="ngForm">
       <!-- Name -->
       <div class="form-group row"
-           [ngClass]="{'has-success': name.valid, 'has-danger': !name.valid && name.touched }">
+           [ngClass]="{'has-success': firstName.valid, 'has-danger': !firstName.valid && firstName.touched }">
 
-        <label for="name" class="col-form-label col-md-3 required">{{ 'T_USER_NAME' | translate }}</label>
+        <label for="firstName" class="col-form-label col-md-3 required">{{ 'T_USER_FIRST_NAME' | translate }}</label>
         <div class="col-md-9">
           <input type="text"
                  class="form-control"
-                 id="name"
-                 name="name"
-                 #name="ngModel"
+                 id="firstName"
+                 name="firstName"
+                 #firstName="ngModel"
                  required
                  pattern=".*^[\S].*"
-                 placeholder="{{ 'T_FORM_ENTER_NAME' | translate }}"
-                 [(ngModel)]="model.name">
+                 placeholder="{{ 'T_FORM_ENTER_FIRST_NAME' | translate }}"
+                 [(ngModel)]="model.firstName">
 
           <div class="form-errors"
-               *ngIf="name.errors && name.touched">
-            <div class="form-control-feedback" *ngIf="name.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}</div>
-            <div class="form-control-feedback" *ngIf="!!name.errors['pattern']">{{ 'T_ERROR_TEXT_PATTERN' | translate }}</div>
+               *ngIf="firstName.errors && firstName.touched">
+            <div class="form-control-feedback" *ngIf="firstName.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}</div>
+            <div class="form-control-feedback" *ngIf="!!firstName.errors['pattern']">{{ 'T_ERROR_TEXT_PATTERN' | translate }}</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Name -->
+      <div class="form-group row"
+           [ngClass]="{'has-success': lastName.valid, 'has-danger': !lastName.valid && lastName.touched }">
+
+        <label for="lastName" class="col-form-label col-md-3 required">{{ 'T_USER_LAST_NAME' | translate }}</label>
+        <div class="col-md-9">
+          <input type="text"
+                 class="form-control"
+                 id="lastName"
+                 name="lastName"
+                 #lastName="ngModel"
+                 required
+                 pattern=".*^[\S].*"
+                 placeholder="{{ 'T_FORM_ENTER_LAST_NAME' | translate }}"
+                 [(ngModel)]="model.lastName">
+
+          <div class="form-errors"
+               *ngIf="lastName.errors && lastName.touched">
+            <div class="form-control-feedback" *ngIf="lastName.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}</div>
+            <div class="form-control-feedback" *ngIf="!!lastName.errors['pattern']">{{ 'T_ERROR_TEXT_PATTERN' | translate }}</div>
           </div>
         </div>
       </div>

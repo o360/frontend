@@ -65,7 +65,8 @@ describe('Auth Service', () => {
   it('should have logged in user information and check has the user admin rights', () => {
     authService.user = new AccountModel({
       id: 1,
-      name: 'Mr. Test Testov',
+      firstName: 'John',
+      lastName: 'Tester',
       email: 'testov_tt@bw-sw.com',
       gender: 'male',
       timezone: 'Z',

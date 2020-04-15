@@ -52,7 +52,7 @@ export class UserListComponent extends ListComponentDirective<UserModel> {
               protected _userPictureService: UserPictureService) {
     super(service, activatedRoute, router, notificationService);
 
-    this._queryParams.sort = 'name';
+    this._queryParams.sort = 'lastName';
   }
 
   protected _update() {

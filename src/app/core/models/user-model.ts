@@ -32,7 +32,8 @@ export class UserGender {
 }
 
 @Defaults({
-  name: '',
+  firstName: '',
+  lastName: '',
   email: '',
   status: '',
   role: '',
@@ -42,7 +43,8 @@ export class UserGender {
   hasPicture: false,
 })
 export class UserModel extends Model {
-  public name: string;
+  public firstName: string;
+  public lastName: string;
   public email?: string;
   public status?: string;
   public role?: string;
@@ -52,6 +54,10 @@ export class UserModel extends Model {
   public hasPicture?: boolean;
   @NotSerializable() public picture?: any;
   @NotSerializable() public groups?: string;
+
+  public get name(): string {
+    return `${this.lastName} ${this.firstName}`.trim();
+  }
 
   @NotSerializable()
   public get isFilled(): boolean {

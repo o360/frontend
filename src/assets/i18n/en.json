@@ -358,5 +358,9 @@
   "T_INVITE_ACTIVATE": "Activate",
   "T_DISABLE_PROJECT_BUTTON": "It is used in active events",
   "T_DISABLE_RELATION_BUTTON": "It is used in active events",
-  "T_LOADING_GROUPS": "Loading information about groups"
+  "T_LOADING_GROUPS": "Loading information about groups",
+  "T_USER_FIRST_NAME": "First Name",
+  "T_FORM_ENTER_FIRST_NAME": "Enter first name...",
+  "T_USER_LAST_NAME": "Last Name",
+  "T_FORM_ENTER_LAST_NAME": "Enter last name..."
 }

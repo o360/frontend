@@ -360,5 +360,9 @@
   "T_INVITE_ACTIVATE": "Активировано",
   "T_DISABLE_PROJECT_BUTTON": "Проект находится в активном событии",
   "T_DISABLE_RELATION_BUTTON": "Отношение находится в активном событии",
-  "T_LOADING_GROUPS": "Загрузка информации о группах"
+  "T_LOADING_GROUPS": "Загрузка информации о группах",
+  "T_USER_FIRST_NAME": "Имя",
+  "T_FORM_ENTER_FIRST_NAME": "Введите имя...",
+  "T_USER_LAST_NAME": "Фамилия",
+  "T_FORM_ENTER_LAST_NAME": "Введите фамилию..."
 }
