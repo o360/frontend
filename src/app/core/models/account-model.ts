@@ -17,11 +17,15 @@ import { UserModel } from './user-model';
 import { NotSerializable } from '../decorators/not-serializable.decorator';
 
 @Defaults({
-  name: '',
+  firstName: '',
+  lastName: '',
   email: '',
+  status: '',
+  role: '',
   gender: null,
   timezone: 'Z',
-  termsApproved: false
+  termsApproved: false,
+  hasPicture: false,
 })
 export class AccountModel extends UserModel {
   @NotSerializable() public status?: string;

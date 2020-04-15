@@ -48,7 +48,7 @@ export class AdminUserListComponent extends ListComponentDirective<UserModel> {
               notificationService: NotificationService) {
     super(service, activatedRoute, router, notificationService);
 
-    this._queryParams.sort = 'name';
+    this._queryParams.sort = 'lastName';
   }
 
   public get UserStatus() {
@@ -57,11 +57,12 @@ export class AdminUserListComponent extends ListComponentDirective<UserModel> {
 
   public approve(user: UserModel) {
     user.status = UserStatus.Approved;
-    this._service.save(user).subscribe(() => {
-      this._update();
-      this._notificationService.success('T_SUCCESS_SAVED');
-    },
-      error => this._update()
+    this._service.save(user).subscribe(
+      () => {
+        this._update();
+        this._notificationService.success('T_SUCCESS_SAVED');
+      },
+      () => this._update()
     );
   }
 }
