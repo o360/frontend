@@ -76,7 +76,8 @@ const testAssessment = new AssessmentModel({
   isClassic: false,
   user: {
     id: 89,
-    name: 'Test',
+    firstName: 'John',
+    lastName: 'Tester',
     gender: 'male',
     hasPicture: false,
     email: 'test@test.rr',

@@ -22,29 +22,55 @@
             <p class="text-muted">{{ 'T_NEW_ACCOUNT_TEXT' | translate }}</p>
             <form #newUserForm="ngForm">
               <div class="input-group mb-1"
-                   [ngClass]="{'has-success': name.valid, 'has-danger': !name.valid && name.touched }">
+                   [ngClass]="{'has-success': firstName.valid, 'has-danger': !firstName.valid && firstName.touched }">
               <span class="input-group-addon">
               <i class="icon-user"></i></span>
                 <input type="text"
-                       name="name"
-                       [(ngModel)]="user.name"
+                       name="firstName"
+                       [(ngModel)]="user.firstName"
                        class="form-control"
                        required
                        pattern=".*^[\S].*"
-                       #name="ngModel"
-                       placeholder="{{ 'T_NEW_ACCOUNT_NAME' | translate }}">
+                       #firstName="ngModel"
+                       placeholder="{{ 'T_NEW_ACCOUNT_FIRST_NAME' | translate }}">
               </div>
               <div class="alert alert-danger" role="alert"
-                   *ngIf="name.errors && name.touched">
+                   *ngIf="firstName.errors && firstName.touched">
                 <div class="form-control-feedback"
-                     *ngIf="name.errors['required']">
+                     *ngIf="firstName.errors['required']">
                   {{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}
                 </div>
                 <div class="form-control-feedback"
-                     *ngIf="!!name.errors['pattern']">
+                     *ngIf="!!firstName.errors['pattern']">
                   {{ 'T_ERROR_TEXT_PATTERN' | translate }}
                 </div>
               </div>
+
+              <div class="input-group mb-1"
+                   [ngClass]="{'has-success': lastName.valid, 'has-danger': !lastName.valid && lastName.touched }">
+              <span class="input-group-addon">
+              <i class="icon-user"></i></span>
+                <input type="text"
+                       name="lastName"
+                       [(ngModel)]="user.lastName"
+                       class="form-control"
+                       required
+                       pattern=".*^[\S].*"
+                       #lastName="ngModel"
+                       placeholder="{{ 'T_NEW_ACCOUNT_LAST_NAME' | translate }}">
+              </div>
+              <div class="alert alert-danger" role="alert"
+                   *ngIf="lastName.errors && lastName.touched">
+                <div class="form-control-feedback"
+                     *ngIf="lastName.errors['required']">
+                  {{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}
+                </div>
+                <div class="form-control-feedback"
+                     *ngIf="!!lastName.errors['pattern']">
+                  {{ 'T_ERROR_TEXT_PATTERN' | translate }}
+                </div>
+              </div>
+
               <div class="input-group mb-1"
                    [ngClass]="{'has-success': email.valid, 'has-danger': !email.valid && email.touched }">
                 <span class="input-group-addon">@</span>

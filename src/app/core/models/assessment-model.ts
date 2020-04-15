@@ -23,6 +23,14 @@ export class AssessmentModel extends Model {
   public forms?: IFormAnswer[];
   public isClassic?: boolean;
   @NotSerializable() public isAnswered?: boolean;
+
+  constructor(json?: Object) {
+    super(json);
+
+    if (!!this.user) {
+      this.user = new UserModel(this.user);
+    }
+  }
 }
 
 export interface IFormAnswer {

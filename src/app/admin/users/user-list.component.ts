@@ -48,7 +48,7 @@ export class AdminUserListComponent extends ListComponentDirective<UserModel> {
               notificationService: NotificationService) {
     super(service, activatedRoute, router, notificationService);
 
-    this._queryParams.sort = 'lastName';
+    this._queryParams.sort = 'status,lastName';
   }
 
   public get UserStatus() {

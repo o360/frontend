@@ -17,7 +17,7 @@
 
   <div class="card-block">
     <form (ngSubmit)="save(); userForm.reset()" #userForm="ngForm">
-      <!-- Name -->
+      <!-- First Name -->
       <div class="form-group row"
            [ngClass]="{'has-success': firstName.valid, 'has-danger': !firstName.valid && firstName.touched }">
 
@@ -41,7 +41,7 @@
         </div>
       </div>
 
-      <!-- Name -->
+      <!-- Last Name -->
       <div class="form-group row"
            [ngClass]="{'has-success': lastName.valid, 'has-danger': !lastName.valid && lastName.touched }">
 

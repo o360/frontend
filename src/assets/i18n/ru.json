@@ -364,5 +364,7 @@
   "T_USER_FIRST_NAME": "Имя",
   "T_FORM_ENTER_FIRST_NAME": "Введите имя...",
   "T_USER_LAST_NAME": "Фамилия",
-  "T_FORM_ENTER_LAST_NAME": "Введите фамилию..."
+  "T_FORM_ENTER_LAST_NAME": "Введите фамилию...",
+  "T_NEW_ACCOUNT_FIRST_NAME": "Имя",
+  "T_NEW_ACCOUNT_LAST_NAME": "Фамилия"
 }
