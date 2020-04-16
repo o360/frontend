@@ -12,33 +12,31 @@
  * limitations under the License.
  */
 
-import {
-  Injectable,
-  OnInit
-} from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AccountModel } from '../models/account-model';
 import { UserRole } from '../models/user-model';
 import { ConfigurationService } from './configuration.service';
 import { authProvider } from './oauth.service';
-import { RestService } from './rest.service';
 import {
-  catchError,
+  filter,
   map
 } from 'rxjs/operators';
 import {
   HttpClient,
-  HttpErrorResponse,
   HttpHeaders
 } from '@angular/common/http';
-import { of } from 'rxjs';
+import {
+  BehaviorSubject,
+  Observable,
+} from 'rxjs';
 
 export const tokenLsKey = 'token';
 
 @Injectable()
 export class AuthService {
   private _token: string;
-  private _user: AccountModel;
+  private _user: BehaviorSubject<AccountModel> = new BehaviorSubject(undefined);
 
   public get token(): string {
     return this._token;
@@ -49,11 +47,15 @@ export class AuthService {
   }
 
   public get user(): AccountModel {
-    return this._user;
+    return this._user.value;
   }
 
   public set user(value: AccountModel) {
-    this._user = value;
+    this._user.next(value);
+  }
+
+  public get user$(): Observable<AccountModel> {
+    return this._user.asObservable().pipe(filter(user => user !== undefined));
   }
 
   public get isLoggedIn() {
@@ -61,7 +63,7 @@ export class AuthService {
   }
 
   public get isAdmin() {
-    return this._user.role === UserRole.Admin;
+    return this._user.value.role === UserRole.Admin;
   }
 
   constructor(protected _router: Router,

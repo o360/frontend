@@ -14,6 +14,7 @@
 
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AccountModel } from '../core/models/account-model';
 import { UserGender, UserModel, UserStatus } from '../core/models/user-model';
 import { AuthService } from '../core/services/auth.service';
 import { FormComponent } from '../shared/components/form.component';
@@ -57,7 +58,7 @@ export class UserProfileFormComponent extends FormComponent<UserModel> implement
   }
 
   public ngOnInit() {
-    this._service.get(this._id).subscribe((model) => {
+    this._service.get(this._id).subscribe((model: AccountModel) => {
       if (model.status === UserStatus.New) {
         this._router.navigate(this._returnPath);
       } else {
@@ -73,7 +74,9 @@ export class UserProfileFormComponent extends FormComponent<UserModel> implement
   }
 
   public save() {
-    this._service.save(this._model).subscribe((model) => {
+    this._service.save(this._model).subscribe((model: AccountModel) => {
+      this._auth.user = model;
+
       if (this._returnPath) {
         this._router.navigate([this._returnPath]);
       }
@@ -86,9 +89,10 @@ export class UserProfileFormComponent extends FormComponent<UserModel> implement
   }
 
   public savePicture(image: any) {
-    (<AccountService> this._service).setPicture(image).subscribe((picture) => {
-      this._getUserPicture();
-    }, error => this._notificationService.error(error));
+    (<AccountService> this._service).setPicture(image).subscribe(
+      () => this._getUserPicture(),
+      error => this._notificationService.error(error)
+    );
   }
 
   protected _getUserPicture() {
