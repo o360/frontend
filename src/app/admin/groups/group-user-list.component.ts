@@ -45,6 +45,7 @@ export class AdminGroupUserListComponent extends ListComponentDirective<UserMode
     super(service, activatedRoute, router, notificationService);
 
     this._listName = 'group-users';
+    this._queryParams.sort = 'status,lastName';
   }
 
   public ngOnChanges(changes: SimpleChanges) {
