@@ -35,7 +35,7 @@ export class HeaderComponent implements AfterViewInit {
 
   constructor(private _authService: AuthService,
               private _configService: ConfigurationService) {
-    this._user = this._authService.user;
+    this._authService.user$.subscribe(user => this._user = user);
     this._titleNav = this._configService.config.TITLE_NAV || 'BW Assessment';
   }
 

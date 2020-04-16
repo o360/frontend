@@ -16,7 +16,7 @@ import { IEnvConfig } from './env-config.interface';
 
 export const Config: IEnvConfig = {
   ENV: 'LOCAL',
-  API: '',
+  API: 'https://o360-dev.bw-sw.com/api/v1.0',
   TITLE_MAIN: 'Open360',
   TITLE_NAV: 'Open360',
   PROVIDERS: {
