@@ -115,7 +115,7 @@ export class AdminEmailTemplateFormComponent extends FormComponent<EmailTemplate
   }
 
   public addText(editorArea: CKEditorComponent, text: string) {
-    editorArea.instance.insertText(`{{ ' ${text} ' }}`);
+    editorArea.instance.insertText(`{{ ${text} }}`);
   }
 
   protected _setModelName(model: EmailTemplateModel) {
