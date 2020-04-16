@@ -29,7 +29,6 @@
   </div>
 
   <div id="questions-container">
-
     <ul id="users" class="list-group assessment-object-list mb-2" [ngClass]="{ 'with-surveys': !!surveys }">
       <li class="list-group-item custom-item assessment-user-list-item"
           *ngFor="let userObj of filteredUsers"
@@ -46,23 +45,23 @@
       </li>
     </ul>
 
-    <p *ngIf="!!surveys"
-        class="mb-h list-unstyled">
-      <b>{{ 'T_SURVEYS' | translate }}</b>
-    </p>
-
     <!--Surveys-->
-    <ul id="surveys" class="list-group assessment-object-list" *ngIf="surveys">
-      <li class="list-group-item custom-item assessment-survey-list-item"
-          [ngClass]="{ 'current': !!selectedItem && selectedItem === survey }"
-          *ngFor="let survey of surveys"
-          (click)="selectSurvey(survey)">
-        <i [ngClass]="survey.status === assessmentFormStatus.Answered ? 'answered' : 'not-answered'"
-           class="fa fa-check mr-1"></i>
-        <span class="name">{{ survey.form.name }}</span>
-        <i *ngIf="!!selectedItem && selectedItem === survey" class="current-arrow fa fa-angle-right"></i>
-      </li>
-    </ul>
+    <ng-container *ngIf="surveys">
+      <p class="mb-h list-unstyled">
+        <b>{{ 'T_SURVEYS' | translate }}</b>
+      </p>
+      <ul id="surveys" class="list-group assessment-object-list">
+        <li class="list-group-item custom-item assessment-survey-list-item"
+            *ngFor="let survey of surveys"
+            [ngClass]="{ 'current': !!selectedItem && selectedItem === survey }"
+            (click)="selectSurvey(survey)">
+          <i [ngClass]="survey.status === assessmentFormStatus.Answered ? 'answered' : 'not-answered'"
+             class="fa fa-check mr-1"></i>
+          <span class="name">{{ survey.form.name }}</span>
+          <i *ngIf="!!selectedItem && selectedItem === survey" class="current-arrow fa fa-angle-right"></i>
+        </li>
+      </ul>
+    </ng-container>
   </div>
 
 </div>

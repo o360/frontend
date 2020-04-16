@@ -18,17 +18,8 @@
 
   #questions-container {
     flex: 1 1 auto;
-    overflow: scroll;
-  }
-
-  #users.with-surveys {
-    max-height: calc(40vh - 8rem);
-  }
-
-  #surveys {
-    overflow-y: auto;
-    min-height: 65px;
-    max-height: 5rem;
+    overflow: auto;
+    height: 100vh;
   }
 }
 
