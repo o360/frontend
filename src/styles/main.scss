@@ -85,9 +85,9 @@ header.navbar .navbar-brand {
 
 .footer-fixed .app-footer {
   width: auto !important;
-  right: 0px;
-  left: 0px;
-  margin-right: 0px;
+  right: 0;
+  left: 0;
+  margin-right: 0;
   z-index: $zindex-fixed + 1;
 }
 
@@ -96,7 +96,7 @@ header.navbar .navbar-brand {
 }
 
 .card-title.panel-title {
-  margin-bottom: 0px !important;
+  margin-bottom: 0 !important;
 }
 
 .cke_button__addrecipient_icon,
@@ -408,7 +408,7 @@ ng-select.ng-invalid.ng-touched .ng-select-container {
     }
 
     .assessment-wrapper .tab-content tab {
-      max-height: calc(100vh - 385px);
+      max-height: calc(100vh - 330px);
       overflow: auto;
     }
   }
