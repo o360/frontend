@@ -35,13 +35,13 @@
                  #email="ngModel"
                  required
                  placeholder="{{ 'T_FORM_ENTER_EMAIL' | translate }}"
-                 pattern="^([\w+-.%]+@[\w-.]+\.[A-Za-z]{2,4},?)+$"
+                 email
                  [(ngModel)]="emails"
           >
           <div class="form-errors"
                *ngIf="email.errors && email.touched">
             <div class="form-control-feedback" *ngIf="email.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}</div>
-            <div class="form-control-feedback" *ngIf="!!email.errors['pattern']">{{ 'T_ERROR_EMAIL_PATTERN' | translate }}</div>
+            <div class="form-control-feedback" *ngIf="!!email.errors['email']">{{ 'T_ERROR_EMAIL_PATTERN' | translate }}</div>
           </div>
           <span class="text-muted">{{ 'T_ACTION_MULTIPLE_EMAILS' | translate }}</span>
         </div>

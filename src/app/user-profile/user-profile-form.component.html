@@ -29,14 +29,11 @@
                  name="firstName"
                  #firstName="ngModel"
                  required
-                 pattern=".*^[\S].*"
                  placeholder="{{ 'T_FORM_ENTER_FIRST_NAME' | translate }}"
                  [(ngModel)]="model.firstName">
-
           <div class="form-errors"
                *ngIf="firstName.errors && firstName.touched">
             <div class="form-control-feedback" *ngIf="firstName.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}</div>
-            <div class="form-control-feedback" *ngIf="!!firstName.errors['pattern']">{{ 'T_ERROR_TEXT_PATTERN' | translate }}</div>
           </div>
         </div>
       </div>
@@ -53,14 +50,11 @@
                  name="lastName"
                  #lastName="ngModel"
                  required
-                 pattern=".*^[\S].*"
                  placeholder="{{ 'T_FORM_ENTER_LAST_NAME' | translate }}"
                  [(ngModel)]="model.lastName">
-
           <div class="form-errors"
                *ngIf="lastName.errors && lastName.touched">
             <div class="form-control-feedback" *ngIf="lastName.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}</div>
-            <div class="form-control-feedback" *ngIf="!!lastName.errors['pattern']">{{ 'T_ERROR_TEXT_PATTERN' | translate }}</div>
           </div>
         </div>
       </div>
@@ -78,14 +72,14 @@
                  id="email"
                  name="email"
                  #email="ngModel"
-                 pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+                 email
                  required
                  placeholder="{{ 'T_FORM_ENTER_EMAIL' | translate }}"
                  [(ngModel)]="model.email">
           <div class="form-errors"
                *ngIf="email.errors && email.touched">
             <div class="form-control-feedback" *ngIf="email.errors['required']">{{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}</div>
-            <div class="form-control-feedback" *ngIf="!!email.errors['pattern']">{{ 'T_ERROR_EMAIL_PATTERN' | translate }}</div>
+            <div class="form-control-feedback" *ngIf="!!email.errors['email']">{{ 'T_ERROR_EMAIL_PATTERN' | translate }}</div>
           </div>
         </div>
       </div>

@@ -37,6 +37,7 @@
     "ckeditor": "^4.11.4",
     "core-js": "^2.5.4",
     "cropperjs": "^1.0.0",
+    "email-validator": "^2.0.4",
     "font-awesome": "^4.7.0",
     "intl": "^1.2.5",
     "jquery": "^3.2.1",

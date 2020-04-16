@@ -30,19 +30,14 @@
                        [(ngModel)]="user.firstName"
                        class="form-control"
                        required
-                       pattern=".*^[\S].*"
                        #firstName="ngModel"
                        placeholder="{{ 'T_NEW_ACCOUNT_FIRST_NAME' | translate }}">
               </div>
               <div class="alert alert-danger" role="alert"
-                   *ngIf="firstName.errors && firstName.touched">
+                   *ngIf="firstName.errors">
                 <div class="form-control-feedback"
                      *ngIf="firstName.errors['required']">
                   {{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}
-                </div>
-                <div class="form-control-feedback"
-                     *ngIf="!!firstName.errors['pattern']">
-                  {{ 'T_ERROR_TEXT_PATTERN' | translate }}
                 </div>
               </div>
 
@@ -55,19 +50,14 @@
                        [(ngModel)]="user.lastName"
                        class="form-control"
                        required
-                       pattern=".*^[\S].*"
                        #lastName="ngModel"
                        placeholder="{{ 'T_NEW_ACCOUNT_LAST_NAME' | translate }}">
               </div>
               <div class="alert alert-danger" role="alert"
-                   *ngIf="lastName.errors && lastName.touched">
+                   *ngIf="lastName.errors">
                 <div class="form-control-feedback"
                      *ngIf="lastName.errors['required']">
                   {{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}
-                </div>
-                <div class="form-control-feedback"
-                     *ngIf="!!lastName.errors['pattern']">
-                  {{ 'T_ERROR_TEXT_PATTERN' | translate }}
                 </div>
               </div>
 
@@ -78,20 +68,19 @@
                        name="email"
                        [(ngModel)]="user.email"
                        required
-                       pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+                       email
                        #email="ngModel"
                        class="form-control"
                        placeholder="{{ 'T_NEW_ACCOUNT_EMAIL' | translate }}">
               </div>
-
               <div class="alert alert-danger" role="alert"
-                   *ngIf="email.errors && email.touched">
+                   *ngIf="email.errors">
                 <div class="form-control-feedback"
                      *ngIf="email.errors['required']">
                   {{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}
                 </div>
                 <div class="form-control-feedback"
-                     *ngIf="!!email.errors['pattern']">
+                     *ngIf="!!email.errors['email']">
                   {{ 'T_ERROR_EMAIL_PATTERN' | translate }}
                 </div>
               </div>
@@ -110,7 +99,7 @@
                 </select>
 
                 <div class="alert alert-danger" role="alert"
-                     *ngIf="gender.errors && gender.touched">
+                     *ngIf="gender.errors">
                   <div class="form-control-feedback"
                        *ngIf="gender.errors['required']">
                     {{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}
@@ -135,7 +124,7 @@
                 </select>
 
                 <div class="alert alert-danger" role="alert"
-                     *ngIf="timezone.errors && timezone.touched">
+                     *ngIf="timezone.errors">
                   <div class="form-control-feedback"
                        *ngIf="timezone.errors['required']">
                     {{ 'T_FORM_FIELD_IS_REQUIRED' | translate }}
@@ -159,8 +148,8 @@
                   <bs-image-uploader (imageUploaded)="savePicture($event)"></bs-image-uploader>
                 </div>
               </div>
-              <hr/>
 
+              <hr/>
 
               <button type="button"
                       (click)="update();"

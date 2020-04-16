@@ -33,13 +33,13 @@ import { ToastrModule } from 'ngx-toastr';
 import { PaginationComponent } from './components/pagination/pagination.component';
 import { CKEditorModule } from 'ng2-ckeditor';
 import { ModuleWithProviders, NgModule } from '@angular/core';
+import { EmailValidatorDirective } from './directives/validators/email-validator.directive';
 import { LanguageSelectorComponent } from './language-selector/language-selector.component';
 import { DateFormatPipe } from './pipes/date.pipe';
 import { DndModule } from '@beyerleinf/ngx-dnd';
 import { LikesDislikesComponent } from './components/likes-dislikes/likes-dislikes.component';
 import { ConfirmationModalComponent } from './confirmation/confirmation.component';
 import { SearchComponent } from './components/search/search.component';
-// import { Select2Module } from 'ng2-select2/ng2-select2';
 import { LocalizedDatePipe } from './pipes/localized-date.pipe';
 import { ThrobberComponent } from './components/throbber/throbber.component';
 import { ImageUploaderComponent } from './components/image-uploader/image-uploader.component';
@@ -67,11 +67,11 @@ import { NgSelectModule } from '@ng-select/ng-select';
     AlertModule,
     TooltipModule,
     DndModule,
-    // Select2Module,
     BsDropdownModule
   ],
   declarations: [
     ConfirmationDirective,
+    EmailValidatorDirective,
     ModalDirective,
     FiltersComponent,
     PaginationComponent,
@@ -113,13 +113,13 @@ import { NgSelectModule } from '@ng-select/ng-select';
     LocalizedDatePipe,
     TimeLeftPipe,
     DndModule,
-    // Select2Module,
     NgSelectModule,
     FormsModule,
     ConfirmationModalComponent,
     LikesDislikesComponent,
     ImageUploaderComponent,
     ModalDirective,
+    EmailValidatorDirective,
   ],
   entryComponents: [ConfirmationModalComponent]
 })
